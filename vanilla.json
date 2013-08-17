@@ -1,0 +1,79 @@
+
+{
+    "recipes": [
+        {
+            "output": [[1, "Boat"]],
+            "input": [[5, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crafting Table"]],
+            "input": [[4, "Oak Plank"]],
+            "tools": []
+        }, {
+            "output": [[1, "Furnace"]],
+            "input": [[8, "Cobblestone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Ingot"]],
+            "input": [[1, "Iron Ore"], [1, "Furnace Fuel"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Iron Ax"]],
+            "input": [[3, "Iron Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Hoe"]],
+            "input": [[2, "Iron Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Pick"]],
+            "input": [[3, "Iron Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Sword"]],
+            "input": [[2, "Iron Ingot"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[4, "Oak Plank"]],
+            "input": [[1, "Oak Log"]],
+            "tools": []
+        }, {
+            "output": [[4, "Stick"]],
+            "input": [[2, "Oak Plank"]],
+            "tools": []
+        }, {
+            "output": [[1, "Stone Ax"]],
+            "input": [[3, "Cobblestone"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stone Hoe"]],
+            "input": [[2, "Cobblestone"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stone Pick"]],
+            "input": [[3, "Cobblestone"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stone Sword"]],
+            "input": [[2, "Cobblestone"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Ax"]],
+            "input": [[3, "Oak Plank"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Hoe"]],
+            "input": [[2, "Oak Plank"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Pick"]],
+            "input": [[3, "Oak Plank"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Sword"]],
+            "input": [[2, "Oak Plank"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }
+    ]
+}
+

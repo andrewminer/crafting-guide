@@ -1,0 +1,53 @@
+<!doctype html5!>
+<html>
+  <head>
+    <style>
+      .disabled { color: gray; }
+      #craft_button { margin-left: 10px; width: 90px; }
+      #crafting { display: none; }
+      #crafting_error { color: red; display: none; font-weight: bold; width: 100%; }
+      #crafting_output { display: none; }
+      #item_to_craft { width: 540px; }
+      #load_error { color: red; display: none; font-weight: bold; width: 100%; }
+      #loaded_recipes { display: none; }
+      #recipe_url { width: 540px; }
+      #recipe_load_button { margin-left: 10px; width: 90px; }
+      div { margin-top: 50px; }
+    </style>
+  </head>
+  <body>
+    <div id="recipes">
+      <h1>Recipes</h1>
+      <p>
+        <input id="recipe_url" placeholder="recipe URL"></input>
+        <button id="recipe_load_button">Load</button>
+        <p id="load_error"></p>
+        <div id="loaded_recipes">
+          <p>Loaded recipes:</p>
+          <ul></ul>
+        </div>
+      </p>
+    </div>
+
+    <div id="crafting">
+      <h1>Crafting</h1>
+      <select id="crafting_selector" disabled></select>
+      <div id="crafting_output">
+        <p>You'll need:</p>
+        <ul id="missing_materials"></ul>
+        <p>You'll get:</p>
+        <ul id="leftover_materials"></ul>
+      </div>
+      <div id="crafting_error"></div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="crafting.js"></script>
+    <script>
+      var __recipes = {};
+      var __inventory = {};
+      $(function() { onPageLoad() })
+    </script>
+  </body>
+</html>
+

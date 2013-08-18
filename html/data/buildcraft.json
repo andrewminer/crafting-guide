@@ -134,6 +134,82 @@
             "output": [[1, "Filler"]],
             "input": [[2, "Dandelion Yellow"], [2, "Ink Sac"], [1, "Landmark"], [1, "Chest"], [1, "Crafting Table"], [2, "Gold Gear"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Assembly Table"]],
+            "input": [[6, "Obsidian"], [1, "Diamond"], [1, "Diamond Gear"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Laser"]],
+            "input": [[5, "Redstone"], [2, "Diamond"], [2, "Obsidian"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Advanced Crafting Table"]],
+            "input": [[6, "Obsidian"], [1, "Crafting Table"], [1, "Chest"], [1, "Redstone Chipset"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Chipset"]],
+            "input": [[1, "Redstone"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Iron Chipset"]],
+            "input": [[1, "Redstone"], [1, "Iron Ingot"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Gold Chipset"]],
+            "input": [[1, "Redstone"], [1, "Gold Ingot"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Diamond Chipset"]],
+            "input": [[1, "Redstone"], [1, "Diamond"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[8, "Red Pipe Wire"]],
+            "input": [[1, "Iron Ingot"], [1, "Redstone"], [1, "Rose Red"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[8, "Blue Pipe Wire"]],
+            "input": [[1, "Iron Ingot"], [1, "Redstone"], [1, "Lapis Lazuli"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[8, "Yellow Pipe Wire"]],
+            "input": [[1, "Iron Ingot"], [1, "Redstone"], [1, "Dandelion Yellow"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[8, "Green Pipe Wire"]],
+            "input": [[1, "Iron Ingot"], [1, "Redstone"], [1, "Cactus Green"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Basic Gate"]],
+            "input": [[1, "Redstone Chipset"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Iron AND Gate"]],
+            "input": [[1, "Iron Chipset"], [1, "Red Pipe Wire"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Iron OR Gate"]],
+            "input": [[1, "Iron Chipset"], [1, "Red Pipe Wire"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Gold AND Gate"]],
+            "input": [[1, "Gold Chipset"], [1, "Red Pipe Wire"], [1, "Blue Pipe Wire"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Gold OR Gate"]],
+            "input": [[1, "Gold Chipset"], [1, "Red Pipe Wire"], [1, "Blue Pipe Wire"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Diamond AND Gate"]],
+            "input": [[1, "Diamond Chipset"], [1, "Red Pipe Wire"], [1, "Blue Pipe Wire"], [1, "Yellow Pipe Wire"], [1, "Green Pipe Wire"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Diamond OR Gate"]],
+            "input": [[1, "Diamond Chipset"], [1, "Red Pipe Wire"], [1, "Blue Pipe Wire"], [1, "Yellow Pipe Wire"], [1, "Green Pipe Wire"]],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": [[1, "Facade"]],
+            "input": [[3, "Structure Pipe"], [1, "source block"]],
+            "tools": ["Assembly Table", "Laser"]
         }
     ]
 }

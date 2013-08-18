@@ -26,8 +26,14 @@ function onCraftingSelectorChanged() {
         $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
     } else {
         var count = parseInt($("#crafting_count option:selected").val());
+
         var inventory = createManifest();
-        var missingMaterials = recipe.computeMissingMaterials(inventory, count);
+        var missingMaterials = createManifest();
+        for (var i = 0; i < count; i++) {
+            recipe.craft(inventory, missingMaterials);
+            if (inventory.contains(count, recipeName)) break;
+        }
+
         $("#missing_materials").html(missingMaterials.toHtml());
         $("#leftover_materials").html(inventory.toHtml());
         $("#crafting_output").fadeIn(FADE_DURATION);
@@ -119,6 +125,10 @@ function createManifest() {
         }
     };
 
+    object.removeAll = function() {
+        object.materials = {};
+    }
+
     object.toHtml = function() {
         var result = "";
         var count = 0;
@@ -149,56 +159,52 @@ function createRecipe(data) {
 
     // Methods ////////////////////////////////////////////
 
-    object.computeMissingMaterials = function(inventory, count) {
+    object.craft = function(inventory, missingMaterials) {
         if (inventory === undefined) inventory = createManifest();
-        if (count === undefined) count = 1;
-        var missingMaterials = createManifest();
-        var queue = [];
+        if (missingMaterials === undefined) missingMaterials = createManifest();
+        var toCraftManifest = createManifest();
+    
+        function drainCraftingManifest(consumeItems) {
+            for (var name in toCraftManifest.materials) {
+                var count = toCraftManifest.materials[name];
+                var itemRecipe = findRecipe(name);
 
-        function craftItem(ingredient) {
-            var recipe = findRecipe(ingredient.name);
-            if (recipe === undefined) {
-                missingMaterials.add(1, ingredient.name);
-                ingredient.count -= 1
-            } else {
-                $.each(recipe.input, function(j, childIngredient) {
-                    queue.push({count: childIngredient.count, name: childIngredient.name});
-                });
-                $.each(recipe.output, function(j, childProduct) {
-                    inventory.add(childProduct.count, childProduct.name);
-                });
-                $.each(recipe.tools, function(j, tool) {
-                    if (! inventory.contains(1, tool)) {
-                        if (findRecipe(tool) === undefined) {
-                            inventory.add(1, tool);
-                            missingMaterials.add(1, tool);
-                        } else {
-                            craftItem({count: 1, name: tool});
+                for (var i = 0; i < count; i++) {
+                    if (inventory.contains(1, name)) {
+                        if (consumeItems) {
+                            inventory.remove(1, name);
+                        }
+                    } else if (itemRecipe === undefined) {
+                        missingMaterials.add(1, name);
+                    } else {
+                        itemRecipe.craft(inventory, missingMaterials);
+                        if (consumeItems) {
+                            inventory.remove(1, name);
                         }
                     }
-                });
-            }
-            return recipe;
-        }
-
-        for (var i = 0; i < count; i++) {
-            craftItem({count: 1, name: object.output[0].name});
-        }
-
-        while (queue.length > 0) {
-            var ingredient = queue.shift();
-            while (ingredient.count > 0) {
-                if (inventory.contains(1, ingredient.name)) {
-                    inventory.remove(1, ingredient.name);
-                    ingredient.count -= 1;
-                } else {
-                    console.log("Crafting ingredient: " + ingredient.name);
-                    craftItem(ingredient);
                 }
             }
+            toCraftManifest.removeAll();
         }
-        return missingMaterials;
-    }
+
+        $(object.input).each(function(i, input) {
+            for (var j = 0; j < input.count; j++) {
+                toCraftManifest.add(1, input.name);
+            }
+        });
+        drainCraftingManifest(true);
+
+        $(object.tools).each(function(i, tool) {
+            if (! inventory.contains(1, tool)) {
+                toCraftManifest.add(1, tool);
+            }
+        });
+        drainCraftingManifest(false);
+
+        $(object.output).each(function(i, output) {
+            inventory.add(output.count, output.name);
+        });
+    };
 
     return object;
 }

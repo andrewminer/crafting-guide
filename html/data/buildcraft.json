@@ -1,0 +1,140 @@
+{
+    "name": "BuildCraft",
+    "description": "Crafting recipes from BuildCraft 3, by SpaceToad",
+    "recipes": [
+        {
+            "output": [[1, "Wooden Pipe"]],
+            "input": [[2, "Oak Plank"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Cobblestone Pipe"]],
+            "input": [[2, "Cobblestone"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stone Pipe"]],
+            "input": [[2, "Stone"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Pipe"]],
+            "input": [[2, "Iron Ingot"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Pipe"]],
+            "input": [[2, "Gold Ingot"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Pipe"]],
+            "input": [[2, "Diamond"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Obsidian Pipe"]],
+            "input": [[2, "Obsidian"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Sandstone Pipe"]],
+            "input": [[2, "Sandstone"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Emerald Pipe"]],
+            "input": [[2, "Emerald"], [1, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Conductive Pipe"]],
+            "input": [[1, "Wooden Pipe"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Cobblestone Conductive Pipe"]],
+            "input": [[1, "Cobblestone Pipe"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Stone Conductive Pipe"]],
+            "input": [[1, "Stone Pipe"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Gold Conductive Pipe"]],
+            "input": [[1, "Gold Pipe"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Diamond Conductive Pipe"]],
+            "input": [[1, "Diamond Pipe"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Stripe Pipe"]],
+            "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Dandelion Yellow"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Void Pipe"]],
+            "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Structure Pipe"]],
+            "input": [[1, "Cobblestone Pipe"], [1, "Gravel"]],
+            "tools": []
+        }, {
+            "output": [[1, "Wooden Gear"]],
+            "input": [[4, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Cobblestone Gear"]],
+            "input": [[1, "Wooden Gear"], [4, "Cobblestone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Gear"]],
+            "input": [[1, "Cobblestone Gear"], [4, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Gear"]],
+            "input": [[1, "Iron Gear"], [4, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Gear"]],
+            "input": [[1, "Gold Gear"], [4, "Diamond"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Mining Well"]],
+            "input": [[6, "Iron Ingot"], [1, "Iron Gear"], [1, "Iron Pickaxe"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Tank"]],
+            "input": [[8, "Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Pump"]],
+            "input": [[6, "Mining Well"], [1, "Tank"]],
+            "tools": []
+        }, {
+            "output": [[1, "Landmark"]],
+            "input": [[1, "Redstone Torch"], [1, "Lapis Lazuli"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Engine"]],
+            "input": [[3, "Oak Plank"], [2, "Wooden Gear"], [1, "Glass"], [1, "Piston"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stirling Engine"]],
+            "input": [[3, "Cobblestone"], [2, "Cobblestone Gear"], [1, "Glass"], [1, "Piston"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Combustion Engine"]],
+            "input": [[3, "Iron Ingot"], [2, "Iron Gear"], [1, "Glass"], [1, "Piston"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chute"]],
+            "input": [[5, "Iron Ingot"], [1, "Cobblestone Gear"], [1, "Chest"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Quarry"]],
+            "input": [[3, "Iron Gear"], [2, "Gold Gear"], [2, "Diamond Gear"], [1, "Diamond Pickaxe"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Automatic Crafting Table"]],
+            "input": [[4, "Wooden Gear"], [1, "Crafting Table"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Filler"]],
+            "input": [[2, "Dandelion Yellow"], [2, "Ink Sac"], [1, "Landmark"], [1, "Chest"], [1, "Crafting Table"], [2, "Gold Gear"]],
+            "tools": ["Crafting Table"]
+        }
+    ]
+}
+

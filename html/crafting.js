@@ -3,18 +3,22 @@
 var FADE_DURATION = 250; // ms
 var ERROR_DISPLAY_DURATION = 5000; // ms
 
+// Global Variables ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+var __recipebooks = [];
+
 // UI Functions ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function onPageLoad() {
-    $("#recipe_load_button").click(onRecipeLoadButtonClicked);
+$(function() {
+    $("#recipebook_load_button").click(onRecipeLoadButtonClicked);
     $("#crafting_selector").change(onCraftingSelectorChanged);
 
-    loadRecipes("data/vanilla.json");
-}
+    loadRecipebook("data/vanilla.json");
+});
 
 function onCraftingSelectorChanged() {
     var recipeName = $("#crafting_selector option:selected").val();
-    var recipe = __recipes[recipeName];
+    var recipe = findRecipe(recipeName);
     if (recipe === undefined) {
         $("#crafting_error").html("Cannot find recipe for " + recipeName);
         $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
@@ -28,24 +32,30 @@ function onCraftingSelectorChanged() {
 }
 
 function onRecipeLoadButtonClicked() {
-    loadRecipes($("#recipe_url").val());
+    $("#reipebook_load_button").attr("disabled", true);
+    loadRecipebook($("#recipebook_url").val(), function() {
+        $("#recipebook_url").val("");
+        $("#reipebook_load_button").removeAttr("disabled");
+    });
 }
 
 // UI Helper Functions ////////////////////////////////////////////////////////////////////////////////////////////////
 
-function loadRecipes(recipeUrl) {
+function loadRecipebook(recipebookUrl, onSuccess) {
     $.ajax({
-        url: recipeUrl,
+        url: recipebookUrl,
         dataType: "text",
-        success: function(data) {
+        success: function(text) {
             try {
-                recipeData = $.parseJSON(data)["recipes"];
-                __recipes = parseRecipeData(recipeData);
-                $("#loaded_recipes ul").append("<li><a href=\"" + recipeUrl + "\">" + recipeUrl + "</a></li>");
-                $("#loaded_recipes").fadeIn(FADE_DURATION);
+                var recipebook = createRecipebook(recipebookUrl, $.parseJSON(text));
+                __recipebooks.push(recipebook);
+
+                recipebook.asTableRow().insertBefore($("#recipebook_table tr").last());
 
                 updateCraftingSelector();
                 $("#crafting").fadeIn(FADE_DURATION);
+
+                if (onSuccess !== undefined) onSuccess();
             } catch (e) {
                 $("#load_error").html(e);
                 $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
@@ -60,13 +70,20 @@ function loadRecipes(recipeUrl) {
 
 function updateCraftingSelector() {
     var $selector = $("#crafting_selector");
-    if (__recipes.length == 0) {
+    $selector.html("");
+
+    if (__recipebooks.length == 0) {
         $selector.attr("disabled", "disabled");
+        $selector.html("<option>No recipes</option>");
     } else {
-        for (var name in __recipes) {
-            if (!__recipes.hasOwnProperty(name)) continue;
-            $selector.append("<option value=\"" + name + "\">" + name + "</option>");
-        }
+        $(__recipebooks).each(function(i, recipebook) {
+            var $optgroup = $("<optgroup label=\"" + recipebook.name + "\">");
+            $selector.append($optgroup);
+
+            for (var name in recipebook.recipes) {
+                $optgroup.append("<option value=\"" + name + "\">" + name + "</option>");
+            }
+        });
         $selector.removeAttr("disabled");
     }
 }
@@ -116,17 +133,6 @@ function createManifest() {
 
 // Recipe Object //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function parseRecipeData(recipeData) {
-    var recipes = {};
-    $.each(recipeData, function(i, data) {
-        var recipe = createRecipe(data);
-        $.each(recipe.output, function(j, output) {
-            recipes[output.name] = recipe
-        });
-    });
-    return recipes;
-}
-
 function createRecipe(data) {
     var object = {output: [], input: [], tools: data.tools};
 
@@ -146,7 +152,7 @@ function createRecipe(data) {
         var queue = [];
 
         function craftItem(ingredient) {
-            var recipe = __recipes[ingredient.name];
+            var recipe = findRecipe(ingredient.name);
             if (recipe === undefined) {
                 missingMaterials.add(1, ingredient.name);
                 ingredient.count -= 1
@@ -159,7 +165,12 @@ function createRecipe(data) {
                 });
                 $.each(recipe.tools, function(j, tool) {
                     if (! inventory.contains(1, tool)) {
-                        craftItem({count: 1, name: tool});
+                        if (findRecipe(tool) === undefined) {
+                            inventory.add(1, tool);
+                            missingMaterials.add(1, tool);
+                        } else {
+                            craftItem({count: 1, name: tool});
+                        }
                     }
                 });
             }
@@ -185,3 +196,41 @@ function createRecipe(data) {
 
     return object;
 }
+
+// RecipeBook Object //////////////////////////////////////////////////////////////////////////////////////////////////
+
+function createRecipebook(sourceUrl, data) {
+    var object = {
+        name: data.name,
+        description: data.description,
+        sourceUrl: sourceUrl,
+        recipes: {}
+    };
+
+    $(data.recipes).each(function(i, data) {
+        var recipe = createRecipe(data);
+        $(recipe.output).each(function(j, output) {
+            object.recipes[output.name] = recipe
+        });
+    });
+
+    object.asTableRow = function() {
+        return $(
+            "<tr>" +
+                "<td width=\"25%\"><a target=\"new\" href=\"" + object.sourceUrl + "\">" + object.name + "</a></td>" +
+                "<td width=\"*\">" + object.description + "</td>" +
+            "</tr>"
+        );
+    };
+
+    return object;
+}
+
+function findRecipe(name) {
+    for (var i = 0; i < __recipebooks.length; i++) {
+        var recipe = __recipebooks[i].recipes[name];
+        if (recipe !== undefined) return recipe;
+    }
+    return undefined;
+}
+

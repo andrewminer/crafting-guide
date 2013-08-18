@@ -1,0 +1,19 @@
+.disabled { color: gray; }
+.centered { text-align: center; }
+.error { color: red; display: none; font-weight: bold; width: 100%; }
+.hidden { display: none; }
+.padded { margin: 10px; }
+
+body { background: url("../images/ice.png"); margin-bottom: 100px; }
+h1 { font-family: 'Press Start 2P', cursive; margin-left: 10px; }
+h1 img { height: 64px; width: 64px; vertical-align: bottom; }
+p { margin-left: 10px; margin-right: 10px; }
+
+#body { background: rgba(230, 230, 230, 0.90); box-shadow: 10px 10px 20px #666; margin-top: 50px; }
+#header { background: url("../images/stone_brick_light.png"); height: 64px; }
+#header img { height: 96px; width: 96px; margin-left: -32px; margin-top: -32px; }
+#header_border { background: url("../images/stone_brick.png"); height: 32px; margin-bottom: 32px; }
+#recipebook_load_button { margin-left: 5px; width: 60px; }
+#recipebook_table { margin-left: 10px; width: 920px; }
+#recipebook_table td { background: #f8f8f8; border-left: 1px solid #bbb; padding: 10px; }
+#recipebook_url { width: 600px; }

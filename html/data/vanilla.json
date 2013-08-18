@@ -1,24 +1,161 @@
-
 {
+    "name": "Vanilla Recipes",
+    "description": "Crafting recipes from vanilla Minecraft",
     "recipes": [
         {
+            "output": [[1, "Baked Potato"]],
+            "input": [[1, "Potato"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
             "output": [[1, "Boat"]],
             "input": [[5, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[3, "Bone Meal"]],
+            "input": [[1, "Bone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Book"]],
+            "input": [[1, "Leather"], [3, "Paper"]],
+            "tools": []
+        }, {
+            "output": [[1, "Bookshelf"]],
+            "input": [[6, "Oak Plank"], [3, "Book"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Bowl"]],
+            "input": [[3, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Bread"]],
+            "input": [[3, "Wheat"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Brick"]],
+            "input": [[1, "Clay"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Bucket"]],
+            "input": [[3, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Cactus Green"]],
+            "input": [[1, "Cactus"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Cake"]],
+            "input": [[3, "Milk"], [2, "Sugar"], [3, "Wheat"], [1, "Egg"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chest"]],
+            "input": [[8, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Cooked Chicken"]],
+            "input": [[1, "Raw Chicken"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Cooked Fish"]],
+            "input": [[1, "Raw Fish"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Cooked Porkchop"]],
+            "input": [[1, "Raw Porkchop"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Cookie"]],
+            "input": [[1, "Cocoa Beans"], [2, "Wheat"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Crafting Table"]],
             "input": [[4, "Oak Plank"]],
             "tools": []
         }, {
+            "output": [[2, "Cyan Dye"]],
+            "input": [[1, "Cactus Green"], [1, "Lapis Lazuli"]],
+            "tools": []
+        }, {
+            "output": [[2, "Dandelion Yellow"]],
+            "input": [[1, "Dandelion"]],
+            "tools": []
+        }, {
+            "output": [[1, "Diamond Axe"]],
+            "input": [[3, "Diamond"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Hoe"]],
+            "input": [[2, "Diamond"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Pickaxe"]],
+            "input": [[3, "Diamond"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Sword"]],
+            "input": [[2, "Diamond"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Eye of Ender"]],
+            "input": [[1, "Ender Pearl"], [1, "Blaze Powder"]],
+            "tools": []
+        }, {
+            "output": [[1, "Fermented Spider Eye"]],
+            "input": [[1, "Spider Eye"], [1, "Brown Mushroom"], [1, "Sugar"]],
+            "tools": []
+        }, {
             "output": [[1, "Furnace"]],
             "input": [[8, "Cobblestone"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Iron Ingot"]],
-            "input": [[1, "Iron Ore"], [1, "Furnace Fuel"]],
+            "output": [[1, "Glass"]],
+            "input": [[1, "Sand"], [125, "milli-coal"]],
             "tools": ["Furnace"]
         }, {
-            "output": [[1, "Iron Ax"]],
+            "output": [[3, "Glass Bottle"]],
+            "input": [[3, "Glass"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Glistering Melon"]],
+            "input": [[1, "Melon"], [9, "Gold Nugget"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Axe"]],
+            "input": [[3, "Gold Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Hoe"]],
+            "input": [[2, "Gold Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Ingot"]],
+            "input": [[1, "Gold Ore"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[9, "Gold Nugget"]],
+            "input": [[1, "Gold Ingot"]],
+            "tools": []
+        }, {
+            "output": [[1, "Gold Pickaxe"]],
+            "input": [[3, "Gold Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Sword"]],
+            "input": [[2, "Gold Ingot"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Golden Apple"]],
+            "input": [[9, "Gold Ingot"], [1, "Apple"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Golden Carrot"]],
+            "input": [[8, "Gold Nugget"], [1, "Carrot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[2, "Gray Dye"]],
+            "input": [[1, "Bone Meal"], [1, "Ink Sac"]],
+            "tools": []
+        }, {
+            "output": [[1, "Iron Axe"]],
             "input": [[3, "Iron Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
@@ -26,7 +163,15 @@
             "input": [[2, "Iron Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Iron Pick"]],
+            "output": [[1, "Iron Ingot"]],
+            "input": [[1, "Iron Ore"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[9, "Iron Nugget"]],
+            "input": [[1, "Iron Ingot"]],
+            "tools": []
+        }, {
+            "output": [[1, "Iron Pickaxe"]],
             "input": [[3, "Iron Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
@@ -34,15 +179,111 @@
             "input": [[2, "Iron Ingot"], [1, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[2, "Light Blue Dye"]],
+            "input": [[1, "Bone Meal"], [1, "Lapis Lazuli"]],
+            "tools": []
+        }, {
+            "output": [[3, "Light Gray Dye"]],
+            "input": [[2, "Bone Meal"], [1, "Ink Sac"]],
+            "tools": []
+        }, {
+            "output": [[2, "Light Gray Dye"]],
+            "input": [[1, "Bone Meal"], [1, "Gray Dye"]],
+            "tools": []
+        }, {
+            "output": [[2, "Lime Dye"]],
+            "input": [[1, "Bone Meal"], [1, "Cactus Green"]],
+            "tools": []
+        }, {
+            "output": [[2, "Magenta Dye"]],
+            "input": [[1, "Pink Dye"], [1, "Purple Dye"]],
+            "tools": []
+        }, {
+            "output": [[3, "Magenta Dye"]],
+            "input": [[1, "Rose Red"], [1, "Pink Dye"], [1, "Lapis Lazuli"]],
+            "tools": []
+        }, {
+            "output": [[4, "Magenta Dye"]],
+            "input": [[2, "Rose Red"], [1, "Bone Meal"], [1, "Lapis Lazuli"]],
+            "tools": []
+        }, {
+            "output": [[1, "Magma Cream"]],
+            "input": [[1, "Slimeball"], [1, "Blaze Powder"]],
+            "tools": []
+        }, {
+            "output": [[1, "Milk"]],
+            "input": [[1, "Bucket"]],
+            "tools": ["Cow"]
+        }, {
+            "output": [[1, "Mushroom Stew"]],
+            "input": [[1, "Bowl"], [1, "Red Mushroom"], [1, "Brown Mushroom"]],
+            "tools": []
+        }, {
+            "output": [[1, "Nether Brick (item)"]],
+            "input": [[1, "Netherrack"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Nether Brick (block)"]],
+            "input": [[4, "Nether Brick (item)"]],
+            "tools": []
+        }, {
             "output": [[4, "Oak Plank"]],
             "input": [[1, "Oak Log"]],
             "tools": []
+        }, {
+            "output": [[2, "Orange Dye"]],
+            "input": [[1, "Dandelion Yellow"], [1, "Rose Red"]],
+            "tools": []
+        }, {
+            "output": [[3, "Paper"]],
+            "input": [[3, "Sugar Cane"]],
+            "tools": []
+        }, {
+            "output": [[2, "Pink Dye"]],
+            "input": [[1, "Bone Meal"], [1, "Rose Red"]],
+            "tools": []
+        }, {
+            "output": [[1, "Piston"]],
+            "input": [[4, "Cobblestone"], [3, "Oak Plank"], [1, "Iron Ingot"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Pumpkin Pie"]],
+            "input": [[1, "Sugar"], [1, "Pumpkin"], [1, "Egg"]],
+            "tools": []
+        }, {
+            "output": [[2, "Purple Dye"]],
+            "input": [[1, "Rose Red"], [1, "Lapis Lazuli"]],
+            "tools": []
+        }, {
+            "output": [[1, "Redstone Torch"]],
+            "input": [[1, "Redstone"], [1, "Stick"]],
+            "tools": []
+        }, {
+            "output": [[2, "Rose Red"]],
+            "input": [[1, "Rose"]],
+            "tools": []
+        }, {
+            "output": [[1, "Steak"]],
+            "input": [[1, "Raw Beef"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
         }, {
             "output": [[4, "Stick"]],
             "input": [[2, "Oak Plank"]],
             "tools": []
         }, {
-            "output": [[1, "Stone Ax"]],
+            "output": [[1, "Sticky Piston"]],
+            "input": [[1, "Piston"], [1, "Slimeball"]],
+            "tools": []
+        }, {
+            "output": [[1, "Sugar"]],
+            "input": [[1, "Sugar Cane"]],
+            "tools": []
+        }, {
+            "output": [[1, "Stone"]],
+            "input": [[1, "Cobblestone"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Stone Axe"]],
             "input": [[3, "Cobblestone"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
@@ -50,7 +291,7 @@
             "input": [[2, "Cobblestone"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Stone Pick"]],
+            "output": [[1, "Stone Pickaxe"]],
             "input": [[3, "Cobblestone"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
@@ -58,7 +299,7 @@
             "input": [[2, "Cobblestone"], [1, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Wooden Ax"]],
+            "output": [[1, "Wooden Axe"]],
             "input": [[3, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
@@ -66,7 +307,7 @@
             "input": [[2, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Wooden Pick"]],
+            "output": [[1, "Wooden Pickaxe"]],
             "input": [[3, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {

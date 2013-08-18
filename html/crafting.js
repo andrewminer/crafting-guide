@@ -9,7 +9,7 @@ function onPageLoad() {
     $("#recipe_load_button").click(onRecipeLoadButtonClicked);
     $("#crafting_selector").change(onCraftingSelectorChanged);
 
-    loadRecipes("vanilla.json");
+    loadRecipes("data/vanilla.json");
 }
 
 function onCraftingSelectorChanged() {

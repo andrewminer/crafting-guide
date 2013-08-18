@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ssh mountainbroadband@www.mountainbroadband.org << EOF
+    cd repo
+    git pull
+EOF

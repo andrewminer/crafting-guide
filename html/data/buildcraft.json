@@ -100,7 +100,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Pump"]],
-            "input": [[6, "Mining Well"], [1, "Tank"]],
+            "input": [[1, "Mining Well"], [1, "Tank"]],
             "tools": []
         }, {
             "output": [[1, "Landmark"]],

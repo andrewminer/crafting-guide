@@ -181,7 +181,9 @@ function createRecipe(data) {
             return recipe;
         }
 
-        queue.push({count: count, name: object.output[0].name});
+        for (var i = 0; i < count; i++) {
+            craftItem({count: 1, name: object.output[0].name});
+        }
 
         while (queue.length > 0) {
             var ingredient = queue.shift();
@@ -190,12 +192,11 @@ function createRecipe(data) {
                     inventory.remove(1, ingredient.name);
                     ingredient.count -= 1;
                 } else {
+                    console.log("Crafting ingredient: " + ingredient.name);
                     craftItem(ingredient);
                 }
             }
         }
-
-        inventory.add(object.output[0].count * count, object.output[0].name);
         return missingMaterials;
     }
 

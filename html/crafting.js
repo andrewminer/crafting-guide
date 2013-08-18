@@ -12,8 +12,10 @@ var __recipebooks = [];
 $(function() {
     $("#recipebook_load_button").click(onRecipeLoadButtonClicked);
     $("#crafting_selector").change(onCraftingSelectorChanged);
+    $("#crafting_count").change(onCraftingSelectorChanged);
 
     loadRecipebook("data/vanilla.json");
+    loadRecipebook("data/buildcraft.json");
 });
 
 function onCraftingSelectorChanged() {
@@ -23,8 +25,9 @@ function onCraftingSelectorChanged() {
         $("#crafting_error").html("Cannot find recipe for " + recipeName);
         $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
     } else {
+        var count = parseInt($("#crafting_count option:selected").val());
         var inventory = createManifest();
-        var missingMaterials = recipe.computeMissingMaterials(inventory);
+        var missingMaterials = recipe.computeMissingMaterials(inventory, count);
         $("#missing_materials").html(missingMaterials.toHtml());
         $("#leftover_materials").html(inventory.toHtml());
         $("#crafting_output").fadeIn(FADE_DURATION);
@@ -146,8 +149,9 @@ function createRecipe(data) {
 
     // Methods ////////////////////////////////////////////
 
-    object.computeMissingMaterials = function(inventory) {
+    object.computeMissingMaterials = function(inventory, count) {
         if (inventory === undefined) inventory = createManifest();
+        if (count === undefined) count = 1;
         var missingMaterials = createManifest();
         var queue = [];
 
@@ -177,7 +181,7 @@ function createRecipe(data) {
             return recipe;
         }
 
-        craftItem({count: 1, name: object.output[0].name});
+        queue.push({count: count, name: object.output[0].name});
 
         while (queue.length > 0) {
             var ingredient = queue.shift();
@@ -191,6 +195,7 @@ function createRecipe(data) {
             }
         }
 
+        inventory.add(object.output[0].count * count, object.output[0].name);
         return missingMaterials;
     }
 

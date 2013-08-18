@@ -10,6 +10,9 @@ h1 img { height: 64px; width: 64px; vertical-align: bottom; }
 p { margin-left: 10px; margin-right: 10px; }
 
 #body { background: rgba(230, 230, 230, 0.90); box-shadow: 10px 10px 20px #666; margin-top: 50px; }
+#crafting_output { margin-left: 10px; width: 920px; }
+#crafting_output th { background: #f8f8f8; border-left: 1px solid #bbb; font-weight: bold; padding: 10px; }
+#crafting_output td { background: #f8f8f8; border-left: 1px solid #bbb; padding: 10px; }
 #header { background: url("../images/stone_brick_light.png"); height: 64px; }
 #header img { height: 96px; width: 96px; margin-left: -32px; margin-top: -32px; }
 #header_border { background: url("../images/stone_brick.png"); height: 32px; margin-bottom: 32px; }

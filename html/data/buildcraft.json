@@ -239,7 +239,7 @@
             "input": [[1, "Wooden Pipe"], [1, "Pipe Waterproof"]],
             "tools": []
         }, {
-            "output": [[1, "Wrench"]],
+            "output": [[1, "Wrench (buildcraft)"]],
             "input": [[3, "Iron Ingot"], [1, "Cobblestone Gear"]],
             "tools": ["Crafting Table"]
         }, {

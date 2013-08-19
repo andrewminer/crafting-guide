@@ -1,6 +1,6 @@
 {
     "name": "Vanilla Recipes",
-    "description": "Crafting recipes from vanilla Minecraft",
+    "description": "Crafting recipes from vanilla Minecraft (in progress)",
     "recipes": [
         {
             "output": [[1, "Baked Potato"]],
@@ -51,6 +51,10 @@
             "input": [[8, "Oak Plank"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Clay Block"]],
+            "input": [[4, "Clay"]],
+            "tools": []
+        }, {
             "output": [[1, "Cooked Chicken"]],
             "input": [[1, "Raw Chicken"], [125, "milli-coal"]],
             "tools": ["Furnace"]
@@ -83,8 +87,24 @@
             "input": [[3, "Diamond"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Diamond Boots"]],
+            "input": [[4, "Diamond"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Chestplate"]],
+            "input": [[8, "Diamond"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Helm"]],
+            "input": [[5, "Diamond"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Diamond Hoe"]],
             "input": [[2, "Diamond"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Leggings"]],
+            "input": [[7, "Diamond"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Diamond Pickaxe"]],
@@ -123,8 +143,24 @@
             "input": [[3, "Gold Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Gold Boots"]],
+            "input": [[4, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Chestplate"]],
+            "input": [[8, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Helm"]],
+            "input": [[5, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Gold Hoe"]],
             "input": [[2, "Gold Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Gold Leggings"]],
+            "input": [[7, "Gold Ingot"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Gold Ingot"]],
@@ -159,6 +195,22 @@
             "input": [[3, "Iron Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[16, "Iron Bars"]],
+            "input": [[6, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Boots"]],
+            "input": [[4, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Chestplate"]],
+            "input": [[8, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Helm"]],
+            "input": [[5, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Iron Hoe"]],
             "input": [[2, "Iron Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
@@ -166,6 +218,10 @@
             "output": [[1, "Iron Ingot"]],
             "input": [[1, "Iron Ore"], [125, "milli-coal"]],
             "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Iron Leggings"]],
+            "input": [[7, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
         }, {
             "output": [[9, "Iron Nugget"]],
             "input": [[1, "Iron Ingot"]],
@@ -178,6 +234,30 @@
             "output": [[1, "Iron Sword"]],
             "input": [[2, "Iron Ingot"], [1, "Stick"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Lapis Lazuli Block"]],
+            "input": [[9, "Lapis Lazuli"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Lava Bucket"]],
+            "input": [[1, "Bucket"], [1, "Lava Source Block"]],
+            "tools": []
+        }, {
+            "output": [[1, "Leather Boots"]],
+            "input": [[4, "Leather"]],
+            "tools": []
+        }, {
+            "output": [[1, "Leather Chestplate"]],
+            "input": [[8, "Leather"]],
+            "tools": []
+        }, {
+            "output": [[1, "Leather Helm"]],
+            "input": [[5, "Leather"]],
+            "tools": []
+        }, {
+            "output": [[1, "Leather Leggings"]],
+            "input": [[7, "Leather"]],
+            "tools": []
         }, {
             "output": [[2, "Light Blue Dye"]],
             "input": [[1, "Bone Meal"], [1, "Lapis Lazuli"]],
@@ -298,6 +378,10 @@
             "output": [[1, "Stone Sword"]],
             "input": [[2, "Cobblestone"], [1, "Stick"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Water Bucket"]],
+            "input": [[1, "Bucket"], [1, "Water Source Block"]],
+            "tools": []
         }, {
             "output": [[1, "Wooden Axe"]],
             "input": [[3, "Oak Plank"], [2, "Stick"]],

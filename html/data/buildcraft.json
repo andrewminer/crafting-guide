@@ -39,6 +39,10 @@
             "input": [[2, "Cobblestone"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Cobblestone Waterproof Pipe"]],
+            "input": [[1, "Cobblestone Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
+        }, {
             "output": [[1, "Combustion Engine"]],
             "input": [[3, "Iron Ingot"], [2, "Iron Gear"], [1, "Glass"], [1, "Piston"]],
             "tools": ["Crafting Table"]
@@ -70,6 +74,10 @@
             "output": [[1, "Emerald Pipe"]],
             "input": [[2, "Emerald"], [1, "Glass"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Emerald Waterproof Pipe"]],
+            "input": [[1, "Emerald Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
         }, {
             "output": [[1, "Facade"]],
             "input": [[3, "Structure Pipe"], [1, "source block"]],
@@ -103,6 +111,10 @@
             "input": [[2, "Gold Ingot"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Gold Waterproof Pipe"]],
+            "input": [[1, "Gold Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
+        }, {
             "output": [[8, "Green Pipe Wire"]],
             "input": [[1, "Iron Ingot"], [1, "Redstone"], [1, "Cactus Green"]],
             "tools": ["Assembly Table", "Laser"]
@@ -127,6 +139,10 @@
             "input": [[2, "Iron Ingot"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Iron Waterproof Pipe"]],
+            "input": [[1, "Iron Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
+        }, {
             "output": [[1, "Landmark"]],
             "input": [[1, "Redstone Torch"], [1, "Lapis Lazuli"]],
             "tools": ["Crafting Table"]
@@ -142,6 +158,10 @@
             "output": [[1, "Obsidian Pipe"]],
             "input": [[2, "Obsidian"], [1, "Glass"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Pipe Waterproof"]],
+            "input": [[1, "Cactus Green"]],
+            "tools": []
         }, {
             "output": [[1, "Pump"]],
             "input": [[1, "Mining Well"], [1, "Tank"]],
@@ -171,6 +191,10 @@
             "input": [[2, "Sandstone"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Sandstone Waterproof Pipe"]],
+            "input": [[1, "Sandstone Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
+        }, {
             "output": [[1, "Stirling Engine"]],
             "input": [[3, "Cobblestone"], [2, "Cobblestone Gear"], [1, "Glass"], [1, "Piston"]],
             "tools": ["Crafting Table"]
@@ -182,6 +206,10 @@
             "output": [[1, "Stone Pipe"]],
             "input": [[2, "Stone"], [1, "Glass"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stone Waterproof Pipe"]],
+            "input": [[1, "Stone Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
         }, {
             "output": [[1, "Stripe Pipe"]],
             "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Dandelion Yellow"]],
@@ -206,6 +234,10 @@
             "output": [[1, "Wooden Pipe"]],
             "input": [[2, "Oak Plank"], [1, "Glass"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Waterproof Pipe"]],
+            "input": [[1, "Wooden Pipe"], [1, "Pipe Waterproof"]],
+            "tools": []
         }, {
             "output": [[1, "Void Pipe"]],
             "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Redstone"]],

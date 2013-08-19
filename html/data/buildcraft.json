@@ -35,7 +35,7 @@
             "input": [[1, "Wooden Gear"], [4, "Cobblestone"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Cobblestone Pipe"]],
+            "output": [[8, "Cobblestone Pipe"]],
             "input": [[2, "Cobblestone"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -55,7 +55,7 @@
             "input": [[1, "Redstone"], [1, "Diamond"]],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[1, "Diamond Pipe"]],
+            "output": [[8, "Diamond Pipe"]],
             "input": [[2, "Diamond"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -71,7 +71,7 @@
             "input": [[1, "Diamond Chipset"], [1, "Red Pipe Wire"], [1, "Blue Pipe Wire"], [1, "Yellow Pipe Wire"], [1, "Green Pipe Wire"]],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[1, "Emerald Pipe"]],
+            "output": [[8, "Emerald Pipe"]],
             "input": [[2, "Emerald"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -107,7 +107,7 @@
             "input": [[1, "Gold Chipset"], [1, "Red Pipe Wire"], [1, "Blue Pipe Wire"]],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[1, "Gold Pipe"]],
+            "output": [[8, "Gold Pipe"]],
             "input": [[2, "Gold Ingot"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -135,7 +135,7 @@
             "input": [[1, "Iron Chipset"], [1, "Red Pipe Wire"]],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[1, "Iron Pipe"]],
+            "output": [[8, "Iron Pipe"]],
             "input": [[2, "Iron Ingot"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -155,7 +155,7 @@
             "input": [[6, "Iron Ingot"], [1, "Iron Gear"], [1, "Iron Pickaxe"], [1, "Redstone"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Obsidian Pipe"]],
+            "output": [[8, "Obsidian Pipe"]],
             "input": [[2, "Obsidian"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -187,7 +187,7 @@
             "input": [[3, "Tank"], [2, "Redstone Torch"], [1, "Diamond Gear"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Sandstone Pipe"]],
+            "output": [[8, "Sandstone Pipe"]],
             "input": [[2, "Sandstone"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -203,7 +203,7 @@
             "input": [[1, "Stone Pipe"], [1, "Redstone"]],
             "tools": []
         }, {
-            "output": [[1, "Stone Pipe"]],
+            "output": [[8, "Stone Pipe"]],
             "input": [[2, "Stone"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -211,7 +211,7 @@
             "input": [[1, "Stone Pipe"], [1, "Pipe Waterproof"]],
             "tools": []
         }, {
-            "output": [[1, "Stripe Pipe"]],
+            "output": [[8, "Stripe Pipe"]],
             "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Dandelion Yellow"]],
             "tools": ["Crafting Table"]
         }, {
@@ -231,7 +231,7 @@
             "input": [[4, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Wooden Pipe"]],
+            "output": [[8, "Wooden Pipe"]],
             "input": [[2, "Oak Plank"], [1, "Glass"]],
             "tools": ["Crafting Table"]
         }, {
@@ -239,7 +239,7 @@
             "input": [[1, "Wooden Pipe"], [1, "Pipe Waterproof"]],
             "tools": []
         }, {
-            "output": [[1, "Void Pipe"]],
+            "output": [[8, "Void Pipe"]],
             "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Redstone"]],
             "tools": ["Crafting Table"]
         }, {

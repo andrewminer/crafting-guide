@@ -14,12 +14,18 @@ $(function() {
     $("#crafting_selector").change(onCraftingSelectorChanged);
     $("#crafting_count").change(onCraftingSelectorChanged);
 
-    loadRecipebook("data/vanilla.json");
-    loadRecipebook("data/buildcraft.json");
+    loadRecipebook("data/vanilla.json", function() {
+        loadRecipebook("data/buildcraft.json", function() {
+            parseUrlParameters();
+            onCraftingSelectorChanged();
+        });
+    });
 });
 
 function onCraftingSelectorChanged() {
     var recipeName = $("#crafting_selector option:selected").val();
+    if (recipeName === undefined) return;
+
     var recipe = findRecipe(recipeName);
     if (recipe === undefined) {
         $("#crafting_error").html("Cannot find recipe for " + recipeName);
@@ -75,6 +81,30 @@ function loadRecipebook(recipebookUrl, onSuccess) {
             $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
         }
     });
+}
+
+function parseUrlParameters() {
+    var quantity = $.url().param('quantity');
+    if (quantity !== undefined) {
+        $("#crafting_count").val(quantity);
+
+        if ($("#crafting_count option:selected").val() === undefined) {
+            $("#crafting_count").val(1);
+
+            $("#crafting_error").html("Unsupported quantity: " + quantity);
+            $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
+        }
+    }
+        
+    var recipeName = $.url().param('recipeName');
+    if (recipeName !== undefined) {
+        $("#crafting_selector").val(recipeName);
+
+        if ($("#crafting_selector option:selected").val() === undefined) {
+            $("#crafting_error").html("Cannot find recipe for " + recipeName);
+            $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
+        }
+    }
 }
 
 function updateCraftingSelector() {

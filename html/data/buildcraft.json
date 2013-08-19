@@ -239,6 +239,10 @@
             "input": [[1, "Wooden Pipe"], [1, "Pipe Waterproof"]],
             "tools": []
         }, {
+            "output": [[1, "Wrench"]],
+            "input": [[3, "Iron Ingot"], [1, "Cobblestone Gear"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[8, "Void Pipe"]],
             "input": [[1, "Ink Sac"], [1, "Glass"], [1, "Redstone"]],
             "tools": ["Crafting Table"]

@@ -206,6 +206,9 @@ function createRecipe(data) {
                         }
                     } else if (itemRecipe === undefined) {
                         missingMaterials.add(1, name);
+                        if (! consumeItems) {
+                            inventory.add(1, name);
+                        }
                     } else {
                         itemRecipe.craft(inventory, missingMaterials);
                         if (consumeItems) {

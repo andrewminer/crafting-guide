@@ -295,6 +295,10 @@
             "input": [[1, "Silver Ore"]],
             "tools": ["Macerator"]
         }, {
+            "output": [[1, "Silver Ingot"]],
+            "input": [[1, "Silver Ore"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
             "output": [[1, "Solar Helmet"]],
             "input": [[5, "Iron Ore"], [3, "Insulated Copper Cable"], [1, "Solar Panel"]],
             "tools": ["Crafting Table"]

@@ -398,6 +398,10 @@
             "output": [[1, "Wooden Sword"]],
             "input": [[2, "Oak Plank"], [1, "Stick"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Lever"]],
+            "input": [[1, "Stick"], [1, "Cobblestone"]],
+            "tools": []
         }
     ]
 }

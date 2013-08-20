@@ -136,7 +136,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Extractor"]],
-            "input": [[4, "Tree Tap"], [1, "Machine Block"], [1, "Electric Circuit"]],
+            "input": [[4, "Tree Tap"], [1, "Machine Block"], [1, "Electronic Circuit"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[2, "Fertilizer"]],
@@ -343,8 +343,80 @@
             "input": [[1, "HV Insulated Cable"], [1, "Rubber"]],
             "tools": []
         }, {
+            "output": [[1, "HV Insulated Cable"]],
+            "input": [[1, "HV Cable"], [1, "Rubber"]],
+            "tools": []
+        }, {
             "output": [[12, "HV Cable"]],
             "input": [[3, "Refined Iron"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[4, "Glass Fibre Cable"]],
+            "input": [[6, "Glass"], [2, "Redstone"], [1, "Diamond"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[12, "Gold Cable"]],
+            "input": [[3, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Insulated Gold Cable"]],
+            "input": [[1, "Gold Cable"], [1, "Rubber"]],
+            "tools": []
+        }, {
+            "output": [[1, "2x Ins. Gold Cable"]],
+            "input": [[1, "Insulated Gold Cable"], [1, "Rubber"]],
+            "tools": []
+        }, {
+            "output": [[1, "Splitter Cable"]],
+            "input": [[2, "HV 3x Insulated Cable"], [2, "Redstone"], [1, "Lever"]],
+            "tools": []
+        }, {
+            "output": [[9, "Tin Cable"]],
+            "input": [[3, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "MFE"]],
+            "input": [[4, "2x Ins. Gold Cable"], [2, "Energy Crystal"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "MFSU"]],
+            "input": [[6, "Lapotron Crystal"], [1, "Advanced Machine Block"], [1, "MFE"], [1, "Advanced Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Advanced Machine Block"]],
+            "input": [[2, "Advanced Alloy"], [2, "Carbon Plate"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[5, "Single-Use Battery"]],
+            "input": [[1, "Insulated Copper Cable"], [1, "Redstone"], [1, "Coal Dust"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[8, "Hydrated Coal Dust"], [1, "Bucket"]],
+            "input": [[8, "Coal Dust"], [1, "Water Bucket"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Compressed Hyd. Coalclump"]],
+            "input": [[1, "Hydrated Coal Dust"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "H. Coal Cell"]],
+            "input": [[1, "Compressed Hyd. Coalclump"], [1, "Empty Cell"]],
+            "tools": []
+        }, {
+            "output": [[1, "Coalfuel Cell"]],
+            "input": [[1, "H. Coal Cell"]],
+            "tools": ["Extractor"]
+        }, {
+            "output": [[1, "HV Transformer"]],
+            "input": [[2, "HV 3x Insulated Cable"], [1, "MV Transformer"], [1, "Energy Crystal"], [1, "Electronic Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "MV Transformer"]],
+            "input": [[2, "2x Ins. Gold Cable"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "LV Transformer"]],
+            "input": [[4, "Oak Plank"], [3, "Copper Ingot"], [2, "Insulated Copper Cable"]],
             "tools": ["Crafting Table"]
         }
     ]

@@ -123,8 +123,14 @@ function updateCraftingSelector() {
             var $optgroup = $("<optgroup label=\"" + recipebook.name + "\">");
             $selector.append($optgroup);
 
+            var names = [];
             for (var name in recipebook.recipes) {
-                $optgroup.append("<option value=\"" + name + "\">" + name + "</option>");
+                names.push(name);
+            }
+            names.sort();
+
+            for (var i = 0; i < names.length; i++) {
+                $optgroup.append("<option value=\"" + names[i] + "\">" + names[i] + "</option>");
             }
         });
         $selector.removeAttr("disabled");

@@ -330,6 +330,22 @@
             "output": [[1, "Wrench (industrial craft)"]],
             "input": [[6, "Bronze Ingot"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Detector Cable"]],
+            "input": [[3, "Redstone"], [1, "Electronic Circuit"], [1, "HV 3x Insulated Cable"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "HV 3x Insulated Cable"]],
+            "input": [[1, "HV 2x Insulated Cable"], [1, "Rubber"]],
+            "tools": []
+        }, {
+            "output": [[1, "HV 2x Insulated Cable"]],
+            "input": [[1, "HV Insulated Cable"], [1, "Rubber"]],
+            "tools": []
+        }, {
+            "output": [[12, "HV Cable"]],
+            "input": [[3, "Refined Iron"]],
+            "tools": ["Crafting Table"]
         }
     ]
 }

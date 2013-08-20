@@ -418,6 +418,74 @@
             "output": [[1, "LV Transformer"]],
             "input": [[4, "Oak Plank"], [3, "Copper Ingot"], [2, "Insulated Copper Cable"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Energy Storage Upgrade"]],
+            "input": [[5, "Oak Plank"], [2, "Insulated Copper Cable"], [1, "RE Battery"], [1, "Electronic Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Overclocker Upgrade"]],
+            "input": [[3, "10K Cooling Cell"], [2, "Insulated Copper Cable"], [1, "Electronic Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "10K Cooling Cell"], [1, "Bucket"]],
+            "input": [[4, "Tin Ingot"], [1, "Water Bucket"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "30K Cooling Cell"]],
+            "input": [[6, "Tin Ingot"], [3, "10K Cooling Cell"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "60K Cooling Cell"]],
+            "input": [[6, "Tin Ingot"], [2, "30K Cooling Cell"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Dense Copper Plate"]],
+            "input": [[8, "Copper Ingot"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Reactor Chamber"]],
+            "input": [[4, "Dense Copper Plate"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Transformer Upgrade"]],
+            "input": [[5, "Glass"], [2, "2x Ins. Gold Cable"], [1, "Electronic Circuit"], [1, "MV Transformer"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Miner"]],
+            "input": [[2, "Electronic Circuit"], [2, "Mining Pipe"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[8, "Mining Pipe"]],
+            "input": [[6, "Refined Iron"], [1, "Treetap"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "OD Scanner"]],
+            "input": [[3, "Insulated Copper Cable"], [2, "Electronic Circuit"], [1, "RE Battery"], [1, "Glowstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "OV Scanner"]],
+            "input": [[3, "Glowstone"], [2, "2x Ins. Gold Cable"], [1, "Advanced Circuit"], [1, "OD Scanner"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "OV Scanner"]],
+            "input": [[3, "Glowstone"], [2, "2x Ins. Gold Cable"], [1, "Advanced Circuit"], [1, "RE Battery (charged)"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "RE Battery (charged)"]],
+            "input": [[1, "RE Battery"], [10000, "EU"]],
+            "tools": ["Generator"]
+        }, {
+            "output": [[1, "Pump"]],
+            "input": [[4, "Empty Cell"], [2, "Mining Pipe"], [1, "Electronic Circuit"], [1, "Machine Block"], [1, "Treetap"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Geothermal Generator"]],
+            "input": [[4, "Glass"], [2, "Empty Cell"], [2, "Refined Iron"], [1, "Generator"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Nuclear Reactor"]],
+            "input": [[3, "Reaction Chamber"], [1, "Advanced Circuit"], [1, "Generator"]],
+            "tools": ["Crafting Table"]
         }
     ]
 }

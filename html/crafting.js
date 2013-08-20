@@ -26,15 +26,17 @@ $(function() {
 
 function onCraftingSelectorChanged() {
     var recipeName = $("#crafting_selector option:selected").val();
+    var count = parseInt($("#crafting_count option:selected").val());
     if (recipeName === undefined) return;
+    if (count === undefined) return;
+
+    updatePageState(count, receipeName);
 
     var recipe = findRecipe(recipeName);
     if (recipe === undefined) {
         $("#crafting_error").html("Cannot find recipe for " + recipeName);
         $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
     } else {
-        var count = parseInt($("#crafting_count option:selected").val());
-
         var inventory = createManifest();
         var missingMaterials = createManifest();
         for (var i = 0; i < count; i++) {
@@ -127,6 +129,16 @@ function updateCraftingSelector() {
         });
         $selector.removeAttr("disabled");
     }
+}
+
+function updatePageState() {
+    var newTitle = "Crafting Guide: " + count + " " + recipeName;
+    var newLink = "?count=" + count + "&recipeName=" + encodeURIComponent(recipeName);
+    newLink = newLink.replace(/%20/g, "+");
+
+    document.title = newTitle;
+    history.pushState({count: count, name: recipeName}, newTitle, newLink);
+    ga('send', 'pageview');
 }
 
 // Manifest Object ////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -38,13 +38,15 @@ function onCraftingSelectorChanged() {
         $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
     } else {
         var inventory = createManifest();
+        var craftedItems = createManifest();
         var missingMaterials = createManifest();
         for (var i = 0; i < count; i++) {
-            recipe.craft(inventory, missingMaterials);
+            recipe.craft(inventory, craftedItems, missingMaterials);
             if (inventory.contains(count, recipeName)) break;
         }
 
         $("#missing_materials").html(missingMaterials.toHtml());
+        $("#crafted_items").html(craftedItems.toHtml());
         $("#leftover_materials").html(inventory.toHtml());
         $("#crafting_output").fadeIn(FADE_DURATION);
     }
@@ -209,8 +211,9 @@ function createRecipe(data) {
 
     // Methods ////////////////////////////////////////////
 
-    object.craft = function(inventory, missingMaterials) {
+    object.craft = function(inventory, craftedItems, missingMaterials) {
         if (inventory === undefined) inventory = createManifest();
+        if (craftedItems === undefined) craftedItems = createManifest();
         if (missingMaterials === undefined) missingMaterials = createManifest();
         var toCraftManifest = createManifest();
     
@@ -230,7 +233,7 @@ function createRecipe(data) {
                             inventory.add(1, name);
                         }
                     } else {
-                        itemRecipe.craft(inventory, missingMaterials);
+                        itemRecipe.craft(inventory, craftedItems, missingMaterials);
                         if (consumeItems) {
                             inventory.remove(1, name);
                         }
@@ -255,6 +258,7 @@ function createRecipe(data) {
         drainCraftingManifest(false);
 
         $(object.output).each(function(i, output) {
+            craftedItems.add(output.count, output.name);
             inventory.add(output.count, output.name);
         });
     };

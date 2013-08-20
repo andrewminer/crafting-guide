@@ -45,8 +45,15 @@
           <select id="crafting_selector" disabled></select>
         </p>
         <table id="crafting_output" class="hidden" cellpadding="0" cellspacing="0">
-          <tr><th width="50%">You'll need:</th><th>You'll get:</th></tr>
-          <tr><td id="missing_materials">&nbsp;</td><td id="leftover_materials"></td></tr>
+          <tr>
+            <th width="33%">You need to find:</th>
+            <th width="34%">You need to make:</th>
+            <th width="33%">You'll end up with:</th></tr>
+          <tr>
+            <td id="missing_materials">&nbsp;</td>
+            <td id="crafted_items">&nbsp;</td>
+            <td id="leftover_materials">&nbsp;</td>
+          </tr>
         </table>
         <div id="crafting_error" class="error"></div>
       </div> <!-- #crafting -->

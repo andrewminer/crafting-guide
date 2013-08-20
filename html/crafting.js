@@ -30,7 +30,7 @@ function onCraftingSelectorChanged() {
     if (recipeName === undefined) return;
     if (count === undefined) return;
 
-    updatePageState(count, receipeName);
+    updatePageState(count, recipeName);
 
     var recipe = findRecipe(recipeName);
     if (recipe === undefined) {
@@ -131,7 +131,7 @@ function updateCraftingSelector() {
     }
 }
 
-function updatePageState() {
+function updatePageState(count, recipeName) {
     var newTitle = "Crafting Guide: " + count + " " + recipeName;
     var newLink = "?count=" + count + "&recipeName=" + encodeURIComponent(recipeName);
     newLink = newLink.replace(/%20/g, "+");

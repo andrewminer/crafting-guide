@@ -6,6 +6,7 @@ var ERROR_DISPLAY_DURATION = 5000; // ms
 // Global Variables ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 var __recipebooks = [];
+var __toolsIncluded = false;
 
 // UI Functions ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,6 +14,7 @@ $(function() {
     $("#recipebook_load_button").click(onRecipeLoadButtonClicked);
     $("#crafting_selector").change(onCraftingSelectorChanged);
     $("#crafting_count").change(onCraftingSelectorChanged);
+    $("#tools_included").change(onIncludeToolsChanged);
 
     loadRecipebook("data/vanilla.json", function() {
         loadRecipebook("data/buildcraft.json", function() {
@@ -58,6 +60,11 @@ function onRecipeLoadButtonClicked() {
         $("#recipebook_url").val("");
         $("#reipebook_load_button").removeAttr("disabled");
     });
+}
+
+function onIncludeToolsChanged() {
+    __toolsIncluded = $("#tools_included").is(":checked");
+    onCraftingSelectorChanged()
 }
 
 // UI Helper Functions ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +118,13 @@ function parseUrlParameters() {
             $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
         }
     }
+
+    __toolsIncluded = $.url().param('toolsIncluded') === "true";
+    if (__toolsIncluded) {
+        $("#tools_included").attr("checked", true);
+    } else {
+        $("#tools_included").removeAttr("checked");
+    }
 }
 
 function updateCraftingSelector() {
@@ -141,7 +155,9 @@ function updateCraftingSelector() {
 
 function updatePageState(count, recipeName) {
     var newTitle = "Crafting Guide: " + count + " " + recipeName;
-    var newLink = "?count=" + count + "&recipeName=" + encodeURIComponent(recipeName);
+    var newLink = "?count=" + count +
+        "&recipeName=" + encodeURIComponent(recipeName) +
+        (__toolsIncluded ? "&toolsIncluded=true" : "");
     newLink = newLink.replace(/%20/g, "+");
 
     document.title = newTitle;
@@ -243,19 +259,21 @@ function createRecipe(data) {
             toCraftManifest.removeAll();
         }
 
+        if (__toolsIncluded) {
+            $(object.tools).each(function(i, tool) {
+                if (! inventory.contains(1, tool)) {
+                    toCraftManifest.add(1, tool);
+                }
+            });
+            drainCraftingManifest(false);
+        }
+
         $(object.input).each(function(i, input) {
             for (var j = 0; j < input.count; j++) {
                 toCraftManifest.add(1, input.name);
             }
         });
         drainCraftingManifest(true);
-
-        $(object.tools).each(function(i, tool) {
-            if (! inventory.contains(1, tool)) {
-                toCraftManifest.add(1, tool);
-            }
-        });
-        drainCraftingManifest(false);
 
         $(object.output).each(function(i, output) {
             craftedItems.add(output.count, output.name);

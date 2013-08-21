@@ -7,6 +7,10 @@
             "input": [[1, "Potato"], [125, "milli-coal"]],
             "tools": ["Furnace"]
         }, {
+            "output": [[1, "Beacon"]],
+            "input": [[5, "Glass"], [3, "Obsidian"], [1, "Nether Star"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Boat"]],
             "input": [[5, "Oak Plank"]],
             "tools": ["Crafting Table"]
@@ -367,6 +371,10 @@
             "input": [[3, "Cobblestone"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Stone Button"]],
+            "input": [[1, "Stone"]],
+            "tools": []
+        }, {
             "output": [[1, "Stone Hoe"]],
             "input": [[2, "Cobblestone"], [2, "Stick"]],
             "tools": ["Crafting Table"]
@@ -379,6 +387,10 @@
             "input": [[2, "Cobblestone"], [1, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "TNT"]],
+            "input": [[5, "Gunpowder"], [4, "Sand"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Water Bucket"]],
             "input": [[1, "Bucket"], [1, "Water Source Block"]],
             "tools": []
@@ -386,6 +398,10 @@
             "output": [[1, "Wooden Axe"]],
             "input": [[3, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wooden Button"]],
+            "input": [[1, "Oak Plank"]],
+            "tools": []
         }, {
             "output": [[1, "Wooden Hoe"]],
             "input": [[2, "Oak Plank"], [2, "Stick"]],

@@ -19,8 +19,10 @@ $(function() {
     loadRecipebook("data/vanilla.json", function() {
         loadRecipebook("data/buildcraft.json", function() {
             loadRecipebook("data/industrial_craft.json", function() {
-                parseUrlParameters();
-                onCraftingSelectorChanged();
+                loadRecipebook("data/thermal_expansion.json", function() {
+                    parseUrlParameters();
+                    onCraftingSelectorChanged();
+                });
             });
         });
     });

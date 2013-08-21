@@ -118,13 +118,6 @@ function parseUrlParameters() {
             $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
         }
     }
-
-    __toolsIncluded = $.url().param('toolsIncluded') === "true";
-    if (__toolsIncluded) {
-        $("#tools_included").attr("checked", true);
-    } else {
-        $("#tools_included").removeAttr("checked");
-    }
 }
 
 function updateCraftingSelector() {
@@ -155,9 +148,7 @@ function updateCraftingSelector() {
 
 function updatePageState(count, recipeName) {
     var newTitle = "Crafting Guide: " + count + " " + recipeName;
-    var newLink = "?count=" + count +
-        "&recipeName=" + encodeURIComponent(recipeName) +
-        (__toolsIncluded ? "&toolsIncluded=true" : "");
+    var newLink = "?count=" + count + "&recipeName=" + encodeURIComponent(recipeName);
     newLink = newLink.replace(/%20/g, "+");
 
     document.title = newTitle;

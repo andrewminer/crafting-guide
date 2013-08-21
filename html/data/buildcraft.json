@@ -203,6 +203,10 @@
             "input": [[1, "Stone Pipe"], [1, "Redstone"]],
             "tools": []
         }, {
+            "output": [[1, "Stone Gear"]],
+            "input": [[1, "Wooden Gear"], [4, "Cobblestone"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[8, "Stone Pipe"]],
             "input": [[2, "Stone"], [1, "Glass"]],
             "tools": ["Crafting Table"]

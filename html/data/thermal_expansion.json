@@ -1,0 +1,43 @@
+{
+    "name": "Thermal Expansion",
+    "description": "Crafting Recipes from Thermal Expansion, by King Lemming and the CoFH team",
+    "recipes": [
+        {
+            "output": [[1, "Copper Gear"]],
+            "input": [[1, "Cobblestone Gear"], [4, "Copper Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Electrum Blend"]],
+            "input": [[1, "Gold Dust"], [1, "Silver Dust"]],
+            "tools": []
+        }, {
+            "output": [[1, "Electrum Ingot"]],
+            "input": [[1, "Electrum Dust"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Machine Frame"]],
+            "input": [[4, "Iron Ingot"], [4, "Glass"], [1, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Pneumatic Servo"]],
+            "input": [[2, "Glass"], [2, "Iron Ingot"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Conductance Coil"]],
+            "input": [[2, "Redstone"], [1, "Electrum Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Reception Coil"]],
+            "input": [[2, "Redstone"], [1, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Transmission Coil"]],
+            "input": [[2, "Redstone"], [1, "Silver Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Tin Gear"]],
+            "input": [[4, "Tin Ingot"], [1, "Cobblestone Gear"]],
+            "tools": ["Crafting Table"]
+        }
+    ]
+}

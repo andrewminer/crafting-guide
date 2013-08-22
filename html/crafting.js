@@ -6,6 +6,7 @@ var SLIDE_DURATION = 600; // ms
 
 // Global Variables ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+var __inventory = createManifest();
 var __loadingCount = 0;
 var __recipebooks = [];
 var __toolsIncluded = false;
@@ -17,6 +18,7 @@ $(function() {
     $("#crafting_count").change(onCraftingSelectorChanged);
     $("#tools_included").change(onIncludeToolsChanged);
     $("#crafting_selector").focus(onCraftingSelectorFocused);
+    $("#inventory").keyup(onInventoryChanged);
 
     loadRecipebook("data/vanilla.json");
     loadRecipebook("data/buildcraft.json");
@@ -33,7 +35,7 @@ function onCraftingSelectorChanged() {
     if (recipe === undefined) {
         $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
-        var inventory = createManifest();
+        var inventory = __inventory.copy();
         var craftedItems = createManifest();
         var missingMaterials = createManifest();
         for (var i = 0; i < count; i++) {
@@ -57,6 +59,27 @@ function onCraftingSelectorFocused() {
 function onIncludeToolsChanged() {
     __toolsIncluded = $("#tools_included").is(":checked");
     onCraftingSelectorChanged()
+}
+
+function onInventoryChanged() {
+    __inventory.removeAll();
+
+    var inventoryText = $("#inventory").val();
+    if (inventoryText) {
+        var inventoryLines = inventoryText.split("\n");
+        for (var i = 0; i < inventoryLines.length; i++) {
+            var line = inventoryLines[i].trim();
+            var match = /^([0-9]+)(.*)$/.exec(line);
+
+            var count = (match) ? parseInt(match[1]) : 1;
+            var itemName = (match) ? match[2].trim() : line;
+
+            if (itemName.length > 0) {
+                __inventory.add(count, itemName);
+            }
+        }
+    }
+    onCraftingSelectorChanged();
 }
 
 function onRecipeBookLoaded() {
@@ -160,7 +183,6 @@ function updatePageState(count, recipeName) {
         newLink = newLink.replace(/%20/g, "+");
         state = {count: count, name: recipeName};
     }
-    console.log("newTitle: " + newTitle + ", newLink: " + newLink);
 
     document.title = newTitle;
     history.pushState(state, newTitle, newLink);
@@ -184,6 +206,14 @@ function createManifest() {
         if (object.materials[name] === undefined) return false;
         return (object.materials[name] >= count);
     };
+
+    object.copy = function(count, name) {
+        var result = createManifest();
+        for (var name in object.materials) {
+            result.add(object.materials[name], name);
+        }
+        return result;
+    }
 
     object.remove = function(count, name) {
         if (object.materials[name] !== undefined) {

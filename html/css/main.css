@@ -16,7 +16,7 @@ p { margin-left: 10px; margin-right: 10px; }
 #border_bedrock { background: url("../images/bedrock.png"); height: 32px; box-shadow: 2px 0px 4px #444; }
 #crafting { margin-bottom: 64px; }
 #crafting_error { margin-left: 10px; }
-#crafting_output { margin-left: 10px; width: 920px; }
+#crafting_output { margin-left: 10px; min-height: 400px; width: 920px; }
 #crafting_output th { background: #f8f8f8; border-left: 1px solid #bbb; font-weight: bold; padding: 10px; }
 #crafting_output td { background: #f8f8f8; border-left: 1px solid #bbb; padding: 10px; }
 #crafting_selector { width: 400px; }

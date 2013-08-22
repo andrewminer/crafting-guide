@@ -1,10 +1,12 @@
 // Constants //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+var ERROR_DISPLAY_DURATION = 10000; // ms
 var FADE_DURATION = 250; // ms
-var ERROR_DISPLAY_DURATION = 5000; // ms
+var SLIDE_DURATION = 600; // ms
 
 // Global Variables ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+var __loadingCount = 0;
 var __recipebooks = [];
 var __toolsIncluded = false;
 
@@ -12,32 +14,24 @@ var __toolsIncluded = false;
 
 $(function() {
     $("#recipebook_load_button").click(onRecipeLoadButtonClicked);
-    $("#crafting_selector").change(onCraftingSelectorChanged);
     $("#crafting_count").change(onCraftingSelectorChanged);
     $("#tools_included").change(onIncludeToolsChanged);
+    $("#crafting_selector").focus(onCraftingSelectorFocused);
 
-    loadRecipebook("data/vanilla.json", function() {
-        loadRecipebook("data/buildcraft.json", function() {
-            loadRecipebook("data/industrial_craft.json", function() {
-                parseUrlParameters();
-                onCraftingSelectorChanged();
-            });
-        });
-    });
+    loadRecipebook("data/vanilla.json");
+    loadRecipebook("data/buildcraft.json");
+    loadRecipebook("data/industrial_craft.json");
 });
 
 function onCraftingSelectorChanged() {
-    var recipeName = $("#crafting_selector option:selected").val();
+    var recipeName = $("#crafting_selector").val();
     var count = parseInt($("#crafting_count option:selected").val());
-    if (recipeName === undefined) return;
     if (count === undefined) return;
 
-    updatePageState(count, recipeName);
 
     var recipe = findRecipe(recipeName);
     if (recipe === undefined) {
-        $("#crafting_error").html("Cannot find recipe for " + recipeName);
-        $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
+        $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
         var inventory = createManifest();
         var craftedItems = createManifest();
@@ -50,7 +44,28 @@ function onCraftingSelectorChanged() {
         $("#missing_materials").html(missingMaterials.toHtml());
         $("#crafted_items").html(craftedItems.toHtml());
         $("#leftover_materials").html(inventory.toHtml());
-        $("#crafting_output").fadeIn(FADE_DURATION);
+        $("#crafting_output").slideDown(SLIDE_DURATION);
+    }
+
+    updatePageState(count, recipeName);
+}
+
+function onCraftingSelectorFocused() {
+    $("#crafting_selector").autocomplete("search");
+}
+
+function onIncludeToolsChanged() {
+    __toolsIncluded = $("#tools_included").is(":checked");
+    onCraftingSelectorChanged()
+}
+
+function onRecipeBookLoaded() {
+    if (__loadingCount > 0 || __recipebooks.length === 0) {
+        $("#crafting").fadeOut(FADE_DURATION);
+    } else if (__loadingCount === 0 && __recipebooks.length > 0) {
+        updateCraftingSelector();
+        parseUrlParameters();
+        $("#crafting").fadeIn(FADE_DURATION);
     }
 }
 
@@ -62,14 +77,10 @@ function onRecipeLoadButtonClicked() {
     });
 }
 
-function onIncludeToolsChanged() {
-    __toolsIncluded = $("#tools_included").is(":checked");
-    onCraftingSelectorChanged()
-}
-
 // UI Helper Functions ////////////////////////////////////////////////////////////////////////////////////////////////
 
-function loadRecipebook(recipebookUrl, onSuccess) {
+function loadRecipebook(recipebookUrl) {
+    __loadingCount++;
     $.ajax({
         url: recipebookUrl,
         dataType: "text",
@@ -79,19 +90,18 @@ function loadRecipebook(recipebookUrl, onSuccess) {
                 __recipebooks.push(recipebook);
 
                 recipebook.asTableRow().insertBefore($("#recipebook_table tr").last());
-
-                updateCraftingSelector();
-                $("#crafting").fadeIn(FADE_DURATION);
-
-                if (onSuccess !== undefined) onSuccess();
             } catch (e) {
                 $("#load_error").html(e);
                 $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
             }
         },
         error: function(response, status, error) {
-            $("#load_error").html(error);
+            $("#load_error").html(status + ": " + error);
             $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
+        },
+        complete: function() {
+            __loadingCount--;
+            onRecipeBookLoaded();
         }
     });
 }
@@ -113,7 +123,9 @@ function parseUrlParameters() {
     if (recipeName !== undefined) {
         $("#crafting_selector").val(recipeName);
 
-        if ($("#crafting_selector option:selected").val() === undefined) {
+        if (findRecipe(recipeName) !== undefined) {
+            onCraftingSelectorChanged();
+        } else if (recipeName.length > 0) {
             $("#crafting_error").html("Cannot find recipe for " + recipeName);
             $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
         }
@@ -121,38 +133,37 @@ function parseUrlParameters() {
 }
 
 function updateCraftingSelector() {
-    var $selector = $("#crafting_selector");
-    $selector.html("");
+    var $selector = $("crafting_selector");
+    var names = [];
+    $(__recipebooks).each(function(i, recipebook) {
+        for (var name in recipebook.recipes) {
+            names.push(name);
+        }
+    });
+    names.sort();
 
-    if (__recipebooks.length == 0) {
-        $selector.attr("disabled", "disabled");
-        $selector.html("<option>No recipes</option>");
-    } else {
-        $(__recipebooks).each(function(i, recipebook) {
-            var $optgroup = $("<optgroup label=\"" + recipebook.name + "\">");
-            $selector.append($optgroup);
-
-            var names = [];
-            for (var name in recipebook.recipes) {
-                names.push(name);
-            }
-            names.sort();
-
-            for (var i = 0; i < names.length; i++) {
-                $optgroup.append("<option value=\"" + names[i] + "\">" + names[i] + "</option>");
-            }
-        });
-        $selector.removeAttr("disabled");
-    }
+    $("#crafting_selector").autocomplete({
+        source: names, delay: 0, minLength: 0,
+        change: onCraftingSelectorChanged,
+        close: onCraftingSelectorChanged,
+        select: onCraftingSelectorChanged,
+    });
 }
 
 function updatePageState(count, recipeName) {
-    var newTitle = "Crafting Guide: " + count + " " + recipeName;
-    var newLink = "?count=" + count + "&recipeName=" + encodeURIComponent(recipeName);
-    newLink = newLink.replace(/%20/g, "+");
+    var newTitle = "Crafting Guide";
+    var newLink = window.location.pathname;
+    var state = {}
+    if (recipeName !== undefined && recipeName.length > 0) {
+        newTitle = "Crafting Guide: " + count + " " + recipeName;
+        newLink = "?count=" + count + "&recipeName=" + encodeURIComponent(recipeName);
+        newLink = newLink.replace(/%20/g, "+");
+        state = {count: count, name: recipeName};
+    }
+    console.log("newTitle: " + newTitle + ", newLink: " + newLink);
 
     document.title = newTitle;
-    history.pushState({count: count, name: recipeName}, newTitle, newLink);
+    history.pushState(state, newTitle, newLink);
     ga('send', 'pageview');
 }
 

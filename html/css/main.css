@@ -19,6 +19,7 @@ p { margin-left: 10px; margin-right: 10px; }
 #crafting_output { margin-left: 10px; width: 920px; }
 #crafting_output th { background: #f8f8f8; border-left: 1px solid #bbb; font-weight: bold; padding: 10px; }
 #crafting_output td { background: #f8f8f8; border-left: 1px solid #bbb; padding: 10px; }
+#crafting_selector { width: 400px; }
 #footer { background: #3E1D0A; color: white; padding-top: 10px; };
 #footer iframe { display: inline-block; }
 #footer a { color: gray; }
@@ -31,3 +32,4 @@ p { margin-left: 10px; margin-right: 10px; }
 #recipebook_url { width: 600px; }
 #recipebooks { margin-top: 32px; margin-bottom: 32px; }
 
+.ui-autocomplete { max-height: 400px; overflow-y: auto; overflow-x: hidden; }

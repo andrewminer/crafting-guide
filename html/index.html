@@ -2,11 +2,12 @@
 <html>
   <head>
     <title>Crafting Guide</title>
-    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Press+Start+2P'/>
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="css/text.css"/>
     <link rel="stylesheet" type="text/css" href="css/960.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Press+Start+2P'/>
   </head>
 
   <body class="container_12">
@@ -32,7 +33,7 @@
 
       <div id="crafting" class="hidden">
         <h1><img src="images/workbench_top.png"> Crafting</h1>
-        <p>Choose a recipe:
+        <p>I want to make
           <select id="crafting_count">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -42,9 +43,9 @@
             <option value="32">32</option>
             <option value="64">64</option>
           </select>
-          <select id="crafting_selector" disabled></select>
+          <input id="crafting_selector"></input>
           <input id="tools_included" name="tools_included" type="checkbox"></input>
-          <label for="include_tools">include tools</label>
+          <label for="tools_included">include tools</label>
         </p>
         <table id="crafting_output" class="hidden" cellpadding="0" cellspacing="0">
           <tr>
@@ -96,7 +97,8 @@
       <div id="border_bedrock" class="grid_12 alpha omega">&nbsp;</div>
     </div> <!-- .container_12 -->
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="purl.js"></script>
     <script src="crafting.js"></script>
     <script>

@@ -233,7 +233,7 @@ function createManifest() {
         var result = "";
         var count = 0;
         for (var name in object.materials) {
-            result += "<li>" + object.materials[name] + " " + name + "</li>";
+            result += "<tr><td>" + object.materials[name] + "</td><td>" + name + "</td></tr>";
             count += 1
         }
 

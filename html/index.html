@@ -47,7 +47,7 @@
           <input id="tools_included" name="tools_included" type="checkbox"></input>
           <label for="tools_included">include tools</label>
         </p>
-        <table id="crafting_output" class="hidden" cellpadding="0" cellspacing="0">
+        <table id="crafting_output" class="crafting_output hidden" cellpadding="0" cellspacing="0">
           <tr>
             <th width="25%">I already have:</th>
             <th width="25%">You'll need to find:</th>
@@ -55,9 +55,9 @@
             <th width="25%">You'll end up with:</th></tr>
           <tr>
             <td><textarea id="inventory" style="height: 100%; width: 100%" placeholder="2 Oak Log"></textarea></td>
-            <td id="missing_materials">&nbsp;</td>
-            <td id="crafted_items">&nbsp;</td>
-            <td id="leftover_materials">&nbsp;</td>
+            <td><table id="missing_materials" cellpadding="0" cellspacing="0" class="manifest"></table></td>
+            <td><table id="crafted_items" cellpadding="0" cellspacing="0" class="manifest"></table></td>
+            <td><table id="leftover_materials" cellpadding="0" cellspacing="0" class="manifest"></table></td>
           </tr>
         </table>
         <div id="crafting_error" class="error"></div>

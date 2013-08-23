@@ -3,6 +3,138 @@
     "description": "Crafting recipes from IndustrialCraft 2, by Alblaka (in progress)",
     "recipes": [
         {
+            "output": [[1, "Trade-O-Mat"]],
+            "input": [[3, "Redstone"], [2, "Chest"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Tesla Coil"]],
+            "input": [[5, "Redstone"], [2, "Refined Iron"], [1, "Electronic Circuit"], [1, "MV Transformer"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Mushroom"]],
+            "input": [[4, "Brown Mushroom"], [4, "Mycelium"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Irrigation"]],
+            "input": [[4, "Water Bucket"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Flatificator"]],
+            "input": [[4, "Dirt"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Desertification"]],
+            "input": [[4, "Sand"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Cultivation"]],
+            "input": [[4, "Seed"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Compression"]],
+            "input": [[4, "Stone"], [4, "Cobblestone"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "TFBP - Chilling"]],
+            "input": [[4, "Snow"], [1, "Empty TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Empty TFBP"]],
+            "input": [[2, "Redstone"], [1, "Advanced Circuit"], [1, "Electronic Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Terraformer"]],
+            "input": [[4, "Glowstone"], [3, "Dirt"], [1, "Advanced Machine Block"], [1, "TFBP"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Personal Safe"]],
+            "input": [[1, "Electronic Circuit"], [1, "Machine Block"], [1, "Chest"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Magnetizer"]],
+            "input": [[6, "Redstone"], [1, "Iron Fence"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Electrolyzer"]],
+            "input": [[4, "Insulated Copper Cable"], [2, "RE Battery"], [1, "Machine Block"], [1, "Electronic Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Recycler"]],
+            "input": [[3, "Dirt"], [2, "Refined Iron"], [1, "Compressor"], [1, "Glowstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Mass Fabricator"]],
+            "input": [[4, "Glowstone"], [2, "Advanced Circuit"], [2, "Advanced Machine Block"], [1, "Lapotron Crystal"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[5, "Bone Meal"]],
+            "input": [[1, "Bone"]],
+            "tools": ["Macerator"]
+        }, {
+            "output": [[5, "Blaze Powder"]],
+            "input": [[1, "Blaze Rod"]],
+            "tools": ["Macerator"]
+        }, {
+            "output": [[3, "Coffee Powder"]],
+            "input": [[1, "Coffee Beans"]],
+            "tools": ["Macerator"]
+        }, {
+            "output": [[1, "String"]],
+            "input": [[1, "Wool"]],
+            "tools": ["Macerator"]
+        }, {
+            "output": [[1, "Flint"]],
+            "input": [[1, "Gravel"]],
+            "tools": ["Macerator"]
+        }, {
+            "output": [[1, "Induction Furnace"]],
+            "input": [[7, "Copper Ingot"], [1, "Electric Furnace"], [1, "Advanced Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Biofuel Cell"]],
+            "input": [[1, "Bio Cell"]],
+            "tools": ["Extractor"]
+        }, {
+            "output": [[1, "Electric Furnace"]],
+            "input": [[2, "Redstone"], [1, "Electronic Circuit"], [1, "Iron Furnace"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Nether Brick"]],
+            "input": [[3, "Netherrack"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "CF Pellet"]],
+            "input": [[1, "Construction Foam"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Ice"]],
+            "input": [[1, "Snowball"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Snowball"]],
+            "input": [[1, "Water Cell"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Compressed Plantclump"]],
+            "input": [[1, "Plantclump"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Diamond (industrial)"]],
+            "input": [[1, "Coal Chunk"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Canning Machine"]],
+            "input": [[7, "Tin Ingot"], [1, "Electronic Circuit"], [1, "Machine Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wind Mill"]],
+            "input": [[4, "Iron"], [1, "Generator"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[2, "Water Mill"]],
+            "input": [[4, "Stick"], [4, "Oak Plank"], [1, "Generator"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Advanced Alloy"]],
             "input": [[1, "Mixed Metal Ingot"]],
             "tools": ["Compressor"]

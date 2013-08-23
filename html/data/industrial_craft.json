@@ -83,10 +83,6 @@
             "input": [[1, "Wool"]],
             "tools": ["Macerator"]
         }, {
-            "output": [[1, "Flint"]],
-            "input": [[1, "Gravel"]],
-            "tools": ["Macerator"]
-        }, {
             "output": [[1, "Induction Furnace"]],
             "input": [[7, "Copper Ingot"], [1, "Electric Furnace"], [1, "Advanced Machine Block"]],
             "tools": ["Crafting Table"]

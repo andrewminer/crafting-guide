@@ -31,7 +31,7 @@
             "input": [[2, "Glass"], [1, "Machine Frame"], [1, "Piston"], [1, "Pneumatic Servo"], [2, "Tin Ingot"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1. "Induction Smelter"]],
+            "output": [[1, "Induction Smelter"]],
             "input": [[1, "Bucket"], [2, "Copper Ingot"], [2, "Invar Ingot"], [1, "Machine Frame"], [1, "Redstone Reception Coil"]],
             "tools": ["Crafting Table"]
         }, {
@@ -67,7 +67,7 @@
             "input": [[2, "Glass"], [2, "Iron Ingot"], [1, "Redstone"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1. "Powered Furnace"]],
+            "output": [[1, "Powered Furnace"]],
             "input": [[2, "Bricks"], [2, "Copper Ingot"], [1, "Machine Frame"], [1, "Redstone"], [1, "Redstone Conductance Coil"]],
             "tools": ["Crafting Table"]
         }, {

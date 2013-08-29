@@ -3,6 +3,94 @@
     "description": "Crafting recipes from IndustrialCraft 2, by Alblaka (in progress)",
     "recipes": [
         {
+            "output": [[1, "Thick Neutron Reflector"]],
+            "input": [[4, "Neutron Reflector"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Neutron Reflector"]],
+            "input": [[4, "Tin Dust"], [4, "Coal Dust"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Depleted Isotope Cell"]],
+            "input": [[1, "Near-Depleted Uranium Cell"], [1, "Coal Dust"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Near-Depleted Uranium Cell"]],
+            "input": [[8, "Empty Cell"], [1, "Uranium Fuel Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Quad Uranium Cell"]],
+            "input": [[3, "Dense Copper Plate"], [2, "Dual Uranium Cell"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Dual Uranium Cell"]],
+            "input": [[2, "Uranium Cell"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Uranium Cell"]],
+            "input": [[1, "Empty Cell"], [1, "Uranium Fuel Ingot"]],
+            "tools": []
+        }, {
+            "output": [[1, "Heat-Capacity Reactor Plating"]],
+            "input": [[2, "Dense Copper Plate"], [1, "Reactor Plating"]],
+            "tools": []
+        }, {
+            "output": [[1, "Containment Reactor Plating"]],
+            "input": [[2, "Advanced Alloy"], [1, "Reactor Plating"]],
+            "tools": []
+        }, {
+            "output": [[1, "Reactor Plating"]],
+            "input": [[1, "Dense Copper Plate"], [1, "Advanced Alloy"]],
+            "tools": []
+        }, {
+            "output": [[1, "Lava Cell"], [1, "Bucket"]],
+            "input": [[1, "Empty Cell"], [1, "Lava Bucket"]],
+            "tools": []
+        }, {
+            "output": [[1, "Heating Cell"]],
+            "input": [[1, "Electronic Circuit"], [1, "Lava Cell"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Component Heat Exchanger"]],
+            "input": [[4, "Gold Ingot"], [1, "Heat Exchanger"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Core Heat Exchanger"]],
+            "input": [[2, "Dense Copper Plate"], [1, "Heat Exchanger"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Advanced Heat Exchanger"]],
+            "input": [[4, "Glass Fiber Cable"], [2, "Heat Exchanger"], [2, "Electronic Circuit"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "LZH-Condensator"]],
+            "input": [[4, "Redstone"], [2, "RSH-Condensator"], [1, "Reactor Heat Vent"], [1, "Core Heat Exchanger"], [1, "Lapis Lazuli Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Heat Exchanger"]],
+            "input": [[3, "Tin Ingot"], [1, "Electronic Circuit"], [1, "Dense Copper Plate"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "RSH-Condensator"]],
+            "input": [[7, "Redstone"], [1, "Heat Vent"], [1, "Heat Exchanger"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Overclocked Heat Vent"]],
+            "input": [[2, "Gold Ingot"], [1, "Reactor Heat Vent"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Advanced Heat Vent"]],
+            "input": [[6, "Iron Bars"], [2, "Heat Vent"], [1, "Diamond"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Reactor Heat Vent"]],
+            "input": [[2, "Dense Copper Plate"], [1, "Heat Vent"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Heat Vent"]],
+            "input": [[4, "Refined Iron"], [4, "Iron Bars"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Trade-O-Mat"]],
             "input": [[3, "Redstone"], [2, "Chest"], [1, "Machine Block"]],
             "tools": ["Crafting Table"]

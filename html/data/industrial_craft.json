@@ -755,7 +755,7 @@
             "input": [[3, "Refined Iron"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[4, "Glass Fibre Cable"]],
+            "output": [[4, "Glass Fiber Cable"]],
             "input": [[6, "Glass"], [2, "Redstone"], [1, "Diamond"]],
             "tools": ["Crafting Table"]
         }, {

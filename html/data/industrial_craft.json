@@ -1,8 +1,184 @@
 {
     "name": "Industrial Craft",
-    "description": "Crafting recipes from IndustrialCraft 2, by Alblaka (in progress)",
+    "description": "Crafting recipes from IndustrialCraft 2, by Alblaka",
     "recipes": [
         {
+            "output": [[4, "Tin Can"]],
+            "input": [[5, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Scrap Box"]],
+            "input": [[9, "Scrap"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[16, "Coin"]],
+            "input": [[4, "Refined Iron"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Treetap"]],
+            "input": [[5, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Toolbox"]],
+            "input": [[5, "Iron Ingot"], [1, "Chest"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Painter"]],
+            "input": [[3, "Wool"], [2, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "EU Reader"]],
+            "input": [[4, "Insulated Copper Cable"], [1, "Electronic Circuit"], [1, "Glowstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Cutter"]],
+            "input": [[5, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "CF Sprayer"]],
+            "input": [[4, "Cobblestone"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "FreqTrans"]],
+            "input": [[1, "Insulated Copper Cable"], [1, "Electronic Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Dynamite-O-Mote"]],
+            "input": [[2, "Tin Ingot"], [1, "Insulated Copper Cable"], [1, "Lapis Lazuli"], [1, "FreqTrans"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Nano Saber"]],
+            "input": [[2, "Advanced Alloy"], [2, "Carbon Plate"], [2, "Glowstone"], [1, "Energy Cell"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Mining Laser"]],
+            "input": [[4, "Advanced Alloy"], [2, "Energy Crystal"], [1, "Redstone"], [1, "Advanced Circuit"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Electric Wrench"]],
+            "input": [[1, "Wrench"], [1, "Electric Circuit"], [1, "RE Battery"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Electric Treetap"]],
+            "input": [[1, "Treetap"], [1, "Electric Circuit"], [1, "RE Battery"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Diamond Drill"]],
+            "input": [[3, "Diamond"], [1, "Mining Drill"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Mining Drill"]],
+            "input": [[5, "Refined Iron"], [1, "Electronic Circuit"], [1, "RE Battery"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chainsaw"]],
+            "input": [[5, "Refined Iron"], [1, "Electronic Circuit"], [1, "RE Battery"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Uranium Block"]],
+            "input": [[9, "Refined Uranium"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Refined Uranium"]],
+            "input": [[1, "Uranium"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Tin Block"]],
+            "input": [[9, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Bronze Block"]],
+            "input": [[9, "Bronze Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Copper Block"]],
+            "input": [[9, "Copper Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Rail Track"]],
+            "input": [[6, "Bronze"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Biofuel Cell"]],
+            "input": [[1, "Bio Cell"]],
+            "tools": ["Extractor"]
+        }, {
+            "output": [[1, "Bio Cell"]],
+            "input": [[1, "Empty Cell"], [1, "Compressed Plantball"]],
+            "tools": []
+        }, {
+            "output": [[8, "Sticky Dynamite"]],
+            "input": [[8, "Dynamite"], [1, "Resin"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[8, "Dynamite"]],
+            "input": [[1, "String"], [1, "Industrial TNT"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[4, "Industrial TNT"]],
+            "input": [[6, "Flint"], [3, "TNT"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[16, "Scaffold"]],
+            "input": [[3, "Oak Plank"], [3, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[3, "Rubber Trampoline"]],
+            "input": [[6, "Rubber"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[7, "Reinforced Glass"]],
+            "input": [[7, "Glass"], [2, "Advanced Alloy"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Reinforced Door"]],
+            "input": [[6, "Reinforced Stone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[8, "Reinforced Stone"]],
+            "input": [[8, "Stone"], [1, "Advanced Alloy"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[16, "Iron Scaffold"]],
+            "input": [[3, "Reinfined Iron"], [3, "Iron Fence"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[12, "Iron Fence"]],
+            "input": [[6, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Luminator"]],
+            "input": [[5, "Glass"], [2, "Reinforced Iron"], [1, "Insulated Copper Cable"], [1, "Tin Cable"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Construction Foam"], [1, "Bucket"]],
+            "input": [[1, "Clay Dust"], [1, "Water Bucket"], [1, "Coal Dust"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Diamond (crafted)"]],
+            "input": [[1, "Coal Chunk"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Coal Chunk"]],
+            "input": [[8, "Compressed Coal Ball"], [1, "Obsidian"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Coal Chunk"]],
+            "input": [[8, "Compressed Coal Ball"], [1, "Brick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Coal Chunk"]],
+            "input": [[8, "Compressed Coal Ball"], [1, "Iron Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Compressed Coal Ball"]],
+            "input": [[1, "Coal Ball"]],
+            "tools": ["Compressor"]
+        }, {
+            "output": [[1, "Coal Ball"]],
+            "input": [[8, "Coal Dust"], [1, "1 Flint"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Thick Neutron Reflector"]],
             "input": [[4, "Neutron Reflector"], [1, "Dense Copper Plate"]],
             "tools": ["Crafting Table"]
@@ -167,7 +343,7 @@
             "input": [[1, "Coffee Beans"]],
             "tools": ["Macerator"]
         }, {
-            "output": [[1, "String"]],
+            "output": [[4, "String"]],
             "input": [[1, "Wool"]],
             "tools": ["Macerator"]
         }, {
@@ -199,8 +375,8 @@
             "input": [[1, "Water Cell"]],
             "tools": ["Compressor"]
         }, {
-            "output": [[1, "Compressed Plantclump"]],
-            "input": [[1, "Plantclump"]],
+            "output": [[1, "Compressed Plantball"]],
+            "input": [[1, "Plantball"]],
             "tools": ["Compressor"]
         }, {
             "output": [[1, "Diamond (industrial)"]],
@@ -237,6 +413,10 @@
         }, {
             "output": [[1, "Bronze Axe"]],
             "input": [[3, "Bronze Ingot"], [2, "Stick"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Bronze Shovel"]],
+            "input": [[1, "Bronze Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Bronze Chestplate"]],
@@ -366,6 +546,10 @@
             "output": [[1, "Fuel Can"]],
             "input": [[7, "Tin Ingot"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Fuel Can (filled)"]],
+            "input": [[6, "Coalfuel Cell"], [1, "Fuel Cell"]],
+            "tools": ["Canning Machine"]
         }, {
             "output": [[1, "Generator"]],
             "input": [[1, "RE Battery"], [1, "Machine Block"], [1, "Furnace"]],

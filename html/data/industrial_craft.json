@@ -888,7 +888,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Nuclear Reactor"]],
-            "input": [[3, "Reaction Chamber"], [1, "Advanced Circuit"], [1, "Generator"]],
+            "input": [[3, "Reactor Chamber"], [1, "Advanced Circuit"], [1, "Generator"]],
             "tools": ["Crafting Table"]
         }
     ]

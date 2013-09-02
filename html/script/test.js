@@ -176,7 +176,7 @@ test("Array.copy", function() {
 module("CraftingNode"); ///////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create: simple", function() {
-    var node = createCraftingNode(12, "Furnace", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(12, "Furnace", false, undefined, __sampleRecipeBooks);
     deepEqual(node.alternatives.length, 0);
     deepEqual(node.children.length, 0);
     deepEqual(node.count, 12);
@@ -186,7 +186,7 @@ test("create: simple", function() {
 });
 
 test("create: complex", function() {
-    var node = createCraftingNode(1, "Iron Gear", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
     deepEqual(node.name, "Iron Gear");
     deepEqual(node.children.length, 2);
     deepEqual(node.children[0].name, "Iron Ingot");
@@ -215,8 +215,16 @@ test("create: complex", function() {
     deepEqual(node.children, []);
 });
 
+test("create: with tool", function() {
+    var node = createCraftingNode(1, "Iron Ingot", true, undefined, __sampleRecipeBooks);
+    deepEqual(node.alternatives.length, 0, JSON.stringify(node.alternatives));
+    deepEqual(node.children.length, 1);
+    deepEqual(node.children[0].name, "Furnace");
+    deepEqual(node.name, "Iron Ingot");
+});
+
 test("craft: simple", function() {
-    var node = createCraftingNode(1, "Furnace", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Furnace", false, undefined, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Furnace"], 1);
@@ -227,7 +235,7 @@ test("craft: simple", function() {
     deepEqual(result.stepList[0].count, 1);
     deepEqual(result.stepList[0].name, "Furnace");
 
-    node = createCraftingNode(2, "Furnace", undefined, __sampleRecipeBooks);
+    node = createCraftingNode(2, "Furnace", false, undefined, __sampleRecipeBooks);
     result = node.craft();
 
     deepEqual(result.inventory.materials["Furnace"], 2, JSON.stringify(result.inventory));
@@ -245,7 +253,7 @@ test("craft: with initial inventory", function() {
     var inventory = createManifest();
     inventory.add(4, "Cobblestone");
     var result = createCraftingResult(inventory);
-    var node = createCraftingNode(2, "Furnace", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(2, "Furnace", false, undefined, __sampleRecipeBooks);
     node.craft(result);
 
     deepEqual(result.inventory.materials["Furnace"], 2);
@@ -261,7 +269,7 @@ test("craft: no-op", function() {
     var inventory = createManifest();
     inventory.add(1, "Furnace");
     var result = createCraftingResult(inventory);
-    var node = createCraftingNode(1, "Furnace", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Furnace", false, undefined, __sampleRecipeBooks);
     node.craft(result);
 
     deepEqual(result.inventory.materials["Furnace"], 1, JSON.stringify(result.inventory));
@@ -271,7 +279,7 @@ test("craft: no-op", function() {
 });
 
 test("craft: deep tree", function() {
-    var node = createCraftingNode(1, "Iron Gear", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Iron Gear"], 1);
@@ -300,7 +308,7 @@ test("craft: deep tree", function() {
 });
 
 test("craft: repeatedly craft ingredient", function() {
-    var node = createCraftingNode(1, "Bookshelf", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Bookshelf", false, undefined, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Bookshelf"], 1, JSON.stringify(result.inventory));
@@ -324,7 +332,7 @@ test("craft: repeatedly craft ingredient", function() {
 });
 
 test("craft: same item used multiple places", function() {
-    var node = createCraftingNode(1, "Mining Well", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Mining Well", false, undefined, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Mining Well"], 1, JSON.stringify(result.inventory));
@@ -357,9 +365,26 @@ test("craft: same item used multiple places", function() {
     deepEqual(result.stepList.length, 8, JSON.stringify(result.stepList));
 });
 
+test("craft: multiple tools needed", function() {
+    var node = createCraftingNode(1, "Iron Pickaxe", true, undefined, __sampleRecipeBooks);
+    var result = node.craft();
+
+    deepEqual(result.inventory.materials["Iron Pickaxe"], 1, JSON.stringify(result.inventory));
+    deepEqual(result.inventory.materials["Birch Plank"], 2, JSON.stringify(result.inventory));
+    deepEqual(result.inventory.materials["Stick"], 2, JSON.stringify(result.inventory));
+    deepEqual(result.inventory.materials["Furnace"], 1, JSON.stringify(result.inventory));
+    deepEqual(result.inventory.materials["Crafting Table"], 1, JSON.stringify(result.inventory));
+    deepEqual(result.inventory.length, 5, JSON.stringify(result.inventory));
+
+    deepEqual(result.missingMaterials.materials["Birch Log"], 2, JSON.stringify(result.missingMaterials));
+    deepEqual(result.missingMaterials.materials["Iron Ore"], 3, JSON.stringify(result.missingMaterials));
+    deepEqual(result.missingMaterials.materials["Cobblestone"], 8, JSON.stringify(result.missingMaterials));
+    deepEqual(result.missingMaterials.materials["milli-coal"], 375, JSON.stringify(result.missingMaterials));
+    deepEqual(result.missingMaterials.length, 4, JSON.stringify(result.missingMaterials));
+});
 
 test("copy", function() {
-    var node = createCraftingNode(3, "Stick", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(3, "Stick", false, undefined, __sampleRecipeBooks);
     var copiedNode = node.copy();
 
     deepEqual(copiedNode.alternatives.length, 2);
@@ -372,7 +397,7 @@ test("copy", function() {
 });
 
 test("createNextAlternative", function() {
-    var node = createCraftingNode(1, "Stick", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Stick", false, undefined, __sampleRecipeBooks);
     deepEqual(node.alternatives.length, 2);
 
     var firstAlternate = node.createNextAlternative(__sampleRecipeBooks);
@@ -395,7 +420,7 @@ test("createNextAlternative", function() {
 });
 
 test("depthFirstTraversal", function() {
-    var node = createCraftingNode(1, "Iron Gear", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
     var expectedNames = ["Iron Ingot", "Birch Plank", "Stick", "Wooden Gear", "Stone Gear", "Iron Gear"];
     var names = [];
 
@@ -404,17 +429,17 @@ test("depthFirstTraversal", function() {
 });
 
 test("findNodeWithAlternatives", function() {
-    var node = createCraftingNode(1, "Iron Gear", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
     var nodeWithAlternatives = node.findNodeWithAlternatives();
     deepEqual(nodeWithAlternatives.name, "Stick");
 
-    node = createCraftingNode(1, "Stick", undefined, __sampleRecipeBooks);
+    node = createCraftingNode(1, "Stick", false, undefined, __sampleRecipeBooks);
     nodeWithAlternatives = node.findNodeWithAlternatives();
     deepEqual(nodeWithAlternatives.name, "Stick");
 });
 
 test("getNodeAt", function() {
-    var node = createCraftingNode(1, "Electronic Circuit", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Electronic Circuit", false, undefined, __sampleRecipeBooks);
     deepEqual(node.getNodeAt([0]).name, "Insulated Copper Cable");
     deepEqual(node.getNodeAt([1]).name, "Refined Iron");
     deepEqual(node.getNodeAt([0, 0]).name, "Copper Cable");
@@ -423,7 +448,7 @@ test("getNodeAt", function() {
 });
 
 test("getPosition", function() {
-    var node = createCraftingNode(1, "Electronic Circuit", undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Electronic Circuit", false, undefined, __sampleRecipeBooks);
     deepEqual(node.getNodeAt([0]).getPosition(), [0]);
     deepEqual(node.getNodeAt([1]).getPosition(), [1]);
     deepEqual(node.getNodeAt([0, 0]).getPosition(), [0, 0]);
@@ -432,8 +457,8 @@ test("getPosition", function() {
 });
 
 test("setNodeAt", function() {
-    var ironGearNode = createCraftingNode(1, "Iron Gear", undefined, __sampleRecipeBooks);
-    var furnaceNode = createCraftingNode(1, "Furnace", undefined, __sampleRecipeBooks);
+    var ironGearNode = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
+    var furnaceNode = createCraftingNode(1, "Furnace", false, undefined, __sampleRecipeBooks);
     ironGearNode.setNodeAt([1, 0, 0], furnaceNode);
 
     deepEqual(ironGearNode.children[1].children[0].children[0].name, "Furnace");
@@ -443,7 +468,7 @@ test("setNodeAt", function() {
 module("CraftingPlan"); ///////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create: single complex plan", function() {
-    var plan = createCraftingPlan(1, "Electronic Circuit", __sampleRecipeBooks);
+    var plan = createCraftingPlan(1, "Electronic Circuit", false, __sampleRecipeBooks);
     deepEqual(plan.count, 1);
     deepEqual(plan.recipeName, "Electronic Circuit");
     deepEqual(plan.alternatives.length, 1);
@@ -451,7 +476,7 @@ test("create: single complex plan", function() {
 });
 
 test("create: multiple simple plans", function() {
-    var plan = createCraftingPlan(1, "Stick", __sampleRecipeBooks);
+    var plan = createCraftingPlan(1, "Stick", false, __sampleRecipeBooks);
     deepEqual(plan.count, 1);
     deepEqual(plan.recipeName, "Stick");
     deepEqual(plan.alternatives[0].recipe.input[0].name, "Birch Plank");
@@ -461,7 +486,7 @@ test("create: multiple simple plans", function() {
 });
 
 test("create: multiple complex plans", function() {
-    var plan = createCraftingPlan(1, "Iron Gear", __sampleRecipeBooks);
+    var plan = createCraftingPlan(1, "Iron Gear", false, __sampleRecipeBooks);
     var firstResult = plan.alternatives[0].craft();
     var secondResult = plan.alternatives[1].craft();
     var thirdResult = plan.alternatives[2].craft();

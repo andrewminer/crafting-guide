@@ -60,7 +60,7 @@ function onCraftingSelectorChanged() {
     if (! hasRecipe(recipeName)) {
         $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
-        var plan = createCraftingPlan(count, recipeName);
+        var plan = createCraftingPlan(count, recipeName, __toolsIncluded);
         var result = createCraftingResult(__inventory);
         plan.alternatives[0].craft(result);
 
@@ -214,16 +214,19 @@ function updatePageState(count, recipeName) {
 
 // Crafting Node Object ///////////////////////////////////////////////////////////////////////////////////////////////
 
-function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
+function createCraftingNode(count, recipeName, shouldIncludeTools, alternatives, recipeBooks) {
+    if (shouldIncludeTools !== true) shouldIncludeTools = false;
     if (recipeBooks === undefined) recipeBooks = __recipeBooks;
 
     var object = {
         alternatives: [],
         children: [],
         count: count,
+        isToolNode: false,
         name: recipeName,
         parentNode: undefined,
-        recipe: undefined
+        recipe: undefined,
+        shouldIncludeTools: shouldIncludeTools
     };
 
     if (count !== undefined) {
@@ -234,9 +237,20 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
         object.recipe = alternatives.shift();
         object.alternatives = alternatives;
 
+        if (shouldIncludeTools) {
+            for (var i = 0; i < object.recipe.tools.length; i++) {
+                var tool = object.recipe.tools[i];
+                var node = createCraftingNode(1, tool, shouldIncludeTools, undefined, recipeBooks);
+                if (node) {
+                    node.isToolNode = true;
+                    node.parentNode = object;
+                    object.children.push(node);
+                }
+            }
+        }
         for (var i = 0; i < object.recipe.input.length; i++) {
             var input = object.recipe.input[i];
-            var node = createCraftingNode(input.count, input.name, undefined, recipeBooks);
+            var node = createCraftingNode(input.count, input.name, shouldIncludeTools, undefined, recipeBooks);
             if (node) {
                 node.parentNode = object;
                 object.children.push(node);
@@ -248,9 +262,11 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
         var result = createCraftingNode();
         result.alternatives = object.alternatives.copy();
         result.count = object.count;
+        result.isToolNode = object.isToolNode;
         result.name = object.name;
         result.parentNode = undefined;
         result.recipe = object.recipe.copy();
+        result.shouldIncludeTools = object.shouldIncludeTools;
 
         result.children = object.children.copy();
         for (var i = 0; i < result.children.length; i++) {
@@ -260,15 +276,16 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
         return result;
     };
 
-    object.craft = function(craftingResult, isCraftingChild) {
+    object.craft = function(craftingResult) {
+        if (shouldIncludeTools !== true) shouldIncludeTools = false;
         if (craftingResult === undefined) {
             craftingResult = createCraftingResult();
         }
         var shouldContinueCrafting = function() {
-            if (isCraftingChild === true) {
-                return craftingResult.missingMaterials.contains(1, object.name);
-            } else {
+            if (object.parentNode === undefined || object.isToolNode) {
                 return ! craftingResult.inventory.contains(object.count, object.name);
+            } else {
+                return craftingResult.missingMaterials.contains(1, object.name);
             }
         }
 
@@ -276,6 +293,16 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
         while (shouldContinueCrafting()) {
             if (count++ > 100000) {
                 throw "Too many iterations";
+            }
+            if (object.shouldIncludeTools) {
+                for (var i = 0; i < object.recipe.tools; i++) {
+                    var tool = object.recipe.tools[i];
+                    var hasTool = craftingResult.inventory.contains(1, tool) ||
+                        craftingResult.missingMaterials.contains(1, tool);
+                    if (! hasTool) {
+                        craftingResult.addMissingMaterial(tool);
+                    }
+                }
             }
             for (var i = 0; i < object.recipe.input.length; i++) {
                 var input = object.recipe.input[i];
@@ -294,9 +321,9 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
         }
         for (var i = 0; i < object.children.length; i++) {
             var child = object.children[i];
-            child.craft(craftingResult, true);
+            child.craft(craftingResult);
         }
-        if (isCraftingChild !== true) {
+        if (object.parentNode === undefined) {
             craftingResult.sortStepsBy(object);
         }
         return craftingResult;
@@ -305,7 +332,8 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
     object.createNextAlternative = function(recipeBooks) {
         if (recipeBooks === undefined) recipeBooks = __recipeBooks;
         if (object.alternatives.length === 0) return undefined;
-        var nextAlternative = createCraftingNode(object.count, object.name, object.alternatives, recipeBooks);
+        var nextAlternative = createCraftingNode(
+            object.count, object.name, object.shouldIncludeTools, object.alternatives, recipeBooks);
         object.alternatives = [];
         return nextAlternative;
     };
@@ -365,7 +393,8 @@ function createCraftingNode(count, recipeName, alternatives, recipeBooks) {
 
 // Crafting Plan Object ///////////////////////////////////////////////////////////////////////////////////////////////
 
-function createCraftingPlan(count, recipeName, recipeBooks) {
+function createCraftingPlan(count, recipeName, shouldIncludeTools, recipeBooks) {
+    if (shouldIncludeTools !== true) shouldIncludeTools = false;
     if (recipeBooks === undefined) recipeBooks = __recipeBooks;
 
     var object = {
@@ -374,7 +403,7 @@ function createCraftingPlan(count, recipeName, recipeBooks) {
         alternatives: []
     };
 
-    var nodesToProcess = [ createCraftingNode(count, recipeName, undefined, recipeBooks) ];
+    var nodesToProcess = [ createCraftingNode(count, recipeName, shouldIncludeTools, undefined, recipeBooks) ];
     while (nodesToProcess.length > 0) {
         var node = nodesToProcess.shift();
         var choiceNode = node.findNodeWithAlternatives();

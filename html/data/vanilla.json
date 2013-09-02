@@ -27,6 +27,14 @@
             "input": [[6, "Oak Plank"], [3, "Book"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Book"]],
+            "input": [[1, "Leather"], [3, "Paper"]],
+            "tools": []
+        }, {
+            "output": [[1, "Bookshelf"]],
+            "input": [[6, "Oak Plank"], [3, "Book"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Bowl"]],
             "input": [[3, "Oak Plank"]],
             "tools": ["Crafting Table"]
@@ -51,7 +59,7 @@
             "input": [[1, "Cactus"], [125, "milli-coal"]],
             "tools": ["Furnace"]
         }, {
-            "output": [[1, "Cake"]],
+            "output": [[1, "Cake"], [1, "Bucket"]],
             "input": [[3, "Milk"], [2, "Sugar"], [3, "Wheat"], [1, "Egg"]],
             "tools": ["Crafting Table"]
         }, {

@@ -31,8 +31,9 @@ p { margin-left: 10px; margin-right: 10px; }
 #header { background: url("../images/stone_brick_light.png"); height: 64px; }
 #header h1 { font-size: 32px; }
 #header img { height: 96px; width: 96px; margin-left: -32px; margin-top: -32px; }
-#recipebook_load_button { margin-left: 5px; width: 60px; }
-#recipebook_table { margin-left: 10px; width: 920px; }
-#recipebook_table td { background: #f8f8f8; border-left: 1px solid #bbb; padding: 10px; }
-#recipebook_url { width: 600px; }
-#recipebooks { margin-top: 32px; margin-bottom: 32px; }
+#recipe_book_load_button { margin-left: 5px; width: 60px; }
+#recipe_book_table { margin-left: 10px; width: 920px; }
+#recipe_book_table td { background: #f8f8f8; border-left: 1px solid #bbb; padding: 10px; }
+#recipe_book_url { width: 600px; }
+#recipe_books { margin-top: 32px; margin-bottom: 32px; }
+

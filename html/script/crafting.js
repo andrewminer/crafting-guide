@@ -61,7 +61,8 @@ function onCraftingSelectorChanged() {
         $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
         var plan = createCraftingPlan(count, recipeName);
-        var result = plan.alternatives[0].craft();
+        var result = createCraftingResult(__inventory);
+        plan.alternatives[0].craft(result);
 
         $("#missing_materials").html(result.missingMaterials.toHtml());
         $("#crafted_items").html(formatStepList(result.stepList));

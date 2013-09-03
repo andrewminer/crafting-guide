@@ -3,6 +3,10 @@
     "description": "Crafting recipes from vanilla Minecraft (in progress)",
     "recipes": [
         {
+            "output": [[4, "Arrow"]],
+            "input": [[1, "Flint"], [1, "Stick"], [1, "Feather"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Baked Potato"]],
             "input": [[1, "Potato"], [125, "milli-coal"]],
             "tools": ["Furnace"]
@@ -10,6 +14,14 @@
             "output": [[1, "Beacon"]],
             "input": [[5, "Glass"], [3, "Obsidian"], [1, "Nether Star"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Bed"]],
+            "input": [[3, "Wool"], [3, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[2, "Blaze Powder"]],
+            "input": [[1, "Blaze Rod"]],
+            "tools": []
         }, {
             "output": [[1, "Boat"]],
             "input": [[5, "Oak Plank"]],
@@ -23,16 +35,16 @@
             "input": [[1, "Leather"], [3, "Paper"]],
             "tools": []
         }, {
-            "output": [[1, "Bookshelf"]],
-            "input": [[6, "Oak Plank"], [3, "Book"]],
-            "tools": ["Crafting Table"]
-        }, {
-            "output": [[1, "Book"]],
-            "input": [[1, "Leather"], [3, "Paper"]],
+            "output": [[1, "Book and Quill"]],
+            "input": [[1, "Book"], [1, "Ink Sac"], [1, "Feather"]],
             "tools": []
         }, {
             "output": [[1, "Bookshelf"]],
             "input": [[6, "Oak Plank"], [3, "Book"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Bow"]],
+            "input": [[3, "Stick"], [3, "String"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Bowl"]],
@@ -41,6 +53,10 @@
         }, {
             "output": [[1, "Bread"]],
             "input": [[3, "Wheat"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Brewing Stand"]],
+            "input": [[1, "Blaze Rod"], [3, "Cobblestone"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Brick"]],
@@ -63,12 +79,48 @@
             "input": [[3, "Milk"], [2, "Sugar"], [3, "Wheat"], [1, "Egg"]],
             "tools": ["Crafting Table"]
         }, {
+            "output": [[1, "Carrot on a Stick"]],
+            "input": [[1, "Fishing Rod"], [1, "Carrot"]],
+            "tools": []
+        }, {
+            "output": [[1, "Cauldron"]],
+            "input": [[7, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chain Boots"]],
+            "input": [[4, "Fire"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chain Chestplate"]],
+            "input": [[8, "Fire"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chain Helmet"]],
+            "input": [[5, "Fire"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chain Leggings"]],
+            "input": [[7, "Fire"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Charcoal"]],
+            "input": [[1, "Oak Log"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
             "output": [[1, "Chest"]],
             "input": [[8, "Oak Plank"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Clay Block"]],
             "input": [[4, "Clay"]],
+            "tools": []
+        }, {
+            "output": [[1, "Clock"]],
+            "input": [[4, "Gold Ingot"], [1, "Redstone"]],
+            "tools": []
+        }, {
+            "output": [[1, "Compass"]],
+            "input": [[4, "Iron Ingot"], [1, "Redstone"]],
             "tools": []
         }, {
             "output": [[1, "Cooked Chicken"]],
@@ -139,6 +191,18 @@
             "input": [[1, "Spider Eye"], [1, "Brown Mushroom"], [1, "Sugar"]],
             "tools": []
         }, {
+            "output": [[3, "Fire Charge"]],
+            "input": [[1, "Blaze Powder"], [1, "Coal"], [1, "Gunpowder"]],
+            "tools": []
+        }, {
+            "output": [[1, "Fishing Rod"]],
+            "input": [[3, "Stick"], [2, "String"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Flint and Steel"]],
+            "input": [[1, "Iron Ingot"], [1, "Flint"]],
+            "tools": []
+        }, {
             "output": [[1, "Furnace"]],
             "input": [[8, "Cobblestone"]],
             "tools": ["Crafting Table"]
@@ -149,10 +213,14 @@
         }, {
             "output": [[3, "Glass Bottle"]],
             "input": [[3, "Glass"]],
-            "tools": ["Furnace"]
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[16, "Glass Panes"]],
+            "input": [[6, "Glass"]],
+            "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Glistering Melon"]],
-            "input": [[1, "Melon"], [9, "Gold Nugget"]],
+            "input": [[1, "Melon"], [8, "Gold Nugget"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Gold Axe"]],
@@ -207,6 +275,10 @@
             "input": [[1, "Bone Meal"], [1, "Ink Sac"]],
             "tools": []
         }, {
+            "output": [[1, "Hopper"]],
+            "input": [[5, "Iron Ingot"], [1, "Chest"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Iron Axe"]],
             "input": [[3, "Iron Ingot"], [2, "Stick"]],
             "tools": ["Crafting Table"]
@@ -221,6 +293,10 @@
         }, {
             "output": [[1, "Iron Chestplate"]],
             "input": [[8, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Iron Door"]],
+            "input": [[6, "Iron Ingot"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Iron Helm"]],
@@ -258,6 +334,10 @@
             "output": [[1, "Lava Bucket"]],
             "input": [[1, "Bucket"], [1, "Lava Source Block"]],
             "tools": []
+        }, {
+            "output": [[2, "Lead"]],
+            "input": [[4, "String"], [1, "Slimeball"]],
+            "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Leather Boots"]],
             "input": [[4, "Leather"]],
@@ -307,9 +387,33 @@
             "input": [[1, "Slimeball"], [1, "Blaze Powder"]],
             "tools": []
         }, {
+            "output": [[1, "Melon Seeds"]],
+            "input": [[1, "Melon"]],
+            "tools": []
+        }, {
             "output": [[1, "Milk"]],
             "input": [[1, "Bucket"]],
             "tools": ["Cow"]
+        }, {
+            "output": [[1, "Minecart"]],
+            "input": [[5, "Iron"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Minecart with Chest"]],
+            "input": [[1, "Minecart"], [1, "Chest"]],
+            "tools": []
+        }, {
+            "output": [[1, "Minecart with Furnace"]],
+            "input": [[1, "Minecart"], [1, "Furnace"]],
+            "tools": []
+        }, {
+            "output": [[1, "Minecart with Hopper"]],
+            "input": [[1, "Minecart"], [1, "Hopper"]],
+            "tools": []
+        }, {
+            "output": [[1, "Minecart with TNT"]],
+            "input": [[1, "Minecart"], [1, "TNT"]],
+            "tools": []
         }, {
             "output": [[1, "Mushroom Stew"]],
             "input": [[1, "Bowl"], [1, "Red Mushroom"], [1, "Brown Mushroom"]],
@@ -347,9 +451,21 @@
             "input": [[1, "Sugar"], [1, "Pumpkin"], [1, "Egg"]],
             "tools": []
         }, {
+            "output": [[4, "Pumpkin Seeds"]],
+            "input": [[1, "Pumpkin"]],
+            "tools": []
+        }, {
             "output": [[2, "Purple Dye"]],
             "input": [[1, "Rose Red"], [1, "Lapis Lazuli"]],
             "tools": []
+        }, {
+            "output": [[1, "Redstone Comparator"]],
+            "input": [[3, "Redstone Torch"], [1, "Nether Quartz"], [3, "Stone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Repeater"]],
+            "input": [[2, "Redstone Torch"], [1, "Redstone"], [3, "Stone"]],
+            "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Redstone Torch"]],
             "input": [[1, "Redstone"], [1, "Stick"]],
@@ -358,6 +474,14 @@
             "output": [[2, "Rose Red"]],
             "input": [[1, "Rose"]],
             "tools": []
+        }, {
+            "output": [[1, "Shears"]],
+            "input": [[2, "Iron Ingot"]],
+            "tools": []
+        }, {
+            "output": [[1, "Sign"]],
+            "input": [[6, "Oak Plank"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Steak"]],
             "input": [[1, "Raw Beef"], [125, "milli-coal"]],
@@ -415,6 +539,10 @@
             "input": [[1, "Oak Plank"]],
             "tools": []
         }, {
+            "output": [[1, "Wooden Door"]],
+            "input": [[6, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[1, "Wooden Hoe"]],
             "input": [[2, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
@@ -422,6 +550,10 @@
             "output": [[1, "Wooden Pickaxe"]],
             "input": [[3, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Wool"]],
+            "input": [[4, "String"]],
+            "tools": []
         }, {
             "output": [[1, "Wooden Sword"]],
             "input": [[2, "Oak Plank"], [1, "Stick"]],

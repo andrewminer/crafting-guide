@@ -652,7 +652,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Quantum Helmet"]],
-            "input": [[2, "Iridium Plate"], [2, "Advanced Circuit"], [1, "Reinforced Glass"], [1, "Energy Crystal"], [1, "NanoSuit Helmet"]],
+            "input": [[2, "Iridium Plate"], [2, "Advanced Circuit"], [1, "Reinforced Glass"], [1, "Lapotron Crystal"], [1, "NanoSuit Helmet"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Quantum Leggings"]],

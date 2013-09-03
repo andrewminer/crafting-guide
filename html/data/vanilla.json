@@ -551,10 +551,6 @@
             "input": [[3, "Oak Plank"], [2, "Stick"]],
             "tools": ["Crafting Table"]
         }, {
-            "output": [[1, "Wool"]],
-            "input": [[4, "String"]],
-            "tools": []
-        }, {
             "output": [[1, "Wooden Sword"]],
             "input": [[2, "Oak Plank"], [1, "Stick"]],
             "tools": ["Crafting Table"]

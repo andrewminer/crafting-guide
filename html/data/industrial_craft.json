@@ -3,6 +3,10 @@
     "description": "Crafting recipes from IndustrialCraft 2, by Alblaka",
     "recipes": [
         {
+            "output": [[1, "CFPack"]],
+            "input": [[4, "Fuel Can"], [2, "CF Sprayer"], [1, "Electronic Circuit"], [1, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
             "output": [[4, "Tin Can"]],
             "input": [[5, "Tin Ingot"]],
             "tools": ["Crafting Table"]

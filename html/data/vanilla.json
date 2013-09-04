@@ -343,7 +343,7 @@
             "input": [[4, "Leather"]],
             "tools": []
         }, {
-            "output": [[1, "Leather Chestplate"]],
+            "output": [[1, "Leather Tunic"]],
             "input": [[8, "Leather"]],
             "tools": []
         }, {

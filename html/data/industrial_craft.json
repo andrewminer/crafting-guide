@@ -476,7 +476,7 @@
             "tools": ["Macerator"]
         }, {
             "output": [[1, "Composite Armor Vest"]],
-            "input": [[1, "Advanced Alloy"], [1, "Iron Chestplate"], [1, "Bronze Chestplace"]],
+            "input": [[1, "Advanced Alloy"], [1, "Iron Chestplate"], [1, "Leather Tunic"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Compressed Air Cell"]],

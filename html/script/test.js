@@ -139,6 +139,26 @@ var __industrialCraftRecipeBookSample =
     '            "output": [[1, "Rubber"]],                                                      ' +
     '            "input": [[1, "Resin"], [125, "milli-coal"]],                                   ' +
     '            "tools": ["Furnace"]                                                            ' +
+    '        }, {                                                                                ' +
+    '            "output": [[3, "Rubber"]],                                                      ' +
+    '            "input": [[1, "Resin"]],                                                        ' +
+    '            "tools": ["Extractor"]                                                          ' +
+    '        }, {                                                                                ' +
+    '            "output": [[1, "Extractor"]],                                                   ' +
+    '            "input": [[4, "Tree Tap"], [1, "Machine Block"], [1, "Electronic Circuit"]],    ' +
+    '            "tools": ["Crafting Table"]                                                     ' +
+    '        }, {                                                                                ' +
+    '            "output": [[1, "Machine Block"]],                                               ' +
+    '            "input": [[8, "Refined Iron"]],                                                 ' +
+    '            "tools": ["Crafting Table"]                                                     ' +
+    '        }, {                                                                                ' +
+    '            "output": [[1, "Tree Tap"]],                                                    ' +
+    '            "input": [[5, "Oak Plank"]],                                                    ' +
+    '            "tools": ["Crafting Table"]                                                     ' +
+    '        }, {                                                                                ' +
+    '            "output": [[1, "Rubber Boots"]],                                                ' +
+    '            "input": [[6, "Rubber"], [1, "Wool"]],                                          ' +
+    '            "tools": ["Crafting Table"]                                                     ' +
     '        }                                                                                   ' +
     '    ]                                                                                       ' +
     '}                                                                                           ';
@@ -468,11 +488,11 @@ test("setNodeAt", function() {
 module("CraftingPlan"); ///////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create: single complex plan", function() {
-    var plan = createCraftingPlan(1, "Electronic Circuit", false, __sampleRecipeBooks);
+    var plan = createCraftingPlan(1, "Bookshelf", false, __sampleRecipeBooks);
     deepEqual(plan.count, 1);
-    deepEqual(plan.recipeName, "Electronic Circuit");
+    deepEqual(plan.recipeName, "Bookshelf");
     deepEqual(plan.alternatives.length, 1);
-    deepEqual(plan.alternatives[0].getNodeAt([0, 0, 0]).name, "Copper Ingot");
+    deepEqual(plan.alternatives[0].getNodeAt([1, 0]).name, "Paper");
 });
 
 test("create: multiple simple plans", function() {
@@ -494,6 +514,12 @@ test("create: multiple complex plans", function() {
     deepEqual(firstResult.missingMaterials.materials["Birch Log"], 1, JSON.stringify(firstResult.missingMaterials));
     deepEqual(secondResult.missingMaterials.materials["Oak Log"], 1, JSON.stringify(secondResult.missingMaterials));
     deepEqual(thirdResult.missingMaterials.materials["Spruce Log"], 1, JSON.stringify(thirdResult.missingMaterials));
+});
+
+test("create: with infinite cycle plans", function() {
+    var plan = createCraftingPlan(1, "Rubber Boots", true, __sampleRecipeBooks);
+
+    deepEqual(plan.alternatives.length, 0, JSON.stringify(plan));
 });
 
 module("CraftingResult"); /////////////////////////////////////////////////////////////////////////////////////////////

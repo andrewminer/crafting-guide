@@ -2,6 +2,7 @@
 
 var ERROR_DISPLAY_DURATION = 10000; // ms
 var FADE_DURATION = 250; // ms
+var INDENT_UNIT = "    ";
 var SLIDE_DURATION = 600; // ms
 
 // Global Variables ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +37,26 @@ Array.prototype.toHtml = function(delimiter) {
     }
     return result;
 }
+
+Array.prototype.toString = function(indent) {
+    indent = (indent === undefined) ? "" : indent;
+
+    var result = "[\n";
+    var needsDelimiter = false;
+    var innerIndent = INDENT_UNIT + indent;
+    for (var i = 0; i < this.length; i++) {
+        if (needsDelimiter === true) result += ",\n";
+        needsDelimiter = true;
+
+        if (typeof(this[i].toString) === 'function') {
+            result += innerIndent + this[i].toString(innerIndent);
+        } else {
+            result += innerIndent + this[i];
+        }
+    }
+    result += "\n" + indent + "]";
+    return result;
+};
 
 // UI Functions ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -212,22 +233,41 @@ function updatePageState(count, recipeName) {
     ga('send', 'pageview');
 }
 
+// Crafting Alternatives //////////////////////////////////////////////////////////////////////////////////////////////
+
+function createCraftingAlternative(recipe, children) {
+    var object = {
+        children: children,
+        recipe: recipe
+    };
+
+    return object;
+}
+
 // Crafting Node Object ///////////////////////////////////////////////////////////////////////////////////////////////
 
-function createCraftingNode(count, recipeName, shouldIncludeTools, alternatives, recipeBooks, parentNode) {
+function createCraftingNode(count, recipeName, shouldIncludeTools, recipeBooks, parentNode) {
     if (shouldIncludeTools !== true) shouldIncludeTools = false;
     if (recipeBooks === undefined) recipeBooks = __recipeBooks;
 
     var object = {
         alternatives: [],
+        alternateIndex: undefined,
         children: [],
         count: count,
         isToolNode: false,
         name: recipeName,
         parentNode: parentNode,
         recipe: undefined,
-        repetition: undefined,
         shouldIncludeTools: shouldIncludeTools
+    };
+
+    object.chooseAlternative = function(index) {
+        var alternative = object.alternatives[index];
+
+        object.alternateIndex = index;
+        object.recipe = alternative.recipe;
+        object.children = alternative.children;
     };
 
     object.copy = function() {
@@ -302,40 +342,36 @@ function createCraftingNode(count, recipeName, shouldIncludeTools, alternatives,
         return craftingResult;
     };
 
-    object.createNextAlternative = function(recipeBooks) {
-        if (recipeBooks === undefined) recipeBooks = __recipeBooks;
-        if (object.alternatives.length === 0) return undefined;
-        var nextAlternative = createCraftingNode(
-            object.count, object.name, object.shouldIncludeTools, object.alternatives, recipeBooks);
-        object.alternatives = [];
-        return nextAlternative;
-    };
+    object.createChildren = function() {
+        object.children = []
 
-    object.depthFirstTraversal = function(callback) {
-        var shouldContinue = true;
-        for (var i = 0; i < object.children.length; i++) {
-            var child = object.children[i];
-            shouldContinue = child.depthFirstTraversal(callback);
-            if (shouldContinue === false) return false;
-        }
-        return (callback(object) !== false);
-    };
+        if (object.parentNode && object.parentNode.isImpossible()) return undefined;
 
-    object.findNodeWithAlternatives = function() {
-        var result = undefined;
-        object.depthFirstTraversal(function(node) {
-            if (node.alternatives.length >= 1) {
-                result = node;
-                return false;
+        if (object.shouldIncludeTools) {
+            for (var i = 0; i < object.recipe.tools.length; i++) {
+                var tool = object.recipe.tools[i];
+                var node = createCraftingNode(1, tool, shouldIncludeTools, recipeBooks, object);
+                if (node) {
+                    node.isToolNode = true;
+                    object.children.push(node);
+                }
             }
-        });
-        return result;
-    };
+        }
+
+        for (var i = 0; i < object.recipe.input.length; i++) {
+            var input = object.recipe.input[i];
+            var node = createCraftingNode(input.count, input.name, shouldIncludeTools, recipeBooks, object);
+            if (node) {
+                object.children.push(node);
+            }
+        }
+    }
 
     object.getNodeAt = function(position) {
         var node = object;
         for (var i = 0; i < position.length; i++) {
-            node = node.children[position[i]];
+            var alternate = node.alternatives[position[i][0]];
+            node = alternate.children[position[1][i]];
         }
         return node;
     };
@@ -343,42 +379,41 @@ function createCraftingNode(count, recipeName, shouldIncludeTools, alternatives,
     object.getPosition = function() {
         if (object.parentNode === undefined) return [];
         var position = object.parentNode.getPosition();
-        for (var i = 0; i < object.parentNode.children.length; i++) {
-            if (object !== object.parentNode.children[i]) continue;
-            position.push(i);
-            break;
-        }
-        return position;
-    };
 
-    object.isRepetition = function() {
-        if (object.repetition === undefined) {
-            var depth = 0;
-            var node = object;
-            while (node.parentNode) {
-                if (node.parentNode.name === object.name || depth > 100) {
-                    object.repetition = true;
-                    break;
-                }
-                node = node.parentNode;
-                depth++;
+        for (var i = 0; i < object.parentNode.alternatives.length; i++) {
+            var alternative = object.parentNode.alternative[i];
+            for (var j = 0; j < alternative.children.length; j++) {
+                if (object !== alternative.children[j]) continue;
+                position.push([i, j]);
+                return position;
             }
         }
+        return undefined;
+    };
 
-        if (object.repetition === undefined) {
-            object.depthFirstTraversal(function(node) {
-                if (node === object) return true;
-                if (node.name === object.name) {
-                    object.repetition = true;
-                    return false;
-                }
-            });
+    object.isImpossible = function() {
+        var depth = 0;
+        var node = object;
+        var recipeText = object.recipe.toString();
+        while (node.parentNode) {
+            if (node.parentNode.recipe.toString() == recipeText || depth > 100) {
+                return true;
+            }
+            node = node.parentNode;
+            depth++;
         }
 
-        return (object.repetition === true);
+        for (var i = 0; i < object.children.length; i++) {
+            if (object.children[i].isImpossible()) return true;
+        }
+
+        return false;
     };
 
     object.setNodeAt = function(position, node) {
+        var node = object;
+
+
         if (position.length === 1) {
             object.children[position[0]] = node;
             node.parentNode = object;
@@ -388,34 +423,36 @@ function createCraftingNode(count, recipeName, shouldIncludeTools, alternatives,
         }
     };
 
-    if (count !== undefined) {
-        if (alternatives === undefined) {
-            alternatives = findAllRecipes(recipeName, recipeBooks);
+    object.toString = function(indent) {
+        var result = "";
+        result += object.recipe.name + " (" + object.alternatives.length + ") ";
+        if (object.children.length > 0) {
+            result += object.children.toString(indent);
         }
-        if (alternatives.length === 0) return undefined;
-        object.recipe = alternatives.shift();
-        object.alternatives = alternatives;
+        return result;
+    }
 
-        if (! object.isRepetition()) {
-            if (shouldIncludeTools) {
-                for (var i = 0; i < object.recipe.tools.length; i++) {
-                    var tool = object.recipe.tools[i];
-                    var node = createCraftingNode(1, tool, shouldIncludeTools, undefined, recipeBooks, object);
-                    if (node) {
-                        node.isToolNode = true;
-                        object.children.push(node);
-                    }
-                }
-            }
-            for (var i = 0; i < object.recipe.input.length; i++) {
-                var input = object.recipe.input[i];
-                var node = createCraftingNode(
-                    input.count, input.name, shouldIncludeTools, undefined, recipeBooks, object);
-                if (node) {
-                    object.children.push(node);
-                }
-            }
+    object.visitCraftingNodes = function(callback) {
+        var shouldContinue = true;
+        for (var i = 0; i < object.children.length; i++) {
+            var child = object.children[i];
+            shouldContinue = child.visitCraftingNodes(callback);
+            if (shouldContinue === false) return false;
         }
+        return (callback(object) !== false);
+    };
+
+    if (count !== undefined) {
+        var recipes = findAllRecipes(recipeName, recipeBooks);
+        if (recipes.length === 0) return undefined;
+        
+        for (var i = 0; i < recipes.length; i++) {
+            object.recipe = recipes[i];
+            object.createChildren();
+
+            object.alternatives.push(createCraftingAlternative(object.recipe, object.children));
+        }
+        object.chooseAlternative(0);
     }
 
     return object;
@@ -451,14 +488,6 @@ function createCraftingPlan(count, recipeName, shouldIncludeTools, recipeBooks) 
             var nextAlternative = node.copy();
             nextAlternative.setNodeAt(position, alternateNode);
             nodesToProcess.push(nextAlternative);
-        }
-    }
-
-    var result = [];
-    for (var i = 0; i < object.alternatives.length; i++) {
-        var alternative = object.alternatives[i];
-        if (! alternative.isRepetition()) {
-            result.push(alternative);
         }
     }
 
@@ -521,7 +550,7 @@ function createCraftingResult(startingInventory) {
         }
 
         var result = [];
-        rootNode.depthFirstTraversal(function(node) {
+        rootNode.visitCraftingNodes(function(node) {
             if (stepCounts[node.name] !== undefined) {
                 result.push(createIngredient(stepCounts[node.name], node.name));
                 delete stepCounts[node.name];
@@ -529,6 +558,10 @@ function createCraftingResult(startingInventory) {
         });
 
         object.stepList = result;
+    };
+
+    object.toKey = function() {
+        return object.missingMaterials.toKey();
     };
 
     return object;
@@ -541,6 +574,10 @@ function createIngredient(count, name) {
 
     object.copy = function() {
         return createIngredient(object.count, object.name);
+    };
+
+    object.toString = function() {
+        return object.count + " " + object.name;
     };
 
     return object;
@@ -607,6 +644,14 @@ function createManifest() {
         return result;
     };
 
+    object.toKey = function() {
+        var result = "|";
+        for (var name in object.materials) {
+            result += object.materials[name] + ":" + name + "|";
+        }
+        return result;
+    };
+
     return object;
 }
 
@@ -641,6 +686,27 @@ function createRecipe(data) {
         result.output = object.output.copy(),
         result.input = object.input.copy(),
         result.tools = object.tools.copy()
+        return result;
+    };
+
+    object.toString = function(indent) {
+        indent = (indent === undefined) ? "" : indent;
+        var result = "Makes: ";
+
+        for (var i = 0; i < object.output.length; i++) {
+            if (i > 0) result += ", ";
+            result += object.output[i].toString();
+        }
+
+        result += "\nfrom: ";
+        result += object.input.toString(indent);
+        result += "\nusing: ";
+
+        for (var i = 0; i < object.tools.length; i++) {
+            if (i > 0) result += ", ";
+            result += object.tools[i];
+        }
+
         return result;
     };
 

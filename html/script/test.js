@@ -196,8 +196,8 @@ test("Array.copy", function() {
 module("CraftingNode"); ///////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create: simple", function() {
-    var node = createCraftingNode(12, "Furnace", false, undefined, __sampleRecipeBooks);
-    deepEqual(node.alternatives.length, 0);
+    var node = createCraftingNode(12, "Furnace", false, __sampleRecipeBooks);
+    deepEqual(node.alternatives.length, 1);
     deepEqual(node.children.length, 0);
     deepEqual(node.count, 12);
     deepEqual(node.name, "Furnace");
@@ -206,7 +206,7 @@ test("create: simple", function() {
 });
 
 test("create: complex", function() {
-    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Gear", false, __sampleRecipeBooks);
     deepEqual(node.name, "Iron Gear");
     deepEqual(node.children.length, 2);
     deepEqual(node.children[0].name, "Iron Ingot");
@@ -225,26 +225,62 @@ test("create: complex", function() {
     node = node.children[0];
     deepEqual(node.name, "Stick");
     deepEqual(node.recipe.input[0].name, "Birch Plank");
-    deepEqual(node.alternatives.length, 2);
-    deepEqual(node.alternatives[0].input[0].name, "Oak Plank");
-    deepEqual(node.alternatives[1].input[0].name, "Spruce Plank");
+    deepEqual(node.alternatives.length, 3);
+    deepEqual(node.alternatives[0].recipe.input[0].name, "Birch Plank");
+    deepEqual(node.alternatives[1].recipe.input[0].name, "Oak Plank");
+    deepEqual(node.alternatives[2].recipe.input[0].name, "Spruce Plank");
 
     node = node.children[0];
     deepEqual(node.name, "Birch Plank");
-    deepEqual(node.alternatives, []);
+    deepEqual(node.alternatives.length, 1);
     deepEqual(node.children, []);
 });
 
 test("create: with tool", function() {
-    var node = createCraftingNode(1, "Iron Ingot", true, undefined, __sampleRecipeBooks);
-    deepEqual(node.alternatives.length, 0, JSON.stringify(node.alternatives));
+    var node = createCraftingNode(1, "Iron Ingot", true, __sampleRecipeBooks);
+    deepEqual(node.alternatives.length, 1);
     deepEqual(node.children.length, 1);
     deepEqual(node.children[0].name, "Furnace");
     deepEqual(node.name, "Iron Ingot");
 });
 
+test("chooseAlternative", function() {
+    var node = createCraftingNode(1, "Stick", false, __sampleRecipeBooks);
+    deepEqual(node.alternatives.length, 3);
+    deepEqual(node.name, "Stick");
+    deepEqual(node.recipe.input[0].name, "Birch Plank");
+
+    node.chooseAlternative(1);
+
+    deepEqual(node.alternatives.length, 3);
+    deepEqual(node.name, "Stick");
+    deepEqual(node.recipe.input[0].name, "Oak Plank");
+
+    node.chooseAlternative(2);
+
+    deepEqual(node.alternatives.length, 3);
+    deepEqual(node.name, "Stick");
+    deepEqual(node.recipe.input[0].name, "Spruce Plank");
+
+    throws(function() { node.chooseAlternative(-1); }, "Shouldn't be able to choose alternative -1");
+    throws(function() { node.chooseAlternative(3); }, "Shouldn't be able to choose alternative 3");
+});
+
+test("copy", function() {
+    var node = createCraftingNode(3, "Stick", false, __sampleRecipeBooks);
+    var copiedNode = node.copy();
+
+    deepEqual(copiedNode.alternatives.length, 3);
+    deepEqual(copiedNode.children.length, 1);
+    deepEqual(copiedNode.count, 3);
+    deepEqual(copiedNode.name, "Stick");
+    deepEqual(copiedNode.parentNode, undefined);
+    deepEqual(copiedNode.recipe.name, "Stick");
+    notStrictEqual(node.children[0], copiedNode.children[0]);
+});
+
 test("craft: simple", function() {
-    var node = createCraftingNode(1, "Furnace", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Furnace", false, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Furnace"], 1);
@@ -255,7 +291,7 @@ test("craft: simple", function() {
     deepEqual(result.stepList[0].count, 1);
     deepEqual(result.stepList[0].name, "Furnace");
 
-    node = createCraftingNode(2, "Furnace", false, undefined, __sampleRecipeBooks);
+    node = createCraftingNode(2, "Furnace", false, __sampleRecipeBooks);
     result = node.craft();
 
     deepEqual(result.inventory.materials["Furnace"], 2, JSON.stringify(result.inventory));
@@ -273,7 +309,7 @@ test("craft: with initial inventory", function() {
     var inventory = createManifest();
     inventory.add(4, "Cobblestone");
     var result = createCraftingResult(inventory);
-    var node = createCraftingNode(2, "Furnace", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(2, "Furnace", false, __sampleRecipeBooks);
     node.craft(result);
 
     deepEqual(result.inventory.materials["Furnace"], 2);
@@ -289,7 +325,7 @@ test("craft: no-op", function() {
     var inventory = createManifest();
     inventory.add(1, "Furnace");
     var result = createCraftingResult(inventory);
-    var node = createCraftingNode(1, "Furnace", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Furnace", false, __sampleRecipeBooks);
     node.craft(result);
 
     deepEqual(result.inventory.materials["Furnace"], 1, JSON.stringify(result.inventory));
@@ -299,7 +335,7 @@ test("craft: no-op", function() {
 });
 
 test("craft: deep tree", function() {
-    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Gear", false, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Iron Gear"], 1);
@@ -328,7 +364,7 @@ test("craft: deep tree", function() {
 });
 
 test("craft: repeatedly craft ingredient", function() {
-    var node = createCraftingNode(1, "Bookshelf", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Bookshelf", false, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Bookshelf"], 1, JSON.stringify(result.inventory));
@@ -352,7 +388,7 @@ test("craft: repeatedly craft ingredient", function() {
 });
 
 test("craft: same item used multiple places", function() {
-    var node = createCraftingNode(1, "Mining Well", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Mining Well", false, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Mining Well"], 1, JSON.stringify(result.inventory));
@@ -386,7 +422,7 @@ test("craft: same item used multiple places", function() {
 });
 
 test("craft: multiple tools needed", function() {
-    var node = createCraftingNode(1, "Iron Pickaxe", true, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Iron Pickaxe", true, __sampleRecipeBooks);
     var result = node.craft();
 
     deepEqual(result.inventory.materials["Iron Pickaxe"], 1, JSON.stringify(result.inventory));
@@ -403,63 +439,8 @@ test("craft: multiple tools needed", function() {
     deepEqual(result.missingMaterials.length, 4, JSON.stringify(result.missingMaterials));
 });
 
-test("copy", function() {
-    var node = createCraftingNode(3, "Stick", false, undefined, __sampleRecipeBooks);
-    var copiedNode = node.copy();
-
-    deepEqual(copiedNode.alternatives.length, 2);
-    deepEqual(copiedNode.children.length, 1);
-    deepEqual(copiedNode.count, 3);
-    deepEqual(copiedNode.name, "Stick");
-    deepEqual(copiedNode.parentNode, undefined);
-    deepEqual(copiedNode.recipe.name, "Stick");
-    notStrictEqual(node.children[0], copiedNode.children[0]);
-});
-
-test("createNextAlternative", function() {
-    var node = createCraftingNode(1, "Stick", false, undefined, __sampleRecipeBooks);
-    deepEqual(node.alternatives.length, 2);
-
-    var firstAlternate = node.createNextAlternative(__sampleRecipeBooks);
-    var secondAlternate = firstAlternate.createNextAlternative(__sampleRecipeBooks);
-
-    deepEqual(node.alternatives, []);
-    deepEqual(node.name, "Stick");
-    deepEqual(node.recipe.input[0].name, "Birch Plank");
-    deepEqual(node.createNextAlternative(__sampleRecipeBooks), undefined);
-
-    deepEqual(firstAlternate.alternatives, []);
-    deepEqual(firstAlternate.name, "Stick");
-    deepEqual(firstAlternate.recipe.input[0].name, "Oak Plank");
-    deepEqual(firstAlternate.createNextAlternative(__sampleRecipeBooks), undefined);
-
-    deepEqual(secondAlternate.alternatives, []);
-    deepEqual(secondAlternate.name, "Stick");
-    deepEqual(secondAlternate.recipe.input[0].name, "Spruce Plank");
-    deepEqual(secondAlternate.createNextAlternative(__sampleRecipeBooks), undefined);
-});
-
-test("depthFirstTraversal", function() {
-    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
-    var expectedNames = ["Iron Ingot", "Birch Plank", "Stick", "Wooden Gear", "Stone Gear", "Iron Gear"];
-    var names = [];
-
-    node.depthFirstTraversal(function(node) { names.push(node.name); });
-    deepEqual(names, expectedNames);
-});
-
-test("findNodeWithAlternatives", function() {
-    var node = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
-    var nodeWithAlternatives = node.findNodeWithAlternatives();
-    deepEqual(nodeWithAlternatives.name, "Stick");
-
-    node = createCraftingNode(1, "Stick", false, undefined, __sampleRecipeBooks);
-    nodeWithAlternatives = node.findNodeWithAlternatives();
-    deepEqual(nodeWithAlternatives.name, "Stick");
-});
-
 test("getNodeAt", function() {
-    var node = createCraftingNode(1, "Electronic Circuit", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Electronic Circuit", false, __sampleRecipeBooks);
     deepEqual(node.getNodeAt([0]).name, "Insulated Copper Cable");
     deepEqual(node.getNodeAt([1]).name, "Refined Iron");
     deepEqual(node.getNodeAt([0, 0]).name, "Copper Cable");
@@ -468,7 +449,8 @@ test("getNodeAt", function() {
 });
 
 test("getPosition", function() {
-    var node = createCraftingNode(1, "Electronic Circuit", false, undefined, __sampleRecipeBooks);
+    var node = createCraftingNode(1, "Electronic Circuit", false, __sampleRecipeBooks);
+
     deepEqual(node.getNodeAt([0]).getPosition(), [0]);
     deepEqual(node.getNodeAt([1]).getPosition(), [1]);
     deepEqual(node.getNodeAt([0, 0]).getPosition(), [0, 0]);
@@ -477,12 +459,21 @@ test("getPosition", function() {
 });
 
 test("setNodeAt", function() {
-    var ironGearNode = createCraftingNode(1, "Iron Gear", false, undefined, __sampleRecipeBooks);
-    var furnaceNode = createCraftingNode(1, "Furnace", false, undefined, __sampleRecipeBooks);
+    var ironGearNode = createCraftingNode(1, "Iron Gear", false, __sampleRecipeBooks);
+    var furnaceNode = createCraftingNode(1, "Furnace", false, __sampleRecipeBooks);
     ironGearNode.setNodeAt([1, 0, 0], furnaceNode);
 
     deepEqual(ironGearNode.children[1].children[0].children[0].name, "Furnace");
     deepEqual(furnaceNode.parentNode, ironGearNode.children[1].children[0]);
+});
+
+test("visitCraftingNodes", function() {
+    var node = createCraftingNode(1, "Iron Gear", false, __sampleRecipeBooks);
+    var expectedNames = ["Iron Ingot", "Birch Plank", "Stick", "Wooden Gear", "Stone Gear", "Iron Gear"];
+    var names = [];
+
+    node.visitCraftingNodes(function(node) { names.push(node.name); });
+    deepEqual(names, expectedNames);
 });
 
 module("CraftingPlan"); ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -492,28 +483,30 @@ test("create: single complex plan", function() {
     deepEqual(plan.count, 1);
     deepEqual(plan.recipeName, "Bookshelf");
     deepEqual(plan.alternatives.length, 1);
-    deepEqual(plan.alternatives[0].getNodeAt([1, 0]).name, "Paper");
+    deepEqual(plan.alternatives[0].missingMaterials.materials["Sugar Cane"], 9);
 });
 
 test("create: multiple simple plans", function() {
     var plan = createCraftingPlan(1, "Stick", false, __sampleRecipeBooks);
     deepEqual(plan.count, 1);
     deepEqual(plan.recipeName, "Stick");
-    deepEqual(plan.alternatives[0].recipe.input[0].name, "Birch Plank");
-    deepEqual(plan.alternatives[1].recipe.input[0].name, "Oak Plank");
-    deepEqual(plan.alternatives[2].recipe.input[0].name, "Spruce Plank");
+    deepEqual(plan.alternatives[0].missingMaterials.materials["Birch Log"], 1);
+    deepEqual(plan.alternatives[1].missingMaterials.materials["Oak Log"], 1);
+    deepEqual(plan.alternatives[2].missingMaterials.materials["Spruce Log"], 1);
     deepEqual(plan.alternatives.length, 3);
 });
 
 test("create: multiple complex plans", function() {
     var plan = createCraftingPlan(1, "Iron Gear", false, __sampleRecipeBooks);
-    var firstResult = plan.alternatives[0].craft();
-    var secondResult = plan.alternatives[1].craft();
-    var thirdResult = plan.alternatives[2].craft();
+    deepEqual(plan.alternatives.length, 3);
 
-    deepEqual(firstResult.missingMaterials.materials["Birch Log"], 1, JSON.stringify(firstResult.missingMaterials));
-    deepEqual(secondResult.missingMaterials.materials["Oak Log"], 1, JSON.stringify(secondResult.missingMaterials));
-    deepEqual(thirdResult.missingMaterials.materials["Spruce Log"], 1, JSON.stringify(thirdResult.missingMaterials));
+    var first = plan.alternatives[0];
+    var second = plan.alternatives[1];
+    var third = plan.alternatives[2];
+
+    deepEqual(first.missingMaterials.materials["Birch Log"], 1, JSON.stringify(first));
+    deepEqual(second.missingMaterials.materials["Oak Log"], 1, JSON.stringify(second));
+    deepEqual(third.missingMaterials.materials["Spruce Log"], 1, JSON.stringify(third));
 });
 
 test("create: with infinite cycle plans", function() {
@@ -521,6 +514,7 @@ test("create: with infinite cycle plans", function() {
 
     deepEqual(plan.alternatives.length, 0, JSON.stringify(plan));
 });
+
 
 module("CraftingResult"); /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -704,6 +698,13 @@ test("copy", function() {
     deepEqual(recipe2.output.length, 2);
     deepEqual(recipe2.input.length, 4);
     deepEqual(recipe2.tools, ["Crafting Table"]);
+});
+
+test("toString", function() {
+    var recipe = createRecipe(JSON.parse(__sampleRecipe));
+    var expected = "Makes: 1 Cake, 1 Bucket\nfrom: [\n    3 Milk,\n    2 Sugar,\n    3 Wheat,\n    " +
+        "1 Egg\n]\nusing: Crafting Table";
+    deepEqual(recipe.toString(), expected)
 });
 
 module("RecipeBook"); /////////////////////////////////////////////////////////////////////////////////////////////////

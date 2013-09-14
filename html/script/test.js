@@ -174,8 +174,10 @@ QUnit.testStart(function(name, module) {
     ];
 });
 
+
 module("Extensions"); /////////////////////////////////////////////////////////////////////////////////////////////////
 
+/*
 test("Array.copy", function() {
     var sample = [ "alpha", "bravo", "charlie" ];
     var copiedSample = sample.copy();
@@ -192,19 +194,63 @@ test("Array.copy", function() {
     deepEqual(sample.length, copiedSample.length);
     notStrictEqual(sample, copiedSample);
 });
+*/
+
+test("Array.toString", function() {
+    var sample = ["a", "b", ["c", "d", ["e", "f"], "g"], "h"];
+
+    deepEqual(sample.toString(), "[a, b, [c, d, [e, f], g], h]");
+    deepEqual(sample.toString("pretty"), "[\n    a,\n    b,\n    [\n        c,\n        d,\n        [\n            " +
+        "e,\n            f\n        ],\n        g\n    ],\n    h\n]");
+
+    var options = {"prefix": "<", "suffix": ">", "delimiter": "|"};
+    deepEqual(sample.toString(options), "<a|b|<c|d|<e|f>|g>|h>");
+});
+
+module("Crafter"); ////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 module("CraftingNode"); ///////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create: simple", function() {
-    var node = createCraftingNode(12, "Furnace", false, __sampleRecipeBooks);
-    deepEqual(node.alternatives.length, 1);
-    deepEqual(node.children.length, 0);
+    var node = createCraftingNode("Furnace", {count: 12, recipeBooks: __sampleRecipeBooks});
+
+    deepEqual(node.choices.length, 1);
+    deepEqual(node.choices[0].length, 1);
+    deepEqual(node.choices[0][0].name, "Furnace");
     deepEqual(node.count, 12);
-    deepEqual(node.name, "Furnace");
+    deepEqual(node.includeTools, false);
+    deepEqual(node.inventory.length, 0);
+    deepEqual(node.materials.length, 0);
     deepEqual(node.parentNode, undefined);
-    deepEqual(node.recipe.name, "Furnace");
+    deepEqual(node.recipe, undefined);
 });
 
+test("create: multiple alternatives", function() {
+    var node = createCraftingNode("Stick", {recipeBooks: __sampleRecipeBooks});
+
+    deepEqual(node.choices.length, 1);
+    deepEqual(node.choices[0].length, 3);
+    deepEqual(node.choices[0][0].input[0].name, "Birch Plank");
+    deepEqual(node.choices[0][1].input[0].name, "Oak Plank");
+    deepEqual(node.choices[0][2].input[0].name, "Spruce Plank");
+    deepEqual(node.count, 1);
+});
+
+test("expandChoices: root node with single choice", function() {
+    var node = createCraftingNode("Furnace", {recipeBooks: __sampleRecipeBooks});
+    node.expandChoices();
+    deepEqual(node.children.length, 1);
+
+    var child = node.children[0];
+    deepEqual(child.choices.length, 0);
+    deepEqual(child.count, 1);
+    deepEqual(child.inventory.materials["Furnace"], 1);
+    deepEqual(child.materials.materials["Cobblestone"], 8);
+    deepEqual(child.parentNode, node);
+    deepEqual(recipe.name, "Furnace");
+});
+/*
 test("create: complex", function() {
     var node = createCraftingNode(1, "Iron Gear", false, __sampleRecipeBooks);
     deepEqual(node.name, "Iron Gear");
@@ -580,7 +626,7 @@ test("copy", function() {
     deepEqual(copiedResult.stepList[0].name, "Oak Plank");
     deepEqual(copiedResult.missingMaterials.materials["Oak Log"], 1);
 });
-
+*/
 module("Ingredient"); /////////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create", function() {
@@ -619,6 +665,21 @@ test("add / contains", function() {
     deepEqual(manifest.contains(9, "Iron Ingot"), true);
     deepEqual(manifest.contains(10, "Iron Ingot"), true);
     deepEqual(manifest.contains(11, "Iron Ingot"), false);
+});
+
+test("addAll", function() {
+    var manifest = createManifest();
+    manifest.add(1, "Stick");
+    manifest.add(2, "Oak Plank");
+    manifest.add(3, "Iron Ingot");
+
+    var manifest2 = createManifest();
+    manifest2.addAll(manifest);
+
+    deepEqual(manifest2.length, 3, manifest2.toString());
+    deepEqual(manifest2.materials["Stick"], 1, manifest2.toString());
+    deepEqual(manifest2.materials["Oak Plank"], 2, manifest2.toString());
+    deepEqual(manifest2.materials["Iron Ingot"], 3, manifest2.toString());
 });
 
 test("copy", function() {
@@ -702,8 +763,7 @@ test("copy", function() {
 
 test("toString", function() {
     var recipe = createRecipe(JSON.parse(__sampleRecipe));
-    var expected = "Makes: 1 Cake, 1 Bucket\nfrom: [\n    3 Milk,\n    2 Sugar,\n    3 Wheat,\n    " +
-        "1 Egg\n]\nusing: Crafting Table";
+    var expected = "Makes 1 Cake, 1 Bucket from 3 Milk, 2 Sugar, 3 Wheat, 1 Egg using Crafting Table";
     deepEqual(recipe.toString(), expected)
 });
 
@@ -715,10 +775,28 @@ test("create", function() {
     deepEqual(recipeBook.name, "Vanilla Recipes");
     deepEqual(recipeBook.description, "Crafting recipes from vanilla Minecraft");
     deepEqual(recipeBook.sourceUrl, "inline://vanilla");
-    deepEqual(recipeBook.recipes.length, 12);
+    deepEqual(recipeBook.length, 12);
     deepEqual(recipeBook.recipes[3].name, "Furnace");
 });
 
+test("addRecipe", function() {
+    var recipeBook = createRecipeBook();
+    deepEqual(recipeBook.length, 0);
+
+    recipeBook.addRecipe(__sampleRecipeBooks[0].recipes[1]);
+    deepEqual(recipeBook.length, 1);
+    deepEqual(recipeBook.recipes[0].name, "Crafting Table");
+    deepEqual(recipeBook.recipes[0].input[0].name, "Birch Plank");
+
+    recipeBook.addRecipe(__sampleRecipeBooks[0].recipes[2]);
+    deepEqual(recipeBook.length, 2);
+    deepEqual(recipeBook.recipes[1].name, "Crafting Table");
+    deepEqual(recipeBook.recipes[1].input[0].name, "Oak Plank");
+
+    recipeBook.addRecipe(__sampleRecipeBooks[0].recipes[1]);
+    deepEqual(recipeBook.length, 2);
+});
+/*
 test("findAllRecipes", function() {
     var recipeBook = __sampleRecipeBooks[0];
     var recipes = undefined;
@@ -753,7 +831,7 @@ test("hasRecipe", function() {
     deepEqual(recipeBook.hasRecipe("IRon InGoT"), true);
     deepEqual(recipeBook.hasRecipe("Jellybean"), false);
 });
-
+*/
 module("RecipeBook (globals)"); ///////////////////////////////////////////////////////////////////////////////////////
 
 test("hasRecipe", function() {

@@ -27,7 +27,7 @@ Array.prototype.copy = function(copyFunction) {
     }
     return result;
 };
-
+/*
 Array.prototype.toHtml = function(delimiter) {
     var result = "";
     var needsDelimiter = false;
@@ -37,29 +37,40 @@ Array.prototype.toHtml = function(delimiter) {
     }
     return result;
 }
+*/
 
-Array.prototype.toString = function(indent) {
-    indent = (indent === undefined) ? "" : indent;
+Array.prototype.toString = function(options, indent) {
+    if (options === "pretty") {
+        options = {"prefix": "[\n", "suffix": "\n]", "delimiter": ",\n", "indentBy": "    "};
+    } 
 
-    var result = "[\n";
+    options = (options === undefined) ? {} : options;
+    indent  = (indent  === undefined) ? "" : indent;
+
+    var prefix    = (options.prefix    === undefined) ? "["  : options.prefix;
+    var suffix    = (options.suffix    === undefined) ? "]"  : options.suffix;
+    var delimiter = (options.delimiter === undefined) ? ", " : options.delimiter;
+    var indentBy  = (options.indentBy  === undefined) ? ""   : options.indentBy;
+
+    var result = prefix;
     var needsDelimiter = false;
-    var innerIndent = INDENT_UNIT + indent;
     for (var i = 0; i < this.length; i++) {
-        if (needsDelimiter === true) result += ",\n";
+        if (needsDelimiter === true) result += delimiter;
         needsDelimiter = true;
 
         if (typeof(this[i].toString) === 'function') {
-            result += innerIndent + this[i].toString(innerIndent);
+            result += this[i].toString(options, indentBy);
         } else {
-            result += innerIndent + this[i];
+            result += this[i];
         }
     }
-    result += "\n" + indent + "]";
+    result = result.replace(/\n/g, "\n" + indentBy);
+    result += suffix;
     return result;
 };
 
 // UI Functions ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 $(function() {
     $("#recipe_book_load_button").click(onRecipeLoadButtonClicked);
     $("#crafting_count").change(onCraftingSelectorChanged);
@@ -141,9 +152,9 @@ function onRecipeLoadButtonClicked() {
         $("#reipebook_load_button").removeAttr("disabled");
     });
 }
-
+*/
 // UI Helper Functions ////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 function loadRecipeBook(recipeBookUrl) {
     __loadingCount++;
     $.ajax({
@@ -232,9 +243,25 @@ function updatePageState(count, recipeName) {
     history.pushState(state, newTitle, newLink);
     ga('send', 'pageview');
 }
+*/
+// Crafter Object /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function createCrafter(recipeName, options) {
+    if (recipeName === undefined) throw "RecipeName is requried";
+    options = (options === undefined) ? {} : options;
+    recipeBooks = (options.recipeBooks === undefined) ? __recipeBooks : options.recipeBooks;
+    includeTools = (options.includeTools === true) ? true : false;
+
+    var object = {
+        includeTools: includeTools,
+        rootNode: undefined
+    };
+
+    return object;
+}
 
 // Crafting Alternatives //////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 function createCraftingAlternative(recipe, children) {
     var object = {
         children: children,
@@ -243,259 +270,130 @@ function createCraftingAlternative(recipe, children) {
 
     return object;
 }
-
+*/
 // Crafting Node Object ///////////////////////////////////////////////////////////////////////////////////////////////
 
-function createCraftingNode(count, recipeName, shouldIncludeTools, recipeBooks, parentNode) {
-    if (shouldIncludeTools !== true) shouldIncludeTools = false;
-    if (recipeBooks === undefined) recipeBooks = __recipeBooks;
+function createCraftingNode(targetName, options) {
+    if (targetName === undefined) throw "TargetName is required";
+
+    options          = (options                  === undefined) ? {}               : options;
+    count            = (options.count            === undefined) ? 1                : options.count;
+    includeTools     = (options.includeTools     === true)      ? true             : false;
+    initialInventory = (options.initialInventory === undefined) ? createManifest() : options.initialInventory;
+    parentNode       = (options.parentNode       === undefined) ? undefined        : options.parentNode;
+    recipe           = (options.recipe           === undefined) ? undefined        : options.recipe;
+    recipeBooks      = (options.recipeBooks      === undefined) ? __recipeBooks    : options.recipeBooks;
 
     var object = {
-        alternatives: [],
-        alternateIndex: undefined,
         children: [],
+        choices: [],
         count: count,
-        isToolNode: false,
-        name: recipeName,
+        includeTools: includeTools,
+        inventory: createManifest(),
+        materials: createManifest(),
         parentNode: parentNode,
-        recipe: undefined,
-        shouldIncludeTools: shouldIncludeTools
+        recipe: recipe,
+        score: 0,
+        targetName: targetName
     };
 
-    object.chooseAlternative = function(index) {
-        var alternative = object.alternatives[index];
-
-        object.alternateIndex = index;
-        object.recipe = alternative.recipe;
-        object.children = alternative.children;
+    object.expandChoices = function() {
+        for (var i = 0; i < object.choices.length; i++) {
+            for (var j = 0; j < object.choices.length; j++) {
+                var recipe = object.choices[i][j];
+                var child = createCraftingNode(recipe.name, {
+                    recipe: recipe,
+                    includeTools: includeTools,
+                    parentNode: object,
+                    recipeBooks: recipeBooks
+                });
+                if (child) object.children.push(child);
+            }
+        }
     };
 
-    object.copy = function() {
-        var result = createCraftingNode();
-        result.alternatives = object.alternatives.copy();
-        result.count = object.count;
-        result.isToolNode = object.isToolNode;
-        result.name = object.name;
-        result.parentNode = undefined;
-        result.recipe = object.recipe.copy();
-        result.repeats = object.repeats;
-        result.shouldIncludeTools = object.shouldIncludeTools;
-
-        result.children = object.children.copy();
-        for (var i = 0; i < result.children.length; i++) {
-            result.children[i].parentNode = result;
-        }
-
-        return result;
-    };
-
-    object.craft = function(craftingResult) {
-        if (shouldIncludeTools !== true) shouldIncludeTools = false;
-        if (craftingResult === undefined) {
-            craftingResult = createCraftingResult();
-        }
-        var shouldContinueCrafting = function() {
-            if (object.parentNode === undefined || object.isToolNode) {
-                return ! craftingResult.inventory.contains(object.count, object.name);
-            } else {
-                return craftingResult.missingMaterials.contains(1, object.name);
+    function elaborateInputChoices() {
+        for (var i = 0; i < object.recipe.input.length; i++) {
+            var input = object.recipe.input[i];
+            var alternatives = findAllRecipes(input.name, recipeBooks);
+            if (alternatives.length > 0) {
+                object.choices.push(alternatives);
             }
         }
+    }
 
-        var count = 0;
-        while (shouldContinueCrafting()) {
-            if (count++ > 100000) {
-                throw "Too many iterations";
+    function elaborateToolChoices() {
+        for (var i = 0; i < object.recipe.tools.length; i++) {
+            var tool = object.recipe.tools[i];
+            var alternatives = findAllRecipes(tool, recipeBooks);
+            if (alternatives.length > 0) {
+                object.choices.push(alternatives);
             }
-            if (object.shouldIncludeTools) {
-                for (var i = 0; i < object.recipe.tools; i++) {
-                    var tool = object.recipe.tools[i];
-                    var hasTool = craftingResult.inventory.contains(1, tool) ||
-                        craftingResult.missingMaterials.contains(1, tool);
-                    if (! hasTool) {
-                        craftingResult.addMissingMaterial(tool);
-                    }
-                }
-            }
+        }
+    }
+
+    function computeCraftingResults() {
+        function isComplete() {
+            return (object.parentNode === undefined) ?
+                ! object.materials.contains(1, object.targetName) :
+                object.inventory.contains(count, object.targetName);
+        }
+
+        while (! isComplete()) {
             for (var i = 0; i < object.recipe.input.length; i++) {
                 var input = object.recipe.input[i];
                 for (var j = 0; j < input.count; j++) {
-                    if (craftingResult.inventory.contains(1, input.name)) {
-                        craftingResult.consumeInventory(input.name);
+                    if (object.inventory.contains(1, input.name)) {
+                        object.inventory.remove(1, input.name);
                     } else {
-                        craftingResult.addMissingMaterial(input.name);
+                        object.materials.add(1, input.name);
                     }
                 }
             }
             for (var i = 0; i < object.recipe.output.length; i++) {
                 var output = object.recipe.output[i];
-                craftingResult.addCraftingResult(output.count, output.name);
+                object.inventory.add(output.count, output.name);
             }
         }
-        for (var i = 0; i < object.children.length; i++) {
-            var child = object.children[i];
-            child.craft(craftingResult);
-        }
-        if (object.parentNode === undefined) {
-            craftingResult.sortStepsBy(object);
-        }
-        return craftingResult;
-    };
 
-    object.createChildren = function() {
-        object.children = []
-
-        if (object.parentNode && object.parentNode.isImpossible()) return undefined;
-
-        if (object.shouldIncludeTools) {
-            for (var i = 0; i < object.recipe.tools.length; i++) {
+        if (options.includeTools) {
+            for (var i = 0; i < output.recipe.tools.length; i++) {
                 var tool = object.recipe.tools[i];
-                var node = createCraftingNode(1, tool, shouldIncludeTools, recipeBooks, object);
-                if (node) {
-                    node.isToolNode = true;
-                    object.children.push(node);
+                if (! object.inventory.contains(1, tool)) {
+                    object.materials.add(1, tool);
                 }
             }
         }
-
-        for (var i = 0; i < object.recipe.input.length; i++) {
-            var input = object.recipe.input[i];
-            var node = createCraftingNode(input.count, input.name, shouldIncludeTools, recipeBooks, object);
-            if (node) {
-                object.children.push(node);
-            }
-        }
     }
 
-    object.getNodeAt = function(position) {
-        var node = object;
-        for (var i = 0; i < position.length; i++) {
-            var alternate = node.alternatives[position[i][0]];
-            node = alternate.children[position[1][i]];
-        }
-        return node;
-    };
-
-    object.getPosition = function() {
-        if (object.parentNode === undefined) return [];
-        var position = object.parentNode.getPosition();
-
-        for (var i = 0; i < object.parentNode.alternatives.length; i++) {
-            var alternative = object.parentNode.alternative[i];
-            for (var j = 0; j < alternative.children.length; j++) {
-                if (object !== alternative.children[j]) continue;
-                position.push([i, j]);
-                return position;
-            }
-        }
-        return undefined;
-    };
-
-    object.isImpossible = function() {
-        var depth = 0;
-        var node = object;
-        var recipeText = object.recipe.toString();
-        while (node.parentNode) {
-            if (node.parentNode.recipe.toString() == recipeText || depth > 100) {
-                return true;
-            }
-            node = node.parentNode;
-            depth++;
-        }
-
-        for (var i = 0; i < object.children.length; i++) {
-            if (object.children[i].isImpossible()) return true;
-        }
-
-        return false;
-    };
-
-    object.setNodeAt = function(position, node) {
-        var node = object;
-
-
-        if (position.length === 1) {
-            object.children[position[0]] = node;
-            node.parentNode = object;
-        } else {
-            var child = object.children[position[0]];
-            child.setNodeAt(position.slice(1), node);
-        }
-    };
-
-    object.toString = function(indent) {
-        var result = "";
-        result += object.recipe.name + " (" + object.alternatives.length + ") ";
-        if (object.children.length > 0) {
-            result += object.children.toString(indent);
-        }
-        return result;
-    }
-
-    object.visitCraftingNodes = function(callback) {
-        var shouldContinue = true;
-        for (var i = 0; i < object.children.length; i++) {
-            var child = object.children[i];
-            shouldContinue = child.visitCraftingNodes(callback);
-            if (shouldContinue === false) return false;
-        }
-        return (callback(object) !== false);
-    };
-
-    if (count !== undefined) {
-        var recipes = findAllRecipes(recipeName, recipeBooks);
-        if (recipes.length === 0) return undefined;
+    function init() {
+        object.inventory.addAll(initialInventory);
         
-        for (var i = 0; i < recipes.length; i++) {
-            object.recipe = recipes[i];
-            object.createChildren();
-
-            object.alternatives.push(createCraftingAlternative(object.recipe, object.children));
+        if (parentNode) {
+            object.inventory.addAll(parentNode.inventory);
+            object.materials.addAll(parentNode.materials);
         }
-        object.chooseAlternative(0);
-    }
 
-    return object;
-}
-
-// Crafting Plan Object ///////////////////////////////////////////////////////////////////////////////////////////////
-
-function createCraftingPlan(count, recipeName, shouldIncludeTools, recipeBooks) {
-    if (shouldIncludeTools !== true) shouldIncludeTools = false;
-    if (recipeBooks === undefined) recipeBooks = __recipeBooks;
-
-    var object = {
-        count: count,
-        recipeName: recipeName,
-        alternatives: []
-    };
-
-    var nodesToProcess = [ createCraftingNode(count, recipeName, shouldIncludeTools, undefined, recipeBooks) ];
-    while (nodesToProcess.length > 0) {
-        var node = nodesToProcess.shift();
-        var choiceNode = node.findNodeWithAlternatives();
-
-        if (choiceNode === undefined) {
-            object.alternatives.push(node);
-        } else if (choiceNode === node) {
-            nodesToProcess.push(node);
-            nodesToProcess.push(node.createNextAlternative(recipeBooks));
+        if (object.recipe) {
+            elaborateInputChoices();
+            if (options.includeTools) {
+                elaborateToolChoices();
+            }
+            computeCraftingResults();
         } else {
-            nodesToProcess.push(node);
-            var position = choiceNode.getPosition();
-            var alternateNode = choiceNode.createNextAlternative(recipeBooks);
-
-            var nextAlternative = node.copy();
-            nextAlternative.setNodeAt(position, alternateNode);
-            nodesToProcess.push(nextAlternative);
+            var recipes = findAllRecipes(targetName, recipeBooks);
+            if (recipes.length === 0) return undefined;
+            object.choices.push(recipes);
         }
+
+        return object;
     }
 
-    return object;
+    return init();
 }
 
 // Crafting Result Object /////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 function createCraftingResult(startingInventory) {
     if (startingInventory === undefined) startingInventory = createManifest();
 
@@ -566,7 +464,7 @@ function createCraftingResult(startingInventory) {
 
     return object;
 }
-
+*/
 // Ingredient Object //////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createIngredient(count, name) {
@@ -594,6 +492,12 @@ function createManifest() {
             object.length += 1;
         } else {
             object.materials[name] = object.materials[name] + count;
+        }
+    };
+
+    object.addAll = function(manifest) {
+        for (var key in manifest.materials) {
+            object.add(manifest.materials[key], key);
         }
     };
 
@@ -652,6 +556,18 @@ function createManifest() {
         return result;
     };
 
+    object.toString = function() {
+        var result = "[";
+        var needsDelimiter = false;
+        for (var key in object.materials) {
+            if (needsDelimiter) result += ", ";
+            needsDelimiter = true;
+            result += object.materials[key] + " " + key;
+        }
+        result += "]";
+        return result;
+    }
+
     return object;
 }
 
@@ -665,50 +581,44 @@ function createRecipe(data) {
         tools: []
     };
 
-    if (data !== undefined) {
-        $.each(data.output, function(index, value) {
+    object.copy = function() {
+        var result = createRecipe();
+        result.name = object.name;
+        result.output = object.output.copy();
+        result.input = object.input.copy();
+        result.tools = object.tools.copy();
+        return result;
+    }
+
+    object.loadFrom = function(data) {
+        for (var i = 0; i < data.output.length; i++) {
+            var value = data.output[i];
             object.output.push(createIngredient(value[0], value[1]));
-        });
+        }
         if (object.output.length > 0) {
             object.name = object.output[0].name;
         }
 
-        $.each(data.input, function(index, value) {
+        for (var i = 0; i < data.input.length; i++) {
+            var value = data.input[i];
             object.input.push(createIngredient(value[0], value[1]));
-        });
+        }
 
         object.tools = data.tools;
+    };
+
+    object.toString = function(options) {
+        var options = {"prefix": "", "suffix": "", "delimiter": ", "};
+        var result = "Makes " + object.output.toString(options) + " from " + object.input.toString(options);
+        if (object.tools.length > 0) {
+            result += " using " + object.tools.toString(options);
+        }
+        return result;
+    };
+
+    if (data !== undefined) {
+        object.loadFrom(data);
     }
-
-    object.copy = function() {
-        var result = createRecipe();
-        result.name = object.name,
-        result.output = object.output.copy(),
-        result.input = object.input.copy(),
-        result.tools = object.tools.copy()
-        return result;
-    };
-
-    object.toString = function(indent) {
-        indent = (indent === undefined) ? "" : indent;
-        var result = "Makes: ";
-
-        for (var i = 0; i < object.output.length; i++) {
-            if (i > 0) result += ", ";
-            result += object.output[i].toString();
-        }
-
-        result += "\nfrom: ";
-        result += object.input.toString(indent);
-        result += "\nusing: ";
-
-        for (var i = 0; i < object.tools.length; i++) {
-            if (i > 0) result += ", ";
-            result += object.tools[i];
-        }
-
-        return result;
-    };
 
     return object;
 }
@@ -717,15 +627,32 @@ function createRecipe(data) {
 
 function createRecipeBook(sourceUrl, data) {
     var object = {
-        name: data.name,
-        description: data.description,
+        name: undefined,
+        description: undefined,
+        length: 0,
         sourceUrl: sourceUrl,
+        recipeSet: {},
         recipes: []
     };
 
-    $(data.recipes).each(function(i, data) {
-        object.recipes.push(createRecipe(data));
-    });
+    object.addRecipe = function(recipe) {
+        var key = recipe.toString();
+        if (object.recipeSet[key] !== undefined) return;
+
+        object.recipeSet[key] = recipe;
+        object.recipes.push(recipe);
+        object.length += 1;
+    };
+
+    if (data !== undefined) {
+        object.name = data.name;
+        object.description = data.description;
+
+        for (var i = 0; i < data.recipes.length; i++) {
+            var recipeData = data.recipes[i];
+            object.addRecipe(createRecipe(recipeData));
+        }
+    }
 
     object.findAllRecipes = function(recipeName) {
         var targetName = recipeName.toLowerCase();
@@ -760,6 +687,10 @@ function createRecipeBook(sourceUrl, data) {
         return false;
     };
 
+    object.toString = function(options) {
+        return object.recipes.toString(options);
+    };
+    /*
     object.toHtml = function() {
         return $(
             "<tr>" +
@@ -768,6 +699,7 @@ function createRecipeBook(sourceUrl, data) {
             "</tr>"
         );
     };
+    */
 
     return object;
 }

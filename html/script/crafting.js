@@ -27,17 +27,13 @@ Array.prototype.copy = function(copyFunction) {
     }
     return result;
 };
-/*
-Array.prototype.toHtml = function(delimiter) {
-    var result = "";
-    var needsDelimiter = false;
+
+Array.prototype.each = function(onVisit) {
     for (var i = 0; i < this.length; i++) {
-        if (needsDelimiter) result += delimiter;
-        result += (typeof(this[i].toHtml) === "function") ? this[i].toHtml() : this[i].toString();
+        var shouldStop = onVisit(this[i]);
+        if (shouldStop) return;
     }
-    return result;
-}
-*/
+};
 
 Array.prototype.toString = function(options, indent) {
     if (options === "pretty") {
@@ -67,6 +63,14 @@ Array.prototype.toString = function(options, indent) {
     result = result.replace(/\n/g, "\n" + indentBy);
     result += suffix;
     return result;
+};
+
+Object.prototype.eachProperty = function(onVisit) {
+    for (var property in this) {
+        if (this.hasOwnProperty(property)) {
+            onVisit(property, this.property);
+        }
+    }
 };
 
 // UI Functions ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -298,9 +302,8 @@ function createCraftingNode(targetName, options) {
     };
 
     object.expandChoices = function() {
-        for (var i = 0; i < object.choices.length; i++) {
-            for (var j = 0; j < object.choices.length; j++) {
-                var recipe = object.choices[i][j];
+        object.choices.each(function(choiceGroup) {
+            choiceGroup.each(function(recipe) {
                 var child = createCraftingNode(recipe.name, {
                     recipe: recipe,
                     includeTools: includeTools,
@@ -308,28 +311,48 @@ function createCraftingNode(targetName, options) {
                     recipeBooks: recipeBooks
                 });
                 if (child) object.children.push(child);
-            }
+            });
+        });
+    };
+
+    object.expandFully = function() {
+        object.expandChoices();
+        object.children.each(function(child) {
+            child.expandFully();
+        });
+    };
+
+    object.toString = function(options) {
+        options = (options === undefined) ? {} : options;
+        indent = (options.indent === undefined) ? "" : options.indent;
+
+        var recipeName = (object.recipe === undefined) ? "<root node>" : recipe.name;
+        var result = indent + recipeName + ((object.choices.length > 0) ? " *" : "");
+        if (object.children.length > 0) {
+            result += "\n";
+            object.children.each(function(child) {
+                result += object.children[i].toString({indent: indent + "    "}) + "\n";
+            });
         }
+        return result;
     };
 
     function elaborateInputChoices() {
-        for (var i = 0; i < object.recipe.input.length; i++) {
-            var input = object.recipe.input[i];
+        object.recipe.input.each(function(input) {
             var alternatives = findAllRecipes(input.name, recipeBooks);
             if (alternatives.length > 0) {
                 object.choices.push(alternatives);
             }
-        }
+        });
     }
 
     function elaborateToolChoices() {
-        for (var i = 0; i < object.recipe.tools.length; i++) {
-            var tool = object.recipe.tools[i];
+        object.recipe.tools.each(function(tool) {
             var alternatives = findAllRecipes(tool, recipeBooks);
             if (alternatives.length > 0) {
                 object.choices.push(alternatives);
             }
-        }
+        });
     }
 
     function computeCraftingResults() {
@@ -340,8 +363,7 @@ function createCraftingNode(targetName, options) {
         }
 
         while (! isComplete()) {
-            for (var i = 0; i < object.recipe.input.length; i++) {
-                var input = object.recipe.input[i];
+            object.recipe.input.each(function(input) {
                 for (var j = 0; j < input.count; j++) {
                     if (object.inventory.contains(1, input.name)) {
                         object.inventory.remove(1, input.name);
@@ -349,20 +371,18 @@ function createCraftingNode(targetName, options) {
                         object.materials.add(1, input.name);
                     }
                 }
-            }
-            for (var i = 0; i < object.recipe.output.length; i++) {
-                var output = object.recipe.output[i];
+            });
+            object.recipe.output.each(function(output) {
                 object.inventory.add(output.count, output.name);
-            }
+            });
         }
 
         if (options.includeTools) {
-            for (var i = 0; i < output.recipe.tools.length; i++) {
-                var tool = object.recipe.tools[i];
+            options.recipe.tools.each(function(tool) {
                 if (! object.inventory.contains(1, tool)) {
                     object.materials.add(1, tool);
                 }
-            }
+            });
         }
     }
 
@@ -496,9 +516,9 @@ function createManifest() {
     };
 
     object.addAll = function(manifest) {
-        for (var key in manifest.materials) {
-            object.add(manifest.materials[key], key);
-        }
+        object.materials.eachProperty(function(material, count) {
+            object.add(count, material);
+        });
     };
 
     object.contains = function(count, name) {
@@ -508,10 +528,9 @@ function createManifest() {
 
     object.copy = function(count, name) {
         var result = createManifest();
-        for (var name in object.materials) {
-            if (! object.materials.hasOwnProperty(name)) continue;
-            result.add(object.materials[name], name);
-        }
+        object.materials.eachProperty(function(material, count) {
+            result.add(count, material);
+        });
         return result;
     }
 
@@ -538,32 +557,32 @@ function createManifest() {
 
     object.toHtml = function() {
         var result = "";
-        var count = 0;
-        for (var name in object.materials) {
-            result += "<tr><td>" + object.materials[name] + "</td><td>" + name + "</td></tr>";
-            count += 1
-        }
+        var materialCount = 0;
+        object.materials.eachProperty(function(material, count) {
+            result += "<tr><td>" + count + "</td><td>" + material + "</td></tr>";
+            materialCount += 1
+        });
 
-        if (count === 0) result = "<tr><td>Nothing</td><td>&nbsp;</td></tr>";
+        if (materialCount === 0) result = "<tr><td>Nothing</td><td>&nbsp;</td></tr>";
         return result;
     };
 
     object.toKey = function() {
         var result = "|";
-        for (var name in object.materials) {
-            result += object.materials[name] + ":" + name + "|";
-        }
+        object.materials.eachProperty(function(material, count) {
+            result += count + ":" + material + "|";
+        });
         return result;
     };
 
     object.toString = function() {
         var result = "[";
         var needsDelimiter = false;
-        for (var key in object.materials) {
+        object.materials.eachProperty(function(material, count) {
             if (needsDelimiter) result += ", ";
             needsDelimiter = true;
-            result += object.materials[key] + " " + key;
-        }
+            result += count + " " + material;
+        });
         result += "]";
         return result;
     }
@@ -591,18 +610,16 @@ function createRecipe(data) {
     }
 
     object.loadFrom = function(data) {
-        for (var i = 0; i < data.output.length; i++) {
-            var value = data.output[i];
+        data.output.each(function(value) {
             object.output.push(createIngredient(value[0], value[1]));
-        }
+        });
         if (object.output.length > 0) {
             object.name = object.output[0].name;
         }
 
-        for (var i = 0; i < data.input.length; i++) {
-            var value = data.input[i];
+        data.input.each(function(value) {
             object.input.push(createIngredient(value[0], value[1]));
-        }
+        });
 
         object.tools = data.tools;
     };
@@ -648,48 +665,50 @@ function createRecipeBook(sourceUrl, data) {
         object.name = data.name;
         object.description = data.description;
 
-        for (var i = 0; i < data.recipes.length; i++) {
-            var recipeData = data.recipes[i];
+        data.recipes.each(function(recipeData) {
             object.addRecipe(createRecipe(recipeData));
-        }
+        });
     }
 
     object.findAllRecipes = function(recipeName) {
         var targetName = recipeName.toLowerCase();
         var result = []
-        for (var i = 0; i < object.recipes.length; i++) {
-            var recipe = object.recipes[i];
+        object.recipes.each(function(recipe) {
             if (recipe.name.toLowerCase() === targetName) {
                 result.push(recipe)
             }
-        }
+        });
         return result;
     };
 
     object.getAllRecipeNames = function() {
         var set = {};
-        for (var i = 0; i < object.recipes.length; i++) {
-            set[object.recipes[i].name] = true;
-        }
+        object.recipes.each(function(recipe) {
+            set[recipe.name] = true;
+        });
         var result = [];
-        for (var name in set) {
-            result.push(name);
-        }
+        set.eachProperty(function(key, value) {
+            result.push(key);
+        });
         return result.sort();
     };
 
     object.hasRecipe = function(name) {
         var targetName = name.toLowerCase();
-        for (var i = 0; i < object.recipes.length; i++) {
-            var recipe = object.recipes[i];
-            if (recipe.name.toLowerCase() === targetName) return true;
-        }
-        return false;
+        var foundRecipe = false;
+        object.recipes.each(function(recipe) {
+            if (recipe.name.toLowerCase() === targetName) {
+                foundRecipe = true;
+                return false;
+            }
+        });
+        return foundRecipe;
     };
 
     object.toString = function(options) {
         return object.recipes.toString(options);
     };
+
     /*
     object.toHtml = function() {
         return $(
@@ -707,24 +726,26 @@ function createRecipeBook(sourceUrl, data) {
 function hasRecipe(name, recipeBooks) {
     if (recipeBooks === undefined) recipeBooks = __recipeBooks;
 
-    for (var i = 0; i < recipeBooks.length; i++) {
-        var recipeBook = recipeBooks[i];
-        if (recipeBook.hasRecipe(name)) return true;
-    }
-    return false;
+    var foundRecipe = false;
+    recipeBooks.each(function(recipeBook) {
+        if (recipeBook.hasRecipe(name)) {
+            foundRecipe = true;
+            return false;
+        }
+    });
+    return foundRecipe;
 }
 
 function findAllRecipes(name, recipeBooks) {
     if (recipeBooks === undefined) recipeBooks = __recipeBooks;
 
     var result = [];
-    for (var i = 0; i < recipeBooks.length; i++) {
-        var recipeBook = recipeBooks[i];
+    recipeBooks.each(function(recipeBook) {
         var recipes = recipeBook.findAllRecipes(name);
-        for (var j = 0; j < recipes.length; j++) {
-            result.push(recipes[j]);
-        }
-    }
+        recipes.each(function(recipe) {
+            result.push(recipe);
+        });
+    });
     return result;
 }
 
@@ -732,17 +753,17 @@ function getAllRecipeNames(recipeBooks) {
     if (recipeBooks === undefined) recipeBooks = __recipeBooks;
 
     var set = {};
-    for (var i = 0; i < recipeBooks.length; i++) {
-        var recipeNames = recipeBooks[i].getAllRecipeNames();
+    recipeBooks.each(function(recipeBook) {
+        var recipeNames = recipeBook.getAllRecipeNames();
         for (var j = 0; j < recipeNames.length; j++) {
             set[recipeNames[j]] = true;
         }
-    }
+    });
 
     var result = [];
-    for (var name in set) {
-        result.push(name);
-    }
+    set.eachProperty(function(key, value) {
+        result.push(key);
+    });
     result.sort();
     return result;
 }

@@ -250,6 +250,26 @@ test("expandChoices: root node with single choice", function() {
     deepEqual(child.parentNode, node);
     deepEqual(recipe.name, "Furnace");
 });
+
+test("expandChoices: root node with multiple choices", function() {
+    var node = createCraftingNode("Stick", {recipeBooks: __sampleRecipeBooks});
+    node.expandChoices();
+    deepEqual(node.children.length, 3);
+
+    deepEqual(node.children[0].recipe.input[0].name, "Birch Plank");
+    deepEqual(node.children[1].recipe.input[0].name, "Oak Plank");
+    deepEqual(node.children[2].recipe.input[0].name, "Spruce Plank");
+});
+
+test("expandChoices: internal node", function() {
+    var node = createCraftingNode("Iron Gear", {recipeBooks: __sampleRecipeBooks});
+    node.expandChoices();
+    deepEqual(node.toString(), "");
+    node = node.children[1];
+    node.expandChoices();
+
+    deepEqual(node.toString(), "");
+});
 /*
 test("create: complex", function() {
     var node = createCraftingNode(1, "Iron Gear", false, __sampleRecipeBooks);

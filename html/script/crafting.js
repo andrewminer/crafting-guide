@@ -40,8 +40,8 @@ Array.prototype.toString = function(options, indent) {
         options = {"prefix": "[\n", "suffix": "\n]", "delimiter": ",\n", "indentBy": "    "};
     } 
 
-    options = (options === undefined) ? {} : options;
-    indent  = (indent  === undefined) ? "" : indent;
+    var options = (options === undefined) ? {} : options;
+    var indent  = (indent  === undefined) ? "" : indent;
 
     var prefix    = (options.prefix    === undefined) ? "["  : options.prefix;
     var suffix    = (options.suffix    === undefined) ? "]"  : options.suffix;
@@ -68,7 +68,7 @@ Array.prototype.toString = function(options, indent) {
 Object.prototype.eachProperty = function(onVisit) {
     for (var property in this) {
         if (this.hasOwnProperty(property)) {
-            onVisit(property, this.property);
+            onVisit(property, this[property]);
         }
     }
 };
@@ -248,18 +248,46 @@ function updatePageState(count, recipeName) {
     ga('send', 'pageview');
 }
 */
+
+// Base Object ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function createBaseObject(type, root) {
+    var type = (type === undefined) ? "undefined" : type;
+    var object = (root === undefined) ? {}          : root;
+
+    object.hash = Math.floor(Math.random() * 100000000);
+    object.type = type;
+
+    object.toString = function(options) {
+        options = (options === undefined) ? {} : options;
+        indent = (options.indent === undefined) ? "" : options.indent;
+
+        var result = object.type + "<" + object.hash + ">";
+        var needsDelimiter = false;
+        object.eachProperty(function(key, value) {
+            if (needsDelimiter) result += ",\n";
+            result += indent + key + ": " + value.toString({indent: indent + "    "});
+            needsDelimiter = true;
+        });
+
+        return result;
+    };
+
+    return object;
+}
+
 // Crafter Object /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createCrafter(recipeName, options) {
     if (recipeName === undefined) throw "RecipeName is requried";
-    options = (options === undefined) ? {} : options;
-    recipeBooks = (options.recipeBooks === undefined) ? __recipeBooks : options.recipeBooks;
-    includeTools = (options.includeTools === true) ? true : false;
+    var options = (options === undefined) ? {} : options;
+    var recipeBooks = (options.recipeBooks === undefined) ? __recipeBooks : options.recipeBooks;
+    var includeTools = (options.includeTools === true) ? true : false;
 
-    var object = {
+    var object = createBaseObject("Crafter", {
         includeTools: includeTools,
-        rootNode: undefined
-    };
+        rootNode: undefined,
+    });
 
     return object;
 }
@@ -280,39 +308,45 @@ function createCraftingAlternative(recipe, children) {
 function createCraftingNode(targetName, options) {
     if (targetName === undefined) throw "TargetName is required";
 
-    options          = (options                  === undefined) ? {}               : options;
-    count            = (options.count            === undefined) ? 1                : options.count;
-    includeTools     = (options.includeTools     === true)      ? true             : false;
-    initialInventory = (options.initialInventory === undefined) ? createManifest() : options.initialInventory;
-    parentNode       = (options.parentNode       === undefined) ? undefined        : options.parentNode;
-    recipe           = (options.recipe           === undefined) ? undefined        : options.recipe;
-    recipeBooks      = (options.recipeBooks      === undefined) ? __recipeBooks    : options.recipeBooks;
+    var options          = (options                  === undefined) ? {}               : options;
+    var count            = (options.count            === undefined) ? 1                : options.count;
+    var includeTools     = (options.includeTools     === true)      ? true             : false;
+    var initialInventory = (options.initialInventory === undefined) ? createManifest() : options.initialInventory;
+    var outcome          = (options.outcome          === undefined) ? "make"           : options.outcome;
+    var parentNode       = (options.parentNode       === undefined) ? undefined        : options.parentNode;
+    var recipe           = (options.recipe           === undefined) ? undefined        : options.recipe;
+    var recipeBooks      = (options.recipeBooks      === undefined) ? __recipeBooks    : options.recipeBooks;
 
-    var object = {
+    var object = createBaseObject("CraftingNode", {
         children: [],
         choices: [],
         count: count,
         includeTools: includeTools,
         inventory: createManifest(),
         materials: createManifest(),
+        outcome: outcome,
         parentNode: parentNode,
         recipe: recipe,
         score: 0,
-        targetName: targetName
-    };
+        targetName: targetName,
+    });
 
     object.expandChoices = function() {
         object.choices.each(function(choiceGroup) {
-            choiceGroup.each(function(recipe) {
-                var child = createCraftingNode(recipe.name, {
-                    recipe: recipe,
-                    includeTools: includeTools,
+            choiceGroup.each(function(choice) {
+                var child = createCraftingNode(choice.recipe.name, {
+                    recipe: choice.recipe,
+                    includeTools: object.includeTools,
+                    outcome: choice.outcome,
                     parentNode: object,
                     recipeBooks: recipeBooks
                 });
-                if (child) object.children.push(child);
+                if (child) {
+                    object.children.push(child);
+                }
             });
         });
+        object.choices = [];
     };
 
     object.expandFully = function() {
@@ -323,48 +357,57 @@ function createCraftingNode(targetName, options) {
     };
 
     object.toString = function(options) {
-        options = (options === undefined) ? {} : options;
-        indent = (options.indent === undefined) ? "" : options.indent;
+        var options = (options === undefined) ? {} : options;
+        var indent = (options.indent === undefined) ? "" : options.indent;
 
-        var recipeName = (object.recipe === undefined) ? "<root node>" : recipe.name;
-        var result = indent + recipeName + ((object.choices.length > 0) ? " *" : "");
+        var recipeName = (object.recipe === undefined) ? "ROOT" : object.recipe.name;
+        var result = indent + recipeName + ((object.choices.length > 0) ? "*" : "") + " <" + object.hash + ">";
         if (object.children.length > 0) {
             result += "\n";
+            var needsDelimiter = false;
             object.children.each(function(child) {
-                result += object.children[i].toString({indent: indent + "    "}) + "\n";
+                if (needsDelimiter) result += "\n";
+                result += child.toString({indent: indent + "    "});
+                needsDelimiter = true;
             });
         }
         return result;
     };
 
+    function addChoicesFor(recipeName, outcome) {
+        var choiceGroup = [];
+        findAllRecipes(recipeName, recipeBooks).each(function(recipe) {
+            choiceGroup.push({recipe: recipe, outcome: outcome});
+        });
+        if (choiceGroup.length > 0) {
+            object.choices.push(choiceGroup);
+        }
+    }
+
     function elaborateInputChoices() {
         object.recipe.input.each(function(input) {
-            var alternatives = findAllRecipes(input.name, recipeBooks);
-            if (alternatives.length > 0) {
-                object.choices.push(alternatives);
-            }
+            addChoicesFor(input.name, 'use');
         });
     }
 
     function elaborateToolChoices() {
         object.recipe.tools.each(function(tool) {
-            var alternatives = findAllRecipes(tool, recipeBooks);
-            if (alternatives.length > 0) {
-                object.choices.push(alternatives);
-            }
+            addChoicesFor(tool, 'make');
         });
     }
 
     function computeCraftingResults() {
+        if (object.recipe === undefined) return;
+
         function isComplete() {
-            return (object.parentNode === undefined) ?
-                ! object.materials.contains(1, object.targetName) :
-                object.inventory.contains(count, object.targetName);
+            if (object.outcome == "make") return object.inventory.contains(object.count, object.targetName);
+            if (object.outcome == "use") return object.materials.countOf(object.targetName) === 0;
+            throw "Invalid outcome: " + object.outcome
         }
 
         while (! isComplete()) {
             object.recipe.input.each(function(input) {
-                for (var j = 0; j < input.count; j++) {
+                for (var i = 0; i < input.count; i++) {
                     if (object.inventory.contains(1, input.name)) {
                         object.inventory.remove(1, input.name);
                     } else {
@@ -373,14 +416,12 @@ function createCraftingNode(targetName, options) {
                 }
             });
             object.recipe.output.each(function(output) {
-                object.inventory.add(output.count, output.name);
-            });
-        }
-
-        if (options.includeTools) {
-            options.recipe.tools.each(function(tool) {
-                if (! object.inventory.contains(1, tool)) {
-                    object.materials.add(1, tool);
+                for (var i = 0; i < output.count; i++) {
+                    if (object.materials.contains(1, output.name)) {
+                        object.materials.remove(1, output.name);
+                    } else {
+                        object.inventory.add(1, output.name);
+                    }
                 }
             });
         }
@@ -389,21 +430,21 @@ function createCraftingNode(targetName, options) {
     function init() {
         object.inventory.addAll(initialInventory);
         
-        if (parentNode) {
-            object.inventory.addAll(parentNode.inventory);
-            object.materials.addAll(parentNode.materials);
+        if (object.parentNode) {
+            object.inventory.addAll(object.parentNode.inventory);
+            object.materials.addAll(object.parentNode.materials);
         }
 
         if (object.recipe) {
             elaborateInputChoices();
-            if (options.includeTools) {
+            if (includeTools) {
                 elaborateToolChoices();
             }
             computeCraftingResults();
         } else {
             var recipes = findAllRecipes(targetName, recipeBooks);
             if (recipes.length === 0) return undefined;
-            object.choices.push(recipes);
+            addChoicesFor(targetName, "make");
         }
 
         return object;
@@ -488,7 +529,7 @@ function createCraftingResult(startingInventory) {
 // Ingredient Object //////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createIngredient(count, name) {
-    var object = {count: count, name: name};
+    var object = createBaseObject("Ingredient", {count: count, name: name});
 
     object.copy = function() {
         return createIngredient(object.count, object.name);
@@ -504,7 +545,7 @@ function createIngredient(count, name) {
 // Manifest Object ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createManifest() {
-    var object = {materials: {}, length: 0};
+    var object = createBaseObject("Manifest", {materials: {}, length: 0});
 
     object.add = function(count, name) {
         if (object.materials[name] === undefined) {
@@ -516,23 +557,33 @@ function createManifest() {
     };
 
     object.addAll = function(manifest) {
-        object.materials.eachProperty(function(material, count) {
+        manifest.each(function(count, material) {
             object.add(count, material);
         });
     };
 
     object.contains = function(count, name) {
-        if (object.materials[name] === undefined) return false;
-        return (object.materials[name] >= count);
+        var available = object.countOf(name);
+        return (available >= count);
     };
 
     object.copy = function(count, name) {
         var result = createManifest();
-        object.materials.eachProperty(function(material, count) {
+        object.each(function(count, material) {
             result.add(count, material);
         });
         return result;
-    }
+    };
+
+    object.countOf = function(name) {
+        return (object.materials[name] === undefined) ? 0 : object.materials[name];
+    };
+
+    object.each = function(onVisit) {
+        object.materials.eachProperty(function(key, value) {
+            return onVisit(value, key);
+        });
+    };
 
     object.remove = function(count, name) {
         if (object.materials[name] !== undefined) {
@@ -558,7 +609,7 @@ function createManifest() {
     object.toHtml = function() {
         var result = "";
         var materialCount = 0;
-        object.materials.eachProperty(function(material, count) {
+        object.each(function(count, material) {
             result += "<tr><td>" + count + "</td><td>" + material + "</td></tr>";
             materialCount += 1
         });
@@ -569,7 +620,7 @@ function createManifest() {
 
     object.toKey = function() {
         var result = "|";
-        object.materials.eachProperty(function(material, count) {
+        object.each(function(count, material) {
             result += count + ":" + material + "|";
         });
         return result;
@@ -578,7 +629,7 @@ function createManifest() {
     object.toString = function() {
         var result = "[";
         var needsDelimiter = false;
-        object.materials.eachProperty(function(material, count) {
+        object.each(function(count, material) {
             if (needsDelimiter) result += ", ";
             needsDelimiter = true;
             result += count + " " + material;
@@ -593,12 +644,12 @@ function createManifest() {
 // Recipe Object //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createRecipe(data) {
-    var object = {
+    var object = createBaseObject("Recipe", {
         name: '',
         output: [],
         input: [],
-        tools: []
-    };
+        tools: [],
+    });
 
     object.copy = function() {
         var result = createRecipe();
@@ -633,24 +684,27 @@ function createRecipe(data) {
         return result;
     };
 
-    if (data !== undefined) {
-        object.loadFrom(data);
+    function init() {
+        if (data !== undefined) {
+            object.loadFrom(data);
+        }
+        return object;
     }
 
-    return object;
+    return init();
 }
 
 // RecipeBook Object //////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createRecipeBook(sourceUrl, data) {
-    var object = {
+    var object = createBaseObject("RecipeBook", {
         name: undefined,
         description: undefined,
         length: 0,
         sourceUrl: sourceUrl,
         recipeSet: {},
         recipes: []
-    };
+    });
 
     object.addRecipe = function(recipe) {
         var key = recipe.toString();

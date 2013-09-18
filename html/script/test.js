@@ -177,7 +177,6 @@ QUnit.testStart(function(name, module) {
 
 module("Extensions"); /////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
 test("Array.copy", function() {
     var sample = [ "alpha", "bravo", "charlie" ];
     var copiedSample = sample.copy();
@@ -194,7 +193,14 @@ test("Array.copy", function() {
     deepEqual(sample.length, copiedSample.length);
     notStrictEqual(sample, copiedSample);
 });
-*/
+
+test("Array.each", function() {
+    var sample = ["a", "b", "c", "d"];
+
+    var result = "";
+    sample.each(function(element) { result += element; });
+    deepEqual(result, "abcd");
+});
 
 test("Array.toString", function() {
     var sample = ["a", "b", ["c", "d", ["e", "f"], "g"], "h"];
@@ -207,6 +213,17 @@ test("Array.toString", function() {
     deepEqual(sample.toString(options), "<a|b|<c|d|<e|f>|g>|h>");
 });
 
+test("Object.eachProperty", function() {
+    var sample = {alpha: "a", bravo: "b", charlie: "c"};
+
+    var result = {};
+    sample.eachProperty(function(key, value) { result[key] = value; });
+    
+    deepEqual(result.alpha, "a");
+    deepEqual(result.bravo, "b");
+    deepEqual(result.charlie, "c");
+});
+
 module("Crafter"); ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -217,7 +234,7 @@ test("create: simple", function() {
 
     deepEqual(node.choices.length, 1);
     deepEqual(node.choices[0].length, 1);
-    deepEqual(node.choices[0][0].name, "Furnace");
+    deepEqual(node.choices[0][0].recipe.name, "Furnace");
     deepEqual(node.count, 12);
     deepEqual(node.includeTools, false);
     deepEqual(node.inventory.length, 0);
@@ -231,9 +248,9 @@ test("create: multiple alternatives", function() {
 
     deepEqual(node.choices.length, 1);
     deepEqual(node.choices[0].length, 3);
-    deepEqual(node.choices[0][0].input[0].name, "Birch Plank");
-    deepEqual(node.choices[0][1].input[0].name, "Oak Plank");
-    deepEqual(node.choices[0][2].input[0].name, "Spruce Plank");
+    deepEqual(node.choices[0][0].recipe.input[0].name, "Birch Plank");
+    deepEqual(node.choices[0][1].recipe.input[0].name, "Oak Plank");
+    deepEqual(node.choices[0][2].recipe.input[0].name, "Spruce Plank");
     deepEqual(node.count, 1);
 });
 
@@ -248,7 +265,7 @@ test("expandChoices: root node with single choice", function() {
     deepEqual(child.inventory.materials["Furnace"], 1);
     deepEqual(child.materials.materials["Cobblestone"], 8);
     deepEqual(child.parentNode, node);
-    deepEqual(recipe.name, "Furnace");
+    deepEqual(child.recipe.name, "Furnace");
 });
 
 test("expandChoices: root node with multiple choices", function() {
@@ -256,19 +273,74 @@ test("expandChoices: root node with multiple choices", function() {
     node.expandChoices();
     deepEqual(node.children.length, 3);
 
-    deepEqual(node.children[0].recipe.input[0].name, "Birch Plank");
-    deepEqual(node.children[1].recipe.input[0].name, "Oak Plank");
-    deepEqual(node.children[2].recipe.input[0].name, "Spruce Plank");
+    deepEqual(node.children[0].recipe.input[0].name, "Birch Plank", node.children[0]);
+    deepEqual(node.children[0].outcome, "make", node.children[0]);
+    deepEqual(node.children[1].recipe.input[0].name, "Oak Plank", node.children[1]);
+    deepEqual(node.children[1].outcome, "make", node.children[1]);
+    deepEqual(node.children[2].recipe.input[0].name, "Spruce Plank", node.children[2]);
+    deepEqual(node.children[2].outcome, "make", node.children[2]);
 });
 
 test("expandChoices: internal node", function() {
-    var node = createCraftingNode("Iron Gear", {recipeBooks: __sampleRecipeBooks});
-    node.expandChoices();
-    deepEqual(node.toString(), "");
-    node = node.children[1];
-    node.expandChoices();
+    var root = createCraftingNode("Iron Gear", {recipeBooks: __sampleRecipeBooks});
+    root.expandChoices();
+    var ironGear = root.children[0];
+    ironGear.expandChoices();
+    var stoneGear = ironGear.children[1];
+    stoneGear.expandChoices();
 
-    deepEqual(node.toString(), "");
+    deepEqual(stoneGear.choices.length, 0);
+    deepEqual(stoneGear.children.length, 1);
+    deepEqual(stoneGear.children[0].recipe.name, "Wooden Gear");
+    deepEqual(stoneGear.inventory.length, 1, stoneGear.inventory);
+    deepEqual(stoneGear.inventory.countOf("Iron Gear"), 1, stoneGear.inventory);
+    deepEqual(stoneGear.materials.length, 3, stoneGear.materials);
+    deepEqual(stoneGear.materials.countOf("Iron Ingot"), 4, stoneGear.materials);
+    deepEqual(stoneGear.materials.countOf("Cobblestone"), 4, stoneGear.materials);
+    deepEqual(stoneGear.materials.countOf("Wooden Gear"), 1, stoneGear.materials);
+    deepEqual(stoneGear.outcome, "use");
+});
+
+test("expandFully: simple recipe", function() {
+    var root = createCraftingNode("Stick", {recipeBooks: __sampleRecipeBooks});
+    root.expandFully();
+    var birchPlank = root.children[0].children[0];
+    var oakPlank = root.children[1].children[0];
+    var sprucePlank = root.children[2].children[0];
+
+    deepEqual(birchPlank.recipe.name, "Birch Plank", birchPlank.toString());
+    deepEqual(oakPlank.recipe.name, "Oak Plank", oakPlank.toString());
+    deepEqual(sprucePlank.recipe.name, "Spruce Plank", sprucePlank.toString());
+});
+
+test("expandFully: complex recipe", function() {
+    var root = createCraftingNode("Iron Gear", {recipeBooks: __sampleRecipeBooks});
+    root.expandFully();
+
+    var oakPlank = root.children[0].children[1].children[0].children[1].children[0];
+    deepEqual(oakPlank.recipe.name, "Oak Plank", oakPlank.toString());
+    deepEqual(oakPlank.inventory.length, 2, oakPlank.inventory.toString());
+    deepEqual(oakPlank.inventory.countOf("Oak Plank"), 2, oakPlank.inventory.toString());
+    deepEqual(oakPlank.inventory.countOf("Iron Gear"), 1, oakPlank.inventory.toString());
+});
+
+test("expandFully: simple recipe with tools", function() {
+    var root = createCraftingNode("Furnace", {recipeBooks: __sampleRecipeBooks, includeTools: true});
+    root.expandFully();
+
+    var furnace = root.children[0];
+    var craftingTable = furnace.children[0];
+    var birchPlank = craftingTable.children[0];
+    
+    deepEqual(furnace.recipe.name, "Furnace", furnace);
+    deepEqual(craftingTable.recipe.name, "Crafting Table", craftingTable);
+    deepEqual(birchPlank.recipe.name, "Birch Plank", birchPlank);
+    deepEqual(birchPlank.materials.length, 2, birchPlank.materials);
+    deepEqual(birchPlank.materials.countOf("Cobblestone"), 8, birchPlank.materials);
+    deepEqual(birchPlank.materials.countOf("Birch Log"), 1, birchPlank.materials);
+    deepEqual(birchPlank.inventory.length, 2, birchPlank.inventory);
+    deepEqual(birchPlank.inventory.countOf("Furnace"), 1, birchPlank.inventory);
+    deepEqual(birchPlank.inventory.countOf("Crafting Table"), 1, birchPlank.inventory);
 });
 /*
 test("create: complex", function() {
@@ -700,6 +772,23 @@ test("addAll", function() {
     deepEqual(manifest2.materials["Stick"], 1, manifest2.toString());
     deepEqual(manifest2.materials["Oak Plank"], 2, manifest2.toString());
     deepEqual(manifest2.materials["Iron Ingot"], 3, manifest2.toString());
+});
+
+test("contains", function() {
+    var manifest = createManifest();
+    manifest.add(3, "Iron Ingot");
+
+    deepEqual(manifest.contains(0, "Iron Ingot"), true);
+    deepEqual(manifest.contains(1, "Iron Ingot"), true);
+    deepEqual(manifest.contains(2, "Iron Ingot"), true);
+    deepEqual(manifest.contains(3, "Iron Ingot"), true);
+    deepEqual(manifest.contains(4, "Iron Ingot"), false);
+
+    manifest.remove(1, "Iron Ingot");
+    manifest.remove(1, "Iron Ingot");
+    manifest.remove(1, "Iron Ingot");
+    deepEqual(manifest.contains(0, "Iron Ingot"), true);
+    deepEqual(manifest.contains(1, "Iron Ingot"), false);
 });
 
 test("copy", function() {

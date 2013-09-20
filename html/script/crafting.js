@@ -65,16 +65,8 @@ Array.prototype.toString = function(options, indent) {
     return result;
 };
 
-Object.prototype.eachProperty = function(onVisit) {
-    for (var property in this) {
-        if (this.hasOwnProperty(property)) {
-            onVisit(property, this[property]);
-        }
-    }
-};
-
 // UI Functions ///////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
+
 $(function() {
     $("#recipe_book_load_button").click(onRecipeLoadButtonClicked);
     $("#crafting_count").change(onCraftingSelectorChanged);
@@ -156,9 +148,9 @@ function onRecipeLoadButtonClicked() {
         $("#reipebook_load_button").removeAttr("disabled");
     });
 }
-*/
+
 // UI Helper Functions ////////////////////////////////////////////////////////////////////////////////////////////////
-/*
+
 function loadRecipeBook(recipeBookUrl) {
     __loadingCount++;
     $.ajax({
@@ -247,16 +239,38 @@ function updatePageState(count, recipeName) {
     history.pushState(state, newTitle, newLink);
     ga('send', 'pageview');
 }
-*/
 
 // Base Object ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createBaseObject(type, root) {
-    var type = (type === undefined) ? "undefined" : type;
+    var type   = (type === undefined) ? "undefined" : type;
     var object = (root === undefined) ? {}          : root;
 
     object.hash = Math.floor(Math.random() * 100000000);
     object.type = type;
+
+    object.eachProperty = function(onVisit) {
+        if (typeof(onVisit) !== "function") throw "onVisit must be a function, not a " + typeof(onVisit)
+
+        for (var property in object) {
+            if (! this.hasOwnProperty(property)) continue;
+            value = this[property];
+
+            if (typeof(value) === 'function') continue;
+            if (value === object.type) continue;
+            if (value === object.hash) continue;
+
+            onVisit(property, value);
+        }
+    };
+
+    object.strip = function() {
+        var result = {};
+        object.eachProperty(function(key, value) {
+            result[key] = value;
+        });
+        return result;
+    };
 
     object.toString = function(options) {
         options = (options === undefined) ? {} : options;
@@ -292,17 +306,6 @@ function createCrafter(recipeName, options) {
     return object;
 }
 
-// Crafting Alternatives //////////////////////////////////////////////////////////////////////////////////////////////
-/*
-function createCraftingAlternative(recipe, children) {
-    var object = {
-        children: children,
-        recipe: recipe
-    };
-
-    return object;
-}
-*/
 // Crafting Node Object ///////////////////////////////////////////////////////////////////////////////////////////////
 
 function createCraftingNode(targetName, options) {
@@ -545,7 +548,7 @@ function createIngredient(count, name) {
 // Manifest Object ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createManifest() {
-    var object = createBaseObject("Manifest", {materials: {}, length: 0});
+    var object = createBaseObject("Manifest", {materials: createBaseObject("Set"), length: 0});
 
     object.add = function(count, name) {
         if (object.materials[name] === undefined) {
@@ -736,7 +739,7 @@ function createRecipeBook(sourceUrl, data) {
     };
 
     object.getAllRecipeNames = function() {
-        var set = {};
+        var set = createBaseObject("Set");
         object.recipes.each(function(recipe) {
             set[recipe.name] = true;
         });
@@ -763,7 +766,6 @@ function createRecipeBook(sourceUrl, data) {
         return object.recipes.toString(options);
     };
 
-    /*
     object.toHtml = function() {
         return $(
             "<tr>" +
@@ -772,7 +774,6 @@ function createRecipeBook(sourceUrl, data) {
             "</tr>"
         );
     };
-    */
 
     return object;
 }
@@ -815,9 +816,10 @@ function getAllRecipeNames(recipeBooks) {
     });
 
     var result = [];
-    set.eachProperty(function(key, value) {
+    for (key in set) {
+        if (! set.hasOwnProperty(key)) continue;
         result.push(key);
-    });
+    }
     result.sort();
     return result;
 }

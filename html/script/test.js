@@ -213,8 +213,10 @@ test("Array.toString", function() {
     deepEqual(sample.toString(options), "<a|b|<c|d|<e|f>|g>|h>");
 });
 
-test("Object.eachProperty", function() {
-    var sample = {alpha: "a", bravo: "b", charlie: "c"};
+module("Base Object"); ////////////////////////////////////////////////////////////////////////////////////////////////
+
+test("eachProperty", function() {
+    var sample = createBaseObject("BaseObject", {alpha: "a", bravo: "b", charlie: "c"});
 
     var result = {};
     sample.eachProperty(function(key, value) { result[key] = value; });
@@ -738,7 +740,7 @@ module("Manifest"); ////////////////////////////////////////////////////////////
 
 test("create", function() {
     var manifest = createManifest();
-    deepEqual(manifest.materials, {});
+    deepEqual(manifest.materials.strip(), {});
 });
 
 test("add / contains", function() {

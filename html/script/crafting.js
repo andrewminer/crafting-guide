@@ -88,6 +88,8 @@ function onCraftingSelectorChanged() {
     if (! hasRecipe(recipeName)) {
         $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
+        throw "Not implemented"
+
         var plan = createCraftingPlan(count, recipeName, __toolsIncluded);
         var result = createCraftingResult(__inventory);
         plan.alternatives[0].craft(result);
@@ -164,12 +166,12 @@ function loadRecipeBook(recipeBookUrl) {
                 recipeBook.toHtml().insertBefore($("#recipe_book_table tr").last());
             } catch (e) {
                 $("#load_error").html(e);
-                $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
+                $("#load_error").slideDown(SLIDE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(SLIDE_DURATION);
             }
         },
         error: function(response, status, error) {
             $("#load_error").html(status + ": " + error);
-            $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
+            $("#load_error").slideDown(SLIDE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(SLIDE_DURATION);
         },
         complete: function() {
             __loadingCount--;
@@ -303,7 +305,11 @@ function createCrafter(recipeName, options) {
         rootNode: undefined,
     });
 
-    return object;
+    function init() {
+        
+    }
+
+    return init();
 }
 
 // Crafting Node Object ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,6 +330,7 @@ function createCraftingNode(targetName, options) {
         children: [],
         choices: [],
         count: count,
+        crafted: createManifest(),
         includeTools: includeTools,
         inventory: createManifest(),
         materials: createManifest(),
@@ -333,6 +340,20 @@ function createCraftingNode(targetName, options) {
         score: 0,
         targetName: targetName,
     });
+
+    object.generateCraftingPlans = function() {
+        var results = [];
+        if (object.children.length == 0) {
+            results.push(createCraftingPlan(object));
+        } else {
+            object.children.each(function(child) {
+                child.generateCraftingPlans().each(function(plan) {
+                    results.push(plan);
+                });
+            });
+        }
+        return results;
+    };
 
     object.expandChoices = function() {
         object.choices.each(function(choiceGroup) {
@@ -420,6 +441,7 @@ function createCraftingNode(targetName, options) {
             });
             object.recipe.output.each(function(output) {
                 for (var i = 0; i < output.count; i++) {
+                    object.crafted.add(1, output.name);
                     if (object.materials.contains(1, output.name)) {
                         object.materials.remove(1, output.name);
                     } else {
@@ -456,79 +478,39 @@ function createCraftingNode(targetName, options) {
     return init();
 }
 
-// Crafting Result Object /////////////////////////////////////////////////////////////////////////////////////////////
-/*
-function createCraftingResult(startingInventory) {
-    if (startingInventory === undefined) startingInventory = createManifest();
+// Crafting Plan Object /////////////////////////////////////////////////////////////////////////////////////////////
 
-    var object = {
-        inventory: startingInventory.copy(),
-        missingMaterials: createManifest(),
+function createCraftingPlan(sourceNode) {
+    if (sourceNode === undefined) throw "SourceNode cannot be undefined";
+
+    var object = createBaseObject("CraftingPlan", {
         stepList: [],
-    };
+        inventory: createManifest(),
+        materials: createManifest(),
+        sourceNode: sourceNode,
+        score: 0,
+    });
 
-    object.addCraftingResult = function(count, name) {
-        var foundStep = false;
-        for (var i = 0; i < object.stepList.length; i++) {
-            var step = object.stepList[i];
-            if (step.name === name) {
-                step.count += count;
-                foundStep = true;
-            }
-        }
-        if (! foundStep) {
-            object.stepList.unshift(createIngredient(count, name));
-        }
-        for (var i = 0; i < count; i++) {
-            if (object.missingMaterials.contains(1, name)) {
-                object.missingMaterials.remove(1, name);
-            } else {
-                object.inventory.add(1, name);
-            }
+    function buildStepList() {
+        var current = object.sourceNode;
+        while (current !== undefined) {
+            current.crafted.each(function(count, material) {
+                stepList.push(createIngredient(count, material)),
+            });
+            current = current.parentNode;
         }
     }
 
-    object.addMissingMaterial = function(name) {
-        object.missingMaterials.add(1, name);
+    function init() {
+        buildStepList();
+        object.inventory.addAll(sourceNode.inventory);
+        object.materials.addAll(sourceNode.materials);
+        object.score = sourceNode.score;
     }
 
-    object.consumeInventory = function(name) {
-        object.inventory.remove(1, name);
-    }
-
-    object.copy = function() {
-        var result = createCraftingResult();
-        result.inventory = object.inventory.copy();
-        result.missingMaterials = object.missingMaterials.copy();
-        result.stepList = object.stepList.copy();
-        return result;
-    };
-
-    object.sortStepsBy = function(rootNode) {
-        var stepCounts = {};
-        for (var i = 0; i < object.stepList.length; i++) {
-            var step = object.stepList[i];
-            stepCounts[step.name] = step.count;
-        }
-
-        var result = [];
-        rootNode.visitCraftingNodes(function(node) {
-            if (stepCounts[node.name] !== undefined) {
-                result.push(createIngredient(stepCounts[node.name], node.name));
-                delete stepCounts[node.name];
-            }
-        });
-
-        object.stepList = result;
-    };
-
-    object.toKey = function() {
-        return object.missingMaterials.toKey();
-    };
-
-    return object;
+    return init();
 }
-*/
+
 // Ingredient Object //////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createIngredient(count, name) {

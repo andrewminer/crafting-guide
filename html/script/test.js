@@ -410,6 +410,24 @@ test("generateCraftingPlan: complex", function() {
     deepEqual(plans[2].materials.countOf("Spruce Log"), 1, plans[0].materials);
 });
 
+test("generateCraftingPlan: multiple count", function() {
+    var node = createCraftingNode("Book", {count: 4, recipeBooks: __sampleRecipeBooks});
+    node.expandFully();
+    plans = node.generateCraftingPlans();
+
+    deepEqual(plans.length, 1, plans);
+    deepEqual(plans[0].stepList.length, 2, plans[0].stepList);
+    deepEqual(plans[0].stepList[0].count, 12, plans[0].stepList);
+    deepEqual(plans[0].stepList[0].name, "Paper", plans[0].stepList);
+    deepEqual(plans[0].stepList[1].count, 4, plans[0].stepList);
+    deepEqual(plans[0].stepList[1].name, "Book", plans[0].stepList);
+    deepEqual(plans[0].inventory.length, 1, plans[0].inventory);
+    deepEqual(plans[0].inventory.countOf("Book"), 4, plans[0].inventory);
+    deepEqual(plans[0].materials.length, 2, plans[0].materials);
+    deepEqual(plans[0].materials.countOf("Sugar Cane"), 12, plans[0].materials);
+    deepEqual(plans[0].materials.countOf("Leather"), 4, plans[0].materials);
+});
+
 module("Ingredient"); /////////////////////////////////////////////////////////////////////////////////////////////////
 
 test("create", function() {

@@ -101,7 +101,6 @@ function onCraftingSelectorChanged() {
     var count = parseInt($("#crafting_count option:selected").val());
     if (count === undefined) return;
 
-
     if (! hasRecipe(recipeName)) {
         $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
@@ -331,7 +330,11 @@ function createCrafter(recipeName, options) {
     };
 
     function init() {
-        object.rootNode = createCraftingNode(recipeName, {recipeBooks: recipeBooks, includeTools: includeTools});
+        object.rootNode = createCraftingNode(recipeName, {
+            count: count,
+            includeTools: includeTools,
+            recipeBooks: recipeBooks,
+        });
         object.rootNode.expandFully();
         object.plans = object.rootNode.generateCraftingPlans();
 
@@ -376,6 +379,7 @@ function createCraftingNode(targetName, options) {
             choiceGroup.each(function(choice) {
                 var child = createCraftingNode(choice.recipe.name, {
                     choices: getChoicesExcluding(choiceGroup),
+                    count: choice.count,
                     recipe: choice.recipe,
                     includeTools: object.includeTools,
                     outcome: choice.outcome,
@@ -429,10 +433,10 @@ function createCraftingNode(targetName, options) {
         return result;
     };
 
-    function addChoicesFor(recipeName, outcome) {
+    function addChoicesFor(recipeName, count, outcome) {
         var choiceGroup = [];
         findAllRecipes(recipeName, recipeBooks).each(function(recipe) {
-            choiceGroup.push({recipe: recipe, outcome: outcome});
+            choiceGroup.push({recipe: recipe, count: count, outcome: outcome});
         });
         if (choiceGroup.length > 0) {
             object.choices.push(choiceGroup);
@@ -450,13 +454,13 @@ function createCraftingNode(targetName, options) {
 
     function elaborateInputChoices() {
         object.recipe.input.each(function(input) {
-            addChoicesFor(input.name, 'use');
+            addChoicesFor(input.name, input.count, 'use');
         });
     }
 
     function elaborateToolChoices() {
         object.recipe.tools.each(function(tool) {
-            addChoicesFor(tool, 'make');
+            addChoicesFor(tool, 1, 'make');
         });
     }
 
@@ -509,7 +513,7 @@ function createCraftingNode(targetName, options) {
         } else {
             var recipes = findAllRecipes(targetName, recipeBooks);
             if (recipes.length === 0) return undefined;
-            addChoicesFor(targetName, "make");
+            addChoicesFor(targetName, count, "make");
         }
 
         return object;

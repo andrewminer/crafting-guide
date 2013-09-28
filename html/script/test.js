@@ -291,9 +291,10 @@ test("expandChoices: internal node", function() {
     var stoneGear = ironGear.children[1];
     stoneGear.expandChoices();
 
-    deepEqual(stoneGear.choices.length, 0);
-    deepEqual(stoneGear.children.length, 1);
-    deepEqual(stoneGear.children[0].recipe.name, "Wooden Gear");
+    deepEqual(stoneGear.choices.length, 0, stoneGear.choices);
+    deepEqual(stoneGear.children.length, 2, stoneGear.children);
+    deepEqual(stoneGear.children[0].recipe.name, "Iron Ingot");
+    deepEqual(stoneGear.children[1].recipe.name, "Wooden Gear");
     deepEqual(stoneGear.inventory.length, 1, stoneGear.inventory);
     deepEqual(stoneGear.inventory.countOf("Iron Gear"), 1, stoneGear.inventory);
     deepEqual(stoneGear.materials.length, 3, stoneGear.materials);
@@ -319,11 +320,38 @@ test("expandFully: complex recipe", function() {
     var root = createCraftingNode("Iron Gear", {recipeBooks: __sampleRecipeBooks});
     root.expandFully();
 
-    var oakPlank = root.children[0].children[1].children[0].children[1].children[0];
-    deepEqual(oakPlank.recipe.name, "Oak Plank", oakPlank.toString());
-    deepEqual(oakPlank.inventory.length, 2, oakPlank.inventory.toString());
-    deepEqual(oakPlank.inventory.countOf("Oak Plank"), 2, oakPlank.inventory.toString());
-    deepEqual(oakPlank.inventory.countOf("Iron Gear"), 1, oakPlank.inventory.toString());
+    var ironGear = root.children[0];
+    var ironIngot = ironGear.children[0];
+    var stoneGear = ironIngot.children[0];
+    var woodenGear = stoneGear.children[0];
+    var stick = woodenGear.children[0];
+    var plank = stick.children[0];
+
+    deepEqual(plank.recipe.name, "Birch Plank", plank);
+    deepEqual(plank.inventory.length, 2, plank.inventory);
+    deepEqual(plank.inventory.countOf("Birch Plank"), 2, plank.inventory);
+    deepEqual(plank.inventory.countOf("Iron Gear"), 1, plank.inventory);
+    deepEqual(plank.materials.length, 4, plank.inventory);
+    deepEqual(plank.materials.countOf("Birch Log"), 1, plank.materials);
+    deepEqual(plank.materials.countOf("Cobblestone"), 4, plank.materials);
+    deepEqual(plank.materials.countOf("Iron Ore"), 4, plank.materials);
+    deepEqual(plank.materials.countOf("milli-coal"), 500, plank.materials);
+
+    stoneGear = ironGear.children[1];
+    woodenGear = stoneGear.children[1];
+    stick = woodenGear.children[3];
+    plank = stick.children[1];
+    ironIngot = plank.children[0];
+
+    deepEqual(ironIngot.recipe.name, "Iron Ingot", ironIngot);
+    deepEqual(ironIngot.inventory.length, 2, ironIngot.inventory);
+    deepEqual(ironIngot.inventory.countOf("Spruce Plank"), 2, ironIngot.inventory);
+    deepEqual(ironIngot.inventory.countOf("Iron Gear"), 1, ironIngot.inventory);
+    deepEqual(ironIngot.materials.length, 4, ironIngot.inventory);
+    deepEqual(ironIngot.materials.countOf("Spruce Log"), 1, ironIngot.materials);
+    deepEqual(ironIngot.materials.countOf("Cobblestone"), 4, ironIngot.materials);
+    deepEqual(ironIngot.materials.countOf("Iron Ore"), 4, ironIngot.materials);
+    deepEqual(ironIngot.materials.countOf("milli-coal"), 500, ironIngot.materials);
 });
 
 test("expandFully: simple recipe with tools", function() {
@@ -343,6 +371,43 @@ test("expandFully: simple recipe with tools", function() {
     deepEqual(birchPlank.inventory.length, 2, birchPlank.inventory);
     deepEqual(birchPlank.inventory.countOf("Furnace"), 1, birchPlank.inventory);
     deepEqual(birchPlank.inventory.countOf("Crafting Table"), 1, birchPlank.inventory);
+});
+
+test("generateCraftingPlans: simple", function() {
+    var node = createCraftingNode("Furnace", {recipeBooks: __sampleRecipeBooks});
+    node.expandFully();
+    plans = node.generateCraftingPlans();
+
+    deepEqual(plans.length, 1, plans);
+    deepEqual(plans[0].stepList.length, 1, plans[0]);
+    deepEqual(plans[0].stepList[0].count, 1, plans[0].stepList[0]);
+    deepEqual(plans[0].stepList[0].name, "Furnace", plans[0].stepList[0]);
+});
+
+test("generateCraftingPlan: simple with tools", function() {
+    var node = createCraftingNode("Furnace", {recipeBooks: __sampleRecipeBooks, includeTools: true});
+    node.expandFully();
+    plans = node.generateCraftingPlans(); 
+
+    deepEqual(plans.length, 3, plans);
+    deepEqual(plans[0].stepList.length, 3, plans[0]);
+    deepEqual(plans[0].stepList[0].count, 4, plans[0].stepList[0]);
+    deepEqual(plans[0].stepList[0].name, "Birch Plank", plans[0].stepList[0]);
+    deepEqual(plans[0].stepList[1].count, 1, plans[0].stepList[0]);
+    deepEqual(plans[0].stepList[1].name, "Crafting Table", plans[0].stepList[0]);
+    deepEqual(plans[0].stepList[2].count, 1, plans[0].stepList[0]);
+    deepEqual(plans[0].stepList[2].name, "Furnace", plans[0].stepList[0]);
+});
+
+test("generateCraftingPlan: complex", function() {
+    var node = createCraftingNode("Iron Gear", {recipeBooks: __sampleRecipeBooks});
+    node.expandFully();
+    plans = node.generateCraftingPlans();
+
+    deepEqual(plans.length, 15);
+    deepEqual(plans[0].materials.countOf("Birch Log"), 1, plans[0].materials);
+    deepEqual(plans[1].materials.countOf("Oak Log"), 1, plans[0].materials);
+    deepEqual(plans[2].materials.countOf("Spruce Log"), 1, plans[0].materials);
 });
 
 module("Ingredient"); /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -35,6 +35,21 @@ Array.prototype.each = function(onVisit) {
     }
 };
 
+Array.prototype.excluding = function(excludedElement) {
+    var result = [];
+    this.each(function(element) {
+        if (element === excludedElement) return;
+        result.push(element);
+    });
+    return result;
+};
+
+Array.prototype.pushAll = function(array) {
+    array.each(function(element) {
+        this.push(element);
+    });
+}
+
 Array.prototype.toString = function(options, indent) {
     if (options === "pretty") {
         options = {"prefix": "[\n", "suffix": "\n]", "delimiter": ",\n", "indentBy": "    "};
@@ -54,7 +69,9 @@ Array.prototype.toString = function(options, indent) {
         if (needsDelimiter === true) result += delimiter;
         needsDelimiter = true;
 
-        if (typeof(this[i].toString) === 'function') {
+        if (this[i] === undefined) {
+            result += "undefined";
+        } else if (typeof(this[i].toString) === 'function') {
             result += this[i].toString(options, indentBy);
         } else {
             result += this[i];
@@ -88,15 +105,12 @@ function onCraftingSelectorChanged() {
     if (! hasRecipe(recipeName)) {
         $("#crafting_output").slideUp(SLIDE_DURATION);
     } else {
-        throw "Not implemented"
+        var crafter = createCrafter(recipeName, {count: count, includeTools: __toolsIncluded});
+        var plan = crafter.chooseBestPlan();
 
-        var plan = createCraftingPlan(count, recipeName, __toolsIncluded);
-        var result = createCraftingResult(__inventory);
-        plan.alternatives[0].craft(result);
-
-        $("#missing_materials").html(result.missingMaterials.toHtml());
-        $("#crafted_items").html(formatStepList(result.stepList));
-        $("#leftover_materials").html(result.inventory.toHtml());
+        $("#missing_materials").html(formatManifest(plan.materials));
+        $("#crafted_items").html(formatStepList(plan.stepList));
+        $("#leftover_materials").html(formatManifest(plan.inventory));
         $("#crafting_output").slideDown(SLIDE_DURATION);
     }
 
@@ -182,12 +196,17 @@ function loadRecipeBook(recipeBookUrl) {
 
 function formatStepList(stepList) {
     var result = "";
-    for (var i = 0; i < stepList.length; i++) {
-        result += "<tr>";
-        result += "<td>" + stepList[i].count + "</td>";
-        result += "<td>" + stepList[i].name + "</td>";
-        result += "</tr>";
-    }
+    stepList.each(function(step) {
+        result += "<tr><td>" + step.count + "</td><td>" + step.name + "</td></tr>";
+    });
+    return result;
+}
+
+function formatManifest(manifest) {
+    var result = "";
+    manifest.each(function(count, material) {
+        result += "<tr><td>" + count + "</td><td>" + material + "</td></tr>";
+    });
     return result;
 }
 
@@ -296,17 +315,27 @@ function createBaseObject(type, root) {
 
 function createCrafter(recipeName, options) {
     if (recipeName === undefined) throw "RecipeName is requried";
-    var options = (options === undefined) ? {} : options;
-    var recipeBooks = (options.recipeBooks === undefined) ? __recipeBooks : options.recipeBooks;
-    var includeTools = (options.includeTools === true) ? true : false;
+    var options      = (options              === undefined) ? {}            : options;
+    var count        = (options.count        === undefined) ? 1             : options.count;
+    var recipeBooks  = (options.recipeBooks  === undefined) ? __recipeBooks : options.recipeBooks;
+    var includeTools = (options.includeTools === true)      ? true          : false;
 
     var object = createBaseObject("Crafter", {
         includeTools: includeTools,
+        plans: [],
         rootNode: undefined,
     });
 
+    object.chooseBestPlan = function() {
+        return object.plans[0];
+    };
+
     function init() {
-        
+        object.rootNode = createCraftingNode(recipeName, {recipeBooks: recipeBooks, includeTools: includeTools});
+        object.rootNode.expandFully();
+        object.plans = object.rootNode.generateCraftingPlans();
+
+        return object;
     }
 
     return init();
@@ -318,6 +347,7 @@ function createCraftingNode(targetName, options) {
     if (targetName === undefined) throw "TargetName is required";
 
     var options          = (options                  === undefined) ? {}               : options;
+    var choices          = (options.choices          === undefined) ? []               : options.choices;
     var count            = (options.count            === undefined) ? 1                : options.count;
     var includeTools     = (options.includeTools     === true)      ? true             : false;
     var initialInventory = (options.initialInventory === undefined) ? createManifest() : options.initialInventory;
@@ -328,7 +358,7 @@ function createCraftingNode(targetName, options) {
 
     var object = createBaseObject("CraftingNode", {
         children: [],
-        choices: [],
+        choices: choices,
         count: count,
         crafted: createManifest(),
         includeTools: includeTools,
@@ -341,24 +371,11 @@ function createCraftingNode(targetName, options) {
         targetName: targetName,
     });
 
-    object.generateCraftingPlans = function() {
-        var results = [];
-        if (object.children.length == 0) {
-            results.push(createCraftingPlan(object));
-        } else {
-            object.children.each(function(child) {
-                child.generateCraftingPlans().each(function(plan) {
-                    results.push(plan);
-                });
-            });
-        }
-        return results;
-    };
-
     object.expandChoices = function() {
         object.choices.each(function(choiceGroup) {
             choiceGroup.each(function(choice) {
                 var child = createCraftingNode(choice.recipe.name, {
+                    choices: getChoicesExcluding(choiceGroup),
                     recipe: choice.recipe,
                     includeTools: object.includeTools,
                     outcome: choice.outcome,
@@ -378,6 +395,20 @@ function createCraftingNode(targetName, options) {
         object.children.each(function(child) {
             child.expandFully();
         });
+    };
+
+    object.generateCraftingPlans = function() {
+        var results = [];
+        if (object.children.length === 0) {
+            results.push(createCraftingPlan(object));
+        } else {
+            object.children.each(function(child) {
+                child.generateCraftingPlans().each(function(plan) {
+                    results.push(plan);
+                });
+            });
+        }
+        return results;
     };
 
     object.toString = function(options) {
@@ -406,6 +437,15 @@ function createCraftingNode(targetName, options) {
         if (choiceGroup.length > 0) {
             object.choices.push(choiceGroup);
         }
+    }
+
+    function getChoicesExcluding(excludedChoiceGroup) {
+        var result = [];
+        object.choices.each(function(choiceGroup) {
+            if (choiceGroup === excludedChoiceGroup) return;
+            result.push([].concat(choiceGroup));
+        });
+        return result;
     }
 
     function elaborateInputChoices() {
@@ -486,26 +526,44 @@ function createCraftingPlan(sourceNode) {
     var object = createBaseObject("CraftingPlan", {
         stepList: [],
         inventory: createManifest(),
+        leafNode: sourceNode,
         materials: createManifest(),
-        sourceNode: sourceNode,
-        score: 0,
+        rootNode: undefined,
     });
 
+    object.toString = function(options) {
+        var result = "Makes " + object.rootNode.targetName;
+        result += " by making: " + object.stepList;
+        result += " which requires: " + object.materials;
+        result += " and yields: " + object.inventory;
+        return result;
+    };
+
     function buildStepList() {
-        var current = object.sourceNode;
+        var current = object.leafNode;
         while (current !== undefined) {
             current.crafted.each(function(count, material) {
-                stepList.push(createIngredient(count, material)),
+                object.stepList.push(createIngredient(count, material));
             });
             current = current.parentNode;
         }
     }
 
+    function findTargetNode() {
+        var current = sourceNode;
+        while (current.parentNode !== undefined) {
+            current = current.parentNode;
+        }
+        object.rootNode = current;
+    }
+
     function init() {
         buildStepList();
+        findTargetNode();
+
         object.inventory.addAll(sourceNode.inventory);
         object.materials.addAll(sourceNode.materials);
-        object.score = sourceNode.score;
+        return object;
     }
 
     return init();

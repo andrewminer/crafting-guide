@@ -4,10 +4,6 @@
     "recipes": [
 		
         {
-            "output": [[1, "Wooden Gear"]],
-            "input": [[4, "Stick"]],
-            "tools": ["Crafting Table"]
-        }, {
             "output": [[1, "Grind Stone"]],
             "input": [[3, "Certus Quartz Dust"], [3, "Stone"], [2, "Cobblestone"],[1, "Wooden Gear"]],
             "tools": ["Crafting Table"]
@@ -32,9 +28,17 @@
             "input": [[1, "Basic Processor Assembly"]],
             "tools": ["Furnace"]
         }, {
+            "output": [[1, "ME Basic Processor"]],
+            "input": [[1, "Redstone Golden Chipset"], [1,"Silicon"], [1,"Fluix Dust"]],
+            "tools": []
+        }, {
             "output": [[1, "ME Advanced Processor"]],
             "input": [[1, "Advanced Processor Assembly"]],
             "tools": ["Furnace"]
+        }, {
+            "output": [[1, "ME Advanced Processor"]],
+            "input": [[1, "Redstone Diamond Chipset"], [1,"Silicon"], [1,"Fluix Dust"]],
+            "tools": []
         }, {
             "output": [[1, "Vibration Catalyst"]],
             "input": [[1, "Iron Ingot"], [1, "ME Conversion Matrix"], [1, "Lava Bucket"],[1,"Energy Cell"]],
@@ -46,7 +50,7 @@
         }, {
             "output": [[1, "Tiny TNT"]],
             "input": [[2, "Gunpowder"], [2, "Certus Quartz Dust"]],
-            "tools": ["Crafting Table"]
+            "tools": []
         }, {
             "output": [[8, "ME Cable - Blue"]],
             "input": [[1, "Lapis Lazuli"],[8,"ME Cable"]],

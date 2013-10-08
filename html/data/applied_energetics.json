@@ -30,7 +30,7 @@
         }, {
             "output": [[1, "ME Basic Processor"]],
             "input": [[1, "Redstone Golden Chipset"], [1,"Silicon"], [1,"Fluix Dust"]],
-            "tools": []
+            "tools": ["Assembly Table", "Laser"]
         }, {
             "output": [[1, "ME Advanced Processor"]],
             "input": [[1, "Advanced Processor Assembly"]],
@@ -38,7 +38,7 @@
         }, {
             "output": [[1, "ME Advanced Processor"]],
             "input": [[1, "Redstone Diamond Chipset"], [1,"Silicon"], [1,"Fluix Dust"]],
-            "tools": []
+            "tools": ["Assembly Table", "Laser"]
         }, {
             "output": [[1, "Vibration Catalyst"]],
             "input": [[1, "Iron Ingot"], [1, "ME Conversion Matrix"], [1, "Lava Bucket"],[1,"Energy Cell"]],

@@ -49,6 +49,7 @@ $(function() {
     loadRecipeBook("data/vanilla.json");
     loadRecipeBook("data/buildcraft.json");
     loadRecipeBook("data/industrial_craft.json");
+    loadRecipeBook("data/applied_energetics.json");
 });
 
 function onCraftingSelectorChanged() {

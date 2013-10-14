@@ -50,6 +50,7 @@ $(function() {
     loadRecipeBook("data/buildcraft.json");
     loadRecipeBook("data/industrial_craft.json");
     loadRecipeBook("data/applied_energetics.json");
+    loadRecipeBook("data/thermal_expansion.json");
 });
 
 function onCraftingSelectorChanged() {

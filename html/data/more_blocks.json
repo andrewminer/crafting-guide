@@ -1,0 +1,123 @@
+{
+    "name": "MoreBlocks",
+    "description": "Crafting recipes from More Blocks Mod, by MCE626",
+    "recipes": [
+        {
+            "output": [[1, "Cement Block"]],
+            "input": [[1, "Gravel"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Healer"]],
+            "input": [[2, "Essence of Life"], [1, "Essence of Earth"], [1, "Essence of Fire"], [1, "Essence of Water"], [1, "Essence of Air"], [3, Red Dye]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crying Obsidian"]],
+            "input": [[1, "Obsidian"], [1, "Water Bucket"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Lava Cobblestone"]],
+            "input": [[1, "Cobblestone"], [1, "Lava Bucket"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Lava Obsidian"]],
+            "input": [[1, "Obsidian"], [1, "Lava Bucket"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Block"]],
+            "input": [[9, "Crystal Gem"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Einsteinium Bomb"]],
+            "input": [[8, "Iron Ingot"], [1, "Einsteinium Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Neptunium Bomb"]],
+            "input": [[8, "Iron Ingot"], [1, "Neptunium Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Uranium Bomb"]],
+            "input": [[8, "Iron Ingot"], [1, "Uranium Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Ultimate Nuker"]],
+            "input": [[3, "Iron Ingot"], [1, "Einsteinium Ingot"], [1, "Neptunium"], [1, "Uranium Ingot"], [1, "Explosive Charge"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Einsteinium Ingot"]],
+            "input": [[1, "Einsteinium Ore"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Neptunium Ingot"]],
+            "input": [[1, "Neptunium Ore"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Uranium Ingot"]],
+            "input": [[1, "Uranium Ore"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Crystal Piece"]],
+            "input": [[7, "Crystal Dust"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Piece"]],
+            "input": [[1, "Crystal Nugget"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Nugget"]],
+            "input": [[5, "Crystal Piece"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Piece"]],
+            "input": [[1, "Crystal Gem"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Gem"]],
+            "input": [[7, "Crystal Nugget"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Gem"]],
+            "input": [[1, "Crystal Block"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Stone Brick"]],
+            "input": [[1, "Stone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crystal Ball"]],
+            "input": [[4, "Crystal Gem"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Hard Crystal Ball"]],
+            "input": [[1, "Crystal Ball"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Essence of Life"]],
+            "input": [[1, "Flower"], [1, "Hard Crystal Ball"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Essence of Fire"]],
+            "input": [[1, "Lava Bucket"], [1, "Hard Crystal Ball"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Essence of Water"]],
+            "input": [[1, "Water Bucket"], [1, "Hard Crystal Ball"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Essence of Earth"]],
+            "input": [[1, "Dirt"], [1, "Hard Crystal Ball"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Essence of Air"]],
+            "input": [[1, "Hard Crystal Ball"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Popcorn"]],
+            "input": [[1, "Corn Seeds"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Chisel"]],
+            "input": [[1, "Iron Ingot"], [1, "Stick"]],
+            "tools": ["Crafting Table"]
+        }
+    ]
+}

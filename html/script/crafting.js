@@ -51,6 +51,7 @@ $(function() {
     loadRecipeBook("data/industrial_craft.json");
     loadRecipeBook("data/applied_energetics.json");
     loadRecipeBook("data/thermal_expansion.json");
+    loadRecipeBook("data/gravisuite.json");
 });
 
 function onCraftingSelectorChanged() {
@@ -175,7 +176,7 @@ function parseUrlParameters() {
             $("#crafting_error").fadeIn(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).fadeOut(FADE_DURATION);
         }
     }
-        
+
     var recipeName = $.url().param('recipeName');
     if (recipeName !== undefined) {
         $("#crafting_selector").val(recipeName);

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pushd html &>/dev/null
+python -m SimpleHTTPServer
+popd &>/dev/null
+

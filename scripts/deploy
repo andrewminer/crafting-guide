@@ -1,6 +1,3 @@
 #!/bin/bash
 
-ssh crafting-guide@www.crafting-guide.com << EOF
-    cd repo
-    git pull
-EOF
+aws s3 sync html/ s3://crafting-guide.com/

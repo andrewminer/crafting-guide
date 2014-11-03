@@ -4,6 +4,16 @@ var ERROR_DISPLAY_DURATION = 10000; // ms
 var FADE_DURATION = 250; // ms
 var SLIDE_DURATION = 600; // ms
 
+var RECIPE_BOOK_URLS = [
+    "data/vanilla.json",
+    "data/buildcraft.json",
+    "data/industrial_craft.json",
+    "data/applied_energetics.json",
+    "data/thermal_expansion.json",
+    "data/gravisuite.json",
+    "data/more_blocks.json"
+];
+
 // Global Variables ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 var __inventory = createManifest();
@@ -46,12 +56,7 @@ $(function() {
     $("#crafting_selector").focus(onCraftingSelectorFocused);
     $("#inventory").keyup(onInventoryChanged);
 
-    loadRecipeBook("data/vanilla.json");
-    loadRecipeBook("data/buildcraft.json");
-    loadRecipeBook("data/industrial_craft.json");
-    loadRecipeBook("data/applied_energetics.json");
-    loadRecipeBook("data/thermal_expansion.json");
-    loadRecipeBook("data/gravisuite.json");
+    loadRecipeBooks(RECIPE_BOOK_URLS);
 });
 
 function onCraftingSelectorChanged() {
@@ -106,7 +111,7 @@ function onInventoryChanged() {
     onCraftingSelectorChanged();
 }
 
-function onRecipeBookLoaded() {
+function onRecipeBooksLoaded() {
     if (__loadingCount > 0 || __recipeBooks.length === 0) {
         $("#crafting").fadeOut(FADE_DURATION);
     } else if (__loadingCount === 0 && __recipeBooks.length > 0) {
@@ -118,7 +123,7 @@ function onRecipeBookLoaded() {
 
 function onRecipeLoadButtonClicked() {
     $("#reipebook_load_button").attr("disabled", true);
-    loadRecipeBook($("#recipe_book_url").val(), function() {
+    loadRecipeBooks([$("#recipe_book_url").val()], function() {
         $("#recipe_book_url").val("");
         $("#reipebook_load_button").removeAttr("disabled");
     });
@@ -126,8 +131,14 @@ function onRecipeLoadButtonClicked() {
 
 // UI Helper Functions ////////////////////////////////////////////////////////////////////////////////////////////////
 
-function loadRecipeBook(recipeBookUrl) {
-    __loadingCount++;
+function loadRecipeBooks(recipeBooks, onComplete) {
+    if (recipeBooks.length === 0) {
+        if (onComplete) { onComplete(); }
+        onRecipeBooksLoaded();
+        return;
+    }
+
+    recipeBookUrl = recipeBooks[0]
     $.ajax({
         url: recipeBookUrl,
         dataType: "text",
@@ -147,8 +158,7 @@ function loadRecipeBook(recipeBookUrl) {
             $("#load_error").slideDown(FADE_DURATION).delay(ERROR_DISPLAY_DURATION).slideUp(FADE_DURATION);
         },
         complete: function() {
-            __loadingCount--;
-            onRecipeBookLoaded();
+            loadRecipeBooks(recipeBooks.splice(1));
         }
     });
 }

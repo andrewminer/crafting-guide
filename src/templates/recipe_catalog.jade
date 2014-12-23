@@ -1,0 +1,19 @@
+//-
+//- Crafting Guide - recipe_catalog.jade
+//-
+//- Copyright (c) 2014 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__recipe_catalog
+    h2
+        img(src="/images/bookshelf.png")
+        p Recipe Catalog
+
+    table.books
+        tr
+            td &nbsp;
+            td
+                input.recipe_book_url(placeholder="enter a URL to load another recipe book...")
+                button.recipe_book_load_button Load
+    .load_error: p

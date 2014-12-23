@@ -1,0 +1,26 @@
+/*
+Crafting Guide - mixins.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+
+@mixin box-sizing($value) {
+  -moz-box-sizing: $value;
+  -webkit-box-sizing: $value;
+  box-sizing: $value;
+}
+
+@mixin center-vertical {
+    position: absolute;
+    top: 50%;
+    @include transform(translateY(-50%));
+}
+
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+    -webkit-transform: $transforms;
+    transform: $transforms;
+}

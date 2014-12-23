@@ -1,0 +1,211 @@
+{
+    "name": "Thermal Expansion",
+    "description": "Crafting Recipes from Thermal Expansion, by King Lemming and the CoFH team",
+    "recipes": [
+        {
+            "output": [[1, "Aqueous Accumulator"]],
+            "input": [[1, "Bucket"], [2, "Glass"], [1, "Machine Frame"], [1, "Pneumatic Servo"], [2, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Copper Gear"]],
+            "input": [[1, "Cobblestone Gear"], [4, "Copper Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Crescent Hammer"]],
+            "input": [[3, "Iron Ingot"], [1, "Silver Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Cyclic Assembler"]],
+            "input": [[1, "Chest"], [2, "Copper Ingot"], [1, "Machine Frame"], [1, "Redstone Reception Coil"], [2, "Tin Gear"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Electrum Blend"]],
+            "input": [[1, "Gold Dust"], [1, "Silver Dust"]],
+            "tools": []
+        }, {
+            "output": [[1, "Electrum Ingot"]],
+            "input": [[1, "Electrum Blend"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Energetic Infuser"]],
+            "input": [[2, "Copper Ingot"], [1, "Machine Frame"], [1, "Redstone Reception Coil"], [2, "Redstone Transmission Coil"], [1, "Shiny Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[250, "Energized Glowstone"]],
+            "input": [[1, "Glowstone Dust"]],
+            "tools": ["Magma Crucible"]
+        }, {
+            "output": [[1, "Energy Cell Frame (Empty)"]],
+            "input": [[1, "Diamond"], [4, "Electrum Ingot"], [4, "Hardened Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Energy Cell Frame (Full)"]],
+            "input": [[1, "Energy Cell Frame (Empty)"], [1000, "Molten Redstone"]],
+            "tools": ["Liquid Transposer"]
+        }, {
+            "output": [[4, "Energy Conduit (Empty)"]],
+            "input": [[2, "Electrum Ingot"], [1, "Hardened Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Energy Tesseract"]],
+            "input": [[1, "Electrum Ingot"], [2, "Lead Ingot"], [1, "Redstone Conductance Coil"], [2, "Tin Ingot"], [1, "Unattuned Tesseract"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Glacial Precipitator"]],
+            "input": [[2, "Copper Ingot"], [1, "Machine Frame"], [1, "Piston"], [1, "Redstone Reception Coil"], [2, "Snow (Block)"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Glowstone Illuminator"]],
+            "input": [[1000, "Energized Glowstone"], [1, "Illuminator Frame"]],
+            "tools": ["Liquid Transposer"]
+        }, {
+            "output": [[1, "Hardened Glass"]],
+            "input": [[1, "Lead Ingot"], [2, "Pulverized Obsidian"]],
+            "tools": ["Induction Smelter"]
+        }, {
+            "output": [[1, "Igneous Extruder"]],
+            "input": [[2, "Glass"], [1, "Machine Frame"], [1, "Piston"], [1, "Pneumatic Servo"], [2, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Illuminator Frame"]],
+            "input": [[2, "Hardened Glass"], [1, "Nether Quartz"], [1, "Redstone Dust"], [1, "Silver Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Induction Smelter"]],
+            "input": [[1, "Bucket"], [2, "Copper Ingot"], [2, "Invar Ingot"], [1, "Machine Frame"], [1, "Redstone Reception Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[3, "Invar Blend"]],
+            "input": [[2, "Iron Dust"], [1, "Pulverized Ferrous Dust"]],
+            "tools": []
+        }, {
+            "output": [[1, "Invar Gear"]],
+            "input": [[4, "Invar Ingot"], [1, "Iron Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Invar Ingot"]],
+            "input": [[1, "Invar Blend"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Item Tesseract"]],
+            "input": [[1, "Pneumatic Servo"], [2, "Silver Ingot"], [3, "Tin Ingot"], [1, "Unattuned Tesseract"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Lead Ingot"]],
+            "input": [[1, "Lead Ore"], [125, "milli-coal"]],
+            "tools": ["Furnace"]
+        }, {
+            "output": [[1, "Liquid Tesseract"]],
+            "input": [[1, "Copper Ingot"], [1, "Pneumatic Servo"], [2, "Silver Ingot"], [2, "Tin Ingot"], [1, "Unattuned Tesseract"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Liquid Transposer"]],
+            "input": [[1, "Bucket"], [2, "Copper Ingot"], [2, "Glass"], [1, "Machine Frame"], [1, "Redstone Reception Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[4, "Liquiduct"]],
+            "input": [[2, "Copper Ingot"], [1, "Hardened Glass"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Machine Frame"]],
+            "input": [[4, "Iron Ingot"], [4, "Glass"], [1, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Magma Crucible"]],
+            "input": [[1, "Bucket"], [2, "Copper Ingot"], [1, "Machine Frame"], [2, "Nether Brick (block)"], [1, "Redstone Reception Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Magmatic Engine"]],
+            "input": [[2, "Invar Gear"], [3, "Invar Ingot"], [1, "Piston"], [1, "Redstone Transmission Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[250, "Molten Ender"]],
+            "input": [[1, "Ender Pearl"]],
+            "tools": ["Magma Crucible"]
+        }, {
+            "output": [[25, "Molten Redstone"]],
+            "input": [[1, "Redstone Dust"]],
+            "tools": ["Magma Crucible"]
+        }, {
+            "output": [[1, "Multimeter"]],
+            "input": [[2, "Copper Ingot"], [2, "Lead Ingot"], [1, "Redstone Conductance Coil"], [1, "Tin Gear"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Pneumatic Servo"]],
+            "input": [[2, "Glass"], [2, "Iron Ingot"], [1, "Redstone"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Portable Tank"]],
+            "input": [[4, "Hardened Glass"], [1, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Powered Furnace"]],
+            "input": [[2, "Bricks"], [2, "Copper Ingot"], [1, "Machine Frame"], [1, "Redstone"], [1, "Redstone Conductance Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[2, "Pulverized Ferrous Dust"]],
+            "input": [[1, "Ferrous Ore"]],
+            "tools": ["Pulverizer"]
+        }, {
+            "output": [[1, "Pulverized Obsidian"]],
+            "input": [[1, "Obsidian"]],
+            "tools": ["Pulverizer"]
+        }, {
+            "output": [[1, "Pulverizer"]],
+            "input": [[2, "Copper Ingot"], [2, "Flint"], [1, "Machine Frame"], [1, "Piston"], [1, "Redstone Reception Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Conductance Coil"]],
+            "input": [[2, "Redstone"], [1, "Electrum Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Energy Cell"]],
+            "input": [[3, "Electrum Ingot"], [1, "Energy Cell Frame (Full)"], [2, "Lead Ingot"], [1, "Redstone Conductance Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Energy Conduit"]],
+            "input": [[1, "Energy Conduit (Empty)"], [50, "Molten Redstone"]],
+            "tools": ["Liquid Transposer"]
+        }, {
+            "output": [[1, "Redstone Reception Coil"]],
+            "input": [[2, "Redstone"], [1, "Gold Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Redstone Transmission Coil"]],
+            "input": [[2, "Redstone"], [1, "Silver Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Sawmill"]],
+            "input": [[2, "Copper Ingot"], [1, "Iron Axe"], [1, "Machine Frame"], [1, "Redstone Reception Coil"], [2, "Oak Plank"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Schematic"]],
+            "input": [[1, "Lapis Lazuli"], [3, "Paper"]],
+            "tools": []
+        }, {
+            "output": [[1, "Shiny Dust"]],
+            "input": [[10, "Ferrous Ore"]],
+            "tools": ["Pulverizer"]
+        }, {
+            "output": [[1, "Shiny Ingot"]],
+            "input": [[1, "Shiny Dust"], [125, "milli-coal"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Steam Engine"]],
+            "input": [[2, "Copper Gear"], [3, "Copper Ingot"], [1, "Piston"], [1, "Redstone Transmission Coil"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Tesseract Frame"]],
+            "input": [[1, "Diamond"], [4, "Hardened Glass"], [4, "Tin Ingot"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Tin Gear"]],
+            "input": [[4, "Tin Ingot"], [1, "Cobblestone Gear"]],
+            "tools": ["Crafting Table"]
+        }, {
+            "output": [[1, "Unattuned Tesseract"]],
+            "input": [[1000, "Molten Ender"], [1, "Tesseract Frame"]],
+            "tools": ["Liquid Transposer"]
+        }
+    ]
+}

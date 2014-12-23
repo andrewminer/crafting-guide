@@ -1,0 +1,33 @@
+//-
+//- Crafting Guide - basic.jade
+//-
+//- Copyright (c) 2014 by Redwood Labs
+//- All rights reserved.
+//-
+
+block basic-vars
+    - var pageTitle = 'Crafting Guide'
+
+doctype html
+html
+    head
+        title= pageTitle
+        meta(charset="UTF-8")
+
+        block styles
+            link(rel="stylesheet", type="text/css", href="css/main.css")
+
+    body
+        .content
+            include ../includes/_header.jade
+
+            block content
+
+            include ../includes/_footer.jade
+
+        block scripts
+            script(src="/js/underscore.js")
+            script(src="/js/jquery.js")
+            script(src="/js/backbone.js")
+            script(src="/js/jade.js")
+            script(src="/js/when.js")

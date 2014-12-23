@@ -1,0 +1,40 @@
+{
+  "name": "crafting-guide",
+  "version": "1.0.0",
+  "description": "crafting-guide ==============",
+  "main": "site/scripts/main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewminer/crafting-guide.git"
+  },
+  "author": "Andrew Miner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewminer/crafting-guide/issues"
+  },
+  "homepage": "https://github.com/andrewminer/crafting-guide",
+  "devDependencies": {
+    "coffeeify": "^1.0.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.2.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-jade": "^0.13.0",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "chai": "^1.10.0",
+    "d3": "^3.5.2",
+    "jade": "^1.8.2",
+    "jquery": "^2.1.3",
+    "mocha": "^2.0.1",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.6.0",
+    "when": "^3.6.4"
+  }
+}

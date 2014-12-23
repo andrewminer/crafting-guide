@@ -1,0 +1,219 @@
+/*
+Crafting Guide - main.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+/*
+Crafting Guide - mixins.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, embed, fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, meter, nav, object, ol, output, p, pre, progress, q, rp, rt, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video, xmp {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html, body {
+  height: 100%; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+b, strong {
+  font-weight: bold; }
+
+img {
+  color: transparent;
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic; }
+
+ol, ul {
+  list-style: none; }
+
+li {
+  display: list-item; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+th, td, caption {
+  font-weight: normal;
+  vertical-align: top;
+  text-align: left; }
+
+q {
+  quotes: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+sub, sup, small {
+  font-size: 75%; }
+
+sub, sup {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+svg {
+  overflow: hidden; }
+
+@font-face {
+  font-family: 'PressStart';
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/press_start.ttf") format("truetype"); }
+body {
+  background: #AAC9FF url("/images/ice.png");
+  font-size: 10px; }
+
+h1 {
+  margin-bottom: 1em; }
+  h1 * {
+    display: inline; }
+  h1 img {
+    position: relative;
+    height: 10em;
+    width: 10em;
+    margin-right: 1em;
+    vertical-align: bottom; }
+  h1 p {
+    font-family: PressStart;
+    font-size: 3em;
+    position: relative;
+    top: -0.5em; }
+
+h2 {
+  margin-bottom: 1em; }
+  h2 * {
+    display: inline; }
+  h2 img {
+    position: relative;
+    height: 7.5em;
+    width: 7.5em;
+    margin-right: 1em;
+    vertical-align: bottom; }
+  h2 p {
+    font-family: PressStart;
+    font-size: 2em;
+    position: relative;
+    top: -0.25em; }
+
+.centered {
+  text-align: center; }
+
+.content {
+  background: rgba(230, 230, 230, 0.9);
+  box-shadow: 10px 10px 20px #666;
+  margin: 2em auto;
+  max-width: 96em;
+  position: relative;
+  width: 100%; }
+
+.view__footer {
+  background: #3D1D09;
+  color: white;
+  margin-top: 2em; }
+  .view__footer a {
+    color: white; }
+  .view__footer .divider {
+    position: relative;
+    height: 3.2em;
+    width: 100%;
+    clear: both; }
+  .view__footer .divider.top {
+    background: #906647 url("/images/grass_side.png"); }
+  .view__footer .left, .view__footer .center, .view__footer .right {
+    position: relative;
+    width: 33%;
+    float: left;
+    padding: 2em; }
+    .view__footer .left p, .view__footer .center p, .view__footer .right p {
+      font-family: sans-serif;
+      font-size: 1.25em;
+      padding-bottom: 1.0em; }
+      .view__footer .left p:last-child, .view__footer .center p:last-child, .view__footer .right p:last-child {
+        padding-bottom: 0; }
+    .view__footer .left h2, .view__footer .center h2, .view__footer .right h2 {
+      padding-bottom: 1.0em; }
+      .view__footer .left h2 p, .view__footer .center h2 p, .view__footer .right h2 p {
+        font-family: PressStart;
+        font-size: 1.5em; }
+  .view__footer .divider.bottom {
+    background: #0A0A0A url("/images/bedrock.png"); }
+
+.view__header {
+  background: #D9D9D9 url("/images/stone_brick_light.png");
+  position: relative;
+  height: 10em;
+  margin: 5em 0 2em 0; }
+  .view__header h1 {
+    position: relative;
+    top: -3em;
+    left: -3em; }
+  .view__header .divider {
+    background: #7A7A7A url("/images/stone_brick.png");
+    position: absolute;
+    bottom: 0;
+    height: 3.2em;
+    width: 100%; }
+
+/*
+Crafting Guide - templates/index.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+/*
+Crafting Guide - recipe_books.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+.view__recipe_catalog {
+  position: relative;
+  width: 100%;
+  padding: 0 2em; }
+  .view__recipe_catalog button {
+    position: absolute;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: absolute;
+    right: 1em; }
+  .view__recipe_catalog input {
+    border: 0;
+    width: 90%; }
+  .view__recipe_catalog table {
+    background: white;
+    margin: 0 auto;
+    width: 98%; }
+    .view__recipe_catalog table td {
+      height: 3em;
+      padding: 0 1em;
+      position: relative;
+      vertical-align: middle; }
+    .view__recipe_catalog table td:nth-child(1) {
+      width: 30%; }
+    .view__recipe_catalog table td:nth-child(2) {
+      width: 70%;
+      border-left: 0.1em solid #D9D9D9; }
+
+/*# sourceMappingURL=main.css.map */

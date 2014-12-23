@@ -1,5 +1,7 @@
 {
-    "name": "Thermal Expansion",
+    "version": 1,
+    "mod_name": "Thermal Expansion",
+    "mod_version": "2.x",
     "description": "Crafting Recipes from Thermal Expansion, by King Lemming and the CoFH team",
     "recipes": [
         {

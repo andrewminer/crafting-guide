@@ -1,5 +1,5 @@
 ###
-# Crafting Guide - crafting_guide_controller.coffee
+# Crafting Guide - landing_page_controller.coffee
 #
 # Copyright (c) 2014 by Redwood Labs
 # All rights reserved.
@@ -21,5 +21,5 @@ module.exports = class LandingPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @recipeBooksController = @addChild RecipeCatalogController, '.view__recipe_catalog'
+        @recipeBooksController = @addChild RecipeCatalogController, '.view__recipe_catalog', model:@model.catalog
         super

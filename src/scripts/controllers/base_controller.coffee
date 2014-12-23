@@ -12,6 +12,9 @@ views = require '../views'
 module.exports = class BaseController extends Backbone.View
 
     constructor: (options={})->
+        Object.defineProperty this, 'model', get:@getModel, set:@setModel
+
+        @_model    = null
         @_rendered = false
         @_parent   = options.parent
         @_children = []
@@ -35,10 +38,40 @@ module.exports = class BaseController extends Backbone.View
 
     # Event Methods ################################################################################
 
+    onDidModelChange: ->
+        @_tryRefresh()
+
+    onDidModelSync: ->
+        @_tryRefresh()
+
     onWillRender: -> # do nothing
 
     onDidRender: ->
-        @refresh()
+        @_tryRefresh()
+
+    onWillShow: -> # do nothing
+
+    onDidShow: -> # do nothing
+
+    onWillChangeModel: (oldModel, newModel)->
+        if oldModel?.on?
+            @stopListening oldModel
+        if newModel?.on?
+            @listenTo newModel, 'sync', (e)=> @onDidModelSync e
+            @listenTo newModel, 'change', (e)=> @onDidModelChange e
+        return true
+
+    # Property Methods #############################################################################
+
+    getModel: ->
+        return @_model
+
+    setModel: (newModel)->
+        return if @model is newModel
+        return unless @onWillChangeModel @_model, newModel
+
+        @_model = newModel
+        @_tryRefresh()
 
     # Backbone.View Overrides ######################################################################
 
@@ -75,3 +108,7 @@ module.exports = class BaseController extends Backbone.View
     _loadTemplate: (templateName)->
         if templateName?
             @_template = views[templateName]
+
+    _tryRefresh: ->
+        return unless @_rendered
+        @refresh()

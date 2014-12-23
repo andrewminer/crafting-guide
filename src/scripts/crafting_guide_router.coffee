@@ -41,14 +41,15 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         show = =>
             @_page = controller
 
+            controller.onWillShow()
             controller.render()
-            # controller.$el.css 'opacity', Opacity.hidden
 
             $pageContent = $('.page')
             $pageContent.empty()
             $pageContent.append controller.$el
 
-            controller.$el.fadeIn showDuration
+            controller.$el.fadeIn showDuration, ->
+                controller.onDidShow()
 
         if @_mainController?
             showDuration = Duration.fast

@@ -1,5 +1,7 @@
 {
-    "name": "GraviSuite",
+    "version": 1,
+    "mod_name": "GraviSuite",
+    "mod_version": "unknown",
     "description": "Crafting recipes from GraviSuite, by flotschi301",
     "recipes": [
         {

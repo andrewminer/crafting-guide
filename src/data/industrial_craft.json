@@ -1,6 +1,8 @@
 {
-    "name": "Industrial Craft",
-    "description": "Crafting recipes from IndustrialCraft 2, by Alblaka",
+    "version": 1,
+    "mod_name": "Industrial Craft",
+    "mod_version": "2.0",
+    "description": "Crafting recipes from IndustrialCraft, by Alblaka",
     "recipes": [
         {
             "output": [[1, "Static Boots"]],

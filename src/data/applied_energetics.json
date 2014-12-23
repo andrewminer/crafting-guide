@@ -1,8 +1,10 @@
 {
-    "name": "Applied Energetics",
-    "description": "Applied Energetics rv12-b, by AlgorithmX2",
+    "version": 1,
+    "mod_name": "Applied Energetics",
+    "mod_version": "rv-12b",
+    "description": "Crafting recipes from Applied Energetics, by AlgorithmX2",
     "recipes": [
-		
+
         {
             "output": [[1, "Grind Stone"]],
             "input": [[3, "Certus Quartz Dust"], [3, "Stone"], [2, "Cobblestone"],[1, "Wooden Gear"]],

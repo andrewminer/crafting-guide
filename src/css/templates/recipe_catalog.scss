@@ -14,14 +14,19 @@ All rights reserved.
         position: absolute; right: 1em;
     }
 
-    input { border: 0; width: 90%; }
+    input { border: 0; font-size: 1.5em; width: 90%; }
 
     table {
         background: white;
         margin: 0 auto;
         width: 98%;
 
-        td { height: 3em; padding: 0 1em; position: relative; vertical-align: middle; }
+        td {
+            height: 3em; padding: 0 1em; position: relative; vertical-align: middle;
+
+            p { font-size: 1.5em; }
+        }
+
         td:nth-child(1) { width: 30%; }
         td:nth-child(2) { width: 70%; border-left: 0.1em solid $color-brick-light; }
     }

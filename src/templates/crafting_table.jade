@@ -1,0 +1,37 @@
+//-
+//- Crafting Guide - crafting_table.jade
+//-
+//- Copyright (c) 2014 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__crafting_table
+    h2
+        img(src="/images/workbench_top.png")
+        p Crafting Table
+
+    .recipe_selector
+        p I want to make
+        select(name="quantity")
+            option(value="1") 1
+            option(value="2") 2
+            option(value="4") 4
+            option(value="8") 8
+            option(value="16") 16
+            option(value="64") 64
+        input(name="name", placeholder="enter an item name")
+        label
+            input(name="including_tools", type="checkbox")
+            | including tools
+
+    table
+        tr
+            td.have
+                h3: p You have...
+                textarea(name="have", placeholder="enter what you have, for example:\n\n3 wool\n4 iron ingot")
+            td.make
+                h3: p You'll make...
+                ul
+            td.get
+                h3: p You'll get...
+                ul

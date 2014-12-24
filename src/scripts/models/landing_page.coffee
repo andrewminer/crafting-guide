@@ -5,7 +5,8 @@
 # All rights reserved.
 ###
 
-BaseModel = require './base_model'
+BaseModel     = require './base_model'
+CraftingTable = require './crafting_table'
 RecipeCatalog = require './recipe_catalog'
 
 ########################################################################################################################
@@ -14,4 +15,5 @@ module.exports = class LandingPage extends BaseModel
 
     constructor: (attributes={}, options={})->
         attributes.catalog ?= new RecipeCatalog
+        attributes.table ?= new CraftingTable catalog:attributes.catalog
         super attributes, options

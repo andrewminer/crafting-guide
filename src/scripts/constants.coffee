@@ -16,12 +16,14 @@ Opacity.hidden  = 1e-6
 Opacity.shown   = 1
 
 exports.Event        = Event = {}
-Event.change         = 'change'
+Event.add            = 'add'            # collection, item...
+Event.change         = 'change'         # model
 Event.load           = {}
-Event.load.started   = 'book:load:started'   # controller, url
-Event.load.succeeded = 'book:load:succeeded' # controller, book
-Event.load.failed    = 'book:load:failed'    # controller, error message
-Event.load.finished  = 'book:load:finished'  # controller
+Event.load.started   = 'load:started'   # controller, url
+Event.load.succeeded = 'load:succeeded' # controller, book
+Event.load.failed    = 'load:failed'    # controller, error message
+Event.load.finished  = 'load:finished'  # controller
+Event.remove         = 'remove'         # collection, item...
 
 exports.DefaultBookUrls = DefaultBookUrls = [
     '/data/vanilla.json'

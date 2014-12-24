@@ -8,17 +8,6 @@ All rights reserved.
 @import 'mixins';
 @import 'reset';
 
-// Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-$color-background: #AAC9FF;
-$color-bedrock: #0A0A0A;
-$color-content: rgba(230, 230, 230, 0.90);
-$color-brick-dark: #7A7A7A;
-$color-brick-light: #D9D9D9;
-$color-footer: #3D1D09;
-$color-footer-text: white;
-$color-dirt: #906647;
-
 // Fonts ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @font-face {
@@ -27,6 +16,29 @@ $color-dirt: #906647;
   font-weight: 400;
   src: url('/fonts/press_start.ttf') format('truetype');
 }
+
+// Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$color-background:       #AAC9FF;
+$color-bedrock:          #0A0A0A;
+$color-brick-dark:       #7A7A7A;
+$color-brick-light:      #D9D9D9;
+$color-content:          rgba(230, 230, 230, 0.90);
+$color-dirt:             #906647;
+$color-footer:           #3D1D09;
+$color-footer-text:      white;
+$color-gray-faint:       #F2F2F2;
+$color-gray-light:       #CCCCCC;
+$color-table-background: white;
+
+$font-family-header: 'PressStart';
+$font-family-normal: sans-serif;
+$font-family-input: monospace;
+
+$font-size-small:   1.1em;
+$font-size-normal:  1.3em;
+$font-size-large:   2.0em;
+$font-size-x-large: 3.0em;
 
 // Common //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -47,8 +59,8 @@ h1 {
     }
 
     p {
-        font-family: PressStart;
-        font-size: 3em;
+        font-family: $font-family-header;
+        font-size: $font-size-x-large;
         position: relative; top: -0.5em;
     }
 }
@@ -59,16 +71,38 @@ h2 {
     * { display: inline; }
 
     img {
-        position: relative; height: 6em; width: 6em;
+        position: relative; height: 4em; width: 4em;
         margin-right: 1em;
         vertical-align: bottom;
     }
 
     p {
-        font-family: PressStart;
-        font-size: 2em;
+        font-family: $font-family-header;
+        font-size: $font-size-large;
         position: relative; top: -0.25em;
     }
+}
+
+h3 {
+    font-family: $font-family-normal;
+    font-weight: bold;
+
+    p { font-size: $font-size-normal; }
+}
+
+p {
+    font-family: $font-family-normal;
+    font-size: $font-size-normal;
+}
+
+input {
+    font-family: $font-family-input;
+    font-size: $font-size-normal;
+}
+
+label {
+    font-family: $font-family-normal;
+    font-size: $font-size-normal;
 }
 
 .centered {
@@ -82,6 +116,13 @@ h2 {
     max-width: 96em;
     position: relative;
     width: 100%;
+}
+
+.page > div {
+    position: relative; width: 100%;
+    padding: 2em 2em 0 2em;
+
+    &:first-child { padding-top: 0; }
 }
 
 // Views ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +152,7 @@ h2 {
 
         p {
             font-family: sans-serif;
-            font-size: 1.25em;
+            font-size: $font-size-small;
             padding-bottom: 1.0em;
 
             &:last-child {
@@ -123,7 +164,7 @@ h2 {
             padding-bottom: 1.0em;
 
             p {
-                font-family: PressStart;
+                font-family: $font-family-header;
                 font-size: 1.5em;
             }
         }

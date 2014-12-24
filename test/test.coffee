@@ -17,11 +17,16 @@ global.assert = chai.assert
 global.expect = chai.expect
 global.should = chai.should()
 
+Logger = require '../src/scripts/logger'
+global.logger = new Logger level:Logger.TRACE
+
 # Test Registry ########################################################################################################
 
 mocha.setup 'bdd'
 
-require './parser_versions/v1.test'
+require './inventory.test'
+require './inventory_parser.test'
+require './recipe_book_parser.test'
 
 mocha.checkLeaks()
 mocha.run()

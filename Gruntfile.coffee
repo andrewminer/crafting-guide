@@ -98,9 +98,9 @@ module.exports = (grunt)->
             images:
                 files: ['./src/images/**/*']
                 tasks: ['copy:images']
-            browserify:
-                files: ['./src/scripts/**/*.coffee', './test/**/*.coffee']
-                tasks: ['browserify']
+            source:
+                files: ['./src/scripts/**/*.coffee']
+                tasks: ['browserify:main']
             pages:
                 files: ['./src/pages/**/*.jade']
                 tasks: ['jade:pages']
@@ -110,6 +110,9 @@ module.exports = (grunt)->
             sass:
                 files: ['./src/css/**/*.scss']
                 tasks: ['sass', 'copy:styles']
+            tests:
+                files: ['./src/scripts/**/*.coffee', './test/**/*.coffee']
+                tasks: ['browserify:test']
 
     grunt.registerTask 'default', 'build'
 

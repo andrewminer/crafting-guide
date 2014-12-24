@@ -45,8 +45,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             controller.render()
 
             $pageContent = $('.page')
-            $pageContent.empty()
-            $pageContent.append controller.$el
+            controller.$el.addClass 'page'
+            $pageContent.replaceWith controller.$el
 
             controller.$el.fadeIn showDuration, ->
                 controller.onDidShow()

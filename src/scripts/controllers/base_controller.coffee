@@ -19,6 +19,7 @@ module.exports = class BaseController extends Backbone.View
         @_parent   = options.parent
         @_children = []
 
+        Object.defineProperty this, 'rendered', get:-> return @_rendered
         @_loadTemplate options.templateName
         super options
 

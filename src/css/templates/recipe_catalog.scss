@@ -6,9 +6,6 @@ All rights reserved.
 */
 
 .view__recipe_catalog {
-    position: relative; width: 100%;
-    padding: 0 2em;
-
     button {
         @include center-vertical;
         position: absolute; right: 1em;
@@ -19,12 +16,12 @@ All rights reserved.
     table {
         background: white;
         margin: 0 auto;
-        width: 98%;
+        width: 100%;
 
         td {
-            height: 3em; padding: 0 1em; position: relative; vertical-align: middle;
-
-            p { font-size: 1.5em; }
+            position: relative; height: 2 * $font-size-normal;
+            padding: 0 1em;
+            vertical-align: middle;
         }
 
         td:nth-child(1) { width: 30%; }

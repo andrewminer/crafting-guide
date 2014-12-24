@@ -73,4 +73,4 @@ module.exports = class CraftingTableController extends BaseController
 
     _recalculate: ->
         return if not @_name? or @_name.length is 0
-        @model.craft @_name, @_quantity
+        @model.craft @_name, @_quantity, @_includingTools

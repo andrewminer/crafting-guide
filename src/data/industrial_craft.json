@@ -454,7 +454,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Bronze Ingot"]],
-            "input": [[1, "Bronze Dust"], [125, "milli-coal"]],
+            "input": [[1, "Bronze Dust"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Bronze Leggings"]],
@@ -502,7 +502,7 @@
             "tools": ["Macerator"]
         }, {
             "output": [[1, "Copper Ingot"]],
-            "input": [[1, "Copper Ore"], [125, "milli-coal"]],
+            "input": [[1, "Copper Ore"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Crop-Matron"]],
@@ -682,7 +682,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Refined Iron"]],
-            "input": [[1, "Iron Ingot"], [125, "milli-coal"]],
+            "input": [[1, "Iron Ingot"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[7, "Reinforced Glass"]],
@@ -690,7 +690,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Rubber"]],
-            "input": [[1, "Resin"], [125, "milli-coal"]],
+            "input": [[1, "Resin"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Rubber Boots"]],
@@ -706,7 +706,7 @@
             "tools": ["Macerator"]
         }, {
             "output": [[1, "Silver Ingot"]],
-            "input": [[1, "Silver Ore"], [125, "milli-coal"]],
+            "input": [[1, "Silver Ore"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Solar Helmet"]],
@@ -726,7 +726,7 @@
             "tools": ["Macerator"]
         }, {
             "output": [[1, "Tin Ingot"]],
-            "input": [[1, "Tin Ore"], [125, "milli-coal"]],
+            "input": [[1, "Tin Ore"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Tree Tap"]],

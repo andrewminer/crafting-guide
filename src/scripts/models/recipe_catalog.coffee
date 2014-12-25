@@ -6,7 +6,6 @@
 ###
 
 BaseModel         = require './base_model'
-{DefaultBookUrls} = require '../constants'
 {Event}           = require '../constants'
 RecipeBookParser  = require './recipe_book_parser'
 
@@ -19,10 +18,16 @@ module.exports = class RecipeCatalog extends BaseModel
         super attributes, options
 
         @_parser = new RecipeBookParser
-        if @books.length is 0
-            @loadAllBooks DefaultBookUrls
 
     # Public Methods ###############################################################################
+
+    findRecipes: (name)->
+        result = []
+        for book in @books
+            for recipe in book.findRecipes name
+                result.push recipe
+
+        return result
 
     loadBook: (url)->
         w.promise (resolve, reject)=>
@@ -35,6 +40,15 @@ module.exports = class RecipeCatalog extends BaseModel
                 error: (xhr, status, error)=>
                     reject @onBookLoadFailed(url, error, status, xhr)
 
+    loadBookData: (data)->
+        book = @_parser.parse data
+        @books.push book
+        @books.sort (a, b)->
+            return 0 if a.modName is b.modName
+            return if a.modName < b.modName then -1 else +1
+
+        return book
+
     loadAllBooks: (urlList)->
         promises = (@loadBook(url) for url in urlList)
         return w.settle promises
@@ -43,11 +57,7 @@ module.exports = class RecipeCatalog extends BaseModel
 
     onBookLoaded: (url, data, status, xhr)->
         try
-            book = @_parser.parse data
-            @books.push book
-            @books.sort (a, b)->
-                return 0 if a.modName is b.modName
-                return if a.modName < b.modName then -1 else +1
+            book = @loadBookData data
 
             logger.info "loaded recipe book from #{url}: #{book}"
             @trigger Event.load.succeeded, this, book

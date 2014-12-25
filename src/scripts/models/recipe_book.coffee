@@ -21,7 +21,7 @@ module.exports = class RecipeBook extends BaseModel
 
     # Public Methods ###############################################################################
 
-    getRecipes: (name)->
+    findRecipes: (name)->
         result = []
         for recipe in @recipes
             if recipe.name is name

@@ -26,7 +26,7 @@
             "tools": []
         }, {
             "output": [[1, "Electrum Ingot"]],
-            "input": [[1, "Electrum Blend"], [125, "milli-coal"]],
+            "input": [[1, "Electrum Blend"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Energetic Infuser"]],
@@ -86,7 +86,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Invar Ingot"]],
-            "input": [[1, "Invar Blend"], [125, "milli-coal"]],
+            "input": [[1, "Invar Blend"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Item Tesseract"]],
@@ -94,7 +94,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Lead Ingot"]],
-            "input": [[1, "Lead Ore"], [125, "milli-coal"]],
+            "input": [[1, "Lead Ore"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Liquid Tesseract"]],
@@ -190,7 +190,7 @@
             "tools": ["Pulverizer"]
         }, {
             "output": [[1, "Shiny Ingot"]],
-            "input": [[1, "Shiny Dust"], [125, "milli-coal"]],
+            "input": [[1, "Shiny Dust"], [1, "{furnace fuel}"]],
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Steam Engine"]],

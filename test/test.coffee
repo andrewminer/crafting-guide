@@ -24,6 +24,7 @@ global.logger = new Logger level:Logger.TRACE
 
 mocha.setup 'bdd'
 
+require './crafting_plan.test'
 require './inventory.test'
 require './inventory_parser.test'
 require './recipe_book_parser.test'

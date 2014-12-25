@@ -19,6 +19,22 @@ module.exports = class Recipe extends BaseModel
 
         Object.defineProperty this, 'name', get:-> @output[0].name
 
+    # Public Methods ###############################################################################
+
+    make: (inventory, missing)->
+        for item in @input
+            needed = item.quantity
+            while needed > 0
+                if inventory.hasAtLeast item.name
+                    inventory.remove item.name
+                else
+                    missing.add item.name
+
+        for item in @output
+            inventory.add item.name, item.quantity
+
+        return this
+
     # Object Overrides #############################################################################
 
     toString: ->

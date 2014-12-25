@@ -6,6 +6,7 @@
 ###
 
 BaseController       = require './base_controller'
+{DefaultBookUrls}    = require '../constants'
 RecipeBookController = require './recipe_book_controller'
 
 ########################################################################################################################
@@ -20,6 +21,10 @@ module.exports = class RecipeCatalogController extends BaseController
         super options
 
     # BaseController Overrides #####################################################################
+
+    onWillRender: ->
+        if @model.books.length is 0
+            @model.loadAllBooks DefaultBookUrls
 
     onDidRender: ->
         @$table = @$('table')

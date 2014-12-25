@@ -17,10 +17,7 @@ module.exports = class CraftingTableController extends BaseController
         options.templateName = 'crafting_table'
         super options
 
-        @_parser         = new InventoryParser
-        @_name           = null
-        @_quantity       = null
-        @_includingTools = null
+        @_parser = new InventoryParser
 
     # Event Methods ################################################################################
 
@@ -29,22 +26,22 @@ module.exports = class CraftingTableController extends BaseController
 
         @model.have.clear()
         @_parser.parse @$haveField.val(), @model.have
-        @_recalculate()
+        @model.craft()
 
     onIncludingToolsFieldChanged: ->
         return unless @rendered
-        @_includingTools = @$('input[name="including_tools"]:checked').length > 0
-        @_recalculate()
+        @model.includingTools = @$('input[name="including_tools"]:checked').length > 0
+        @model.craft()
 
     onNameFieldChanged: ->
         return unless @rendered
-        @_name = @$nameField.val()
-        @_recalculate()
+        @model.name = @$nameField.val()
+        @model.craft()
 
     onQuantityFieldChanged: ->
         return unless @rendered
-        @_quantity = parseInt @$quantityField.find(":selected").val()
-        @_recalculate()
+        @model.quantity = parseInt @$quantityField.find(":selected").val()
+        @model.craft()
 
     # BaseController Overrides #####################################################################
 
@@ -54,12 +51,33 @@ module.exports = class CraftingTableController extends BaseController
         @$nameField           = @$('input[name="name"]')
         @$quantityField       = @$('select[name="quantity"]')
 
+        @$needList   = @$('td.need ul')
+        @$makeList   = @$('td.make ul')
+        @$resultList = @$('td.result ul')
+
         super
 
         @onHaveFieldChanged()
         @onIncludingToolsFieldChanged()
-        @onNameFieldChanged()
         @onQuantityFieldChanged()
+
+        # do last so others are no-op until all is set
+        @onNameFieldChanged()
+
+    refresh: ->
+        @$needList.empty()
+        @$makeList.empty()
+        @$resultList.empty()
+
+        if @model.plan?
+            @model.plan.need.each (item)=>
+                @$needList.append "<li><span class='quantity'>#{item.quantity}</span> #{item.name}</li>"
+            @model.plan.make.each (item)=>
+                @$makeList.append "<li><span class='quantity'>#{item.quantity}</span> #{item.name}</li>"
+            @model.plan.result.each (item)=>
+                @$resultList.append "<li><span class='quantity'>#{item.quantity}</span> #{item.name}</li>"
+
+        super
 
     # Backbone.View Overrides ######################################################################
 
@@ -68,9 +86,3 @@ module.exports = class CraftingTableController extends BaseController
         'input input[name="name"]': 'onNameFieldChanged'
         'input select[name="quantity"]': 'onQuantityFieldChanged'
         'change input[name="including_tools"]': 'onIncludingToolsFieldChanged'
-
-    # Private Methods ##############################################################################
-
-    _recalculate: ->
-        return if not @_name? or @_name.length is 0
-        @model.craft @_name, @_quantity, @_includingTools

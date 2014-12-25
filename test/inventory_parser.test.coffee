@@ -32,15 +32,10 @@ describe 'InventoryParser', ->
 
     it 'can parse multiple mixed-type items', ->
         result = parser.parse '4 wool\n10 string\nboat\n\n'
-        result._items.wool.quantity.should.equal 4
-        result._items.string.quantity.should.equal 10
-        result._items.boat.quantity.should.equal 1
-        result._names.should.eql ['wool', 'string', 'boat']
+        result.toList().should.eql ['boat', [10, 'string'], [4, 'wool']]
 
     it 're-uses the given inventory object', ->
         inventory = new Inventory
         inventory.add 'string', 8
         result = parser.parse '4 wool', inventory
-        inventory._items.string.quantity.should.equal 8
-        inventory._items.wool.quantity.should.equal 4
-        inventory._names.should.eql ['string', 'wool']
+        result.toList().should.eql [[8, 'string'], [4, 'wool']]

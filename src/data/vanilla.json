@@ -10,7 +10,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Baked Potato"]],
-            "input": [[1, "Potato"], [125, "milli-coal"]],
+            "input": [[1, "Potato"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Beacon"]],
@@ -62,7 +62,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Brick"]],
-            "input": [[1, "Clay"], [125, "milli-coal"]],
+            "input": [[1, "Clay"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Bricks"]],
@@ -74,7 +74,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Cactus Green"]],
-            "input": [[1, "Cactus"], [125, "milli-coal"]],
+            "input": [[1, "Cactus"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Cake"], [1, "Bucket"]],
@@ -106,7 +106,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Charcoal"]],
-            "input": [[1, "Oak Log"], [125, "milli-coal"]],
+            "input": [[1, "Oak Log"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Chest"]],
@@ -126,15 +126,15 @@
             "tools": []
         }, {
             "output": [[1, "Cooked Chicken"]],
-            "input": [[1, "Raw Chicken"], [125, "milli-coal"]],
+            "input": [[1, "Raw Chicken"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Cooked Fish"]],
-            "input": [[1, "Raw Fish"], [125, "milli-coal"]],
+            "input": [[1, "Raw Fish"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Cooked Porkchop"]],
-            "input": [[1, "Raw Porkchop"], [125, "milli-coal"]],
+            "input": [[1, "Raw Porkchop"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Cookie"]],
@@ -210,7 +210,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Glass"]],
-            "input": [[1, "Sand"], [125, "milli-coal"]],
+            "input": [[1, "Sand"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[3, "Glass Bottle"]],
@@ -250,7 +250,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Gold Ingot"]],
-            "input": [[1, "Gold Ore"], [125, "milli-coal"]],
+            "input": [[1, "Gold Ore"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[9, "Gold Nugget"]],
@@ -310,7 +310,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Iron Ingot"]],
-            "input": [[1, "Iron Ore"], [125, "milli-coal"]],
+            "input": [[1, "Iron Ore"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Iron Leggings"]],
@@ -422,7 +422,7 @@
             "tools": []
         }, {
             "output": [[1, "Nether Brick (item)"]],
-            "input": [[1, "Netherrack"], [125, "milli-coal"]],
+            "input": [[1, "Netherrack"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Nether Brick (block)"]],
@@ -486,7 +486,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Steak"]],
-            "input": [[1, "Raw Beef"], [125, "milli-coal"]],
+            "input": [[1, "Raw Beef"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[4, "Stick"]],
@@ -502,7 +502,7 @@
             "tools": []
         }, {
             "output": [[1, "Stone"]],
-            "input": [[1, "Cobblestone"], [125, "milli-coal"]],
+            "input": [[1, "Cobblestone"], [1, "{furnace fuel}"]],
             "tools": ["Furnace"]
         }, {
             "output": [[1, "Stone Axe"]],

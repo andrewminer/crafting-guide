@@ -7,9 +7,13 @@
 
 extends ./layouts/basic
 
+append styles
+    link(rel="stylesheet", type="text/css", href="/css/jquery-ui.css")
+
 block content
     .page
 
 append scripts
+    script(src="/js/jquery-ui.js")
     script(src="/js/main.js")
     include ./includes/_google_analytics.jade

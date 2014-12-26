@@ -29,6 +29,19 @@ module.exports = class RecipeCatalog extends BaseModel
 
         return result
 
+    getRecipeNames: ->
+        nameHash = {}
+        for book in @books
+            for recipe in book.recipes
+                nameHash[recipe.name] = "#{recipe.name} (from #{book.modName} #{book.modVersion})"
+
+        names = (k for k, v of nameHash).sort()
+        result = []
+        for name in names
+            result.push value:name, label:nameHash[name]
+
+        return result
+
     loadBook: (url)->
         w.promise (resolve, reject)=>
             @trigger Event.load.started, this, url

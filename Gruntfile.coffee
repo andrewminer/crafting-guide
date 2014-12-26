@@ -46,19 +46,21 @@ module.exports = (grunt)->
                 files: [expand:true, cwd:'./src/fonts', src:'**/*.ttf', dest:'./dist/fonts']
             images:
                 files: [expand:true, cwd:'./src/images/', src:['**/*.png', '**/*.jpg'], dest:'./dist/images']
-            mocha_styles:
-                files:
-                    './dist/css/mocha.css': ['./node_modules/mocha/mocha.css']
             scripts:
                 files:
                     './dist/js/backbone.js': ['./node_modules/backbone/backbone.js']
                     './dist/js/chai.js': ['./node_modules/chai/chai.js']
                     './dist/js/jade.js': ['./node_modules/jade/runtime.js']
                     './dist/js/jquery.js': ['./node_modules/jquery/dist/jquery.js']
+                    './dist/js/jquery-ui.js': ['./lib/jquery-ui/jquery-ui.js']
                     './dist/js/mocha.js': ['./node_modules/mocha/mocha.js']
                     './dist/js/underscore.js': ['./node_modules/backbone/node_modules/underscore/underscore.js']
             styles:
                 files: [expand:true, cwd:'./src/css', src:'**/*.scss', dest:'./dist/src/css']
+            style_extras:
+                files:
+                    './dist/css/jquery-ui.css': ['./lib/jquery-ui/jquery-ui.min.css']
+                    './dist/css/mocha.css': ['./node_modules/mocha/mocha.css']
 
         jade:
             pages:

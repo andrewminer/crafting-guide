@@ -5,7 +5,8 @@
 # All rights reserved.
 ###
 
-BaseController = require './base_controller'
+BaseController  = require './base_controller'
+{Event}         = require '../constants'
 InventoryParser = require '../models/inventory_parser'
 
 ########################################################################################################################
@@ -19,7 +20,13 @@ module.exports = class CraftingTableController extends BaseController
 
         @_parser = new InventoryParser
 
+        @model.catalog.on Event.change, => @onCatalogChanged()
+
     # Event Methods ################################################################################
+
+    onCatalogChanged: ->
+        return unless @rendered
+        @_updateNameAutocomplete()
 
     onHaveFieldChanged: ->
         return unless @rendered
@@ -37,6 +44,10 @@ module.exports = class CraftingTableController extends BaseController
         return unless @rendered
         @model.name = @$nameField.val()
         @model.craft()
+
+    onNameFieldFocused: ->
+        return unless @rendered
+        @$nameField.autocomplete 'search'
 
     onQuantityFieldChanged: ->
         return unless @rendered
@@ -56,6 +67,8 @@ module.exports = class CraftingTableController extends BaseController
         @$resultList = @$('td.result ul')
 
         super
+
+        @_updateNameAutocomplete()
 
         @onHaveFieldChanged()
         @onIncludingToolsFieldChanged()
@@ -83,6 +96,20 @@ module.exports = class CraftingTableController extends BaseController
 
     events:
         'input textarea[name="have"]': 'onHaveFieldChanged'
+        'focus input[name="name"]': 'onNameFieldFocused'
         'input input[name="name"]': 'onNameFieldChanged'
         'input select[name="quantity"]': 'onQuantityFieldChanged'
         'change input[name="including_tools"]': 'onIncludingToolsFieldChanged'
+
+    # Private Methods ##############################################################################
+
+    _updateNameAutocomplete: ->
+        onChanged = => @onNameFieldChanged()
+
+        @$nameField.autocomplete
+            source:    @model.catalog.getRecipeNames()
+            delay:     0
+            minLength: 0
+            change:    onChanged
+            close:     onChanged
+            select:    onChanged

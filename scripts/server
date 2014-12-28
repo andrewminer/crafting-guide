@@ -1,4 +1,43 @@
-#!/bin/bash
+#!/usr/bin/env coffee
+#
+# Crafting Guide - server
+#
+# Copyright (c) 2014 by Redwood Labs
+# All rights reserved.
+#
 
-http-server dist -p 8000 -c-1 --cors
+express = require 'express'
+path    = require 'path'
 
+########################################################################################################################
+
+ROOT = './dist/'
+
+########################################################################################################################
+
+app = express()
+
+app.get '/item/*', (request, response)->
+    console.log ">>> index.html (for #{request.path})"
+    response.set 'Content-Type', 'text/html'
+    response.sendFile 'index.html', root:ROOT
+
+app.get '*', (request, response)->
+    extension = path.extname(request.path)
+    contentType = {
+        '.css':  'text/css'
+        '.html': 'text/html'
+        '.js':   'text/javascript'
+        '.json': 'application/json'
+        '.map':  'application/json'
+        '.png':  'image/png'
+        '.ttf':  'application/octet-stream'
+        '.scss': 'text/css'
+    }[extension]
+    console.log ">>> #{request.path}"
+
+    response.set 'Content-Type', contentType
+    response.sendFile request.path, root:ROOT
+
+server = app.listen 8000, ->
+    console.log "listening at: #{server.address().address}:#{server.address().port}"

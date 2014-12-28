@@ -5,9 +5,10 @@
 # All rights reserved.
 ###
 
-{Duration}            = require './constants'
-LandingPageController = require './controllers/landing_page_controller'
-{Opacity}             = require './constants'
+{Duration}         = require './constants'
+ItemPageController = require './controllers/item_page_controller'
+{Opacity}          = require './constants'
+UrlParams          = require './url_params'
 
 ########################################################################################################################
 
@@ -21,13 +22,25 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     # Backbone.Router Overrides ####################################################################
 
     routes:
-        '': 'landing'
+        '':             'root'
+        'item(/:name)': 'item'
 
     # Route Methods ################################################################################
 
-    landing: ->
-        @_pageControllers.landing ?= new LandingPageController
-        @_setPage 'landing'
+    root: ->
+        params = new UrlParams
+            recipeName:     {type:'string'}
+            count:          {type:'integer'}
+
+        if params.recipeName?
+            @navigate "/item/#{encodeURIComponent(params.recipeName)}"
+
+        @item params.recipeName, params.count
+
+    item: (name, quantity=1)->
+        @_pageControllers.item ?= new ItemPageController
+        @_pageControllers.item.setParams name:name, quantity:quantity
+        @_setPage 'item'
 
     # Private Methods ##############################################################################
 

@@ -29,7 +29,7 @@ module.exports = class CraftingTableController extends BaseController
     onCatalogChanged: ->
         return unless @rendered
         @_updateNameAutocomplete()
-        @_parseUrlParameters()
+        @_craft()
 
     onHaveFieldChanged: ->
         return unless @rendered
@@ -69,12 +69,19 @@ module.exports = class CraftingTableController extends BaseController
         @$makeList   = @$('td.make ul')
         @$resultList = @$('td.result ul')
 
+        @_updateNameAutocomplete()
+        @_craft()
+
         super
 
-        @_updateNameAutocomplete()
-        @_parseUrlParameters()
-
     refresh: ->
+        @$nameField.val @model.name
+        @$quantityField.val @model.quantity
+        if @model.includingTools
+            @$includingToolsField.attr 'checked', 'checked'
+        else
+            @$includingToolsField.removeAttr 'checked'
+
         @$needList.empty()
         @$makeList.empty()
         @$resultList.empty()
@@ -92,44 +99,17 @@ module.exports = class CraftingTableController extends BaseController
     # Backbone.View Overrides ######################################################################
 
     events:
-        'input textarea[name="have"]': 'onHaveFieldChanged'
-        'focus input[name="name"]': 'onNameFieldFocused'
-        'input input[name="name"]': 'onNameFieldChanged'
-        'input select[name="quantity"]': 'onQuantityFieldChanged'
+        'input textarea[name="have"]':          'onHaveFieldChanged'
+        'focus input[name="name"]':             'onNameFieldFocused'
+        'input input[name="name"]':             'onNameFieldChanged'
+        'input select[name="quantity"]':        'onQuantityFieldChanged'
         'change input[name="including_tools"]': 'onIncludingToolsFieldChanged'
 
     # Private Methods ##############################################################################
 
     _craft: ->
+        router.navigate "/item/#{encodeURIComponent(@model.name)}"
         @model.craft()
-
-    _parseUrlParameters: ->
-        params = url.parse(window.location.href, true).query
-
-        if params[UrlParam.includingTools]?
-            param = params[UrlParam.includingTools]
-            if param in ['true', 'yes']
-                @$includingToolsField.attr 'checked', 'checked'
-            else if param in ['false', 'no']
-                @$includingToolsField.removeAttr 'checked'
-            else
-                console.log "invalid including tools value in URL param: #{params[UrlParam.includingTools]}"
-        @onIncludingToolsFieldChanged()
-
-        if params[UrlParam.quantity]?
-            @$quantityField.val parseInt params[UrlParam.quantity]
-            if @$quantityField.find(':selected').length is 0
-                console.log "invalid quantity in URL param: #{params[UrlParam.quantity]}"
-        @onQuantityFieldChanged()
-
-        # Do this check last to avoid recalculting the recipe multiple times
-        if params[UrlParam.recipe]?
-            recipeName = params[UrlParam.recipe]
-            if @model.catalog.findRecipes(recipeName).length > 0
-                @$nameField.val recipeName
-            else
-                console.log "invalid recipe name in URL param: #{params[UrlParam.recipe]}"
-        @onNameFieldChanged()
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

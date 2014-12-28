@@ -1,5 +1,5 @@
 ###
-# Crafting Guide - landing_page.coffee
+# Crafting Guide - item_page.coffee
 #
 # Copyright (c) 2014 by Redwood Labs
 # All rights reserved.
@@ -11,7 +11,7 @@ RecipeCatalog = require './recipe_catalog'
 
 ########################################################################################################################
 
-module.exports = class LandingPage extends BaseModel
+module.exports = class ItemPage extends BaseModel
 
     constructor: (attributes={}, options={})->
         attributes.catalog ?= new RecipeCatalog

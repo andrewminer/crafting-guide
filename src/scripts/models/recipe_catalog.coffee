@@ -5,9 +5,9 @@
 # All rights reserved.
 ###
 
-BaseModel         = require './base_model'
-{Event}           = require '../constants'
-RecipeBookParser  = require './recipe_book_parser'
+BaseModel        = require './base_model'
+{Event}          = require '../constants'
+RecipeBookParser = require './recipe_book_parser'
 
 ########################################################################################################################
 

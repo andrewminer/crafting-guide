@@ -8,6 +8,8 @@
 BaseController  = require './base_controller'
 {Event}         = require '../constants'
 InventoryParser = require '../models/inventory_parser'
+url             = require 'url'
+{UrlParam}      = require '../constants'
 
 ########################################################################################################################
 
@@ -27,23 +29,24 @@ module.exports = class CraftingTableController extends BaseController
     onCatalogChanged: ->
         return unless @rendered
         @_updateNameAutocomplete()
+        @_parseUrlParameters()
 
     onHaveFieldChanged: ->
         return unless @rendered
 
         @model.have.clear()
         @_parser.parse @$haveField.val(), @model.have
-        @model.craft()
+        @_craft()
 
     onIncludingToolsFieldChanged: ->
         return unless @rendered
         @model.includingTools = @$('input[name="including_tools"]:checked').length > 0
-        @model.craft()
+        @_craft()
 
     onNameFieldChanged: ->
         return unless @rendered
         @model.name = @$nameField.val()
-        @model.craft()
+        @_craft()
 
     onNameFieldFocused: ->
         return unless @rendered
@@ -52,7 +55,7 @@ module.exports = class CraftingTableController extends BaseController
     onQuantityFieldChanged: ->
         return unless @rendered
         @model.quantity = parseInt @$quantityField.find(":selected").val()
-        @model.craft()
+        @_craft()
 
     # BaseController Overrides #####################################################################
 
@@ -69,13 +72,7 @@ module.exports = class CraftingTableController extends BaseController
         super
 
         @_updateNameAutocomplete()
-
-        @onHaveFieldChanged()
-        @onIncludingToolsFieldChanged()
-        @onQuantityFieldChanged()
-
-        # do last so others are no-op until all is set
-        @onNameFieldChanged()
+        @_parseUrlParameters()
 
     refresh: ->
         @$needList.empty()
@@ -102,6 +99,37 @@ module.exports = class CraftingTableController extends BaseController
         'change input[name="including_tools"]': 'onIncludingToolsFieldChanged'
 
     # Private Methods ##############################################################################
+
+    _craft: ->
+        @model.craft()
+
+    _parseUrlParameters: ->
+        params = url.parse(window.location.href, true).query
+
+        if params[UrlParam.includingTools]?
+            param = params[UrlParam.includingTools]
+            if param in ['true', 'yes']
+                @$includingToolsField.attr 'checked', 'checked'
+            else if param in ['false', 'no']
+                @$includingToolsField.removeAttr 'checked'
+            else
+                console.log "invalid including tools value in URL param: #{params[UrlParam.includingTools]}"
+        @onIncludingToolsFieldChanged()
+
+        if params[UrlParam.quantity]?
+            @$quantityField.val parseInt params[UrlParam.quantity]
+            if @$quantityField.find(':selected').length is 0
+                console.log "invalid quantity in URL param: #{params[UrlParam.quantity]}"
+        @onQuantityFieldChanged()
+
+        # Do this check last to avoid recalculting the recipe multiple times
+        if params[UrlParam.recipe]?
+            recipeName = params[UrlParam.recipe]
+            if @model.catalog.findRecipes(recipeName).length > 0
+                @$nameField.val recipeName
+            else
+                console.log "invalid recipe name in URL param: #{params[UrlParam.recipe]}"
+        @onNameFieldChanged()
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

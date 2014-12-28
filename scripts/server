@@ -1,6 +1,4 @@
 #!/bin/bash
 
-pushd dist &>/dev/null
-python -m SimpleHTTPServer
-popd &>/dev/null
+http-server dist -p 8000 -c-1 --cors
 

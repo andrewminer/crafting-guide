@@ -2,7 +2,7 @@
     "version": 1,
     "mod_name": "Minecraft",
     "mod_version": "1.6.4",
-    "description": "Crafting recipes from vanilla Minecraft (in progress)",
+    "description": "Crafting recipes from vanilla Minecraft",
     "recipes": [
         {
             "output": [[4, "Arrow"]],

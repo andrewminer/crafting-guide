@@ -46,6 +46,8 @@ module.exports = (grunt)->
                 files: [expand:true, cwd:'./src/fonts', src:'**/*.ttf', dest:'./dist/fonts']
             images:
                 files: [expand:true, cwd:'./src/images/', src:['**/*.png', '**/*.jpg'], dest:'./dist/images']
+            jquery_ui_images:
+                files: [expand:true, cwd:'./lib/jquery-ui/images', src:['*.png'], dest:'./dist/css/images']
             scripts:
                 files:
                     './dist/js/backbone.js': ['./node_modules/backbone/backbone.js']

@@ -1,4 +1,6 @@
 ###
+# Crafting Guide - Gruntfile.coffee
+#
 # Copyright (c) 2014 by Redwood Labs
 # All rights reserved.
 ###
@@ -16,7 +18,7 @@ module.exports = (grunt)->
                     ignore: ['jade']
                     transform: ['coffeeify']
                     browserifyOptions:
-                        debug: false
+                        debug: true
                         extensions: ['.coffee']
                 files:
                     './dist/js/main.js': ['./src/scripts/main.coffee']
@@ -63,6 +65,14 @@ module.exports = (grunt)->
                 files:
                     './dist/css/jquery-ui.css': ['./lib/jquery-ui/jquery-ui.min.css']
                     './dist/css/mocha.css': ['./node_modules/mocha/mocha.css']
+
+        exorcise:
+            main:
+                files:
+                    './dist/js/main.js.map': ['./dist/js/main.js']
+            test:
+                files:
+                    './dist/js/test.js.map': ['./dist/js/test.js']
 
         jade:
             pages:
@@ -120,4 +130,4 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', ['copy', 'sass', 'jade', 'browserify']
+    grunt.registerTask 'build', ['copy', 'sass', 'jade', 'browserify', 'exorcise']

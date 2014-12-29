@@ -108,8 +108,11 @@ module.exports = class CraftingTableController extends BaseController
     # Private Methods ##############################################################################
 
     _craft: ->
-        router.navigate "/item/#{encodeURIComponent(@model.name)}"
-        @model.craft()
+        if @model.catalog.findRecipes(@model.name).length > 0
+            router.navigate "/item/#{encodeURIComponent(@model.name)}"
+            @model.craft()
+        else
+            router.navigate "/item"
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

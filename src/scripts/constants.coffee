@@ -6,7 +6,7 @@
 ###
 
 exports.DefaultBookUrls = DefaultBookUrls = [
-    '/data/vanilla.json'
+    '/data/minecraft.json'
     '/data/applied_energetics.json'
     '/data/buildcraft.json'
     '/data/gravisuite.json'

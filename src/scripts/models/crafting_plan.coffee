@@ -50,7 +50,7 @@ module.exports = class CraftingPlan
         targetItem = @_pending.pop()
         return unless targetItem?
 
-        recipes = @catalog.findRecipes targetItem.name
+        recipes = @catalog.gatherRecipes targetItem.name
         return if not recipes.length > 0
         recipe = recipes[0]
 

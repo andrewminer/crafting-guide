@@ -24,7 +24,8 @@ All rights reserved.
             vertical-align: middle;
         }
 
-        td:nth-child(1) { width: 30%; }
-        td:nth-child(2) { width: 70%; border-left: 0.1em solid $color-brick-light; }
+        td:nth-child(1) { width: 5%; }
+        td:nth-child(2) { width: 30%; }
+        td:nth-child(3) { width: 65%; border-left: 0.1em solid $color-brick-light; }
     }
 }

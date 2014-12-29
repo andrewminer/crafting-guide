@@ -2,3 +2,4 @@
 .sass-cache
 dist
 node_modules
+src/scripts/views.js

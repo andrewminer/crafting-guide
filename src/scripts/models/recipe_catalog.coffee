@@ -21,26 +21,28 @@ module.exports = class RecipeCatalog extends BaseModel
 
     # Public Methods ###############################################################################
 
-    findRecipes: (name)->
-        result = []
+    gatherNames: ->
+        nameData = {}
         for book in @books
-            for recipe in book.findRecipes name
-                result.push recipe
+            book.gatherNames nameData
 
-        return result
-
-    getRecipeNames: ->
-        nameHash = {}
-        for book in @books
-            for recipe in book.recipes
-                nameHash[recipe.name] = "#{recipe.name} (from #{book.modName} #{book.modVersion})"
-
-        names = (k for k, v of nameHash).sort()
         result = []
+        names = _.keys(nameData).sort()
         for name in names
-            result.push value:name, label:nameHash[name]
+            result.push nameData[name]
+        return result
+
+    gatherRecipes: (name)->
+        result = []
+        for book in @books
+            book.gatherRecipes name, result
 
         return result
+
+    hasRecipe: (name)->
+        for book in @books
+            return true if book.hasRecipe(name)
+        return false
 
     loadBook: (url)->
         w.promise (resolve, reject)=>
@@ -59,6 +61,7 @@ module.exports = class RecipeCatalog extends BaseModel
         @books.sort (a, b)->
             return 0 if a.modName is b.modName
             return if a.modName < b.modName then -1 else +1
+        book.on Event.change, => @trigger Event.change, this
 
         return book
 

@@ -17,22 +17,39 @@ module.exports = class RecipeBook extends BaseModel
 
         attributes.description ?= ''
         attributes.recipes     ?= []
+        attributes.enabled     ?= true
         super attributes, options
 
     # Public Methods ###############################################################################
 
-    findRecipes: (name)->
-        result = []
+    gatherNames: (result)->
+        return unless @enabled
+
+        for recipe in @recipes
+            continue if result[recipe.name]
+            result[recipe.name] = value:recipe.name, label:"#{recipe.name} (from #{@modName} #{@modVersion})"
+
+        return result
+
+    gatherRecipes: (name, result)->
+        return unless @enabled
+
         for recipe in @recipes
             if recipe.name is name
                 result.push recipe
 
         return result
 
+    hasRecipe: (name)->
+        for recipe in @recipes
+            return true if recipe.name is name
+        return false
+
     # Object Overrides #############################################################################
 
     toString: ->
         return "RecipeBook (#{@cid}) {
+            enabled:#{@enabled},
             modName:#{@modName},
             modVersion:#{@modVersion},
             recipes:#{@recipes.length} items}"

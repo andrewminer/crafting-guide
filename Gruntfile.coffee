@@ -106,6 +106,9 @@ module.exports = (grunt)->
                     './dist/css/main.css': ['./src/css/main.scss']
 
         watch:
+            data:
+                files: ['./src/data/**/*']
+                tasks: ['copy:data']
             fonts:
                 files: ['./src/fonts/**/*']
                 tasks: ['copy:fonts']

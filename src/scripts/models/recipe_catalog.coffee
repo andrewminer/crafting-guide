@@ -24,6 +24,7 @@ module.exports = class RecipeCatalog extends BaseModel
     gatherNames: ->
         nameData = {}
         for book in @books
+            continue unless book.enabled
             book.gatherNames nameData
 
         result = []

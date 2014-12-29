@@ -23,8 +23,6 @@ module.exports = class RecipeBook extends BaseModel
     # Public Methods ###############################################################################
 
     gatherNames: (result)->
-        return unless @enabled
-
         for recipe in @recipes
             continue if result[recipe.name]
             result[recipe.name] = value:recipe.name, label:"#{recipe.name} (from #{@modName} #{@modVersion})"
@@ -32,8 +30,6 @@ module.exports = class RecipeBook extends BaseModel
         return result
 
     gatherRecipes: (name, result)->
-        return unless @enabled
-
         for recipe in @recipes
             if recipe.name is name
                 result.push recipe

@@ -35,6 +35,10 @@ exports.Opacity = Opacity = {}
 Opacity.hidden  = 1e-6
 Opacity.shown   = 1
 
+exports.RequiredMods = [
+    'Minecraft'
+]
+
 exports.UrlParam        = UrlParam = {}
 UrlParam.quantity       = 'count'
 UrlParam.recipe         = 'recipeName'

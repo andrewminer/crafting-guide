@@ -11,7 +11,7 @@
             "tools": ["Crafting Table"]
         }, {
             "output": [[1, "Quartz Cutting Knife"]],
-            "input": [[1, "Iron"], [2, "Stick"], [2, "Certus Quartz"]],
+            "input": [[1, "Iron Ingot"], [2, "Stick"], [2, "Certus Quartz"]],
             "tools": ["Crafting Table"]
         }, 	{
             "output": [[1, "Basic Processor Assembly"]],

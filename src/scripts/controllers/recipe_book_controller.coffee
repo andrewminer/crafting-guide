@@ -6,6 +6,7 @@
 ###
 
 BaseController = require './base_controller'
+{RequiredMods} = require '../constants'
 
 ########################################################################################################################
 
@@ -32,7 +33,13 @@ module.exports = class RecipeBookController extends BaseController
         super
 
     refresh: ->
-        if @model.enabled then @$enabled.attr('checked', 'checked') else @$enabled.removeAttr('checked')
+        if @model.modName in RequiredMods
+            @$enabled.attr 'checked', 'checked'
+            @$enabled.attr 'disabled', 'disabled'
+        else
+            @$enabled.removeAttr 'disabled'
+            if @model.enabled then @$enabled.attr('checked', 'checked') else @$enabled.removeAttr('checked')
+
         @$name.html "#{@model.modName} (#{@model.modVersion})"
         @$description.html "#{@model.description}"
 

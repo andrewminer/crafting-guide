@@ -110,9 +110,11 @@ module.exports = class CraftingTableController extends BaseController
     _craft: ->
         if @model.catalog.hasRecipe @model.name
             router.navigate "/item/#{encodeURIComponent(@model.name)}"
-            @model.craft()
         else
             router.navigate "/item"
+
+        @model.craft()
+        @refresh()
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

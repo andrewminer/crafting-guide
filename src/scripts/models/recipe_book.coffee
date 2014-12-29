@@ -6,6 +6,7 @@
 ###
 
 BaseModel = require './base_model'
+{RequiredMods} = require '../constants'
 
 ########################################################################################################################
 
@@ -17,7 +18,7 @@ module.exports = class RecipeBook extends BaseModel
 
         attributes.description ?= ''
         attributes.recipes     ?= []
-        attributes.enabled     ?= true
+        attributes.enabled     ?= attributes.modName in RequiredMods
         super attributes, options
 
     # Public Methods ###############################################################################

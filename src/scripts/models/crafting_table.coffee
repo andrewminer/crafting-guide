@@ -26,12 +26,14 @@ module.exports = class CraftingTable extends BaseModel
     # Public Methods ###############################################################################
 
     craft: ->
-        if not @name?.length
+        if not @catalog.hasRecipe @name
             @plan = null
             return
 
         toolPhrase = if @includingTools then ' includingTools' else ''
         logger.verbose "calculating build plan for #{@quantity} #{@name}#{toolPhrase} with inventory: #{@have}"
+
+        @catalog.enableBooksForRecipe @name
 
         plan = new CraftingPlan @catalog, @includingTools
         plan.includingTools = @includingTools

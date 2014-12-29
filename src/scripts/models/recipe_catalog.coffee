@@ -8,6 +8,7 @@
 BaseModel        = require './base_model'
 {Event}          = require '../constants'
 RecipeBookParser = require './recipe_book_parser'
+{RequiredMods}   = require '../constants'
 
 ########################################################################################################################
 
@@ -20,6 +21,12 @@ module.exports = class RecipeCatalog extends BaseModel
         @_parser = new RecipeBookParser
 
     # Public Methods ###############################################################################
+
+    enableBooksForRecipe: (name)->
+        for book in @books
+            continue if book.enabled
+            if book.hasRecipe name
+                book.enabled = true
 
     gatherNames: ->
         nameData = {}
@@ -59,9 +66,7 @@ module.exports = class RecipeCatalog extends BaseModel
     loadBookData: (data)->
         book = @_parser.parse data
         @books.push book
-        @books.sort (a, b)->
-            return 0 if a.modName is b.modName
-            return if a.modName < b.modName then -1 else +1
+        @_sortBooks()
         book.on Event.change, => @trigger Event.change, this
 
         return book
@@ -96,3 +101,19 @@ module.exports = class RecipeCatalog extends BaseModel
 
     toString: ->
         return "RecipeCatalog (#{@cid}) {books:#{@books.length} items}"
+
+    _sortBooks:->
+        @books.sort (a, b)->
+            if a.modName is b.modName then return 0
+
+            aRequired = a.modName in RequiredMods
+            bRequired = b.modName in RequiredMods
+
+            if aRequired and bRequired
+                return if a.modName < b.modName then -1 else +1
+            else if aRequired
+                return -1
+            else if bRequired
+                return +1
+            else
+                return if a.modName < b.modName then -1 else +1

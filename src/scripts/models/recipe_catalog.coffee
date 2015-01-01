@@ -28,10 +28,12 @@ module.exports = class RecipeCatalog extends BaseModel
             if book.hasRecipe name
                 book.enabled = true
 
-    gatherNames: ->
+    gatherNames: (options={})->
+        options.includeDisabled ?= false
+
         nameData = {}
         for book in @books
-            continue unless book.enabled
+            continue unless book.enabled or options.includeDisabled
             book.gatherNames nameData
 
         result = []
@@ -40,16 +42,33 @@ module.exports = class RecipeCatalog extends BaseModel
             result.push nameData[name]
         return result
 
-    gatherRecipes: (name)->
+    gatherRecipes: (name, options={})->
+        options.includeDisabled ?= false
+
         result = []
         for book in @books
+            continue unless book.enabled or options.includeDisabled
+
             book.gatherRecipes name, result
 
         return result
 
-    hasRecipe: (name)->
+    hasRecipe: (name, options={})->
+        options.includeDisabled ?= false
+
         for book in @books
-            return true if book.hasRecipe(name)
+            continue unless book.enabled or options.includeDisabled
+            return true if book.hasRecipe name
+
+        return false
+
+    isRawMaterial: (name, options={})->
+        options.includeDisabled ?= false
+
+        for book in @books
+            continue unless book.enabled or options.includeDisabled
+            return true if book.isRawMaterial name
+
         return false
 
     loadBook: (url)->

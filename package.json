@@ -26,7 +26,8 @@
     "grunt-contrib-jade": "^0.13.0",
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-exorcise": "^0.2.0"
+    "grunt-exorcise": "^0.2.0",
+    "underscore": "^1.7.0"
   },
   "dependencies": {
     "backbone": "^1.1.2",

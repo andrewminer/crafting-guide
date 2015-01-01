@@ -5,12 +5,44 @@
     "description": "Crafting recipes from GraviSuite, by flotschi301",
     "recipes": [
         {
-            "output": "GraviChestPlate",
-            "input": ["Quantum Bodyarmor", "HV Transformer", "Ultimate Lappack", [2, "Gravitation Engine"], [4, "Superconductor"]],
+            "output": "Advanced Chainsaw",
+            "input": [[3, "Overclocker Upgrade"], [2, "Advanced Circuit"], "Chainsaw", "Diamond"],
             "tools": "Crafting Table"
         }, {
-            "output": "Ultimate Lappack",
-            "input": [[6, "Lapotron Crystal"], "Iridium Plate", "LapPack", "Superconductor"],
+            "output": "Advanced Diamond Drill",
+            "input": [[3, "Overclocker Upgrade"], [2, "Advanced Circuit"], "Diamond Drill"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Advanced Electric Jetpack",
+            "input": [[2, "Carbon Plate"], [2, "Engine Booster"], [2, "Glass Fiber Cable"], "Advanced Circuit", "Advanced Lappack", "Electric Jetpack"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Advanced Lappack",
+            "input": ["Advanced Circuit", "LapPack", "Lapotron Crystal"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Cooling Core",
+            "input": [[4, "60K Cooling Cell"], [2, "Advanced Heat Exchanger"], [2, "Heat-Capacity Reactor Plating"], "Iridium Plate"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Engine Booster",
+            "input": [[3, "Advanced Alloy"], [2, "Advanced Circuit"], [2, "Glowstone"], "Advanced Heat Vent", "Overclocker Upgrade"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "GraviChestPlate",
+            "input": [[4, "Superconductor"], [2, "Gravitation Engine"], "HV Transformer", "Quantum Bodyarmor", "Ultimate Lappack"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "GraviTool",
+            "input": [[2, "Advanced Alloy"], [2, "Carbon Plate"], "Advanced Circuit", "Electric Hoe", "Electric Treetap", "Electric Wrench", "Energy Crystal"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Gravitation Engine",
+            "input": [[4, "Tesla Coil"], [2, "Cooling Core"], [2, "Superconductor"], "HV Transformer"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Magnetron",
+            "input": [[4, "Copper Ingot"], [4, "Refined Iron"], "Superconductor"],
             "tools": "Crafting Table"
         }, {
             "output": [[3, "Superconductor"]],
@@ -21,48 +53,16 @@
             "input": [[4, "Advanced Alloy"], [3, "Carbon Plate"], [2, "Iridium Plate"]],
             "tools": "Crafting Table"
         }, {
-            "output": "Gravitation Engine",
-            "input": [[4, "Tesla Coil"], [2, "Superconductor"], [2, "Cooling Core"], "HV Transformer"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Cooling Core",
-            "input": [[4, "60K Cooling Cell"], [2, "Advanced Heat Exchanger"], [2, "Heat-Capacity Reactor Plating"], "Iridium Plate"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Advanced Chainsaw",
-            "input": ["Diamond", [3, "Overclocker Upgrade"], "Chainsaw", [2, "Advanced Circuit"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Advanced Diamond Drill",
-            "input": ["Diamond Drill", [3, "Overclocker Upgrade"], [2, "Advanced Circuit"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Advanced Electric Jetpack",
-            "input": [[2, "Carbon Plate"], [2, "Engine Booster"], [2, "Glass Fiber Cable"], "Electric Jetpack", "Advanced Lappack", "Advanced Circuit"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Advanced Lappack",
-            "input": ["LapPack", "Advanced Circuit", "Lapotron Crystal"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "GraviTool",
-            "input": [[2, "Carbon Plate"], [2, "Advanced Alloy"], "Advanced Circuit", "Electric Wrench", "Electric Treetap", "Electric Hoe", "Energy Crystal"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Magnetron",
-            "input": [[4, "Refined Iron"], [4, "Copper Ingot"], "Superconductor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Varja Core",
-            "input": ["Magnetron", "Tesla Coil", "HV Transformer", [2, "Iridium Plate"], [2, "Superconductor"]],
+            "output": "Ultimate Lappack",
+            "input": [[6, "Lapotron Crystal"], "Iridium Plate", "LapPack", "Superconductor"],
             "tools": "Crafting Table"
         }, {
             "output": "Vajra",
-            "input": [[2, "Refined Iron"], "Energy Crystal", "Varja Core", "Carbon Plate", [2, "Advanced Alloy"], "Lapotron Crystal", "Iron Ingot"],
+            "input": [[2, "Advanced Alloy"], [2, "Refined Iron"], "Carbon Plate", "Energy Crystal", "Iron Ingot", "Lapotron Crystal", "Varja Core"],
             "tools": "Crafting Table"
         }, {
-            "output": "Engine Booster",
-            "input": [[2, "Glowstone"], [2, "Advanced Circuit"], [3, "Advanced Alloy"], "Overclocker Upgrade", "Advanced Heat Vent"],
+            "output": "Varja Core",
+            "input": [[2, "Iridium Plate"], [2, "Superconductor"], "HV Transformer", "Magnetron", "Tesla Coil"],
             "tools": "Crafting Table"
         }
     ]

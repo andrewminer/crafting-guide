@@ -8,6 +8,7 @@
 BaseController  = require './base_controller'
 {Event}         = require '../constants'
 InventoryParser = require '../models/inventory_parser'
+{Key}           = require '../constants'
 url             = require 'url'
 {UrlParam}      = require '../constants'
 
@@ -51,6 +52,10 @@ module.exports = class CraftingTableController extends BaseController
     onNameFieldFocused: ->
         return unless @rendered
         @$nameField.autocomplete 'search'
+
+    onNameFieldKeyPress: (event)->
+        if event.which is Key.Return
+            @$nameField.autocomplete('close')
 
     onQuantityFieldChanged: ->
         return unless @rendered
@@ -102,6 +107,7 @@ module.exports = class CraftingTableController extends BaseController
         'input textarea[name="have"]':          'onHaveFieldChanged'
         'focus input[name="name"]':             'onNameFieldFocused'
         'input input[name="name"]':             'onNameFieldChanged'
+        'keypress input[name="name"]':          'onNameFieldKeyPress'
         'input select[name="quantity"]':        'onQuantityFieldChanged'
         'change input[name="including_tools"]': 'onIncludingToolsFieldChanged'
 

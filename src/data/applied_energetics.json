@@ -5,327 +5,327 @@
     "description": "Crafting recipes from Applied Energetics, by AlgorithmX2",
     "recipes": [
         {
-            "output": "Grind Stone",
-            "input": [[3, "Certus Quartz Dust"], [3, "Stone"], [2, "Cobblestone"], "Wooden Gear"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Quartz Cutting Knife",
-            "input": ["Iron Ingot", [2, "Stick"], [2, "Certus Quartz"]],
-            "tools": "Crafting Table"
-        }, 	{
-            "output": "Basic Processor Assembly",
-            "input": ["Gold Ingot", [2, "Redstone"], "Silicon"],
-            "tools": ["Crafting Table", "Quartz Cutting Knife"]
-        }, {
             "output": "Advanced Processor Assembly",
-            "input": ["Diamond", [2, "Redstone"], "Silicon"],
+            "input": [[2, "Redstone"], "Diamond", "Silicon"],
             "tools": ["Crafting Table", "Quartz Cutting Knife"]
         }, {
-            "output": "Silicon",
-            "input": "Certus Quartz Dust",
-            "tools": "Furnace"
-        }, {
-            "output": "ME Basic Processor",
-            "input": "Basic Processor Assembly",
-            "tools": "Furnace"
-        }, {
-            "output": "ME Basic Processor",
-            "input": ["Redstone Golden Chipset", [1, "Silicon"], [1, "Fluix Dust"]],
-            "tools": ["Assembly Table", "Laser"]
-        }, {
-            "output": "ME Advanced Processor",
-            "input": "Advanced Processor Assembly",
-            "tools": "Furnace"
-        }, {
-            "output": "ME Advanced Processor",
-            "input": ["Redstone Diamond Chipset", [1, "Silicon"], [1, "Fluix Dust"]],
-            "tools": ["Assembly Table", "Laser"]
-        }, {
-            "output": "Vibration Catalyst",
-            "input": ["Iron Ingot", "ME Conversion Matrix", "Lava Bucket", [1, "Energy Cell"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Entropy Accelerator",
-            "input": ["Iron Ingot", "ME Conversion Matrix", "Ice", [1, "Energy Cell"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Tiny TNT",
-            "input": [[2, "Gunpowder"], [2, "Certus Quartz Dust"]]
-        }, {
-            "output": [[8, "ME Cable - Blue"]],
-            "input": ["Lapis Lazuli", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - Black"]],
-            "input": ["Ink Sac", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - White"]],
-            "input": ["Bone Meal", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - Brown"]],
-            "input": ["Cocoa Beans", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - Red"]],
-            "input": ["Rose Red", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - Yellow"]],
-            "input": ["Dandelion Yellow", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - Green"]],
-            "input": ["Cactus Green", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[8, "ME Cable - Green"]],
-            "input": ["Cactus Green", [8, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Pattern Provider",
-            "input": [[4, "Iron Ingot"], [1, "Crafting Table"], [2, "Conversion Matrix"], [1, "ME Advanced Processor"], [1, "Storage Cell"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Controller",
-            "input": [[4, "Iron Ingot"], [4, "Fluix Crystal"], "ME Advanced Processor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Drive",
-            "input": [[4, "Iron Ingot"], [2, "Glass"], [2, "ME Basic Processor"], [1, "Chest"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Pattern Encoder",
-            "input": [[7, "Iron Ingot"], [1, "Crafting Table"], [1, "Conversion Matrix"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Wireless Access Point",
-            "input": [[4, "Iron Ingot"], [3, "Glass"], [1, "Wireless Receiver"], [1, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Access Terminal",
-            "input": [[4, "Iron Ingot"], [3, "Glass"], [1, "Conversion Matrix"], [1, "ME Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Chest",
-            "input": [[5, "Iron Ingot"], "Chest", "Conversion Matrix", [2, "Glass"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Interface",
-            "input": [[4, "Iron Ingot"], [3, "Glass"], [1, "Conversion Matrix"], [1, "ME Cable"]],
-            "tools": "Craftin Table"
-        }, {
-            "output": "ME Partition Editor",
-            "input": [[5, "Iron Ingot"], [2, "Glass"], [1, "Conversion Matrix"], [1, "Crafting Table"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Precision Export Bus",
-            "input": ["ME Basic Export Bus", [1, "ME Basic Processor"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Precision Import Bus",
-            "input": ["ME Basic Import Bus", [1, "ME Basic Processor"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Crafting Terminal",
-            "input": [[4, "Iron Ingot"], [2, "Glass"], [1, "Crafting Table"], [1, "Storage Cell"], [1, "ME Access Terminal"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Level Emitter",
-            "input": [[2, "Iron Ingot"], "ME Basic Processor", "ME Cable", "Redstone Torch"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Crafting CPU",
-            "input": [[4, "Iron Ingot"], [2, "Certus Quartz"], [2, "Glowstone Dust"], "ME Advanced Processor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Heat Vent",
-            "input": [[4, "Iron Ingot"], [4, "Iron Bars"], "ME Cable"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Assembler Containment Wall",
-            "input": [[4, "Iron Ingot"], [4, "Gold Ingot"], "Certus Quartz"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Dark Cable",
-            "input": [[2, "Redstone"], [2, "ME Cable"], "Lever"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Storage Bus",
-            "input": ["ME Cable", "ME Interface", [3, "Iron Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME IO Port",
-            "input": [[3, "Glass"], [2, "ME Drive"], "ME Cable", [2, "Iron Ingot"], "ME Basic Processor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Crafting Monitor",
-            "input": [[4, "Iron Ingot"], [3, "Glass"], "ME Cable", "ME Basic Processor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Storage Monitor",
-            "input": [[4, "Iron Ingot"], [3, "Glass"], "ME Cable", "ME Level Emitter"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Covered Cable",
-            "input": ["ME Cable", "Wool"],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[3, "ME Cable"]],
-            "input": [[6, "Glass"], [3, "Fluix Dust"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Fuzzy Storage Bus",
-            "input": [[4, "Wool"], "ME Storage Bus"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Fuzzy Export Bus",
-            "input": ["ME Basic Export Bus", "ME Advanced Processor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Fuzzy Import Bus",
-            "input": ["ME Basic Import Bus", "ME Advanced Processor"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Basic Export Bus",
-            "input": ["ME Cable", [2, "Iron Ingot"], "ME Interface", "Piston"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Basic Import Bus",
-            "input": ["ME Cable", [2, "Iron Ingot"], "ME Interface", "Sticky Piston"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Transition Plane",
-            "input": [[3, "Fluix Dust"], [4, "Iron Ingot"], "Conversion Matrix", "ME Cable"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Energy Cell",
-            "input": [[4, "Iron Ingot"], [4, "Fluix Crystal"], "Glass"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Power Relay",
-            "input": [[4, "Iron Ingot"], [4, "ME Cable"], "Energy Cell"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Condenser",
-            "input": [[4, "Iron Ingot"], [4, "Glass"], "Fluix Dust"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Quantum Field Ring",
-            "input": [[4, "Iron Ingot"], [2, "ME Basic Processor"], "ME Advanced Processor", "Energy Cell", "ME Cable"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Quantum Link Chamber",
-            "input": [[4, "Quartz Glass"], [4, "Fluix Pearl"]],
-            "tools": "Crafting Table"
+            "output": "Basic Processor Assembly",
+            "input": [[2, "Redstone"], "Gold Ingot", "Silicon"],
+            "tools": ["Crafting Table", "Quartz Cutting Knife"]
         }, {
             "output": "Certus Quartz Block",
             "input": [[4, "Certus Quartz"]],
             "tools": "Crafting Table"
         }, {
-            "output": [[4, "Quartz Glass"]],
-            "input": [[5, "Certus Quartz Dust"], [4, "Glass"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Vibrant Quartz Glass",
-            "input": ["Quartz Glass", [2, "Glowstone Dust"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME 1k Storage",
-            "input": [[2, "Glass"], [3, "Redstone"], "Storage Cell", [3, "Iron Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME 4k Storage",
-            "input": [[2, "Glass"], [3, "Redstone"], "Storage Segment", [3, "Iron Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME 16k Storage",
-            "input": [[2, "Glass"], [3, "Redstone"], "Storage Block", [3, "Iron Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME 64k Storage",
-            "input": [[2, "Glass"], [3, "Redstone"], "Storage Cluster", [3, "Iron Ingot"]],
-            "tools": "Crafting Table"
-        }, {
             "output": "Conversion Matrix",
-            "input": [[4, "Iron Ingot"], "Nether Quartz", [2, "Fluix Dust"], "ME Basic Processor", "Certus Quartz"],
+            "input": [[4, "Iron Ingot"], [2, "Fluix Dust"], "Certus Quartz", "ME Basic Processor", "Nether Quartz"],
             "tools": "Crafting Table"
         }, {
-            "output": "Storage Cell",
-            "input": [[4, "Redstone"], [4, "Certus Quartz"], "ME Basic Processor"],
+            "output": "Ender Pearl Dust",
+            "input": "Ender Pearl",
+            "tools": "Pulverizer"
+        }, {
+            "output": "Energy Cell",
+            "input": [[4, "Fluix Crystal"], [4, "Iron Ingot"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Storage Segment",
-            "input": [[4, "Redstone"], [3, "Storage Cell"], "Glass", [1, "ME Basic Processor"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Storage Block",
-            "input": [[4, "Glowstone"], [3, "Storage Segment"], "Glass", [1, "ME Advanced Processor"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Storage Cluster",
-            "input": [[4, "Glowstone"], [3, "Storage Block"], "Glass", [1, "ME Advanced Processor"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Wireless Receiver",
-            "input": ["Fluix Pearl", [3, "Iron Ingot"], "Stick"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Wireless Booster",
-            "input": [[2, "Iron Ingot"], "Redstone", "Certus Quartz"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Wooden Crank",
-            "input": [[5, "Stick"]],
+            "output": "Entropy Accelerator",
+            "input": ["Energy Cell", "Ice", "Iron Ingot", "ME Conversion Matrix"],
             "tools": "Crafting Table"
         }, {
             "output": "Flour",
             "input": "Wheat",
             "tools": "Pulverizer"
         }, {
-            "output": [[2, "Fluix Dust"]],
-            "input": ["Redstone", "Certus Quartz Dust", "Nether Quartz Dust"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "ME Blank Pattern",
-            "input": [[2, "Glass"], [3, "Glowstone"], "Certus Quartz", [3, "Iron Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Nether Quartz Dust",
-            "input": "Nether Quartz",
-            "tools": "Pulverizer"
-        }, {
             "output": "Fluix Crystal",
             "input": ["Certus Quartz", "Nether Quartz", "Redstone"],
             "tools": "Crafting Table"
         }, {
+            "output": [[2, "Fluix Dust"]],
+            "input": ["Certus Quartz Dust", "Nether Quartz Dust", "Redstone"],
+            "tools": "Crafting Table"
+        }, {
             "output": "Fluix Pearl",
-            "input": [[4, "Fluix Dust"], [4, "Fluix Crystal"], "Ender Pearl"],
+            "input": [[4, "Fluix Crystal"], [4, "Fluix Dust"], "Ender Pearl"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Grind Stone",
+            "input": [[3, "Certus Quartz Dust"], [3, "Stone"], [2, "Cobblestone"], "Wooden Gear"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME 16k Storage",
+            "input": [[3, "Iron Ingot"], [3, "Redstone"], [2, "Glass"], "Storage Block"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME 1k Storage",
+            "input": [[3, "Iron Ingot"], [3, "Redstone"], [2, "Glass"], "Storage Cell"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME 4k Storage",
+            "input": [[3, "Iron Ingot"], [3, "Redstone"], [2, "Glass"], "Storage Segment"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME 64k Storage",
+            "input": [[3, "Iron Ingot"], [3, "Redstone"], [2, "Glass"], "Storage Cluster"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Access Terminal",
+            "input": [[4, "Iron Ingot"], [3, "Glass"], "Conversion Matrix", "ME Cable"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Advanced Processor",
+            "input": "Advanced Processor Assembly",
+            "tools": "Furnace"
+        }, {
+            "output": "ME Advanced Processor",
+            "input": ["Fluix Dust", "Redstone Diamond Chipset", "Silicon"],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "ME Assembler Containment Wall",
+            "input": [[4, "Gold Ingot"], [4, "Iron Ingot"], "Certus Quartz"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Basic Export Bus",
+            "input": [[2, "Iron Ingot"], "ME Cable", "ME Interface", "Piston"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Basic Import Bus",
+            "input": [[2, "Iron Ingot"], "ME Cable", "ME Interface", "Sticky Piston"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Basic Processor",
+            "input": "Basic Processor Assembly",
+            "tools": "Furnace"
+        }, {
+            "output": "ME Basic Processor",
+            "input": ["Fluix Dust", "Redstone Golden Chipset", "Silicon"],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "ME Blank Pattern",
+            "input": [[3, "Glowstone"], [3, "Iron Ingot"], [2, "Glass"], "Certus Quartz"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[3, "ME Cable"]],
+            "input": [[6, "Glass"], [3, "Fluix Dust"]],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Black"]],
+            "input": [[8, "ME Cable"], "Ink Sac"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Blue"]],
+            "input": [[8, "ME Cable"], "Lapis Lazuli"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Brown"]],
+            "input": [[8, "ME Cable"], "Cocoa Beans"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Green"]],
+            "input": [[8, "ME Cable"], "Cactus Green"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Green"]],
+            "input": [[8, "ME Cable"], "Cactus Green"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Red"]],
+            "input": [[8, "ME Cable"], "Rose Red"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - White"]],
+            "input": [[8, "ME Cable"], "Bone Meal"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "ME Cable - Yellow"]],
+            "input": [[8, "ME Cable"], "Dandelion Yellow"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Chest",
+            "input": [[5, "Iron Ingot"], [2, "Glass"], "Chest", "Conversion Matrix"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Condenser",
+            "input": [[4, "Glass"], [4, "Iron Ingot"], "Fluix Dust"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Controller",
+            "input": [[4, "Fluix Crystal"], [4, "Iron Ingot"], "ME Advanced Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Covered Cable",
+            "input": ["ME Cable", "Wool"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Crafting CPU",
+            "input": [[4, "Iron Ingot"], [2, "Certus Quartz"], [2, "Glowstone Dust"], "ME Advanced Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Crafting Monitor",
+            "input": [[4, "Iron Ingot"], [3, "Glass"], "ME Basic Processor", "ME Cable"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Crafting Terminal",
+            "input": [[4, "Iron Ingot"], [2, "Glass"], "Crafting Table", "ME Access Terminal", "Storage Cell"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Dark Cable",
+            "input": [[2, "ME Cable"], [2, "Redstone"], "Lever"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Drive",
+            "input": [[4, "Iron Ingot"], [2, "Glass"], [2, "ME Basic Processor"], "Chest"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Fuzzy Export Bus",
+            "input": ["ME Advanced Processor", "ME Basic Export Bus"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Fuzzy Import Bus",
+            "input": ["ME Advanced Processor", "ME Basic Import Bus"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Fuzzy Storage Bus",
+            "input": [[4, "Wool"], "ME Storage Bus"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Heat Vent",
+            "input": [[4, "Iron Bars"], [4, "Iron Ingot"], "ME Cable"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME IO Port",
+            "input": [[3, "Glass"], [2, "Iron Ingot"], [2, "ME Drive"], "ME Basic Processor", "ME Cable"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Interface",
+            "input": [[4, "Iron Ingot"], [3, "Glass"], "Conversion Matrix", "ME Cable"],
+            "tools": "Craftin Table"
+        }, {
+            "output": "ME Level Emitter",
+            "input": [[2, "Iron Ingot"], "ME Basic Processor", "ME Cable", "Redstone Torch"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Partition Editor",
+            "input": [[5, "Iron Ingot"], [2, "Glass"], "Conversion Matrix", "Crafting Table"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Pattern Encoder",
+            "input": [[7, "Iron Ingot"], "Conversion Matrix", "Crafting Table"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Pattern Provider",
+            "input": [[4, "Iron Ingot"], [2, "Conversion Matrix"], "Crafting Table", "ME Advanced Processor", "Storage Cell"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Power Relay",
+            "input": [[4, "Iron Ingot"], [4, "ME Cable"], "Energy Cell"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Precision Export Bus",
+            "input": ["ME Basic Export Bus", "ME Basic Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Precision Import Bus",
+            "input": ["ME Basic Import Bus", "ME Basic Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Storage Bus",
+            "input": [[3, "Iron Ingot"], "ME Cable", "ME Interface"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Storage Monitor",
+            "input": [[4, "Iron Ingot"], [3, "Glass"], "ME Cable", "ME Level Emitter"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Transition Plane",
+            "input": [[4, "Iron Ingot"], [3, "Fluix Dust"], "Conversion Matrix", "ME Cable"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Wireless Access Point",
+            "input": [[4, "Iron Ingot"], [3, "Glass"], "ME Cable", "Wireless Receiver"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "ME Wireless Access Terminal",
+            "input": ["Energy Cell", "ME Access Terminal", "Wireless Receiver"],
             "tools": "Crafting Table"
         }, {
             "output": "Matter Ball",
             "input": [[256, "Cobblestone"]],
             "tools": "ME Condenser"
         }, {
-            "output": "Singularity",
-            "input": [[25600, "Cobblestone"]],
-            "tools": "ME Condenser"
+            "output": "Matter Cannon",
+            "input": [[3, "Iron Ingot"], "Conversion Matrix", "Energy Cell", "Storage Segment"],
+            "tools": "Crafting Table"
         }, {
-            "output": "Ender Pearl Dust",
-            "input": "Ender Pearl",
+            "output": "Nether Quartz Dust",
+            "input": "Nether Quartz",
             "tools": "Pulverizer"
+        }, {
+            "output": "Quantum Field Ring",
+            "input": [[4, "Iron Ingot"], [2, "ME Basic Processor"], "Energy Cell", "ME Advanced Processor", "ME Cable"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Quantum Link Chamber",
+            "input": [[4, "Fluix Pearl"], [4, "Quartz Glass"]],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Quartz Cutting Knife",
+            "input": [[2, "Certus Quartz"], [2, "Stick"], "Iron Ingot"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[4, "Quartz Glass"]],
+            "input": [[5, "Certus Quartz Dust"], [4, "Glass"]],
+            "tools": "Crafting Table"
         }, {
             "output": "Quartz Wrench",
             "input": [[5, "Certus Quartz"]],
             "tools": "Crafting Table"
         }, {
-            "output": "ME Wireless Access Terminal",
-            "input": ["Wireless Receiver", "ME Access Terminal", "Energy Cell"],
+            "output": "Silicon",
+            "input": "Certus Quartz Dust",
+            "tools": "Furnace"
+        }, {
+            "output": "Singularity",
+            "input": [[25600, "Cobblestone"]],
+            "tools": "ME Condenser"
+        }, {
+            "output": "Storage Block",
+            "input": [[4, "Glowstone"], [3, "Storage Segment"], "Glass", "ME Advanced Processor"],
             "tools": "Crafting Table"
         }, {
-            "output": "Matter Cannon",
-            "input": [[3, "Iron Ingot"], "Conversion Matrix", "Storage Segment", "Energy Cell"],
+            "output": "Storage Cell",
+            "input": [[4, "Certus Quartz"], [4, "Redstone"], "ME Basic Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Storage Cluster",
+            "input": [[4, "Glowstone"], [3, "Storage Block"], "Glass", "ME Advanced Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Storage Segment",
+            "input": [[4, "Redstone"], [3, "Storage Cell"], "Glass", "ME Basic Processor"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Tiny TNT",
+            "input": [[2, "Certus Quartz Dust"], [2, "Gunpowder"]]
+        }, {
+            "output": "Vibrant Quartz Glass",
+            "input": [[2, "Glowstone Dust"], "Quartz Glass"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Vibration Catalyst",
+            "input": ["Energy Cell", "Iron Ingot", "Lava Bucket", "ME Conversion Matrix"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Wireless Booster",
+            "input": [[2, "Iron Ingot"], "Certus Quartz", "Redstone"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Wireless Receiver",
+            "input": [[3, "Iron Ingot"], "Fluix Pearl", "Stick"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Wooden Crank",
+            "input": [[5, "Stick"]],
             "tools": "Crafting Table"
         }
     ]

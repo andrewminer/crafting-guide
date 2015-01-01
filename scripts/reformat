@@ -1,0 +1,21 @@
+#!/usr/bin/env coffee
+
+global._        = require 'underscore'
+global.Backbone = require 'backbone'
+
+fs               = require 'fs'
+RecipeBookParser = require '../src/scripts/models/recipe_book_parser'
+
+########################################################################################################################
+
+if process.argv.length isnt 3
+    throw new Error "Expected a file name as an argument"
+
+fileName   = process.argv[2]
+text       = fs.readFileSync fileName, 'UTF-8'
+data       = JSON.parse text
+parser     = new RecipeBookParser
+recipeBook = parser.parse data
+text       = parser.unparse recipeBook
+
+fs.writeFileSync fileName, text, encoding:'UTF-8'

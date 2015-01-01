@@ -1,8 +1,8 @@
 ###
-# crafting_guide - base_model.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+crafting_guide - base_model.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 ########################################################################################################################

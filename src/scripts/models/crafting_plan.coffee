@@ -19,12 +19,12 @@ module.exports = class CraftingPlan
     # Public Methods ###############################################################################
 
     clear: ->
-        @make      = new Inventory
-        @need      = new Inventory
-        @result    = new Inventory
-        @steps     = []
-        @_expected = new Inventory
-        @_pending  = null
+        @make       = new Inventory
+        @need       = new Inventory
+        @result     = new Inventory
+        @steps      = []
+        @_expected  = new Inventory
+        @_pending   = null
 
         return this
 
@@ -49,15 +49,21 @@ module.exports = class CraftingPlan
     _processPending: ->
         targetItem = @_pending.pop()
         return unless targetItem?
+        logger.debug "Processing targetItem: #{targetItem}"
+
+        return if @catalog.isRawMaterial targetItem.name
 
         recipes = @catalog.gatherRecipes targetItem.name
         return if not recipes.length > 0
+
         recipe = recipes[0]
+        logger.debug "Using recipe: #{recipe}"
 
         if @includingTools
             for tool in recipe.tools
                 totalExpected = @result.quantityOf(tool.name) + @_expected.quantityOf(tool.name)
                 if totalExpected < tool.quantity
+                    logger.debug "Need to build tool: #{tool}"
                     @_pending.add tool.name, tool.quantity
                     @_expected.add tool.name, tool.quantity
 
@@ -74,6 +80,7 @@ module.exports = class CraftingPlan
         quantityAvailable = @result.quantityOf item.name
         quantityUsed      = Math.min quantityAvailable, item.quantity
         quantityNeeded    = item.quantity - quantityUsed
+        logger.debug "processing input item: #{item}, a:#{quantityAvailable}, u:#{quantityUsed}, n:#{quantityNeeded}"
 
         @result.remove item.name, quantityUsed
         @_pending.add item.name, quantityNeeded
@@ -83,10 +90,12 @@ module.exports = class CraftingPlan
         quantityMissing = @need.quantityOf item.name
         quantityUsed = Math.min quantityMissing, item.quantity
         quantityLeft = item.quantity - quantityUsed
+        logger.debug "processing output item: #{item}, m:#{quantityMissing}, u:#{quantityUsed}, l:#{quantityLeft}"
 
+        @make.add item.name, item.quantity
         @need.remove item.name, quantityUsed
         @result.add item.name, quantityLeft
-        @make.add item.name, item.quantity
+
 
     _totalQuantityOf: (name)->
         return @result.quantityOf(name) - @need.quantityOf(name)

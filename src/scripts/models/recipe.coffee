@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - recipe.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - recipe.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 BaseModel = require './base_model'
@@ -13,11 +13,11 @@ module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
         if not attributes.output? then throw new Error "attributes.output is required"
-        if not attributes.input? then throw new Error "attributes.input is required"
+        attributes.input ?= []
         attributes.tools ?= []
         super attributes, options
 
-        Object.defineProperty this, 'name', get:-> @output[0].name
+    Object.defineProperty @prototype, 'name', get:-> @output[0].name
 
     # Public Methods ###############################################################################
 
@@ -45,7 +45,7 @@ module.exports = class Recipe extends BaseModel
         for inputItem in @input
             if needsDelimiter then result.push ', '
             result.push inputItem.toString()
-            needsDelimiter = false
+            needsDelimiter = true
         result.push ']'
 
         result.push ", output:["
@@ -53,7 +53,7 @@ module.exports = class Recipe extends BaseModel
         for outputItem in @output
             if needsDelimiter then result.push ', '
             result.push outputItem.toString()
-            needsDelimiter = false
+            needsDelimiter = true
         result.push ']'
 
         if @tools.length > 0
@@ -62,7 +62,7 @@ module.exports = class Recipe extends BaseModel
             for tool in @tools
                 if needsDelimiter then result.push ', '
                 result.push tool.toString()
-                needsDelimiter = false
+                needsDelimiter = true
             result.push ']'
 
         result.push '}'

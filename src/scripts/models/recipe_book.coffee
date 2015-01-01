@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - recipe_book.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - recipe_book.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 BaseModel = require './base_model'
@@ -16,9 +16,10 @@ module.exports = class RecipeBook extends BaseModel
         if _.isEmpty(attributes.modName) then throw new Error 'modName cannot be empty'
         if _.isEmpty(attributes.modVersion) then throw new Error 'modVersion cannot be empty'
 
-        attributes.description ?= ''
-        attributes.recipes     ?= []
-        attributes.enabled     ?= attributes.modName in RequiredMods
+        attributes.description  ?= ''
+        attributes.rawMaterials ?= []
+        attributes.recipes      ?= []
+        attributes.enabled      ?= attributes.modName in RequiredMods
         super attributes, options
 
     # Public Methods ###############################################################################
@@ -36,6 +37,9 @@ module.exports = class RecipeBook extends BaseModel
                 result.push recipe
 
         return result
+
+    isRawMaterial: (name)->
+        return name in @rawMaterials
 
     hasRecipe: (name)->
         for recipe in @recipes

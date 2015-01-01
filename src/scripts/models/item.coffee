@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - item.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - item.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 BaseModel = require './base_model'
@@ -45,7 +45,7 @@ module.exports = class Item extends BaseModel
             extra -= @stackSize
             count += 1
 
-        return count:count extra:extra
+        return count:count, extra:extra
 
     # Object Overrides #############################################################################
 

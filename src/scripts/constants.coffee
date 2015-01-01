@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - constants.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - constants.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 exports.DefaultBookUrls = DefaultBookUrls = [
@@ -30,6 +30,9 @@ Event.load.succeeded = 'load:succeeded' # controller, book
 Event.load.failed    = 'load:failed'    # controller, error message
 Event.load.finished  = 'load:finished'  # controller
 Event.remove         = 'remove'         # collection, item...
+
+exports.Key = Key = {}
+Key.Return = 13
 
 exports.Opacity = Opacity = {}
 Opacity.hidden  = 1e-6

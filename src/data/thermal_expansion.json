@@ -6,11 +6,11 @@
     "recipes": [
         {
             "output": "Aqueous Accumulator",
-            "input": ["Bucket", [2, "Glass"], "Machine Frame", "Pneumatic Servo", [2, "Tin Ingot"]],
+            "input": [[2, "Glass"], [2, "Tin Ingot"], "Bucket", "Machine Frame", "Pneumatic Servo"],
             "tools": "Crafting Table"
         }, {
             "output": "Copper Gear",
-            "input": ["Cobblestone Gear", [4, "Copper Ingot"]],
+            "input": [[4, "Copper Ingot"], "Cobblestone Gear"],
             "tools": "Crafting Table"
         }, {
             "output": "Crescent Hammer",
@@ -18,7 +18,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Cyclic Assembler",
-            "input": ["Chest", [2, "Copper Ingot"], "Machine Frame", "Redstone Reception Coil", [2, "Tin Gear"]],
+            "input": [[2, "Copper Ingot"], [2, "Tin Gear"], "Chest", "Machine Frame", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Electrum Blend",
@@ -29,7 +29,7 @@
             "tools": "Furnace"
         }, {
             "output": "Energetic Infuser",
-            "input": [[2, "Copper Ingot"], "Machine Frame", "Redstone Reception Coil", [2, "Redstone Transmission Coil"], "Shiny Ingot"],
+            "input": [[2, "Copper Ingot"], [2, "Redstone Transmission Coil"], "Machine Frame", "Redstone Reception Coil", "Shiny Ingot"],
             "tools": "Crafting Table"
         }, {
             "output": [[250, "Energized Glowstone"]],
@@ -37,11 +37,11 @@
             "tools": "Magma Crucible"
         }, {
             "output": "Energy Cell Frame (Empty)",
-            "input": ["Diamond", [4, "Electrum Ingot"], [4, "Hardened Glass"]],
+            "input": [[4, "Electrum Ingot"], [4, "Hardened Glass"], "Diamond"],
             "tools": "Crafting Table"
         }, {
             "output": "Energy Cell Frame (Full)",
-            "input": ["Energy Cell Frame (Empty)", [1000, "Molten Redstone"]],
+            "input": [[1000, "Molten Redstone"], "Energy Cell Frame (Empty)"],
             "tools": "Liquid Transposer"
         }, {
             "output": [[4, "Energy Conduit (Empty)"]],
@@ -49,11 +49,11 @@
             "tools": "Crafting Table"
         }, {
             "output": "Energy Tesseract",
-            "input": ["Electrum Ingot", [2, "Lead Ingot"], "Redstone Conductance Coil", [2, "Tin Ingot"], "Unattuned Tesseract"],
+            "input": [[2, "Lead Ingot"], [2, "Tin Ingot"], "Electrum Ingot", "Redstone Conductance Coil", "Unattuned Tesseract"],
             "tools": "Crafting Table"
         }, {
             "output": "Glacial Precipitator",
-            "input": [[2, "Copper Ingot"], "Machine Frame", "Piston", "Redstone Reception Coil", [2, "Snow (Block)"]],
+            "input": [[2, "Copper Ingot"], [2, "Snow (Block)"], "Machine Frame", "Piston", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Glowstone Illuminator",
@@ -61,11 +61,11 @@
             "tools": "Liquid Transposer"
         }, {
             "output": "Hardened Glass",
-            "input": ["Lead Ingot", [2, "Pulverized Obsidian"]],
+            "input": [[2, "Pulverized Obsidian"], "Lead Ingot"],
             "tools": "Induction Smelter"
         }, {
             "output": "Igneous Extruder",
-            "input": [[2, "Glass"], "Machine Frame", "Piston", "Pneumatic Servo", [2, "Tin Ingot"]],
+            "input": [[2, "Glass"], [2, "Tin Ingot"], "Machine Frame", "Piston", "Pneumatic Servo"],
             "tools": "Crafting Table"
         }, {
             "output": "Illuminator Frame",
@@ -73,7 +73,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Induction Smelter",
-            "input": ["Bucket", [2, "Copper Ingot"], [2, "Invar Ingot"], "Machine Frame", "Redstone Reception Coil"],
+            "input": [[2, "Copper Ingot"], [2, "Invar Ingot"], "Bucket", "Machine Frame", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": [[3, "Invar Blend"]],
@@ -88,7 +88,7 @@
             "tools": "Furnace"
         }, {
             "output": "Item Tesseract",
-            "input": ["Pneumatic Servo", [2, "Silver Ingot"], [3, "Tin Ingot"], "Unattuned Tesseract"],
+            "input": [[3, "Tin Ingot"], [2, "Silver Ingot"], "Pneumatic Servo", "Unattuned Tesseract"],
             "tools": "Crafting Table"
         }, {
             "output": "Lead Ingot",
@@ -96,11 +96,11 @@
             "tools": "Furnace"
         }, {
             "output": "Liquid Tesseract",
-            "input": ["Copper Ingot", "Pneumatic Servo", [2, "Silver Ingot"], [2, "Tin Ingot"], "Unattuned Tesseract"],
+            "input": [[2, "Silver Ingot"], [2, "Tin Ingot"], "Copper Ingot", "Pneumatic Servo", "Unattuned Tesseract"],
             "tools": "Crafting Table"
         }, {
             "output": "Liquid Transposer",
-            "input": ["Bucket", [2, "Copper Ingot"], [2, "Glass"], "Machine Frame", "Redstone Reception Coil"],
+            "input": [[2, "Copper Ingot"], [2, "Glass"], "Bucket", "Machine Frame", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": [[4, "Liquiduct"]],
@@ -108,15 +108,15 @@
             "tools": "Crafting Table"
         }, {
             "output": "Machine Frame",
-            "input": [[4, "Iron Ingot"], [4, "Glass"], "Gold Ingot"],
+            "input": [[4, "Glass"], [4, "Iron Ingot"], "Gold Ingot"],
             "tools": "Crafting Table"
         }, {
             "output": "Magma Crucible",
-            "input": ["Bucket", [2, "Copper Ingot"], "Machine Frame", [2, "Nether Brick (block)"], "Redstone Reception Coil"],
+            "input": [[2, "Copper Ingot"], [2, "Nether Brick (block)"], "Bucket", "Machine Frame", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Magmatic Engine",
-            "input": [[2, "Invar Gear"], [3, "Invar Ingot"], "Piston", "Redstone Transmission Coil"],
+            "input": [[3, "Invar Ingot"], [2, "Invar Gear"], "Piston", "Redstone Transmission Coil"],
             "tools": "Crafting Table"
         }, {
             "output": [[250, "Molten Ender"]],
@@ -160,11 +160,11 @@
             "tools": "Crafting Table"
         }, {
             "output": "Redstone Energy Cell",
-            "input": [[3, "Electrum Ingot"], "Energy Cell Frame (Full)", [2, "Lead Ingot"], "Redstone Conductance Coil"],
+            "input": [[3, "Electrum Ingot"], [2, "Lead Ingot"], "Energy Cell Frame (Full)", "Redstone Conductance Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Redstone Energy Conduit",
-            "input": ["Energy Conduit (Empty)", [50, "Molten Redstone"]],
+            "input": [[50, "Molten Redstone"], "Energy Conduit (Empty)"],
             "tools": "Liquid Transposer"
         }, {
             "output": "Redstone Reception Coil",
@@ -176,11 +176,11 @@
             "tools": "Crafting Table"
         }, {
             "output": "Sawmill",
-            "input": [[2, "Copper Ingot"], "Iron Axe", "Machine Frame", "Redstone Reception Coil", [2, "Oak Plank"]],
+            "input": [[2, "Copper Ingot"], [2, "Oak Plank"], "Iron Axe", "Machine Frame", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Schematic",
-            "input": ["Lapis Lazuli", [3, "Paper"]]
+            "input": [[3, "Paper"], "Lapis Lazuli"]
         }, {
             "output": "Shiny Dust",
             "input": [[10, "Ferrous Ore"]],
@@ -191,11 +191,11 @@
             "tools": "Crafting Table"
         }, {
             "output": "Steam Engine",
-            "input": [[2, "Copper Gear"], [3, "Copper Ingot"], "Piston", "Redstone Transmission Coil"],
+            "input": [[3, "Copper Ingot"], [2, "Copper Gear"], "Piston", "Redstone Transmission Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Tesseract Frame",
-            "input": ["Diamond", [4, "Hardened Glass"], [4, "Tin Ingot"]],
+            "input": [[4, "Hardened Glass"], [4, "Tin Ingot"], "Diamond"],
             "tools": "Crafting Table"
         }, {
             "output": "Tin Gear",

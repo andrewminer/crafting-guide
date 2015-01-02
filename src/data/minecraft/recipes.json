@@ -1,10 +1,12 @@
 {
     "version": 1,
     "mod_name": "Minecraft",
-    "mod_version": "1.6.4",
+    "mod_version": "1.7.10",
     "description": "Crafting recipes from vanilla Minecraft",
     "raw_materials": [
+        "Emerald",
         "Lapis Lazuli",
+        "Nether Quartz",
         "Redstone",
         "String",
         "Wheat",
@@ -34,6 +36,10 @@
             "output": [[4, "Arrow"]],
             "input": ["Feather", "Flint", "Stick"],
             "tools": "Crafting Table"
+        }, {
+            "output": [[3, "Awkward Potion"]],
+            "input": [[3, "Water Bottle"], "Nether Wart"],
+            "tools": "Brewing Stand"
         }, {
             "output": "Baked Potato",
             "input": ["Potato", "{furnace fuel}"],
@@ -96,10 +102,6 @@
         }, {
             "output": "Block of Iron",
             "input": [[9, "Iron Ingot"]]
-        }, {
-            "output": "Lapis Lazuli Block",
-            "input": [[9, "Lapis Lazuli"]],
-            "tools": "Crafting Table"
         }, {
             "output": "Block of Quartz",
             "input": [[4, "Nether Quartz"]]
@@ -261,10 +263,8 @@
             "input": [[4, "Clay"]]
         }, {
             "output": "Clock",
-            "input": [[4, "Gold Ingot"], "Redstone"]
-        }, {
-            "output": "Clownfish",
-            "tools": "Fishing Rod"
+            "input": [[4, "Gold Ingot"], "Redstone"],
+            "tools": "Crafting Guide"
         }, {
             "output": [[9, "Coal"]],
             "input": "Block of Coal"
@@ -277,7 +277,8 @@
             "tools": "Crafting Table"
         }, {
             "output": "Compass",
-            "input": [[4, "Iron Ingot"], "Redstone"]
+            "input": [[4, "Iron Ingot"], "Redstone"],
+            "tools": "Crafting Guide"
         }, {
             "output": "Cooked Chicken",
             "input": ["Raw Chicken", "{furnace fuel}"],
@@ -395,6 +396,21 @@
             "input": [[7, "Cobblestone"], "Redstone"],
             "tools": "Crafting Table"
         }, {
+            "output": [[9, "Emerald"]],
+            "input": "Block of Emerald"
+        }, {
+            "output": "Emerald",
+            "input": ["Emerald Ore", "{furnace fuel}"],
+            "tools": "Furnace"
+        }, {
+            "output": "Empty Map",
+            "input": [[8, "Paper"], "Compass"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Empty Map",
+            "input": [[8, "Paper"], "Map (completed)"],
+            "tools": "Crafting Table"
+        }, {
             "output": "Enchantment Table",
             "input": [[4, "Obsidian"], [2, "Diamond"], "Book"],
             "tools": "Crafting Table"
@@ -420,12 +436,28 @@
             "output": [[3, "Fire Charge"]],
             "input": ["Blaze Powder", "Coal", "Gunpowder"]
         }, {
+            "output": [[3, "Fire Charge"]],
+            "input": ["Blaze Powder", "Charcoal", "Gunpowder"]
+        }, {
+            "output": "Firework Rocket (duration 1)",
+            "input": ["Gunpowder", "Paper"]
+        }, {
+            "output": "Firework Rocket (duration 2)",
+            "input": [[2, "Gunpowder"], "Paper"]
+        }, {
+            "output": "Firework Rocket (duration 3)",
+            "input": [[3, "Gunpowder"], "Paper"]
+        }, {
             "output": "Fishing Rod",
             "input": [[3, "Stick"], [2, "String"]],
             "tools": "Crafting Table"
         }, {
             "output": "Flint and Steel",
             "input": ["Flint", "Iron Ingot"]
+        }, {
+            "output": "Flower Pot",
+            "input": "Brick",
+            "tools": "Crafting Guide"
         }, {
             "output": "Furnace",
             "input": [[8, "Cobblestone"]],
@@ -625,6 +657,10 @@
             "input": [[2, "Iron Ingot"], "Stick"],
             "tools": "Crafting Table"
         }, {
+            "output": "Item Frame",
+            "input": [[8, "Stick"], "Leather"],
+            "tools": "Crafting Guide"
+        }, {
             "output": "Jack o'Lantern",
             "input": ["Pumpkin", "Torch"]
         }, {
@@ -641,6 +677,14 @@
         }, {
             "output": [[4, "Jungle Wood Stairs"]],
             "input": [[6, "Jungle Wood Planks"]],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Lapis Lazuli",
+            "input": ["Lapis Lazuli Ore", "{furnace fuel}"],
+            "tools": "Furnace"
+        }, {
+            "output": "Lapis Lazuli Block",
+            "input": [[9, "Lapis Lazuli"]],
             "tools": "Crafting Table"
         }, {
             "output": "Lapis Lazuli Block",
@@ -668,10 +712,6 @@
         }, {
             "output": "Lever",
             "input": ["Cobblestone", "Stick"]
-        }, {
-            "output": "Lapis Lazuli",
-            "input": ["Lapis Lazuli Ore", "{furnace fuel}"],
-            "tools": "Furnace"
         }, {
             "output": [[3, "Light Blue Carpet"]],
             "input": [[2, "Light Blue Wool"]]
@@ -750,9 +790,6 @@
             "output": [[3, "Magenta Carpet"]],
             "input": [[2, "Magenta Wool"]]
         }, {
-            "output": [[2, "Magneta Dye"]],
-            "input": "Lilac"
-        }, {
             "output": "Magenta Dye",
             "input": "Allium"
         }, {
@@ -782,6 +819,9 @@
         }, {
             "output": "Magma Cream",
             "input": ["Blaze Powder", "Slimeball"]
+        }, {
+            "output": [[2, "Magneta Dye"]],
+            "input": "Lilac"
         }, {
             "output": "Melon (block)",
             "input": [[9, "Melon (item)"]],
@@ -814,6 +854,14 @@
             "input": [[6, "Moss Stone"]],
             "tools": "Crafting Table"
         }, {
+            "output": [[3, "Mundane Potion"]],
+            "input": [[3, "Water Bottle"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Mundane Splash Potion"]],
+            "input": [[3, "Mundane Potion"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
             "output": "Mushroom Stew",
             "input": ["Bowl", "Brown Mushroom", "Red Mushroom"]
         }, {
@@ -834,6 +882,10 @@
             "output": [[4, "Nether Brick Stairs"]],
             "input": [[6, "Nether Brick (block)"]],
             "tools": "Crafting Table"
+        }, {
+            "output": "Nether Quartz",
+            "input": ["Nether Quartz Ore", "{furnace fuel}"],
+            "tools": "Furnace"
         }, {
             "output": "Note Block",
             "input": [[8, "Oak Wood Planks"], "Redstone"],
@@ -917,6 +969,162 @@
             "input": [[4, "Cobblestone"], [4, "Oak Wood Planks"], "Iron Ingot", "Redstone"],
             "tools": "Crafting Guide"
         }, {
+            "output": [[3, "Potion of Fire Resistance (3:00)"]],
+            "input": [[3, "Awkward Potion"], "Magma Cream"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Fire Resistance (8:00)"]],
+            "input": [[3, "Postion of Fire Resistance (3:00)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming"]],
+            "input": [[3, "Potion of Poison (0:45)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming"]],
+            "input": [[3, "Potion of Poison (2:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming"]],
+            "input": [[3, "Potion of Water Breathing (3:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming"]],
+            "input": [[3, "Potion of Water Breathing (8:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming"]],
+            "input": [[3, "Potion of Healing"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming II"]],
+            "input": [[3, "Potion of Harming"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming II"]],
+            "input": [[3, "Potion of Poison II (0:22)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Harming II"]],
+            "input": [[3, "Potion of Healing II"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Healing"]],
+            "input": [[3, "Awkward Potion"], "Glistering Melon"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Healing II"]],
+            "input": [[3, "Potion of Healing"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Invisibility (3:00)"]],
+            "input": [[3, "Potion of Night Vision (3:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Invisibility (8:00)"]],
+            "input": [[3, "Potion of Invisibility (3:00)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Invisibility (8:00)"]],
+            "input": [[3, "Potion of Night Vision (8:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Night Vision (3:00)"]],
+            "input": [[3, "Awkward Potion"], "Golden Carrot"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Night Vision (8:00)"]],
+            "input": [[3, "Potion of Night Vision (3:00)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Poison (0:45)"]],
+            "input": [[3, "Awkward Potion"], "Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Poison II (0:22)"]],
+            "input": [[3, "Potion of Poison (0:45)"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Regeneration (0:45)"]],
+            "input": [[3, "Awkward Potion"], "Ghast Tear"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Regeneration (2:00)"]],
+            "input": [[3, "Potion of Regeneration (0:45)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Regeneration II (0:22)"]],
+            "input": [[3, "Potion of Regeneration (0:45)"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Slowness (1:30)"]],
+            "input": [[3, "Potion of Swiftness"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Slowness (4:00)"]],
+            "input": [[3, "Potion of Slowness (1:30)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Slowness (4:00)"]],
+            "input": [[3, "Potion of Fire Resistance (8:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Slowness (4:00)"]],
+            "input": [[3, "Potion of Swiftness (8:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Strength (3:00)"]],
+            "input": [[3, "Awkward Potion"], "Blaze Powder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Strength (8:00)"]],
+            "input": [[3, "Potion of Strength (3:00)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Strength II (1:30)"]],
+            "input": [[3, "Potion of Strength (3:00)"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Swiftness (3:00)"]],
+            "input": [[3, "Awkward Potion"], "Sugar"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Swiftness (8:00)"]],
+            "input": [[3, "Potion of Swiftness (3:00)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Swiftness II (1:30)"]],
+            "input": [[3, "Potion of Regeneration (0:45)"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Water Breathing (3:00)"]],
+            "input": [[3, "Awkward Potion"], "Pufferfish"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Water Breathing (8:00)"]],
+            "input": [[3, "Potion of Water Breathing (3:00)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Weakness (1:30)"]],
+            "input": [[3, "Water Bottle"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Weakness (4:00)"]],
+            "input": [[3, "Potion of Weakness (1:30)"], "Redstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Weakness (4:00)"]],
+            "input": [[3, "Mundane Potion"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Weakness (4:00)"]],
+            "input": [[3, "Water Bottle"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Potion of Weakness (4:00)"]],
+            "input": [[3, "Potion of Strength (8:00)"], "Fermented Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
             "output": [[6, "Powered Rail"]],
             "input": [[6, "Gold Ingot"], "Redstone", "Stick"],
             "tools": "Crafting Table"
@@ -972,15 +1180,6 @@
             "output": [[3, "Red Carpet"]],
             "input": [[2, "Red Wool"]]
         }, {
-            "output": [[2, "Rose Red"]],
-            "input": "Rose Bush"
-        }, {
-            "output": "Rose Red",
-            "input": "Poppy"
-        }, {
-            "output": "Rose Red",
-            "input": "Red Tulip"
-        }, {
             "output": "Red Stained Clay",
             "input": [[8, "Hardened Clay"], "Rose Red"],
             "tools": "Crafting Table"
@@ -1022,6 +1221,15 @@
             "input": ["Redstone", "Stick"]
         }, {
             "output": [[2, "Rose Red"]],
+            "input": "Rose Bush"
+        }, {
+            "output": "Rose Red",
+            "input": "Poppy"
+        }, {
+            "output": "Rose Red",
+            "input": "Red Tulip"
+        }, {
+            "output": [[2, "Rose Red"]],
             "input": "Rose"
         }, {
             "output": "Rose Red",
@@ -1054,6 +1262,118 @@
             "output": [[6, "Snow (carpet)"]],
             "input": [[3, "Snow (block)"]],
             "tools": "Crafting Table"
+        }, {
+            "output": [[3, "Splash Potion of Fire Resistance (2:15)"]],
+            "input": [[3, "Potion of Fire Resistance (3:00)"], "Magma Cream"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Fire Resistance (6:00)"]],
+            "input": [[3, "Potion of Fire Resistance (8:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Harming"]],
+            "input": [[3, "Potion of Harming"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Harming II"]],
+            "input": [[3, "Potion of Harming II"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Healing"]],
+            "input": [[3, "Potion of Healing"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Healing II"]],
+            "input": [[3, "Potion of Healing II"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Invisibility (2:15)"]],
+            "input": [[3, "Potion of Invisibility (3:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Invisibility (6:00)"]],
+            "input": [[3, "Potion of Invisibility (8:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Night Vision (2:15)"]],
+            "input": [[3, "Potion of Night Vision (3:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Night Vision (6:00)"]],
+            "input": [[3, "Potion of Night Vision (8:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Poison (0:33)"]],
+            "input": [[3, "Potion of Poison (0:45)"], "Spider Eye"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Poison (1:30)"]],
+            "input": [[3, "Potion of Poison (2:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Poison II (0:16)"]],
+            "input": [[3, "Potion of Poison II (0:22)"], "Glowstone"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Regeneration (0:33)"]],
+            "input": [[3, "Potion of Regeneration (0:45)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Regeneration (1:30)"]],
+            "input": [[3, "Potion of Regeneration (2:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Regeneration II (0:16)"]],
+            "input": [[3, "Potion of Regeneration II (0:22)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Slowness (1:07)"]],
+            "input": [[3, "Potion of Slowness (1:30)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Slowness (3:00)"]],
+            "input": [[3, "Potion of Slowness (4:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Strength (2:15)"]],
+            "input": [[3, "Potion of Strength (3:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Strength (6:00)"]],
+            "input": [[3, "Potion of Strength (8:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Strength II (1:07)"]],
+            "input": [[3, "Potion of Strength II (1:30)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Swiftness (2:15)"]],
+            "input": [[3, "Potion of Swiftness (3:00)"], "Sugar"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Swiftness (6:00)"]],
+            "input": [[3, "Potion of Swiftness (8:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Swiftness II (1:07)"]],
+            "input": [[3, "Potion of Swiftness II (1:30)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Water Breathing (2:15)"]],
+            "input": [[3, "Potion of Water Breathing (3:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Water Breathing (6:00)"]],
+            "input": [[3, "Potion of Water Breathing (8:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Weakness (1:07)"]],
+            "input": [[3, "Potion of Weakness (1:30)"], "Gunpowder"],
+            "tools": "Brewing Stand"
+        }, {
+            "output": [[3, "Splash Potion of Weakness (3:00)"]],
+            "input": [[3, "Potion of Weakness (4:00)"], "Gunpowder"],
+            "tools": "Brewing Stand"
         }, {
             "output": [[4, "Spruce Planks"]],
             "input": "Spruce Log"
@@ -1125,6 +1445,10 @@
             "input": [[5, "Gunpowder"], [4, "Sand"]],
             "tools": "Crafting Table"
         }, {
+            "output": [[3, "Thick Potion"]],
+            "input": [[3, "Water Bottle"], "Glowstone Dust"],
+            "tools": "Brewing Stand"
+        }, {
             "output": [[4, "Torch"]],
             "input": ["Charcoal", "Stick"]
         }, {
@@ -1141,6 +1465,10 @@
             "output": [[2, "Tripwire Hook"]],
             "input": ["Iron Ingot", "Oak Wood Planks", "Stick"],
             "tools": "Crafting Table"
+        }, {
+            "output": "Water Bottle",
+            "input": "Glass Bottle",
+            "tools": "Water Source Block"
         }, {
             "output": "Water Bucket",
             "input": ["Bucket", "Water Source Block"]
@@ -1213,93 +1541,6 @@
         }, {
             "output": "Yellow Wool",
             "input": ["Dandelion Yellow", "Wool"]
-        }, {
-            "output": "Water Bottle",
-            "input": ["Bottle", "Water Source Block"]
-        }, {
-            "output": [[3, "Awkward Potion"]],
-            "input": [[3, "Water Bottle"], "Nether Wart"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Thick Potion"]],
-            "input": [[3, "Water Bottle"], "Glowstone Dust"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Mundane Potion"]],
-            "input": [[3, "Water Bottle"], "Redstone"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Regeneration (0:45)"]],
-            "input": [[3, "Awkward Potion"], "Ghast Tear"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Swiftness (3:00)"]],
-            "input": [[3, "Awkward Potion"], "Sugar"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Fire Resistance (3:00)"]],
-            "input": [[3, "Awkward Potion"], "Magma Cream"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Poison (0:45)"]],
-            "input": [[3, "Awkward Potion"], "Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Healing"]],
-            "input": [[3, "Awkward Potion"], "Glistering Melon"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Night Vision (3:00)"]],
-            "input": [[3, "Awkward Potion"], "Golden Carrot"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Swiftness (3:00)"]],
-            "input": [[3, "Awkward Potion"], "Sugar"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Weakness (1:30)"]],
-            "input": [[3, "Water Bottle"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Strength (3:00)"]],
-            "input": [[3, "Awkward Potion"], "Blaze Powder"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Slowness (1:30)"]],
-            "input": [[3, "Potion of Swiftness"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Slowness (1:30)"]],
-            "input": [[3, "Potion of Fire Resistance"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Harming"]],
-            "input": [[3, "Potion of Healing"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Harming"]],
-            "input": [[3, "Potion of Water Breathing"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Harming"]],
-            "input": [[3, "Potion of Poison"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Water Breathing (3:00)"]],
-            "input": [[3, "Awkward Potion"], "Pufferfish"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Invisibility (3:00)"]],
-            "input": [[3, "Potion of Night Vision"], "Fermented Spider Eye"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Regeneration II (0:22)"]],
-            "input": [[3, "Potion of Regeneration (0:45)"], "Glowstone"],
-            "tools": "Brewing Stand"
-        }, {
-            "output": [[3, "Potion of Swiftness II (1:30)"]],
-            "input": [[3, "Potion of Regeneration (0:45)"], "Glowstone"],
-            "tools": "Brewing Stand"
         }
     ]
 }

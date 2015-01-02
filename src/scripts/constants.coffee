@@ -6,13 +6,13 @@ All rights reserved.
 ###
 
 exports.DefaultBookUrls = DefaultBookUrls = [
-    '/data/minecraft.json'
-    '/data/applied_energetics.json'
-    '/data/buildcraft.json'
-    '/data/gravisuite.json'
-    '/data/industrial_craft.json'
-    '/data/more_blocks.json'
-    '/data/thermal_expansion.json'
+    '/data/minecraft/recipes.json'
+    '/data/applied_energetics/recipes.json'
+    '/data/buildcraft/recipes.json'
+    '/data/gravisuite/recipes.json'
+    '/data/industrial_craft/recipes.json'
+    '/data/more_blocks/recipes.json'
+    '/data/thermal_expansion/recipes.json'
 ]
 
 exports.Duration = Duration = {}

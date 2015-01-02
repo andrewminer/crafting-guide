@@ -30,12 +30,6 @@ module.exports = class Item extends BaseModel
         if not @canMerge(item) then throw new Error "cannot merge #{item} into #{this}"
         @quantity += item.quantity
 
-    toFormatHash: ->
-        return result =
-            name: @name
-            quantity: @quantity
-            stackQuantity: @stackQuantity
-
     # Property Methods #############################################################################
 
     getStackQuantity: ->

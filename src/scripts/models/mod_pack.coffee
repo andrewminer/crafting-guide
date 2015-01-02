@@ -1,5 +1,5 @@
 ###
-# Crafting Guide - recipe_catalog.coffee
+# Crafting Guide - mod_pack.coffee
 #
 # Copyright (c) 2014 by Redwood Labs
 # All rights reserved.
@@ -12,7 +12,7 @@ ModVersionParser = require './mod_version_parser'
 
 ########################################################################################################################
 
-module.exports = class RecipeCatalog extends BaseModel
+module.exports = class ModPack extends BaseModel
 
     constructor: (attributes={}, options={})->
         attributes.books ?= []
@@ -119,7 +119,7 @@ module.exports = class RecipeCatalog extends BaseModel
     # Object Overrides #############################################################################
 
     toString: ->
-        return "RecipeCatalog (#{@cid}) {books:#{@books.length} items}"
+        return "ModPack (#{@cid}) {books:#{@books.length} items}"
 
     _sortBooks:->
         @books.sort (a, b)->

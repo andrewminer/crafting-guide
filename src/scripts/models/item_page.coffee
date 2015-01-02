@@ -7,13 +7,13 @@
 
 BaseModel     = require './base_model'
 CraftingTable = require './crafting_table'
-RecipeCatalog = require './recipe_catalog'
+ModPack = require './mod_pack'
 
 ########################################################################################################################
 
 module.exports = class ItemPage extends BaseModel
 
     constructor: (attributes={}, options={})->
-        attributes.catalog ?= new RecipeCatalog
+        attributes.catalog ?= new ModPack
         attributes.table ?= new CraftingTable catalog:attributes.catalog
         super attributes, options

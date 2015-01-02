@@ -1,5 +1,5 @@
 ###
-# Crafting Guide - recipe_catalog_controller.coffee
+# Crafting Guide - mod_pack_controller.coffee
 #
 # Copyright (c) 2014 by Redwood Labs
 # All rights reserved.
@@ -11,13 +11,13 @@ ModVersionController = require './mod_version_controller'
 
 ########################################################################################################################
 
-module.exports = class RecipeCatalogController extends BaseController
+module.exports = class ModPackController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error "options.model is required"
         @_bookControllers = []
 
-        options.templateName = 'recipe_catalog'
+        options.templateName = 'mod_pack'
         super options
 
     # BaseController Overrides #####################################################################

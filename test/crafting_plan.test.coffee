@@ -5,7 +5,7 @@
 # All rights reserved.
 ###
 
-RecipeCatalog = require '../src/scripts/models/recipe_catalog'
+ModPack = require '../src/scripts/models/mod_pack'
 CraftingPlan  = require '../src/scripts/models/crafting_plan'
 
 ########################################################################################################################
@@ -17,7 +17,7 @@ catalog = plan = null
 describe 'CraftingPlan', ->
 
     beforeEach ->
-        catalog = new RecipeCatalog
+        catalog = new ModPack
         catalog.loadBookData {
             version: 1
             mod_name: 'Minecraft'

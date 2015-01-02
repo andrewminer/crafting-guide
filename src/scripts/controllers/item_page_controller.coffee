@@ -8,7 +8,7 @@
 BaseController          = require './base_controller'
 CraftingTableController = require './crafting_table_controller'
 ItemPage             = require '../models/item_page'
-RecipeCatalogController = require './recipe_catalog_controller'
+ModPackController = require './mod_pack_controller'
 
 ########################################################################################################################
 
@@ -29,6 +29,6 @@ module.exports = class ItemPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @catalogController = @addChild RecipeCatalogController, '.view__recipe_catalog', model:@model.catalog
+        @catalogController = @addChild ModPackController, '.view__mod_pack', model:@model.catalog
         @tableController = @addChild CraftingTableController, '.view__crafting_table', model:@model.table
         super

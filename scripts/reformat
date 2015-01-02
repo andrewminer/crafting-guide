@@ -8,14 +8,36 @@ RecipeBookParser = require '../src/scripts/models/recipe_book_parser'
 
 ########################################################################################################################
 
-if process.argv.length isnt 3
-    throw new Error "Expected a file name as an argument"
+if process.argv.length is 3
+    sourceFileName = process.argv[2]
+    targetFileName = process.argv[2]
+else if process.argv.length is 4
+    sourceFileName = process.argv[2]
+    targetFileName = process.argv[3]
+else
+    console.error """
 
-fileName   = process.argv[2]
-text       = fs.readFileSync fileName, 'UTF-8'
+    USAGE: reformat <source> (<target>)
+
+        Reformats a given recipe book into the latest version of the recipe book
+        format. This includes alphabetizing entries, simplifying item lists, and
+        upgrading to the latest version.
+
+        If given a single argument, the named file will be replaced with the
+        reformatted version. If two arguments are given, then the output will be
+        written to the second file. If a "-" is given as the second file, the
+        output will be written to stdout.
+
+    """
+    process.exit -1
+
+text       = fs.readFileSync sourceFileName, 'UTF-8'
 data       = JSON.parse text
 parser     = new RecipeBookParser
 recipeBook = parser.parse data
 text       = parser.unparse recipeBook
 
-fs.writeFileSync fileName, text, encoding:'UTF-8'
+if targetFileName is '-'
+    console.log text
+else
+    fs.writeFileSync targetFileName, text, encoding:'UTF-8'

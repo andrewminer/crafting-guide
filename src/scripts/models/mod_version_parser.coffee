@@ -1,5 +1,5 @@
 ###
-Crafting Guide - recipe_book_parser.coffee
+Crafting Guide - mod_version_parser.coffee
 
 Copyright (c) 2014 by Redwood Labs
 All rights reserved.
@@ -7,11 +7,11 @@ All rights reserved.
 
 Item       = require './item'
 Recipe     = require './recipe'
-RecipeBook = require './recipe_book'
+ModVersion = require './mod_version'
 
 ########################################################################################################################
 
-module.exports = class RecipeBookParser
+module.exports = class ModVersionParser
 
     @CURRENT_VERSION = '1'
 
@@ -28,13 +28,13 @@ module.exports = class RecipeBookParser
 
         return parser.parse data
 
-    unparse: (recipeBook, version=RecipeBookParser.CURRENT_VERSION)->
-        if not recipeBook? then throw new Error 'recipe book is required'
+    unparse: (ModVersion, version=ModVersionParser.CURRENT_VERSION)->
+        if not ModVersion? then throw new Error 'recipe book is required'
 
         parser = @_parsers["#{version}"]
         if not parser? then throw new Error "version #{version} is not supported"
 
-        return parser.unparse recipeBook
+        return parser.unparse ModVersion
 
 ########################################################################################################################
 
@@ -44,21 +44,21 @@ module.exports.V1 = class V1
         @_errorLocation = 'the header information'
 
     parse: (data)->
-        return @_parseRecipeBook data
+        return @_parseModVersion data
 
-    unparse: (recipeBook)->
-        return @_unparseRecipeBook recipeBook
+    unparse: (ModVersion)->
+        return @_unparseModVersion ModVersion
 
     # Private Methods ##############################################################################
 
-    _parseRecipeBook: (data)->
+    _parseModVersion: (data)->
         if not data? then throw new Error 'recipe book data is missing'
         if not data.version? then throw new Error 'version is required'
         if not data.mod_name? then throw new Error 'mod_name is required'
         if not data.mod_version? then throw new Error 'mod_version is required'
         if not _.isArray(data.recipes) then throw new Error 'recipes must be an array'
 
-        book             = new RecipeBook version:data.version, modName:data.mod_name, modVersion:data.mod_version
+        book             = new ModVersion version:data.version, modName:data.mod_name, modVersion:data.mod_version
         book.description = data.description or ''
 
         book.rawMaterials = data.raw_materials or []
@@ -114,19 +114,19 @@ module.exports.V1 = class V1
 
         return new Item quantity:data[0], name:data[1]
 
-    _unparseRecipeBook: (recipeBook)->
+    _unparseModVersion: (ModVersion)->
         result = []
         result.push '{\n'
         result.push '    "version": 1,\n'
-        result.push '    "mod_name": "' + recipeBook.modName + '",\n'
-        result.push '    "mod_version": "' + recipeBook.modVersion + '",\n'
-        if recipeBook.description.length > 0
-            result.push '    "description": "' + recipeBook.description + '",\n'
+        result.push '    "mod_name": "' + ModVersion.modName + '",\n'
+        result.push '    "mod_version": "' + ModVersion.modVersion + '",\n'
+        if ModVersion.description.length > 0
+            result.push '    "description": "' + ModVersion.description + '",\n'
 
-        if recipeBook.rawMaterials.length > 0
+        if ModVersion.rawMaterials.length > 0
             result.push '    "raw_materials": [\n'
             firstItem = true
-            materials = recipeBook.rawMaterials.slice()
+            materials = ModVersion.rawMaterials.slice()
             materials.sort()
             for material in materials
                 if not firstItem then result.push ',\n'
@@ -135,7 +135,7 @@ module.exports.V1 = class V1
             result.push '\n    ],\n'
 
         result.push '    "recipes": [\n'
-        recipes = recipeBook.recipes.slice()
+        recipes = ModVersion.recipes.slice()
         recipes.sort (a, b)->
             if a.name isnt b.name
                 return if a.name < b.name then -1 else +1

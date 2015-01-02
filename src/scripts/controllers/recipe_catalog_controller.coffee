@@ -7,7 +7,7 @@
 
 BaseController       = require './base_controller'
 {DefaultBookUrls}    = require '../constants'
-RecipeBookController = require './recipe_book_controller'
+ModVersionController = require './mod_version_controller'
 
 ########################################################################################################################
 
@@ -37,7 +37,7 @@ module.exports = class RecipeCatalogController extends BaseController
         @_bookControllers = []
         for i in [@model.books.length-1..0] by -1
             book = @model.books[i]
-            controller = new RecipeBookController model:book
+            controller = new ModVersionController model:book
             controller.render()
             @_bookControllers.push controller
             @$table.prepend controller.$el

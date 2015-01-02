@@ -7,7 +7,7 @@
 
 BaseModel        = require './base_model'
 {Event}          = require '../constants'
-RecipeBookParser = require './recipe_book_parser'
+ModVersionParser = require './mod_version_parser'
 {RequiredMods}   = require '../constants'
 
 ########################################################################################################################
@@ -18,7 +18,7 @@ module.exports = class RecipeCatalog extends BaseModel
         attributes.books ?= []
         super attributes, options
 
-        @_parser = new RecipeBookParser
+        @_parser = new ModVersionParser
 
     # Public Methods ###############################################################################
 

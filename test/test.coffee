@@ -27,7 +27,7 @@ mocha.setup 'bdd'
 require './crafting_plan.test'
 require './inventory.test'
 require './inventory_parser.test'
-require './recipe_book_parser.test'
+require './mod_version_parser.test'
 
 mocha.checkLeaks()
 mocha.run()

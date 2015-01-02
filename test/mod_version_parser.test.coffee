@@ -5,7 +5,7 @@
 # All rights reserved.
 ###
 
-RecipeBookParser = require '../src/scripts/models/recipe_book_parser'
+RecipeBookParser = require '../src/scripts/models/mod_version_parser'
 
 ########################################################################################################################
 
@@ -19,15 +19,15 @@ describe 'RecipeBookParser', ->
 
         before -> parser = new RecipeBookParser.V1
 
-        describe '_parseRecipeBook', ->
+        describe '_parseModVersion', ->
 
             it 'requires a mod_name', ->
                 data = version:1, mod_version:'1.0', recipes:[]
-                expect(-> parser._parseRecipeBook data).to.throw Error, 'mod_name is required'
+                expect(-> parser._parseModVersion data).to.throw Error, 'mod_name is required'
 
             it 'requires a mod_version', ->
                 data = version:1, mod_name:'Empty', recipes:[]
-                expect(-> parser._parseRecipeBook data).to.throw Error, 'mod_version is required'
+                expect(-> parser._parseModVersion data).to.throw Error, 'mod_version is required'
 
             it 'can parse an empty recipe book', ->
                 data =
@@ -35,7 +35,7 @@ describe 'RecipeBookParser', ->
                     mod_name: 'Empty'
                     mod_version: '1.0'
                     recipes: []
-                book = parser._parseRecipeBook data
+                book = parser._parseModVersion data
                 book.modName.should.equal 'Empty'
                 book.modVersion.should.equal '1.0'
 
@@ -48,7 +48,7 @@ describe 'RecipeBookParser', ->
                         { input:'sugar cane', output:'sugar' }
                         { input:[[3, 'wool'], [3, 'planks']], tools:'crafting table', output:'bed' }
                     ]
-                book = parser._parseRecipeBook data
+                book = parser._parseModVersion data
                 book.modName.should.equal 'Minecraft'
                 book.modVersion.should.equal '1.7.10'
                 (r.name for r in book.recipes).sort().should.eql ['bed', 'sugar']
@@ -60,8 +60,7 @@ describe 'RecipeBookParser', ->
                 expect(-> parser._parseRecipe input:'wool').to.throw Error, 'boat is missing output'
 
             it 'requires input to be defined', ->
-                parser._errorLocation = 'boat'
-                expect(-> parser._parseRecipe output:'wool').to.throw Error, 'boat is missing input'
+                expect(-> parser._parseRecipe output:'wool').to.throw Error, 'recipe for wool is missing input'
 
             it 'can parse a regular recipe', ->
                 data =

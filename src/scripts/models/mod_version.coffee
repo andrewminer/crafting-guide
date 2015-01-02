@@ -1,5 +1,5 @@
 ###
-Crafting Guide - recipe_book.coffee
+Crafting Guide - mod_version.coffee
 
 Copyright (c) 2014 by Redwood Labs
 All rights reserved.
@@ -10,7 +10,7 @@ BaseModel = require './base_model'
 
 ########################################################################################################################
 
-module.exports = class RecipeBook extends BaseModel
+module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
         if _.isEmpty(attributes.modName) then throw new Error 'modName cannot be empty'
@@ -49,7 +49,7 @@ module.exports = class RecipeBook extends BaseModel
     # Object Overrides #############################################################################
 
     toString: ->
-        return "RecipeBook (#{@cid}) {
+        return "ModVersion (#{@cid}) {
             enabled:#{@enabled},
             modName:#{@modName},
             modVersion:#{@modVersion},

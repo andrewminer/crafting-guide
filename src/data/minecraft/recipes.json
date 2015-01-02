@@ -4,6 +4,7 @@
     "mod_version": "1.7.10",
     "description": "Crafting recipes from vanilla Minecraft",
     "raw_materials": [
+        "Coal",
         "Diamond",
         "Emerald",
         "Lapis Lazuli",

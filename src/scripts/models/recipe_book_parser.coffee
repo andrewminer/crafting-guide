@@ -79,8 +79,9 @@ module.exports.V1 = class V1
         output = @_parseItemList data.output, field:'output', canBeEmpty:false
         @_errorLocation = "recipe for #{output[0].name}"
 
-        data.input ?= []
+        if not data.input? then throw new Error "#{@_errorLocation} is missing input"
         data.tools ?= []
+
         input  = @_parseItemList data.input, field:'input', canBeEmpty:true
         tools  = @_parseItemList data.tools, field:'tools', canBeEmpty:true
 

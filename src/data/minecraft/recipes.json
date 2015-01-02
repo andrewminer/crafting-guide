@@ -1135,9 +1135,6 @@
             "output": "Pressure Plate (wood)",
             "input": [[2, "Oak Wood Planks"]]
         }, {
-            "output": "Pufferfish",
-            "tools": "Fishing Rod"
-        }, {
             "output": "Pumpkin Pie",
             "input": ["Egg", "Pumpkin", "Sugar"]
         }, {
@@ -1198,9 +1195,6 @@
             "output": "Redstone",
             "input": ["Redstone Ore", "{furnace fuel}"],
             "tools": "Furnace"
-        }, {
-            "output": "Redstone",
-            "tools": "Iron Pickaxe"
         }, {
             "output": [[9, "Redstone"]],
             "input": "Block of Redstone"

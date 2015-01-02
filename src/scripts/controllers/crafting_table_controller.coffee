@@ -6,6 +6,7 @@
 ###
 
 BaseController  = require './base_controller'
+{Duration}      = require '../constants'
 {Event}         = require '../constants'
 InventoryParser = require '../models/inventory_parser'
 {Key}           = require '../constants'
@@ -47,13 +48,16 @@ module.exports = class CraftingTableController extends BaseController
 
     onNameFieldChanged: ->
         return unless @rendered
-        @model.name = @$nameField.val()
+        name = @$nameField.val()
+        @model.name = name
         @_craft()
 
-        # @$nameField.blur()
+        if name.length is 0
+            setTimeout (=> @$nameField.blur()), Duration.snap
 
     onNameFieldFocused: ->
         return unless @rendered
+
         @$nameField.val ""
         @$nameField.autocomplete 'search'
 

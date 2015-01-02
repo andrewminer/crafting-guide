@@ -24,7 +24,6 @@ module.exports = class ItemPageController extends BaseController
     setParams: (params)->
         @model.table.name     = params.name     if params.name?
         @model.table.quantity = params.quantity if params.quantity?
-        logger.debug "quantity updated to: #{@model.table.quantity} with params: #{params.count}"
 
     # BaseController Overrides #####################################################################
 

@@ -11,8 +11,8 @@ Inventory = require './inventory'
 
 module.exports = class CraftingPlan
 
-    constructor: (@catalog, includingTools)->
-        if not @catalog then throw new Error 'catalog is required'
+    constructor: (@modPack, includingTools)->
+        if not @modPack then throw new Error 'modPack is required'
         @includingTools = if includingTools then true else false
         @clear()
 
@@ -51,9 +51,9 @@ module.exports = class CraftingPlan
         return unless targetItem?
         logger.debug "Processing targetItem: #{targetItem}"
 
-        return if @catalog.isRawMaterial targetItem.name
+        return if @modPack.isRawMaterial targetItem.name
 
-        recipes = @catalog.gatherRecipes targetItem.name
+        recipes = @modPack.gatherRecipes targetItem.name
         return if not recipes.length > 0
 
         recipe = recipes[0]

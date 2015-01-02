@@ -23,12 +23,13 @@ module.exports = class CraftingTableController extends BaseController
 
         @_parser = new InventoryParser
 
-        @model.catalog.on Event.change, => @onCatalogChanged()
+        @model.modPack.on Event.change, => @onModPackChanged()
 
     # Event Methods ################################################################################
 
-    onCatalogChanged: ->
+    onModPackChanged: ->
         return unless @rendered
+        @model.modPack.enableBooksForRecipe @$nameField.val()
         @_updateNameAutocomplete()
         @_craft()
 
@@ -49,8 +50,11 @@ module.exports = class CraftingTableController extends BaseController
         @model.name = @$nameField.val()
         @_craft()
 
+        # @$nameField.blur()
+
     onNameFieldFocused: ->
         return unless @rendered
+        @$nameField.val ""
         @$nameField.autocomplete 'search'
 
     onNameFieldKeyPress: (event)->
@@ -114,7 +118,7 @@ module.exports = class CraftingTableController extends BaseController
     # Private Methods ##############################################################################
 
     _craft: ->
-        if @model.catalog.hasRecipe @model.name
+        if @model.modPack.hasRecipe @model.name
             router.navigate "/item/#{encodeURIComponent(@model.name)}"
         else
             router.navigate "/item"
@@ -126,7 +130,7 @@ module.exports = class CraftingTableController extends BaseController
         onChanged = => @onNameFieldChanged()
 
         @$nameField.autocomplete
-            source:    @model.catalog.gatherNames()
+            source:    @model.modPack.gatherNames()
             delay:     0
             minLength: 0
             change:    onChanged

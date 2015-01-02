@@ -15,7 +15,7 @@ Inventory    = require './inventory'
 module.exports = class CraftingTable extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.catalog? then throw new Error "attributes.catalog is required"
+        if not attributes.modPack? then throw new Error "attributes.modPack is required"
         attributes.name           ?= null
         attributes.quantity       ?= 1
         attributes.includingTools ?= false
@@ -26,16 +26,16 @@ module.exports = class CraftingTable extends BaseModel
     # Public Methods ###############################################################################
 
     craft: ->
-        if not @catalog.hasRecipe @name
+        if not @modPack.hasRecipe @name
             @plan = null
             return
 
         toolPhrase = if @includingTools then ' includingTools' else ''
         logger.verbose "calculating build plan for #{@quantity} #{@name}#{toolPhrase} with inventory: #{@have}"
 
-        @catalog.enableBooksForRecipe @name
+        @modPack.enableBooksForRecipe @name
 
-        plan = new CraftingPlan @catalog, @includingTools
+        plan = new CraftingPlan @modPack, @includingTools
         plan.includingTools = @includingTools
         plan.craft @name, @quantity, @have
 

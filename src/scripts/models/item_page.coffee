@@ -14,6 +14,6 @@ ModPack = require './mod_pack'
 module.exports = class ItemPage extends BaseModel
 
     constructor: (attributes={}, options={})->
-        attributes.catalog ?= new ModPack
-        attributes.table ?= new CraftingTable catalog:attributes.catalog
+        attributes.modPack ?= new ModPack
+        attributes.table ?= new CraftingTable modPack:attributes.modPack
         super attributes, options

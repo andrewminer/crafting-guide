@@ -29,6 +29,6 @@ module.exports = class ItemPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @catalogController = @addChild ModPackController, '.view__mod_pack', model:@model.catalog
+        @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
         @tableController = @addChild CraftingTableController, '.view__crafting_table', model:@model.table
         super

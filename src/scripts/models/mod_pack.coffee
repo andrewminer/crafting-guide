@@ -9,32 +9,43 @@ BaseModel        = require './base_model'
 {Event}          = require '../constants'
 ModVersionParser = require './mod_version_parser'
 {RequiredMods}   = require '../constants'
+util             = require 'util'
 
 ########################################################################################################################
 
 module.exports = class ModPack extends BaseModel
 
     constructor: (attributes={}, options={})->
-        attributes.books ?= []
+        attributes.modVersions ?= []
         super attributes, options
 
         @_parser = new ModVersionParser
 
     # Public Methods ###############################################################################
 
-    enableBooksForRecipe: (name)->
-        for book in @books
-            continue if book.enabled
-            if book.hasRecipe name
-                book.enabled = true
+    enableModsForItem: (name)->
+        for modVersion in @modVersions
+            continue if modVersion.enabled
+            if modVersion.hasRecipe name
+                modVersion.enabled = true
 
-    gatherNames: (options={})->
+    findItemByName: (name, options={})->
+        options.includeDisabled ?= false
+
+        for modVersion in @modVersions
+            continue unless modVersion.enabled or options.includeDisabled
+            item = modVersion.findItemByName name
+            return item if item?
+
+        return null
+
+    gatherRecipeNames: (options={})->
         options.includeDisabled ?= false
 
         nameData = {}
-        for book in @books
-            continue unless book.enabled or options.includeDisabled
-            book.gatherNames nameData
+        for modVersion in @modVersions
+            continue unless modVersion.enabled or options.includeDisabled
+            modVersion.gatherRecipeNames nameData
 
         result = []
         names = _.keys(nameData).sort()
@@ -42,76 +53,56 @@ module.exports = class ModPack extends BaseModel
             result.push nameData[name]
         return result
 
-    gatherRecipes: (name, options={})->
-        options.includeDisabled ?= false
-
-        result = []
-        for book in @books
-            continue unless book.enabled or options.includeDisabled
-
-            book.gatherRecipes name, result
-
-        return result
-
     hasRecipe: (name, options={})->
         options.includeDisabled ?= false
 
-        for book in @books
-            continue unless book.enabled or options.includeDisabled
-            return true if book.hasRecipe name
+        for modVersion in @modVersions
+            continue unless modVersion.enabled or options.includeDisabled
+            return true if modVersion.hasRecipe name
 
         return false
 
-    isRawMaterial: (name, options={})->
-        options.includeDisabled ?= false
-
-        for book in @books
-            continue unless book.enabled or options.includeDisabled
-            return true if book.isRawMaterial name
-
-        return false
-
-    loadBook: (url)->
+    loadModVersion: (url)->
         w.promise (resolve, reject)=>
             @trigger Event.load.started, this, url
             $.ajax
                 url: url
                 dataType: 'json'
                 success: (data, status, xhr)=>
-                    resolve @onBookLoaded(url, data, status, xhr)
+                    resolve @onModVersionLoaded(url, data, status, xhr)
                 error: (xhr, status, error)=>
-                    reject @onBookLoadFailed(url, error, status, xhr)
+                    reject @onModVersionLoadFailed(url, error, status, xhr)
 
-    loadBookData: (data)->
-        book = @_parser.parse data
-        @books.push book
-        @_sortBooks()
-        book.on Event.change, => @trigger Event.change, this
+    loadModVersionData: (data)->
+        modVersion = @_parser.parse data
+        @modVersions.push modVersion
+        @modVersions.sort (a, b)-> a.compareTo b
+        modVersion.on Event.change, => @trigger Event.change, this
 
-        return book
+        return modVersion
 
-    loadAllBooks: (urlList)->
-        promises = (@loadBook(url) for url in urlList)
+    loadAllModVersions: (urlList)->
+        promises = (@loadModVersion(url) for url in urlList)
         return w.settle promises
 
     # Event Methods ################################################################################
 
-    onBookLoaded: (url, data, status, xhr)->
+    onModVersionLoaded: (url, data, status, xhr)->
         try
-            book = @loadBookData data
+            modVersion = @loadModVersionData data
 
-            logger.info "loaded recipe book from #{url}: #{book}"
-            @trigger Event.load.succeeded, this, book
+            logger.info "loaded ModVersion from #{url}: #{modVersion}"
+            @trigger Event.load.succeeded, this, modVersion
             @trigger Event.load.finished, this
             @trigger Event.change, this
 
-            return book
+            return modVersion
         catch e
-            @onBookLoadFailed url, e, status, xhr
+            @onModVersionLoadFailed url, e, status, xhr
 
-    onBookLoadFailed: (url, error, status, xhr)->
+    onModVersionLoadFailed: (url, error, status, xhr)->
         message = if error.stack? then error.stack else error
-        logger.error "failed to load recipe book from #{url}: #{message}"
+        logger.error "failed to load ModVersion from #{url}: #{message}"
         @trigger Event.load.failed, this, error.message
         @trigger Event.load.finished, this
         return error
@@ -119,20 +110,4 @@ module.exports = class ModPack extends BaseModel
     # Object Overrides #############################################################################
 
     toString: ->
-        return "ModPack (#{@cid}) {books:#{@books.length} items}"
-
-    _sortBooks:->
-        @books.sort (a, b)->
-            if a.modName is b.modName then return 0
-
-            aRequired = a.modName in RequiredMods
-            bRequired = b.modName in RequiredMods
-
-            if aRequired and bRequired
-                return if a.modName < b.modName then -1 else +1
-            else if aRequired
-                return -1
-            else if bRequired
-                return +1
-            else
-                return if a.modName < b.modName then -1 else +1
+        return "ModPack (#{@cid}) {modVersions:#{@modVersions.length} items}"

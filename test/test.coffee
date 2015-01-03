@@ -20,6 +20,8 @@ global.should = chai.should()
 Logger = require '../src/scripts/logger'
 global.logger = new Logger level:Logger.TRACE
 
+require '../src/scripts/underscore_mixins'
+
 # Test Registry ########################################################################################################
 
 mocha.setup 'bdd'
@@ -27,6 +29,8 @@ mocha.setup 'bdd'
 require './crafting_plan.test'
 require './inventory.test'
 require './inventory_parser.test'
+require './mod_pack.test'
+require './mod_version.test'
 require './mod_version_parser.test'
 
 mocha.checkLeaks()

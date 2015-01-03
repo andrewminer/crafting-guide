@@ -29,11 +29,18 @@ module.exports = class CraftingPlan
         return this
 
     craft: (name, quantity=1, have=null)->
+        logger.trace "craft(#{name}, #{quantity}, #{have})"
+
+        item = @modPack.findItemByName name
+        logger.debug "item: #{item}"
+        if not item? then throw new Error "cannot find an item named: #{name}"
+
         @clear()
         @result.addInventory(have) if have?
 
-        @_expected.add name, quantity
+        @_expected.add item, quantity
         @_pending = @_expected.clone()
+
         while not @_pending.isEmpty
             @_processPending()
 
@@ -47,50 +54,54 @@ module.exports = class CraftingPlan
     # Private Methods ##############################################################################
 
     _processPending: ->
-        targetItem = @_pending.pop()
+        targetStack = @_pending.pop()
+        targetItem = targetStack.item
+        logger.verbose "processing item: #{targetItem}, craftable? #{targetItem.isCraftable}"
         return unless targetItem?
+        return if (not targetItem.isCraftable) or targetItem.isGatherable
 
-        return if @modPack.isRawMaterial targetItem.name
-
-        recipes = @modPack.gatherRecipes targetItem.name
-        return if not recipes.length > 0
-
-        recipe = recipes[0]
+        recipe = targetItem.recipes[0]
+        logger.verbose "recipe: #{recipe}"
 
         if @includingTools
-            for tool in recipe.tools
-                totalExpected = @result.quantityOf(tool.name) + @_expected.quantityOf(tool.name)
-                if totalExpected < tool.quantity
-                    @_pending.add tool.name, tool.quantity
-                    @_expected.add tool.name, tool.quantity
+            for toolItem in recipe.tools
+                totalExpected = @result.quantityOf(toolItem.slug) + @_expected.quantityOf(toolItem.slug)
+                if totalExpected < 1
+                    @_pending.add toolItem
+                    @_expected.add toolItem
 
-        while @_totalQuantityOf(targetItem.name) < @_expected.quantityOf(targetItem.name)
+        while @_totalQuantityOf(targetItem.slug) < @_expected.quantityOf(targetItem.slug)
             @steps.push recipe
 
-            for item in recipe.input
-                @_processInputItem item
+            for stack in recipe.input
+                @_processInputStack stack
 
-            for item in recipe.output
-                @_processOutputItem item
+            for stack in recipe.output
+                @_processOutputStack stack
 
-    _processInputItem: (item)->
-        quantityAvailable = @result.quantityOf item.name
-        quantityUsed      = Math.min quantityAvailable, item.quantity
-        quantityNeeded    = item.quantity - quantityUsed
+    _processInputStack: (stack)->
+        slug              = stack.item.slug
+        quantityAvailable = @result.quantityOf slug
+        quantityUsed      = Math.min quantityAvailable, stack.quantity
+        quantityNeeded    = stack.quantity - quantityUsed
+        logger.verbose "processing input:#{stack.name},
+            a:#{quantityAvailable}, u:#{quantityUsed}, n:#{quantityNeeded}"
 
-        @result.remove item.name, quantityUsed
-        @_pending.add item.name, quantityNeeded
-        @need.add item.name, quantityNeeded
+        @result.remove slug, quantityUsed
+        @_pending.add stack.item, quantityNeeded
+        @need.add stack.item, quantityNeeded
 
-    _processOutputItem: (item)->
-        quantityMissing = @need.quantityOf item.name
-        quantityUsed = Math.min quantityMissing, item.quantity
-        quantityLeft = item.quantity - quantityUsed
+    _processOutputStack: (stack)->
+        slug            = stack.item.slug
+        quantityMissing = @need.quantityOf slug
+        quantityUsed    = Math.min quantityMissing, stack.quantity
+        quantityLeft    = stack.quantity - quantityUsed
+        logger.verbose "processing output:#{stack.name},
+            m:#{quantityMissing}, u:#{quantityUsed}, l:#{quantityLeft}"
 
-        @make.add item.name, item.quantity
-        @need.remove item.name, quantityUsed
-        @result.add item.name, quantityLeft
+        @make.add stack.item, stack.quantity
+        @need.remove slug, quantityUsed
+        @result.add stack.item, quantityLeft
 
-
-    _totalQuantityOf: (name)->
-        return @result.quantityOf(name) - @need.quantityOf(name)
+    _totalQuantityOf: (slug)->
+        return @result.quantityOf(slug) - @need.quantityOf(slug)

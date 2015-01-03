@@ -17,34 +17,48 @@ module.exports = class ModVersion extends BaseModel
         if _.isEmpty(attributes.modVersion) then throw new Error 'modVersion cannot be empty'
 
         attributes.description  ?= ''
-        attributes.rawMaterials ?= []
-        attributes.recipes      ?= []
+        attributes.items        ?= {}
         attributes.enabled      ?= attributes.modName in RequiredMods
         super attributes, options
 
     # Public Methods ###############################################################################
 
-    gatherNames: (result)->
-        for recipe in @recipes
-            continue if result[recipe.name]
-            result[recipe.name] = value:recipe.name, label:"#{recipe.name} (from #{@modName} #{@modVersion})"
+    addItem: (item)->
+        if @items[item.slug]? then throw new Error "duplicate item for #{item.slug}"
+        @items[item.slug] = item
+        return this
+
+    compareTo: (that)->
+        if this.modName is that.modName then return 0
+
+        thisRequired = this.modName in RequiredMods
+        thatRequired = that.modName in RequiredMods
+
+        if thisRequired and thatRequired
+            return if this.modName < that.modName then -1 else +1
+        else if thisRequired
+            return -1
+        else if thatRequired
+            return +1
+        else
+            return if this.modName < that.modName then -1 else +1
+
+    findItemByName: (name)->
+        slug = _.slugify name
+        return @items[slug]
+
+    gatherRecipeNames: (result={})->
+        for slug, item of @items
+            continue if result[item.slug]
+            continue unless item.isCraftable
+            result[item.slug] = value:item.name, label:"#{item.name} (from #{@modName} #{@modVersion})"
 
         return result
-
-    gatherRecipes: (name, result)->
-        for recipe in @recipes
-            if recipe.name is name
-                result.push recipe
-
-        return result
-
-    isRawMaterial: (name)->
-        return name in @rawMaterials
 
     hasRecipe: (name)->
-        for recipe in @recipes
-            return true if recipe.name is name
-        return false
+        item = @findItemByName name
+        return false unless item?
+        return item.recipes.length > 0
 
     # Object Overrides #############################################################################
 
@@ -53,4 +67,4 @@ module.exports = class ModVersion extends BaseModel
             enabled:#{@enabled},
             modName:#{@modName},
             modVersion:#{@modVersion},
-            recipes:#{@recipes.length} items}"
+            items:#{_.keys(@items).length} items}"

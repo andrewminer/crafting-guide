@@ -20,30 +20,30 @@ describe 'Inventory', ->
 
     beforeEach ->
         inventory = new Inventory
-        inventory.add 'wool', 4
-        inventory.add 'string', 20
-        inventory.add 'boat'
+        inventory.add new Item(name:'Wool'), 4
+        inventory.add new Item(name:'String'), 20
+        inventory.add new Item(name:'Boat')
 
     describe 'add', ->
 
         it 'can add to an empty inventory', ->
-            inventory.add 'iron ingot', 4
-            item = inventory._items['iron ingot']
-            item.constructor.name.should.equal 'Item'
-            item.name.should.equal 'iron ingot'
-            item.quantity.should.equal 4
+            inventory.add new Item(name:'Iron Ingot'), 4
+            stack = inventory._stacks['iron_ingot']
+            stack.constructor.name.should.equal 'Stack'
+            stack.name.should.equal 'Iron Ingot'
+            stack.quantity.should.equal 4
 
         it 'can augment quantity of existing items', ->
-            inventory.add 'wool', 2
+            inventory.add new Item(name:'Wool'), 2
             inventory.toList().should.eql ['boat', [20, 'string'], [6, 'wool']]
 
         it 'can add zero quantity', ->
-            inventory.add 'wool', 0
+            inventory.add new Item(name:'Wool'), 0
             inventory.toList().should.eql ['boat', [20, 'string'], [4, 'wool']]
 
         it 'emits the proper events', ->
             events = new EventRecorder inventory
-            inventory.add 'iron ingot', 10
+            inventory.add new Item(name:'Iron Ingot'), 10
             events.names.should.eql [Event.add, Event.change]
 
     describe 'addInventory', ->
@@ -51,11 +51,11 @@ describe 'Inventory', ->
         it 'can add to an empty inventory', ->
             newInventory = new Inventory
             newInventory.addInventory inventory
-            newInventory._names.should.eql ['boat', 'string', 'wool']
+            newInventory._slugs.should.eql ['boat', 'string', 'wool']
 
         it 'can add a mix of new and existing items', ->
             newInventory = new Inventory
-            newInventory.add 'string', 2
+            newInventory.add new Item(name:'String'), 2
             newInventory.addInventory inventory
             newInventory.toList().should.eql ['boat', [22, 'string'], [4, 'wool']]
 
@@ -64,12 +64,12 @@ describe 'Inventory', ->
         it 'creates an empty inventory from an empty inventory', ->
             a = new Inventory
             b = a.clone()
-            b._names.should.eql []
+            b._slugs.should.eql []
 
         it 'faithfully copies an existing inventory', ->
             copy = inventory.clone()
-            copy._names.should.eql ['boat', 'string', 'wool']
-            (item.quantity for name, item of copy._items).should.eql [1, 20, 4]
+            logger.debug "copy.toList(): #{copy.toList()}"
+            copy.toList().should.eql ['boat', [20, 'string'], [4, 'wool']]
 
     describe 'each', ->
 
@@ -81,17 +81,17 @@ describe 'Inventory', ->
 
         it 'works when items have only been added', ->
             result = []
-            inventory.each (item)-> result.push item.name
-            result.should.eql ['boat', 'string', 'wool']
+            inventory.each (stack)-> result.push stack.name
+            result.should.eql ['Boat', 'String', 'Wool']
 
         it 'works when items have been augmented', ->
-            inventory.add 'iron ingot'
-            inventory.add 'boat'
-            inventory.add 'wool', 2
+            inventory.add new Item name:'Iron Ingot'
+            inventory.add new Item name:'Boat'
+            inventory.add new Item(name:'Wool'), 2
 
             result = []
-            inventory.each (item)-> result.push item.name
-            result.should.eql ['boat', 'iron ingot', 'string', 'wool']
+            inventory.each (stack)-> result.push stack.name
+            result.should.eql ['Boat', 'Iron Ingot', 'String', 'Wool']
 
     describe 'hasAtLeast', ->
 
@@ -101,7 +101,7 @@ describe 'Inventory', ->
 
         it 'always returns true for zero quantity', ->
             inventory.hasAtLeast('chicken', 0).should.be.true
-            inventory.hasAtLeast('wool', 0).should.be.true
+            inventory.hasAtLeast('Wool', 0).should.be.true
 
         it 'works for a quantity above 1', ->
             inventory.hasAtLeast('wool', 3).should.be.true
@@ -116,9 +116,9 @@ describe 'Inventory', ->
             expect(result).to.be.null
 
         it 'completely removes the last item', ->
-            result = inventory.pop()
-            result.name.should.equal 'wool'
-            result.quantity.should.equal 4
+            stack = inventory.pop()
+            stack.name.should.equal 'Wool'
+            stack.quantity.should.equal 4
             inventory.toList().should.eql ['boat', [20, 'string']]
 
         it 'triggers the right events', ->
@@ -138,11 +138,11 @@ describe 'Inventory', ->
 
         it 'removes a single item by default', ->
             inventory.remove 'wool'
-            inventory._items.wool.quantity.should.equal 3
+            inventory._stacks.wool.quantity.should.equal 3
 
         it 'removes a quantity above 1', ->
             inventory.remove 'wool', 3
-            inventory._items.wool.quantity.should.equal 1
+            inventory._stacks.wool.quantity.should.equal 1
 
         it 'emits the proper events', ->
             events = new EventRecorder inventory

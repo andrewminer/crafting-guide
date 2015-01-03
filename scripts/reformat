@@ -4,7 +4,9 @@ global._        = require 'underscore'
 global.Backbone = require 'backbone'
 
 fs               = require 'fs'
-RecipeBookParser = require '../src/scripts/models/recipe_book_parser'
+ModVersionParser = require '../src/scripts/models/mod_version_parser'
+
+require '../src/scripts/underscore_mixins'
 
 ########################################################################################################################
 
@@ -33,9 +35,9 @@ else
 
 text       = fs.readFileSync sourceFileName, 'UTF-8'
 data       = JSON.parse text
-parser     = new RecipeBookParser
-recipeBook = parser.parse data
-text       = parser.unparse recipeBook
+parser     = new ModVersionParser
+modVersion = parser.parse data
+text       = parser.unparse modVersion
 
 if targetFileName is '-'
     console.log text

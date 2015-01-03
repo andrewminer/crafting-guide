@@ -14,38 +14,48 @@ module.exports = class Item extends BaseModel
     @DEFAULT_STACK_SIZE = 64
 
     constructor: (attributes={}, options={})->
-        attributes.name      ?= ''
-        attributes.quantity  ?= 1
-        attributes.stackSize ?= Item.DEFAULT_STACK_SIZE
+        if not attributes.name? then throw new Error 'attributes.name is required'
+
+        attributes.isGatherable ?= false
+        attributes.recipes      ?= []
+        attributes.slug         ?= _.slugify attributes.name
+        attributes.stackSize    ?= Item.DEFAULT_STACK_SIZE
         super attributes, options
 
-        Object.defineProperty this, 'stackQuantity', get:@getStackQuantity
+    Object.defineProperty @prototype, 'isCraftable', get:-> @recipes.length > 0
 
     # Public Methods ###############################################################################
 
-    canMerge: (item)->
-        return item.name is @name
+    addRecipe: (recipe)->
+        output = recipe.output[0].item
+        if output isnt this then throw new Error "invalid recipe for #{@name} because it makes a #{output.name}"
 
-    merge: (item)->
-        if not @canMerge(item) then throw new Error "cannot merge #{item} into #{this}"
-        @quantity += item.quantity
+        @recipes.push recipe
 
-    # Property Methods #############################################################################
-
-    getStackQuantity: ->
-        count = 0
-        extra = @quantity
-        while extra > @stackSize
-            extra -= @stackSize
-            count += 1
-
-        return count:count, extra:extra
+    compareTo: (that)->
+        if this.name isnt that.name
+            return if this.name < that.name then -1 else +1
+        return 0
 
     # Object Overrides #############################################################################
 
     toString: ->
-        result = "#{@constructor.name} (#{@cid}) { name:\"#{@name}\", quantity:#{@quantity}"
+        result = []
+        result.push @constructor.name
+        result.push ' ('; result.push @cid; result.push ') { '
+        result.push 'name:"'; result.push @name; result.push '", '
+        result.push 'isGatherable:'; result.push @isGatherable
+
+        if _.slugify(@name) isnt @slug
+            result.push ', slug:'; result.push @slug
+
         if @stackSize isnt Item.DEFAULT_STACK_SIZE
-            result += ", stackSize:#{@stackSize}"
-        result += ' }'
-        return result
+            result.push ', stackSize:'; result.push @stackSize
+
+        if @recipes.length > 0
+            result.push ', recipes:'
+            result.push @recipes.length
+            result.push ' items'
+
+        result.push '}'
+        return result.join ''

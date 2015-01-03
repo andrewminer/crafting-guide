@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - crafting_table.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - crafting_table.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 BaseModel    = require './base_model'
@@ -30,10 +30,10 @@ module.exports = class CraftingTable extends BaseModel
             @plan = null
             return
 
-        toolPhrase = if @includingTools then ' includingTools' else ''
+        toolPhrase = if @includingTools then ' including tools' else ''
         logger.verbose "calculating build plan for #{@quantity} #{@name}#{toolPhrase} with inventory: #{@have}"
 
-        @modPack.enableBooksForRecipe @name
+        @modPack.enableModsForItem @name
 
         plan = new CraftingPlan @modPack, @includingTools
         plan.includingTools = @includingTools

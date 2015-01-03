@@ -15,7 +15,7 @@ module.exports = class ModPackController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error "options.model is required"
-        @_bookControllers = []
+        @_modVersionControllers = []
 
         options.templateName = 'mod_pack'
         super options
@@ -23,8 +23,8 @@ module.exports = class ModPackController extends BaseController
     # BaseController Overrides #####################################################################
 
     onWillRender: ->
-        if @model.books.length is 0
-            @model.loadAllBooks DefaultBookUrls
+        if @model.modVersions.length is 0
+            @model.loadAllModVersions DefaultBookUrls
 
     onDidRender: ->
         @$table = @$('table')
@@ -34,12 +34,12 @@ module.exports = class ModPackController extends BaseController
         @$('table tr:not(:last-child)').remove()
         return unless @model?
 
-        @_bookControllers = []
-        for i in [@model.books.length-1..0] by -1
-            book = @model.books[i]
-            controller = new ModVersionController model:book
+        @_modVersionControllers = []
+        for i in [@model.modVersions.length-1..0] by -1
+            modVersion = @model.modVersions[i]
+            controller = new ModVersionController model:modVersion
             controller.render()
-            @_bookControllers.push controller
+            @_modVersionControllers.push controller
             @$table.prepend controller.$el
 
         super

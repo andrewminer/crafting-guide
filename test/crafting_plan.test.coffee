@@ -1,24 +1,24 @@
 ###
-# Crafting Guide - crafting_plan.test.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - crafting_plan.test.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
-ModPack = require '../src/scripts/models/mod_pack'
-CraftingPlan  = require '../src/scripts/models/crafting_plan'
+ModPack      = require '../src/scripts/models/mod_pack'
+CraftingPlan = require '../src/scripts/models/crafting_plan'
 
 ########################################################################################################################
 
-catalog = plan = null
+modPack = plan = null
 
 ########################################################################################################################
 
 describe 'CraftingPlan', ->
 
     beforeEach ->
-        catalog = new ModPack
-        catalog.loadBookData {
+        modPack = new ModPack
+        modPack.loadModVersionData {
             version: 1
             mod_name: 'Minecraft'
             mod_version: '1.7.10'
@@ -31,8 +31,10 @@ describe 'CraftingPlan', ->
                 { input:[[2, 'Iron Ingot'], 'Stick'],   tools:'Crafting Table', output:'Iron Sword' }
             ]
         }
+        logger.debug "modPack: #{modPack}"
+        logger.debug "modVersion: #{modPack.modVersions[0]}"
 
-        plan = new CraftingPlan catalog
+        plan = new CraftingPlan modPack
 
     describe 'craft', ->
 
@@ -40,40 +42,40 @@ describe 'CraftingPlan', ->
 
             it 'can craft a single step recipe', ->
                 plan.craft 'Oak Plank'
-                plan.need.toList().should.eql ['Oak Log']
-                plan.result.toList().should.eql [[4, 'Oak Plank']]
+                plan.need.toList().should.eql ['oak_log']
+                plan.result.toList().should.eql [[4, 'oak_plank']]
 
             it 'can craft a multi-step recipe', ->
                 plan.craft 'Crafting Table'
-                plan.need.toList().should.eql ['Oak Log']
-                plan.result.toList().should.eql ['Crafting Table']
+                plan.need.toList().should.eql ['oak_log']
+                plan.result.toList().should.eql ['crafting_table']
 
             it 'can craft a multi-step recipe using tools', ->
                 plan.craft 'Furnace'
-                plan.need.toList().should.eql [[8, 'Cobblestone']]
-                plan.result.toList().should.eql ['Furnace']
+                plan.need.toList().should.eql [[8, 'cobblestone']]
+                plan.result.toList().should.eql ['furnace']
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.craft 'Iron Sword'
-                plan.need.toList().should.eql [[2, 'Iron Ore'], 'Oak Log', [2, '{furnace fuel}']]
-                plan.result.toList().should.eql ['Iron Sword', [2, 'Oak Plank'], [3, 'Stick']]
+                plan.need.toList().should.eql [[2, 'furnace_fuel'], [2, 'iron_ore'], 'oak_log']
+                plan.result.toList().should.eql ['iron_sword', [2, 'oak_plank'], [3, 'stick']]
 
         describe 'with building tools', ->
 
             it 'can craft a multi-step recipe using tools', ->
                 plan.includingTools = true
                 plan.craft 'Furnace'
-                plan.need.toList().should.eql [[8, 'Cobblestone'], 'Oak Log']
-                plan.result.toList().should.eql ['Crafting Table', 'Furnace']
+                plan.need.toList().should.eql [[8, 'cobblestone'], 'oak_log']
+                plan.result.toList().should.eql ['crafting_table', 'furnace']
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.includingTools = true
                 plan.craft 'Iron Sword'
                 plan.need.toList().should.eql [
-                    [8, 'Cobblestone'], [2, 'Iron Ore'], [2, 'Oak Log'], [2, '{furnace fuel}'],
+                    [8, 'cobblestone'], [2, 'furnace_fuel'], [2, 'iron_ore'], [2, 'oak_log']
                 ]
                 plan.result.toList().should.eql [
-                    'Crafting Table', 'Furnace', 'Iron Sword', [2, 'Oak Plank'], [3, 'Stick']
+                    'crafting_table', 'furnace', 'iron_sword', [2, 'oak_plank'], [3, 'stick']
                 ]
 
         describe 'using existing inventory', ->

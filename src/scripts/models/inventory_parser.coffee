@@ -1,11 +1,12 @@
 ###
-# Crafting Guide - inventory_parser.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - inventory_parser.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
 
 Inventory = require './inventory'
+Item      = require './item'
 
 ########################################################################################################################
 
@@ -24,6 +25,6 @@ module.exports = class InventoryParser
             quantity = if match? then parseInt(match[1]) else 1
 
             if name.length > 0
-                inventory.add name, quantity
+                inventory.add new Item(name:name), quantity
 
         return inventory

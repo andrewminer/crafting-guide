@@ -1,9 +1,11 @@
 ###
-# Crafting Guide - main.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - main.coffee
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
 ###
+
+require './underscore_mixins'
 
 views               = require './views'
 Logger              = require './logger'

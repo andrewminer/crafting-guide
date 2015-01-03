@@ -7,7 +7,7 @@
 
 BaseModel = require './base_model'
 {Event}   = require '../constants'
-Item      = require './item'
+Stack     = require './stack'
 
 ########################################################################################################################
 
@@ -17,91 +17,91 @@ module.exports = class Inventory extends BaseModel
         super attributes, options
         @clear()
 
-        Object.defineProperty this, 'isEmpty', get:-> @_names.length is 0
+    Object.defineProperty @prototype, 'isEmpty', get:-> @_slugs.length is 0
 
     # Public Methods ###############################################################################
 
-    add: (name, quantity=1)->
+    add: (item, quantity=1)->
         return if quantity is 0
 
-        item = @_items[name]
-        if not item?
-            item = new Item name:name, quantity:quantity
-            @_items[name] = item
-            @_names.push name
-            @_names.sort()
+        stack = @_stacks[item.slug]
+        if not stack?
+            stack = new Stack item:item, quantity:quantity
+            @_stacks[item.slug] = stack
+            @_slugs.push item.slug
+            @_slugs.sort()
         else
-            item.quantity += quantity
+            stack.quantity += quantity
 
-        @trigger Event.add, this, name, quantity
+        @trigger Event.add, this, item, quantity
         @trigger Event.change, this
         return this
 
     addInventory: (inventory)->
-        inventory.each (item)=> @add item.name, item.quantity
+        inventory.each (stack)=> @add stack.item, stack.quantity
         return this
 
     clear: ->
-        @_items = {}
-        @_names = []
+        @_stacks = {}
+        @_slugs = []
 
     clone: ->
         inventory = new Inventory
-        @each (item)-> inventory.add item.name, item.quantity
+        @each (stack)-> inventory.add stack.item, stack.quantity
         return inventory
 
     each: (onItem)->
-        for name in @_names
-            item = @_items[name]
-            onItem item
+        for slug in @_slugs
+            stack = @_stacks[slug]
+            onItem stack
 
-    hasAtLeast: (name, quantity=1)->
+    hasAtLeast: (slug, quantity=1)->
         if quantity is 0 then return true
 
-        item = @_items[name]
-        return false unless item?
-        return item.quantity >= quantity
+        stack = @_stacks[slug]
+        return false unless stack?
+        return stack.quantity >= quantity
 
     pop: ->
-        name = @_names.pop()
-        return null unless name?
+        slug = @_slugs.pop()
+        return null unless slug?
 
-        item = @_items[name]
-        delete @_items[name]
+        stack = @_stacks[slug]
+        delete @_stacks[slug]
 
-        @trigger Event.remove, this, item.name, item.quantity
+        @trigger Event.remove, this, stack.item, stack.quantity
         @trigger Event.change, this
-        return item
+        return stack
 
-    quantityOf: (name)->
-        item = @_items[name]
-        return 0 unless item?
-        return item.quantity
+    quantityOf: (slug)->
+        stack = @_stacks[slug]
+        return 0 unless stack?
+        return stack.quantity
 
-    remove: (name, quantity=1)->
+    remove: (slug, quantity=1)->
         return if quantity is 0
 
-        item = @_items[name]
-        if not item? then throw new Error "cannot remove #{name} since it is not in this inventory"
-        if item.quantity < quantity
-            throw new Error "cannot remove #{quantity} #{name} because there is only #{item.quantity} in this inventory"
+        stack = @_stacks[slug]
+        if not stack? then throw new Error "cannot remove #{slug} since it is not in this inventory"
+        if stack.quantity < quantity
+            throw new Error "cannot remove #{quantity} #{slug} because there is only #{stack.quantity} in this inventory"
 
-        item.quantity -= quantity
-        if item.quantity is 0
-            delete @_items[name]
-            @_names = _(@_names).without name
+        stack.quantity -= quantity
+        if stack.quantity is 0
+            delete @_stacks[slug]
+            @_slugs = _(@_slugs).without slug
 
-        @trigger Event.remove, this, name, quantity
+        @trigger Event.remove, this, slug, quantity
         @trigger Event.change, this
         return this
 
     toList: ->
         result = []
-        @each (item)->
-            if item.quantity > 1
-                result.push [item.quantity, item.name]
+        @each (stack)->
+            if stack.quantity > 1
+                result.push [stack.quantity, stack.item.slug]
             else
-                result.push item.name
+                result.push stack.item.slug
         return result
 
     # Object Overrides #############################################################################
@@ -110,9 +110,9 @@ module.exports = class Inventory extends BaseModel
         result = [@constructor.name, " (", @cid, ") { items: ["]
 
         needsDelimiter = false
-        @each (item)->
+        @each (stack)->
             if needsDelimiter then result.push ', '
-            result.push item.toString()
+            result.push stack.toString()
             needsDelimiter = true
         result.push ']'
 

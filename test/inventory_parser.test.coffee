@@ -7,6 +7,7 @@
 
 Inventory       = require '../src/scripts/models/inventory'
 InventoryParser = require '../src/scripts/models/inventory_parser'
+Item            = require '../src/scripts/models/item'
 
 ########################################################################################################################
 
@@ -20,22 +21,22 @@ describe 'InventoryParser', ->
 
     it 'returns an empty Inventory for an empty string', ->
         result = parser.parse ''
-        result._names.length.should.equal 0
+        result.toList().should.eql []
 
     it 'can parse a single item without quantity', ->
-        result = parser.parse 'wool'
-        result._items.wool.quantity.should.equal 1
+        result = parser.parse 'Wool'
+        result.toList().should.eql ['wool']
 
     it 'can parse a single item with quantity', ->
         result = parser.parse '4 wool'
-        result._items.wool.quantity.should.equal 4
+        result.toList().should.eql [[4, 'wool']]
 
     it 'can parse multiple mixed-type items', ->
-        result = parser.parse '4 wool\n10 string\nboat\n\n'
+        result = parser.parse '4 Wool\n10 String\nBoat\n\n'
         result.toList().should.eql ['boat', [10, 'string'], [4, 'wool']]
 
     it 're-uses the given inventory object', ->
         inventory = new Inventory
-        inventory.add 'string', 8
-        result = parser.parse '4 wool', inventory
+        inventory.add new Item(name:'String'), 8
+        result = parser.parse '4 Wool', inventory
         result.toList().should.eql [[8, 'string'], [4, 'wool']]

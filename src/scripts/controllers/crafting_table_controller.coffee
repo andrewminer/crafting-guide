@@ -30,7 +30,7 @@ module.exports = class CraftingTableController extends BaseController
 
     onModPackChanged: ->
         return unless @rendered
-        @model.modPack.enableBooksForRecipe @$nameField.val()
+        @model.modPack.enableModsForItem @$nameField.val()
         @_updateNameAutocomplete()
         @_craft()
 
@@ -134,7 +134,7 @@ module.exports = class CraftingTableController extends BaseController
         onChanged = => @onNameFieldChanged()
 
         @$nameField.autocomplete
-            source:    @model.modPack.gatherNames()
+            source:    @model.modPack.gatherRecipeNames()
             delay:     0
             minLength: 0
             change:    onChanged

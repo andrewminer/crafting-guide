@@ -765,6 +765,10 @@
             "input": [[6, "Light Gray Stained Glass"]],
             "tools": "Crafting Table"
         }, {
+            "output": [[8, "Light Gray Stained Glass"]],
+            "input": [[8, "Glass"], "Light Gray Dye"],
+            "tools": "Crafting Table"
+        }, {
             "output": "Light Gray Wool",
             "input": ["Light Gray Dye", "Wool"]
         }, {

@@ -12,26 +12,29 @@ BaseModel = require './base_model'
 module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.output? then throw new Error "attributes.output is required"
-        attributes.input ?= []
-        attributes.tools ?= []
+        if not attributes.input? then throw new Error 'attributes.input is required'
+        if not attributes.output? then throw new Error 'attributes.output is required'
+
+        attributes.pattern ?= (i for i in [0...attributes.input.length]).join('')
+        attributes.tools   ?= []
         super attributes, options
 
-    Object.defineProperty @prototype, 'name', get:-> @output[0].name
+    Object.defineProperty @prototype, 'name', get:-> @output[0].item.name
 
     # Public Methods ###############################################################################
 
     make: (inventory, missing)->
-        for item in @input
-            needed = item.quantity
+        for stack in @input
+            item   = stack.item
+            needed = stack.quantity
             while needed > 0
-                if inventory.hasAtLeast item.name
-                    inventory.remove item.name
+                if inventory.hasAtLeast item.slug
+                    inventory.remove item.slug
                 else
-                    missing.add item.name
+                    missing.add item.slug
 
-        for item in @output
-            inventory.add item.name, item.quantity
+        for stack in @output
+            inventory.add stack.item, stack.quantity
 
         return this
 
@@ -42,26 +45,26 @@ module.exports = class Recipe extends BaseModel
 
         result.push ", input:["
         needsDelimiter = false
-        for inputItem in @input
+        for stack in @input
             if needsDelimiter then result.push ', '
-            result.push inputItem.toString()
+            result.push stack.toString()
             needsDelimiter = true
         result.push ']'
 
         result.push ", output:["
         needsDelimiter = false
-        for outputItem in @output
+        for stack in @output
             if needsDelimiter then result.push ', '
-            result.push outputItem.toString()
+            result.push stack.toString()
             needsDelimiter = true
         result.push ']'
 
         if @tools.length > 0
             result.push ", tools:["
             needsDelimiter = false
-            for tool in @tools
+            for stack in @tools
                 if needsDelimiter then result.push ', '
-                result.push tool.toString()
+                result.push stack.toString()
                 needsDelimiter = true
             result.push ']'
 

@@ -17,9 +17,10 @@ module.exports = class ModVersion extends BaseModel
         if _.isEmpty(attributes.version) then throw new Error 'version cannot be empty'
 
         attributes.description  ?= ''
-        attributes.items        ?= {}
         attributes.enabled      ?= attributes.name in RequiredMods
+        attributes.items        ?= {}
         attributes.names        ?= {}
+        attributes.slug         ?= _.slugify attributes.name
         super attributes, options
 
     # Public Methods ###############################################################################
@@ -27,6 +28,7 @@ module.exports = class ModVersion extends BaseModel
     addItem: (item)->
         if @items[item.slug]? then throw new Error "duplicate item for #{item.slug}"
         @items[item.slug] = item
+        item.modVersion = this
         return this
 
     compareTo: (that)->

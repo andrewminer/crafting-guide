@@ -31,6 +31,8 @@ Event.load.failed    = 'load:failed'    # controller, error message
 Event.load.finished  = 'load:finished'  # controller
 Event.remove         = 'remove'         # collection, item...
 
+exports.ImageUrl = _.template "/data/<%= modSlug %>/images/<%= itemSlug %>.png"
+
 exports.Key = Key = {}
 Key.Return = 13
 

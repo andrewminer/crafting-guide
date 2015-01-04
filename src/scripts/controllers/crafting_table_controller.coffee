@@ -10,6 +10,7 @@ BaseController  = require './base_controller'
 {Event}         = require '../constants'
 InventoryParser = require '../models/inventory_parser'
 {Key}           = require '../constants'
+StackController = require './stack_controller'
 url             = require 'url'
 {UrlParam}      = require '../constants'
 
@@ -23,6 +24,7 @@ module.exports = class CraftingTableController extends BaseController
         super options
 
         @_parser = new InventoryParser
+        @_resetStackControllers()
 
         @model.modPack.on Event.change, => @onModPackChanged()
 
@@ -99,16 +101,17 @@ module.exports = class CraftingTableController extends BaseController
         @$makeList.empty()
         @$resultList.empty()
 
+        makeController = (name, stack)=>
+            controller = new StackController model:stack, modPack:@model.modPack
+            controller.render()
+            this["$#{name}List"].append controller.$el
+            this["_#{name}Controllers"].push controller
+
         if @model.plan?
-            @model.plan.need.each (stack)=>
-                name = @model.modPack.findName stack.itemSlug
-                @$needList.append "<li><span class='quantity'>#{stack.quantity}</span> #{name}</li>"
-            @model.plan.make.each (stack)=>
-                name = @model.modPack.findName stack.itemSlug
-                @$makeList.append "<li><span class='quantity'>#{stack.quantity}</span> #{name}</li>"
-            @model.plan.result.each (stack)=>
-                name = @model.modPack.findName stack.itemSlug
-                @$resultList.append "<li><span class='quantity'>#{stack.quantity}</span> #{name}</li>"
+            @_resetStackControllers()
+            @model.plan.need.each (stack)=> makeController 'need', stack
+            @model.plan.make.each (stack)=> makeController 'make', stack
+            @model.plan.result.each (stack)=> makeController 'result', stack
 
         super
 
@@ -132,6 +135,11 @@ module.exports = class CraftingTableController extends BaseController
 
         @model.craft()
         @refresh()
+
+    _resetStackControllers: ->
+        @_needControllers = []
+        @_makeControllers = []
+        @_resultControllers = []
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

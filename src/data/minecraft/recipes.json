@@ -244,7 +244,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Charcoal",
-            "input": ["{furnace fuel}", "Oak Log"],
+            "input": ["{furnace fuel}", "Oak Wood"],
             "tools": "Furnace"
         }, {
             "output": "Charcoal",
@@ -816,7 +816,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Magenta Stained Glass"]],
-            "input": [[8, "Glass"], "Magenta"],
+            "input": [[8, "Glass"], "Magenta Dye"],
             "tools": "Crafting Table"
         }, {
             "output": [[16, "Magenta Stained Glass Pane"]],
@@ -844,7 +844,7 @@
             "tools": "Cow"
         }, {
             "output": "Minecart",
-            "input": [[5, "Iron"]],
+            "input": [[5, "Iron Ingot"]],
             "tools": "Crafting Table"
         }, {
             "output": "Minecart with Chest",
@@ -901,7 +901,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[4, "Oak Wood Planks"]],
-            "input": "Oak Log"
+            "input": "Oak Wood"
         }, {
             "output": [[6, "Oak Wood Slab"]],
             "input": [[3, "Oak Wood Planks"]],

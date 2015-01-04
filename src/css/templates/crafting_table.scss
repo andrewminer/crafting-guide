@@ -7,17 +7,6 @@ All rights reserved.
 
 .view__crafting_table {
 
-    .quantity {
-        border-radius: 0.75em;
-        background: $color-ice;
-        color: $color-table-background;
-        display: inline-block;
-        text-align: center;
-        min-width: 3em;
-        margin-right: 0.5em;
-        padding: 0 0.5em;
-    }
-
     .recipe_selector {
         background: $color-table-background;
         padding: 1em;
@@ -37,10 +26,6 @@ All rights reserved.
 
     h3 {
         margin-bottom: 0.5em;
-    }
-
-    li {
-        margin: 0.25em 0;
     }
 
     table { background: $color-table-background; width: 100%; }

@@ -44,6 +44,8 @@ module.exports = (grunt)->
         copy:
             data:
                 files: [expand:true, cwd:'./src/data', src:'**/*.json', dest:'./dist/data']
+            data_images:
+                files: [expand:true, cwd:'./src/data', src:'**/*.png', dest:'./dist/data']
             fonts:
                 files: [expand:true, cwd:'./src/fonts', src:'**/*.ttf', dest:'./dist/fonts']
             images:

@@ -17,6 +17,7 @@ module.exports = class Item extends BaseModel
         if not attributes.name? then throw new Error 'attributes.name is required'
 
         attributes.isGatherable ?= false
+        attributes.modVersion   ?= null
         attributes.recipes      ?= []
         attributes.slug         ?= _.slugify attributes.name
         attributes.stackSize    ?= Item.DEFAULT_STACK_SIZE

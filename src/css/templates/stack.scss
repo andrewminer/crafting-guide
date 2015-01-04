@@ -1,0 +1,30 @@
+/*
+Crafting Guide - stack.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+
+.view__stack {
+    position: relative; width: 100%; height: 1.8em;
+
+    .quantity {
+        border-radius: 0.75em;
+        background: $color-ice;
+        color: $color-table-background;
+        display: inline-block;
+        font-size: $font-size-small;
+        text-align: center;
+        min-width: 3em;
+        margin-right: 0.5em;
+        padding: 0 0.5em;
+    }
+
+    .name {
+        padding-right: 2.4em;
+    }
+
+    img {
+        position: absolute; top: 0; right: 0; height: 1.6em; width: 1.6em;
+    }
+}

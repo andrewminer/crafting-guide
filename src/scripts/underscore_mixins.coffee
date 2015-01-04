@@ -12,7 +12,7 @@ _.mixin
 
         result = text.toLowerCase()
         result = result.replace /[^a-zA-Z0-9_]/g, '_'
-        result = result.replace /_+/, '_'
+        result = result.replace /__+/, '_'
         result = result.replace /_$/, ''
         result = result.replace /^_/, ''
         return result

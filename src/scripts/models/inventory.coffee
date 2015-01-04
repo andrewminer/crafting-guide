@@ -55,6 +55,9 @@ module.exports = class Inventory extends BaseModel
             stack = @_stacks[itemSlug]
             onStack stack
 
+    getStack: (itemSlug)->
+        return @_stacks[itemSlug]
+
     hasAtLeast: (itemSlug, quantity=1)->
         if quantity is 0 then return true
 

@@ -110,7 +110,15 @@ module.exports = class CraftingTableController extends BaseController
         if @model.plan?
             @_resetStackControllers()
             @model.plan.need.each (stack)=> makeController 'need', stack
-            @model.plan.make.each (stack)=> makeController 'make', stack
+
+            slugs = {}
+            for recipe in @model.plan.steps
+                slug = recipe.item.slug
+                if not slugs[slug]?
+                    slugs[slug] = true
+                    stack = @model.plan.make.getStack slug
+                    makeController 'make', stack
+
             @model.plan.result.each (stack)=> makeController 'result', stack
 
         super

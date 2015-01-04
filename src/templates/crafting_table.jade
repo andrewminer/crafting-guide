@@ -24,17 +24,17 @@
             input(name="including_tools", type="checkbox")
             | including tools
 
-    table
+    table.main
         tr
-            td.have
+            td.have.list
                 h3: p You have...
-                textarea(name="have", placeholder="For example:\n\n3 wool\n4 iron ingot")
-            td.need
+                textarea(name="have", placeholder="For example:\n\n3 wool\n4 iron ingot", rows="12")
+            td.need.list
                 h3: p You'll need...
-                ul
-            td.make
+                table.list
+            td.make.list
                 h3: p You'll make...
-                ul
-            td.result
+                table.list
+            td.result.list
                 h3: p You'll get...
-                ul
+                table.list

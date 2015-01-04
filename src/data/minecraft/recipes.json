@@ -485,7 +485,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Glistering Melon",
-            "input": [[8, "Gold Nugget"], "Melon (item)"],
+            "input": [[8, "Gold Nugget"], "Melon"],
             "tools": "Crafting Table"
         }, {
             "output": "Glowstone",
@@ -833,11 +833,11 @@
             "input": "Lilac"
         }, {
             "output": "Melon (block)",
-            "input": [[9, "Melon (item)"]],
+            "input": [[9, "Melon"]],
             "tools": "Crafting Table"
         }, {
             "output": "Melon Seeds",
-            "input": "Melon (item)"
+            "input": "Melon"
         }, {
             "output": "Milk",
             "input": "Bucket",
@@ -983,7 +983,7 @@
             "tools": "Brewing Stand"
         }, {
             "output": [[3, "Potion of Fire Resistance (8:00)"]],
-            "input": [[3, "Postion of Fire Resistance (3:00)"], "Redstone"],
+            "input": [[3, "Potion of Fire Resistance (3:00)"], "Redstone"],
             "tools": "Brewing Stand"
         }, {
             "output": [[3, "Potion of Harming"]],
@@ -1103,7 +1103,7 @@
             "tools": "Brewing Stand"
         }, {
             "output": [[3, "Potion of Swiftness II (1:30)"]],
-            "input": [[3, "Potion of Regeneration (0:45)"], "Glowstone"],
+            "input": [[3, "Potion of Swiftness (3:00)"], "Glowstone"],
             "tools": "Brewing Stand"
         }, {
             "output": [[3, "Potion of Water Breathing (3:00)"]],

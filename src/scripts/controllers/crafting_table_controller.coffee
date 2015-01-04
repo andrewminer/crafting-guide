@@ -80,9 +80,9 @@ module.exports = class CraftingTableController extends BaseController
         @$nameField           = @$('input[name="name"]')
         @$quantityField       = @$('select[name="quantity"]')
 
-        @$needList   = @$('td.need ul')
-        @$makeList   = @$('td.make ul')
-        @$resultList = @$('td.result ul')
+        @$needList   = @$('td.need table')
+        @$makeList   = @$('td.make table')
+        @$resultList = @$('td.result table')
 
         @_updateNameAutocomplete()
         @_craft()

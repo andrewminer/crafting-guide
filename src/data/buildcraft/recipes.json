@@ -1,7 +1,7 @@
 {
-    "version": 1,
-    "mod_name": "BuildCraft",
-    "mod_version": "3.0",
+    "dataVersion": 1,
+    "name": "BuildCraft",
+    "version": "3.0",
     "description": "Crafting recipes from BuildCraft, by SpaceToad",
     "recipes": [
         {

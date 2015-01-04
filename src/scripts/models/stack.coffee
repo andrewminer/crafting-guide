@@ -10,40 +10,25 @@ All rights reserved.
 module.exports = class Stack
 
     constructor: (attributes={})->
-        if not attributes.item? then throw new Error 'item is required'
+        if not attributes.itemSlug? then throw new Error 'attributes.itemSlug is required'
         attributes.quantity ?= 1
 
-        @item = attributes.item
+        @itemSlug = attributes.itemSlug
         @quantity = attributes.quantity
-
-    Object.defineProperty @prototype, 'name', get:-> @item?.name
-
-    Object.defineProperty @prototype, 'stackQuantity', get:@getStackQuantity
 
     # Public Methods ###############################################################################
 
     canMerge: (stack)->
-        return @item.slug is stack.item.slug
+        return @itemSlug is stack.itemSlug
 
     merge: (stack)->
         if not @canMerge stack
-            throw new Error "this stack of #{@item.name} cannot merge a stack of #{@stack.name}"
+            throw new Error "this stack of #{@itemSlug} cannot merge a stack of #{@stack.itemSlug}"
 
         @quantity += stack.quantity
         return this
 
-    # Property Methods #############################################################################
-
-    getStackQuantity: ->
-        count = 0
-        extra = @quantity
-        while extra > @item.stackSize
-            extra -= @item.stackSize
-            count += 1
-
-        return count:count, extra:extra
-
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@quantity} #{@item.name}"
+        return "#{@quantity} #{@itemSlug}"

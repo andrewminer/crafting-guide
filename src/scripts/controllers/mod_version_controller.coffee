@@ -33,14 +33,14 @@ module.exports = class ModVersionController extends BaseController
         super
 
     refresh: ->
-        if @model.modName in RequiredMods
+        if @model.name in RequiredMods
             @$enabled.attr 'checked', 'checked'
             @$enabled.attr 'disabled', 'disabled'
         else
             @$enabled.removeAttr 'disabled'
             if @model.enabled then @$enabled.attr('checked', 'checked') else @$enabled.removeAttr('checked')
 
-        @$name.html "#{@model.modName} (#{@model.modVersion})"
+        @$name.html "#{@model.name} (#{@model.version})"
         @$description.html "#{@model.description}"
 
     # Backbone.View Overrides ######################################################################

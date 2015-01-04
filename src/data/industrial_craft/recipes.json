@@ -1,7 +1,7 @@
 {
-    "version": 1,
-    "mod_name": "Industrial Craft",
-    "mod_version": "2.0",
+    "dataVersion": 1,
+    "name": "Industrial Craft",
+    "version": "2.0",
     "description": "Crafting recipes from IndustrialCraft, by Alblaka",
     "recipes": [
         {

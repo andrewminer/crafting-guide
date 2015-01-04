@@ -12,6 +12,7 @@ BaseModel = require './base_model'
 module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
+        if not attributes.item? then throw new Error 'attributes.item is required'
         if not attributes.input? then throw new Error 'attributes.input is required'
         if not attributes.output? then throw new Error 'attributes.output is required'
 
@@ -19,22 +20,22 @@ module.exports = class Recipe extends BaseModel
         attributes.tools   ?= []
         super attributes, options
 
-    Object.defineProperty @prototype, 'name', get:-> @output[0].item.name
+    Object.defineProperty @prototype, 'name', get:-> @item.name
 
     # Public Methods ###############################################################################
 
     make: (inventory, missing)->
         for stack in @input
-            item   = stack.item
-            needed = stack.quantity
+            itemSlug = stack.itemSlug
+            needed   = stack.quantity
             while needed > 0
-                if inventory.hasAtLeast item.slug
-                    inventory.remove item.slug
+                if inventory.hasAtLeast itemSlug
+                    inventory.remove itemSlug
                 else
-                    missing.add item.slug
+                    missing.add itemSlug
 
         for stack in @output
-            inventory.add stack.item, stack.quantity
+            inventory.add stack.itemSlug, stack.quantity
 
         return this
 

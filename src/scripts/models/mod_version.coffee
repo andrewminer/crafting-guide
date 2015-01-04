@@ -13,12 +13,13 @@ BaseModel = require './base_model'
 module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if _.isEmpty(attributes.modName) then throw new Error 'modName cannot be empty'
-        if _.isEmpty(attributes.modVersion) then throw new Error 'modVersion cannot be empty'
+        if _.isEmpty(attributes.name) then throw new Error 'name cannot be empty'
+        if _.isEmpty(attributes.version) then throw new Error 'version cannot be empty'
 
         attributes.description  ?= ''
         attributes.items        ?= {}
-        attributes.enabled      ?= attributes.modName in RequiredMods
+        attributes.enabled      ?= attributes.name in RequiredMods
+        attributes.names        ?= {}
         super attributes, options
 
     # Public Methods ###############################################################################
@@ -29,29 +30,32 @@ module.exports = class ModVersion extends BaseModel
         return this
 
     compareTo: (that)->
-        if this.modName is that.modName then return 0
+        if this.name is that.name then return 0
 
-        thisRequired = this.modName in RequiredMods
-        thatRequired = that.modName in RequiredMods
+        thisRequired = this.name in RequiredMods
+        thatRequired = that.name in RequiredMods
 
         if thisRequired and thatRequired
-            return if this.modName < that.modName then -1 else +1
+            return if this.name < that.name then -1 else +1
         else if thisRequired
             return -1
         else if thatRequired
             return +1
         else
-            return if this.modName < that.modName then -1 else +1
+            return if this.name < that.name then -1 else +1
 
     findItemByName: (name)->
         slug = _.slugify name
         return @items[slug]
 
+    findName: (slug)->
+        return @names[slug]
+
     gatherRecipeNames: (result={})->
         for slug, item of @items
             continue if result[item.slug]
             continue unless item.isCraftable
-            result[item.slug] = value:item.name, label:"#{item.name} (from #{@modName} #{@modVersion})"
+            result[item.slug] = value:item.name, label:"#{item.name} (from #{@name} #{@version})"
 
         return result
 
@@ -60,11 +64,14 @@ module.exports = class ModVersion extends BaseModel
         return false unless item?
         return item.recipes.length > 0
 
+    registerSlug: (slug, name)->
+        @names[slug] = name
+
     # Object Overrides #############################################################################
 
     toString: ->
         return "ModVersion (#{@cid}) {
             enabled:#{@enabled},
-            modName:#{@modName},
-            modVersion:#{@modVersion},
+            name:#{@name},
+            version:#{@version},
             items:#{_.keys(@items).length} items}"

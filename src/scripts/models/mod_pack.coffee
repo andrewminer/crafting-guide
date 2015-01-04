@@ -29,6 +29,16 @@ module.exports = class ModPack extends BaseModel
             if modVersion.hasRecipe name
                 modVersion.enabled = true
 
+    findItem: (itemSlug, options={})->
+        options.includeDisabled ?= false
+
+        for modVersion in @modVersions
+            continue unless modVersion.enabled or options.includeDisabled
+            item = modVersion.items[itemSlug]
+            return item if item?
+
+        return null
+
     findItemByName: (name, options={})->
         options.includeDisabled ?= false
 
@@ -38,6 +48,16 @@ module.exports = class ModPack extends BaseModel
             return item if item?
 
         return null
+
+    findName: (slug, options={})->
+        options.includeDisabled ?= false
+
+        for modVersion in @modVersions
+            continue unless modVersion.enabled or options.includeDisabled
+            name = modVersion.findName slug
+            return name if name
+
+        return slug
 
     gatherRecipeNames: (options={})->
         options.includeDisabled ?= false

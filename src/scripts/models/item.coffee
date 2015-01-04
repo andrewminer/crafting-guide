@@ -27,8 +27,8 @@ module.exports = class Item extends BaseModel
     # Public Methods ###############################################################################
 
     addRecipe: (recipe)->
-        output = recipe.output[0].item
-        if output isnt this then throw new Error "invalid recipe for #{@name} because it makes a #{output.name}"
+        slug = recipe.output[0].itemSlug
+        if slug isnt @slug then throw new Error "invalid recipe for #{@slug} because it makes a #{slug}"
 
         @recipes.push recipe
 

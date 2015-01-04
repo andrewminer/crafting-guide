@@ -1,7 +1,7 @@
 {
-    "version": 1,
-    "mod_name": "Minecraft",
-    "mod_version": "1.7.10",
+    "dataVersion": 1,
+    "name": "Minecraft",
+    "version": "1.7.10",
     "description": "Crafting recipes from vanilla Minecraft",
     "raw_materials": [
         "Coal",

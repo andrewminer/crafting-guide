@@ -19,9 +19,9 @@ describe 'CraftingPlan', ->
     beforeEach ->
         modPack = new ModPack
         modPack.loadModVersionData {
-            version: 1
-            mod_name: 'Minecraft'
-            mod_version: '1.7.10'
+            dataVersion: 1
+            name: 'Minecraft'
+            version: '1.7.10'
             recipes: [
                 { input:'Oak Log',                                              output:[[4, 'Oak Plank']] }
                 { input:[[2, 'Oak Plank']],                                     output:[[4, 'Stick']] }
@@ -31,8 +31,6 @@ describe 'CraftingPlan', ->
                 { input:[[2, 'Iron Ingot'], 'Stick'],   tools:'Crafting Table', output:'Iron Sword' }
             ]
         }
-        logger.debug "modPack: #{modPack}"
-        logger.debug "modVersion: #{modPack.modVersions[0]}"
 
         plan = new CraftingPlan modPack
 

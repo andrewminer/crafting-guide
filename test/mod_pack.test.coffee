@@ -18,15 +18,15 @@ buildcraft = industrialCraft = minecraft = modPack = null
 describe 'ModPack', ->
 
     beforeEach ->
-        minecraft = new ModVersion modName:'Minecraft', modVersion:'1.7.10'
+        minecraft = new ModVersion name:'Minecraft', version:'1.7.10'
         minecraft.addItem new Item name:'Wool'
         minecraft.addItem new Item name:'Bed', recipes:['']
 
-        buildcraft = new ModVersion modName:'Buildcraft', modVersion:'4.0'
+        buildcraft = new ModVersion name:'Buildcraft', version:'4.0'
         buildcraft.addItem new Item name:'Stone Gear', recipes:['']
         buildcraft.addItem new Item name:'Bed', recipes:['']
 
-        industrialCraft = new ModVersion modName:'Industrial Craft', modVersion:'2.0'
+        industrialCraft = new ModVersion name:'Industrial Craft', version:'2.0'
         industrialCraft.addItem new Item name:'Resin'
         industrialCraft.addItem new Item name:'Rubber', recipes:['']
 

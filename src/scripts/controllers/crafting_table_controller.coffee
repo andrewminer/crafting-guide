@@ -100,12 +100,15 @@ module.exports = class CraftingTableController extends BaseController
         @$resultList.empty()
 
         if @model.plan?
-            @model.plan.need.each (item)=>
-                @$needList.append "<li><span class='quantity'>#{item.quantity}</span> #{item.name}</li>"
-            @model.plan.make.each (item)=>
-                @$makeList.append "<li><span class='quantity'>#{item.quantity}</span> #{item.name}</li>"
-            @model.plan.result.each (item)=>
-                @$resultList.append "<li><span class='quantity'>#{item.quantity}</span> #{item.name}</li>"
+            @model.plan.need.each (stack)=>
+                name = @model.modPack.findName stack.itemSlug
+                @$needList.append "<li><span class='quantity'>#{stack.quantity}</span> #{name}</li>"
+            @model.plan.make.each (stack)=>
+                name = @model.modPack.findName stack.itemSlug
+                @$makeList.append "<li><span class='quantity'>#{stack.quantity}</span> #{name}</li>"
+            @model.plan.result.each (stack)=>
+                name = @model.modPack.findName stack.itemSlug
+                @$resultList.append "<li><span class='quantity'>#{stack.quantity}</span> #{name}</li>"
 
         super
 

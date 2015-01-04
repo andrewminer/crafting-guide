@@ -37,6 +37,6 @@ describe 'InventoryParser', ->
 
     it 're-uses the given inventory object', ->
         inventory = new Inventory
-        inventory.add new Item(name:'String'), 8
+        inventory.add 'string', 8
         result = parser.parse '4 Wool', inventory
         result.toList().should.eql [[8, 'string'], [4, 'wool']]

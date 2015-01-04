@@ -16,15 +16,15 @@ modVersion = null
 
 describe 'ModVersion', ->
 
-    beforeEach -> modVersion = new ModVersion modName:'Test', modVersion:'0.0'
+    beforeEach -> modVersion = new ModVersion name:'Test', version:'0.0'
 
     describe 'constructor', ->
 
         it 'requires a mod name', ->
-            expect(-> new ModVersion modVersion:'0.0').to.throw Error, 'modName cannot be empty'
+            expect(-> new ModVersion version:'0.0').to.throw Error, 'name cannot be empty'
 
         it 'requires a mod version', ->
-            expect(-> new ModVersion modName:'Test').to.throw Error, 'modVersion cannot be empty'
+            expect(-> new ModVersion name:'Test').to.throw Error, 'version cannot be empty'
 
         it 'supplies default values', ->
             modVersion.description.should.equal ''
@@ -44,12 +44,12 @@ describe 'ModVersion', ->
     describe 'compareTo', ->
 
         it 'lists required mods first', ->
-            minecraft = new ModVersion modName:'Minecraft', modVersion:'1.7.10'
+            minecraft = new ModVersion name:'Minecraft', version:'1.7.10'
             modVersion.compareTo(minecraft).should.equal +1
             minecraft.compareTo(modVersion).should.equal -1
 
         it 'sorts by name second', ->
-            buildcraft = new ModVersion modName:'Buildcraft', modVersion:'3.0'
+            buildcraft = new ModVersion name:'Buildcraft', version:'3.0'
             modVersion.compareTo(buildcraft).should.equal +1
             buildcraft.compareTo(modVersion).should.equal -1
 

@@ -1,7 +1,7 @@
 {
-    "version": 1,
-    "mod_name": "MoreBlocks",
-    "mod_version": "1.0",
+    "dataVersion": 1,
+    "name": "MoreBlocks",
+    "version": "1.0",
     "description": "Crafting recipes from More Blocks Mod, by MCE626",
     "recipes": [
         {

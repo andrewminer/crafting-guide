@@ -25,6 +25,6 @@ module.exports = class InventoryParser
             quantity = if match? then parseInt(match[1]) else 1
 
             if name.length > 0
-                inventory.add new Item(name:name), quantity
+                inventory.add _.slugify(name), quantity
 
         return inventory

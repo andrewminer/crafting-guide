@@ -20,30 +20,30 @@ describe 'Inventory', ->
 
     beforeEach ->
         inventory = new Inventory
-        inventory.add new Item(name:'Wool'), 4
-        inventory.add new Item(name:'String'), 20
-        inventory.add new Item(name:'Boat')
+        inventory.add 'wool', 4
+        inventory.add 'string', 20
+        inventory.add 'boat'
 
     describe 'add', ->
 
         it 'can add to an empty inventory', ->
-            inventory.add new Item(name:'Iron Ingot'), 4
+            inventory.add 'iron_ingot', 4
             stack = inventory._stacks['iron_ingot']
             stack.constructor.name.should.equal 'Stack'
-            stack.name.should.equal 'Iron Ingot'
+            stack.itemSlug.should.equal 'iron_ingot'
             stack.quantity.should.equal 4
 
         it 'can augment quantity of existing items', ->
-            inventory.add new Item(name:'Wool'), 2
+            inventory.add 'wool', 2
             inventory.toList().should.eql ['boat', [20, 'string'], [6, 'wool']]
 
         it 'can add zero quantity', ->
-            inventory.add new Item(name:'Wool'), 0
+            inventory.add 'wool', 0
             inventory.toList().should.eql ['boat', [20, 'string'], [4, 'wool']]
 
         it 'emits the proper events', ->
             events = new EventRecorder inventory
-            inventory.add new Item(name:'Iron Ingot'), 10
+            inventory.add 'iron_ingot', 10
             events.names.should.eql [Event.add, Event.change]
 
     describe 'addInventory', ->
@@ -55,7 +55,7 @@ describe 'Inventory', ->
 
         it 'can add a mix of new and existing items', ->
             newInventory = new Inventory
-            newInventory.add new Item(name:'String'), 2
+            newInventory.add 'string', 2
             newInventory.addInventory inventory
             newInventory.toList().should.eql ['boat', [22, 'string'], [4, 'wool']]
 
@@ -68,7 +68,6 @@ describe 'Inventory', ->
 
         it 'faithfully copies an existing inventory', ->
             copy = inventory.clone()
-            logger.debug "copy.toList(): #{copy.toList()}"
             copy.toList().should.eql ['boat', [20, 'string'], [4, 'wool']]
 
     describe 'each', ->
@@ -81,17 +80,17 @@ describe 'Inventory', ->
 
         it 'works when items have only been added', ->
             result = []
-            inventory.each (stack)-> result.push stack.name
-            result.should.eql ['Boat', 'String', 'Wool']
+            inventory.each (stack)-> result.push stack.itemSlug
+            result.should.eql ['boat', 'string', 'wool']
 
         it 'works when items have been augmented', ->
-            inventory.add new Item name:'Iron Ingot'
-            inventory.add new Item name:'Boat'
-            inventory.add new Item(name:'Wool'), 2
+            inventory.add 'iron_ingot'
+            inventory.add 'boat'
+            inventory.add 'wool', 2
 
             result = []
-            inventory.each (stack)-> result.push stack.name
-            result.should.eql ['Boat', 'Iron Ingot', 'String', 'Wool']
+            inventory.each (stack)-> result.push stack.itemSlug
+            result.should.eql ['boat', 'iron_ingot', 'string', 'wool']
 
     describe 'hasAtLeast', ->
 
@@ -101,7 +100,7 @@ describe 'Inventory', ->
 
         it 'always returns true for zero quantity', ->
             inventory.hasAtLeast('chicken', 0).should.be.true
-            inventory.hasAtLeast('Wool', 0).should.be.true
+            inventory.hasAtLeast('wool', 0).should.be.true
 
         it 'works for a quantity above 1', ->
             inventory.hasAtLeast('wool', 3).should.be.true
@@ -117,7 +116,7 @@ describe 'Inventory', ->
 
         it 'completely removes the last item', ->
             stack = inventory.pop()
-            stack.name.should.equal 'Wool'
+            stack.itemSlug.should.equal 'wool'
             stack.quantity.should.equal 4
             inventory.toList().should.eql ['boat', [20, 'string']]
 
@@ -134,7 +133,7 @@ describe 'Inventory', ->
 
         it 'throws when the item has insufficient quantity', ->
             expect(-> inventory.remove('wool', 10)).to.throw Error,
-                'cannot remove 10 wool because there is only 4 in this inventory'
+                'cannot remove 10: only 4 wool in this inventory'
 
         it 'removes a single item by default', ->
             inventory.remove 'wool'

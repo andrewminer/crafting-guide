@@ -23,18 +23,18 @@ module.exports = class ModVersionParser
 
     parse: (data)->
         if not data? then throw new Error 'mod description data is missing'
-        if not data.version? then throw new Error 'version is required'
+        if not data.dataVersion? then throw new Error 'dataVersion is required'
 
-        parser = @_parsers["#{data.version}"]
-        if not parser? then throw new Error "cannot parse version #{data.version} mod descriptions"
+        parser = @_parsers["#{data.dataVersion}"]
+        if not parser? then throw new Error "cannot parse version #{data.dataVersion} mod descriptions"
 
         return parser.parse data
 
-    unparse: (modVersion, version=ModVersionParser.CURRENT_VERSION)->
+    unparse: (modVersion, dataVersion=ModVersionParser.CURRENT_VERSION)->
         if not modVersion? then throw new Error 'modVersion is required'
 
-        parser = @_parsers["#{version}"]
-        if not parser? then throw new Error "version #{version} is not supported"
+        parser = @_parsers["#{dataVersion}"]
+        if not parser? then throw new Error "version #{dataVersion} is not supported"
 
         return parser.unparse modVersion
 
@@ -49,7 +49,10 @@ module.exports.V1 = class V1
         return @_parseModVersion data
 
     unparse: (modVersion)->
-        return @_unparseModVersion modVersion
+        @modVersion = modVersion
+        text = @_unparseModVersion modVersion
+        @modVersion = null
+        return text
 
     # Private Methods ##############################################################################
 
@@ -58,27 +61,16 @@ module.exports.V1 = class V1
         if not item?
             item = new Item name:name
             @modVersion.addItem item
+            @modVersion.registerSlug item.slug, item.name
         return item
-
-    _parseItemList: (data, options={})->
-        if not data? then throw new Error "#{@_errorLocation} must have an #{options.field} field"
-
-        if not _.isArray(data) then data = [data]
-
-        result = []
-        for name in data
-            item = @_findOrCreateItem name
-            result.push item
-        return result
 
     _parseModVersion: (data)->
         if not data? then throw new Error 'mod description data is missing'
+        if not data.name? then throw new Error 'name is required'
         if not data.version? then throw new Error 'version is required'
-        if not data.mod_name? then throw new Error 'mod_name is required'
-        if not data.mod_version? then throw new Error 'mod_version is required'
         if not _.isArray(data.recipes) then throw new Error 'recipes must be an array'
 
-        @modVersion = modVersion = new ModVersion modName:data.mod_name, modVersion:data.mod_version
+        @modVersion = modVersion = new ModVersion name:data.name, version:data.version
         modVersion.description = data.description or ''
 
         @_parseRawMaterials data.raw_materials
@@ -86,12 +78,13 @@ module.exports.V1 = class V1
         for index in [0...data.recipes.length]
             @_errorLocation = "recipe #{index + 1}"
             recipeData = data.recipes[index]
-            @_parseRecipe recipeData
+            recipe = @_parseRecipe recipeData
+            recipe._originalIndex = index
 
         @modVersion = null
         return modVersion
 
-    _parseRawMaterials: (data, options={})->
+    _parseRawMaterials: (data)->
         return unless data? and data.length > 0
 
         results = []
@@ -100,21 +93,25 @@ module.exports.V1 = class V1
             item.isGatherable = true
             results.push item
 
-    _parseRecipe: (data, options={})->
+    _parseRecipe: (data)->
         if not data? then throw new Error "recipe data is missing for #{@_errorLocation}"
         if not data.output? then throw new Error "#{@_errorLocation} is missing output"
 
-        output = @_parseStackList data.output, field:'output', canBeEmpty:false
-        item = output[0].item
+        data.output = if _.isArray(data.output) then data.output else [data.output]
+        names = (e for e in _.flatten(data.output) when _.isString(e))
+        if names.length is 0 then throw new Error "#{@_errorLocation} has an empty output list"
+
+        item = @_findOrCreateItem names[0]
         @_errorLocation = "recipe for #{item.name}"
 
         if not data.input? then throw new Error "#{@_errorLocation} is missing input"
         data.tools ?= []
 
-        input = @_parseStackList data.input, field:'input', canBeEmpty:true
-        tools = @_parseItemList data.tools, field:'tools'
+        output = @_parseStackList data.output, field:'output', canBeEmpty:false
+        input  = @_parseStackList data.input,  field:'input',  canBeEmpty:true
+        tools  = @_parseStackList data.tools,  field:'tools',  canBeEmpty:true
 
-        recipe = new Recipe input:input, output:output, tools:tools
+        recipe = new Recipe item:item, input:input, output:output, tools:tools
         item.addRecipe recipe
         return recipe
 
@@ -129,8 +126,11 @@ module.exports.V1 = class V1
         if data.length isnt 2 then throw new Error "#{errorBase} must have at least one element"
         if not _.isNumber(data[0]) then throw new Error "#{errorBase} must start with a number"
 
-        item = @_findOrCreateItem data[1]
-        return new Stack item:item, quantity:data[0]
+        name = data[1]
+        slug = _.slugify name
+        @modVersion.registerSlug slug, name
+
+        return new Stack itemSlug:slug, quantity:data[0]
 
     _parseStackList: (data, options={})->
         if not data? then throw new Error "#{@_errorLocation} must have an #{options.field} field"
@@ -146,25 +146,14 @@ module.exports.V1 = class V1
 
         return result
 
-    _parseItemList: (data, options={})->
-        if not data? then throw new Error "#{@_errorLocation} must have an #{options.field} field"
-
-        if not _.isArray(data) then data = [data]
-
-        result = []
-        for name in data
-            item = @_findOrCreateItem name
-            result.push item
-        return result
-
     # Un-parsing Methods ###########################################################################
 
     _unparseModVersion: (modVersion)->
         result = []
         result.push '{\n'
         result.push '    "version": 1,\n'
-        result.push '    "mod_name": "' + modVersion.modName + '",\n'
-        result.push '    "mod_version": "' + modVersion.modVersion + '",\n'
+        result.push '    "mod_name": "' + modVersion.name + '",\n'
+        result.push '    "mod_version": "' + modVersion.version + '",\n'
         if modVersion.description.length > 0
             result.push '    "description": "' + modVersion.description + '",\n'
 
@@ -209,7 +198,7 @@ module.exports.V1 = class V1
         if recipe.tools.length > 0
             result.push ',\n'
             result.push '            "tools": '
-            @_unparseItemList recipe.tools, result
+            @_unparseStackList recipe.tools, result
 
         result.push '\n'
         return result
@@ -222,9 +211,9 @@ module.exports.V1 = class V1
         else if stackList.length is 1
             stack = stackList[0]
             if stack.quantity is 1
-                result.push '"' + stack.name + '"'
+                result.push '"' + @modVersion.findName(stack.itemSlug) + '"'
             else
-                result.push '[[' + stack.quantity + ', "' + stack.name + '"]]'
+                result.push '[[' + stack.quantity + ', "' + @modVersion.findName(stack.itemSlug) + '"]]'
         else
             result.push '['
 
@@ -233,32 +222,19 @@ module.exports.V1 = class V1
                 stacks.sort (a, b)->
                     if a.quantity isnt b.quantity
                         return if a.quantity > b.quantity then -1 else +1
-                    if a.item.name isnt b.item.name
-                        return if a.item.name < b.item.name then -1 else +1
+                    if a.itemSlug isnt b.itemSlug
+                        return if a.itemSlug < b.itemSlug then -1 else +1
                     return 0
 
             firstItem = true
             for stack in stacks
                 result.push ', ' if not firstItem
                 if stack.quantity is 1
-                    result.push '"' + stack.name + '"'
+                    result.push '"' + @modVersion.findName(stack.itemSlug) + '"'
                 else
-                    result.push '[' + stack.quantity + ', "' + stack.name + '"]'
+                    result.push '[' + stack.quantity + ', "' + @modVersion.findName(stack.itemSlug) + '"]'
                 firstItem = false
 
             result.push ']'
-
-        return result
-
-    _unparseItemList: (itemList, result)->
-        if itemList.length is 1
-            result.push '"'; result.push itemList[0].name; result.push '"'
-        else
-            firstItem = true
-            for item in itemList
-                result.push if firstItem then '["' else '", "'
-                result.push item.name
-                firstItem = false
-            result.push '"]'
 
         return result

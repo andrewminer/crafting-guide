@@ -21,24 +21,24 @@ module.exports = class Inventory extends BaseModel
 
     # Public Methods ###############################################################################
 
-    add: (item, quantity=1)->
+    add: (itemSlug, quantity=1)->
         return if quantity is 0
 
-        stack = @_stacks[item.slug]
+        stack = @_stacks[itemSlug]
         if not stack?
-            stack = new Stack item:item, quantity:quantity
-            @_stacks[item.slug] = stack
-            @_slugs.push item.slug
+            stack = new Stack itemSlug:itemSlug, quantity:quantity
+            @_stacks[itemSlug] = stack
+            @_slugs.push itemSlug
             @_slugs.sort()
         else
             stack.quantity += quantity
 
-        @trigger Event.add, this, item, quantity
+        @trigger Event.add, this, itemSlug, quantity
         @trigger Event.change, this
         return this
 
     addInventory: (inventory)->
-        inventory.each (stack)=> @add stack.item, stack.quantity
+        inventory.each (stack)=> @add stack.itemSlug, stack.quantity
         return this
 
     clear: ->
@@ -47,51 +47,51 @@ module.exports = class Inventory extends BaseModel
 
     clone: ->
         inventory = new Inventory
-        @each (stack)-> inventory.add stack.item, stack.quantity
+        @each (stack)-> inventory.add stack.itemSlug, stack.quantity
         return inventory
 
-    each: (onItem)->
-        for slug in @_slugs
-            stack = @_stacks[slug]
-            onItem stack
+    each: (onStack)->
+        for itemSlug in @_slugs
+            stack = @_stacks[itemSlug]
+            onStack stack
 
-    hasAtLeast: (slug, quantity=1)->
+    hasAtLeast: (itemSlug, quantity=1)->
         if quantity is 0 then return true
 
-        stack = @_stacks[slug]
+        stack = @_stacks[itemSlug]
         return false unless stack?
         return stack.quantity >= quantity
 
     pop: ->
-        slug = @_slugs.pop()
-        return null unless slug?
+        itemSlug = @_slugs.pop()
+        return null unless itemSlug?
 
-        stack = @_stacks[slug]
-        delete @_stacks[slug]
+        stack = @_stacks[itemSlug]
+        delete @_stacks[itemSlug]
 
-        @trigger Event.remove, this, stack.item, stack.quantity
+        @trigger Event.remove, this, stack.itemSlug, stack.quantity
         @trigger Event.change, this
         return stack
 
-    quantityOf: (slug)->
-        stack = @_stacks[slug]
+    quantityOf: (itemSlug)->
+        stack = @_stacks[itemSlug]
         return 0 unless stack?
         return stack.quantity
 
-    remove: (slug, quantity=1)->
+    remove: (itemSlug, quantity=1)->
         return if quantity is 0
 
-        stack = @_stacks[slug]
-        if not stack? then throw new Error "cannot remove #{slug} since it is not in this inventory"
+        stack = @_stacks[itemSlug]
+        if not stack? then throw new Error "cannot remove #{itemSlug} since it is not in this inventory"
         if stack.quantity < quantity
-            throw new Error "cannot remove #{quantity} #{slug} because there is only #{stack.quantity} in this inventory"
+            throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{itemSlug} in this inventory"
 
         stack.quantity -= quantity
         if stack.quantity is 0
-            delete @_stacks[slug]
-            @_slugs = _(@_slugs).without slug
+            delete @_stacks[itemSlug]
+            @_slugs = _(@_slugs).without itemSlug
 
-        @trigger Event.remove, this, slug, quantity
+        @trigger Event.remove, this, itemSlug, quantity
         @trigger Event.change, this
         return this
 
@@ -99,9 +99,9 @@ module.exports = class Inventory extends BaseModel
         result = []
         @each (stack)->
             if stack.quantity > 1
-                result.push [stack.quantity, stack.item.slug]
+                result.push [stack.quantity, stack.itemSlug]
             else
-                result.push stack.item.slug
+                result.push stack.itemSlug
         return result
 
     # Object Overrides #############################################################################

@@ -73,7 +73,7 @@
             "output": [[3, "Black Carpet"]],
             "input": [[2, "Black Wool"]]
         }, {
-            "output": "Black Stained Clay",
+            "output": [[8, "Black Stained Clay"]],
             "input": [[8, "Hardened Clay"], "Ink Sac"],
             "tools": "Crafting Table"
         }, {

@@ -151,9 +151,9 @@ module.exports.V1 = class V1
     _unparseModVersion: (modVersion)->
         result = []
         result.push '{\n'
-        result.push '    "version": 1,\n'
-        result.push '    "mod_name": "' + modVersion.name + '",\n'
-        result.push '    "mod_version": "' + modVersion.version + '",\n'
+        result.push '    "dataVersion": 1,\n'
+        result.push '    "name": "' + modVersion.name + '",\n'
+        result.push '    "version": "' + modVersion.version + '",\n'
         if modVersion.description.length > 0
             result.push '    "description": "' + modVersion.description + '",\n'
 

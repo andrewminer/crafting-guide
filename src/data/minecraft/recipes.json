@@ -44,7 +44,7 @@
             "tools": "Brewing Stand"
         }, {
             "output": "Baked Potato",
-            "input": ["Potato", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Potato"],
             "tools": "Furnace"
         }, {
             "output": "Beacon",
@@ -58,6 +58,9 @@
             "output": "Bed",
             "input": [[3, "Oak Wood Planks"], [3, "Wool"]],
             "tools": "Crafting Table"
+        }, {
+            "output": [[4, "Birch Wood Planks"]],
+            "input": "Birch Wood"
         }, {
             "output": [[6, "Birch Wood Slab"]],
             "input": [[3, "Birch Wood Planks"]],
@@ -241,11 +244,11 @@
             "tools": "Crafting Table"
         }, {
             "output": "Charcoal",
-            "input": ["Oak Log", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Oak Log"],
             "tools": "Furnace"
         }, {
             "output": "Charcoal",
-            "input": ["Oak Wood", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Oak Wood"],
             "tools": "Furnace"
         }, {
             "output": "Chest",
@@ -261,7 +264,7 @@
             "output": "Clay (block)",
             "input": [[4, "Clay (item)"]]
         }, {
-            "output": "Clay Block",
+            "output": "Clay (block)",
             "input": [[4, "Clay"]]
         }, {
             "output": "Clock",
@@ -283,19 +286,19 @@
             "tools": "Crafting Guide"
         }, {
             "output": "Cooked Chicken",
-            "input": ["Raw Chicken", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Raw Chicken"],
             "tools": "Furnace"
         }, {
             "output": "Cooked Fish",
-            "input": ["Raw Fish", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Raw Fish"],
             "tools": "Furnace"
         }, {
             "output": "Cooked Porkchop",
-            "input": ["Raw Porkchop", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Raw Porkchop"],
             "tools": "Furnace"
         }, {
             "output": "Cooked Salmon",
-            "input": ["Raw Salmon", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Raw Salmon"],
             "tools": "Furnace"
         }, {
             "output": "Cookie",
@@ -466,7 +469,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Glass",
-            "input": ["Sand", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Sand"],
             "tools": "Furnace"
         }, {
             "output": [[3, "Glass Bottle"]],
@@ -509,7 +512,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Gold Ingot",
-            "input": ["Gold Ore", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Gold Ore"],
             "tools": "Furnace"
         }, {
             "output": [[9, "Gold Ingot"]],
@@ -634,7 +637,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Iron Ingot",
-            "input": ["Iron Ore", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Iron Ore"],
             "tools": "Furnace"
         }, {
             "output": [[9, "Iron Ingot"]],
@@ -682,7 +685,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Lapis Lazuli",
-            "input": ["Lapis Lazuli Ore", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Lapis Lazuli Ore"],
             "tools": "Furnace"
         }, {
             "output": "Lapis Lazuli Block",
@@ -761,12 +764,12 @@
             "input": [[8, "Hardened Clay"], "Light Gray Dye"],
             "tools": "Crafting Table"
         }, {
-            "output": [[16, "Light Gray Stained Glass Pane"]],
-            "input": [[6, "Light Gray Stained Glass"]],
-            "tools": "Crafting Table"
-        }, {
             "output": [[8, "Light Gray Stained Glass"]],
             "input": [[8, "Glass"], "Light Gray Dye"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[16, "Light Gray Stained Glass Pane"]],
+            "input": [[6, "Light Gray Stained Glass"]],
             "tools": "Crafting Table"
         }, {
             "output": "Light Gray Wool",
@@ -875,7 +878,7 @@
             "input": [[4, "Nether Brick (item)"]]
         }, {
             "output": "Nether Brick (item)",
-            "input": ["Netherrack", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Netherrack"],
             "tools": "Furnace"
         }, {
             "output": [[6, "Nether Brick Fence"]],
@@ -890,7 +893,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Nether Quartz",
-            "input": ["Nether Quartz Ore", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Nether Quartz Ore"],
             "tools": "Furnace"
         }, {
             "output": "Note Block",
@@ -1199,7 +1202,7 @@
             "input": ["Rose Red", "Wool"]
         }, {
             "output": "Redstone",
-            "input": ["Redstone Ore", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Redstone Ore"],
             "tools": "Furnace"
         }, {
             "output": [[9, "Redstone"]],
@@ -1387,7 +1390,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Steak",
-            "input": ["Raw Beef", "{furnace fuel}"],
+            "input": ["{furnace fuel}", "Raw Beef"],
             "tools": "Furnace"
         }, {
             "output": [[4, "Stick"]],

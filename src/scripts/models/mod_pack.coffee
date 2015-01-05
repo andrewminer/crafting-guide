@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - mod_pack.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - mod_pack.coffee
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
 ###
 
 BaseModel        = require './base_model'

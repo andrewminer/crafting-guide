@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - base_controller.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - base_controller.coffee
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
 ###
 
 views = require '../views'

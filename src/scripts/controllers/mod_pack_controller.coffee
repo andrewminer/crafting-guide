@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - mod_pack_controller.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - mod_pack_controller.coffee
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
 ###
 
 BaseController       = require './base_controller'

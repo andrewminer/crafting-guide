@@ -1,8 +1,8 @@
 ###
-# Crafting Guide - router.coffee
-#
-# Copyright (c) 2014 by Redwood Labs
-# All rights reserved.
+Crafting Guide - router.coffee
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
 ###
 
 {Duration}         = require './constants'

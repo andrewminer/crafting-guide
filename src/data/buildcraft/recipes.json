@@ -1,7 +1,7 @@
 {
     "dataVersion": 1,
     "name": "BuildCraft",
-    "version": "3.0",
+    "version": "6.2.6",
     "description": "Crafting recipes from BuildCraft, by SpaceToad",
     "recipes": [
         {
@@ -9,42 +9,66 @@
             "input": [[6, "Obsidian"], "Chest", "Crafting Table", "Redstone Chipset"],
             "tools": "Crafting Table"
         }, {
+            "output": "Architect Table",
+            "input": [[2, "Dandelion Yellow"], [2, "Diamond Gear"], [2, "Ink Sac"], "Blueprint", "Crafting Table", "Landmark"],
+            "tools": "Crafting Table"
+        }, {
             "output": "Assembly Table",
             "input": [[6, "Obsidian"], "Diamond", "Diamond Gear", "Redstone"],
             "tools": "Crafting Table"
         }, {
-            "output": "Automatic Crafting Table",
+            "output": "Auto Workbench",
             "input": [[4, "Wooden Gear"], "Crafting Table"],
             "tools": "Crafting Table"
         }, {
             "output": "Basic Gate",
-            "input": "Redstone Chipset",
+            "input": ["Red Pipe Wire", "Redstone Chipset"],
             "tools": ["Assembly Table", "Laser"]
         }, {
             "output": [[8, "Blue Pipe Wire"]],
             "input": ["Iron Ingot", "Lapis Lazuli", "Redstone"],
             "tools": ["Assembly Table", "Laser"]
         }, {
+            "output": "Blueprint",
+            "input": [[8, "Paper"], "Lapis Lazuli"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Blueprint Library",
+            "input": [[8, "Blueprint"], "Bookshelf"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Builder",
+            "input": [[2, "Dandelion Yellow"], [2, "Diamond Gear"], [2, "Ink Sac"], "Chest", "Crafting Table", "Landmark"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Charging Table",
+            "input": [[6, "Obsidian"], "Gold Gear", "Redstone", "Redstone Chipset"],
+            "tools": "Crafting Table"
+        }, {
             "output": "Chute",
             "input": [[5, "Iron Ingot"], "Chest", "Cobblestone Gear"],
             "tools": "Crafting Table"
         }, {
-            "output": "Cobblestone Conductive Pipe",
-            "input": ["Cobblestone Pipe", "Redstone"]
+            "output": "Cobblestone Fluid Pipe",
+            "input": ["Cobblestone Transport Pipe", "Pipe Sealant"]
         }, {
             "output": "Cobblestone Gear",
             "input": [[4, "Cobblestone"], "Wooden Gear"],
             "tools": "Crafting Table"
         }, {
-            "output": [[8, "Cobblestone Pipe"]],
+            "output": "Cobblestone Kinesis Pipe",
+            "input": ["Cobblestone Transport Pipe", "Redstone"]
+        }, {
+            "output": [[8, "Cobblestone Transport Pipe"]],
             "input": [[2, "Cobblestone"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Cobblestone Waterproof Pipe",
-            "input": ["Cobblestone Pipe", "Pipe Waterproof"]
-        }, {
             "output": "Combustion Engine",
             "input": [[3, "Iron Ingot"], [2, "Iron Gear"], "Glass", "Piston"],
+            "tools": "Crafting Table"
+        }, {
+            "output": [[8, "Daizuli Transport Pipe"]],
+            "input": ["Block of Lapis Lazuli", "Diamond", "Glass"],
             "tools": "Crafting Table"
         }, {
             "output": "Diamond AND Gate",
@@ -55,27 +79,45 @@
             "input": ["Diamond", "Redstone"],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": "Diamond Conductive Pipe",
-            "input": ["Diamond Pipe", "Redstone"]
+            "output": "Diamond Fluid Pipe",
+            "input": ["Diamond Transport Pipe", "Pipe Sealant"]
         }, {
             "output": "Diamond Gear",
             "input": [[4, "Diamond"], "Gold Gear"],
             "tools": "Crafting Table"
         }, {
+            "output": "Diamond Kinesis Pipe",
+            "input": ["Diamond Transport Pipe", "Redstone"]
+        }, {
             "output": "Diamond OR Gate",
             "input": ["Blue Pipe Wire", "Diamond Chipset", "Green Pipe Wire", "Red Pipe Wire", "Yellow Pipe Wire"],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[8, "Diamond Pipe"]],
+            "output": "Diamond Transport Pipe",
             "input": [[2, "Diamond"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": [[8, "Emerald Pipe"]],
+            "output": "Docking Station",
+            "input": [[3, "Iron Ingot"], "Gold Chipset"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Emerald Chipset",
+            "input": ["Emerald", "Redstone"],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "Emerald Fluid Pipe",
+            "input": ["Emerald Transport Pipe", "Pipe Sealant"]
+        }, {
+            "output": "Emerald Kinesis Pipe",
+            "input": ["Emerald Transport Pipe", "Redstone"]
+        }, {
+            "output": [[8, "Emerald Transport Pipe"]],
             "input": [[2, "Emerald"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Emerald Waterproof Pipe",
-            "input": ["Emerald Pipe", "Pipe Waterproof"]
+            "output": [[8, "Emzuli Transport Pipe"]],
+            "input": ["Block of Lapis Lazuli", "Emerald", "Glass"],
+            "tools": "Crafting Table"
         }, {
             "output": "Facade",
             "input": [[3, "Structure Pipe"], "source block"],
@@ -85,6 +127,17 @@
             "input": [[2, "Dandelion Yellow"], [2, "Gold Gear"], [2, "Ink Sac"], "Chest", "Crafting Table", "Landmark"],
             "tools": "Crafting Table"
         }, {
+            "output": "Filtered Buffer",
+            "input": [[6, "Oak Wood Planks"], "Chest", "Diamond Transport Pipe", "Piston"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Flood Gate",
+            "input": [[4, "Iron Ingot"], [3, "Iron Bars"], "Iron Gear", "Tank"],
+            "tools": "Crafting Guide"
+        }, {
+            "output": "Gate Copier",
+            "input": ["Redstone Chipset", "Wrench"]
+        }, {
             "output": "Gold AND Gate",
             "input": ["Blue Pipe Wire", "Gold Chipset", "Red Pipe Wire"],
             "tools": ["Assembly Table", "Laser"]
@@ -92,9 +145,6 @@
             "output": "Gold Chipset",
             "input": ["Gold Ingot", "Redstone"],
             "tools": ["Assembly Table", "Laser"]
-        }, {
-            "output": "Gold Conductive Pipe",
-            "input": ["Gold Pipe", "Redstone"]
         }, {
             "output": "Gold Gear",
             "input": [[4, "Gold Ingot"], "Iron Gear"],
@@ -104,16 +154,23 @@
             "input": ["Blue Pipe Wire", "Gold Chipset", "Red Pipe Wire"],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[8, "Gold Pipe"]],
+            "output": "Golden Fluid Pipe",
+            "input": ["Golden Transport Pipe", "Pipe Sealant"]
+        }, {
+            "output": "Golden Kinesis Pipe",
+            "input": ["Golden Transport Pipe", "Redstone"]
+        }, {
+            "output": [[8, "Golden Transport Pipe"]],
             "input": [[2, "Gold Ingot"], "Glass"],
             "tools": "Crafting Table"
-        }, {
-            "output": "Gold Waterproof Pipe",
-            "input": ["Gold Pipe", "Pipe Waterproof"]
         }, {
             "output": [[8, "Green Pipe Wire"]],
             "input": ["Cactus Green", "Iron Ingot", "Redstone"],
             "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "Integration Table",
+            "input": [[6, "Obsidian"], "Diamond Gear", "Redstone", "Redstone Chipset"],
+            "tools": "Crafting Table"
         }, {
             "output": "Iron AND Gate",
             "input": ["Iron Chipset", "Red Pipe Wire"],
@@ -123,20 +180,23 @@
             "input": ["Iron Ingot", "Redstone"],
             "tools": ["Assembly Table", "Laser"]
         }, {
+            "output": "Iron Fluid Pipe",
+            "input": ["Iron Transport Pipe", "Pipe Sealant"]
+        }, {
             "output": "Iron Gear",
             "input": [[4, "Iron Ingot"], "Cobblestone Gear"],
             "tools": "Crafting Table"
+        }, {
+            "output": "Iron Kinesis Pipe",
+            "input": ["Iron Transport Pipe", "Redstone"]
         }, {
             "output": "Iron OR Gate",
             "input": ["Iron Chipset", "Red Pipe Wire"],
             "tools": ["Assembly Table", "Laser"]
         }, {
-            "output": [[8, "Iron Pipe"]],
+            "output": [[8, "Iron Transport Pipe"]],
             "input": [[2, "Iron Ingot"], "Glass"],
             "tools": "Crafting Table"
-        }, {
-            "output": "Iron Waterproof Pipe",
-            "input": ["Iron Pipe", "Pipe Waterproof"]
         }, {
             "output": "Landmark",
             "input": ["Lapis Lazuli", "Redstone Torch"],
@@ -146,22 +206,52 @@
             "input": [[5, "Redstone"], [2, "Diamond"], [2, "Obsidian"]],
             "tools": "Crafting Table"
         }, {
+            "output": [[8, "Lazuli Transport Pipe"]],
+            "input": [[2, "Block of Lapis Lazuli"], "Glass"],
+            "tools": "Crafting Table"
+        }, {
             "output": "Mining Well",
             "input": [[6, "Iron Ingot"], "Iron Gear", "Iron Pickaxe", "Redstone"],
             "tools": "Crafting Table"
         }, {
-            "output": [[8, "Obsidian Pipe"]],
+            "output": [[8, "Obsidian Transport Pipe"]],
             "input": [[2, "Obsidian"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Pipe Waterproof",
+            "output": "Path Mark",
+            "input": ["Cactus Green", "Redstone Torch"]
+        }, {
+            "output": [[6, "Pipe Facade"]],
+            "input": [[3, "Support Pipe"], "Stone"],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "Pipe Plug",
+            "input": "Support Pipe",
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "Pipe Sealant",
             "input": "Cactus Green"
+        }, {
+            "output": "Pulsating Chipset",
+            "input": ["Ender Pearl", "Redstone"],
+            "tools": ["Assembly Table", "Laser"]
         }, {
             "output": "Pump",
             "input": ["Mining Well", "Tank"]
         }, {
             "output": "Quarry",
             "input": [[3, "Iron Gear"], [2, "Diamond Gear"], [2, "Gold Gear"], "Diamond Pickaxe", "Redstone"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Quartz Chipset",
+            "input": ["Nether Quartz", "Redstone"],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "Quartz Kinesis Pipe",
+            "input": ["Quartz Transport Pipe", "Redstone"]
+        }, {
+            "output": [[8, "Quartz Transport Pipe"]],
+            "input": [[2, "Block of Quartz"], "Glass"],
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Red Pipe Wire"]],
@@ -172,71 +262,93 @@
             "input": "Redstone",
             "tools": ["Assembly Table", "Laser"]
         }, {
+            "output": "Redstone Comp Chipset",
+            "input": ["Redstone", "Redstone Comparator"],
+            "tools": ["Assembly Table", "Laser"]
+        }, {
             "output": "Redstone Engine",
-            "input": [[3, "Oak Plank"], [2, "Wooden Gear"], "Glass", "Piston"],
+            "input": [[3, "Oak Wood Planks"], [2, "Wooden Gear"], "Glass", "Piston"],
             "tools": "Crafting Table"
         }, {
             "output": "Refinery",
             "input": [[3, "Tank"], [2, "Redstone Torch"], "Diamond Gear"],
             "tools": "Crafting Table"
         }, {
-            "output": [[8, "Sandstone Pipe"]],
-            "input": [[2, "Sandstone"], "Glass"],
+            "output": "Requester",
+            "input": [[4, "Iron Ingot"], [2, "Iron Gear"], "Chest", "Piston", "Redstone"],
             "tools": "Crafting Table"
         }, {
-            "output": "Sandstone Waterproof Pipe",
-            "input": ["Pipe Waterproof", "Sandstone Pipe"]
+            "output": "Sandstone Fluid Pipe",
+            "input": ["Pipe Sealant", "Sandstone Transport Pipe"]
+        }, {
+            "output": [[8, "Sandstone Transport Pipe"]],
+            "input": [[2, "Sandstone"], "Glass"],
+            "tools": "Crafting Table"
         }, {
             "output": "Stirling Engine",
             "input": [[3, "Cobblestone"], [2, "Cobblestone Gear"], "Glass", "Piston"],
             "tools": "Crafting Table"
         }, {
-            "output": "Stone Conductive Pipe",
-            "input": ["Redstone", "Stone Pipe"]
+            "output": "Stone Fluid Pipe",
+            "input": ["Pipe Sealant", "Stone Transport Pipe"]
+        }, {
+            "output": "Stone Kinesis Pipe",
+            "input": ["Redstone", "Stone Transport Pipe"]
         }, {
             "output": [[8, "Stone Pipe"]],
             "input": [[2, "Stone"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Stone Waterproof Pipe",
-            "input": ["Pipe Waterproof", "Stone Pipe"]
-        }, {
-            "output": [[8, "Stripe Pipe"]],
-            "input": ["Dandelion Yellow", "Glass", "Ink Sac"],
+            "output": [[8, "Stripes Transport Pipe"]],
+            "input": [[2, "Gold Gear"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Structure Pipe",
-            "input": ["Cobblestone Pipe", "Gravel"]
+            "output": "Support Pipe",
+            "input": ["Cobblestone Transport Pipe", "Gravel"]
         }, {
             "output": "Tank",
             "input": [[8, "Glass"]],
             "tools": "Crafting Table"
         }, {
-            "output": [[8, "Void Pipe"]],
+            "output": "Template",
+            "input": [[8, "Paper"], "Ink Sac"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Void Fluid Pipe",
+            "input": ["Pipe Sealant", "Void Transport Pipe"]
+        }, {
+            "output": [[8, "Void Transport Pipe"]],
             "input": ["Glass", "Ink Sac", "Redstone"],
             "tools": "Crafting Table"
         }, {
-            "output": "Wooden Conductive Pipe",
-            "input": ["Redstone", "Wooden Pipe"]
+            "output": "Wooden Fluid Pipe",
+            "input": ["Pipe Sealant", "Wooden Transport Pipe"]
         }, {
             "output": "Wooden Gear",
             "input": [[4, "Stick"]],
             "tools": "Crafting Table"
         }, {
-            "output": [[8, "Wooden Pipe"]],
-            "input": [[2, "Oak Plank"], "Glass"],
+            "output": "Wooden Kinesis Pipe",
+            "input": ["Redstone", "Wooden Transport Pipe"]
+        }, {
+            "output": "Wooden Kinesis Pipe",
+            "input": ["Redstone", "Wooden Transport Pipe"]
+        }, {
+            "output": [[8, "Wooden Transport Pipe"]],
+            "input": [[2, "Oak Wood Planks"], "Glass"],
             "tools": "Crafting Table"
         }, {
-            "output": "Wooden Waterproof Pipe",
-            "input": ["Pipe Waterproof", "Wooden Pipe"]
-        }, {
-            "output": "Wrench (buildcraft)",
+            "output": "Wrench",
             "input": [[3, "Iron Ingot"], "Cobblestone Gear"],
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Yellow Pipe Wire"]],
             "input": ["Dandelion Yellow", "Iron Ingot", "Redstone"],
             "tools": ["Assembly Table", "Laser"]
+        }, {
+            "output": "Zone Planner",
+            "input": [[4, "Iron Ingot"], [2, "Gold Gear"], "Diamond Gear", "Empty Map", "Redstone"],
+            "tools": "Crafting Table"
         }
     ]
 }

@@ -27,7 +27,7 @@ describe 'CraftingPlan', ->
                 { input:[[2, 'Oak Plank']],                                     output:[[4, 'Stick']] }
                 { input:[[4, 'Oak Plank']],                                     output:'Crafting Table' }
                 { input:[[8, 'Cobblestone']],           tools:'Crafting Table', output:'Furnace' }
-                { input:['Iron Ore', '{furnace fuel}'], tools:'Furnace',        output:'Iron Ingot' }
+                { input:['Iron Ore', 'furnace fuel'], tools:'Furnace',        output:'Iron Ingot' }
                 { input:[[2, 'Iron Ingot'], 'Stick'],   tools:'Crafting Table', output:'Iron Sword' }
             ]
         }

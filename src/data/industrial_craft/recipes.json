@@ -99,7 +99,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Ingot",
-            "input": ["Bronze Dust", "{furnace fuel}"],
+            "input": ["Bronze Dust", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Bronze Leggings",
@@ -225,7 +225,7 @@
             "tools": "Macerator"
         }, {
             "output": "Copper Ingot",
-            "input": ["Copper Ore", "{furnace fuel}"],
+            "input": ["Copper Ore", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Core Heat Exchanger",
@@ -684,7 +684,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Refined Iron",
-            "input": ["Iron Ingot", "{furnace fuel}"],
+            "input": ["Iron Ingot", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Refined Uranium",
@@ -708,7 +708,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Rubber",
-            "input": ["Resin", "{furnace fuel}"],
+            "input": ["Resin", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Rubber Boots",
@@ -736,7 +736,7 @@
             "tools": "Macerator"
         }, {
             "output": "Silver Ingot",
-            "input": ["Silver Ore", "{furnace fuel}"],
+            "input": ["Silver Ore", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": [[5, "Single-Use Battery"]],
@@ -831,7 +831,7 @@
             "tools": "Macerator"
         }, {
             "output": "Tin Ingot",
-            "input": ["Tin Ore", "{furnace fuel}"],
+            "input": ["Tin Ore", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Toolbox",

@@ -25,7 +25,7 @@
             "input": ["Gold Dust", "Silver Dust"]
         }, {
             "output": "Electrum Ingot",
-            "input": ["Electrum Blend", "{furnace fuel}"],
+            "input": ["Electrum Blend", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Energetic Infuser",
@@ -84,7 +84,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Invar Ingot",
-            "input": ["Invar Blend", "{furnace fuel}"],
+            "input": ["Invar Blend", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Item Tesseract",
@@ -92,7 +92,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Lead Ingot",
-            "input": ["Lead Ore", "{furnace fuel}"],
+            "input": ["Lead Ore", "furnace fuel"],
             "tools": "Furnace"
         }, {
             "output": "Liquid Tesseract",
@@ -187,7 +187,7 @@
             "tools": "Pulverizer"
         }, {
             "output": "Shiny Ingot",
-            "input": ["Shiny Dust", "{furnace fuel}"],
+            "input": ["Shiny Dust", "furnace fuel"],
             "tools": "Crafting Table"
         }, {
             "output": "Steam Engine",

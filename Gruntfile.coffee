@@ -92,7 +92,6 @@ module.exports = (grunt)->
                 options:
                     client: true
                     node: true
-                    pretty: true
                     processName: (f)->
                         f = f.replace './src/templates/', ''
                         f = f.replace '_view', ''

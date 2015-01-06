@@ -21,6 +21,7 @@ module.exports = class CraftingTable extends BaseModel
         attributes.includingTools ?= false
         attributes.have           ?= new Inventory
         attributes.plan           ?= null
+        attributes.want           ?= new Inventory
         super attributes, options
 
     # Public Methods ###############################################################################

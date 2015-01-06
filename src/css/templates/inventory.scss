@@ -1,0 +1,85 @@
+/*
+Crafting Guide - inventory.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__inventory {
+    min-height: 14em;
+    width: 100%;
+
+    .edit td {
+        padding-top: 1em;
+    }
+
+    .panel {
+        position: absolute; top: 5em; right: 2em; bottom: 0; left: 2em;
+        background: $color-table-background;
+        text-align: right;
+    }
+
+    .scrollbox {
+        position: absolute; top: 0em; right: 0em; bottom: 3em; left: 0em;
+        padding: 0.5em 1em;
+        overflow: auto;
+    }
+
+    .toolbar {
+        position: absolute; right: 0; bottom: 0; left: 0; height: 3em;
+        background: $color-toolbar-background;
+        border-top: 1px solid $color-gray-light;
+    }
+
+    button[name="clear"] {
+        position: absolute; bottom: 0.5em; right: 0.5em;
+    }
+
+    input {
+        border: 1px solid $color-gray-light;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        height: 3.6em;
+        padding-bottom: 0.25em;
+
+        &:nth-child(1) {
+            width: 3.6em;
+
+            input {
+                border-radius: 0.75em;
+                margin: 0 auto;
+                text-align: center;
+                width: 90%;
+            }
+        }
+
+        &:nth-child(2) {
+            @include box-sizing(content-box);
+            padding: 0 2.0em 0 1.0em;
+
+            input {
+                height: 100%; width: 100%;
+                border: 0;
+                border-bottom: 1px dashed $color-gray-light;
+                outline: 0;
+
+                &:focus {
+                    border: 1px solid $color-gray-light;
+                }
+            }
+        }
+
+        &:nth-child(3) {
+            width: 3.6em;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}

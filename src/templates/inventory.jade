@@ -1,0 +1,20 @@
+//-
+//- Crafting Guide - inventory.jade
+//-
+//- Copyright (c) 2014-2015 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__inventory
+    h2
+        img.icon
+        p.title
+    .panel
+        .scrollbox
+            table
+                tr.edit
+                    td: input(name="quantity")
+                    td(width="*"): input(name="name")
+                    td: button(name="add") add
+        .toolbar
+            button(name="clear") clear

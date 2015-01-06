@@ -1,0 +1,19 @@
+/*
+Crafting Guide - item_page.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__item_page {
+    & > div {
+        display: inline-block;
+        padding: 0 2em;
+        position: relative;
+        vertical-align: top;
+    }
+
+    .view__inventory { width: 50%; height: 26em; }
+
+    .view__crafting_table, .view__mod_pack { margin-top: 2em; width: 100%; }
+}

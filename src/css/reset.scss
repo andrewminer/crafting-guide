@@ -41,6 +41,7 @@ th,td,caption {
     font-weight: normal;
     vertical-align: top;
     text-align: left;
+    @include box-sizing(border-box);
 }
 
 q {

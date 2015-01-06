@@ -44,6 +44,7 @@ module.exports = class Inventory extends BaseModel
     clear: ->
         @_stacks = {}
         @_slugs = []
+        @trigger 'change', self
 
     clone: ->
         inventory = new Inventory

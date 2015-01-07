@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController          = require './base_controller'
 CraftingTableController = require './crafting_table_controller'
+ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
 ItemPage                = require '../models/item_page'
 ModPackController       = require './mod_pack_controller'
@@ -17,6 +18,7 @@ module.exports = class ItemPageController extends BaseController
 
     constructor: (options={})->
         options.model        ?= new ItemPage
+        options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName  = 'item_page'
         super options
 
@@ -35,26 +37,29 @@ module.exports = class ItemPageController extends BaseController
 
     onDidRender: ->
         options =
-            editable: true,
-            model:    @model.plan.have,
-            modPack:  @model.modPack,
-            title:    'Items you have'
+            editable:    true,
+            imageLoader: @imageLoader
+            model:       @model.plan.have,
+            modPack:     @model.modPack,
+            title:       'Items you have'
         @haveController = @addChild InventoryController, '.have', options
 
         options =
-            editable: true
-            icon:     '/images/fishing_rod.png',
-            model:    @model.plan.want,
-            modPack:  @model.modPack,
-            title:    'Items you want'
+            editable:    true
+            icon:        '/images/fishing_rod.png',
+            imageLoader: @imageLoader
+            model:       @model.plan.want,
+            modPack:     @model.modPack,
+            title:       'Items you want'
         @wantController = @addChild InventoryController, '.want', options
 
         options =
-            editable: false
-            icon:     '/images/boots.png',
-            model:    @model.plan.need,
-            modPack:  @model.modPack,
-            title:    "Items you'll need"
+            editable:    false
+            icon:        '/images/boots.png',
+            imageLoader: @imageLoader
+            model:       @model.plan.need,
+            modPack:     @model.modPack,
+            title:       "Items you'll need"
         @needController = @addChild InventoryController, '.need', options
 
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack

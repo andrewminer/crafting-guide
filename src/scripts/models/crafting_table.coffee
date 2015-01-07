@@ -15,42 +15,11 @@ Inventory    = require './inventory'
 module.exports = class CraftingTable extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.modPack? then throw new Error "attributes.modPack is required"
-        attributes.name           ?= null
-        attributes.quantity       ?= 1
-        attributes.includingTools ?= false
-        attributes.have           ?= new Inventory
-        attributes.plan           ?= null
-        attributes.want           ?= new Inventory
+        if not attributes.plan? then throw new Error "attributes.plan is required"
+        attributes.step ?= 0
         super attributes, options
-
-    Object.defineProperty @prototype, 'need', -> @plan?.need
-
-    # Public Methods ###############################################################################
-
-    craft: ->
-        if not @modPack.hasRecipe @name
-            @plan = null
-            return
-
-        toolPhrase = if @includingTools then ' including tools' else ''
-        logger.verbose "calculating build plan for #{@quantity} #{@name}#{toolPhrase} with inventory: #{@have}"
-
-        @modPack.enableModsForItem @name
-
-        plan = new CraftingPlan @modPack, @includingTools
-        plan.includingTools = @includingTools
-        plan.craft @name, @quantity, @have
-
-        @plan = plan
 
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@constructor.name} (#{@cid}) {
-            name:#{@name},
-            quantity:#{@quantity},
-            includingTools:#{@includingTools},
-            have:#{@have},
-            plan:#{@plan}
-        }"
+        return "#{@constructor.name} (#{@cid}) { plan:#{@plan}, step:#{@step} }"

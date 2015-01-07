@@ -8,6 +8,7 @@ All rights reserved.
 BaseController  = require './base_controller'
 {Duration}      = require '../constants'
 {Key}           = require '../constants'
+ImageLoader     = require './image_loader'
 StackController = require './stack_controller'
 
 ########################################################################################################################
@@ -22,14 +23,17 @@ module.exports = class InventoryController extends BaseController
 
         options.icon         ?= '/images/chest_front.png'
         options.editable     ?= true
-        options.templateName  = 'inventory'
+        options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.title        ?= 'Inventory'
+
+        options.templateName  = 'inventory'
         super options
 
-        @editable = options.editable
-        @icon     = options.icon
-        @modPack  = options.modPack
-        @title    = options.title
+        @editable    = options.editable
+        @icon        = options.icon
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
+        @title       = options.title
 
         @_stackControllers = []
 
@@ -114,9 +118,10 @@ module.exports = class InventoryController extends BaseController
         @_stackControllers = []
         @model.each (stack)=>
             options =
-                model:   stack
-                modPack: @modPack
-                onRemove: if not @editable then null else (stack)=> @_removeStack(stack)
+                imageLoader: @imageLoader
+                model:       stack
+                modPack:     @modPack
+                onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
 
             controller = new StackController options
             controller.render()

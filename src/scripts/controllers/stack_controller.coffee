@@ -6,7 +6,8 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
-{ImageUrl} = require '../constants'
+{ImageUrl}     = require '../constants'
+ImageLoader    = require './image_loader'
 
 ########################################################################################################################
 
@@ -15,20 +16,12 @@ module.exports = class StackController extends BaseController
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
+        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'stack'
         super options
 
-        @modPack = options.modPack
-        @_loadImage()
-
-    # Event Methods ################################################################################
-
-    onImageLoaded: ->
-        return if @_image.loaded
-
-        logger.trace "#{@constructor.name}.onImageLoaded(#{@_image.src})"
-        @_image.loaded = true
-        @$image.attr 'src', @_image.src
+        @modPack      = options.modPack
+        @_imageLoader = options.imageLoader
 
     # BaseController Overrides #####################################################################
 
@@ -39,10 +32,12 @@ module.exports = class StackController extends BaseController
         super
 
     refresh: ->
-        {itemName} = @_gatherData()
+        {itemName, itemSlug, modSlug} = @_gatherData()
+        imageUrl = ImageUrl itemSlug:itemSlug, modSlug:modSlug
+
         @$nameField.html itemName
         @$quantityField.html @model.quantity
-        @$image.attr 'src', (if @_image?.loaded then @_image.src else '/images/unknown.png')
+        @_imageLoader.load imageUrl, @$image
         super
 
     # Private Methods ##############################################################################
@@ -58,14 +53,3 @@ module.exports = class StackController extends BaseController
             modSlug = 'minecraft'
 
         return itemName:itemName, itemSlug:itemSlug, modSlug:modSlug
-
-    _loadImage: ->
-        {itemSlug, modSlug} = @_gatherData()
-        url = ImageUrl(modSlug:modSlug, itemSlug:itemSlug)
-        return if @$image?.attr('src').indexOf(url) is -1
-
-        @_image = new Image()
-        @_image.loaded = false
-        @_image.onload = => @onImageLoaded()
-        @_image.src = url
-        logger.verbose "loading image: #{url}"

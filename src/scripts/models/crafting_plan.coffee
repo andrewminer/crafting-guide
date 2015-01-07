@@ -14,41 +14,57 @@ module.exports = class CraftingPlan
     constructor: (@modPack, includingTools)->
         if not @modPack then throw new Error 'modPack is required'
         @includingTools = if includingTools then true else false
+
+        @have   = new Inventory
+        @want   = new Inventory
+        @need   = new Inventory
+        @result = new Inventory
+
+        @have.on 'change', => @craft()
+        @want.on 'change', => @craft()
+
         @clear()
 
     # Public Methods ###############################################################################
 
     clear: ->
-        @make       = new Inventory
-        @need       = new Inventory
-        @result     = new Inventory
-        @steps      = []
-        @_expected  = new Inventory
-        @_pending   = null
+        @steps     = []
+        @_expected = new Inventory
+        @_pending  = null
+
+        @need.clear()
+        @result.clear()
 
         return this
 
-    craft: (name, quantity=1, have=null)->
-        logger.trace "craft(#{name}, #{quantity}, #{have})"
-
-        item = @modPack.findItemByName name
-        if not item? then throw new Error "cannot find an item named: #{name}"
-
+    craft: ->
+        logger.trace "starting crafting plan for: #{@want} starting with #{@have}"
         @clear()
-        @result.addInventory(have) if have?
+        return if @want.isEmpty
 
-        @_expected.add item.slug, quantity
-        @_pending = @_expected.clone()
+        @want.each (stack)=>
+            @_expected = @want.clone()
+            @_pending = @want.clone()
 
+        @result.addInventory @have
+
+        @_need = new Inventory
         while not @_pending.isEmpty
             @_processPending()
 
+        @need.addInventory @_need
         @steps.reverse()
 
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@constructor.name} { need:#{@need}, make:#{@make}, result:#{@result} }"
+        return "#{@constructor.name} {
+                have:#{@have},
+                want:#{@want},
+                need:#{@_need},
+                result:#{@result},
+                steps:#{@steps}
+            }"
 
     # Private Methods ##############################################################################
 
@@ -88,18 +104,17 @@ module.exports = class CraftingPlan
 
         @result.remove stack.itemSlug, quantityUsed
         @_pending.add stack.itemSlug, quantityNeeded
-        @need.add stack.itemSlug, quantityNeeded
+        @_need.add stack.itemSlug, quantityNeeded
 
     _processOutputStack: (stack)->
-        quantityMissing = @need.quantityOf stack.itemSlug
+        quantityMissing = @_need.quantityOf stack.itemSlug
         quantityUsed    = Math.min quantityMissing, stack.quantity
         quantityLeft    = stack.quantity - quantityUsed
         logger.trace "processing output:#{stack.itemSlug},
             m:#{quantityMissing}, u:#{quantityUsed}, l:#{quantityLeft}"
 
-        @make.add stack.itemSlug, stack.quantity
-        @need.remove stack.itemSlug, quantityUsed
+        @_need.remove stack.itemSlug, quantityUsed
         @result.add stack.itemSlug, quantityLeft
 
     _totalQuantityOf: (itemSlug)->
-        return @result.quantityOf(itemSlug) - @need.quantityOf(itemSlug)
+        return @result.quantityOf(itemSlug) - @_need.quantityOf(itemSlug)

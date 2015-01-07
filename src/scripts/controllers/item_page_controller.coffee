@@ -23,23 +23,39 @@ module.exports = class ItemPageController extends BaseController
     # Public Methods ###############################################################################
 
     setParams: (params)->
-        @model.table.name     = params.name     if params.name?
-        @model.table.quantity = params.quantity if params.quantity?
+        return unless params.name?
+
+        item = @model.modPack.findItemByName params.name
+        return unless item? and item.isCraftable
+
+        quantity = if params.quantity? then parseInt(params.quantity) else 1
+        @model.want.add item.slug, quantity
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        options = model:@model.table.have, modPack:@model.modPack, editable:true
-        @haveController = @addChild InventoryController, '.view__inventory.have', options
+        options =
+            editable: true,
+            model:    @model.plan.have,
+            modPack:  @model.modPack,
+            title:    'Items you have'
+        @haveController = @addChild InventoryController, '.have', options
+
+        options =
+            editable: true
+            icon:     '/images/fishing_rod.png',
+            model:    @model.plan.want,
+            modPack:  @model.modPack,
+            title:    'Items you want'
+        @wantController = @addChild InventoryController, '.want', options
 
         options =
             editable: false
-            icon:     '/images/workbench_top.png',
-            model:    @model.table.want,
+            icon:     '/images/boots.png',
+            model:    @model.plan.need,
             modPack:  @model.modPack,
-            title:    'Items to Craft'
-        @wantController = @addChild InventoryController, '.view__inventory.want', options
+            title:    "Items you'll need"
+        @needController = @addChild InventoryController, '.need', options
 
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
-        @tableController = @addChild CraftingTableController, '.view__crafting_table', model:@model.table
         super

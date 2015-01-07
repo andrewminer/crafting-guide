@@ -6,8 +6,10 @@ All rights reserved.
 */
 
 .view__item_page {
+
     & > div {
         display: inline-block;
+        margin-top: 2em;
         padding: 0 2em;
         position: relative;
         vertical-align: top;
@@ -15,5 +17,5 @@ All rights reserved.
 
     .view__inventory { width: 50%; height: 26em; }
 
-    .view__crafting_table, .view__mod_pack { margin-top: 2em; width: 100%; }
+    .view__mod_pack { margin-top: 2em; width: 100%; }
 }

@@ -24,6 +24,8 @@ module.exports = class CraftingTable extends BaseModel
         attributes.want           ?= new Inventory
         super attributes, options
 
+    Object.defineProperty @prototype, 'need', -> @plan?.need
+
     # Public Methods ###############################################################################
 
     craft: ->

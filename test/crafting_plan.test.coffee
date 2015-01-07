@@ -39,22 +39,26 @@ describe 'CraftingPlan', ->
         describe 'under the simplest conditions', ->
 
             it 'can craft a single step recipe', ->
-                plan.craft 'Oak Plank'
+                plan.want.add 'oak_plank'
+                plan.craft()
                 plan.need.toList().should.eql ['oak_log']
                 plan.result.toList().should.eql [[4, 'oak_plank']]
 
             it 'can craft a multi-step recipe', ->
-                plan.craft 'Crafting Table'
+                plan.want.add 'crafting_table'
+                plan.craft()
                 plan.need.toList().should.eql ['oak_log']
                 plan.result.toList().should.eql ['crafting_table']
 
             it 'can craft a multi-step recipe using tools', ->
-                plan.craft 'Furnace'
+                plan.want.add 'furnace'
+                plan.craft()
                 plan.need.toList().should.eql [[8, 'cobblestone']]
                 plan.result.toList().should.eql ['furnace']
 
             it 'can craft a multi-step recipe re-using tools', ->
-                plan.craft 'Iron Sword'
+                plan.want.add 'iron_sword'
+                plan.craft()
                 plan.need.toList().should.eql [[2, 'furnace_fuel'], [2, 'iron_ore'], 'oak_log']
                 plan.result.toList().should.eql ['iron_sword', [2, 'oak_plank'], [3, 'stick']]
 
@@ -62,13 +66,15 @@ describe 'CraftingPlan', ->
 
             it 'can craft a multi-step recipe using tools', ->
                 plan.includingTools = true
-                plan.craft 'Furnace'
+                plan.want.add 'furnace'
+                plan.craft()
                 plan.need.toList().should.eql [[8, 'cobblestone'], 'oak_log']
                 plan.result.toList().should.eql ['crafting_table', 'furnace']
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.includingTools = true
-                plan.craft 'Iron Sword'
+                plan.want.add 'iron_sword'
+                plan.craft()
                 plan.need.toList().should.eql [
                     [8, 'cobblestone'], [2, 'furnace_fuel'], [2, 'iron_ore'], [2, 'oak_log']
                 ]

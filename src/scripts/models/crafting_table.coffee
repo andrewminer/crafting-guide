@@ -76,18 +76,14 @@ module.exports = class CraftingTable extends BaseModel
     # Private Methods ##############################################################################
 
     _compactSteps: ->
-        @_steps = []
-        currentStep = null
+        steps = {}
 
         for recipe in @plan.steps
-            if currentStep?
-                if currentStep.recipe.name is recipe.name
-                    currentStep.multiplier += 1
-                else
-                    currentStep = null
+            step = steps[recipe.name]
+            if not step?
+                steps[recipe.name] = multiplier:1, recipe:recipe
+            else
+                step.multiplier += 1
 
-            if not currentStep
-                currentStep = multiplier:1, recipe:recipe
-                @_steps.push currentStep
-
-        return @_steps
+        @_steps = (step for name, step of steps)
+        return this

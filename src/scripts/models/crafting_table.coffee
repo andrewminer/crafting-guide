@@ -15,6 +15,7 @@ module.exports = class CraftingTable extends BaseModel
     constructor: (attributes={}, options={})->
         if not attributes.plan? then throw new Error "attributes.plan is required"
         attributes.grid ?= new CraftingGrid modPack:attributes.plan.modPack
+        attributes.modPack ?= attributes.plan.modPack
         super attributes, options
 
         @plan.on 'change', => @reset()
@@ -26,6 +27,7 @@ module.exports = class CraftingTable extends BaseModel
             hasPrevStep: { get:@hasPrevStep           }
             hasSteps:    { get:@hasSteps              }
             step:        { get:@getStep, set:@setStep }
+            toolNames:   { get:@getToolNames          }
         }
 
     # Public Methods ###############################################################################
@@ -48,7 +50,7 @@ module.exports = class CraftingTable extends BaseModel
         return @_step
 
     setStep: (newStep)->
-        newStep = Math.max 0, Math.min @_steps.length, newStep
+        newStep = Math.max 0, Math.min @_steps.length - 1, newStep
 
         @_step = newStep
         @grid.recipe = @_steps[@_step]?.recipe
@@ -58,6 +60,13 @@ module.exports = class CraftingTable extends BaseModel
 
     hasSteps: ->
         return @_steps.length > 0
+
+    getToolNames: ->
+        recipe = @_steps[@_step]?.recipe
+        return '' unless recipe?
+        toolSlugs = (stack.itemSlug for stack in recipe.tools)
+        toolNames = (@modPack.findName(slug) for slug in toolSlugs).join ', '
+        return toolNames
 
     # Object Overrides #############################################################################
 

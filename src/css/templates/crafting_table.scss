@@ -27,9 +27,16 @@ All rights reserved.
             }
         }
 
-        .view__crafting_grid {
+        .input {
             position: absolute; top: 50%; left: 33%;
             @include transform(translate(-50%, -50%));
+
+            .tool {
+                position: absolute; right: 0; bottom: -2em; left: 0; height: 1.5em;
+                text-align: center;
+
+                p { font-weight: bold; }
+            }
         }
 
         .next {

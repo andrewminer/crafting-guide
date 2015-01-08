@@ -32,6 +32,7 @@ module.exports = class CraftingTableController extends BaseController
 
         @$next = @$('.next')
         @$prev = @$('.prev')
+        @$tool = @$('.tool p')
         super
 
     refresh: ->
@@ -41,6 +42,8 @@ module.exports = class CraftingTableController extends BaseController
         if @model.hasSteps
             if @model.hasPrevStep then @$prev.addClass 'enabled'
             if @model.hasNextStep then @$next.addClass 'enabled'
+
+        @$tool.html @model.toolNames
 
         super
 

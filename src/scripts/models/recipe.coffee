@@ -27,6 +27,7 @@ module.exports = class Recipe extends BaseModel
     getItemSlugAt: (index)->
         patternDigit = @pattern[index]
         return null unless patternDigit?
+        return null unless patternDigit.match /[0-9]/
 
         stack = @input[parseInt(patternDigit)]
         return null unless stack?

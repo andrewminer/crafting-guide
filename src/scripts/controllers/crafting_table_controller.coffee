@@ -17,11 +17,35 @@ module.exports = class CraftingTableController extends BaseController
         options.templateName = 'crafting_table'
         super options
 
+    # Event Methods ################################################################################
+
+    onNextClicked: ->
+        @model.step += 1
+
+    onPrevClicked: ->
+        @model.step -= 1
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
         @gridController = @addChild CraftingGridController, '.view__crafting_grid', model:@model.grid
 
-        @$nextButton = @$('button[name="next"]')
-        @$prevButton = @$('button[name="prev"]')
+        @$next = @$('.next')
+        @$prev = @$('.prev')
         super
+
+    refresh: ->
+        @$prev.removeClass 'enabled'
+        @$next.removeClass 'enabled'
+
+        if @model.hasSteps
+            if @model.hasPrevStep then @$prev.addClass 'enabled'
+            if @model.hasNextStep then @$next.addClass 'enabled'
+
+        super
+
+    # Backbone.View Overrides ######################################################################
+
+    events:
+        'click .next': 'onNextClicked'
+        'click .prev': 'onPrevClicked'

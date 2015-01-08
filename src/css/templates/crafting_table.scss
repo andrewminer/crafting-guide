@@ -9,13 +9,40 @@ All rights reserved.
     min-height: 14em;
     width: 100%;
 
+
     .panel {
         position: absolute; top: 5em; right: 2em; bottom: 0; left: 2em;
         background: $color-table-background;
 
+        .prev {
+            background: url('/images/arrow-left-disabled.png');
+            position: absolute; top: 50%; left: 1em; height: 8em; width: 4em;
+            @include transform(translateY(-50%));
+
+            &.enabled {
+                background: url('/images/arrow-left.png');
+                cursor: pointer;
+
+                &:hover { background: url('/images/arrow-left-hover.png'); }
+            }
+        }
+
         .view__crafting_grid {
             position: absolute; top: 50%; left: 33%;
             @include transform(translate(-50%, -50%));
+        }
+
+        .next {
+            background: url('/images/arrow-right-disabled.png');
+            position: absolute; top: 50%; right: 1em; height: 8em; width: 4em;
+            @include transform(translateY(-50%));
+
+            &.enabled {
+                background: url('/images/arrow-right.png');
+                cursor: pointer;
+
+                &:hover { background: url('/images/arrow-right-hover.png'); }
+            }
         }
     }
 }

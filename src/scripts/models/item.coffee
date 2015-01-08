@@ -25,6 +25,8 @@ module.exports = class Item extends BaseModel
 
     Object.defineProperty @prototype, 'isCraftable', get:-> @recipes.length > 0
 
+    Object.defineProperty @prototype, 'pathSlugs', get:-> @getPathSlugs()
+
     # Public Methods ###############################################################################
 
     addRecipe: (recipe)->
@@ -37,6 +39,9 @@ module.exports = class Item extends BaseModel
         if this.name isnt that.name
             return if this.name < that.name then -1 else +1
         return 0
+
+    getPathSlugs: ->
+        return modSlug:@modVersion.slug, itemSlug:@slug
 
     # Object Overrides #############################################################################
 

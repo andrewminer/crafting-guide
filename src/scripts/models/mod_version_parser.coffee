@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 Item       = require './item'
+Logger     = require '../logger'
 ModVersion = require './mod_version'
 Recipe     = require './recipe'
 Stack      = require './stack'
@@ -28,7 +29,12 @@ module.exports = class ModVersionParser
         parser = @_parsers["#{data.dataVersion}"]
         if not parser? then throw new Error "cannot parse version #{data.dataVersion} mod descriptions"
 
-        return parser.parse data
+        oldLevel = logger.level
+        logger.level = Logger.WARNING
+        result = parser.parse data
+        logger.level = oldLevel
+
+        return result
 
     unparse: (modVersion, dataVersion=ModVersionParser.CURRENT_VERSION)->
         if not modVersion? then throw new Error 'modVersion is required'

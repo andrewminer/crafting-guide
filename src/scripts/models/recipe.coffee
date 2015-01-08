@@ -16,13 +16,22 @@ module.exports = class Recipe extends BaseModel
         if not attributes.input? then throw new Error 'attributes.input is required'
         if not attributes.output? then throw new Error 'attributes.output is required'
 
-        attributes.pattern ?= (i for i in [0...attributes.input.length]).join('')
+        attributes.pattern ?= @_computeShapelessPattern attributes.input
         attributes.tools   ?= []
         super attributes, options
 
     Object.defineProperty @prototype, 'name', get:-> @item.name
 
     # Public Methods ###############################################################################
+
+    getItemSlugAt: (index)->
+        patternDigit = @pattern[index]
+        return null unless patternDigit?
+
+        stack = @input[parseInt(patternDigit)]
+        return null unless stack?
+
+        return stack.itemSlug
 
     make: (inventory, missing)->
         for stack in @input
@@ -70,4 +79,14 @@ module.exports = class Recipe extends BaseModel
             result.push ']'
 
         result.push '}'
+        return result.join ''
+
+    # Private Methods ##############################################################################
+
+    _computeShapelessPattern: (input)->
+        result = []
+        for i in [0...input.length]
+            stack = input[i]
+            for j in [0...stack.quantity]
+                result.push "#{i}"
         return result.join ''

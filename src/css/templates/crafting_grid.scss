@@ -1,0 +1,17 @@
+/*
+Crafting Table - crafting_grid.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__crafting_grid {
+
+    img {
+        position: relative; height:4.8em; width: 4.8em;
+    }
+
+    td {
+        border: 1px solid $color-gray-light;
+    }
+}

@@ -5,15 +5,17 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+BaseModel = require './base_model'
 Inventory = require './inventory'
 
 ########################################################################################################################
 
-module.exports = class CraftingPlan
+module.exports = class CraftingPlan extends BaseModel
 
-    constructor: (@modPack, includingTools)->
-        if not @modPack then throw new Error 'modPack is required'
-        @includingTools = if includingTools then true else false
+    constructor: (attributes={}, options={})->
+        if not attributes.modPack then throw new Error 'modPack is required'
+        attributes.includingTools ?= false
+        super attributes, options
 
         @have   = new Inventory
         @want   = new Inventory
@@ -35,6 +37,7 @@ module.exports = class CraftingPlan
         @need.clear()
         @result.clear()
 
+        @trigger 'change', this
         return this
 
     craft: ->
@@ -54,6 +57,8 @@ module.exports = class CraftingPlan
 
         @need.addInventory @_need
         @steps.reverse()
+
+        @trigger 'change', this
 
     # Object Overrides #############################################################################
 

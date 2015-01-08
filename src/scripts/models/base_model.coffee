@@ -22,6 +22,10 @@ module.exports = class BaseModel extends Backbone.Model
 
     sync: -> # do nothing
 
+    trigger: (name)->
+        logger.trace "#{@constructor.name}.#{@cid} triggered a \"#{name}\" event"
+        super
+
     # Object Overrides #############################################################################
 
     toString: ->

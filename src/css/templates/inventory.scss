@@ -44,11 +44,11 @@ All rights reserved.
     }
 
     td {
-        height: 3.6em;
+        height: 2.4em;
         padding-bottom: 0.25em;
 
         &:nth-child(1) {
-            width: 3.6em;
+            width: 2.4em;
 
             input {
                 border-radius: 0.75em;
@@ -75,7 +75,10 @@ All rights reserved.
         }
 
         &:nth-child(3) {
-            width: 3.6em;
+            width: 2.4em;
+            text-align: right;
+
+            img { width: 2.4em; height: 2.4em; }
 
             button {
                 width: 100%;

@@ -6,49 +6,16 @@ All rights reserved.
 */
 
 .view__crafting_table {
+    min-height: 14em;
+    width: 100%;
 
-    .recipe_selector {
+    .panel {
+        position: absolute; top: 5em; right: 2em; bottom: 0; left: 2em;
         background: $color-table-background;
-        padding: 1em;
-        position: relative; width: 100%;
 
-        & > * {
-            display: inline;
-            margin-left: 0.5em;
-
-            &:first-child { margin-left: 0; }
-        }
-
-        input[type="checkbox"] + label { margin-left: 0; }
-
-        input[name="name"] { width: 60%; }
-    }
-
-    h3 {
-        margin-bottom: 0.5em;
-    }
-
-    table.main {
-        background: $color-table-background; width: 100%;
-
-        td.list {
-            position: relative;
-            border-left: 0.1em solid $color-gray-light;
-            min-height: 12em;
-            padding: 0 1em 1em 1em;
-            width: 25%;
-
-            &:first-child { border-left: 0; }
+        .view__crafting_grid {
+            position: absolute; top: 50%; left: 33%;
+            @include transform(translate(-50%, -50%));
         }
     }
-
-    textarea, table.list {
-        position: relative; height: 100%; width: 100%;
-        font-size: $font-size-normal;
-        padding: 0.2em;
-    }
-
-    textarea { font-family: $font-family-input; resize: vertical; }
-
-    ul { font-family: $font-family-normal; }
 }

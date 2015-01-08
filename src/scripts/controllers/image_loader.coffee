@@ -38,7 +38,8 @@ module.exports = class ImageLoader
 
     load: (imageUrl, $el)->
         data = @preload imageUrl
-        return if $el.attr('src').indexOf(imageUrl) isnt -1
+        if $el.attr('src')?
+            return if $el.attr('src').indexOf(imageUrl) isnt -1
 
         if @onLoading? then @onLoading.call $el
         $el.data 'isLoading', true

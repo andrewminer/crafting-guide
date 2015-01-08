@@ -10,31 +10,5 @@
         img(src="/images/workbench_top.png")
         p Crafting Table
 
-    .recipe_selector
-        p I want to make
-        select(name="quantity")
-            option(value="1") 1
-            option(value="2") 2
-            option(value="4") 4
-            option(value="8") 8
-            option(value="16") 16
-            option(value="64") 64
-        input(name="name", placeholder="enter an item name")
-        label
-            input(name="including_tools", type="checkbox")
-            | including tools
-
-    table.main
-        tr
-            td.have.list
-                h3: p You have...
-                textarea(name="have", placeholder="For example:\n\n3 wool\n4 iron ingot", rows="12")
-            td.need.list
-                h3: p You'll need...
-                table.list
-            td.make.list
-                h3: p You'll make...
-                table.list
-            td.result.list
-                h3: p You'll get...
-                table.list
+    .panel
+        table.view__crafting_grid

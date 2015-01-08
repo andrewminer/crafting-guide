@@ -62,5 +62,6 @@ module.exports = class ItemPageController extends BaseController
             title:       "Items you'll need"
         @needController = @addChild InventoryController, '.need', options
 
+        @craftingTableController = @addChild CraftingTableController, '.view__crafting_table', model:@model.table
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
         super

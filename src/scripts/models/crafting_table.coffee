@@ -26,6 +26,8 @@ module.exports = class CraftingTable extends BaseModel
             hasNextStep: { get:@hasNextStep           }
             hasPrevStep: { get:@hasPrevStep           }
             hasSteps:    { get:@hasSteps              }
+            multiplier:  { get:@getMultiplier         }
+            output:      { get:@getOutput             }
             step:        { get:@getStep, set:@setStep }
             toolNames:   { get:@getToolNames          }
         }
@@ -46,6 +48,19 @@ module.exports = class CraftingTable extends BaseModel
     hasPrevStep: ->
         return @_step > 0
 
+    hasSteps: ->
+        return @_steps.length > 0
+
+    getMultiplier: ->
+        step = @_steps[@_step]
+        return unless step?
+        return step.multiplier
+
+    getOutput: ->
+        step = @_steps[@_step]
+        return unless step?
+        return step.recipe.output[0]
+
     getStep: ->
         return @_step
 
@@ -57,9 +72,6 @@ module.exports = class CraftingTable extends BaseModel
         @trigger 'change', this
 
         return this
-
-    hasSteps: ->
-        return @_steps.length > 0
 
     getToolNames: ->
         recipe = @_steps[@_step]?.recipe

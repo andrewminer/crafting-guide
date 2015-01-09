@@ -7,12 +7,14 @@ All rights reserved.
 
 exports.DefaultBookUrls = DefaultBookUrls = [
     '/data/minecraft/recipes.json'
-    '/data/applied_energetics/recipes.json'
     '/data/buildcraft/recipes.json'
-    '/data/gravisuite/recipes.json'
-    '/data/industrial_craft/recipes.json'
-    '/data/more_blocks/recipes.json'
-    '/data/thermal_expansion/recipes.json'
+
+    # Disabled until shaped crafting can be added -- aminer 2015-01-09
+    # '/data/applied_energetics/recipes.json'
+    # '/data/gravisuite/recipes.json'
+    # '/data/industrial_craft/recipes.json'
+    # '/data/more_blocks/recipes.json'
+    # '/data/thermal_expansion/recipes.json'
 ]
 
 exports.Duration = Duration = {}
@@ -31,7 +33,9 @@ Event.load.failed    = 'load:failed'    # controller, error message
 Event.load.finished  = 'load:finished'  # controller
 Event.remove         = 'remove'         # collection, item...
 
-exports.ImageUrl = _.template "/data/<%= modSlug %>/images/<%= itemSlug %>.png"
+exports.Url = Url = {}
+Url.itemIcon = _.template "/data/<%= modSlug %>/images/<%= itemSlug %>.png"
+Url.item     = _.template "/item/<%= encodeURIComponent(itemName) %>"
 
 exports.Key = Key = {}
 Key.Return = 13

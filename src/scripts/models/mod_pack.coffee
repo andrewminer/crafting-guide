@@ -9,7 +9,7 @@ BaseModel        = require './base_model'
 {Event}          = require '../constants'
 ModVersionParser = require './mod_version_parser'
 {RequiredMods}   = require '../constants'
-util             = require 'util'
+{Url}            = require '../constants'
 
 ########################################################################################################################
 
@@ -58,6 +58,22 @@ module.exports = class ModPack extends BaseModel
             return name if name
 
         return slug
+
+    findItemDisplay: (slug)->
+        result = {}
+        item = @findItem slug, includeDisabled:true
+        if item?
+            result.modSlug  = item.modVersion.slug
+            result.itemSlug = item.slug
+            result.itemName = item.name
+        else
+            result.modSlug  = _.slugify RequiredMods[0]
+            result.itemSlug = slug
+            result.itemName = @findName slug, includeDisabled:true
+
+        result.iconUrl = Url.itemIcon result
+        result.itemUrl = Url.item result
+        return result
 
     gatherRecipeNames: (options={})->
         options.includeDisabled ?= false
@@ -110,6 +126,7 @@ module.exports = class ModPack extends BaseModel
     onModVersionLoaded: (url, data, status, xhr)->
         try
             modVersion = @loadModVersionData data
+            modVersion.enabled = true
 
             logger.info "loaded ModVersion from #{url}: #{modVersion}"
             @trigger Event.load.succeeded, this, modVersion

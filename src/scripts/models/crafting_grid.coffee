@@ -6,7 +6,6 @@ All rights reserved.
 ###
 
 BaseModel = require './base_model'
-util      = require 'util'
 
 ########################################################################################################################
 
@@ -23,19 +22,12 @@ module.exports = class CraftingGrid extends BaseModel
 
     # Public Methods ###############################################################################
 
-    getItemDataAt: (index)->
+    getItemDisplayAt: (index)->
         if index >= @slotCount then throw new Error "index (#{index}) must be less than #{@slotCount}"
         return null unless @recipe?
-
-        logger.debug "recipe: #{@recipe}"
 
         itemSlug = @recipe.getItemSlugAt index
         return null unless itemSlug?
 
-        item = @modPack.findItem itemSlug
-        if item?
-            itemData = item.pathSlugs
-            itemData.name = item.name
-            return itemData
-        else
-            return modSlug:'minecraft', itemSlug:itemSlug, name:@modPack.findName(itemSlug)
+        itemDisplay = @modPack.findItemDisplay itemSlug
+        return itemDisplay

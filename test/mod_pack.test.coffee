@@ -21,6 +21,7 @@ describe 'ModPack', ->
         minecraft = new ModVersion name:'Minecraft', version:'1.7.10'
         minecraft.addItem new Item name:'Wool'
         minecraft.addItem new Item name:'Bed', recipes:['']
+        minecraft.registerSlug 'iron_chestplate', 'Iron Chestplate'
 
         buildcraft = new ModVersion name:'Buildcraft', version:'4.0'
         buildcraft.addItem new Item name:'Stone Gear', recipes:['']
@@ -69,6 +70,34 @@ describe 'ModPack', ->
         it "doesn't ignore mod versions when include disabled is requested", ->
             item = modPack.findItemByName 'Stone Gear', includeDisabled:true
             item.name.should.equal 'Stone Gear'
+
+    describe 'findItemDisplay', ->
+
+        it 'returns all data for a regular Minecraft item', ->
+            display = modPack.findItemDisplay 'bed'
+            display.iconUrl.should.equal '/data/minecraft/images/bed.png'
+            display.itemUrl.should.equal '/item/Bed'
+            display.itemName.should.equal 'Bed'
+            display.modSlug.should.equal 'minecraft'
+
+        it 'returns all data for an item in an enabled mod', ->
+            buildcraft.enabled = true
+            display = modPack.findItemDisplay 'stone_gear'
+            display.iconUrl.should.equal '/data/buildcraft/images/stone_gear.png'
+            display.itemUrl.should.equal '/item/Stone%20Gear'
+            display.itemName.should.equal 'Stone Gear'
+            display.modSlug.should.equal 'buildcraft'
+
+        it 'returns data even for a disabled mod', ->
+            display = modPack.findItemDisplay 'stone_gear'
+            display.itemName.should.equal 'Stone Gear'
+
+        it 'assumes an unfound item is from Minecraft', ->
+            display = modPack.findItemDisplay 'iron_chestplate'
+            display.iconUrl.should.equal '/data/minecraft/images/iron_chestplate.png'
+            display.itemUrl.should.equal '/item/Iron%20Chestplate'
+            display.itemName.should.equal 'Iron Chestplate'
+            display.modSlug.should.equal 'minecraft'
 
     describe 'gatherRecipeNames', ->
 

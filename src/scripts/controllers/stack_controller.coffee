@@ -6,7 +6,6 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
-{ImageUrl}     = require '../constants'
 ImageLoader    = require './image_loader'
 
 ########################################################################################################################
@@ -32,24 +31,9 @@ module.exports = class StackController extends BaseController
         super
 
     refresh: ->
-        {itemName, itemSlug, modSlug} = @_gatherData()
-        imageUrl = ImageUrl itemSlug:itemSlug, modSlug:modSlug
+        display = @modPack.findItemDisplay @model.itemSlug
 
-        @$nameField.html itemName
+        @$nameField.html display.itemName
         @$quantityField.html @model.quantity
-        @_imageLoader.load imageUrl, @$image
+        @_imageLoader.load display.iconUrl, @$image
         super
-
-    # Private Methods ##############################################################################
-
-    _gatherData: ->
-        itemSlug = @model.itemSlug
-        item = @modPack.findItem @model.itemSlug
-        if item?
-            itemName = item.name
-            modSlug = item.modVersion.slug
-        else
-            itemName = @modPack.findName @model.itemSlug
-            modSlug = 'minecraft'
-
-        return itemName:itemName, itemSlug:itemSlug, modSlug:modSlug

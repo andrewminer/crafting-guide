@@ -10,7 +10,6 @@ Logger     = require '../logger'
 ModVersion = require './mod_version'
 Recipe     = require './recipe'
 Stack      = require './stack'
-util       = require 'util'
 
 ########################################################################################################################
 

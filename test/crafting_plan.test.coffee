@@ -32,7 +32,7 @@ describe 'CraftingPlan', ->
             ]
         }
 
-        plan = new CraftingPlan modPack
+        plan = new CraftingPlan modPack:modPack
 
     describe 'craft', ->
 

@@ -7,14 +7,10 @@ All rights reserved.
 
 BaseController = require './base_controller'
 ImageLoader    = require './image_loader'
-{ImageUrl}     = require '../constants'
-util           = require 'util'
 
 ########################################################################################################################
 
 module.exports = class CraftingGridController extends BaseController
-
-    @EMPTY_IMAGE = '/images/empty.png'
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
@@ -39,14 +35,14 @@ module.exports = class CraftingGridController extends BaseController
 
             slot.a.addClass 'empty'
             slot.a.removeAttr 'href'
-            slot.img.attr 'src', CraftingGridController.EMPTY_IMAGE
+            slot.img.attr 'src', '/images/empty.png'
             slot.img.removeAttr 'alt'
 
-            itemData = @model.getItemDataAt index
-            if itemData?
+            display = @model.getItemDisplayAt index
+            if display?
                 slot.a.removeClass 'empty'
-                slot.a.attr 'href', "/items/#{encodeURIComponent(itemData.name)}"
-                logger.debug "item data: #{util.inspect(itemData)}"
-                @_imageLoader.load ImageUrl(itemData), slot.img
-                slot.img.attr 'alt', itemData.name
+                slot.a.attr 'href', display.itemUrl
+                @_imageLoader.load display.iconUrl, slot.img
+                slot.img.attr 'alt', display.itemName
+
         super

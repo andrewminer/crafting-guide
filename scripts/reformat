@@ -4,6 +4,7 @@ global._        = require 'underscore'
 global.Backbone = require 'backbone'
 
 fs               = require 'fs'
+Logger           = require '../src/scripts/logger'
 ModVersionParser = require '../src/scripts/models/mod_version_parser'
 
 require '../src/scripts/underscore_mixins'
@@ -32,6 +33,8 @@ else
 
     """
     process.exit -1
+
+global.logger = new Logger level:Logger.WARNING
 
 text       = fs.readFileSync sourceFileName, 'UTF-8'
 data       = JSON.parse text

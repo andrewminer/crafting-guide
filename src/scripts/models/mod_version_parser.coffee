@@ -113,11 +113,14 @@ module.exports.V1 = class V1
         if not data.input? then throw new Error "#{@_errorLocation} is missing input"
         data.tools ?= []
 
-        output = @_parseStackList data.output, field:'output', canBeEmpty:false
-        input  = @_parseStackList data.input,  field:'input',  canBeEmpty:true
-        tools  = @_parseStackList data.tools,  field:'tools',  canBeEmpty:true
+        attributes =
+            item:   item
+            output: @_parseStackList data.output, field:'output', canBeEmpty:false
+            input:  @_parseStackList data.input,  field:'input',  canBeEmpty:true
+            tools:  @_parseStackList data.tools,  field:'tools',  canBeEmpty:true
+        attributes.pattern = data.pattern if data.pattern?
 
-        recipe = new Recipe item:item, input:input, output:output, tools:tools
+        recipe = new Recipe attributes
         item.addRecipe recipe
         return recipe
 
@@ -200,6 +203,12 @@ module.exports.V1 = class V1
             result.push ',\n'
             result.push '            "input": '
             @_unparseStackList recipe.input, result
+
+        if recipe.pattern is recipe._computeShapelessPattern(recipe.input)
+            result.push ',\n'
+            result.push '            "pattern": "'
+            result.push recipe.pattern
+            result.push '"'
 
         if recipe.tools.length > 0
             result.push ',\n'

@@ -14,7 +14,7 @@ module.exports = class ImageLoader
     constructor: (options={})->
         options.defaultUrl   ?= ''
         options.onLoading    ?= -> @hide()
-        options.onLoad       ?= -> @fadeIn Duration.fast
+        options.onLoad       ?= -> @show()
 
         @defaultUrl   = options.defaultUrl
         @onLoading    = options.onLoading

@@ -133,7 +133,7 @@
         }, {
             "output": "Flood Gate",
             "input": [[4, "Iron Ingot"], [3, "Iron Bars"], "Iron Gear", "Tank"],
-            "tools": "Crafting Guide"
+            "tools": "Crafting Table"
         }, {
             "output": "Gate Copier",
             "input": ["Redstone Chipset", "Wrench"]

@@ -21,10 +21,11 @@ module.exports = class InventoryController extends BaseController
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        options.icon         ?= '/images/chest_front.png'
-        options.editable     ?= true
-        options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
-        options.title        ?= 'Inventory'
+        options.icon        ?= '/images/chest_front.png'
+        options.editable    ?= true
+        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
+        options.gatherNames ?= -> @modPack.gatherNames()
+        options.title       ?= 'Inventory'
 
         options.templateName  = 'inventory'
         super options
@@ -33,6 +34,7 @@ module.exports = class InventoryController extends BaseController
         @icon        = options.icon
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
+        @gatherNames = options.gatherNames
         @title       = options.title
 
         @_stackControllers = []
@@ -42,14 +44,15 @@ module.exports = class InventoryController extends BaseController
     # Event Methods ################################################################################
 
     onAddButtonClicked: ->
-        item = @modPack.findItemByName @$nameField.val()
-        return unless item?
+        name = @$nameField.val()
+        return unless @modPack.isValidName name
 
-        @model.add item.slug, parseInt(@$quantityField.val())
+        @model.add _.slugify(name), parseInt(@$quantityField.val())
         @$nameField.val ''
         @$quantityField.val '1'
 
         @$scrollbox.scrollTop @$scrollbox.prop 'scrollHeight'
+        @$nameField.autocomplete 'close'
 
     onClearButtonClicked: ->
         @model.clear()
@@ -163,7 +166,7 @@ module.exports = class InventoryController extends BaseController
         onSelected = => @onItemSelected()
 
         @$nameField.autocomplete
-            source:    @modPack.gatherRecipeNames()
+            source:    @gatherNames()
             delay:     0
             minLength: 0
             change:    onChanged

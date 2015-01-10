@@ -25,27 +25,28 @@ module.exports = class ItemPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
+        @wantController = @addChild InventoryController, '.want',
+            editable:    true
+            icon:        '/images/fishing_rod.png'
+            imageLoader: @imageLoader
+            model:       @model.plan.want
+            modPack:     @model.modPack
+            title:       'Items you want'
+
         @haveController = @addChild InventoryController, '.have',
             editable:    true,
             imageLoader: @imageLoader
-            model:       @model.plan.have,
-            modPack:     @model.modPack,
+            model:       @model.plan.have
+            modPack:     @model.modPack
+            gatherNames: -> @modPack.gatherNames includeGatherable:true
             title:       'Items you have'
-
-        @wantController = @addChild InventoryController, '.want',
-            editable:    true
-            icon:        '/images/fishing_rod.png',
-            imageLoader: @imageLoader
-            model:       @model.plan.want,
-            modPack:     @model.modPack,
-            title:       'Items you want'
 
         @needController = @addChild InventoryController, '.need',
             editable:    false
-            icon:        '/images/boots.png',
+            icon:        '/images/boots.png'
             imageLoader: @imageLoader
-            model:       @model.plan.need,
-            modPack:     @model.modPack,
+            model:       @model.plan.need
+            modPack:     @model.modPack
             title:       "Items you'll need"
 
         @craftingTableController = @addChild CraftingTableController, '.view__crafting_table',

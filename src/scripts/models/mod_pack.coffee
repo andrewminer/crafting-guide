@@ -76,13 +76,14 @@ module.exports = class ModPack extends BaseModel
         result.itemUrl = Url.item result
         return result
 
-    gatherRecipeNames: (options={})->
+    gatherNames: (options={})->
+        options.includeGatherable ?= false
         options.includeDisabled ?= false
 
         nameData = {}
         for modVersion in @modVersions
             continue unless modVersion.enabled or options.includeDisabled
-            modVersion.gatherRecipeNames nameData
+            modVersion.gatherNames nameData, options
 
         result = []
         names = _.keys(nameData).sort()
@@ -101,6 +102,17 @@ module.exports = class ModPack extends BaseModel
 
     isLoading: ->
         return @loading.inspect().state isnt 'pending'
+
+    isValidName: (name, options={})->
+        options.includeDisabled ?= false
+
+        slug = _.slugify name
+        for modVersion in @modVersions
+            continue unless modVersion.enabled or options.includeDisabled
+            name = modVersion.findName slug
+            return true if name
+
+        return false
 
     loadModVersion: (url)->
         promise = w.promise (resolve, reject)=>

@@ -209,7 +209,7 @@
             "tools": "Macerator"
         }, {
             "output": "Coal Ball",
-            "input": [[8, "Coal Dust"], "1 Flint"],
+            "input": [[8, "Coal Dust"], "Flint"],
             "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {

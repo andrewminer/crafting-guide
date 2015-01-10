@@ -7,8 +7,8 @@
         "Copper Ore",
         "Sticky Resin",
         "Tin Ore",
-        "Uranium",
-        "UU Matter"
+        "UU Matter",
+        "Uranium"
     ],
     "recipes": [
         {
@@ -25,10 +25,30 @@
             "input": ["Insulated Gold Cable", "Rubber"],
             "pattern": "... .0. .1."
         }, {
+            "output": "2xIns. HV Cable",
+            "input": [[2, "Rubber"], "HV Cable"],
+            "pattern": "... 010 ..."
+        }, {
+            "output": "2xIns. HV Cable",
+            "input": ["HV Insulated Cable", "Rubber"],
+            "pattern": "... .0. .1."
+        }, {
             "output": "30K Cooling Cell",
             "input": [[6, "Tin Ingot"], [3, "10K Cooling Cell"]],
             "pattern": "000 111 000",
             "tools": "Crafting Table"
+        }, {
+            "output": "4xIns. HV Cable",
+            "input": [[3, "Rubber"], "HV Cable"],
+            "pattern": "... 000 .1."
+        }, {
+            "output": "4xIns. HV Cable",
+            "input": [[2, "Rubber"], "HV Insulated Cable"],
+            "pattern": "... 010 ..."
+        }, {
+            "output": "4xIns. HV Cable",
+            "input": ["HV 2x Insulated Cable", "Rubber"],
+            "pattern": "... .0. .1."
         }, {
             "output": "60K Cooling Cell",
             "input": [[6, "Tin Ingot"], [2, "30K Cooling Cell"], "Dense Copper Plate"],
@@ -396,11 +416,6 @@
             "pattern": ".00 0.0 000",
             "tools": "Crafting Table"
         }, {
-            "output": "Empty TFBP",
-            "input": [[2, "Redstone"], "Advanced Circuit", "Electronic Circuit"],
-            "pattern": ".2. .1. 0.0",
-            "tools": "Crafting Table"
-        }, {
             "output": "Energy Crystal",
             "input": [[8, "Redstone"], "Diamond"],
             "pattern": "000 010 000",
@@ -415,6 +430,10 @@
             "input": [[4, "Insulated Copper Cable"], "Electronic Circuit", "Glowstone"],
             "pattern": ".2. 010 0.0",
             "tools": "Crafting Table"
+        }, {
+            "output": "EU-Splitter Cable",
+            "input": [[2, "4xIns. HV Cable"], [2, "Redstone"], "Lever"],
+            "pattern": ".1. 020 .1."
         }, {
             "output": "Extractor",
             "input": [[4, "Tree Tap"], "Electronic Circuit", "Machine Block"],
@@ -516,26 +535,6 @@
             "input": ["Dense Copper Plate", "Electronic Circuit", "Lava Cell"],
             "pattern": ".1. .2. .0.",
             "tools": "Crafting Table"
-        }, {
-            "output": "HV 2x Insulated Cable",
-            "input": [[2, "Rubber"], "HV Cable"],
-            "pattern": "... 010 ..."
-        }, {
-            "output": "HV 2x Insulated Cable",
-            "input": ["HV Insulated Cable", "Rubber"],
-            "pattern": "... .0. .1."
-        }, {
-            "output": "HV 3x Insulated Cable",
-            "input": [[3, "Rubber"], "HV Cable"],
-            "pattern": "... 000 .1."
-        }, {
-            "output": "HV 3x Insulated Cable",
-            "input": [[2, "Rubber"], "HV Insulated Cable"],
-            "pattern": "... 010 ..."
-        }, {
-            "output": "HV 3x Insulated Cable",
-            "input": ["HV 2x Insulated Cable", "Rubber"],
-            "pattern": "... .0. .1."
         }, {
             "output": [[12, "HV Cable"]],
             "input": [[3, "Refined Iron"]],
@@ -734,7 +733,7 @@
         }, {
             "output": "NanoSuit Helmet",
             "input": [[3, "Carbon Plate"], "Energy Crystal", "Glass"],
-            "pattern": "010 020",
+            "pattern": "010 020 ...",
             "tools": "Crafting Table"
         }, {
             "output": "NanoSuit Leggings",
@@ -856,10 +855,6 @@
             "pattern": "232 141 0.0",
             "tools": "Crafting Table"
         }, {
-            "output": "Rail Track",
-            "input": [[6, "Bronze"], "Stick"],
-            "tools": "Crafting Table"
-        }, {
             "output": "Raw Carbon Fibers",
             "input": [[4, "Coal Dust"]]
         }, {
@@ -883,6 +878,7 @@
         }, {
             "output": "Reactor Heat Vent",
             "input": [[2, "Dense Copper Plate"], "Heat Vent"],
+            "pattern": ".0. .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Reactor Plating",
@@ -890,6 +886,7 @@
         }, {
             "output": "Recycler",
             "input": [[3, "Dirt"], [2, "Refined Iron"], "Compressor", "Glowstone"],
+            "pattern": ".3. 020 101",
             "tools": "Crafting Table"
         }, {
             "output": "Refined Iron",
@@ -903,6 +900,7 @@
         }, {
             "output": "Reinforced Door",
             "input": [[6, "Reinforced Stone"]],
+            "pattern": ".00 .00 .00",
             "tools": "Crafting Table"
         }, {
             "output": [[7, "Reinforced Glass"]],
@@ -912,6 +910,7 @@
         }, {
             "output": [[8, "Reinforced Stone"]],
             "input": [[8, "Stone"], "Advanced Alloy"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "RSH-Condensator",
@@ -934,12 +933,9 @@
             "pattern": "... 000 000",
             "tools": "Crafting Table"
         }, {
-            "output": [[3, "Rubber Trampoline"]],
-            "input": [[6, "Rubber"]],
-            "tools": "Crafting Table"
-        }, {
             "output": [[16, "Scaffold"]],
             "input": [[3, "Oak Wood Planks"], [3, "Stick"]],
+            "pattern": "000 .1. 1.1",
             "tools": "Crafting Table"
         }, {
             "output": "Scrap Box",
@@ -948,6 +944,7 @@
         }, {
             "output": "Scuba Helmet",
             "input": [[4, "Rubber"], "Glass", "Iron Bars", "Orange Dye"],
+            "pattern": ".3. 010 020",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Silver Dust"]],
@@ -956,10 +953,17 @@
         }, {
             "output": "Silver Ingot",
             "input": ["furnace fuel", "Silver Ore"],
+            "pattern": ".1. ... .0.",
             "tools": "Furnace"
+        }, {
+            "output": [[8, "Single-Use Battery"]],
+            "input": ["Hydrated Coal Dust", "Insulated Copper Cable", "Redstone"],
+            "pattern": ".1. .2. .0.",
+            "tools": "Crafting Table"
         }, {
             "output": [[5, "Single-Use Battery"]],
             "input": ["Coal Dust", "Insulated Copper Cable", "Redstone"],
+            "pattern": ".1. .2. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Snowball",
@@ -968,25 +972,27 @@
         }, {
             "output": "Solar Helmet",
             "input": [[5, "Iron Ore"], [3, "Insulated Copper Cable"], "Solar Panel"],
+            "pattern": "000 020 111",
             "tools": "Crafting Table"
         }, {
             "output": "Solar Panel",
             "input": [[3, "Coal Dust"], [3, "Glass"], [2, "Electronic Circuit"], "Generator"],
+            "pattern": "010 101 232",
             "tools": "Crafting Table"
-        }, {
-            "output": "Splitter Cable",
-            "input": [[2, "HV 3x Insulated Cable"], [2, "Redstone"], "Lever"]
         }, {
             "output": "Static Boots",
             "input": [[4, "Iron Ingot"], [3, "Insulated Copper Cable"], "Wool"],
+            "pattern": "0.0 020 111",
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Sticky Dynamite"]],
             "input": [[8, "Dynamite"], "Sticky Resin"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Stone Mug",
             "input": [[7, "Stone"]],
+            "pattern": "00. 000 00.",
             "tools": "Crafting Table"
         }, {
             "output": [[4, "String"]],
@@ -994,43 +1000,48 @@
             "tools": "Macerator"
         }, {
             "output": "Terraformer",
-            "input": [[4, "Glowstone"], [3, "Dirt"], "Advanced Machine Block", "TFBP"],
+            "input": [[4, "Glowstone Dust"], [3, "Dirt"], "Advanced Machine Block", "TFBP - Empty"],
+            "pattern": "030 121 010",
             "tools": "Crafting Table"
         }, {
             "output": "Tesla Coil",
             "input": [[5, "Redstone"], [2, "Refined Iron"], "Electronic Circuit", "MV Transformer"],
+            "pattern": "000 030 121",
             "tools": "Crafting Table"
         }, {
             "output": "TFBP - Chilling",
-            "input": [[4, "Snow"], "Empty TFBP"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "TFBP - Compression",
-            "input": [[4, "Cobblestone"], [4, "Stone"], "Empty TFBP"],
+            "input": [[4, "Snow"], "TFBP - Empty"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "TFBP - Cultivation",
-            "input": [[4, "Seed"], "Empty TFBP"],
+            "input": [[4, "Seed"], "TFBP - Empty"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "TFBP - Desertification",
-            "input": [[4, "Sand"], "Empty TFBP"],
+            "input": [[4, "Sand"], "TFBP - Empty"],
+            "pattern": ".0. 010 .0.",
+            "tools": "Crafting Table"
+        }, {
+            "output": "TFBP - Empty",
+            "input": [[2, "Redstone"], "Advanced Circuit", "Electronic Circuit"],
+            "pattern": ".2. .1. 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "TFBP - Flatificator",
-            "input": [[4, "Dirt"], "Empty TFBP"],
+            "input": [[4, "Dirt"], "TFBP - Empty"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "TFBP - Irrigation",
-            "input": [[4, "Water Bucket"], "Empty TFBP"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "TFBP - Mushroom",
-            "input": [[4, "Brown Mushroom"], [4, "Mycelium"], "Empty TFBP"],
+            "input": [[4, "Water Bucket"], "TFBP - Empty"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Thick Neutron Reflector",
             "input": [[4, "Neutron Reflector"], "Dense Copper Plate"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Tin Block",
@@ -1039,10 +1050,12 @@
         }, {
             "output": [[9, "Tin Cable"]],
             "input": [[3, "Tin Ingot"]],
+            "pattern": "... 000 ...",
             "tools": "Crafting Table"
         }, {
             "output": [[4, "Tin Can"]],
             "input": [[5, "Tin Ingot"]],
+            "pattern": "... 0.0 000",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Tin Dust"]],
@@ -1056,18 +1069,17 @@
         }, {
             "output": "Toolbox",
             "input": [[5, "Iron Ingot"], "Chest"],
+            "pattern": "... 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Trade-O-Mat",
             "input": [[3, "Redstone"], [2, "Chest"], "Machine Block"],
+            "pattern": "... 000 121",
             "tools": "Crafting Table"
         }, {
             "output": "Transformer Upgrade",
             "input": [[5, "Glass"], [2, "2x Ins. Gold Cable"], "Electronic Circuit", "MV Transformer"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Tree Tap",
-            "input": [[5, "Oak Wood Planks"]],
+            "pattern": "000 131 020",
             "tools": "Crafting Table"
         }, {
             "output": "Treetap",
@@ -1087,18 +1099,22 @@
         }, {
             "output": [[2, "Water Mill"]],
             "input": [[4, "Oak Wood Planks"], [4, "Stick"], "Generator"],
+            "pattern": "101 020 101",
             "tools": "Crafting Table"
         }, {
             "output": "Weed-EX",
             "input": ["Empty Cell", "Grin Powder", "Redstone"],
+            "pattern": ".1. .2. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Wind Mill",
             "input": [[4, "Iron"], "Generator"],
+            "pattern": "0.0 .1. 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Wrench (industrial craft)",
             "input": [[6, "Bronze Ingot"]],
+            "pattern": "0.0 000 .0.",
             "tools": "Crafting Table"
         }
     ]

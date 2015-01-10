@@ -203,7 +203,7 @@ module.exports.V1 = class V1
             result.push '            "input": '
             @_unparseStackList recipe.input, result
 
-        if recipe.pattern is recipe._computeShapelessPattern(recipe.input)
+        if recipe.pattern?
             result.push ',\n'
             result.push '            "pattern": "'
             result.push recipe.pattern

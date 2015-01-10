@@ -34,6 +34,8 @@ module.exports = class Item extends BaseModel
         @recipes.push recipe
 
     compareTo: (that)->
+        if this.slug isnt that.slug
+            return if this.slug < that.slug then -1 else +1
         if this.name isnt that.name
             return if this.name < that.name then -1 else +1
         return 0

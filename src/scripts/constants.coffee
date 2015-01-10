@@ -8,11 +8,11 @@ All rights reserved.
 exports.DefaultBookUrls = DefaultBookUrls = [
     '/data/minecraft/recipes.json'
     '/data/buildcraft/recipes.json'
+    '/data/ic2_classic/recipes.json'
 
     # Disabled until shaped crafting can be added -- aminer 2015-01-09
     # '/data/applied_energetics/recipes.json'
     # '/data/gravisuite/recipes.json'
-    # '/data/industrial_craft/recipes.json'
     # '/data/more_blocks/recipes.json'
     # '/data/thermal_expansion/recipes.json'
 ]

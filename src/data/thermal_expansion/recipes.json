@@ -176,7 +176,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Sawmill",
-            "input": [[2, "Copper Ingot"], [2, "Oak Plank"], "Iron Axe", "Machine Frame", "Redstone Reception Coil"],
+            "input": [[2, "Copper Ingot"], [2, "Oak Wood Planks], "Iron Axe", "Machine Frame", "Redstone Reception Coil"],
             "tools": "Crafting Table"
         }, {
             "output": "Schematic",

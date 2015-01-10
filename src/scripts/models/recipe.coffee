@@ -16,7 +16,7 @@ module.exports = class Recipe extends BaseModel
         if not attributes.input? then throw new Error 'attributes.input is required'
         if not attributes.output? then throw new Error 'attributes.output is required'
 
-        attributes.pattern = @_parsePattern attributes.pattern, attributes.input
+        attributes.pattern = @_parsePattern attributes.pattern
         attributes.tools   ?= []
         super attributes, options
 
@@ -25,8 +25,10 @@ module.exports = class Recipe extends BaseModel
     # Public Methods ###############################################################################
 
     getItemSlugAt: (index)->
+        pattern = if @pattern? then @pattern else @_computeDefaultPattern()
+
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
-        patternDigit = @pattern[trueIndex[index]]
+        patternDigit = pattern[trueIndex[index]]
         return null unless patternDigit?
         return null unless patternDigit.match /[0-9]/
 
@@ -85,24 +87,40 @@ module.exports = class Recipe extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _parsePattern: (pattern, input)->
-        pattern ?= ''
+    _parsePattern: (pattern)->
+        return unless pattern?
+
         pattern = pattern.replace /\ /g, ''
+        return if pattern.length is 0
 
-        if pattern.length > 0
-            pattern = pattern.replace /[^0-9]/g, '.'
-        else
-            pattern = @_computeShapelessPattern input
+        pattern = pattern.replace /[^0-9]/g, '.'
 
+        array = pattern.split ''
+        array = array[0...9]
+        while array.length isnt 9
+            array.push '.'
+
+        pattern = array.join ''
         pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
         return pattern
 
-    _computeShapelessPattern: (input)->
-        result = '728506314'
+    _computeDefaultPattern: ->
+        itemCount = @input.length
+        slotCount = _.reduce @input, ((total, stack)-> total + stack.quantity), 0
 
-        total = _.reduce input, ((total, stack)-> total + stack.quantity), 0
+        return '... .0. ...' if itemCount is 1 and slotCount is 1
+        return '00. 00. ...' if itemCount is 1 and slotCount is 4
+        return '000 000 000' if itemCount is 1 and slotCount is 9
 
-        for i in [total...9]
-            result = result.replace "#{i}", '.'
+        result = ['.', '.', '.', '.', '.', '.', '.', '.', '.']
+        indexes = [4, 7, 1, 3, 5, 6, 8, 0, 2]
 
-        return result
+        for i in [0...@input.length]
+            stack = @input[i]
+            for j in [0...stack.quantity]
+                index = indexes.shift()
+                result[index] = "#{i}"
+
+        pattern = result.join ''
+        pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
+        return pattern

@@ -1,585 +1,750 @@
 {
     "dataVersion": 1,
-    "name": "Industrial Craft",
-    "version": "2.0",
+    "name": "IC2 Classic",
+    "version": "1.112.170-lf",
     "description": "Crafting recipes from IndustrialCraft, by Alblaka",
+    "raw_materials": [
+        "Copper Ore",
+        "Sticky Resin",
+        "Tin Ore",
+        "Uranium",
+        "UU Matter"
+    ],
     "recipes": [
         {
             "output": ["10K Cooling Cell", "Bucket"],
             "input": [[4, "Tin Ingot"], "Water Bucket"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "2x Ins. Gold Cable",
-            "input": ["Insulated Gold Cable", "Rubber"]
+            "input": [[2, "Rubber"], "Gold Cable"],
+            "pattern": "... 010 ..."
+        }, {
+            "output": "2x Ins. Gold Cable",
+            "input": ["Insulated Gold Cable", "Rubber"],
+            "pattern": "... .0. .1."
         }, {
             "output": "30K Cooling Cell",
             "input": [[6, "Tin Ingot"], [3, "10K Cooling Cell"]],
+            "pattern": "000 111 000",
             "tools": "Crafting Table"
         }, {
             "output": "60K Cooling Cell",
             "input": [[6, "Tin Ingot"], [2, "30K Cooling Cell"], "Dense Copper Plate"],
+            "pattern": "010 020 010",
             "tools": "Crafting Table"
         }, {
             "output": "Advanced Alloy",
             "input": "Mixed Metal Ingot",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Advanced Circuit",
-            "input": [[4, "Redstone"], [2, "Glowstone"], [2, "Lapis Lazuli"], "Electronic Circuit"],
+            "input": [[4, "Redstone"], [2, "Glowstone Dust"], [2, "Lapis Lazuli"], "Electronic Circuit"],
+            "pattern": "010 232 010",
             "tools": "Crafting Table"
         }, {
             "output": "Advanced Heat Exchanger",
             "input": [[4, "Glass Fiber Cable"], [2, "Electronic Circuit"], [2, "Heat Exchanger"], "Dense Copper Plate"],
+            "pattern": "010 232 010",
             "tools": "Crafting Table"
         }, {
             "output": "Advanced Heat Vent",
             "input": [[6, "Iron Bars"], [2, "Heat Vent"], "Diamond"],
+            "pattern": "010 020 010",
             "tools": "Crafting Table"
         }, {
             "output": "Advanced Machine Block",
             "input": [[2, "Advanced Alloy"], [2, "Carbon Plate"], "Machine Block"],
+            "pattern": ".0. 121 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "BatBox",
-            "input": [[5, "Oak Plank"], [3, "RE Battery"], "Insulated Copper Cable"],
+            "input": [[5, "Oak Wood Planks"], [3, "RE Battery"], "Insulated Copper Cable"],
+            "pattern": "020 111 000",
             "tools": "Crafting Table"
         }, {
             "output": "BatPack",
             "input": [[6, "RE Battery"], "Electronic Circuit", "Tin Ingot"],
+            "pattern": "010 020 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Bio Cell",
-            "input": ["Compressed Plantball", "Empty Cell"]
+            "input": ["Compressed Plantball", "Empty Cell"],
+            "pattern": "... .0. .1."
         }, {
             "output": "Biofuel Cell",
             "input": "Bio Cell",
+            "pattern": "... .0. ...",
             "tools": "Extractor"
         }, {
             "output": "Biofuel Cell",
             "input": "Bio Cell",
+            "pattern": "... .0. ...",
             "tools": "Extractor"
         }, {
             "output": [[5, "Blaze Powder"]],
             "input": "Blaze Rod",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": [[5, "Bone Meal"]],
             "input": "Bone",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": "Bronze Axe",
             "input": [[3, "Bronze Ingot"], [2, "Stick"]],
+            "pattern": "00. 01. .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Block",
             "input": [[9, "Bronze Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Bronze Block",
-            "input": [[9, "Bronze Ingot"]],
+            "pattern": "000 000 000",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Boots",
             "input": [[4, "Bronze Ingot"]],
+            "pattern": "... 0.0 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Chestplate",
             "input": [[8, "Bronze Ingot"]],
+            "pattern": "0.0 000 000",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Bronze Dust"]],
-            "input": [[3, "Copper Dust"], "Tin Dust"]
+            "input": [[3, "Copper Dust"], "Tin Dust"],
+            "pattern": "10. 00. ..."
         }, {
             "output": "Bronze Helm",
             "input": [[5, "Bronze Ingot"]],
+            "pattern": "000 0.0 ...",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Hoe",
             "input": [[2, "Bronze Ingot"], [2, "Stick"]],
+            "pattern": "00. .1. .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Ingot",
             "input": ["Bronze Dust", "furnace fuel"],
+            "pattern": ".0. ... .1.",
             "tools": "Furnace"
         }, {
             "output": "Bronze Leggings",
             "input": [[7, "Bronze Ingot"]],
+            "pattern": "000 0.0 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Pickaxe",
             "input": [[3, "Bronze Ingot"], [2, "Stick"]],
+            "pattern": "000 .1. .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Shovel",
             "input": [[2, "Stick"], "Bronze Ingot"],
+            "pattern": ".1. .0. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Bronze Sword",
             "input": [[2, "Bronze Ingot"], "Stick"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "CF Pellet",
-            "input": "Construction Foam",
-            "tools": "Compressor"
-        }, {
-            "output": "CF Sprayer",
-            "input": [[4, "Cobblestone"], "Stick"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "CFPack",
-            "input": [[4, "Fuel Can"], [2, "CF Sprayer"], "Electronic Circuit", "Tin Ingot"],
+            "pattern": ".0. .0. .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Canning Machine",
             "input": [[7, "Tin Ingot"], "Electronic Circuit", "Machine Block"],
+            "pattern": "010 020 000",
             "tools": "Crafting Table"
         }, {
             "output": "Carbon Plate",
             "input": "Raw Carbon Mesh",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
+        }, {
+            "output": "CF Pellet",
+            "input": "Construction Foam",
+            "pattern": "... .0. ...",
+            "tools": "Compressor"
+        }, {
+            "output": "CF Sprayer",
+            "input": [[4, "Cobblestone"], "Stick"],
+            "pattern": "00. 01. ..0",
+            "tools": "Crafting Table"
+        }, {
+            "output": "CFPack",
+            "input": [[4, "Fuel Can"], [2, "CF Sprayer"], "Electronic Circuit", "Tin Ingot"],
+            "pattern": "232 030 0.0",
+            "tools": "Crafting Table"
         }, {
             "output": "Chainsaw",
             "input": [[5, "Refined Iron"], "Electronic Circuit", "RE Battery"],
+            "pattern": ".00 010 30.",
             "tools": "Crafting Table"
         }, {
             "output": "Clay Dust",
             "input": "Clay Block",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": "Coal Ball",
             "input": [[8, "Coal Dust"], "1 Flint"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Coal Chunk",
             "input": [[8, "Compressed Coal Ball"], "Obsidian"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Coal Chunk",
-            "input": [[8, "Compressed Coal Ball"], "Brick"],
+            "input": [[8, "Compressed Coal Ball"], "Bricks"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Coal Chunk",
             "input": [[8, "Compressed Coal Ball"], "Iron Block"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Coal Dust",
             "input": "Coal",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": "Coalfuel Cell",
             "input": "H. Coal Cell",
+            "pattern": "... .0. ...",
             "tools": "Extractor"
         }, {
             "output": [[3, "Coffee Powder"]],
             "input": "Coffee Beans",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
-        }, {
-            "output": [[16, "Coin"]],
-            "input": [[4, "Refined Iron"]],
-            "tools": "Crafting Table"
         }, {
             "output": "Component Heat Exchanger",
             "input": [[4, "Gold Ingot"], "Heat Exchanger"],
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Composite Armor Vest",
-            "input": ["Advanced Alloy", "Iron Chestplate", "Leather Tunic"],
+            "input": [[6, "Advanced Alloy"], "Iron Chestplate", "Leather Tunic"],
+            "pattern": "0.0 010 020",
             "tools": "Crafting Table"
         }, {
             "output": "Compressed Air Cell",
             "input": "Empty Cell",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Compressed Coal Ball",
             "input": "Coal Ball",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Compressed Hyd. Coalclump",
             "input": "Hydrated Coal Dust",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Compressed Plantball",
             "input": "Plantball",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Compressor",
             "input": [[6, "Stone"], "Electronic Circuit", "Machine Block"],
+            "pattern": "0.0 010 020",
             "tools": "Crafting Table"
         }, {
             "output": ["Construction Foam", "Bucket"],
-            "input": ["Clay Dust", "Coal Dust", "Redstone", "Water Bucket"]
+            "input": ["Clay Dust", "Coal Dust", "Redstone", "Water Bucket"],
+            "pattern": "01. 23. ..."
         }, {
             "output": "Containment Reactor Plating",
-            "input": [[2, "Advanced Alloy"], "Reactor Plating"]
+            "input": [[2, "Advanced Alloy"], "Reactor Plating"],
+            "pattern": "... 010 ..."
         }, {
             "output": "Copper Block",
             "input": [[9, "Copper Ingot"]],
+            "pattern": "000 000 000",
             "tools": "Crafting Table"
         }, {
             "output": [[6, "Copper Cable"]],
             "input": [[3, "Copper Ingot"]],
+            "pattern": "... 000 ...",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Copper Dust"]],
             "input": "Copper Ore",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": "Copper Ingot",
             "input": ["Copper Ore", "furnace fuel"],
+            "pattern": ".0. ... .1.",
             "tools": "Furnace"
-        }, {
-            "output": "Core Heat Exchanger",
-            "input": [[2, "Dense Copper Plate"], "Heat Exchanger"],
-            "tools": "Crafting Table"
         }, {
             "output": "Crop-Matron",
             "input": [[5, "Crops"], [2, "Electronic Circuit"], "Chest", "Machine Block"],
+            "pattern": "121 030 000",
             "tools": "Crafting Table"
         }, {
             "output": "Cropnalyzer",
             "input": [[4, "Redstone"], [2, "Insulated Copper Cable"], "Electronic Circuit", "Glass"],
+            "pattern": "11. 030 020",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Crops"]],
             "input": [[4, "Stick"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Cutter",
-            "input": [[5, "Iron Ingot"]],
+            "pattern": "... 0.0 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Dense Copper Plate",
             "input": [[8, "Copper Ingot"]],
+            "pattern": "000 0.0 000",
             "tools": "Compressor"
         }, {
             "output": "Depleted Isotope Cell",
             "input": ["Coal Dust", "Near-Depleted Uranium Cell"],
+            "pattern": "... .0. .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Detector Cable",
             "input": [[3, "Redstone"], "Electronic Circuit", "HV 3x Insulated Cable"],
+            "pattern": ".1. 020 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Diamond (crafted)",
             "input": "Coal Chunk",
-            "tools": "Compressor"
-        }, {
-            "output": "Diamond (industrial)",
-            "input": "Coal Chunk",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Diamond Drill",
             "input": [[3, "Diamond"], "Mining Drill"],
+            "pattern": "... .0. 010",
             "tools": "Crafting Table"
+        }, {
+            "output": "Diamond (industrial)",
+            "input": "Coal Chunk",
+            "pattern": "... .0. ...",
+            "tools": "Compressor"
         }, {
             "output": "Dual Uranium Cell",
             "input": [[2, "Uranium Cell"], "Dense Copper Plate"],
+            "pattern": "... 010 ...",
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Dynamite"]],
             "input": ["Industrial TNT", "String"],
+            "pattern": "... .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Dynamite-O-Mote",
-            "input": [[2, "Tin Ingot"], "FreqTrans", "Insulated Copper Cable", "Lapis Lazuli"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "EU Reader",
-            "input": [[4, "Insulated Copper Cable"], "Electronic Circuit", "Glowstone"],
+            "input": [[3, "TNT"], [2, "Glowstone Dust"], "Electronic Circuit", "Insulated Copper Cable"],
+            "pattern": ".3. 121 000",
             "tools": "Crafting Table"
         }, {
             "output": "Electric Furnace",
             "input": [[2, "Redstone"], "Electronic Circuit", "Iron Furnace"],
+            "pattern": "... .1. 020",
             "tools": "Crafting Table"
         }, {
             "output": "Electric Hoe",
             "input": [[2, "Refined Iron"], "Electronic Circuit", "RE Battery"],
+            "pattern": "00. .1. .2.",
             "tools": "Crafting Table"
         }, {
             "output": "Electric Jetpack",
             "input": [[4, "Refined Iron"], [2, "Glowstone"], "Advanced Circuit", "BatBox"],
+            "pattern": "020 030 1.1",
             "tools": "Crafting Table"
         }, {
             "output": "Electric Treetap",
             "input": ["Electric Circuit", "RE Battery", "Treetap"],
+            "pattern": "..2 .0. 1..",
             "tools": "Crafting Table"
         }, {
             "output": "Electric Wrench",
             "input": ["Electric Circuit", "RE Battery", "Wrench"],
+            "pattern": "..2 .1. 0..",
             "tools": "Crafting Table"
         }, {
             "output": "Electrolyzer",
             "input": [[4, "Insulated Copper Cable"], [2, "RE Battery"], "Electronic Circuit", "Machine Block"],
+            "pattern": "0.0 020 131",
             "tools": "Crafting Table"
         }, {
             "output": "Electronic Circuit",
             "input": [[6, "Insulated Copper Cable"], [2, "Redstone"], "Refined Iron"],
+            "pattern": "000 121 000",
             "tools": "Crafting Table"
         }, {
             "output": "Empty Booze Barrel",
-            "input": [[2, "Oak Plank"], "Rubber Wood Log"],
+            "input": [[2, "Oak Wood Planks"], "Rubber Wood"],
+            "pattern": ".0. .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": [[16, "Empty Cell"]],
-            "input": [[4, "Tin"]],
+            "input": [[4, "Tin Ingot"]],
+            "pattern": ".0. 0.0 .0.",
+            "tools": "Crafting Table"
+        }, {
+            "output": "(Empty) Fuel Can",
+            "input": [[7, "Tin Ingot"]],
+            "pattern": ".00 0.0 000",
             "tools": "Crafting Table"
         }, {
             "output": "Empty TFBP",
             "input": [[2, "Redstone"], "Advanced Circuit", "Electronic Circuit"],
+            "pattern": ".2. .1. 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Energy Crystal",
             "input": [[8, "Redstone"], "Diamond"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Energy Storage Upgrade",
-            "input": [[5, "Oak Plank"], [2, "Insulated Copper Cable"], "Electronic Circuit", "RE Battery"],
+            "input": [[5, "Oak Wood Planks"], [2, "Insulated Copper Cable"], "Electronic Circuit", "RE Battery"],
+            "pattern": "000 121 030",
+            "tools": "Crafting Table"
+        }, {
+            "output": "EU Reader",
+            "input": [[4, "Insulated Copper Cable"], "Electronic Circuit", "Glowstone"],
+            "pattern": ".2. 010 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Extractor",
             "input": [[4, "Tree Tap"], "Electronic Circuit", "Machine Block"],
+            "pattern": "... 020 010",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Fertilizer"]],
-            "input": [[2, "Scrap"], "Fertilizer"]
+            "input": ["Bonemeal", "Scrap"],
+            "pattern": "... .1. .0."
         }, {
             "output": [[2, "Fertilizer"]],
-            "input": ["Bonemeal", "Scrap"]
+            "input": [[2, "Scrap"], "Fertilizer"],
+            "pattern": "... 010 ..."
+        }, {
+            "output": "Filled Fuel Can",
+            "input": [[6, "Coalfuel Cell"], "Fuel Cell"],
+            "pattern": "000 000 .1.",
+            "tools": "Canning Machine"
+        }, {
+            "output": "Filled Fuel Can",
+            "input": [[6, "Biofuel Cell"], "Fuel Cell"],
+            "pattern": "000 000 .1.",
+            "tools": "Canning Machine"
+        }, {
+            "output": [[3, "(Filled) Tin Can"]],
+            "input": [[3, "Tin Can"], "Bread"],
+            "pattern": "... .1. 000",
+            "tools": "Canning Machine"
         }, {
             "output": "FreqTrans",
             "input": ["Electronic Circuit", "Insulated Copper Cable"],
+            "pattern": "... .1. .0.",
             "tools": "Crafting Table"
-        }, {
-            "output": "Fuel Can",
-            "input": [[7, "Tin Ingot"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Fuel Can (filled)",
-            "input": [[6, "Coalfuel Cell"], "Fuel Cell"],
-            "tools": "Canning Machine"
         }, {
             "output": "Generator",
             "input": ["Furnace", "Machine Block", "RE Battery"],
+            "pattern": ".2. .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Generator",
             "input": [[3, "Refined Iron"], "Iron Furnace", "RE Battery"],
+            "pattern": ".2. 000 .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Geothermal Generator",
             "input": [[4, "Glass"], [2, "Empty Cell"], [2, "Refined Iron"], "Generator"],
+            "pattern": "010 010 232",
             "tools": "Crafting Table"
         }, {
             "output": [[4, "Glass Fiber Cable"]],
             "input": [[6, "Glass"], [2, "Redstone"], "Diamond"],
+            "pattern": "000 121 000",
             "tools": "Crafting Table"
         }, {
             "output": [[12, "Gold Cable"]],
             "input": [[3, "Gold Ingot"]],
+            "pattern": "... 000 ...",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Gold Dust"]],
             "input": "Gold Ore",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": [[2, "Grin Powder"]],
             "input": "Spider Eye",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": "H. Coal Cell",
-            "input": ["Compressed Hyd. Coalclump", "Empty Cell"]
-        }, {
-            "output": "HV 2x Insulated Cable",
-            "input": ["HV Insulated Cable", "Rubber"]
-        }, {
-            "output": "HV 3x Insulated Cable",
-            "input": ["HV 2x Insulated Cable", "Rubber"]
-        }, {
-            "output": [[12, "HV Cable"]],
-            "input": [[3, "Refined Iron"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "HV Insulated Cable",
-            "input": ["HV Cable", "Rubber"]
-        }, {
-            "output": "HV Transformer",
-            "input": [[2, "HV 3x Insulated Cable"], "Electronic Circuit", "Energy Crystal", "MV Transformer"],
-            "tools": "Crafting Table"
+            "input": ["Compressed Hyd. Coalclump", "Empty Cell"],
+            "pattern": "... .0. .1."
         }, {
             "output": "Hazmat Suit",
             "input": [[6, "Rubber"], [2, "Orange Dye"]],
+            "pattern": "0.0 010 010",
             "tools": "Crafting Table"
         }, {
             "output": "Hazmat Suit Leggings",
             "input": [[6, "Rubber"], "Orange Dye"],
+            "pattern": "010 0.0 0.0",
             "tools": "Crafting Table"
+        }, {
+            "output": "Heat-Capacity Reactor Plating",
+            "input": [[2, "Dense Copper Plate"], "Reactor Plating"],
+            "pattern": "... 010 ..."
         }, {
             "output": "Heat Exchanger",
             "input": [[3, "Tin Ingot"], "Dense Copper Plate", "Electronic Circuit"],
+            "pattern": ".2. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Heat Vent",
             "input": [[4, "Iron Bars"], [4, "Refined Iron"]],
+            "pattern": "101 0.0 101",
             "tools": "Crafting Table"
-        }, {
-            "output": "Heat-Capacity Reactor Plating",
-            "input": [[2, "Dense Copper Plate"], "Reactor Plating"]
         }, {
             "output": "Heating Cell",
             "input": ["Dense Copper Plate", "Electronic Circuit", "Lava Cell"],
+            "pattern": ".1. .2. .0.",
+            "tools": "Crafting Table"
+        }, {
+            "output": "HV 2x Insulated Cable",
+            "input": [[2, "Rubber"], "HV Cable"],
+            "pattern": "... 010 ..."
+        }, {
+            "output": "HV 2x Insulated Cable",
+            "input": ["HV Insulated Cable", "Rubber"],
+            "pattern": "... .0. .1."
+        }, {
+            "output": "HV 3x Insulated Cable",
+            "input": [[3, "Rubber"], "HV Cable"],
+            "pattern": "... 000 .1."
+        }, {
+            "output": "HV 3x Insulated Cable",
+            "input": [[2, "Rubber"], "HV Insulated Cable"],
+            "pattern": "... 010 ..."
+        }, {
+            "output": "HV 3x Insulated Cable",
+            "input": ["HV 2x Insulated Cable", "Rubber"],
+            "pattern": "... .0. .1."
+        }, {
+            "output": [[12, "HV Cable"]],
+            "input": [[3, "Refined Iron"]],
+            "pattern": "... 000 ...",
+            "tools": "Crafting Table"
+        }, {
+            "output": "HV Insulated Cable",
+            "input": ["HV Cable", "Rubber"],
+            "pattern": "... .0. .1."
+        }, {
+            "output": "HV Transformer",
+            "input": [[2, "HV 3x Insulated Cable"], "Electronic Circuit", "Energy Crystal", "MV Transformer"],
+            "pattern": ".0. 132 .0.",
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Hydrated Coal Dust"], "Bucket"],
             "input": [[8, "Coal Dust"], "Water Bucket"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Hydration Cell",
             "input": "Water Cell",
+            "pattern": "... .0. ...",
             "tools": "Extractor"
         }, {
             "output": "Ice",
             "input": "Snowball",
+            "pattern": "... .0. ...",
             "tools": "Compressor"
         }, {
             "output": "Induction Furnace",
             "input": [[7, "Copper Ingot"], "Advanced Machine Block", "Electric Furnace"],
+            "pattern": "000 020 010",
             "tools": "Crafting Table"
         }, {
             "output": [[4, "Industrial TNT"]],
             "input": [[6, "Flint"], [3, "TNT"]],
+            "pattern": "000 111 000",
             "tools": "Crafting Table"
         }, {
             "output": "Insulated Copper Cable",
-            "input": ["Copper Cable", "Rubber"]
+            "input": ["Copper Cable", "Rubber"],
+            "pattern": "... .0. .1."
         }, {
             "output": "Insulated Gold Cable",
-            "input": ["Gold Cable", "Rubber"]
+            "input": ["Gold Cable", "Rubber"],
+            "pattern": "... .0. .1."
+        }, {
+            "output": "Insulation Cutter",
+            "input": [[3, "Refined Iron"], [2, "Iron Ingot"]],
+            "pattern": "0.0 .0. 1.1",
+            "tools": "Crafting Table"
         }, {
             "output": "Iridium Ore",
             "input": [[7, "UU Matter"]],
+            "pattern": "000 .0. 000",
             "tools": "Crafting Table"
         }, {
             "output": "Iridium Plate",
             "input": [[4, "Advanced Alloy"], [4, "Iridium Ore"], "Diamond"],
+            "pattern": "101 020 101",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Iron Dust"]],
             "input": "Iron Ore",
+            "pattern": "... .0. ...",
             "tools": "Macerator"
         }, {
             "output": [[12, "Iron Fence"]],
             "input": [[6, "Iron Ingot"]],
+            "pattern": "... 000 000",
             "tools": "Crafting Table"
         }, {
             "output": "Iron Furnace",
             "input": [[8, "Iron Ingot"]],
+            "pattern": "000 0.0 000",
             "tools": "Crafting Table"
         }, {
             "output": "Iron Furnace",
             "input": [[5, "Iron Ingot"], "Furnace"],
+            "pattern": ".0. 0.0 010",
             "tools": "Crafting Table"
         }, {
             "output": [[16, "Iron Scaffold"]],
             "input": [[3, "Iron Fence"], [3, "Reinfined Iron"]],
+            "pattern": "111 .0. 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Jetpack",
             "input": [[4, "Refined Iron"], [2, "Redstone"], "Electronic Circuit", "Fuel Can"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "LV Transformer",
-            "input": [[4, "Oak Plank"], [3, "Copper Ingot"], [2, "Insulated Copper Cable"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": "LZH-Condensator",
-            "input": [[4, "Redstone"], [2, "RSH-Condensator"], "Core Heat Exchanger", "Lapis Lazuli Block", "Reactor Heat Vent"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "LapPack",
-            "input": [[6, "Lapis Lazuli Block"], "Advanced Circuit", "BatPack"],
+            "pattern": "020 030 1.1",
             "tools": "Crafting Table"
         }, {
             "output": "Lapotron Crystal",
             "input": [[6, "Lapis Lazuli"], [2, "Electronic Circuit"], "Energy Crystal"],
+            "pattern": "010 020 010",
+            "tools": "Crafting Table"
+        }, {
+            "output": "LapPack",
+            "input": [[6, "Lapis Lazuli Block"], "Advanced Circuit", "BatPack"],
+            "pattern": "010 020 0.0",
             "tools": "Crafting Table"
         }, {
             "output": ["Lava Cell", "Bucket"],
             "input": ["Empty Cell", "Lava Bucket"]
         }, {
-            "output": "Luminator",
+            "output": [[8, "Luminator"]],
             "input": [[5, "Glass"], [2, "Reinforced Iron"], "Insulated Copper Cable", "Tin Cable"],
+            "pattern": "121 030 000",
             "tools": "Crafting Table"
         }, {
-            "output": "MFE",
-            "input": [[4, "2x Ins. Gold Cable"], [2, "Energy Crystal"], "Machine Block"],
+            "output": "LV Transformer",
+            "input": [[4, "Oak Wood Planks"], [3, "Copper Ingot"], [2, "Insulated Copper Cable"]],
+            "pattern": "020 111 020",
             "tools": "Crafting Table"
         }, {
-            "output": "MFSU",
-            "input": [[6, "Lapotron Crystal"], "Advanced Circuit", "Advanced Machine Block", "MFE"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "MV Transformer",
-            "input": [[2, "2x Ins. Gold Cable"], "Machine Block"],
+            "output": "LZH-Condensator",
+            "input": [[4, "Redstone"], [2, "RSH-Condensator"], "Lapis Lazuli Block", "Reactor Heat Exchanger", "Reactor Heat Vent"],
+            "pattern": "040 121 030",
             "tools": "Crafting Table"
         }, {
             "output": "Macerator",
             "input": [[3, "Flint"], [2, "Cobblestone"], "Electronic Circuit", "Machine Block"],
+            "pattern": "000 131 .2.",
             "tools": "Crafting Table"
         }, {
             "output": "Machine Block",
             "input": [[8, "Refined Iron"]],
+            "pattern": "000 0.0 000",
             "tools": "Crafting Table"
         }, {
             "output": "Magnetizer",
             "input": [[6, "Redstone"], "Iron Fence", "Machine Block"],
+            "pattern": "010 020 010",
             "tools": "Crafting Table"
         }, {
             "output": "Mass Fabricator",
-            "input": [[4, "Glowstone"], [2, "Advanced Circuit"], [2, "Advanced Machine Block"], "Lapotron Crystal"],
+            "input": [[4, "Glowstone Dust"], [2, "Advanced Circuit"], [2, "Advanced Machine Block"], "Lapotron Crystal"],
+            "pattern": "010 232 010",
+            "tools": "Crafting Table"
+        }, {
+            "output": "MFE",
+            "input": [[4, "2x Ins. Gold Cable"], [4, "Energy Crystal"], "Machine Block"],
+            "pattern": "010 121 010",
+            "tools": "Crafting Table"
+        }, {
+            "output": "MFSU",
+            "input": [[6, "Lapotron Crystal"], "Advanced Circuit", "Advanced Machine Block", "MFE"],
+            "pattern": "010 030 020",
             "tools": "Crafting Table"
         }, {
             "output": "Miner",
             "input": [[2, "Electronic Circuit"], [2, "Mining Pipe"], "Machine Block"],
+            "pattern": "020 .1. .1.",
             "tools": "Crafting Table"
         }, {
             "output": "Mining Drill",
             "input": [[5, "Refined Iron"], "Electronic Circuit", "RE Battery"],
+            "pattern": ".0. 010 020",
             "tools": "Crafting Table"
         }, {
             "output": "Mining Laser",
             "input": [[4, "Advanced Alloy"], [2, "Energy Crystal"], "Advanced Circuit", "Redstone"],
+            "pattern": "311 002 .00",
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Mining Pipe"]],
             "input": [[6, "Refined Iron"], "Treetap"],
+            "pattern": "0.0 0.0 010",
             "tools": "Crafting Table"
         }, {
             "output": [[2, "Mixed Metal Ingot"]],
             "input": [[3, "Bronze Ingot"], [3, "Refined Iron"], [3, "Tin Ingot"]],
+            "pattern": "111 000 222",
+            "tools": "Crafting Table"
+        }, {
+            "output": "MV Transformer",
+            "input": [[2, "2x Ins. Gold Cable"], "Machine Block"],
+            "pattern": ".0. .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Nano Saber",
-            "input": [[2, "Advanced Alloy"], [2, "Carbon Plate"], [2, "Glowstone"], "Energy Cell"],
+            "input": [[2, "Advanced Alloy"], [2, "Carbon Plate"], [2, "Glowstone Dust"], "Energy Crystal"],
+            "pattern": "21. 21. 030",
             "tools": "Crafting Table"
         }, {
             "output": "NanoSuit Bodyarmor",
             "input": [[7, "Carbon Plate"], "Energy Crystal"],
+            "pattern": "0.0 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "NanoSuit Boots",
             "input": [[4, "Carbon Plate"], "Energy Crystal"],
+            "pattern": "... 0.0 010",
             "tools": "Crafting Table"
         }, {
             "output": "NanoSuit Helmet",
             "input": [[3, "Carbon Plate"], "Energy Crystal", "Glass"],
+            "pattern": "010 020",
             "tools": "Crafting Table"
         }, {
             "output": "NanoSuit Leggings",
             "input": [[6, "Carbon Plate"], "Energy Crystal"],
+            "pattern": "010 0.0 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Near-Depleted Uranium Cell",
-            "input": [[8, "Empty Cell"], "Uranium Fuel Ingot"],
+            "input": [[8, "Empty Cell"], "Refined Uranium"],
+            "pattern": "000 010 000",
             "tools": "Crafting Table"
         }, {
             "output": "Nether Brick",
@@ -588,74 +753,107 @@
         }, {
             "output": "Neutron Reflector",
             "input": [[4, "Coal Dust"], [4, "Tin Dust"], "Dense Copper Plate"],
+            "pattern": "101 121 101",
             "tools": "Crafting Table"
         }, {
             "output": "Nuclear Reactor",
             "input": [[3, "Reactor Chamber"], "Advanced Circuit", "Generator"],
+            "pattern": ".1. 000 .2.",
             "tools": "Crafting Table"
         }, {
             "output": "OD Scanner",
-            "input": [[3, "Insulated Copper Cable"], [2, "Electronic Circuit"], "Glowstone", "RE Battery"],
+            "input": [[3, "Insulated Copper Cable"], [2, "Electronic Circuit"], "Glowstone Dust", "RE Battery"],
+            "pattern": ".2. 131 000",
             "tools": "Crafting Table"
         }, {
             "output": "OV Scanner",
-            "input": [[3, "Glowstone"], [2, "2x Ins. Gold Cable"], "Advanced Circuit", "RE Battery (charged)"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "OV Scanner",
-            "input": [[3, "Glowstone"], [2, "2x Ins. Gold Cable"], "Advanced Circuit", "OD Scanner"],
+            "input": [[3, "Glowstone Dust"], [2, "2x Ins. Gold Cable"], "Advanced Circuit", "OD Scanner"],
+            "pattern": ".0. 020 131",
             "tools": "Crafting Table"
         }, {
             "output": "Overclocked Heat Vent",
             "input": [[2, "Gold Ingot"], "Reactor Heat Vent"],
+            "pattern": ".0. .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Overclocker Upgrade",
             "input": [[3, "10K Cooling Cell"], [2, "Insulated Copper Cable"], "Electronic Circuit"],
+            "pattern": "... 000 121",
             "tools": "Crafting Table"
         }, {
             "output": "Painter",
             "input": [[3, "Wool"], [2, "Iron Ingot"]],
+            "pattern": ".00 .10 1..",
             "tools": "Crafting Table"
         }, {
             "output": "Personal Safe",
             "input": ["Chest", "Electronic Circuit", "Machine Block"],
+            "pattern": ".1. .2. .0.",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Plantball",
+            "input": [[8, "Wheat"]],
+            "pattern": "000 0.0 000",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Plantball",
+            "input": [[8, "Sugar Cane"]],
+            "pattern": "000 0.0 000",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Plantball",
+            "input": [[8, "Seeds"]],
+            "pattern": "000 0.0 000",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Plantball",
+            "input": [[8, "Melon Seeds"]],
+            "pattern": "000 0.0 000",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Plantball",
+            "input": [[8, "Pumpkin Seeds"]],
+            "pattern": "000 0.0 000",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Plantball",
+            "input": [[8, "Oak Leaves"]],
+            "pattern": "000 0.0 000",
+            "tools": "Crafting Table"
+        }, {
+            "output": [[2, "Plantball"]],
+            "input": [[8, "Oak Sapling"]],
+            "pattern": "000 0.0 000",
             "tools": "Crafting Table"
         }, {
             "output": "Pump",
             "input": [[4, "Empty Cell"], [2, "Mining Pipe"], "Electronic Circuit", "Machine Block", "Treetap"],
+            "pattern": "020 030 141",
             "tools": "Crafting Table"
         }, {
             "output": "Quad Uranium Cell",
             "input": [[3, "Dense Copper Plate"], [2, "Dual Uranium Cell"]],
+            "pattern": ".1. 000 .1.",
             "tools": "Crafting Table"
         }, {
-            "output": "Quantum Bodyarmor",
+            "output": "QuantumSuit Bodyarmor",
             "input": [[4, "Iridium Plate"], [3, "Advanced Alloy"], "Lapotron Crystal", "NanoSuit Bodyarmor"],
+            "pattern": "131 020 010",
             "tools": "Crafting Table"
         }, {
-            "output": "Quantum Boots",
+            "output": "QuantumSuit Boots",
             "input": [[2, "Iridium Plate"], [2, "Rubber Boots"], "Lapotron Crystal", "NanoSuit Boots"],
+            "pattern": "... 030 121",
             "tools": "Crafting Table"
         }, {
-            "output": "Quantum Helmet",
+            "output": "QuantumSuit Helmet",
             "input": [[2, "Advanced Circuit"], [2, "Iridium Plate"], "Lapotron Crystal", "NanoSuit Helmet", "Reinforced Glass"],
+            "pattern": ".3. 121 040",
             "tools": "Crafting Table"
         }, {
-            "output": "Quantum Leggings",
-            "input": [[2, "Glowstone"], [2, "Machine Block"], "Iridium Plate", "Lapotron Crystal", "NanoSuit Leggings"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "RE Battery",
-            "input": [[4, "Tin Ingot"], [2, "Redstone"], "Insulated Copper Cable"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "RE Battery (charged)",
-            "input": [[10000, "EU"], "RE Battery"],
-            "tools": "Generator"
-        }, {
-            "output": "RSH-Condensator",
-            "input": [[7, "Redstone"], "Heat Exchanger", "Heat Vent"],
+            "output": "QuantumSuit Leggings",
+            "input": [[2, "Glowstone Dust"], [2, "Iridium Plate"], [2, "Machine Block"], "Lapotron Crystal", "NanoSuit Leggings"],
+            "pattern": "232 141 0.0",
             "tools": "Crafting Table"
         }, {
             "output": "Rail Track",
@@ -668,8 +866,19 @@
             "output": "Raw Carbon Mesh",
             "input": [[2, "Raw Carbon Fibers"]]
         }, {
+            "output": "RE Battery",
+            "input": [[4, "Tin Ingot"], [2, "Redstone"], "Insulated Copper Cable"],
+            "pattern": ".2. 010 010",
+            "tools": "Crafting Table"
+        }, {
             "output": "Reactor Chamber",
             "input": [[4, "Dense Copper Plate"], "Machine Block"],
+            "pattern": ".0. 010 .0.",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Reactor Heat Exchanger",
+            "input": [[2, "Dense Copper Plate"], "Heat Exchanger"],
+            "pattern": ".0. .1. .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Reactor Heat Vent",
@@ -684,7 +893,8 @@
             "tools": "Crafting Table"
         }, {
             "output": "Refined Iron",
-            "input": ["Iron Ingot", "furnace fuel"],
+            "input": ["furnace fuel", "Iron Ingot"],
+            "pattern": ".1. ... .0.",
             "tools": "Furnace"
         }, {
             "output": "Refined Uranium",
@@ -697,22 +907,31 @@
         }, {
             "output": [[7, "Reinforced Glass"]],
             "input": [[7, "Glass"], [2, "Advanced Alloy"]],
-            "tools": "Crafting Table"
-        }, {
-            "output": [[7, "Reinforced Glass"]],
-            "input": [[7, "Glass"], [2, "Advanced Alloy"]],
+            "pattern": "000 101 000",
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Reinforced Stone"]],
             "input": [[8, "Stone"], "Advanced Alloy"],
             "tools": "Crafting Table"
         }, {
+            "output": "RSH-Condensator",
+            "input": [[7, "Redstone"], "Heat Exchanger", "Heat Vent"],
+            "pattern": "000 020 010",
+            "tools": "Crafting Table"
+        }, {
             "output": "Rubber",
-            "input": ["Resin", "furnace fuel"],
+            "input": ["furnace fuel", "Sticky Resin"],
+            "pattern": ".1. ... .0.",
             "tools": "Furnace"
         }, {
             "output": "Rubber Boots",
             "input": [[6, "Rubber"], "Wool"],
+            "pattern": "0.0 0.0 010",
+            "tools": "Crafting Table"
+        }, {
+            "output": "Rubber Sheet",
+            "input": [[6, "Rubber"]],
+            "pattern": "... 000 000",
             "tools": "Crafting Table"
         }, {
             "output": [[3, "Rubber Trampoline"]],
@@ -720,7 +939,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[16, "Scaffold"]],
-            "input": [[3, "Oak Plank"], [3, "Stick"]],
+            "input": [[3, "Oak Wood Planks"], [3, "Stick"]],
             "tools": "Crafting Table"
         }, {
             "output": "Scrap Box",
@@ -736,7 +955,7 @@
             "tools": "Macerator"
         }, {
             "output": "Silver Ingot",
-            "input": ["Silver Ore", "furnace fuel"],
+            "input": ["furnace fuel", "Silver Ore"],
             "tools": "Furnace"
         }, {
             "output": [[5, "Single-Use Battery"]],
@@ -763,7 +982,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Sticky Dynamite"]],
-            "input": [[8, "Dynamite"], "Resin"],
+            "input": [[8, "Dynamite"], "Sticky Resin"],
             "tools": "Crafting Table"
         }, {
             "output": "Stone Mug",
@@ -773,6 +992,14 @@
             "output": [[4, "String"]],
             "input": "Wool",
             "tools": "Macerator"
+        }, {
+            "output": "Terraformer",
+            "input": [[4, "Glowstone"], [3, "Dirt"], "Advanced Machine Block", "TFBP"],
+            "tools": "Crafting Table"
+        }, {
+            "output": "Tesla Coil",
+            "input": [[5, "Redstone"], [2, "Refined Iron"], "Electronic Circuit", "MV Transformer"],
+            "tools": "Crafting Table"
         }, {
             "output": "TFBP - Chilling",
             "input": [[4, "Snow"], "Empty TFBP"],
@@ -802,14 +1029,6 @@
             "input": [[4, "Brown Mushroom"], [4, "Mycelium"], "Empty TFBP"],
             "tools": "Crafting Table"
         }, {
-            "output": "Terraformer",
-            "input": [[4, "Glowstone"], [3, "Dirt"], "Advanced Machine Block", "TFBP"],
-            "tools": "Crafting Table"
-        }, {
-            "output": "Tesla Coil",
-            "input": [[5, "Redstone"], [2, "Refined Iron"], "Electronic Circuit", "MV Transformer"],
-            "tools": "Crafting Table"
-        }, {
             "output": "Thick Neutron Reflector",
             "input": [[4, "Neutron Reflector"], "Dense Copper Plate"],
             "tools": "Crafting Table"
@@ -831,7 +1050,8 @@
             "tools": "Macerator"
         }, {
             "output": "Tin Ingot",
-            "input": ["Tin Ore", "furnace fuel"],
+            "input": ["furnace fuel", "Tin Ore"],
+            "pattern": ".1. ... .0.",
             "tools": "Furnace"
         }, {
             "output": "Toolbox",
@@ -847,11 +1067,12 @@
             "tools": "Crafting Table"
         }, {
             "output": "Tree Tap",
-            "input": [[5, "Oak Plank"]],
+            "input": [[5, "Oak Wood Planks"]],
             "tools": "Crafting Table"
         }, {
             "output": "Treetap",
-            "input": [[5, "Oak Plank"]],
+            "input": [[5, "Oak Wood Planks"]],
+            "pattern": ".0. 000 0..",
             "tools": "Crafting Table"
         }, {
             "output": "Uranium Block",
@@ -859,13 +1080,13 @@
             "tools": "Crafting Table"
         }, {
             "output": "Uranium Cell",
-            "input": ["Empty Cell", "Uranium Fuel Ingot"]
+            "input": ["Empty Cell", "Refined Uranium"]
         }, {
             "output": ["Water Cell", "Bucket"],
             "input": ["Empty Cell", "Water Bucket"]
         }, {
             "output": [[2, "Water Mill"]],
-            "input": [[4, "Oak Plank"], [4, "Stick"], "Generator"],
+            "input": [[4, "Oak Wood Planks"], [4, "Stick"], "Generator"],
             "tools": "Crafting Table"
         }, {
             "output": "Weed-EX",

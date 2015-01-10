@@ -14,10 +14,13 @@ CraftingGuideRouter = require './crafting_guide_router'
 if typeof(global) is 'undefined'
     window.global = window
 
-global.logger = new Logger level:Logger.TRACE
+global.logger = new Logger level:Logger.WARNING
 global.router = new CraftingGuideRouter
 global.util   = require 'util'
 global.views  = views
+
+if window.location.hostname is 'localhost'
+    logger.level = Logger.TRACE
 
 logger.info "CraftingGuide is ready"
 Backbone.history.start pushState:true

@@ -42,7 +42,10 @@ module.exports = class CraftingTableController extends BaseController
         @$outputLink     = @$('.output a')
         @$outputQuantity = @$('.quantity')
         @$prev           = @$('.prev')
+        @$title          = @$('h2 p')
         @$tool           = @$('.tool p')
+
+        @defaultTitle = @$title.html()
         super
 
     refresh: ->
@@ -52,6 +55,9 @@ module.exports = class CraftingTableController extends BaseController
         if @model.hasSteps
             if @model.hasPrevStep then @$prev.addClass 'enabled'
             if @model.hasNextStep then @$next.addClass 'enabled'
+            @$title.html "Step #{@model.step + 1} of #{@model.stepCount}"
+        else
+            @$title.html @defaultTitle
 
         @$tool.html @model.toolNames
 

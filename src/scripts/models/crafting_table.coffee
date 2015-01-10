@@ -29,6 +29,7 @@ module.exports = class CraftingTable extends BaseModel
             multiplier:  { get:@getMultiplier         }
             output:      { get:@getOutput             }
             step:        { get:@getStep, set:@setStep }
+            stepCount:   { get:@getStepCount          }
             toolNames:   { get:@getToolNames          }
         }
 
@@ -72,6 +73,10 @@ module.exports = class CraftingTable extends BaseModel
         @trigger 'change', this
 
         return this
+
+    getStepCount: ->
+        return 0 unless @_steps?
+        return @_steps.length
 
     getToolNames: ->
         recipe = @_steps[@_step]?.recipe

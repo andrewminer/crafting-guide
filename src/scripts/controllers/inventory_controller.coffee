@@ -54,6 +54,15 @@ module.exports = class InventoryController extends BaseController
     onClearButtonClicked: ->
         @model.clear()
 
+    onItemSelected: ->
+        func = =>
+            @onNameFieldChanged()
+            @onAddButtonClicked()
+            @$nameField.autocomplete 'search'
+
+        setTimeout func, 10 # needed to allow the autocomplete to finish
+        return true
+
     onNameFieldBlur: ->
         item = @modPack.findItemByName @$nameField.val()
         @$nameField.val if item? then item.name else ''
@@ -151,6 +160,7 @@ module.exports = class InventoryController extends BaseController
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()
+        onSelected = => @onItemSelected()
 
         @$nameField.autocomplete
             source:    @modPack.gatherRecipeNames()
@@ -158,7 +168,7 @@ module.exports = class InventoryController extends BaseController
             minLength: 0
             change:    onChanged
             close:     onChanged
-            select:    onChanged
+            select:    onSelected
 
     _updateButtonState: ->
         if @model.isEmpty then @$clearButton.attr('disabled', 'disabled') else @$clearButton.removeAttr('disabled')

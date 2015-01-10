@@ -66,7 +66,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Advanced Heat Exchanger",
-            "input": [[4, "Glass Fiber Cable"], [2, "Electronic Circuit"], [2, "Heat Exchanger"], "Dense Copper Plate"],
+            "input": [[4, "Glass Fibre Cable"], [2, "Electronic Circuit"], [2, "Heat Exchanger"], "Dense Copper Plate"],
             "pattern": "010 232 010",
             "tools": "Crafting Table"
         }, {
@@ -377,7 +377,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Electric Jetpack",
-            "input": [[4, "Refined Iron"], [2, "Glowstone"], "Advanced Circuit", "BatBox"],
+            "input": [[4, "Refined Iron"], [2, "Glowstone Dust"], "Advanced Circuit", "BatBox"],
             "pattern": "020 030 1.1",
             "tools": "Crafting Table"
         }, {
@@ -483,7 +483,7 @@
             "pattern": "010 010 232",
             "tools": "Crafting Table"
         }, {
-            "output": [[4, "Glass Fiber Cable"]],
+            "output": [[4, "Glass Fibre Cable"]],
             "input": [[6, "Glass"], [2, "Redstone"], "Diamond"],
             "pattern": "000 121 000",
             "tools": "Crafting Table"
@@ -624,7 +624,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Jetpack",
-            "input": [[4, "Refined Iron"], [2, "Redstone"], "Electronic Circuit", "Fuel Can"],
+            "input": [[4, "Refined Iron"], [2, "Redstone"], "Electronic Circuit", "(Empty) Fuel Can"],
             "pattern": "020 030 1.1",
             "tools": "Crafting Table"
         }, {

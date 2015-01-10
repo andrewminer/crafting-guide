@@ -116,13 +116,15 @@ module.exports = class InventoryController extends BaseController
         @$quantityField = @$('input[name="quantity"]')
         @$scrollbox     = @$('.scrollbox')
         @$table         = @$('table')
+        @$toolbar       = @$('.toolbar')
         @$title         = @$('.title')
         super
 
     refresh: ->
         display = if @editable then 'block' else 'none'
-        @$clearButton.css display:(if @editable then 'block' else 'none')
         @$editPanel.css display:(if @editable then 'table-row' else 'none')
+        @$toolbar.css display:(if @editable then 'block' else 'none')
+        @$scrollbox.css bottom:(if @editable then @$toolbar.height() else '0')
 
         @$icon.attr 'src', @icon
         @$title.html @title

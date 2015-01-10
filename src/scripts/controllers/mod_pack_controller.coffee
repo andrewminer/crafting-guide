@@ -31,7 +31,7 @@ module.exports = class ModPackController extends BaseController
         super
 
     refresh: ->
-        @$('table tr:not(:last-child)').remove()
+        @$('table tr').remove()
         return unless @model?
 
         @_modVersionControllers = []

@@ -86,6 +86,7 @@ module.exports = class InventoryController extends BaseController
     onQuantityFieldBlur: ->
         value = @$quantityField.val().replace /[^0-9]/g, ''
         if value.length is 0 then value = '1'
+        value = Math.min value, 64
         @$quantityField.val value
         @onQuantityFieldChanged()
 
@@ -100,6 +101,9 @@ module.exports = class InventoryController extends BaseController
         @$quantityField.removeClass 'error', Duration.fast
         @$quantityField.removeClass 'error-new', Duration.fast
         @_updateButtonState()
+
+    onQuantityFieldFocused: ->
+        @$quantityField.val ''
 
     # BaseController Overrides #####################################################################
 
@@ -153,6 +157,7 @@ module.exports = class InventoryController extends BaseController
         'click button[name="add"]':     'onAddButtonClicked'
         'click button[name="clear"]':   'onClearButtonClicked'
         'focus input[name="name"]':     'onNameFieldFocused'
+        'focus input[name="quantity"]': 'onQuantityFieldFocused'
         'input input[name="name"]':     'onNameFieldChanged'
         'input input[name="quantity"]': 'onQuantityFieldChanged'
         'keyup input[name="name"]':     'onNameFieldKeyUp'

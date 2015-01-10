@@ -6,14 +6,14 @@ All rights reserved.
 */
 
 .view__crafting_grid {
-    border: 0.4em solid $color-gray-medium;
+    border: 0.2em solid $color-gray-medium;
 
     img {
         position: relative; height:4.8em; width: 4.8em;
     }
 
     td {
-        background: $color-gray-dark;
+        background: $color-gray-faint;
         border: 0.1em solid $color-gray-light;
         padding: 0.1em;
     }

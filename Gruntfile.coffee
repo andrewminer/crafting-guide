@@ -40,6 +40,7 @@ module.exports = (grunt)->
 
         clean:
             dist: ['./dist']
+            build: ['./build']
 
         copy:
             data:
@@ -101,10 +102,26 @@ module.exports = (grunt)->
                 files:
                     './src/scripts/views.js': ['./src/templates/**/*.jade']
 
+        rename:
+            scripts:
+                src: './dist/js'
+                dest: './build/js'
+
         sass:
             main:
                 files:
                     './dist/css/main.css': ['./src/css/main.scss']
+
+        uglify:
+            scripts:
+                options:
+                    maxLineLen: 20
+                files: [
+                    expand: true
+                    cwd: './build/js'
+                    src: '**/*.js'
+                    dest: './dist/js'
+                ]
 
         watch:
             data:
@@ -134,4 +151,6 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', ['copy', 'sass', 'jade', 'browserify', 'exorcise']
+    grunt.registerTask 'build', [ 'copy', 'sass', 'jade', 'browserify', 'exorcise' ]
+
+    grunt.registerTask 'dist', ['clean', 'build', 'rename:scripts', 'uglify']

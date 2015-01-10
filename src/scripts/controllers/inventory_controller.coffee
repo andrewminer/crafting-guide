@@ -58,7 +58,7 @@ module.exports = class InventoryController extends BaseController
         func = =>
             @onNameFieldChanged()
             @onAddButtonClicked()
-            @$nameField.autocomplete 'search'
+            @$nameField.blur()
 
         setTimeout func, 10 # needed to allow the autocomplete to finish
         return true

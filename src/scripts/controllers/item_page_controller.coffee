@@ -22,17 +22,6 @@ module.exports = class ItemPageController extends BaseController
         options.templateName  = 'item_page'
         super options
 
-    # Public Methods ###############################################################################
-
-    setParams: (params)->
-        return unless params.name?
-
-        item = @model.modPack.findItemByName params.name
-        return unless item? and item.isCraftable
-
-        quantity = if params.quantity? then parseInt(params.quantity) else 1
-        @model.want.add item.slug, quantity
-
     # BaseController Overrides #####################################################################
 
     onDidRender: ->

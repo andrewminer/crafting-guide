@@ -28,18 +28,12 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     # Route Methods ################################################################################
 
     root: ->
-        params = new UrlParams
-            recipeName:     {type:'string'}
-            count:          {type:'integer'}
-
-        if params.recipeName?
-            @navigate "/item/#{encodeURIComponent(params.recipeName)}"
-
+        params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
         @item params.recipeName, params.count
 
     item: (name, quantity=1)->
         @_pageControllers.item ?= new ItemPageController
-        @_pageControllers.item.setParams name:name, quantity:quantity
+        @_pageControllers.item.model.params = name:name, quantity:quantity
         @_setPage 'item'
 
     # Private Methods ##############################################################################

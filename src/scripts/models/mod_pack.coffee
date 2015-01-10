@@ -19,6 +19,7 @@ module.exports = class ModPack extends BaseModel
         attributes.modVersions ?= []
         super attributes, options
 
+        @loading = w(true)
         @_parser = new ModVersionParser
 
     # Public Methods ###############################################################################
@@ -98,8 +99,11 @@ module.exports = class ModPack extends BaseModel
 
         return false
 
+    isLoading: ->
+        return @loading.inspect().state isnt 'pending'
+
     loadModVersion: (url)->
-        w.promise (resolve, reject)=>
+        promise = w.promise (resolve, reject)=>
             @trigger Event.load.started, this, url
             $.ajax
                 url: url
@@ -108,6 +112,8 @@ module.exports = class ModPack extends BaseModel
                     resolve @onModVersionLoaded(url, data, status, xhr)
                 error: (xhr, status, error)=>
                     reject @onModVersionLoadFailed(url, error, status, xhr)
+
+        @loading = w.join @loading, promise
 
     loadModVersionData: (data)->
         modVersion = @_parser.parse data
@@ -118,8 +124,10 @@ module.exports = class ModPack extends BaseModel
         return modVersion
 
     loadAllModVersions: (urlList)->
-        promises = (@loadModVersion(url) for url in urlList)
-        return w.settle promises
+        for url in urlList
+            @loadModVersion url
+
+        return @loading
 
     # Event Methods ################################################################################
 

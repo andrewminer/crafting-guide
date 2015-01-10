@@ -24,6 +24,7 @@ module.exports = class CraftingPlan extends BaseModel
 
         @have.on 'change', => @craft()
         @want.on 'change', => @craft()
+        @modPack.on 'change', => @craft()
 
         @clear()
 

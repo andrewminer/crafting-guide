@@ -58,7 +58,7 @@ module.exports = class ModVersion extends BaseModel
 
         for slug, item of @items
             continue if result[item.slug]
-            if item.isGatherable
+            if not item.isCraftable
                 continue unless options.includeGatherable
             result[item.slug] = value:item.name, label:"#{item.name} (from #{@name} #{@version})"
 

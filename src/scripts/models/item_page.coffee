@@ -22,6 +22,7 @@ module.exports = class ItemPage extends BaseModel
         super attributes, options
 
         @modPack.on 'change', => @_consumeParams()
+        @plan.on 'change', => @_updateLocation()
 
     # Private Methods ##############################################################################
 
@@ -35,3 +36,11 @@ module.exports = class ItemPage extends BaseModel
         @plan.want.add item.slug, quantity
 
         @params = null
+
+    _updateLocation: ->
+        list = @plan.want.toList()
+        if list.length is 1
+            itemSlug = if _.isArray(list[0]) then list[0][1] else list[0]
+            router.navigate "/item/#{itemSlug}"
+        else
+            router.navigate "/"

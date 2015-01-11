@@ -1,0 +1,30 @@
+Title:
+
+MAJOR UPDATE! Crafting Guide—Ultimate step-by-step guide to make anything
+
+Body:
+
+Have you ever wanted to figure out how much of what materials you need to craft something? Ever notice that certain
+recipes are pretty easy... until you account for all the machines you need? Ever wonder how much stuff you'll need to
+make a [Quarry](http://crafting-guide.com/item/quarry) or an entire
+[QuantumSuit](http://crafting-guide.com/quantumsuit_bodyarmor)?
+
+Crafting Guide will help. Choose what you want to make and how many of each, and it will automatically figure out:
+
+* How many of what resources do you need?
+* What tools / machines do you need?
+* How many of what resource do you need for the tools?
+* What items do you need to craft in what order?
+
+I've just launched a brand-new version with support for vanilla, Buildcraft, and IndustrialCraft2 (classic) recipes.
+It's all open-source, so anyone can help expand it to cover missing recipes, other mods, or add new features. Check out
+the [GitHub project](https://github.com/andrewminer/crafting-guide) if you'd like to get involved!
+
+If you've seen it before, go look again. There's a whole new site now, which supports a lot more than the old one did:
+
+* All items have matching icons
+* All recipes show the proper layout on the crafting grid
+* You now get step-by-step instructions
+* You can now make many different items at once (e.g., a whole NanoSuit)
+
+[crafting-guide.com](http://crafting-guide.com)

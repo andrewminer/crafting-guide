@@ -20,7 +20,6 @@ module.exports = class CraftingTable extends BaseModel
 
         @plan.on 'change', => @reset()
         @_step = 0
-        @_steps = []
 
         Object.defineProperties this, {
             hasNextStep: { get:@hasNextStep           }
@@ -36,29 +35,27 @@ module.exports = class CraftingTable extends BaseModel
     # Public Methods ###############################################################################
 
     reset: ->
-        @_compactSteps()
         @step = 0
-
         return this
 
     # Property Methods #############################################################################
 
     hasNextStep: ->
-        return @_step + 1 < @_steps.length
+        return @_step + 1 < @plan.steps.length
 
     hasPrevStep: ->
         return @_step > 0
 
     hasSteps: ->
-        return @_steps.length > 0
+        return @plan.steps.length > 0
 
     getMultiplier: ->
-        step = @_steps[@_step]
+        step = @plan.steps[@_step]
         return unless step?
         return step.multiplier
 
     getOutput: ->
-        step = @_steps[@_step]
+        step = @plan.steps[@_step]
         return unless step?
         return step.recipe.output[0]
 
@@ -66,20 +63,23 @@ module.exports = class CraftingTable extends BaseModel
         return @_step
 
     setStep: (newStep)->
-        newStep = Math.max 0, Math.min @_steps.length - 1, newStep
+        oldStep = @_step
+        newStep = Math.max 0, Math.min @plan.steps.length - 1, newStep
 
         @_step = newStep
-        @grid.recipe = @_steps[@_step]?.recipe
+        @grid.recipe = @plan.steps[@_step]?.recipe
+
+        @trigger 'change:step', this, oldStep, newStep
         @trigger 'change', this
 
         return this
 
     getStepCount: ->
-        return 0 unless @_steps?
-        return @_steps.length
+        return 0 unless @plan.steps?
+        return @plan.steps.length
 
     getToolNames: ->
-        recipe = @_steps[@_step]?.recipe
+        recipe = @plan.steps[@_step]?.recipe
         return '' unless recipe?
         toolSlugs = (stack.itemSlug for stack in recipe.tools)
         toolNames = (@modPack.findName(slug) for slug in toolSlugs).join ', '
@@ -89,18 +89,3 @@ module.exports = class CraftingTable extends BaseModel
 
     toString: ->
         return "#{@constructor.name} (#{@cid}) { plan:#{@plan}, step:#{@_step} }"
-
-    # Private Methods ##############################################################################
-
-    _compactSteps: ->
-        steps = {}
-
-        for recipe in @plan.steps
-            step = steps[recipe.name]
-            if not step?
-                steps[recipe.name] = multiplier:1, recipe:recipe
-            else
-                step.multiplier += 1
-
-        @_steps = (step for name, step of steps)
-        return this

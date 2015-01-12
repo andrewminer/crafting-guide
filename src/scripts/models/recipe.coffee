@@ -20,7 +20,9 @@ module.exports = class Recipe extends BaseModel
         attributes.tools   ?= []
         super attributes, options
 
-    Object.defineProperty @prototype, 'name', get:-> @item.name
+        Object.defineProperties this,
+            'name': { get: -> @item.name }
+            'slug': { get: -> @item.slug }
 
     # Public Methods ###############################################################################
 

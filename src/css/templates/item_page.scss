@@ -20,4 +20,9 @@ All rights reserved.
     .view__crafting_table { width: 50%; height: 26em; }
 
     .view__mod_pack { margin-top: 2em; width: 100%; }
+
+    .want label {
+        position: absolute; top: 50%; left: 0.5em;
+        @include transform(translateY(-50%));
+    }
 }

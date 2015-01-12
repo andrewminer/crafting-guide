@@ -22,23 +22,14 @@ module.exports = class Inventory extends BaseModel
     # Public Methods ###############################################################################
 
     add: (itemSlug, quantity=1)->
-        return if quantity is 0
-
-        stack = @_stacks[itemSlug]
-        if not stack?
-            stack = new Stack itemSlug:itemSlug, quantity:quantity
-            @_stacks[itemSlug] = stack
-            @_slugs.push itemSlug
-            @_slugs.sort()
-        else
-            stack.quantity += quantity
-
+        @_add itemSlug, quantity
         @trigger Event.add, this, itemSlug, quantity
         @trigger Event.change, this
         return this
 
     addInventory: (inventory)->
-        inventory.each (stack)=> @add stack.itemSlug, stack.quantity
+        inventory.each (stack)=> @_add stack.itemSlug, stack.quantity
+        @trigger Event.change, this
         return this
 
     clear: ->
@@ -122,3 +113,17 @@ module.exports = class Inventory extends BaseModel
 
         result.push '}'
         return result.join ''
+
+    # Private Methods ##############################################################################
+
+    _add: (itemSlug, quantity=1)->
+        return if quantity is 0
+
+        stack = @_stacks[itemSlug]
+        if not stack?
+            stack = new Stack itemSlug:itemSlug, quantity:quantity
+            @_stacks[itemSlug] = stack
+            @_slugs.push itemSlug
+            @_slugs.sort()
+        else
+            stack.quantity += quantity

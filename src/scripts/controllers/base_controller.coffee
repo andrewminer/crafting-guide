@@ -23,6 +23,8 @@ module.exports = class BaseController extends Backbone.View
         @_loadTemplate options.templateName
         super options
 
+        @_tryRefresh = _.debounce @_tryRefresh, 100
+
     # Public Methods ###############################################################################
 
     addChild: (Controller, atSelector, options={})->

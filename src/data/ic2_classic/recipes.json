@@ -436,7 +436,7 @@
             "pattern": ".1. 020 .1."
         }, {
             "output": "Extractor",
-            "input": [[4, "Tree Tap"], "Electronic Circuit", "Machine Block"],
+            "input": [[4, "Treetap"], "Electronic Circuit", "Machine Block"],
             "pattern": "... 020 010",
             "tools": "Crafting Table"
         }, {
@@ -1108,7 +1108,7 @@
             "tools": "Crafting Table"
         }, {
             "output": "Wind Mill",
-            "input": [[4, "Iron"], "Generator"],
+            "input": [[4, "Iron Ingot"], "Generator"],
             "pattern": "0.0 .1. 0.0",
             "tools": "Crafting Table"
         }, {

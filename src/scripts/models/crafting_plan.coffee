@@ -25,16 +25,14 @@ module.exports = class CraftingPlan extends BaseModel
         @have.on 'change', => @craft()
         @want.on 'change', => @craft()
         @modPack.on 'change', => @craft()
+        @on 'change:includingTools', => @craft()
 
         @clear()
 
     # Public Methods ###############################################################################
 
     clear: ->
-        @steps     = []
-        @_expected = new Inventory
-        @_pending  = null
-
+        @steps = []
         @need.clear()
         @result.clear()
 
@@ -42,22 +40,18 @@ module.exports = class CraftingPlan extends BaseModel
         return this
 
     craft: ->
-        logger.trace "starting crafting plan for: #{@want} starting with #{@have}"
         @clear()
-        return if @want.isEmpty
-
-        @want.each (stack)=>
-            @_expected = @want.clone()
-            @_pending = @want.clone()
-
         @result.addInventory @have
 
-        @_need = new Inventory
-        while not @_pending.isEmpty
-            @_processPending()
+        @steps = {}
+        @want.each (stack)=>
+            @_findSteps stack.itemSlug
+            @need.add stack.itemSlug, stack.quantity
 
-        @need.addInventory @_need
-        @steps.reverse()
+        @steps = _.values @steps
+        @_resolveNeeds()
+        @_removeExtraSteps()
+        @result.addInventory @want
 
         @trigger 'change', this
 
@@ -74,53 +68,67 @@ module.exports = class CraftingPlan extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _processPending: ->
-        targetStack = @_pending.pop()
-        targetItem = @modPack.findItem targetStack.itemSlug
-        logger.verbose "processing item: #{targetStack}"
-        return unless targetItem?
-        return if (not targetItem.isCraftable) or targetItem.isGatherable
+    _addStep: (recipe)->
+        return if @_hasStep recipe.slug
+        logger.verbose "adding step: #{recipe.slug}"
+        @steps[recipe.slug] = recipe:recipe
 
-        recipe = targetItem.recipes[0]
-        logger.verbose "recipe: #{recipe}"
+    _chooseRecipe: (item)->
+        return item.recipes[0]
+
+    _findSteps: (itemSlug)->
+        item = @modPack.findItem itemSlug
+        return unless item?
+        return unless item.isCraftable
+        return if item.isGatherable
+
+        recipe = @_chooseRecipe item
 
         if @includingTools
             for toolStack in recipe.tools
-                slug = toolStack.itemSlug
-                totalExpected = @result.quantityOf(slug) + @_expected.quantityOf(slug)
-                if totalExpected < 1
-                    @_pending.add slug
-                    @_expected.add slug
+                if not @_hasStep toolStack.itemSlug
+                    @_findSteps toolStack.itemSlug
 
-        while @_totalQuantityOf(targetItem.slug) < @_expected.quantityOf(targetItem.slug)
-            @steps.push recipe
+        for inputStack in recipe.input
+            @_findSteps inputStack.itemSlug
+
+        @_addStep recipe
+
+    _hasStep: (itemSlug)->
+        return @steps[itemSlug]?
+
+    _removeExtraSteps: ->
+        result = (step for step in @steps when step.multiplier > 0)
+        @steps = result
+
+    _resolveNeeds: ->
+        for i in [@steps.length-1..0] by -1
+            step   = @steps[i]
+            recipe = step.recipe
+
+            step.multiplier = Math.ceil(@need.quantityOf(recipe.slug) / step.recipe.output[0].quantity)
+
+            if @includingTools
+                for stack in recipe.tools
+                    slug      = stack.itemSlug
+                    available = @result.quantityOf(slug) + @need.quantityOf(slug)
+                    needed    = Math.max 0, stack.quantity - available
+
+                    @need.add stack.itemSlug, needed
+                    @result.add stack.itemSlug, needed
 
             for stack in recipe.input
-                @_processInputStack stack
+                needed    = step.multiplier * stack.quantity
+                consumed  = Math.min needed, @result.quantityOf(stack.itemSlug)
+                remaining = needed - consumed
+
+                @result.remove stack.itemSlug, consumed
+                @need.add stack.itemSlug, remaining
 
             for stack in recipe.output
-                @_processOutputStack stack
+                created   = stack.quantity * step.multiplier
+                consumed  = Math.min created, @need.quantityOf stack.itemSlug
+                remaining = created - consumed
 
-    _processInputStack: (stack)->
-        quantityAvailable = @result.quantityOf stack.itemSlug
-        quantityUsed      = Math.min quantityAvailable, stack.quantity
-        quantityNeeded    = stack.quantity - quantityUsed
-        logger.trace "processing input:#{stack.itemSlug},
-            a:#{quantityAvailable}, u:#{quantityUsed}, n:#{quantityNeeded}"
-
-        @result.remove stack.itemSlug, quantityUsed
-        @_pending.add stack.itemSlug, quantityNeeded
-        @_need.add stack.itemSlug, quantityNeeded
-
-    _processOutputStack: (stack)->
-        quantityMissing = @_need.quantityOf stack.itemSlug
-        quantityUsed    = Math.min quantityMissing, stack.quantity
-        quantityLeft    = stack.quantity - quantityUsed
-        logger.trace "processing output:#{stack.itemSlug},
-            m:#{quantityMissing}, u:#{quantityUsed}, l:#{quantityLeft}"
-
-        @_need.remove stack.itemSlug, quantityUsed
-        @result.add stack.itemSlug, quantityLeft
-
-    _totalQuantityOf: (itemSlug)->
-        return @result.quantityOf(itemSlug) - @_need.quantityOf(itemSlug)
+                @result.add stack.itemSlug, remaining
+                @need.remove stack.itemSlug, consumed

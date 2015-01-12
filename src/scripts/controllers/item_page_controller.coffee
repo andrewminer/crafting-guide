@@ -22,6 +22,11 @@ module.exports = class ItemPageController extends BaseController
         options.templateName  = 'item_page'
         super options
 
+    # Event Methods ################################################################################
+
+    onToolsBoxToggled: ->
+        @model.plan.includingTools = @$('.includeTools:checked').length isnt 0
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
@@ -54,4 +59,19 @@ module.exports = class ItemPageController extends BaseController
             modPack: @model.modPack
 
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
+
+        @$('.want .toolbar').append '<label><input class="includeTools" type="checkbox"> include tools</label'
+        @$includeToolsBox = @$('.includeTools')
+
         super
+
+    refresh: ->
+        if @model.plan.includingTools
+            @$includeToolsBox.attr 'checked', 'checked'
+        else
+            @$includeToolsBox.removeAttr 'checked'
+
+    # Backbone.View Overrides ######################################################################
+
+    events:
+        'change .includeTools': 'onToolsBoxToggled'

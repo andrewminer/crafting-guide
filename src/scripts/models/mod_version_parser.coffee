@@ -113,10 +113,10 @@ module.exports.V1 = class V1
         data.tools ?= []
 
         attributes =
-            item:   item
-            output: @_parseStackList data.output, field:'output', canBeEmpty:false
-            input:  @_parseStackList data.input,  field:'input',  canBeEmpty:true
-            tools:  @_parseStackList data.tools,  field:'tools',  canBeEmpty:true
+            item:   item,
+            output: @_parseStackList(data.output, field:'output', canBeEmpty:false)
+            input:  @_parseStackList(data.input,  field:'input',  canBeEmpty:true)
+            tools:  @_parseStackList(data.tools,  field:'tools',  canBeEmpty:true)
         attributes.pattern = data.pattern if data.pattern?
 
         recipe = new Recipe attributes

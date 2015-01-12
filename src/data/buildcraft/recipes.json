@@ -84,7 +84,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Daizuli Transport Pipe"]],
-            "input": ["Block of Lapis Lazuli", "Diamond", "Glass"],
+            "input": ["Diamond", "Glass", "Lapis Lazuli Block"],
             "pattern": "... 021 ...",
             "tools": "Crafting Table"
         }, {
@@ -145,7 +145,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Emzuli Transport Pipe"]],
-            "input": ["Block of Lapis Lazuli", "Emerald", "Glass"],
+            "input": ["Emerald", "Glass", "Lapis Lazuli Block"],
             "pattern": "... 021 ...",
             "tools": "Crafting Table"
         }, {
@@ -260,7 +260,7 @@
             "tools": "Crafting Table"
         }, {
             "output": [[8, "Lazuli Transport Pipe"]],
-            "input": [[2, "Block of Lapis Lazuli"], "Glass"],
+            "input": [[2, "Lapis Lazuli Block"], "Glass"],
             "pattern": "... 010 ...",
             "tools": "Crafting Table"
         }, {
@@ -372,7 +372,7 @@
             "input": ["Redstone", "Stone Transport Pipe"],
             "pattern": "... .1. .0."
         }, {
-            "output": [[8, "Stone Pipe"]],
+            "output": [[8, "Stone Transport Pipe"]],
             "input": [[2, "Stone"], "Glass"],
             "pattern": "... 010 ...",
             "tools": "Crafting Table"

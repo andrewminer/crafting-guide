@@ -146,7 +146,6 @@ module.exports = class ModPack extends BaseModel
     onModVersionLoaded: (url, data, status, xhr)->
         try
             modVersion = @loadModVersionData data
-            modVersion.enabled = true
 
             logger.info "loaded ModVersion from #{url}: #{modVersion}"
             @trigger Event.load.succeeded, this, modVersion

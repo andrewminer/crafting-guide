@@ -13,15 +13,25 @@ BaseModel = require './base_model'
 module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
+        options.storage ?= window.localStorage
+
         if _.isEmpty(attributes.name) then throw new Error 'name cannot be empty'
         if _.isEmpty(attributes.version) then throw new Error 'version cannot be empty'
 
         attributes.description  ?= ''
-        attributes.enabled      ?= attributes.name in RequiredMods
+        attributes.enabled      ?= true
         attributes.items        ?= {}
         attributes.names        ?= {}
         attributes.slug         ?= _.slugify attributes.name
         super attributes, options
+
+        enabled = options.storage.getItem("#{@slug}.enabled")
+        if enabled?
+            logger.debug "loading #{@slug}.enabled as #{@enabled}"
+            @enabled = enabled is 'true'
+        @on 'change:enabled', =>
+            logger.debug "saving #{@slug}.enabled as #{@enabled}"
+            options.storage.setItem "#{@slug}.enabled", "#{@enabled}"
 
     # Public Methods ###############################################################################
 

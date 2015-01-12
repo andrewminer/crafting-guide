@@ -13,19 +13,23 @@ Inventory = require './inventory'
 module.exports = class CraftingPlan extends BaseModel
 
     constructor: (attributes={}, options={})->
+        options.storage ?= window.localStorage
+
         if not attributes.modPack then throw new Error 'modPack is required'
+        attributes.includingTools ?= options.storage.getItem('includingTools')
         attributes.includingTools ?= false
         super attributes, options
 
-        @have   = new Inventory
-        @want   = new Inventory
-        @need   = new Inventory
-        @result = new Inventory
+        @have    = new Inventory
+        @want    = new Inventory
+        @need    = new Inventory
+        @result  = new Inventory
+        @storage = options.storage
 
         @have.on 'change', => @craft()
         @want.on 'change', => @craft()
         @modPack.on 'change', => @craft()
-        @on 'change:includingTools', => @craft()
+        @on 'change:includingTools', => @onIncludingToolsChanged()
 
         @clear()
 
@@ -54,6 +58,12 @@ module.exports = class CraftingPlan extends BaseModel
         @result.addInventory @want
 
         @trigger 'change', this
+
+    # Event Methods ################################################################################
+
+    onIncludingToolsChanged: ->
+        @storage.setItem 'includingTools', "#{@includingTools}"
+        @craft()
 
     # Object Overrides #############################################################################
 

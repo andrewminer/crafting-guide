@@ -8,6 +8,7 @@ All rights reserved.
 BaseModel     = require './base_model'
 CraftingPlan  = require './crafting_plan'
 CraftingTable = require './crafting_table'
+{Event}       = require '../constants'
 ModPack       = require './mod_pack'
 
 ########################################################################################################################
@@ -21,8 +22,8 @@ module.exports = class ItemPage extends BaseModel
         attributes.table   ?= new CraftingTable plan:attributes.plan
         super attributes, options
 
-        @modPack.on 'change', => @_consumeParams()
-        @plan.on 'change', => @_updateLocation()
+        @modPack.on Event.change, => @_consumeParams()
+        @plan.on Event.change, => @_updateLocation()
 
     # Private Methods ##############################################################################
 

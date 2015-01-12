@@ -18,16 +18,18 @@ html
             link(rel="stylesheet", type="text/css", href="/css/main.css")
 
     body
-        .content
-            include ../includes/_header.jade
+        block body
+            .view__screen
+            .content
+                include ../includes/_header.jade
 
-            block content
+                block content
 
-            include ../includes/_footer.jade
+                include ../includes/_footer.jade
 
-        block scripts
-            script(src="/js/underscore.js")
-            script(src="/js/jquery.js")
-            script(src="/js/backbone.js")
-            script(src="/js/jade.js")
-            script(src="/js/when.js")
+            block scripts
+                script(src="/js/underscore.js")
+                script(src="/js/jquery.js")
+                script(src="/js/backbone.js")
+                script(src="/js/jade.js")
+                script(src="/js/when.js")

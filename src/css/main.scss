@@ -48,6 +48,10 @@ $font-size-large:    1.6em;
 $font-size-x-large:  2.0em;
 $font-size-xx-large: 3.0em;
 
+$layer-normal: 0;
+$layer-screen: 5;
+$layer-dialog: 10;
+
 // Common //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 body {
@@ -191,6 +195,12 @@ label {
         background: $color-brick-dark url('/images/stone_brick.png');
         position: absolute; bottom: 0; height: 3.2em; width: 100%;
     }
+}
+
+.view__screen {
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+    display: none;
+    z-index: $layer-screen;
 }
 
 // Child Stylesheets ///////////////////////////////////////////////////////////////////////////////////////////////////

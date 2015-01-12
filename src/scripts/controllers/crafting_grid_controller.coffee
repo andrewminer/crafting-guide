@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
+{Duration}     = require '../constants'
 ImageLoader    = require './image_loader'
 
 ########################################################################################################################
@@ -42,7 +43,9 @@ module.exports = class CraftingGridController extends BaseController
             if display?
                 slot.a.removeClass 'empty'
                 slot.a.attr 'href', display.itemUrl
+                slot.a.attr 'title', display.itemName
                 @_imageLoader.load display.iconUrl, slot.img
                 slot.img.attr 'alt', display.itemName
 
+        @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
         super

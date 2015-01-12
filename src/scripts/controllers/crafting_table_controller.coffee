@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController         = require './base_controller'
 CraftingGridController = require './crafting_grid_controller'
+{Duration}             = require '../constants'
 ImageLoader            = require './image_loader'
 
 ########################################################################################################################
@@ -70,6 +71,7 @@ module.exports = class CraftingTableController extends BaseController
         if outputStack?
             display = @modPack.findItemDisplay outputStack.itemSlug
             @$outputLink.attr 'href', display.itemUrl
+            @$outputLink.attr 'title', display.itemName
             @$outputImg.attr 'alt', display.itemName
             @$outputQuantity.html outputStack.quantity if outputStack.quantity > 1
 
@@ -80,6 +82,7 @@ module.exports = class CraftingTableController extends BaseController
         else
             @$multiplier.html ''
 
+        @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
         super
 
     # Backbone.View Overrides ######################################################################

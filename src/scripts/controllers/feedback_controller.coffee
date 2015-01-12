@@ -54,9 +54,6 @@ module.exports = class FeedbackController extends BaseController
         else
             @$sendButton.attr 'disabled', 'disabled'
 
-        if event?.which is Key.Return and @$commentField.val().length > 0
-            @onSendClicked()
-
     onToggle: ->
         @$screen.off 'click'
 

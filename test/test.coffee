@@ -31,7 +31,8 @@ require './inventory.test'
 require './inventory_parser.test'
 require './mod_pack.test'
 require './mod_version.test'
-require './mod_version_parser.test'
+require './mod_version_parsers/v1.test'
 
 mocha.checkLeaks()
+mocha.globals ['LiveReload']
 mocha.run()

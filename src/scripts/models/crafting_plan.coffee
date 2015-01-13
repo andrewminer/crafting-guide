@@ -13,8 +13,6 @@ Inventory = require './inventory'
 module.exports = class CraftingPlan extends BaseModel
 
     constructor: (attributes={}, options={})->
-        options.storage ?= window.localStorage
-
         if not attributes.modPack then throw new Error 'modPack is required'
         attributes.includingTools ?= false
         super attributes, options
@@ -28,10 +26,6 @@ module.exports = class CraftingPlan extends BaseModel
         @have.on 'change', => @craft()
         @want.on 'change', => @craft()
         @modPack.on 'change', => @craft()
-
-        value = options.storage.getItem('includingTools')
-        if value? then @includingTools = value is 'true'
-        @on 'change:includingTools', => @onIncludingToolsChanged()
 
         @clear()
 

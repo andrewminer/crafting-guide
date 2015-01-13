@@ -18,16 +18,16 @@ buildcraft = industrialCraft = minecraft = modPack = null
 describe 'ModPack', ->
 
     beforeEach ->
-        minecraft = new ModVersion name:'Minecraft', version:'1.7.10'
+        minecraft = new ModVersion name:'Minecraft', version:'1.7.10', enabled:true
         minecraft.addItem new Item name:'Wool'
         minecraft.addItem new Item name:'Bed', recipes:['']
         minecraft.registerSlug 'iron_chestplate', 'Iron Chestplate'
 
-        buildcraft = new ModVersion name:'Buildcraft', version:'4.0'
+        buildcraft = new ModVersion name:'Buildcraft', version:'4.0', enabled:false
         buildcraft.addItem new Item name:'Stone Gear', recipes:['']
         buildcraft.addItem new Item name:'Bed', recipes:['']
 
-        industrialCraft = new ModVersion name:'Industrial Craft', version:'2.0'
+        industrialCraft = new ModVersion name:'Industrial Craft', version:'2.0', enabled:false
         industrialCraft.addItem new Item name:'Resin'
         industrialCraft.addItem new Item name:'Rubber', recipes:['']
 

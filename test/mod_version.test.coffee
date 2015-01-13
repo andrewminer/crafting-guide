@@ -29,7 +29,7 @@ describe 'ModVersion', ->
         it 'supplies default values', ->
             modVersion.description.should.equal ''
             modVersion.items.should.eql {}
-            modVersion.enabled.should.be.false
+            modVersion.enabled.should.be.true
 
     describe 'addItem', ->
 

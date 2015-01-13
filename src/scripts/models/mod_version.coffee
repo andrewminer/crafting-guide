@@ -25,14 +25,6 @@ module.exports = class ModVersion extends BaseModel
         attributes.slug         ?= _.slugify attributes.name
         super attributes, options
 
-        enabled = options.storage.getItem("#{@slug}.enabled")
-        if enabled?
-            logger.debug "loading #{@slug}.enabled as #{@enabled}"
-            @enabled = enabled is 'true'
-        @on 'change:enabled', =>
-            logger.debug "saving #{@slug}.enabled as #{@enabled}"
-            options.storage.setItem "#{@slug}.enabled", "#{@enabled}"
-
     # Public Methods ###############################################################################
 
     addItem: (item)->

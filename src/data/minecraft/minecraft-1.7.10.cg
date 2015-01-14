@@ -1,0 +1,2485 @@
+schema: 2
+name: Minecraft
+version: 1.7.10
+description: Crafting recipes from vanilla Minecraft
+
+item: Acacia Wood Planks
+    recipe:
+        input: Acacia Wood
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Acacia Wood Slab
+    recipe:
+        input: Acacia Wood Planks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Acacia Wood Stairs
+    recipe:
+        input: Acacia Wood Planks
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Activator Rail
+    recipe:
+        input: Iron Ingot, Redstone Torch, Stick
+        pattern: 020 010 020
+        quantity: 6
+        tools: Crafting Table
+
+item: Anvil
+    recipe:
+        input: Block of Iron, Iron Ingot
+        pattern: 000 .1. 111
+        tools: Crafting Table
+
+item: Arrow
+    recipe:
+        input: Feather, Flint, Stick
+        pattern: .1. .2. .0.
+        quantity: 4
+        tools: Crafting Table
+
+item: Awkward Potion
+    recipe:
+        input: Nether Wart, Water Bottle
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Baked Potato
+    recipe:
+        input: Potato, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Beacon
+    recipe:
+        input: Glass, Nether Star, Obsidian
+        pattern: 000 010 222
+        tools: Crafting Table
+
+item: Bed
+    recipe:
+        input: Oak Wood Planks, Wool
+        pattern: ... 111 000
+        tools: Crafting Table
+
+item: Birch Wood Planks
+    recipe:
+        input: Birch Wood
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Birch Wood Slab
+    recipe:
+        input: Birch Wood Planks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Birch Wood Stairs
+    recipe:
+        input: Birch Wood Planks
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Black Carpet
+    recipe:
+        input: Black Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Black Stained Clay
+    recipe:
+        input: Hardened Clay, Ink Sac
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Black Stained Glass
+    recipe:
+        input: Glass, Ink Sac
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Black Stained Glass Pane
+    recipe:
+        input: Black Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Black Wool
+    recipe:
+        input: Ink Sac, Wool
+        pattern: ... .1. .0.
+
+item: Blaze Powder
+    recipe:
+        input: Blaze Rod
+        pattern: ... .0. ...
+        quantity: 2
+
+item: Block of Coal
+    recipe:
+        input: Coal
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Block of Diamond
+    recipe:
+        input: Diamond
+        pattern: 000 000 000
+
+item: Block of Emerald
+    recipe:
+        input: Emerald
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Block of Gold
+    recipe:
+        input: Gold Ingot
+        pattern: 000 000 000
+
+item: Block of Iron
+    recipe:
+        input: Iron Ingot
+        pattern: 000 000 000
+
+item: Block of Quartz
+    recipe:
+        input: Nether Quartz
+        pattern: 00. 00. ...
+
+item: Block of Redstone
+    recipe:
+        input: Redstone
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Blue Carpet
+    recipe:
+        input: Blue Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Blue Stained Clay
+    recipe:
+        input: Hardened Clay, Lapis Lazuli
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Blue Stained Glass
+    recipe:
+        input: Glass, Lapis Lazuli
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Blue Stained Glass Pane
+    recipe:
+        input: Blue Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Blue Wool
+    recipe:
+        input: Lapis Lazuli, Wool
+        pattern: ... .1. .0.
+
+item: Boat
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... 0.0 000
+        tools: Crafting Table
+
+item: Bone Meal
+    recipe:
+        input: Bone
+        pattern: ... .0. ...
+        quantity: 3
+
+item: Book
+    recipe:
+        input: Leather, Paper
+        pattern: 01. 11. ...
+
+item: Book and Quill
+    recipe:
+        input: Book, Feather, Ink Sac
+        pattern: .1. 02. ...
+
+item: Bookshelf
+    recipe:
+        input: Book, Oak Wood Planks
+        pattern: 111 000 111
+        tools: Crafting Table
+
+item: Bow
+    recipe:
+        input: Stick, String
+        pattern: .01 0.1 .01
+        tools: Crafting Table
+
+item: Bowl
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... 0.0 .0.
+        tools: Crafting Table
+
+item: Bread
+    recipe:
+        input: Wheat
+        pattern: ... 000 ...
+        tools: Crafting Table
+
+item: Brewing Stand
+    recipe:
+        input: Blaze Rod, Cobblestone
+        pattern: ... .0. 111
+        tools: Crafting Table
+
+item: Brick
+    recipe:
+        input: Clay, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Brick Stairs
+    recipe:
+        input: Bricks
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Bricks
+    recipe:
+        input: Brick
+        pattern: 00. 00. ...
+
+item: Bricks Slab
+    recipe:
+        input: Bricks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Brown Carpet
+    recipe:
+        input: Brown Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Brown Stained Clay
+    recipe:
+        input: Cocoa Beans, Hardened Clay
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Brown Stained Glass
+    recipe:
+        input: Cocoa Beans, Glass
+        pattern: 111 101 111
+        quantity: 8
+        tools: Crafting Table
+
+item: Brown Stained Glass Pane
+    recipe:
+        input: Brown Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Brown Wool
+    recipe:
+        input: Cocoa Beans, Wool
+        pattern: ... .1. .0.
+
+item: Bucket
+    recipe:
+        input: Iron Ingot
+        pattern: ... 0.0 .0.
+        tools: Crafting Table
+
+item: Button
+    recipe:
+        input: Stone
+        pattern: ... .0. ...
+
+item: Button (wood)
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... .0. ...
+
+item: Cactus Green
+    recipe:
+        input: Cactus, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Cake
+    recipe:
+        extras: 3 Bucket
+        input: Egg, Milk, Sugar, Wheat
+        pattern: 111 202 333
+        tools: Crafting Table
+
+item: Carpet
+    recipe:
+        input: Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Carrot on a Stick
+    recipe:
+        input: Carrot, Fishing Rod
+        pattern: ... 10. ...
+
+item: Cauldron
+    recipe:
+        input: Iron Ingot
+        pattern: 0.0 0.0 000
+        tools: Crafting Table
+
+item: Chain Boots
+    recipe:
+        input: Fire
+        pattern: ... 0.0 0.0
+        tools: Crafting Table
+
+item: Chain Chestplate
+    recipe:
+        input: Fire
+        pattern: 0.0 000 000
+        tools: Crafting Table
+
+item: Chain Helmet
+    recipe:
+        input: Fire
+        pattern: 000 0.0 ...
+        tools: Crafting Table
+
+item: Chain Leggings
+    recipe:
+        input: Fire
+        pattern: 000 0.0 0.0
+        tools: Crafting Table
+
+item: Charcoal
+    recipe:
+        input: Oak Wood, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Oak Wood, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Chest
+    recipe:
+        input: Oak Wood Planks
+        pattern: 000 0.0 000
+        tools: Crafting Table
+
+item: Chiseled Quartz Block
+    recipe:
+        input: Quartz Slab
+        pattern: ... .0. .0.
+
+item: Chiseled Sandstone
+    recipe:
+        input: Sandstone Slab
+        pattern: ... .0. .0.
+
+item: Clay (block)
+    recipe:
+        input: Clay
+        pattern: 00. 00. ...
+
+item: Clock
+    recipe:
+        input: Gold Ingot, Redstone
+        pattern: .0. 010 .0.
+        tools: Crafting Table
+
+item: Coal
+    gatherable: yes
+    recipe:
+        input: Block of Coal
+        pattern: ... .0. ...
+        quantity: 9
+
+item: Cobblestone Slab
+    recipe:
+        input: Cobblestone
+        pattern: ... 000 ...
+        quantity: 6
+
+item: Cobblestone Wall
+    recipe:
+        input: Cobblestone
+        pattern: ... 000 000
+        quantity: 6
+        tools: Crafting Table
+
+item: Compass
+    recipe:
+        input: Iron Ingot, Redstone
+        pattern: .0. 010 .0.
+        tools: Crafting Table
+
+item: Cooked Chicken
+    recipe:
+        input: Raw Chicken, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Cooked Fish
+    recipe:
+        input: Raw Fish, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Cooked Porkchop
+    recipe:
+        input: Raw Porkchop, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Cooked Salmon
+    recipe:
+        input: Raw Salmon, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Cookie
+    recipe:
+        input: Cocoa Beans, Wheat
+        pattern: ... 101 ...
+        tools: Crafting Table
+
+item: Crafting Table
+    recipe:
+        input: Oak Wood Planks
+        pattern: 00. 00. ...
+
+item: Cyan Carpet
+    recipe:
+        input: Cyan Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Cyan Dye
+    recipe:
+        input: Cactus Green, Lapis Lazuli
+        pattern: ... 01. ...
+        quantity: 2
+
+item: Cyan Stained Clay
+    recipe:
+        input: Cyan Dye, Hardened Clay
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Cyan Stained Glass
+    recipe:
+        input: Cyan Dye, Glass
+        pattern: 111 101 111
+        quantity: 8
+        tools: Crafting Table
+
+item: Cyan Stained Glass Pane
+    recipe:
+        input: Cyan Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Cyan Wool
+    recipe:
+        input: Cyan Dye, Wool
+        pattern: ... .1. .0.
+
+item: Dandelion Yellow
+    recipe:
+        input: Sunflower
+        pattern: ... .0. ...
+        quantity: 2
+    recipe:
+        input: Dandelion
+        pattern: ... .0. ...
+
+item: Dark Oak Wood Planks
+    recipe:
+        input: Dark Oak Wood
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Dark Oak Wood Slab
+    recipe:
+        input: Dark Oak Wood Planks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Dark Oak Wood Stairs
+    recipe:
+        input: Dark Oak Wood Planks
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Daylight Sensor
+    recipe:
+        input: Glass, Nether Quartz, Oak Wood Slab
+        pattern: 000 111 222
+        tools: Crafting Table
+
+item: Detector Rail
+    recipe:
+        input: Iron Ingot, Pressure Plate, Redstone
+        pattern: 0.0 010 020
+        quantity: 6
+        tools: Crafting Table
+
+item: Diamond
+    gatherable: yes
+    recipe:
+        input: Block of Diamond
+        pattern: ... .0. ...
+        quantity: 9
+
+item: Diamond Axe
+    recipe:
+        input: Diamond, Stick
+        pattern: 00. 01. .1.
+        tools: Crafting Table
+
+item: Diamond Boots
+    recipe:
+        input: Diamond
+        pattern: ... 0.0 0.0
+        tools: Crafting Table
+
+item: Diamond Chestplate
+    recipe:
+        input: Diamond
+        pattern: 0.0 000 000
+        tools: Crafting Table
+
+item: Diamond Helm
+    recipe:
+        input: Diamond
+        pattern: 000 0.0 ...
+        tools: Crafting Table
+
+item: Diamond Hoe
+    recipe:
+        input: Diamond, Stick
+        pattern: 00. .1. .1.
+        tools: Crafting Table
+
+item: Diamond Leggings
+    recipe:
+        input: Diamond
+        pattern: 000 0.0 0.0
+        tools: Crafting Table
+
+item: Diamond Pickaxe
+    recipe:
+        input: Diamond, Stick
+        pattern: 000 .1. .1.
+        tools: Crafting Table
+
+item: Diamond Shovel
+    recipe:
+        input: Diamond, Stick
+        pattern: .1. .0. .0.
+        tools: Crafting Table
+
+item: Diamond Sword
+    recipe:
+        input: Diamond, Stick
+        pattern: .0. .0. .1.
+        tools: Crafting Table
+
+item: Dispenser
+    recipe:
+        input: Bow, Cobblestone, Redstone
+        pattern: 111 101 121
+        tools: Crafting Table
+
+item: Door
+    recipe:
+        input: Oak Wood Planks
+        pattern: .00 .00 .00
+        tools: Crafting Table
+
+item: Dropper
+    recipe:
+        input: Cobblestone, Redstone
+        pattern: 000 0.0 010
+        tools: Crafting Table
+
+item: Emerald
+    gatherable: yes
+    recipe:
+        input: Block of Emerald
+        pattern: ... .0. ...
+        quantity: 9
+    recipe:
+        input: Emerald Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Empty Map
+    recipe:
+        input: Compass, Paper
+        pattern: 111 101 111
+        tools: Crafting Table
+    recipe:
+        input: Map (completed), Paper
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Enchantment Table
+    recipe:
+        input: Book, Diamond, Obsidian
+        pattern: .0. 121 222
+        tools: Crafting Table
+
+item: Ender Chest
+    recipe:
+        input: Eye of Ender, Obsidian
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Eye of Ender
+    recipe:
+        input: Blaze Powder, Ender Pearl
+        pattern: ... .0. .1.
+
+item: Fence
+    recipe:
+        input: Stick
+        pattern: ... 000 000
+        quantity: 2
+        tools: Crafting Table
+
+item: Fence Gate
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: ... 010 010
+        tools: Crafting Table
+
+item: Fermented Spider Eye
+    recipe:
+        input: Brown Mushroom, Spider Eye, Sugar
+        pattern: .2. .0. .1.
+
+item: Fire Charge
+    recipe:
+        input: Blaze Powder, Coal, Gunpowder
+        pattern: .2. .0. .1.
+        quantity: 3
+    recipe:
+        input: Blaze Powder, Charcoal, Gunpowder
+        pattern: .2. .0. .1.
+        quantity: 3
+
+item: Firework Rocket (duration 1)
+    recipe:
+        input: Gunpowder, Paper
+        pattern: ... .1. .0.
+
+item: Firework Rocket (duration 2)
+    recipe:
+        input: Gunpowder, Paper
+        pattern: ... .1. 0.0
+
+item: Firework Rocket (duration 3)
+    recipe:
+        input: Gunpowder, Paper
+        pattern: ... .1. 000
+
+item: Fishing Rod
+    recipe:
+        input: Stick, String
+        pattern: ..0 .01 .0.
+        tools: Crafting Table
+
+item: Flint and Steel
+    recipe:
+        input: Flint, Iron Ingot
+        pattern: ... .1. ..0
+
+item: Flower Pot
+    recipe:
+        input: Brick
+        pattern: ... 0.0 .0.
+        tools: Crafting Table
+
+item: Furnace
+    recipe:
+        input: Cobblestone
+        pattern: 000 0.0 000
+        tools: Crafting Table
+
+item: Glass
+    recipe:
+        input: Sand, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Glass Bottle
+    recipe:
+        input: Glass
+        pattern: ... 0.0 .0.
+        quantity: 3
+        tools: Crafting Table
+
+item: Glass Pane
+    recipe:
+        input: Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Glass Panes
+    recipe:
+        input: Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Glistering Melon
+    recipe:
+        input: Gold Nugget, Melon
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Glowstone
+    recipe:
+        input: Glowstone Dust
+        pattern: 00. 00. ...
+
+item: Gold Axe
+    recipe:
+        input: Gold Ingot, Stick
+        pattern: 00. 01. .1.
+        tools: Crafting Table
+
+item: Gold Boots
+    recipe:
+        input: Gold Ingot
+        pattern: ... 0.0 0.0
+        tools: Crafting Table
+
+item: Gold Chestplate
+    recipe:
+        input: Gold Ingot
+        pattern: 0.0 000 000
+        tools: Crafting Table
+
+item: Gold Helm
+    recipe:
+        input: Gold Ingot
+        pattern: 000 0.0 ...
+        tools: Crafting Table
+
+item: Gold Hoe
+    recipe:
+        input: Gold Ingot, Stick
+        pattern: 00. .1. .1.
+        tools: Crafting Table
+
+item: Gold Ingot
+    recipe:
+        input: Gold Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Block of Gold
+        pattern: ... .0. ...
+        quantity: 9
+    recipe:
+        input: Gold Nugget
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Gold Leggings
+    recipe:
+        input: Gold Ingot
+        pattern: 000 0.0 0.0
+        tools: Crafting Table
+
+item: Gold Nugget
+    recipe:
+        input: Gold Ingot
+        pattern: ... .0. ...
+        quantity: 9
+
+item: Gold Pickaxe
+    recipe:
+        input: Gold Ingot, Stick
+        pattern: 000 .1. .1.
+        tools: Crafting Table
+
+item: Gold Shovel
+    recipe:
+        input: Gold Ingot, Stick
+        pattern: .1. .0. .0.
+        tools: Crafting Table
+
+item: Gold Sword
+    recipe:
+        input: Gold Ingot, Stick
+        pattern: .0. .0. .1.
+        tools: Crafting Table
+
+item: Golden Apple
+    recipe:
+        input: Apple, Gold Ingot
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Golden Apple (magic)
+    recipe:
+        input: Apple, Block of Gold
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Golden Carrot
+    recipe:
+        input: Carrot, Gold Nugget
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Gray Carpet
+    recipe:
+        input: Gray Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Gray Dye
+    recipe:
+        input: Bone Meal, Ink Sac
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Gray Stained Clay
+    recipe:
+        input: Gray Dye, Hardened Clay
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Gray Stained Glass
+    recipe:
+        input: Glass, Gray Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Gray Stained Glass Pane
+    recipe:
+        input: Gray Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Gray Wool
+    recipe:
+        input: Gray Dye, Wool
+        pattern: ... .1. .0.
+
+item: Green Carpet
+    recipe:
+        input: Green Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Green Stained Clay
+    recipe:
+        input: Cactus Green, Hardened Clay
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Green Stained Glass
+    recipe:
+        input: Cactus Green, Glass
+        pattern: 111 101 111
+        quantity: 8
+        tools: Crafting Table
+
+item: Green Stained Glass Pane
+    recipe:
+        input: Green Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Green Wool
+    recipe:
+        input: Cactus Green, Wool
+        pattern: ... .1. .0.
+
+item: Hardened Clay
+    recipe:
+        input: Clay (block), furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Hay Bale
+    recipe:
+        input: Wheat
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Hopper
+    recipe:
+        input: Chest, Iron Ingot
+        pattern: 1.1 101 .1.
+        tools: Crafting Table
+
+item: Iron Axe
+    recipe:
+        input: Iron Ingot, Stick
+        pattern: 00. 01. .1.
+        tools: Crafting Table
+
+item: Iron Bars
+    recipe:
+        input: Iron Ingot
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Iron Boots
+    recipe:
+        input: Iron Ingot
+        pattern: ... 0.0 0.0
+        tools: Crafting Table
+
+item: Iron Chestplate
+    recipe:
+        input: Iron Ingot
+        pattern: 0.0 000 000
+        tools: Crafting Table
+
+item: Iron Door
+    recipe:
+        input: Iron Ingot
+        pattern: .00 .00 .00
+        tools: Crafting Table
+
+item: Iron Helm
+    recipe:
+        input: Iron Ingot
+        pattern: 000 0.0 0.0
+        tools: Crafting Table
+
+item: Iron Hoe
+    recipe:
+        input: Iron Ingot, Stick
+        pattern: 00. 1.. 1..
+        tools: Crafting Table
+
+item: Iron Ingot
+    recipe:
+        input: Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Block of Iron
+        pattern: ... .0. ...
+        quantity: 9
+
+item: Iron Leggings
+    recipe:
+        input: Iron Ingot
+        pattern: 000 0.0 0.0
+        tools: Crafting Table
+
+item: Iron Nugget
+    recipe:
+        input: Iron Ingot
+        pattern: ... .0. ...
+        quantity: 9
+
+item: Iron Pickaxe
+    recipe:
+        input: Iron Ingot, Stick
+        pattern: 000 .1. .1.
+        tools: Crafting Table
+
+item: Iron Shovel
+    recipe:
+        input: Iron Ingot, Stick
+        pattern: .0. .1. .1.
+        tools: Crafting Table
+
+item: Iron Sword
+    recipe:
+        input: Iron Ingot, Stick
+        pattern: .0. .0. .1.
+        tools: Crafting Table
+
+item: Item Frame
+    recipe:
+        input: Leather, Stick
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Jack o'Lantern
+    recipe:
+        input: Pumpkin, Torch
+        pattern: ... .0. .1.
+
+item: Jukebox
+    recipe:
+        input: Diamond, Oak Wood Planks
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Jungle Wood Planks
+    recipe:
+        input: Jungle Wood
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Jungle Wood Slab
+    recipe:
+        input: Jungle Wood Planks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Jungle Wood Stairs
+    recipe:
+        input: Jungle Wood Planks
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Lapis Lazuli
+    gatherable: yes
+    recipe:
+        input: Lapis Lazuli Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Lapis Lazuli Block
+    recipe:
+        input: Lapis Lazuli
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Lava Bucket
+    recipe:
+        input: Bucket, Lava Source Block
+        pattern: ... .1. .0.
+
+item: Lead
+    recipe:
+        input: Slimeball, String
+        pattern: 11. 10. ..1
+        quantity: 2
+        tools: Crafting Table
+
+item: Leather Boots
+    recipe:
+        input: Leather
+        pattern: ... 0.0 0.0
+
+item: Leather Cap
+    recipe:
+        input: Leather
+        pattern: 000 0.0 ...
+
+item: Leather Pants
+    recipe:
+        input: Leather
+        pattern: 000 0.0 0.0
+
+item: Leather Tunic
+    recipe:
+        input: Leather
+        pattern: 0.0 000 000
+
+item: Lever
+    recipe:
+        input: Cobblestone, Stick
+        pattern: ... .1. .0.
+
+item: Light Blue Carpet
+    recipe:
+        input: Light Blue Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Light Blue Dye
+    recipe:
+        input: Blue Orchid
+        pattern: ... .0. ...
+    recipe:
+        input: Bone Meal, Lapis Lazuli
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Light Blue Stained Clay
+    recipe:
+        input: Hardened Clay, Light Blue Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Light Blue Stained Glass
+    recipe:
+        input: Glass, Light Blue Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Light Blue Stained Glass Pane
+    recipe:
+        input: Light Blue Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Light Blue Wool
+    recipe:
+        input: Light Blue Dye, Wool
+        pattern: ... .1. .0.
+
+item: Light Gray Carpet
+    recipe:
+        input: Light Gray Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Light Gray Dye
+    recipe:
+        input: White Tulip
+        pattern: ... .0. ...
+    recipe:
+        input: Azure Bluet
+        pattern: ... .0. ...
+    recipe:
+        input: Oxeye Daisy
+        pattern: ... .0. ...
+    recipe:
+        input: Bone Meal, Ink Sac
+        pattern: ... 010 ...
+        quantity: 3
+    recipe:
+        input: Bone Meal, Gray Dye
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Light Gray Stained Clay
+    recipe:
+        input: Hardened Clay, Light Gray Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Light Gray Stained Glass
+    recipe:
+        input: Glass, Light Gray Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Light Gray Stained Glass Pane
+    recipe:
+        input: Light Gray Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Light Gray Wool
+    recipe:
+        input: Light Gray Dye, Wool
+        pattern: ... .1. .0.
+
+item: Lime Carpet
+    recipe:
+        input: Lime Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Lime Dye
+    recipe:
+        input: Bone Meal, Cactus Green
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Lime Stained Clay
+    recipe:
+        input: Hardened Clay, Lime Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Lime Stained Glass
+    recipe:
+        input: Glass, Lime Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Lime Stained Glass Pane
+    recipe:
+        input: Lime Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Lime Wool
+    recipe:
+        input: Lime Dye, Wool
+        pattern: ... .1. .0.
+
+item: Magenta Carpet
+    recipe:
+        input: Magenta Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Magenta Dye
+    recipe:
+        input: Allium
+        pattern: ... .0. ...
+    recipe:
+        input: Bone Meal, Lapis Lazuli, Rose Red
+        pattern: 22. 01. ...
+        quantity: 4
+    recipe:
+        input: Lapis Lazuli, Pink Dye, Rose Red
+        pattern: ... 012 ...
+        quantity: 3
+    recipe:
+        input: Pink Dye, Purple Dye
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Magenta Stained Clay
+    recipe:
+        input: Hardened Clay, Magenta Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Magenta Stained Glass
+    recipe:
+        input: Glass, Magenta Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Magenta Stained Glass Pane
+    recipe:
+        input: Magenta Stained Glass
+        pattern: ... 000 ...
+        quantity: 16
+        tools: Crafting Table
+
+item: Magenta Wool
+    recipe:
+        input: Magenta Dye, Wool
+        pattern: ... .1. .0.
+
+item: Magma Cream
+    recipe:
+        input: Blaze Powder, Slimeball
+        pattern: ... .0. .1.
+
+item: Magneta Dye
+    recipe:
+        input: Lilac
+        pattern: ... .0. ...
+        quantity: 2
+
+item: Melon (block)
+    recipe:
+        input: Melon
+        pattern: 000 000 000
+        tools: Crafting Table
+
+item: Melon Seeds
+    recipe:
+        input: Melon
+        pattern: ... .0. ...
+
+item: Milk
+    recipe:
+        input: Bucket
+        pattern: ... .0. ...
+        tools: Cow
+
+item: Minecart
+    recipe:
+        input: Iron Ingot
+        pattern: ... 0.0 000
+        tools: Crafting Table
+
+item: Minecart with Chest
+    recipe:
+        input: Chest, Minecart
+        pattern: ... .0. .1.
+
+item: Minecart with Furnace
+    recipe:
+        input: Furnace, Minecart
+        pattern: ... .0. .1.
+
+item: Minecart with Hopper
+    recipe:
+        input: Hopper, Minecart
+        pattern: ... .0. .1.
+
+item: Minecart with TNT
+    recipe:
+        input: Minecart, TNT
+        pattern: ... .1. .0.
+
+item: Mossy Cobblestone Wall
+    recipe:
+        input: Moss Stone
+        pattern: ... 000 000
+        quantity: 6
+        tools: Crafting Table
+
+item: Mundane Potion
+    recipe:
+        input: Redstone, Water Bottle
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Mundane Splash Potion
+    recipe:
+        input: Gunpowder, Mundane Potion
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Mushroom Stew
+    recipe:
+        input: Bowl, Brown Mushroom, Red Mushroom
+        pattern: .2. .1. .0.
+
+item: Nether Brick (block)
+    recipe:
+        input: Nether Brick (item)
+        pattern: 00. 00. 000
+
+item: Nether Brick Fence
+    recipe:
+        input: Nether Brick (block)
+        pattern: ... 000 000
+        quantity: 6
+        tools: Crafting Table
+
+item: Nether Brick (item)
+    recipe:
+        input: Netherrack, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Nether Brick Slab
+    recipe:
+        input: Nether Brick (block)
+        pattern: ... 000 ...
+        quantity: 6
+
+item: Nether Brick Stairs
+    recipe:
+        input: Nether Brick (block)
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Nether Quartz
+    gatherable: yes
+    recipe:
+        input: Nether Quartz Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Note Block
+    recipe:
+        input: Oak Wood Planks, Redstone
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Oak Wood Planks
+    recipe:
+        input: Oak Wood
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Oak Wood Slab
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Oak Wood Stairs
+    recipe:
+        input: Oak Wood Planks
+        pattern: 0.. 00. 000
+        quantity: 4
+
+item: Orange Carpet
+    recipe:
+        input: Orange Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Orange Dye
+    recipe:
+        input: Orange Tulip
+        pattern: ... .0. ...
+    recipe:
+        input: Dandelion Yellow, Rose Red
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Orange Stained Clay
+    recipe:
+        input: Hardened Clay, Orange Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Orange Stained Glass
+    recipe:
+        input: Glass, Orange Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Orange Stained Glass Pane
+    recipe:
+        input: Orange Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Orange Wool
+    recipe:
+        input: Orange Dye, Wool
+        pattern: ... .1. .0.
+
+item: Painting
+    recipe:
+        input: Stick, Wool
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Paper
+    recipe:
+        input: Sugar Cane
+        pattern: ... 000 ...
+        quantity: 3
+
+item: Pillar Quartz Block
+    recipe:
+        input: Block of Quartz
+        pattern: ... .0. .0.
+        quantity: 2
+
+item: Pink Carpet
+    recipe:
+        input: Pink Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Pink Dye
+    recipe:
+        input: Peony
+        pattern: ... .0. ...
+        quantity: 2
+    recipe:
+        input: Pink Tulip
+        pattern: ... .0. ...
+    recipe:
+        input: Bone Meal, Rose Red
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Pink Stained Clay
+    recipe:
+        input: Hardened Clay, Pink Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Pink Stained Glass
+    recipe:
+        input: Glass, Pink Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Pink Stained Glass Pane
+    recipe:
+        input: Pink Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Pink Wool
+    recipe:
+        input: Pink Dye, Wool
+        pattern: ... .1. .0.
+
+item: Piston
+    recipe:
+        input: Cobblestone, Iron Ingot, Oak Wood Planks, Redstone
+        pattern: 222 010 030
+        tools: Crafting Table
+
+item: Potion of Fire Resistance (3:00)
+    recipe:
+        input: Awkward Potion, Magma Cream
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Fire Resistance (8:00)
+    recipe:
+        input: Potion of Fire Resistance (3:00), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Harming
+    recipe:
+        input: Fermented Spider Eye, Potion of Poison (0:45)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Poison (2:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Water Breathing (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Water Breathing (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Healing
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Harming II
+    recipe:
+        input: Glowstone Dust, Potion of Harming
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Poison II (0:22)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Healing II
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Healing
+    recipe:
+        input: Awkward Potion, Glistering Melon
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Healing II
+    recipe:
+        input: Glowstone Dust, Potion of Healing
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Invisibility (3:00)
+    recipe:
+        input: Fermented Spider Eye, Potion of Night Vision (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Invisibility (8:00)
+    recipe:
+        input: Potion of Invisibility (3:00), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Night Vision (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Night Vision (3:00)
+    recipe:
+        input: Awkward Potion, Golden Carrot
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Night Vision (8:00)
+    recipe:
+        input: Potion of Night Vision (3:00), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Poison (0:45)
+    recipe:
+        input: Awkward Potion, Spider Eye
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Poison II (0:22)
+    recipe:
+        input: Glowstone Dust, Potion of Poison (0:45)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Regeneration (0:45)
+    recipe:
+        input: Awkward Potion, Ghast Tear
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Regeneration (2:00)
+    recipe:
+        input: Potion of Regeneration (0:45), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Regeneration II (0:22)
+    recipe:
+        input: Glowstone Dust, Potion of Regeneration (0:45)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Slowness (1:30)
+    recipe:
+        input: Fermented Spider Eye, Potion of Swiftness
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Slowness (4:00)
+    recipe:
+        input: Potion of Slowness (1:30), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Fire Resistance (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Swiftness (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Strength (3:00)
+    recipe:
+        input: Awkward Potion, Blaze Powder
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Strength (8:00)
+    recipe:
+        input: Potion of Strength (3:00), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Strength II (1:30)
+    recipe:
+        input: Glowstone Dust, Potion of Strength (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Swiftness (3:00)
+    recipe:
+        input: Awkward Potion, Sugar
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Swiftness (8:00)
+    recipe:
+        input: Potion of Swiftness (3:00), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Swiftness II (1:30)
+    recipe:
+        input: Glowstone Dust, Potion of Swiftness (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Water Breathing (3:00)
+    recipe:
+        input: Awkward Potion, Pufferfish
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Water Breathing (8:00)
+    recipe:
+        input: Potion of Water Breathing (3:00), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Weakness (1:30)
+    recipe:
+        input: Fermented Spider Eye, Water Bottle
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Potion of Weakness (4:00)
+    recipe:
+        input: Potion of Weakness (1:30), Redstone
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Mundane Potion
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Water Bottle
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+    recipe:
+        input: Fermented Spider Eye, Potion of Strength (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Powered Rail
+    recipe:
+        input: Gold Ingot, Redstone, Stick
+        pattern: 0.0 020 010
+        quantity: 6
+        tools: Crafting Table
+
+item: Pressure Plate (stone)
+    recipe:
+        input: Stone
+        pattern: ... 00. ...
+
+item: Pressure Plate (wood)
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... 00. ...
+
+item: Pumpkin Pie
+    recipe:
+        input: Egg, Pumpkin, Sugar
+        pattern: .2. .0. .1.
+
+item: Pumpkin Seeds
+    recipe:
+        input: Pumpkin
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Purple Carpet
+    recipe:
+        input: Purple Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Purple Dye
+    recipe:
+        input: Lapis Lazuli, Rose Red
+        pattern: ... .0. .1.
+        quantity: 2
+
+item: Purple Stained Clay
+    recipe:
+        input: Hardened Clay, Purple Dye
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Purple Stained Glass
+    recipe:
+        input: Glass, Purple Dye
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Purple Stained Glass Pane
+    recipe:
+        input: Purple Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Purple Wool
+    recipe:
+        input: Purple Dye, Wool
+        pattern: ... .1. .0.
+
+item: Quartz Slab
+    recipe:
+        input: Block of Quartz
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Quartz Stairs
+    recipe:
+        input: Block of Quartz
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Rail
+    recipe:
+        input: Iron Ingot, Stick
+        pattern: 0.0 010 0.0
+        quantity: 16
+        tools: Crafting Table
+
+item: Red Carpet
+    recipe:
+        input: Red Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Red Stained Clay
+    recipe:
+        input: Hardened Clay, Rose Red
+        pattern: 000 010 000
+        tools: Crafting Table
+
+item: Red Stained Glass
+    recipe:
+        input: Glass, Rose Red
+        pattern: 000 010 000
+        quantity: 8
+        tools: Crafting Table
+
+item: Red Stained Glass Pane
+    recipe:
+        input: Red Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Red Wool
+    recipe:
+        input: Rose Red, Wool
+        pattern: ... .1. .0.
+
+item: Redstone
+    gatherable: yes
+    recipe:
+        input: Redstone Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Block of Redstone
+        pattern: ... .0. ...
+        quantity: 9
+
+item: Redstone Comparator
+    recipe:
+        input: Nether Quartz, Redstone Torch, Stone
+        pattern: .1. 101 222
+        tools: Crafting Table
+
+item: Redstone Lamp
+    recipe:
+        input: Glowstone, Redstone
+        pattern: .1. 101 .1.
+        tools: Crafting Table
+
+item: Redstone Repeater
+    recipe:
+        input: Redstone, Redstone Torch, Stone
+        pattern: ... 101 222
+        tools: Crafting Table
+
+item: Redstone Torch
+    recipe:
+        input: Redstone, Stick
+        pattern: ... .0. .1.
+
+item: Rose Red
+    recipe:
+        input: Rose Bush
+        pattern: ... .0. ...
+        quantity: 2
+    recipe:
+        input: Poppy
+        pattern: ... .0. ...
+    recipe:
+        input: Red Tulip
+        pattern: ... .0. ...
+    recipe:
+        input: Rose
+        pattern: ... .0. ...
+        quantity: 2
+    recipe:
+        input: Poppy
+        pattern: ... .0. ...
+
+item: Sandstone
+    recipe:
+        input: Sand
+        pattern: 00. 00. ...
+
+item: Sandstone Slab
+    recipe:
+        input: Sandstone
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Sandstone Stairs
+    recipe:
+        input: Sandstone
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Shears
+    recipe:
+        input: Iron Ingot
+        pattern: ... .0. ..0
+
+item: Sign
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: 000 000 .1.
+        tools: Crafting Table
+
+item: Smooth Sandstone
+    recipe:
+        input: Sandstone
+        pattern: 00. 00. ...
+        quantity: 4
+
+item: Snow (block)
+    recipe:
+        input: Snowball
+        pattern: 00. 00. ...
+
+item: Snow (carpet)
+    recipe:
+        input: Snow (block)
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Splash Potion of Fire Resistance (2:15)
+    recipe:
+        input: Magma Cream, Potion of Fire Resistance (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Fire Resistance (6:00)
+    recipe:
+        input: Gunpowder, Potion of Fire Resistance (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Harming
+    recipe:
+        input: Gunpowder, Potion of Harming
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Harming II
+    recipe:
+        input: Gunpowder, Potion of Harming II
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Healing
+    recipe:
+        input: Gunpowder, Potion of Healing
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Healing II
+    recipe:
+        input: Gunpowder, Potion of Healing II
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Invisibility (2:15)
+    recipe:
+        input: Gunpowder, Potion of Invisibility (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Invisibility (6:00)
+    recipe:
+        input: Gunpowder, Potion of Invisibility (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Night Vision (2:15)
+    recipe:
+        input: Gunpowder, Potion of Night Vision (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Night Vision (6:00)
+    recipe:
+        input: Gunpowder, Potion of Night Vision (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Poison (0:33)
+    recipe:
+        input: Potion of Poison (0:45), Spider Eye
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Poison (1:30)
+    recipe:
+        input: Gunpowder, Potion of Poison (2:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Poison II (0:16)
+    recipe:
+        input: Glowstone, Potion of Poison II (0:22)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Regeneration (0:33)
+    recipe:
+        input: Gunpowder, Potion of Regeneration (0:45)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Regeneration (1:30)
+    recipe:
+        input: Gunpowder, Potion of Regeneration (2:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Regeneration II (0:16)
+    recipe:
+        input: Gunpowder, Potion of Regeneration II (0:22)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Slowness (1:07)
+    recipe:
+        input: Gunpowder, Potion of Slowness (1:30)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Slowness (3:00)
+    recipe:
+        input: Gunpowder, Potion of Slowness (4:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Strength (2:15)
+    recipe:
+        input: Gunpowder, Potion of Strength (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Strength (6:00)
+    recipe:
+        input: Gunpowder, Potion of Strength (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Strength II (1:07)
+    recipe:
+        input: Gunpowder, Potion of Strength II (1:30)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Swiftness (2:15)
+    recipe:
+        input: Potion of Swiftness (3:00), Sugar
+        pattern: .1. ... 000
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Swiftness (6:00)
+    recipe:
+        input: Gunpowder, Potion of Swiftness (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Swiftness II (1:07)
+    recipe:
+        input: Gunpowder, Potion of Swiftness II (1:30)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Water Breathing (2:15)
+    recipe:
+        input: Gunpowder, Potion of Water Breathing (3:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Water Breathing (6:00)
+    recipe:
+        input: Gunpowder, Potion of Water Breathing (8:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Weakness (1:07)
+    recipe:
+        input: Gunpowder, Potion of Weakness (1:30)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Splash Potion of Weakness (3:00)
+    recipe:
+        input: Gunpowder, Potion of Weakness (4:00)
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: Spruce Planks
+    recipe:
+        input: Spruce Log
+        pattern: ... .0. ...
+        quantity: 4
+
+item: Spruce Wood Slab
+    recipe:
+        input: Spruce Wood Planks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Spruce Wood Stairs
+    recipe:
+        input: Spruce Wood Planks
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Steak
+    recipe:
+        input: Raw Beef, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Stick
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... .0. .0.
+        quantity: 4
+
+item: Sticky Piston
+    recipe:
+        input: Piston, Slimeball
+        pattern: ... .1. .0.
+
+item: Stone
+    recipe:
+        input: Cobblestone, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+item: Stone Axe
+    recipe:
+        input: Cobblestone, Stick
+        pattern: 00. 01. .1.
+        tools: Crafting Table
+
+item: Stone Brick Stairs
+    recipe:
+        input: Stone Bricks
+        pattern: 0.0 0.0 00.
+        quantity: 4
+
+item: Stone Bricks
+    recipe:
+        input: Stone
+        pattern: 00. 00. ...
+        quantity: 4
+
+item: Stone Bricks Slab
+    recipe:
+        input: Stone Bricks
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Stone Hoe
+    recipe:
+        input: Cobblestone, Stick
+        pattern: 00. .1. .1.
+        tools: Crafting Table
+
+item: Stone Pickaxe
+    recipe:
+        input: Cobblestone, Stick
+        pattern: 000 .1. .1.
+        tools: Crafting Table
+
+item: Stone Shovel
+    recipe:
+        input: Cobblestone, Stick
+        pattern: .0. .1. .1.
+        tools: Crafting Table
+
+item: Stone Slab
+    recipe:
+        input: Stone
+        pattern: ... 000 ...
+        quantity: 6
+        tools: Crafting Table
+
+item: Stone Stairs
+    recipe:
+        input: Cobblestone
+        pattern: 0.. 00. 000
+        quantity: 4
+        tools: Crafting Table
+
+item: Stone Sword
+    recipe:
+        input: Cobblestone, Stick
+        pattern: .0. .0. .1.
+        tools: Crafting Table
+
+item: String
+    gatherable: yes
+
+item: Sugar
+    recipe:
+        input: Sugar Cane
+        pattern: ... .0. ...
+
+item: Thick Potion
+    recipe:
+        input: Glowstone Dust, Water Bottle
+        pattern: .0. ... 111
+        quantity: 3
+        tools: Brewing Stand
+
+item: TNT
+    recipe:
+        input: Gunpowder, Sand
+        pattern: 010 101 010
+        tools: Crafting Table
+
+item: Torch
+    recipe:
+        input: Charcoal, Stick
+        pattern: ... .0. .1.
+        quantity: 4
+    recipe:
+        input: Coal, Stick
+        pattern: ... .0. .1.
+        quantity: 4
+
+item: Trapdoor
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... 000 000
+        quantity: 2
+        tools: Crafting Table
+
+item: Trapped Chest
+    recipe:
+        input: Chest, Tripwire Hook
+        pattern: ... .1. .0.
+
+item: Tripwire Hook
+    recipe:
+        input: Iron Ingot, Oak Wood Planks, Stick
+        pattern: .0. .2. .1.
+        quantity: 2
+        tools: Crafting Table
+
+item: Water Bottle
+    recipe:
+        input: Glass Bottle
+        pattern: ... .0. ...
+        tools: Water Source Block
+
+item: Water Bucket
+    recipe:
+        input: Bucket, Water Source Block
+        pattern: ... .1. .0.
+
+item: Weighted Pressure Plate (Heavy)
+    recipe:
+        input: Iron Ingot
+        pattern: ... 00. ...
+
+item: Weighted Pressure Plate (Light)
+    recipe:
+        input: Gold Ingot
+        pattern: ... 00. ...
+
+item: Wheat
+    gatherable: yes
+    recipe:
+        input: Hay Bale
+        pattern: ... .0. ...
+        quantity: 9
+
+item: White Stained Clay
+    recipe:
+        input: Bone Meal, Hardened Clay
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: White Stained Glass
+    recipe:
+        input: Bone Meal, Glass
+        pattern: 111 101 111
+        quantity: 8
+        tools: Crafting Table
+
+item: White Stained Glass Pane
+    recipe:
+        input: White Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Wooden Axe
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: 00. 01. .1.
+        tools: Crafting Table
+
+item: Wooden Button
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... .0. ...
+
+item: Wooden Hoe
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: 00. .1. .1.
+        tools: Crafting Table
+
+item: Wooden Pickaxe
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: 000 .1. .1.
+        tools: Crafting Table
+
+item: Wooden Shovel
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: .0. .1. .1.
+        tools: Crafting Table
+
+item: Wooden Sword
+    recipe:
+        input: Oak Wood Planks, Stick
+        pattern: .0. .0. .1.
+        tools: Crafting Table
+
+item: Wool
+    gatherable: yes
+    recipe:
+        input: String
+        pattern: 00. 00. 000
+
+item: Yellow Carpet
+    recipe:
+        input: Yellow Wool
+        pattern: ... 00. ...
+        quantity: 3
+
+item: Yellow Stained Clay
+    recipe:
+        input: Dandelion Yellow, Hardened Clay
+        pattern: 111 101 111
+        tools: Crafting Table
+
+item: Yellow Stained Glass
+    recipe:
+        input: Dandelion Yellow, Glass
+        pattern: 111 101 111
+        quantity: 8
+        tools: Crafting Table
+
+item: Yellow Stained Glass Pane
+    recipe:
+        input: Yellow Stained Glass
+        pattern: ... 000 000
+        quantity: 16
+        tools: Crafting Table
+
+item: Yellow Wool
+    recipe:
+        input: Dandelion Yellow, Wool
+        pattern: ... .0. .1.

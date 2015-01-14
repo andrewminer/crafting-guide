@@ -6,7 +6,7 @@ All rights reserved.
 ###
 
 exports.DefaultBookUrls = DefaultBookUrls = [
-    '/data/minecraft/recipes.json'
+    '/data/minecraft/minecraft-1.7.10.cg'
     '/data/buildcraft/recipes.json'
     '/data/ic2_classic/recipes.json'
 

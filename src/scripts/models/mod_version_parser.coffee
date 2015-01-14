@@ -15,10 +15,12 @@ module.exports = class ModVersionParser
 
     @CURRENT_VERSION = '2'
 
-    constructor: ->
+    constructor: (options={})->
+        options.showAllErrors ?= false
+
         @_parsers =
-            '1': new V1
-            '2': new V2
+            '1': new V1 options
+            '2': new V2 options
 
     parse: (data)->
         if not data? then throw new Error 'mod description data is missing'

@@ -15,6 +15,12 @@ StringBuilder = require '../string_builder'
 
 module.exports = class V2
 
+    constructor: (options={})->
+        options.showAllErrors ?= false
+        @showAllErrors = options.showAllErrors
+
+    # Class Methods ################################################################################
+
     @COMMAND = /\ *([^:]*):?(.*)/
 
     @COMMENT = /([^\\]?)#.*/
@@ -24,6 +30,8 @@ module.exports = class V2
     @PATTERN = /^[0-9.]{3} ?[0-9.]{3} ?[0-9.]{3}$/
 
     @STACK = /^([0-9]+) +(.*)$/
+
+    # Public Methods ###############################################################################
 
     parse: (text)->
         @_modVersionData = {}
@@ -36,7 +44,8 @@ module.exports = class V2
             for command in commands
                 @_execute command
 
-        return @_buildModVersion @_modVersionData
+        modVersion = @_handleErrors @_buildModVersion, @_modVersionData
+        return modVersion
 
     unparse: (modVersion)->
         builder = new StringBuilder context:modVersion
@@ -48,11 +57,8 @@ module.exports = class V2
     _execute: (command)->
         method = this["_command_#{command.name}"]
         if not method? then throw new Error "Unknown command: #{command.name}"
-        try
-            method.apply this, command.args
-        catch e
-            e.message = "line #{@_lineNumber}: #{e.message}"
-            throw e
+
+        @_handleErrors method, command.args
 
     _parseLine: (line)->
         line = line.replace V2.COMMENT, '$1'
@@ -72,6 +78,17 @@ module.exports = class V2
             commands.push name:match[1], args:args
 
         return commands
+
+    _handleErrors: (callback, args...)->
+        if args.length is 1 and _.isArray(args[0]) then args = args[0]
+
+        try
+            callback.apply this, args
+        catch e
+            e.message = "line #{@_lineNumber}: #{e.message}"
+            if not @showAllErrors then throw e
+            console.error e.message
+
 
     # Command Methods ##############################################################################
 
@@ -178,7 +195,7 @@ module.exports = class V2
         modVersion = new ModVersion attributes
 
         for itemData in modVersionData.items
-            @_buildItem modVersion, itemData
+            @_handleErrors @_buildItem, modVersion, itemData
 
         return modVersion
 
@@ -190,7 +207,7 @@ module.exports = class V2
         item = new Item modVersion:modVersion, name:itemData.name, isGatherable:itemData.gatherable
 
         for recipeData in itemData.recipes
-            @_buildRecipe modVersion, item, recipeData
+            @_handleErrors @_buildRecipe, modVersion, item, recipeData
 
         return item
 

@@ -15,22 +15,22 @@ module.exports = class Item extends BaseModel
 
     constructor: (attributes={}, options={})->
         if not attributes.name? then throw new Error 'attributes.name is required'
+        if not attributes.modVersion? then throw new Error 'attributes.modVersion is required'
 
         attributes.isGatherable ?= false
-        attributes.modVersion   ?= null
         attributes.recipes      ?= []
         attributes.slug         ?= _.slugify attributes.name
         attributes.stackSize    ?= Item.DEFAULT_STACK_SIZE
         super attributes, options
+
+        @modVersion.addItem this
 
     Object.defineProperty @prototype, 'isCraftable', get:-> @recipes.length > 0
 
     # Public Methods ###############################################################################
 
     addRecipe: (recipe)->
-        slug = recipe.output[0].itemSlug
-        if slug isnt @slug then throw new Error "invalid recipe for #{@slug} because it makes a #{slug}"
-
+        if recipe.item isnt this then throw new Error "cannot add a recipe which isn't associated with this item"
         @recipes.push recipe
 
     compareTo: (that)->

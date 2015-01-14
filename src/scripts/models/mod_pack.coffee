@@ -119,7 +119,7 @@ module.exports = class ModPack extends BaseModel
             @trigger Event.load.started, this, url
             $.ajax
                 url: url
-                dataType: 'json'
+                dataType: 'text'
                 success: (data, status, xhr)=>
                     resolve @onModVersionLoaded(url, data, status, xhr)
                 error: (xhr, status, error)=>

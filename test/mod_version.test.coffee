@@ -34,11 +34,11 @@ describe 'ModVersion', ->
     describe 'addItem', ->
 
         it 'refuses to add duplicates', ->
-            modVersion.addItem new Item name:'Wool'
-            expect(-> modVersion.addItem new Item name:'Wool').to.throw Error, 'duplicate item for wool'
+            new Item modVersion:modVersion, name:'Wool'
+            expect(-> new Item modVersion:modVersion, name:'Wool').to.throw Error, 'duplicate item for Wool'
 
         it 'adds an item indexes by its slug', ->
-            modVersion.addItem new Item name:'Wool'
+            new Item modVersion:modVersion, name:'Wool'
             modVersion.items.wool.name.should.equal 'Wool'
 
     describe 'compareTo', ->
@@ -56,26 +56,26 @@ describe 'ModVersion', ->
     describe 'findItemByName', ->
 
         it 'locates items by slugified name', ->
-            modVersion.addItem new Item name:'Crafting Table'
+            new Item modVersion:modVersion, name:'Crafting Table'
             modVersion.findItemByName('Crafting Table').slug.should.equal 'crafting_table'
 
     describe 'gatherNames', ->
 
         it 'skips names already found', ->
-            modVersion.addItem new Item name:'Wool'
-            modVersion.addItem new Item name:'Oak Wood Planks', recipes:['foo']
+            new Item modVersion:modVersion, name:'Wool'
+            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
             names = modVersion.gatherNames {wool:true}
             names.wool.should.be.true
             names.oak_wood_planks.value.should.equal 'Oak Wood Planks'
 
         it 'only includes craftable items', ->
-            modVersion.addItem new Item name:'Wool'
-            modVersion.addItem new Item name:'Oak Wood Planks', recipes:['foo']
+            new Item modVersion:modVersion, name:'Wool'
+            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
             names = modVersion.gatherNames()
             _.keys(names).should.eql ['oak_wood_planks']
 
         it 'computes the proper value and label', ->
-            modVersion.addItem new Item name:'Oak Wood Planks', recipes:['foo']
+            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
             names = modVersion.gatherNames()
             names.oak_wood_planks.value.should.equal 'Oak Wood Planks'
             names.oak_wood_planks.label.should.equal 'Oak Wood Planks (from Test 0.0)'
@@ -83,13 +83,13 @@ describe 'ModVersion', ->
     describe 'hasRecipe', ->
 
         it 'returns false for an unknown item', ->
-            modVersion.addItem new Item name:'Oak Wood Planks', recipes:['foo']
+            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
             modVersion.hasRecipe('Pineapple Upside-Down Cake').should.be.false
 
         it 'returns false for a un-craftable item', ->
-            modVersion.addItem new Item name:'Wool'
+            new Item modVersion:modVersion, name:'Wool'
             modVersion.hasRecipe('Wool').should.be.false
 
         it 'returns true for a craftable item', ->
-            modVersion.addItem new Item name:'Oak Wood Planks', recipes:['foo']
+            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
             modVersion.hasRecipe('Oak Wood Planks').should.be.true

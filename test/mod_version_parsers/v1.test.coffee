@@ -15,7 +15,7 @@ modVersion = parser = null
 
 ########################################################################################################################
 
-describe "V1", ->
+describe "ModParserVersion.V1", ->
 
     beforeEach ->
         parser = new V1
@@ -69,7 +69,7 @@ describe "V1", ->
             modVersion.items['wool'].isGatherable.should.be.true
 
         it 'marks an existing item as gatherable', ->
-            modVersion.addItem new Item name:'Wool'
+            item = new Item modVersion:modVersion, name:'Wool'
             modVersion.items['wool'].isGatherable.should.be.false
             parser._parseRawMaterials ['Wool']
             modVersion.items['wool'].isGatherable.should.be.true

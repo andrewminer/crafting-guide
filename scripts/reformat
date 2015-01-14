@@ -36,13 +36,15 @@ else
 
 global.logger = new Logger level:Logger.WARNING
 
-text       = fs.readFileSync sourceFileName, 'UTF-8'
-data       = JSON.parse text
-parser     = new ModVersionParser
-modVersion = parser.parse data
-text       = parser.unparse modVersion
+try
+    text       = fs.readFileSync sourceFileName, 'UTF-8'
+    parser     = new ModVersionParser
+    modVersion = parser.parse text
+    text       = parser.unparse modVersion
 
-if targetFileName is '-'
-    console.log text
-else
-    fs.writeFileSync targetFileName, text, encoding:'UTF-8'
+    if targetFileName is '-'
+        console.log text
+    else
+        fs.writeFileSync targetFileName, text, encoding:'UTF-8'
+catch e
+    console.error e.stack

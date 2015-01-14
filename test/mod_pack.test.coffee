@@ -19,17 +19,17 @@ describe 'ModPack', ->
 
     beforeEach ->
         minecraft = new ModVersion name:'Minecraft', version:'1.7.10', enabled:true
-        minecraft.addItem new Item name:'Wool'
-        minecraft.addItem new Item name:'Bed', recipes:['']
+        new Item modVersion:minecraft, name:'Wool'
+        new Item modVersion:minecraft, name:'Bed', recipes:['']
         minecraft.registerSlug 'iron_chestplate', 'Iron Chestplate'
 
         buildcraft = new ModVersion name:'Buildcraft', version:'4.0', enabled:false
-        buildcraft.addItem new Item name:'Stone Gear', recipes:['']
-        buildcraft.addItem new Item name:'Bed', recipes:['']
+        new Item modVersion:buildcraft, name:'Stone Gear', recipes:['']
+        new Item modVersion:buildcraft, name:'Bed', recipes:['']
 
         industrialCraft = new ModVersion name:'Industrial Craft', version:'2.0', enabled:false
-        industrialCraft.addItem new Item name:'Resin'
-        industrialCraft.addItem new Item name:'Rubber', recipes:['']
+        new Item modVersion:industrialCraft, name:'Resin'
+        new Item modVersion:industrialCraft, name:'Rubber', recipes:['']
 
         modPack = new ModPack modVersions:[minecraft, buildcraft, industrialCraft]
 

@@ -6,23 +6,27 @@ All rights reserved.
 ###
 
 BaseModel = require './base_model'
+Stack     = require './stack'
 
 ########################################################################################################################
 
 module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.item? then throw new Error 'attributes.item is required'
         if not attributes.input? then throw new Error 'attributes.input is required'
-        if not attributes.output? then throw new Error 'attributes.output is required'
+        if not attributes.item? then throw new Error 'attributes.item is required'
 
+        attributes.output  ?= [new Stack itemSlug:attributes.item.slug]
         attributes.pattern = @_parsePattern attributes.pattern
         attributes.tools   ?= []
         super attributes, options
 
+        @item.addRecipe this
+
         Object.defineProperties this,
-            'name': { get: -> @item.name }
-            'slug': { get: -> @item.slug }
+            'defaultPattern': { get: -> @_computeDefaultPattern() }
+            'name':           { get: -> @item.name }
+            'slug':           { get: -> @item.slug }
 
     # Public Methods ###############################################################################
 

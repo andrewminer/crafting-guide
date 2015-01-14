@@ -16,6 +16,7 @@ if typeof(global) is 'undefined'
 global.assert = chai.assert
 global.expect = chai.expect
 global.should = chai.should()
+global.util   = require 'util'
 
 Logger = require '../src/scripts/logger'
 global.logger = new Logger level:Logger.TRACE
@@ -32,6 +33,8 @@ require './inventory_parser.test'
 require './mod_pack.test'
 require './mod_version.test'
 require './mod_version_parsers/v1.test'
+require './mod_version_parsers/v2.test'
+require './string_builder.test'
 
 mocha.checkLeaks()
 mocha.globals ['LiveReload']

@@ -31,8 +31,7 @@ module.exports = class V1
     _findOrCreateItem: (name)->
         item = @modVersion.findItemByName name
         if not item?
-            item = new Item name:name
-            @modVersion.addItem item
+            item = new Item modVersion:@modVersion, name:name
             @modVersion.registerSlug item.slug, item.name
         return item
 
@@ -87,7 +86,6 @@ module.exports = class V1
         attributes.pattern = data.pattern if data.pattern?
 
         recipe = new Recipe attributes
-        item.addRecipe recipe
         return recipe
 
     _parseStack: (data, options={})->
@@ -219,10 +217,3 @@ module.exports = class V1
             result.push ']'
 
         return result
-
-########################################################################################################################
-
-module.exports.V2 = class V2 extends V1
-
-    constructor: ->
-        @_errorLocation = 'the header information'

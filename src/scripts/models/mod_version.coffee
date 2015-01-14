@@ -13,8 +13,6 @@ BaseModel = require './base_model'
 module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
-        options.storage ?= window.localStorage
-
         if _.isEmpty(attributes.name) then throw new Error 'name cannot be empty'
         if _.isEmpty(attributes.version) then throw new Error 'version cannot be empty'
 
@@ -28,9 +26,11 @@ module.exports = class ModVersion extends BaseModel
     # Public Methods ###############################################################################
 
     addItem: (item)->
-        if @items[item.slug]? then throw new Error "duplicate item for #{item.slug}"
+        if item.modVersion isnt this then throw new Error "cannot add item not associated with this mod version"
+        if @items[item.slug]? then throw new Error "duplicate item for #{item.name}"
+
         @items[item.slug] = item
-        item.modVersion = this
+        @names[item.slug] = item.name
         return this
 
     compareTo: (that)->

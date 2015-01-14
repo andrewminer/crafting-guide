@@ -1179,7 +1179,7 @@
         }, {
             "output": [[2, "Pillar Quartz Block"]],
             "input": [[2, "Block of Quartz"]],
-            "pattern": "... .0. .1."
+            "pattern": "... .0. .0."
         }, {
             "output": [[3, "Pink Carpet"]],
             "input": [[2, "Pink Wool"]],
@@ -1423,11 +1423,11 @@
         }, {
             "output": "Pressure Plate (stone)",
             "input": [[2, "Stone"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": "Pressure Plate (wood)",
             "input": [[2, "Oak Wood Planks"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": "Pumpkin Pie",
             "input": ["Egg", "Pumpkin", "Sugar"],
@@ -1518,7 +1518,7 @@
         }, {
             "output": "Redstone Lamp",
             "input": [[4, "Redstone"], "Glowstone"],
-            "pattern": "00. 00. ...",
+            "pattern": ".0. 010 .0.",
             "tools": "Crafting Table"
         }, {
             "output": "Redstone Repeater",
@@ -1732,7 +1732,7 @@
         }, {
             "output": [[6, "Spruce Wood Slab"]],
             "input": [[3, "Spruce Wood Planks"]],
-            "pattern": ".2. .0. .1.",
+            "pattern": "... 000 ...",
             "tools": "Crafting Table"
         }, {
             "output": [[4, "Spruce Wood Stairs"]],

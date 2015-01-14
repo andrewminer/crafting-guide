@@ -200,7 +200,7 @@
         }, {
             "output": "Chainsaw",
             "input": [[5, "Refined Iron"], "Electronic Circuit", "RE Battery"],
-            "pattern": ".00 010 30.",
+            "pattern": ".00 010 20.",
             "tools": "Crafting Table"
         }, {
             "output": "Clay Dust",

@@ -81,7 +81,7 @@
         }, {
             "output": [[3, "Black Carpet"]],
             "input": [[2, "Black Wool"]],
-            "pattern": "00. ... ..."
+            "pattern": "... 00. ..."
         }, {
             "output": [[8, "Black Stained Clay"]],
             "input": [[8, "Hardened Clay"], "Ink Sac"],
@@ -375,7 +375,7 @@
         }, {
             "output": [[3, "Cyan Carpet"]],
             "input": [[2, "Cyan Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": [[2, "Cyan Dye"]],
             "input": ["Cactus Green", "Lapis Lazuli"],
@@ -691,7 +691,7 @@
         }, {
             "output": [[3, "Gray Carpet"]],
             "input": [[2, "Gray Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": [[2, "Gray Dye"]],
             "input": ["Bone Meal", "Ink Sac"],
@@ -718,7 +718,7 @@
         }, {
             "output": [[3, "Green Carpet"]],
             "input": [[2, "Green Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": "Green Stained Clay",
             "input": [[8, "Hardened Clay"], "Cactus Green"],
@@ -891,7 +891,7 @@
         }, {
             "output": [[3, "Light Blue Carpet"]],
             "input": [[2, "Light Blue Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": "Light Blue Dye",
             "input": "Blue Orchid",
@@ -922,7 +922,7 @@
         }, {
             "output": [[3, "Light Gray Carpet"]],
             "input": [[2, "Light Gray Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": "Light Gray Dye",
             "input": "White Tulip",
@@ -965,7 +965,7 @@
         }, {
             "output": [[3, "Lime Carpet"]],
             "input": [[2, "Lime Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": [[2, "Lime Dye"]],
             "input": ["Bone Meal", "Cactus Green"],
@@ -992,7 +992,7 @@
         }, {
             "output": [[3, "Magenta Carpet"]],
             "input": [[2, "Magenta Wool"]],
-            "pattern": "... .1. .0."
+            "pattern": "... 00. ..."
         }, {
             "output": "Magenta Dye",
             "input": "Allium",
@@ -1183,7 +1183,7 @@
         }, {
             "output": [[3, "Pink Carpet"]],
             "input": [[2, "Pink Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": [[2, "Pink Dye"]],
             "input": "Peony",
@@ -1439,7 +1439,7 @@
         }, {
             "output": [[3, "Purple Carpet"]],
             "input": [[2, "Purple Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": [[2, "Purple Dye"]],
             "input": ["Lapis Lazuli", "Rose Red"],
@@ -1481,7 +1481,7 @@
         }, {
             "output": [[3, "Red Carpet"]],
             "input": [[2, "Red Wool"]],
-            "pattern": "... 01. ..."
+            "pattern": "... 00. ..."
         }, {
             "output": "Red Stained Clay",
             "input": [[8, "Hardened Clay"], "Rose Red"],

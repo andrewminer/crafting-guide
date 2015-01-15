@@ -15,13 +15,21 @@ CraftingGuideRouter = require './crafting_guide_router'
 if typeof(global) is 'undefined'
     window.global = window
 
-global.logger = new Logger level:Logger.WARNING
+global.logger = new Logger
 global.router = new CraftingGuideRouter
 global.util   = require 'util'
 global.views  = views
 
-if window.location.hostname is 'localhost'
-    logger.level = Logger.TRACE
+switch window.location.hostname
+    when 'localhost'
+        global.env = 'development'
+        logger.level = Logger.TRACE
+    when 'new.crafting-guide.com'
+        global.env = 'staging'
+        logger.level = Logger.VERBOSE
+    when 'crafting-guide.com'
+        global.env = 'production'
+        logger.level = Logger.WARNING
 
 feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()

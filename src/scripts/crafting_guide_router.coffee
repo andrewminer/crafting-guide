@@ -19,6 +19,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_pageControllers = {}
         super options
 
+        @on Event.route, => @_recordPageView()
+
     # Backbone.Router Overrides ####################################################################
 
     routes:
@@ -37,6 +39,13 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_setPage 'item'
 
     # Private Methods ##############################################################################
+
+    _recordPageView: ->
+        if global.env is 'production'
+            logger.info "Recording GA page view: #{window.location.href}"
+            ga('send', 'pageview')
+        else
+            logger.info "Suppressing GA page view: #{window.location.href}"
 
     _setPage: (controllerName)->
         controller = @_pageControllers[controllerName]

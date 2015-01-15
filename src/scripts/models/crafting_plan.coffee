@@ -27,6 +27,8 @@ module.exports = class CraftingPlan extends BaseModel
         @want.on 'change', => @craft()
         @modPack.on 'change', => @craft()
 
+        @on 'change:includingTools', => @craft()
+
         @clear()
 
     # Public Methods ###############################################################################

@@ -6,15 +6,10 @@ All rights reserved.
 */
 
 .view__mod_pack {
-    button {
-        @include center-vertical;
-        position: absolute; right: 1em;
-    }
 
     input { border: 0; font-size: 1.5em; width: 90%; }
 
     table {
-        background: white;
         margin: 0 auto;
         width: 100%;
 
@@ -27,5 +22,20 @@ All rights reserved.
         td:nth-child(1) { width: 5%; }
         td:nth-child(2) { width: 30%; }
         td:nth-child(3) { width: 65%; border-left: 0.1em solid $color-brick-light; }
+    }
+
+    .panel {
+        background: white;
+    }
+
+    .toolbar {
+        position: relative; width: 35%;
+        margin-top: 1em;
+        padding: 1em 1em;
+        text-align: center;
+
+        button {
+            position: relative; width: 66%;
+        }
     }
 }

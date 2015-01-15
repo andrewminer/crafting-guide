@@ -14,6 +14,7 @@ CraftingGuideRouter = require './crafting_guide_router'
 
 if typeof(global) is 'undefined'
     window.global = window
+    global = window.global
 
 global.logger = new Logger
 global.router = new CraftingGuideRouter
@@ -31,7 +32,7 @@ switch window.location.hostname
         global.env = 'production'
         logger.level = Logger.INFO
 
-feedbackController = new FeedbackController el:'.view__feedback'
+global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()
 
 logger.info "CraftingGuide is ready"

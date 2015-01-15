@@ -21,6 +21,13 @@ module.exports = class FeedbackController extends BaseController
 
         Object.defineProperty this, 'isOpen', get:-> @$el.offset().left is 0
 
+    # Public Methods ###############################################################################
+
+    enterFeedback: (message)->
+        promise = w(true)
+        if not @isOpen then promise = @onToggle()
+        promise.then => @$commentField.val message
+
     # Event Methods ################################################################################
 
     onSendClicked: ->
@@ -55,24 +62,28 @@ module.exports = class FeedbackController extends BaseController
             @$sendButton.attr 'disabled', 'disabled'
 
     onToggle: ->
-        @$screen.off 'click'
+        w.promise (resolve)=>
+            @$screen.off 'click'
 
-        if @isOpen
-            @$screen.css display:'none'
-            @$el.animate {left:-@$el.outerWidth()}, duration:Duration.normal, complete:=>
-                @$commentField.val ''
-                @$('input, textarea').blur()
-        else
-            @$screen.on 'click', => @onToggle()
-            @$screen.css display:'block'
+            if @isOpen
+                @$screen.css display:'none'
+                @$el.animate {left:-@$el.outerWidth()}, duration:Duration.normal, complete:=>
+                    @$commentField.val ''
+                    @$('input, textarea').blur()
+                    resolve()
+            else
+                @$screen.on 'click', => @onToggle()
+                @$screen.css display:'block'
 
-            @$el.animate {left:0}, duration:Duration.normal, complete:=>
-                if @$nameField.val().length is 0
-                    @$nameField.focus()
-                else if @$emailField.val().length is 0
-                    @$emailField.focus()
-                else
-                    @$commentField.focus()
+                @$el.animate {left:0}, duration:Duration.normal, complete:=>
+                    if @$nameField.val().length is 0
+                        @$nameField.focus()
+                    else if @$emailField.val().length is 0
+                        @$emailField.focus()
+                    else
+                        @$commentField.focus()
+
+                    resolve()
 
     # BaseController Overrides #####################################################################
 

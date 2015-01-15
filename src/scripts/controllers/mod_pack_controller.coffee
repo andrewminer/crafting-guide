@@ -20,6 +20,12 @@ module.exports = class ModPackController extends BaseController
         options.templateName = 'mod_pack'
         super options
 
+    # Event Methods ################################################################################
+
+    onSuggestModClicked: ->
+        return unless global.feedbackController?
+        global.feedbackController.enterFeedback 'Please add mod:\n\n'
+
     # BaseController Overrides #####################################################################
 
     onWillRender: ->
@@ -28,6 +34,7 @@ module.exports = class ModPackController extends BaseController
 
     onDidRender: ->
         @$table = @$('table')
+        @$toolbar = @$('.toolbar')
         super
 
     refresh: ->
@@ -42,4 +49,14 @@ module.exports = class ModPackController extends BaseController
             @_modVersionControllers.push controller
             @$table.prepend controller.$el
 
+        if global.feedbackController?
+            @$toolbar.show duration:0
+        else
+            @$toolbar.hide duration:0
+
         super
+
+    # Backbone.View Overrides ######################################################################
+
+    events:
+        'click button[name="suggestMod"]': 'onSuggestModClicked'

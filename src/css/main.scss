@@ -19,34 +19,50 @@ All rights reserved.
 
 // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$color-background:       #AAC9FF;
-$color-bedrock:          #0A0A0A;
-$color-brick-dark:       #7A7A7A;
-$color-brick-light:      #D9D9D9;
-$color-content:          rgba(230, 230, 230, 0.90);
-$color-dirt:             #906647;
-$color-error-new:        #CD0000;
-$color-error:            #F3C2C2;
-$color-ice:              #8AA7E6;
-$color-footer:           #3D1D09;
-$color-footer-text:      white;
-$color-gray-faint:       #F2F2F2;
-$color-gray-light:       #CCCCCC;
-$color-gray-medium:      #A6A6A6;
-$color-gray-dark:        #8B8B8B;
-$color-gray-shadow:      #444444;
-$color-table-background: white;
-$color-toolbar-background: rgba(255, 255, 255, 0.75);
+// Font Faces //////////////////////////////////////////////////////////////////////////////////////
 
 $font-family-header: 'PressStart';
 $font-family-normal: sans-serif;
-$font-family-input: monospace;
+$font-family-input:  monospace;
+
+// Font Sizes //////////////////////////////////////////////////////////////////////////////////////
 
 $font-size-small:    1.1em;
 $font-size-normal:   1.3em;
 $font-size-large:    1.6em;
 $font-size-x-large:  2.0em;
 $font-size-xx-large: 3.0em;
+
+// Gray Palette ////////////////////////////////////////////////////////////////////////////////////
+
+$color-gray-faint:         #F2F2F2;
+$color-gray-light:         #CCCCCC;
+$color-gray-medium:        #A6A6A6;
+$color-gray-dark:          #8B8B8B;
+$color-gray-shadow:        #444444;
+
+// Object Background Colors ////////////////////////////////////////////////////////////////////////
+
+$color-bedrock:            #0A0A0A;
+$color-brick-dark:         #7A7A7A;
+$color-brick-light:        #D9D9D9;
+$color-dirt:               #906647;
+$color-ice:                #8AA7E6;
+
+// Style Colors ////////////////////////////////////////////////////////////////////////////////////
+
+$color-active:             #5C8AE6;
+$color-active-hover:       #2E6BE6;
+$color-background:         #AAC9FF;
+$color-background-panel:   #FFFFFF;
+$color-background-toolbar: rgba(255, 255, 255, 0.75);
+$color-content:            rgba(230, 230, 230, 0.90);
+$color-error-new:          #CD0000;
+$color-error:              #F3C2C2;
+$color-footer:             #3D1D09;
+$color-footer-text:        #FFFFFF;
+
+// Z-Index Layers //////////////////////////////////////////////////////////////////////////////////
 
 $layer-normal: 0;
 $layer-screen: 5;
@@ -57,6 +73,22 @@ $layer-dialog: 10;
 body {
     background: $color-background url('/images/ice.png');
     font-size: 10px;
+}
+
+button {
+    background: $color-gray-faint;
+    border: 0.1em solid $color-gray-medium;
+    border-radius: 1em;
+    color: $color-active;
+    cursor: pointer;
+    font-size: $font-size-normal;
+    font-weight: bold;
+    padding: 0.1em 1em;
+
+    &:hover {
+        background: white;
+        color: $color-active-hover;
+    }
 }
 
 h1 {

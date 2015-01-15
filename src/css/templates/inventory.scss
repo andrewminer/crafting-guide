@@ -15,7 +15,7 @@ All rights reserved.
 
     .panel {
         position: absolute; top: 5em; right: 2em; bottom: 0; left: 2em;
-        background: $color-table-background;
+        background: $color-background-panel;
         text-align: right;
     }
 
@@ -26,8 +26,8 @@ All rights reserved.
     }
 
     .toolbar {
-        position: absolute; right: 0; bottom: 0; left: 0; height: 3em;
-        background: $color-toolbar-background;
+        position: absolute; right: 0; bottom: 0; left: 0; height: 3.5em;
+        background: $color-background-toolbar;
         border-top: 1px solid $color-gray-light;
     }
 

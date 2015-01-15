@@ -16,9 +16,9 @@ UrlParams          = require './url_params'
 module.exports = class CraftingGuideRouter extends Backbone.Router
 
     constructor: (options={})->
-        @_page             = null
-        @_pageControllers  = {}
-        @_lastReportedHref = null
+        @_page            = null
+        @_pageControllers = {}
+        @_lastReported    = null
         super options
 
     # Backbone.Router Overrides ####################################################################
@@ -45,15 +45,15 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     # Private Methods ##############################################################################
 
     _recordPageView: ->
-        href = window.location.href
-        return if @_lastReportedHref is href
-        @_lastReportedHref = href
+        pathname = window.location.pathname
+        return if @_lastReported is pathname
+        @_lastReported = pathname
 
         if global.env is 'production'
-            logger.info "Recording GA page view: #{href}"
-            ga 'send', 'pageview', href
+            logger.info "Recording GA page view: #{pathname}"
+            ga 'send', 'pageview', pathname
         else
-            logger.info "Suppressing GA page view: #{href}"
+            logger.info "Suppressing GA page view: #{pathname}"
 
     _setPage: (controllerName)->
         controller = @_pageControllers[controllerName]

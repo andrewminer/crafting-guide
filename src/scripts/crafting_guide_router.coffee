@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 {Duration}         = require './constants'
+{Event}            = require './constants'
 ItemPageController = require './controllers/item_page_controller'
 {Opacity}          = require './constants'
 UrlParams          = require './url_params'
@@ -15,13 +16,16 @@ UrlParams          = require './url_params'
 module.exports = class CraftingGuideRouter extends Backbone.Router
 
     constructor: (options={})->
-        @_page = null
-        @_pageControllers = {}
+        @_page             = null
+        @_pageControllers  = {}
+        @_lastReportedHref = null
         super options
 
-        @on Event.route, => @_recordPageView()
-
     # Backbone.Router Overrides ####################################################################
+
+    navigate: ->
+        super
+        @_recordPageView()
 
     routes:
         '':             'root'
@@ -41,6 +45,9 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     # Private Methods ##############################################################################
 
     _recordPageView: ->
+        return if @_lastReportedHref is window.location.href
+        @_lastReportedHref = window.location.href
+
         if global.env is 'production'
             logger.info "Recording GA page view: #{window.location.href}"
             ga('send', 'pageview')

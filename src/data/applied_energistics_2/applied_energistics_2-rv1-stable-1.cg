@@ -104,7 +104,7 @@ item: 4k ME Storage Cell
 
 item: 4k ME Storage Component
     recipe:
-        input: Redstone, Calculation Processor, 1k ME Storage Component, Quartz Crystal
+        input: Redstone, Calculation Processor, 1k ME Storage Component, Certus Quartz Crystal
         pattern: 010 232 020
         tools: Crafting Table
 

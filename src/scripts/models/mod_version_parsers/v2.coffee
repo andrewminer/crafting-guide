@@ -42,7 +42,7 @@ module.exports = class V2
             @_lineNumber = i + 1
             commands = @_parseLine lines[i]
             for command in commands
-                @_execute command
+                @_handleErrors @_execute, command
 
         modVersion = @_handleErrors @_buildModVersion, @_modVersionData
         return modVersion

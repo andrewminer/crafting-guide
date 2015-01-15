@@ -12,13 +12,13 @@ All rights reserved.
 module.exports = class ImageLoader
 
     constructor: (options={})->
-        options.defaultUrl   ?= ''
+        options.defaultUrl   ?= null
         options.onLoading    ?= -> @hide()
         options.onLoad       ?= -> @show()
 
-        @defaultUrl   = options.defaultUrl
-        @onLoading    = options.onLoading
-        @onLoad       = options.onLoad
+        @defaultUrl = options.defaultUrl
+        @onLoading  = options.onLoading
+        @onLoad     = options.onLoad
 
         @_images = {}
 
@@ -45,10 +45,10 @@ module.exports = class ImageLoader
         $el.data 'isLoading', true
         $el.data 'isLoaded', false
 
-        if data.isLoaded?
+        if data.isLoaded
             @_loadImageIntoElement data.imageUrl, $el
         else
-            if @defaultUrl? then $el.attr 'src', @defaultUrl
+            $el.removeAttr 'src'
             if data.elements.indexOf($el) is -1 then data.elements.push $el
 
         return this
@@ -59,9 +59,10 @@ module.exports = class ImageLoader
             data = imageUrl:imageUrl, elements:[], image:new Image, isLoaded:false
             @_images[imageUrl] = data
 
-            data.image        = new Image
-            data.image.onload = => @_onImageLoaded data
-            data.image.src    = imageUrl
+            data.image         = new Image
+            data.image.onload  = => @_onImageLoaded data
+            data.image.onerror = => @_onImageError data
+            data.image.src     = imageUrl
 
         return data
 
@@ -70,6 +71,16 @@ module.exports = class ImageLoader
     _onImageLoaded: (data)->
         for $el in data.elements
             @_loadImageIntoElement data.imageUrl, $el
+
+        data.elements = []
+        data.isLoaded = true
+
+    _onImageError: (data)->
+        if @defaultUrl?
+            data.imageUrl = @defaultUrl
+
+            for $el in data.elements
+                @_loadImageIntoElement @defaultUrl, $el
 
         data.elements = []
         data.isLoaded = true

@@ -15,7 +15,7 @@ module.exports = class CraftingGridController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
-        options.imageLoader ?= new ImageLoader default:'/images/unknown.png'
+        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'crafting_grid'
         super options
 

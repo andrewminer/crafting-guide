@@ -22,6 +22,8 @@ module.exports = class ItemPageController extends BaseController
         options.templateName  = 'item_page'
         super options
 
+        @imageLoader = options.imageLoader
+
     # Event Methods ################################################################################
 
     onToolsBoxToggled: ->
@@ -55,8 +57,9 @@ module.exports = class ItemPageController extends BaseController
             title:       "Items you'll need"
 
         @craftingTableController = @addChild CraftingTableController, '.view__crafting_table',
-            model: @model.table
-            modPack: @model.modPack
+            imageLoader: @imageLoader
+            model:       @model.table
+            modPack:     @model.modPack
 
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
 

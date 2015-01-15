@@ -17,7 +17,7 @@ module.exports = class CraftingTableController extends BaseController
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.imageLoader ?= new ImageLoader default:'/images/unknown.png'
+        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'crafting_table'
         super options
 
@@ -35,7 +35,9 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @gridController = @addChild CraftingGridController, '.view__crafting_grid', model:@model.grid
+        @gridController = @addChild CraftingGridController, '.view__crafting_grid',
+            model: @model.grid
+            imageLoader: @imageLoader
 
         @$multiplier     = @$('.multiplier')
         @$next           = @$('.next')

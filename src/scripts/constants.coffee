@@ -9,6 +9,7 @@ exports.DefaultBookUrls = DefaultBookUrls = [
     '/data/minecraft/minecraft-1.7.10.cg'
     '/data/buildcraft/buildcraft-6.2.6.cg'
     '/data/ic2_classic/ic2_classic-1.111.170-lf.cg'
+    '/data/applied_energistics_2/applied_energistics_2-rv1-stable-1.cg'
 
     # Disabled until shaped crafting can be added -- aminer 2015-01-09
     # '/data/applied_energetics/recipes.json'

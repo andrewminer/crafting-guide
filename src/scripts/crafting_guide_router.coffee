@@ -45,14 +45,15 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     # Private Methods ##############################################################################
 
     _recordPageView: ->
-        return if @_lastReportedHref is window.location.href
-        @_lastReportedHref = window.location.href
+        href = window.location.href
+        return if @_lastReportedHref is href
+        @_lastReportedHref = href
 
         if global.env is 'production'
-            logger.info "Recording GA page view: #{window.location.href}"
-            ga('send', 'pageview')
+            logger.info "Recording GA page view: #{href}"
+            ga 'send', 'pageview', href
         else
-            logger.info "Suppressing GA page view: #{window.location.href}"
+            logger.info "Suppressing GA page view: #{href}"
 
     _setPage: (controllerName)->
         controller = @_pageControllers[controllerName]

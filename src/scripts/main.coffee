@@ -29,7 +29,7 @@ switch window.location.hostname
         logger.level = Logger.VERBOSE
     when 'crafting-guide.com'
         global.env = 'production'
-        logger.level = Logger.WARNING
+        logger.level = Logger.INFO
 
 feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()

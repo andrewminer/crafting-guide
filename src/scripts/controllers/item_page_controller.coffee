@@ -11,6 +11,7 @@ ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
 ItemPage                = require '../models/item_page'
 ModPackController       = require './mod_pack_controller'
+NameFinder              = require '../models/name_finder'
 
 ########################################################################################################################
 
@@ -45,7 +46,7 @@ module.exports = class ItemPageController extends BaseController
             imageLoader: @imageLoader
             model:       @model.plan.have
             modPack:     @model.modPack
-            gatherNames: -> @modPack.gatherNames includeGatherable:true
+            nameFinder:  new NameFinder @model.modPack, includeGatherable:true
             title:       'Items you have'
 
         @needController = @addChild InventoryController, '.need',
@@ -63,7 +64,7 @@ module.exports = class ItemPageController extends BaseController
 
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
 
-        @$('.want .toolbar').append '<label><input class="includeTools" type="checkbox"> include tools</label'
+        @$('.want .toolbar').append '<label><input class="includeTools" type="checkbox"> include tools</label>'
         @$includeToolsBox = @$('.includeTools')
 
         super

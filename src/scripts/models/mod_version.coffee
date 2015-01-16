@@ -55,22 +55,6 @@ module.exports = class ModVersion extends BaseModel
     findName: (slug)->
         return @names[slug]
 
-    gatherNames: (result={}, options={})->
-        options.includeGatherable ?= false
-
-        for slug, item of @items
-            continue if result[item.slug]
-            if not item.isCraftable
-                continue unless options.includeGatherable
-            result[item.slug] = value:item.name, label:"#{item.name} (from #{@name} #{@version})"
-
-        if options.includeGatherable
-            for slug, name of @names
-                continue if result[slug]
-                result[slug] = value:name, label:"#{name} (from #{@name} #{@version})"
-
-        return result
-
     hasRecipe: (name)->
         item = @findItemByName name
         return false unless item?

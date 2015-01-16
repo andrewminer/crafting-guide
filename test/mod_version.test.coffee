@@ -59,27 +59,6 @@ describe 'ModVersion', ->
             new Item modVersion:modVersion, name:'Crafting Table'
             modVersion.findItemByName('Crafting Table').slug.should.equal 'crafting_table'
 
-    describe 'gatherNames', ->
-
-        it 'skips names already found', ->
-            new Item modVersion:modVersion, name:'Wool'
-            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
-            names = modVersion.gatherNames {wool:true}
-            names.wool.should.be.true
-            names.oak_wood_planks.value.should.equal 'Oak Wood Planks'
-
-        it 'only includes craftable items', ->
-            new Item modVersion:modVersion, name:'Wool'
-            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
-            names = modVersion.gatherNames()
-            _.keys(names).should.eql ['oak_wood_planks']
-
-        it 'computes the proper value and label', ->
-            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
-            names = modVersion.gatherNames()
-            names.oak_wood_planks.value.should.equal 'Oak Wood Planks'
-            names.oak_wood_planks.label.should.equal 'Oak Wood Planks (from Test 0.0)'
-
     describe 'hasRecipe', ->
 
         it 'returns false for an unknown item', ->

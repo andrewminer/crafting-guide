@@ -99,33 +99,6 @@ describe 'ModPack', ->
             display.itemName.should.equal 'Iron Chestplate'
             display.modSlug.should.equal 'minecraft'
 
-    describe 'gatherNames', ->
-
-        it 'finds all registered item names', ->
-            buildcraft.enabled = true
-            industrialCraft.enabled = true
-            (i.value for i in modPack.gatherNames()).sort().should.eql ['Bed', 'Rubber', 'Stone Gear']
-
-        it 'ignores duplicate item names', ->
-            buildcraft.enabled = true
-            names = modPack.gatherNames()
-            bedName = (e for e in names when e.value is 'Bed')[0]
-            bedName.should.eql value:'Bed', label:'Bed (from Minecraft 1.7.10)'
-
-        it 'alphabetizes the item names', ->
-            buildcraft.enabled = true
-            industrialCraft.enabled = true
-            (i.value for i in modPack.gatherNames()).should.eql ['Bed', 'Rubber', 'Stone Gear']
-
-        it 'ignores non-craftable items', ->
-            (n.value for n in modPack.gatherNames()).sort().should.eql ['Bed']
-
-        it 'ignores disabled mod versions', ->
-            (n.value for n in modPack.gatherNames()).should.not.include 'Stone Gear'
-
-        it "doesn't ignore disabled mod versions when include disabled is requested", ->
-            (n.value for n in modPack.gatherNames(includeDisabled:true)).should.include 'Stone Gear'
-
     describe 'hasRecipe', ->
 
         it 'returns true when the item is present and has recipes', ->

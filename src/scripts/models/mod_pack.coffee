@@ -76,21 +76,6 @@ module.exports = class ModPack extends BaseModel
         result.itemUrl = Url.item result
         return result
 
-    gatherNames: (options={})->
-        options.includeGatherable ?= false
-        options.includeDisabled ?= false
-
-        nameData = {}
-        for modVersion in @modVersions
-            continue unless modVersion.enabled or options.includeDisabled
-            modVersion.gatherNames nameData, options
-
-        result = []
-        names = _.keys(nameData).sort()
-        for name in names
-            result.push nameData[name]
-        return result
-
     hasRecipe: (name, options={})->
         options.includeDisabled ?= false
 

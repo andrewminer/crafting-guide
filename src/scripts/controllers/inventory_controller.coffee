@@ -9,6 +9,7 @@ BaseController  = require './base_controller'
 {Duration}      = require '../constants'
 {Key}           = require '../constants'
 ImageLoader     = require './image_loader'
+NameFinder      = require '../models/name_finder'
 StackController = require './stack_controller'
 
 ########################################################################################################################
@@ -21,10 +22,10 @@ module.exports = class InventoryController extends BaseController
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        options.icon        ?= '/images/chest_front.png'
         options.editable    ?= true
+        options.nameFinder  ?= new NameFinder options.modPack
+        options.icon        ?= '/images/chest_front.png'
         options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
-        options.gatherNames ?= -> @modPack.gatherNames()
         options.title       ?= 'Inventory'
 
         options.templateName  = 'inventory'
@@ -34,7 +35,7 @@ module.exports = class InventoryController extends BaseController
         @icon        = options.icon
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
-        @gatherNames = options.gatherNames
+        @nameFinder  = options.nameFinder
         @title       = options.title
 
         @_stackControllers = []
@@ -173,7 +174,7 @@ module.exports = class InventoryController extends BaseController
         onSelected = => @onItemSelected()
 
         @$nameField.autocomplete
-            source:    @gatherNames()
+            source:    (request, callback)=> callback @nameFinder.search request.term
             delay:     0
             minLength: 0
             change:    onChanged

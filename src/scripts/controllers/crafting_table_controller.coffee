@@ -9,6 +9,7 @@ BaseController         = require './base_controller'
 CraftingGridController = require './crafting_grid_controller'
 {Duration}             = require '../constants'
 ImageLoader            = require './image_loader'
+InventoryParser        = require '../models/inventory_parser'
 
 ########################################################################################################################
 
@@ -32,6 +33,12 @@ module.exports = class CraftingTableController extends BaseController
     onPrevClicked: ->
         @model.step -= 1
 
+    onReportProblem: ->
+        parser   = new InventoryParser @modPack
+        itemList = parser.unparse @model.plan.want
+        message  = "When I was on step #{@model.step + 1} of making:\n\n#{itemList}\nI noticed that...\n"
+        global.feedbackController.enterFeedback message
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
@@ -45,6 +52,7 @@ module.exports = class CraftingTableController extends BaseController
         @$outputLink     = @$('.output a')
         @$outputQuantity = @$('.quantity')
         @$prev           = @$('.prev')
+        @$problemControl = @$('.problem')
         @$title          = @$('h2 p')
         @$tool           = @$('.tool p')
 
@@ -85,10 +93,17 @@ module.exports = class CraftingTableController extends BaseController
             @$multiplier.html ''
 
         @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
+
+        if not (@model.hasSteps and global.feedbackController?)
+            @$problemControl.hide duration:Duration.fast
+        else
+            @$problemControl.show duration:Duration.normal
+
         super
 
     # Backbone.View Overrides ######################################################################
 
     events:
-        'click .next': 'onNextClicked'
-        'click .prev': 'onPrevClicked'
+        'click .next':      'onNextClicked'
+        'click .prev':      'onPrevClicked'
+        'click .problem a': 'onReportProblem'

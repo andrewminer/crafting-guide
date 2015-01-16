@@ -5,14 +5,22 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-Inventory = require './inventory'
-Item      = require './item'
+Inventory     = require './inventory'
+Item          = require './item'
+StringBuilder = require './string_builder'
 
 ########################################################################################################################
 
 module.exports = class InventoryParser
 
+    constructor: (modPack=null)->
+        @modPack = modPack
+
+    # Class Methods ################################################################################
+
     @ITEM_REGEX = /^([0-9]+)(.*)$/
+
+    # Public Methods ###############################################################################
 
     parse: (data, inventory=null)->
         inventory ?= new Inventory
@@ -28,3 +36,15 @@ module.exports = class InventoryParser
                 inventory.add _.slugify(name), quantity
 
         return inventory
+
+    unparse: (inventory)->
+        if not @modPack? then throw new Error 'this.modPack is needed to unparse'
+
+        builder = new StringBuilder
+        for item in inventory.toList()
+            if _.isString item
+                builder.line @modPack.findName item
+            else
+                builder.line item[0], ' ', @modPack.findName item[1]
+
+        return builder.toString()

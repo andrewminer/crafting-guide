@@ -14,19 +14,6 @@ All rights reserved.
         position: absolute; top: 5em; right: 2em; bottom: 0; left: 2em;
         background: $color-background-panel;
 
-        .prev {
-            background: url('/images/arrow-left-disabled.png');
-            position: absolute; top: 50%; left: 1em; height: 8em; width: 4em;
-            @include transform(translateY(-50%));
-
-            &.enabled {
-                background: url('/images/arrow-left.png');
-                cursor: pointer;
-
-                &:hover { background: url('/images/arrow-left-hover.png'); }
-            }
-        }
-
         .input {
             position: absolute; top: 50%; left: 33%;
             @include transform(translate(-50%, -50%));
@@ -83,6 +70,34 @@ All rights reserved.
                 cursor: pointer;
 
                 &:hover { background: url('/images/arrow-right-hover.png'); }
+            }
+        }
+
+        .prev {
+            background: url('/images/arrow-left-disabled.png');
+            position: absolute; top: 50%; left: 1em; height: 8em; width: 4em;
+            @include transform(translateY(-50%));
+
+            &.enabled {
+                background: url('/images/arrow-left.png');
+                cursor: pointer;
+
+                &:hover { background: url('/images/arrow-left-hover.png'); }
+            }
+        }
+
+        .problem {
+            position: absolute; bottom: 1em; right: 1em;
+
+            a {
+                color: $color-gray-light;
+                cursor: pointer;
+                font-size: $font-size-normal;
+                text-decoration: underline;
+
+                &:hover {
+                    color: $color-gray-medium;
+                }
             }
         }
     }

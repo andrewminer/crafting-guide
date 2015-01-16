@@ -669,7 +669,7 @@ item: ME Storage Monitor
 
 item: ME Terminal
     recipe:
-        input: ME Illuminated Panel, Annihiliation Core, Formation Core, Logic Processor
+        input: ME Illuminated Panel, Annihilation Core, Formation Core, Logic Processor
         pattern: 12. 03. ...
 
 item: ME Toggle Bus

@@ -7,11 +7,13 @@ All rights reserved.
 
 BaseController          = require './base_controller'
 CraftingTableController = require './crafting_table_controller'
+{Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
 ItemPage                = require '../models/item_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
+Storage                 = require '../models/storage'
 
 ########################################################################################################################
 
@@ -20,10 +22,12 @@ module.exports = class ItemPageController extends BaseController
     constructor: (options={})->
         options.model        ?= new ItemPage
         options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
+        options.storage      ?= new Storage storage:window.localStorage
         options.templateName  = 'item_page'
         super options
 
         @imageLoader = options.imageLoader
+        @storage     = options.storage
 
     # Event Methods ################################################################################
 
@@ -31,6 +35,12 @@ module.exports = class ItemPageController extends BaseController
         @model.plan.includingTools = @$('.includeTools:checked').length isnt 0
 
     # BaseController Overrides #####################################################################
+
+    onWillRender: ->
+        @storage.register 'crafting-plan', @model.plan, 'includingTools'
+        @model.modPack.on Event.add, (modVersion)=>
+            @storage.register "mod-version:#{modVersion.slug}", modVersion, 'enabled'
+        super
 
     onDidRender: ->
         @wantController = @addChild InventoryController, '.want',

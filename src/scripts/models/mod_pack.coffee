@@ -115,7 +115,11 @@ module.exports = class ModPack extends BaseModel
     loadModVersionData: (data)->
         modVersion = @_parser.parse data
         @modVersions.push modVersion
+        @trigger Event.add, modVersion, this
+
         @modVersions.sort (a, b)-> a.compareTo b
+        @trigger Event.sort, this
+
         modVersion.on Event.change, => @trigger Event.change, this
 
         return modVersion

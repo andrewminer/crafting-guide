@@ -34,6 +34,7 @@ Event.load.failed    = 'load:failed'    # controller, error message
 Event.load.finished  = 'load:finished'  # controller
 Event.remove         = 'remove'         # collection, item...
 Event.route          = 'route'
+Event.sort           = 'sort'
 
 exports.Url = Url = {}
 Url.itemIcon = _.template "/data/<%= modSlug %>/images/<%= itemSlug %>.png"

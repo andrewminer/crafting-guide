@@ -13,50 +13,36 @@ Stack     = require './stack'
 module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.input? then throw new Error 'attributes.input is required'
-        if not attributes.item? then throw new Error 'attributes.item is required'
+        if attributes.item?
+            attributes.name = attributes.item.name
+            attributes.slug = attributes.item.slug
+            attributes.output ?= [new Stack slug:item.slug, quantity:1]
 
-        attributes.output  ?= [new Stack itemSlug:attributes.item.slug]
+        if not attributes.name? then throw new Error 'attributes.name is required'
+        if not attributes.input? then throw new Error 'attributes.input is required'
+        if not attributes.pattern? then throw new Error 'attributes.pattern is required'
+
+        attributes.item    ?= null
+        attributes.output  ?= [new Stack slug:_.slugify(attributes.name), quantity:1]
         attributes.pattern = @_parsePattern attributes.pattern
+        attributes.slug    ?= attributes.output[0].slug
         attributes.tools   ?= []
         super attributes, options
 
-        @item.addRecipe this
-
-        Object.defineProperties this,
-            'defaultPattern': { get: -> @_computeDefaultPattern() }
-            'name':           { get: -> @item.name }
-            'slug':           { get: -> @item.slug }
-
     # Public Methods ###############################################################################
 
-    getItemSlugAt: (index)->
+    getItemSlugAt: (patternSlot)->
         pattern = if @pattern? then @pattern else @_computeDefaultPattern()
 
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
-        patternDigit = pattern[trueIndex[index]]
+        patternDigit = pattern[trueIndex[patternSlot]]
         return null unless patternDigit?
         return null unless patternDigit.match /[0-9]/
 
         stack = @input[parseInt(patternDigit)]
         return null unless stack?
 
-        return stack.itemSlug
-
-    make: (inventory, missing)->
-        for stack in @input
-            itemSlug = stack.itemSlug
-            needed   = stack.quantity
-            while needed > 0
-                if inventory.hasAtLeast itemSlug
-                    inventory.remove itemSlug
-                else
-                    missing.add itemSlug
-
-        for stack in @output
-            inventory.add stack.itemSlug, stack.quantity
-
-        return this
+        return stack.slug
 
     # Object Overrides #############################################################################
 
@@ -107,26 +93,5 @@ module.exports = class Recipe extends BaseModel
             array.push '.'
 
         pattern = array.join ''
-        pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
-        return pattern
-
-    _computeDefaultPattern: ->
-        itemCount = @input.length
-        slotCount = _.reduce @input, ((total, stack)-> total + stack.quantity), 0
-
-        return '... .0. ...' if itemCount is 1 and slotCount is 1
-        return '00. 00. ...' if itemCount is 1 and slotCount is 4
-        return '000 000 000' if itemCount is 1 and slotCount is 9
-
-        result = ['.', '.', '.', '.', '.', '.', '.', '.', '.']
-        indexes = [4, 7, 1, 3, 5, 6, 8, 0, 2]
-
-        for i in [0...@input.length]
-            stack = @input[i]
-            for j in [0...stack.quantity]
-                index = indexes.shift()
-                result[index] = "#{i}"
-
-        pattern = result.join ''
         pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
         return pattern

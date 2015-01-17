@@ -31,7 +31,7 @@ module.exports = class StackController extends BaseController
         super
 
     refresh: ->
-        display = @modPack.findItemDisplay @model.itemSlug
+        display = @modPack.findItemDisplay @model.slug
 
         @$nameField.html display.itemName
         @$quantityField.html @model.quantity

@@ -19,7 +19,7 @@ inventory = null
 describe 'Inventory', ->
 
     beforeEach ->
-        inventory = new Inventory
+        inventory = new Inventory {}, silent:false
         inventory.add 'wool', 4
         inventory.add 'string', 20
         inventory.add 'boat'
@@ -30,7 +30,7 @@ describe 'Inventory', ->
             inventory.add 'iron_ingot', 4
             stack = inventory._stacks['iron_ingot']
             stack.constructor.name.should.equal 'Stack'
-            stack.itemSlug.should.equal 'iron_ingot'
+            stack.slug.should.equal 'iron_ingot'
             stack.quantity.should.equal 4
 
         it 'can augment quantity of existing items', ->
@@ -80,7 +80,7 @@ describe 'Inventory', ->
 
         it 'works when items have only been added', ->
             result = []
-            inventory.each (stack)-> result.push stack.itemSlug
+            inventory.each (stack)-> result.push stack.slug
             result.should.eql ['boat', 'string', 'wool']
 
         it 'works when items have been augmented', ->
@@ -89,7 +89,7 @@ describe 'Inventory', ->
             inventory.add 'wool', 2
 
             result = []
-            inventory.each (stack)-> result.push stack.itemSlug
+            inventory.each (stack)-> result.push stack.slug
             result.should.eql ['boat', 'iron_ingot', 'string', 'wool']
 
     describe 'hasAtLeast', ->
@@ -116,7 +116,7 @@ describe 'Inventory', ->
 
         it 'completely removes the last item', ->
             stack = inventory.pop()
-            stack.itemSlug.should.equal 'wool'
+            stack.slug.should.equal 'wool'
             stack.quantity.should.equal 4
             inventory.toList().should.eql ['boat', [20, 'string']]
 

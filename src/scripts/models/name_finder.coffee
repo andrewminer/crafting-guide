@@ -59,19 +59,19 @@ module.exports = class NameFinder
         names   = []
         nameMap = {}
 
-        for modVersion in @modPack.modVersions
-            continue unless modVersion.enabled or @includeDisabledMods
+        @modPack.eachModVersion (modVersion)=>
+            return unless modVersion.enabled or @includeDisabledMods
 
-            for slug, name of modVersion.names
-                continue if nameMap[name]
+            modVersion.eachName (name, slug)=>
+                return if nameMap[name]
 
-                item = modVersion.items[slug]
+                item = modVersion.findItem slug
                 if not @includeGatherable
-                    continue unless item? and (not item.isGatherable)
+                    return unless item? and (not item.isGatherable)
 
                 scanName = "#{modVersion.name} : #{name}"
                 if nameHint?
-                    continue unless @_isMatch scanName.toLowerCase(), nameHint
+                    return unless @_isMatch scanName.toLowerCase(), nameHint
 
                 nameMap[name] = name
                 names.push value:name, label:scanName, modVersion:modVersion

@@ -47,16 +47,11 @@ All rights reserved.
             }
 
             .quantity {
-                position: absolute; right: 0; bottom: 0;
-                color: black;
+                position: absolute; right: 0.1em; bottom: 0.1em;
+                color: white;
                 font-family: PressStart;
                 font-size: $font-size-large;
-            }
-
-            .quantity + .quantity {
-                color: white;
-                right: 0.2em; bottom: 0.2em;
-                z-index: 1
+                text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
             }
         }
 

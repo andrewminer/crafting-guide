@@ -5,8 +5,9 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-ModPack      = require '../src/scripts/models/mod_pack'
 CraftingPlan = require '../src/scripts/models/crafting_plan'
+ModVersion   = require '../src/scripts/models/mod_version'
+ModPack      = require '../src/scripts/models/mod_pack'
 
 ########################################################################################################################
 
@@ -17,8 +18,8 @@ modPack = plan = null
 describe 'CraftingPlan', ->
 
     beforeEach ->
-        modPack = new ModPack
-        modPack.loadModVersionData """
+        modVersion = new ModVersion name:'Minecraft', version:'1.7.10'
+        modVersion.parse """
             schema:2; name:Minecraft; version:1.7.10
 
             item:Oak Plank;      recipe:; input:Oak Log;                pattern:... .0. ...; quantity:4
@@ -28,6 +29,9 @@ describe 'CraftingPlan', ->
             item:Iron Ingot;     recipe:; input:Iron Ore, furnace fuel; pattern:.0. ... .1.; tools:Furnace
             item:Iron Sword;     recipe:; input:Iron Ingot, Stick;      pattern:.0. .0. .1.; tools:Crafting Table
         """
+        modPack = new ModPack
+        modPack.addModVersion modVersion
+
         plan = new CraftingPlan modPack:modPack, includingTools:false
 
     describe 'craft', ->

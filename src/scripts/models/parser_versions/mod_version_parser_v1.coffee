@@ -15,8 +15,8 @@ Stack      = require '../stack'
 module.exports = class ModVersionParserV1
 
     constructor: (options={})->
-        if not options.modVersion? then throw new Error 'options.modVersion is required'
-        @_modVersion    = options.modVersion
+        if not options.model? then throw new Error 'options.model is required'
+        @_model         = options.model
         @_errorLocation = 'the header information'
 
     parse: (data)->
@@ -27,12 +27,35 @@ module.exports = class ModVersionParserV1
 
     # Private Methods ##############################################################################
 
+    _computeDefaultPattern: (input)->
+        itemCount = input.length
+        slotCount = _.reduce input, ((total, stack)-> total + stack.quantity), 0
+
+        return '... .0. ...' if itemCount is 1 and slotCount is 1
+        return '00. 00. ...' if itemCount is 1 and slotCount is 4
+        return '000 000 000' if itemCount is 1 and slotCount is 9
+
+        result = ['.', '.', '.', '.', '.', '.', '.', '.', '.']
+        indexes = [4, 7, 1, 3, 5, 6, 8, 0, 2]
+
+        for i in [0...input.length]
+            stack = input[i]
+            for j in [0...stack.quantity]
+                index = indexes.shift()
+                result[index] = "#{i}"
+
+        pattern = result.join ''
+        pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
+        return pattern
+
     _findOrCreateItem: (name)->
-        item = @_modVersion.findItemByName name
+        item = @_model.findItemByName name
         if not item?
-            item = new Item modVersion:@_modVersion, name:name
-            @_modVersion.registerSlug item.slug, item.name
+            item = new Item name:name
+            @_model.addItem item
         return item
+
+    # Parsing Methods ##############################################################################
 
     _parseModVersion: (data)->
         if not data? then throw new Error 'mod description data is missing'
@@ -40,12 +63,12 @@ module.exports = class ModVersionParserV1
         if not data.version? then throw new Error 'version is required'
         if not _.isArray(data.recipes) then throw new Error 'recipes must be an array'
 
-        if data.name isnt @_modVersion.name
-            throw new Error "the data is for #{data.name}, not #{@_modVersion.name} as expected"
-        if data.version isnt @_modVersion.version
-            throw new Error "the data is for version #{data.version}, not #{@_modVersion.version} as expected"
+        if data.name isnt @_model.name
+            throw new Error "the data is for #{data.name}, not #{@_model.name} as expected"
+        if data.version isnt @_model.version
+            throw new Error "the data is for version #{data.version}, not #{@_model.version} as expected"
 
-        @_modVersion.description = data.description or ''
+        @_model.description = data.description or ''
         @_parseRawMaterials data.raw_materials
 
         for index in [0...data.recipes.length]
@@ -54,7 +77,7 @@ module.exports = class ModVersionParserV1
             recipe = @_parseRecipe recipeData
             recipe._originalIndex = index
 
-        return @_modVersion
+        return @_model
 
     _parseRawMaterials: (data)->
         return unless data? and data.length > 0
@@ -84,7 +107,7 @@ module.exports = class ModVersionParserV1
             output: @_parseStackList(data.output, field:'output', canBeEmpty:false)
             input:  @_parseStackList(data.input,  field:'input',  canBeEmpty:true)
             tools:  @_parseStackList(data.tools,  field:'tools',  canBeEmpty:true)
-        attributes.pattern = data.pattern if data.pattern?
+        attributes.pattern = data.pattern or @_computeDefaultPattern attributes.input
 
         recipe = new Recipe attributes
         return recipe
@@ -102,9 +125,9 @@ module.exports = class ModVersionParserV1
 
         name = data[1]
         slug = _.slugify name
-        @_modVersion.registerSlug slug, name
+        @_model.registerSlug slug, name
 
-        return new Stack itemSlug:slug, quantity:data[0]
+        return new Stack slug:slug, quantity:data[0]
 
     _parseStackList: (data, options={})->
         if not data? then throw new Error "#{@_errorLocation} must have an #{options.field} field"
@@ -191,9 +214,9 @@ module.exports = class ModVersionParserV1
         else if stackList.length is 1
             stack = stackList[0]
             if stack.quantity is 1
-                result.push '"' + @_modVersion.findName(stack.itemSlug) + '"'
+                result.push '"' + @_model.findName(stack.slug) + '"'
             else
-                result.push '[[' + stack.quantity + ', "' + @_modVersion.findName(stack.itemSlug) + '"]]'
+                result.push '[[' + stack.quantity + ', "' + @_model.findName(stack.slug) + '"]]'
         else
             result.push '['
 
@@ -202,17 +225,17 @@ module.exports = class ModVersionParserV1
                 stacks.sort (a, b)->
                     if a.quantity isnt b.quantity
                         return if a.quantity > b.quantity then -1 else +1
-                    if a.itemSlug isnt b.itemSlug
-                        return if a.itemSlug < b.itemSlug then -1 else +1
+                    if a.slug isnt b.slug
+                        return if a.slug < b.slug then -1 else +1
                     return 0
 
             firstItem = true
             for stack in stacks
                 result.push ', ' if not firstItem
                 if stack.quantity is 1
-                    result.push '"' + @_modVersion.findName(stack.itemSlug) + '"'
+                    result.push '"' + @_model.findName(stack.slug) + '"'
                 else
-                    result.push '[' + stack.quantity + ', "' + @_modVersion.findName(stack.itemSlug) + '"]'
+                    result.push '[' + stack.quantity + ', "' + @_model.findName(stack.slug) + '"]'
                 firstItem = false
 
             result.push ']'

@@ -21,6 +21,7 @@ global.util   = require 'util'
 Logger = require '../src/scripts/logger'
 global.logger = new Logger level:Logger.TRACE
 
+require '../src/scripts/polyfill'
 require '../src/scripts/underscore_mixins'
 
 # Test Registry ########################################################################################################

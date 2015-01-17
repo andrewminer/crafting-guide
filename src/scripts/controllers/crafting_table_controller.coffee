@@ -25,6 +25,8 @@ module.exports = class CraftingTableController extends BaseController
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
 
+        @model.plan.silent = false
+
     # Event Methods ################################################################################
 
     onNextClicked: ->
@@ -79,7 +81,7 @@ module.exports = class CraftingTableController extends BaseController
 
         outputStack = @model.output
         if outputStack?
-            display = @modPack.findItemDisplay outputStack.itemSlug
+            display = @modPack.findItemDisplay outputStack.slug
             @$outputLink.attr 'href', display.itemUrl
             @$outputLink.attr 'title', display.itemName
             @$outputImg.attr 'alt', display.itemName

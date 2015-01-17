@@ -18,7 +18,7 @@ describe 'ModVersionParserV2', ->
 
     beforeEach ->
         modVersion = new ModVersion name:'Test', version:'0.0'
-        parser     = new ModVersionParserV2 modVersion:modVersion
+        parser     = new ModVersionParserV2 model:modVersion
 
     describe 'Item', ->
 
@@ -29,15 +29,15 @@ describe 'ModVersionParserV2', ->
                 recipe:; input:Alpha; pattern:... .0. ...;
                 recipe:; input:Bravo; pattern:... 0.0 ...;"
             modVersion = parser.parse baseText + recipes
-            recipes = modVersion.items.charlie.recipes
-            recipes[0].input[0].itemSlug.should.equal 'alpha'
-            recipes[1].input[0].itemSlug.should.equal 'bravo'
+            recipes = modVersion._items.charlie._recipes
+            recipes[0].input[0].slug.should.equal 'alpha'
+            recipes[1].input[0].slug.should.equal 'bravo'
 
         describe 'name', ->
 
             it 'adds the name when present', ->
                 modVersion = parser.parse baseText + 'item: Charlie'
-                modVersion.items.charlie.name.should.equal 'Charlie'
+                modVersion._items.charlie.name.should.equal 'Charlie'
 
             it 'requires a non-empty name', ->
                 func = -> parser.parse baseText + 'item: \n'
@@ -47,7 +47,7 @@ describe 'ModVersionParserV2', ->
 
             it 'adds "gatherable" when present', ->
                 modVersion = parser.parse baseText + 'item: Alpha Bravo; gatherable: yes'
-                modVersion.items.alpha_bravo.isGatherable.should.be.true
+                modVersion._items.alpha_bravo.isGatherable.should.be.true
 
             it 'does not allow a duplicate "gatherable" declaration', ->
                 func = -> parser.parse baseText + 'item: Alpha Bravo; gatherable: yes; gatherable: yes'
@@ -67,7 +67,7 @@ describe 'ModVersionParserV2', ->
             modVersion = parser.parse 'item: Alpha; version:0.0; name:Test'
             modVersion.name.should.equal 'Test'
             modVersion.version.should.equal '0.0'
-            modVersion.items.alpha.name.should.equal 'Alpha'
+            modVersion._items.alpha.name.should.equal 'Alpha'
 
         it 'does not allow duplicate item declarations', ->
             func = -> parser.parse 'version:0.0; name:Test; item:Charlie; item:Charlie'
@@ -75,7 +75,7 @@ describe 'ModVersionParserV2', ->
 
         it 'allows multiple items', ->
             modVersion = parser.parse 'name:Test; version:0.0; item:Bravo; item:Charlie'
-            _.keys(modVersion.items).sort().should.eql ['bravo', 'charlie']
+            _.keys(modVersion._items).sort().should.eql ['bravo', 'charlie']
 
         describe 'name', ->
 
@@ -123,7 +123,7 @@ describe 'ModVersionParserV2', ->
 
             it 'adds "input" when present', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern: ... 012 ...'
-                slugs = (s.itemSlug for s in modVersion.items.charlie.recipes[0].input)
+                slugs = (s.slug for s in modVersion._items.charlie._recipes[0].input)
                 slugs.should.eql ['alpha', 'bravo', 'charlie']
 
             it 'requires an "input" declaration', ->
@@ -140,13 +140,13 @@ describe 'ModVersionParserV2', ->
 
             it 'registers slugs for each input name', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Delta, Echo, Foxtrot; pattern:...012...'
-                _.keys(modVersion.names).sort().should.eql ['charlie', 'delta', 'echo', 'foxtrot']
+                modVersion._slugs.should.eql ['charlie', 'delta', 'echo', 'foxtrot']
 
         describe 'pattern', ->
 
             it 'adds "pattern" when present', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern:... .0. .1.'
-                modVersion.items.charlie.recipes[0].pattern.should.equal '... .0. .1.'
+                modVersion._items.charlie._recipes[0].pattern.should.equal '... .0. .1.'
 
             it 'requires a "pattern" declaration', ->
                 func = -> parser.parse baseText + 'recipe:; input:Alpha, Bravo'
@@ -174,7 +174,7 @@ describe 'ModVersionParserV2', ->
 
             it 'computes the input stack sizes from the pattern', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern:111 .0. 2.2'
-                recipe = modVersion.items.charlie.recipes[0]
+                recipe = modVersion._items.charlie._recipes[0]
                 recipe.input[0].quantity.should.equal 1
                 recipe.input[1].quantity.should.equal 3
                 recipe.input[2].quantity.should.equal 2
@@ -190,7 +190,7 @@ describe 'ModVersionParserV2', ->
 
             it 'adds "quantity" when present', ->
                 modVersion = parser.parse baseText + 'quantity: 2'
-                modVersion.items.charlie.recipes[0].output[0].quantity.should.equal 2
+                modVersion._items.charlie._recipes[0].output[0].quantity.should.equal 2
 
             it 'does not allow a duplicate "quantity" declaration', ->
                 func = -> parser.parse baseText + 'quantity:1; quantity:2'
@@ -202,7 +202,7 @@ describe 'ModVersionParserV2', ->
 
             it 'assumes a quantity of 1 by default', ->
                 modVersion = parser.parse baseText
-                modVersion.items.charlie.recipes[0].output[0].quantity.should.equal 1
+                modVersion._items.charlie._recipes[0].output[0].quantity.should.equal 1
 
             it 'does not allow "quantity" before recipe', ->
                 func = -> parser.parse 'name:Alpha; version:1; item:Bravo; quantity:12; recipe:;'
@@ -215,18 +215,18 @@ describe 'ModVersionParserV2', ->
 
             it 'adds a single item as the default output', ->
                 modVersion = parser.parse baseText
-                stack = modVersion.items.bravo.recipes[0].output[0]
-                stack.itemSlug.should.equal 'bravo'
+                stack = modVersion._items.bravo._recipes[0].output[0]
+                stack.slug.should.equal 'bravo'
                 stack.quantity.should.equal 1
 
             it 'can add multiple extras with quantities', ->
                 modVersion = parser.parse baseText + 'extras:2 Delta, 4 Echo'
-                output = modVersion.items.bravo.recipes[0].output
-                output[0].itemSlug.should.equal 'bravo'
+                output = modVersion._items.bravo._recipes[0].output
+                output[0].slug.should.equal 'bravo'
                 output[0].quantity.should.equal 1
-                output[1].itemSlug.should.equal 'delta'
+                output[1].slug.should.equal 'delta'
                 output[1].quantity.should.equal 2
-                output[2].itemSlug.should.equal 'echo'
+                output[2].slug.should.equal 'echo'
                 output[2].quantity.should.equal 4
 
             it 'does not allow "extras" before "recipe"', ->
@@ -235,7 +235,7 @@ describe 'ModVersionParserV2', ->
 
             it 'registers slugs for each output name', ->
                 modVersion = parser.parse baseText + 'extras:Delta, Echo'
-                _.keys(modVersion.names).sort().should.eql ['bravo', 'charlie', 'delta', 'echo']
+                modVersion._slugs.should.eql ['bravo', 'charlie', 'delta', 'echo']
 
             it 'does not allow a duplicate "extras" declaration', ->
                 func = -> parser.parse baseText + 'extras:Echo; extras:Delta'
@@ -248,17 +248,17 @@ describe 'ModVersionParserV2', ->
 
             it 'can add a single tool', ->
                 modVersion = parser.parse baseText + 'tools: Furnace'
-                modVersion.items.bravo.recipes[0].tools[0].itemSlug.should.equal 'furnace'
+                modVersion._items.bravo._recipes[0].tools[0].slug.should.equal 'furnace'
 
             it 'can add multiple tools', ->
                 modVersion = parser.parse baseText + 'tools: Crafting Table, Furnace'
-                tools = modVersion.items.bravo.recipes[0].tools
-                tools[0].itemSlug.should.equal 'crafting_table'
-                tools[1].itemSlug.should.equal 'furnace'
+                tools = modVersion._items.bravo._recipes[0].tools
+                tools[0].slug.should.equal 'crafting_table'
+                tools[1].slug.should.equal 'furnace'
 
             it 'registers slugs for each tool name', ->
                 modVersion = parser.parse baseText + 'tools: Crafting Table, Furnace'
-                _.keys(modVersion.names).sort().should.eql ['bravo', 'charlie', 'crafting_table', 'furnace']
+                modVersion._slugs.should.eql ['bravo', 'charlie', 'crafting_table', 'furnace']
 
             it 'does not allow a duplicate "tools" declaration', ->
                 func = -> parser.parse baseText + 'tools:Crafting Table; tools:Furnace'

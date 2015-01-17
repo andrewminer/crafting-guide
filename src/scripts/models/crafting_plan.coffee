@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseModel = require './base_model'
+{Event}   = require '../constants'
 Inventory = require './inventory'
 
 ########################################################################################################################
@@ -17,44 +18,50 @@ module.exports = class CraftingPlan extends BaseModel
         attributes.includingTools ?= false
         super attributes, options
 
-        @have    = new Inventory
-        @want    = new Inventory
-        @need    = new Inventory
-        @result  = new Inventory
-        @storage = options.storage
+        @have   = new Inventory
+        @want   = new Inventory
+        @need   = new Inventory
+        @result = new Inventory
 
-        @have.on 'change', => @craft()
-        @want.on 'change', => @craft()
-        @modPack.on 'change', => @craft()
+        @clear silent:true
 
-        @on 'change:includingTools', => @craft()
+        @have.on    Event.change, => @craft()
+        @want.on    Event.change, => @craft()
+        @modPack.on Event.add, => @craft()
 
-        @clear()
+        @on Event.change + ':includingTools', => @craft()
 
     # Public Methods ###############################################################################
 
-    clear: ->
+    clear: (options={})->
+        options.silent ?= false
+
         @steps = []
         @need.clear()
         @result.clear()
 
-        @trigger 'change', this
+        @trigger 'change', this unless options.silent
         return this
 
     craft: ->
-        @clear()
+        @clear silent:true
+        @need.silent = @result.silent = true
+
         @result.addInventory @have
 
         @steps = {}
         @want.each (stack)=>
-            @_findSteps stack.itemSlug
-            @need.add stack.itemSlug, stack.quantity
+            @_findSteps stack.slug
+            @need.add stack.slug, stack.quantity
 
         @steps = _.values @steps
         @_resolveNeeds()
         @_removeExtraSteps()
         @result.addInventory @want
 
+        @need.silent = @result.silent = false
+        @need.trigger 'change', @need
+        @result.trigger 'change', @result
         @trigger 'change', this
 
     # Event Methods ################################################################################
@@ -82,10 +89,10 @@ module.exports = class CraftingPlan extends BaseModel
         @steps[recipe.slug] = recipe:recipe
 
     _chooseRecipe: (item)->
-        return item.recipes[0]
+        return item.getPrimaryRecipe()
 
-    _findSteps: (itemSlug)->
-        item = @modPack.findItem itemSlug
+    _findSteps: (slug)->
+        item = @modPack.findItem slug
         return unless item?
         return unless item.isCraftable
         return if item.isGatherable
@@ -94,16 +101,16 @@ module.exports = class CraftingPlan extends BaseModel
 
         if @includingTools
             for toolStack in recipe.tools
-                if not @_hasStep toolStack.itemSlug
-                    @_findSteps toolStack.itemSlug
+                if not @_hasStep toolStack.slug
+                    @_findSteps toolStack.slug
 
         for inputStack in recipe.input
-            @_findSteps inputStack.itemSlug
+            @_findSteps inputStack.slug
 
         @_addStep recipe
 
-    _hasStep: (itemSlug)->
-        return @steps[itemSlug]?
+    _hasStep: (slug)->
+        return @steps[slug]?
 
     _removeExtraSteps: ->
         result = (step for step in @steps when step.multiplier > 0)
@@ -118,25 +125,25 @@ module.exports = class CraftingPlan extends BaseModel
 
             if @includingTools
                 for stack in recipe.tools
-                    slug      = stack.itemSlug
+                    slug      = stack.slug
                     available = @result.quantityOf(slug) + @need.quantityOf(slug)
                     needed    = Math.max 0, stack.quantity - available
 
-                    @need.add stack.itemSlug, needed
-                    @result.add stack.itemSlug, needed
+                    @need.add stack.slug, needed
+                    @result.add stack.slug, needed
 
             for stack in recipe.input
                 needed    = step.multiplier * stack.quantity
-                consumed  = Math.min needed, @result.quantityOf(stack.itemSlug)
+                consumed  = Math.min needed, @result.quantityOf(stack.slug)
                 remaining = needed - consumed
 
-                @result.remove stack.itemSlug, consumed
-                @need.add stack.itemSlug, remaining
+                @result.remove stack.slug, consumed
+                @need.add stack.slug, remaining
 
             for stack in recipe.output
                 created   = stack.quantity * step.multiplier
-                consumed  = Math.min created, @need.quantityOf stack.itemSlug
+                consumed  = Math.min created, @need.quantityOf stack.slug
                 remaining = created - consumed
 
-                @result.add stack.itemSlug, remaining
-                @need.remove stack.itemSlug, consumed
+                @result.add stack.slug, remaining
+                @need.remove stack.slug, consumed

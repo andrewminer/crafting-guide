@@ -74,6 +74,7 @@ module.exports = class BaseController extends Backbone.View
         return unless @onWillChangeModel @_model, newModel
 
         @_model = newModel
+        @_model.silent = false
         @_tryRefresh()
 
     # Backbone.View Overrides ######################################################################

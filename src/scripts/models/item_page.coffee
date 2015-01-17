@@ -41,7 +41,7 @@ module.exports = class ItemPage extends BaseModel
     _updateLocation: ->
         list = @plan.want.toList()
         if list.length is 1
-            itemSlug = if _.isArray(list[0]) then list[0][1] else list[0]
-            router.navigate "/item/#{itemSlug}"
+            slug = if _.isArray(list[0]) then list[0][1] else list[0]
+            router.navigate "/item/#{slug}"
         else
             router.navigate "/"

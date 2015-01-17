@@ -15,78 +15,80 @@ module.exports = class Inventory extends BaseModel
 
     constructor: (attributes={}, options={})->
         super attributes, options
-        @clear()
+        @clear silent:true
 
-    Object.defineProperty @prototype, 'isEmpty', get:-> @_slugs.length is 0
+        Object.defineProperties this,
+            isEmpty: { get:-> @_slugs.length is 0 }
 
     # Public Methods ###############################################################################
 
-    add: (itemSlug, quantity=1)->
-        @_add itemSlug, quantity
-        @trigger Event.add, this, itemSlug, quantity
+    add: (slug, quantity=1)->
+        @_add slug, quantity
+        @trigger Event.add, this, slug, quantity
         @trigger Event.change, this
         return this
 
     addInventory: (inventory)->
-        inventory.each (stack)=> @_add stack.itemSlug, stack.quantity
+        @silent = true
+        inventory.each (stack)=> @_add stack.slug, stack.quantity
+        @silent = false
+
         @trigger Event.change, this
         return this
 
-    clear: ->
+    clear: (options={})->
+        options.silent ?= false
         @_stacks = {}
         @_slugs = []
-        @trigger 'change', self
+
+        @trigger Event.change, this unless options.silent
 
     clone: ->
         inventory = new Inventory
-        @each (stack)-> inventory.add stack.itemSlug, stack.quantity
+        inventory.addInventory this
         return inventory
 
-    each: (onStack)->
-        for itemSlug in @_slugs
-            stack = @_stacks[itemSlug]
-            onStack stack
+    each: (callback)->
+        for slug in @_slugs
+            callback @_stacks[slug]
 
-    getStack: (itemSlug)->
-        return @_stacks[itemSlug]
-
-    hasAtLeast: (itemSlug, quantity=1)->
+    hasAtLeast: (slug, quantity=1)->
         if quantity is 0 then return true
 
-        stack = @_stacks[itemSlug]
+        stack = @_stacks[slug]
         return false unless stack?
         return stack.quantity >= quantity
 
     pop: ->
-        itemSlug = @_slugs.pop()
-        return null unless itemSlug?
+        slug = @_slugs.pop()
+        return null unless slug?
 
-        stack = @_stacks[itemSlug]
-        delete @_stacks[itemSlug]
+        stack = @_stacks[slug]
+        delete @_stacks[slug]
 
-        @trigger Event.remove, this, stack.itemSlug, stack.quantity
+        @trigger Event.remove, this, stack.slug, stack.quantity
         @trigger Event.change, this
         return stack
 
-    quantityOf: (itemSlug)->
-        stack = @_stacks[itemSlug]
+    quantityOf: (slug)->
+        stack = @_stacks[slug]
         return 0 unless stack?
         return stack.quantity
 
-    remove: (itemSlug, quantity=1)->
+    remove: (slug, quantity=1)->
         return if quantity is 0
 
-        stack = @_stacks[itemSlug]
-        if not stack? then throw new Error "cannot remove #{itemSlug} since it is not in this inventory"
+        stack = @_stacks[slug]
+        if not stack? then throw new Error "cannot remove #{slug} since it is not in this inventory"
         if stack.quantity < quantity
-            throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{itemSlug} in this inventory"
+            throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{slug} in this inventory"
 
         stack.quantity -= quantity
         if stack.quantity is 0
-            delete @_stacks[itemSlug]
-            @_slugs = _(@_slugs).without itemSlug
+            delete @_stacks[slug]
+            @_slugs = _(@_slugs).without slug
 
-        @trigger Event.remove, this, itemSlug, quantity
+        @trigger Event.remove, this, slug, quantity
         @trigger Event.change, this
         return this
 
@@ -94,9 +96,9 @@ module.exports = class Inventory extends BaseModel
         result = []
         @each (stack)->
             if stack.quantity > 1
-                result.push [stack.quantity, stack.itemSlug]
+                result.push [stack.quantity, stack.slug]
             else
-                result.push stack.itemSlug
+                result.push stack.slug
         return result
 
     # Object Overrides #############################################################################
@@ -116,14 +118,15 @@ module.exports = class Inventory extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _add: (itemSlug, quantity=1)->
+    _add: (slug, quantity=1)->
+        return unless slug?
         return if quantity is 0
 
-        stack = @_stacks[itemSlug]
+        stack = @_stacks[slug]
         if not stack?
-            stack = new Stack itemSlug:itemSlug, quantity:quantity
-            @_stacks[itemSlug] = stack
-            @_slugs.push itemSlug
+            stack = new Stack slug:slug, quantity:quantity
+            @_stacks[slug] = stack
+            @_slugs.push slug
             @_slugs.sort()
         else
             stack.quantity += quantity

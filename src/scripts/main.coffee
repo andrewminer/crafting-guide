@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 require './underscore_mixins'
+require './polyfill'
 
 views               = require './views'
 FeedbackController  = require './controllers/feedback_controller'

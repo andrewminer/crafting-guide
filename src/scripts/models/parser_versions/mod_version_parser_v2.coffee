@@ -5,28 +5,18 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-Item          = require '../item'
-ModVersion    = require '../mod_version'
-Recipe        = require '../recipe'
-Stack         = require '../stack'
-StringBuilder = require '../string_builder'
+CommandParserBase = require '../command_parser_base'
+Item              = require '../item'
+ModVersion        = require '../mod_version'
+Recipe            = require '../recipe'
+Stack             = require '../stack'
+StringBuilder     = require '../string_builder'
 
 ########################################################################################################################
 
-module.exports = class ModVersionParserV2
-
-    constructor: (options={})->
-        if not options.modVersion? then throw new Error 'options.modVersion is required'
-        options.showAllErrors ?= false
-
-        @_modVersion    = options.modVersion
-        @_showAllErrors = options.showAllErrors
+module.exports = class ModVersionParserV2 extends CommandParserBase
 
     # Class Methods ################################################################################
-
-    @COMMAND = /\ *([^:]*):?(.*)/
-
-    @COMMENT = /([^\\]?)#.*/
 
     @INTEGER = /[0-9]+/
 
@@ -34,68 +24,19 @@ module.exports = class ModVersionParserV2
 
     @STACK = /^([0-9]+) +(.*)$/
 
-    # Public Methods ###############################################################################
+    # CommandParserBase Overrides ##################################################################
 
-    parse: (text)->
-        @_modVersionData = {}
-        @_lineNumber     = 1
+    _buildModel: (rawData, model)->
+        @_buildModVersion rawData, model
 
-        lines = text.split '\n'
-        for i in [0...lines.length]
-            @_lineNumber = i + 1
-            commands = @_parseLine lines[i]
-            for command in commands
-                @_handleErrors @_execute, command
-
-        return @_handleErrors @_buildModVersion, @_modVersionData, @_modVersion
-
-    unparse: ->
-        builder = new StringBuilder context:@_modVersion
-        @_unparseModVersion builder
-        return builder.toString()
-
-    # Private Methods ##############################################################################
-
-    _execute: (command)->
-        method = this["_command_#{command.name}"]
-        if not method? then throw new Error "Unknown command: #{command.name}"
-
-        @_handleErrors method, command.args
-
-    _parseLine: (line)->
-        line = line.replace ModVersionParserV2.COMMENT, '$1'
-        line = line.trim()
-        return [] if line.length is 0
-
-        lineParts = (part.trim() for part in line.split(';'))
-        commands = []
-        for linePart in lineParts
-            continue if linePart.length is 0
-
-            match = ModVersionParserV2.COMMAND.exec linePart
-            if not match? then throw new Error "Expected <command>: <args>, but found: \"#{linePart}\""
-
-            args = []
-            args = (s.trim() for s in match[2].split(',')) if match[2]?
-            commands.push name:match[1], args:args
-
-        return commands
-
-    _handleErrors: (callback, args...)->
-        if args.length is 1 and _.isArray(args[0]) then args = args[0]
-
-        try
-            callback.apply this, args
-        catch e
-            e.message = "line #{@_lineNumber}: #{e.message}"
-            if not @_showAllErrors then throw e
-            logger.error e.message
+    _unparseModel: (builder, model)->
+        @_unparseModVersion builder, model
 
     # Command Methods ##############################################################################
 
     _command_description: (descriptionParts...)->
-        if @_modVersionData.description? then throw new Error 'duplicate declaration of "description"'
-        @_modVersionData.description = descriptionParts.join ', '
+        if @_rawData.description? then throw new Error 'duplicate declaration of "description"'
+        @_rawData.description = descriptionParts.join ', '
 
     _command_extras: (extraTerms...)->
         if not @_recipeData? then throw new Error 'cannot declare "extras" before "recipe"'
@@ -120,16 +61,16 @@ module.exports = class ModVersionParserV2
         if not name.length > 0 then throw new Error 'the item name cannot be empty'
 
         @_itemData = name:name, line:@_lineNumber
-        @_modVersionData.items ?= []
-        @_modVersionData.items.push @_itemData
+        @_rawData.items ?= []
+        @_rawData.items.push @_itemData
 
         @_recipeData = null
 
     _command_name: (name='')->
-        if @_modVersionData.name? then throw new Error 'duplicate declaration of "name"'
+        if @_rawData.name? then throw new Error 'duplicate declaration of "name"'
         if not name.length > 0 then throw new Error 'the mod name cannot be empty'
 
-        @_modVersionData.name = name
+        @_rawData.name = name
 
     _command_input: (inputNames...)->
         if not @_recipeData? then throw new Error 'cannot declare "input" before "recipe"'
@@ -175,10 +116,10 @@ module.exports = class ModVersionParserV2
             @_recipeData.tools.push name
 
     _command_version: (version='')->
-        if @_modVersionData.version? then throw new Error 'duplicate declaration of "version"'
+        if @_rawData.version? then throw new Error 'duplicate declaration of "version"'
         if version.length is 0 then throw new Error 'version cannot be empty'
 
-        @_modVersionData.version = version
+        @_rawData.version = version
 
     # Object Creation Methods ######################################################################
 
@@ -208,7 +149,8 @@ module.exports = class ModVersionParserV2
         itemData.gatherable ?= false
         itemData.recipes    ?= []
 
-        item = new Item modVersion:modVersion, name:itemData.name, isGatherable:itemData.gatherable
+        item = new Item name:itemData.name, isGatherable:itemData.gatherable
+        modVersion.addItem item
 
         for recipeData in itemData.recipes
             @_handleErrors @_buildRecipe, modVersion, item, recipeData
@@ -228,7 +170,7 @@ module.exports = class ModVersionParserV2
         for name in recipeData.input
             slug = _.slugify name
             modVersion.registerSlug slug, name
-            inputStacks.push new Stack itemSlug:slug, quantity:0
+            inputStacks.push new Stack slug:slug, quantity:0
 
         for c in recipeData.pattern
             continue if c is '.'
@@ -240,42 +182,43 @@ module.exports = class ModVersionParserV2
         for i in [0...inputStacks.length]
             stack = inputStacks[i]
             if stack.quantity is 0
-                name = modVersion.findName stack.itemSlug
+                name = modVersion.findName stack.slug
                 throw new Error "#{name} is an input for this recipe, but it is not in the pattern"
 
-        outputStacks = [ new Stack itemSlug:item.slug, quantity:recipeData.quantity ]
+        outputStacks = [ new Stack slug:item.slug, quantity:recipeData.quantity ]
         for extraData in recipeData.extras
             slug = _.slugify extraData.name
             modVersion.registerSlug slug, extraData.name
-            outputStacks.push new Stack itemSlug:slug, quantity:extraData.quantity
+            outputStacks.push new Stack slug:slug, quantity:extraData.quantity
 
         toolStacks = []
         for name in recipeData.tools
             slug = _.slugify name
             modVersion.registerSlug slug, name
-            toolStacks.push new Stack itemSlug:slug, quantity:1
+            toolStacks.push new Stack slug:slug, quantity:1
 
         attributes =
-            input:        inputStacks
-            item:         item
-            pattern:      recipeData.pattern
-            output:       outputStacks
-            tools:        toolStacks
+            input:    inputStacks
+            name:     item.name
+            pattern:  recipeData.pattern
+            output:   outputStacks
+            tools:    toolStacks
 
         recipe = new Recipe attributes
+        item.addRecipe recipe
         return recipe
 
     # Un-parsing Methods ###########################################################################
 
-    _unparseModVersion: (builder)->
-        itemList = _.values @modVersion.items
+    _unparseModVersion: (builder, modVersion)->
+        itemList = _.values modVersion.items
         itemList.sort (a, b)-> a.compareTo b
 
         builder
             .line 'schema: ', 2
-            .line 'name: ', @modVersion.name
-            .line 'version: ', @modVersion.version
-            .onlyIf @modVersion.description?, => builder.line 'description: ', @modVersion.description
+            .line 'name: ', modVersion.name
+            .line 'version: ', modVersion.version
+            .onlyIf modVersion.description?, => builder.line 'description: ', modVersion.description
             .line()
             .onlyIf itemList.length > 0, =>
                 builder.loop itemList, delimiter:'\n', onEach:(b, i)=> @_unparseItem(b, i)
@@ -291,13 +234,13 @@ module.exports = class ModVersionParserV2
             .outdent()
 
     _unparseRecipe: (builder, recipe)->
-        inputNames = (builder.context.findName(stack.itemSlug) for stack in recipe.input)
+        inputNames = (builder.context.findName(stack.slug) for stack in recipe.input)
         inputNames.sort()
 
         patternMap = {'.', '.'}
         for i in [0...recipe.input.length]
             stack = recipe.input[i]
-            patternMap["#{i}"] = "#{inputNames.indexOf builder.context.findName(stack.itemSlug)}"
+            patternMap["#{i}"] = "#{inputNames.indexOf builder.context.findName(stack.slug)}"
 
         pattern = recipe.pattern or recipe.defaultPattern
         newPattern = []
@@ -333,9 +276,9 @@ module.exports = class ModVersionParserV2
 
     _unparseStackList: (builder, stackList)->
         if stackList.length is 1 and stackList[0].quantity is 1
-            builder.push builder.context.findName(stackList[0].itemSlug)
+            builder.push builder.context.findName(stackList[0].slug)
         else
             builder.loop stackList, onEach:(b, stack)=>
                 builder
                     .onlyIf stack.quantity > 1, => builder.push stack.quantity, ' '
-                    .push builder.context.findName stack.itemSlug
+                    .push builder.context.findName stack.slug

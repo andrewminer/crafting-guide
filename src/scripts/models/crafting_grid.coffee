@@ -18,16 +18,17 @@ module.exports = class CraftingGrid extends BaseModel
         attributes.recipe ?= null
         super attributes, options
 
-    Object.defineProperty @prototype, 'slotCount', get:-> CraftingGrid.SLOT_COUNT
+        Object.defineProperties this,
+            'slotCount': { get:-> CraftingGrid.SLOT_COUNT }
 
     # Public Methods ###############################################################################
 
-    getItemDisplayAt: (index)->
-        if index >= @slotCount then throw new Error "index (#{index}) must be less than #{@slotCount}"
+    getItemDisplayAt: (slot)->
+        if slot >= @slotCount then throw new Error "slot (#{slot}) must be less than #{@slotCount}"
         return null unless @recipe?
 
-        itemSlug = @recipe.getItemSlugAt index
-        return null unless itemSlug?
+        slug = @recipe.getItemSlugAt slot
+        return null unless slug?
 
-        itemDisplay = @modPack.findItemDisplay itemSlug
+        itemDisplay = @modPack.findItemDisplay slug
         return itemDisplay

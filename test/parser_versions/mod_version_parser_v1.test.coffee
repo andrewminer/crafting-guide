@@ -19,7 +19,7 @@ describe "ModVersionParserV1", ->
 
     beforeEach ->
         modVersion = new ModVersion name:'Test', version:'0.0'
-        parser = new ModVersionParserV1 modVersion:modVersion
+        parser = new ModVersionParserV1 model:modVersion
 
     describe '_parseModVersion', ->
 
@@ -51,8 +51,7 @@ describe "ModVersionParserV1", ->
             modVersion = parser._parseModVersion data
             modVersion.name.should.equal 'Test'
             modVersion.version.should.equal '0.0'
-            slugs = (slug for slug, item of modVersion.items).sort()
-            slugs.should.eql ['bed', 'sugar']
+            modVersion._slugs.should.eql ['bed', 'crafting_table', 'planks', 'sugar', 'sugar_cane', 'wool']
 
     describe '_parseRawMaterials', ->
 
@@ -66,17 +65,17 @@ describe "ModVersionParserV1", ->
 
         it 'adds items marked as gatherable', ->
             parser._parseRawMaterials ['Wool']
-            modVersion.items['wool'].isGatherable.should.be.true
+            modVersion._items['wool'].isGatherable.should.be.true
 
         it 'marks an existing item as gatherable', ->
-            item = new Item modVersion:modVersion, name:'Wool'
-            modVersion.items['wool'].isGatherable.should.be.false
+            modVersion.addItem new Item name:'Wool'
+            modVersion._items['wool'].isGatherable.should.be.false
             parser._parseRawMaterials ['Wool']
-            modVersion.items['wool'].isGatherable.should.be.true
+            modVersion._items['wool'].isGatherable.should.be.true
 
         it 'registers the names of the items', ->
             parser._parseRawMaterials ['Wool']
-            modVersion.names['wool'].should.equal 'Wool'
+            modVersion._names['wool'].should.equal 'Wool'
 
     describe '_parseRecipe', ->
 
@@ -95,15 +94,15 @@ describe "ModVersionParserV1", ->
                 input: [[3, 'planks'], [3, 'wool']]
                 tools: 'crafting table'
             recipe = parser._parseRecipe data
-            (stack.itemSlug for stack in recipe.output).should.eql ['bed']
-            (stack.itemSlug for stack in recipe.input).sort().should.eql ['planks', 'wool']
-            (stack.itemSlug for stack in recipe.tools).should.eql ['crafting_table']
+            (stack.slug for stack in recipe.output).should.eql ['bed']
+            (stack.slug for stack in recipe.input).sort().should.eql ['planks', 'wool']
+            (stack.slug for stack in recipe.tools).should.eql ['crafting_table']
 
         it 'can parse a recipe without tools', ->
             recipe = parser._parseRecipe {output:'sugar', input:'sugar cane'}
-            (stack.itemSlug for stack in recipe.output).should.eql ['sugar']
-            (stack.itemSlug for stack in recipe.input).sort().should.eql ['sugar_cane']
-            (stack.itemSlug for stack in recipe.tools).should.eql []
+            (stack.slug for stack in recipe.output).should.eql ['sugar']
+            (stack.slug for stack in recipe.input).sort().should.eql ['sugar_cane']
+            (stack.slug for stack in recipe.tools).should.eql []
 
         it 'registers all names', ->
             data =
@@ -111,7 +110,7 @@ describe "ModVersionParserV1", ->
                 input: [[3, 'Oak Wood Planks'], [3, 'Wool']]
                 tools: 'Crafting Table'
             parser._parseRecipe data
-            _.keys(modVersion.names).sort().should.eql ['bed', 'crafting_table', 'oak_wood_planks', 'wool']
+            modVersion._slugs.should.eql ['bed', 'crafting_table', 'oak_wood_planks', 'wool']
 
     describe '_parseStack', ->
 
@@ -123,11 +122,11 @@ describe "ModVersionParserV1", ->
 
         it 'can fill in a missing number', ->
             stack = parser._parseStack 'boat'
-            stack.itemSlug.should.equal 'boat'
+            stack.slug.should.equal 'boat'
             stack.quantity.should.equal 1
 
             stack2 = parser._parseStack ['boat']
-            stack2.itemSlug.should.equal 'boat'
+            stack2.slug.should.equal 'boat'
             stack2.quantity.should.equal 1
 
         it 'requires the data to start with a number', ->
@@ -144,7 +143,7 @@ describe "ModVersionParserV1", ->
 
         it 'can promote a single item to a list', ->
             list = parser._parseStackList 'boat'
-            (stack.itemSlug for stack in list).should.eql ['boat']
+            (stack.slug for stack in list).should.eql ['boat']
 
         it 'can require a list to be non-empty', ->
             parser._errorLocation = 'boat'
@@ -157,4 +156,4 @@ describe "ModVersionParserV1", ->
 
         it 'can parse a non-empty list', ->
             list = parser._parseStackList [[3, 'plank'], [3, 'wool']]
-            (stack.itemSlug for stack in list).sort().should.eql ['plank', 'wool']
+            (stack.slug for stack in list).sort().should.eql ['plank', 'wool']

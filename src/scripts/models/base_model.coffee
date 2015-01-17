@@ -13,7 +13,7 @@ All rights reserved.
 module.exports = class BaseModel extends Backbone.Model
 
     constructor: (attributes={}, options={})->
-        options.allowedSyncMethods = []
+        options.silent ?= true
         super attributes, options
 
         makeGetter = (name)-> return -> @get name
@@ -22,9 +22,9 @@ module.exports = class BaseModel extends Backbone.Model
             continue if name is 'id'
             Object.defineProperty this, name, get:makeGetter(name), set:makeSetter(name)
 
-        @allowedSyncMethods = options.allowedSyncMethods
+        @silent = options.silent
+        @state  = ModelState.unloaded
 
-        @state = ModelState.unloaded
         @on 'request', => @state = ModelState.loading
         @on 'sync',    => @state = ModelState.loaded
         @on 'error',   => @state = ModelState.error
@@ -61,6 +61,7 @@ module.exports = class BaseModel extends Backbone.Model
                 success:  (text, status, xhr)=> resolve @onLoadSucceeded text, status, xhr
                 error:    (xhr, status, error)=> reject @onLoadFailed error, status, xhr
 
+        @loading.catch -> # do nothing. prevents unhandled promise warnings
         return @loading
 
     parse: (text)->
@@ -70,6 +71,7 @@ module.exports = class BaseModel extends Backbone.Model
         throw new Error "#{@constructor.name} (#{@cid}) is not permitted to #{method}"
 
     trigger: (name)->
+        return if @silent
         logger.trace "#{@constructor.name}.#{@cid} triggered a \"#{name}\" event"
         super
 

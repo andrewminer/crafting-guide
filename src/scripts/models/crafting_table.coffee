@@ -81,7 +81,7 @@ module.exports = class CraftingTable extends BaseModel
     getToolNames: ->
         recipe = @plan.steps[@_step]?.recipe
         return '' unless recipe?
-        toolSlugs = (stack.itemSlug for stack in recipe.tools)
+        toolSlugs = (stack.slug for stack in recipe.tools)
         toolNames = (@modPack.findName(slug) for slug in toolSlugs).join ', '
         return toolNames
 

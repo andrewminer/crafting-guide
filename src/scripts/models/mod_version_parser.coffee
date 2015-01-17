@@ -16,10 +16,10 @@ module.exports = class ModVersionParser
     @CURRENT_VERSION = '2'
 
     constructor: (options={})->
-        if not options.modVersion? then throw new Error 'options.modVersion is required'
+        if not options.model? then throw new Error 'options.model is required'
         options.showAllErrors ?= false
 
-        @_modVersion = options.modVersion
+        @_model = options.model
         @_parsers =
             '1': new ModVersionParserV1 options
             '2': new ModVersionParserV2 options
@@ -34,13 +34,9 @@ module.exports = class ModVersionParser
             parser = @_parsers['2']
 
         if not parser? then throw new Error "cannot parse version #{data.dataVersion} mod descriptions"
+        parser.parse data
 
-        oldLevel     = logger.level
-        logger.level = Logger.WARNING
-        result       = parser.parse data
-        logger.level = oldLevel
-
-        return @_modVersion
+        return @_model
 
     unparse: (dataVersion=ModVersionParser.CURRENT_VERSION)->
         if not modVersion? then throw new Error 'modVersion is required'

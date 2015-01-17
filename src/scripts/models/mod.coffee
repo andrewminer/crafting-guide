@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseModel = require './base_model'
+{Url}     = require '../constants'
 
 ########################################################################################################################
 
@@ -20,9 +21,5 @@ module.exports = class Mod extends BaseModel
 
     parse: (response)->
 
-    sync: (method, model, options={})->
-        if method isnt 'read' then throw new Error "Mod data can only be read, not #{method}d"
-        super method, model, options
-
     url: ->
-        return "/data/#{@slug}/mod.cg"
+        return Url.mod modSlug:@slug

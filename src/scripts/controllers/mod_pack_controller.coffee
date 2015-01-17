@@ -32,8 +32,9 @@ module.exports = class ModPackController extends BaseController
 
     onWillRender: ->
         for attributes in DefaultModVersions
-            modVersion = new ModVersion _.extend attributes, modPack:@model
+            modVersion = new ModVersion attributes
             modVersion.fetch()
+            @model.addModVersion modVersion
 
     onDidRender: ->
         @$table = @$('table')
@@ -47,13 +48,14 @@ module.exports = class ModPackController extends BaseController
             return
 
         index = 0
-        while index < Math.min @_controllers.length, @model.modVersions.length
+        modVersions = @model.getModVersions()
+        while index < Math.min @_controllers.length, modVersions.length
             controller = @_controllers[index]
-            controller.model = @model.modVersions[index]
+            controller.model = modVersions[index]
             index++
 
-        while @_controllers.length < @model.modVersions.length
-            controller = new ModVersionController model:@model.modVersions[index]
+        while @_controllers.length < modVersions.length
+            controller = new ModVersionController model:modVersions[index]
             controller.render()
             @_controllers.push controller
             controller.$el.hide duration:0
@@ -61,7 +63,7 @@ module.exports = class ModPackController extends BaseController
             controller.$el.slideDown duration:Duration.normal
             index++
 
-        while @_controllers.length > @model.modVersions.length
+        while @_controllers.length > modVersions.length
             controller = @_controllers.pop()
             controller.$el.slideUp duration:Duration.normal, complete:-> controller.$el.remove()
 

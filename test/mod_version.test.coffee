@@ -21,25 +21,29 @@ describe 'ModVersion', ->
     describe 'constructor', ->
 
         it 'requires a mod name', ->
-            expect(-> new ModVersion version:'0.0').to.throw Error, 'name cannot be empty'
+            expect(-> new ModVersion version:'0.0').to.throw Error, 'attributes.name is required'
 
         it 'requires a mod version', ->
-            expect(-> new ModVersion name:'Test').to.throw Error, 'version cannot be empty'
+            expect(-> new ModVersion name:'Test').to.throw Error, 'attributes.version is required'
 
         it 'supplies default values', ->
             modVersion.description.should.equal ''
-            modVersion.items.should.eql {}
             modVersion.enabled.should.be.true
+            modVersion.slug.should.equal 'test'
 
     describe 'addItem', ->
 
         it 'refuses to add duplicates', ->
-            new Item modVersion:modVersion, name:'Wool'
-            expect(-> new Item modVersion:modVersion, name:'Wool').to.throw Error, 'duplicate item for Wool'
+            modVersion.addItem new Item name:'Wool'
+            expect(-> modVersion.addItem new Item name:'Wool').to.throw Error, 'duplicate item for Wool'
 
-        it 'adds an item indexes by its slug', ->
-            new Item modVersion:modVersion, name:'Wool'
-            modVersion.items.wool.name.should.equal 'Wool'
+        it 'adds an item indexed by its slug', ->
+            modVersion.addItem new Item name:'Wool'
+            modVersion._items.wool.name.should.equal 'Wool'
+
+        it 'sets the modVersion', ->
+            modVersion.addItem new Item name:'Wool'
+            modVersion._items.wool.modVersion.should.equal modVersion
 
     describe 'compareTo', ->
 
@@ -56,19 +60,5 @@ describe 'ModVersion', ->
     describe 'findItemByName', ->
 
         it 'locates items by slugified name', ->
-            new Item modVersion:modVersion, name:'Crafting Table'
+            modVersion.addItem new Item name:'Crafting Table'
             modVersion.findItemByName('Crafting Table').slug.should.equal 'crafting_table'
-
-    describe 'hasRecipe', ->
-
-        it 'returns false for an unknown item', ->
-            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
-            modVersion.hasRecipe('Pineapple Upside-Down Cake').should.be.false
-
-        it 'returns false for a un-craftable item', ->
-            new Item modVersion:modVersion, name:'Wool'
-            modVersion.hasRecipe('Wool').should.be.false
-
-        it 'returns true for a craftable item', ->
-            new Item modVersion:modVersion, name:'Oak Wood Planks', recipes:['foo']
-            modVersion.hasRecipe('Oak Wood Planks').should.be.true

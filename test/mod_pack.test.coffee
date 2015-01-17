@@ -19,43 +19,22 @@ describe 'ModPack', ->
 
     beforeEach ->
         minecraft = new ModVersion name:'Minecraft', version:'1.7.10', enabled:true
-        new Item modVersion:minecraft, name:'Wool'
-        new Item modVersion:minecraft, name:'Bed', recipes:['']
+        minecraft.addItem new Item name:'Wool'
+        minecraft.addItem new Item name:'Bed', recipes:['']
         minecraft.registerSlug 'iron_chestplate', 'Iron Chestplate'
 
-        buildcraft = new ModVersion name:'Buildcraft', version:'4.0', enabled:false
-        new Item modVersion:buildcraft, name:'Stone Gear', recipes:['']
-        new Item modVersion:buildcraft, name:'Bed', recipes:['']
+        buildcraft = new ModVersion name:'Buildcraft', version:'6.2.6', enabled:false
+        buildcraft.addItem new Item name:'Stone Gear', recipes:['']
+        buildcraft.addItem new Item name:'Bed', recipes:['']
 
         industrialCraft = new ModVersion name:'Industrial Craft', version:'2.0', enabled:false
-        new Item modVersion:industrialCraft, name:'Resin'
-        new Item modVersion:industrialCraft, name:'Rubber', recipes:['']
+        industrialCraft.addItem new Item name:'Resin'
+        industrialCraft.addItem new Item name:'Rubber'
 
-        modPack = new ModPack modVersions:[minecraft, buildcraft, industrialCraft]
-
-    describe 'enableModsForItem', ->
-
-        it 'it ignores already-enabled mod versions', ->
-            buildcraft.enabled = true
-            modPack.enableModsForItem 'Stone Gear'
-
-            minecraft.enabled.should.be.true
-            buildcraft.enabled.should.be.true
-            industrialCraft.enabled.should.be.false
-
-        it 'it ignores mod versions not containing the item', ->
-            modPack.enableModsForItem 'Stone Gear'
-
-            minecraft.enabled.should.be.true
-            buildcraft.enabled.should.be.true
-            industrialCraft.enabled.should.be.false
-
-        it 'enables disabled mod versions with the item', ->
-            modPack.enableModsForItem 'Rubber'
-
-            minecraft.enabled.should.be.true
-            buildcraft.enabled.should.be.false
-            industrialCraft.enabled.should.be.true
+        modPack = new ModPack
+        modPack.addModVersion minecraft
+        modPack.addModVersion buildcraft
+        modPack.addModVersion industrialCraft
 
     describe 'findItemByName', ->
 
@@ -75,7 +54,7 @@ describe 'ModPack', ->
 
         it 'returns all data for a regular Minecraft item', ->
             display = modPack.findItemDisplay 'bed'
-            display.iconUrl.should.equal '/data/minecraft/images/bed.png'
+            display.iconUrl.should.equal '/data/minecraft/1.7.10/images/bed.png'
             display.itemUrl.should.equal '/item/Bed'
             display.itemName.should.equal 'Bed'
             display.modSlug.should.equal 'minecraft'
@@ -83,7 +62,7 @@ describe 'ModPack', ->
         it 'returns all data for an item in an enabled mod', ->
             buildcraft.enabled = true
             display = modPack.findItemDisplay 'stone_gear'
-            display.iconUrl.should.equal '/data/buildcraft/images/stone_gear.png'
+            display.iconUrl.should.equal '/data/buildcraft/6.2.6/images/stone_gear.png'
             display.itemUrl.should.equal '/item/Stone%20Gear'
             display.itemName.should.equal 'Stone Gear'
             display.modSlug.should.equal 'buildcraft'
@@ -94,24 +73,7 @@ describe 'ModPack', ->
 
         it 'assumes an unfound item is from Minecraft', ->
             display = modPack.findItemDisplay 'iron_chestplate'
-            display.iconUrl.should.equal '/data/minecraft/images/iron_chestplate.png'
+            display.iconUrl.should.equal '/data/minecraft/1.7.10/images/iron_chestplate.png'
             display.itemUrl.should.equal '/item/Iron%20Chestplate'
             display.itemName.should.equal 'Iron Chestplate'
             display.modSlug.should.equal 'minecraft'
-
-    describe 'hasRecipe', ->
-
-        it 'returns true when the item is present and has recipes', ->
-            modPack.hasRecipe('Bed').should.be.true
-
-        it 'returns false when the item is not present', ->
-            modPack.hasRecipe('Iron Sword').should.be.false
-
-        it 'returns false when the item does not have recipes', ->
-            modPack.hasRecipe('Wool').should.be.false
-
-        it 'ignores disabled mod versions', ->
-            modPack.hasRecipe('Stone Gear').should.be.false
-
-        it 'includes disabled mod versions when include disabled is requested', ->
-            modPack.hasRecipe('Stone Gear', includeDisabled:true).should.be.true

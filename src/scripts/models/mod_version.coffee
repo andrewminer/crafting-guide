@@ -5,40 +5,38 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel        = require './base_model'
-{Event}          = require '../constants'
-{RequiredMods}   = require '../constants'
-{Url}            = require '../constants'
+BaseCollection = require './base_collection'
+BaseModel      = require './base_model'
+{Event}        = require '../constants'
+Item           = require './item'
+{RequiredMods} = require '../constants'
+{Url}          = require '../constants'
 
 ########################################################################################################################
 
 module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.modPack? then throw new Error 'attributes.modPack is required'
-        if _.isEmpty(attributes.name) then throw new Error 'attributes.name cannot be empty'
-        if _.isEmpty(attributes.version) then throw new Error 'attributes.version cannot be empty'
+        if not attributes.name? then throw new Error 'attributes.name is required'
+        if not attributes.version? then throw new Error 'attributes.version is required'
 
         attributes.description  ?= ''
         attributes.enabled      ?= true
-        attributes.items        ?= {}
-        attributes.names        ?= {}
         attributes.slug         ?= _.slugify attributes.name
         super attributes, options
 
-        @modPack.addModVersion this
+        @_items = {}
+        @_names = {}
+        @_slugs = []
 
     # Public Methods ###############################################################################
 
     addItem: (item)->
-        if item.modVersion isnt this then throw new Error "cannot add item not associated with this mod version"
-        if @items[item.slug]? then throw new Error "duplicate item for #{item.name}"
+        if @_items[item.slug]? then throw new Error "duplicate item for #{item.name}"
 
-        @items[item.slug] = item
-        @names[item.slug] = item.name
-        @trigger Event.add, item, this
-        @trigger Event.change, this
-
+        @_items[item.slug] = item
+        item.modVersion = this
+        @registerSlug item.slug, item.name
         return this
 
     compareTo: (that)->
@@ -56,26 +54,49 @@ module.exports = class ModVersion extends BaseModel
         else
             return if this.name < that.name then -1 else +1
 
-    findName: (slug)->
-        return @names[slug]
+    eachItem: (callback)->
+        for slug in @_slugs
+            callback @_items[slug], slug
+        return this
 
-    hasRecipe: (name)->
-        item = @findItemByName name
-        return false unless item?
-        return item.recipes.length > 0
+    eachName: (callback)->
+        for slug in @_slugs
+            callback @_names[slug], slug
+        return this
+
+    findItem: (slug)->
+        return @_items[slug]
+
+    findItemByName: (name)->
+        return @findItem _.slugify name
+
+    findName: (slug)->
+        return @_names[slug]
 
     registerSlug: (slug, name)->
-        @names[slug] = name
-        @trigger Event.change + ':names', this, @names
-        @trigger Event.change, this
+        hasSlug = @_names[slug]?
+        @_names[slug] = name
+
+        if not hasSlug
+            @_slugs.push slug
+            @_slugs.sort()
+            @_slugs = _.uniq @_slugs, true
+
         return this
 
     # Backbone.Model Overrides #####################################################################
 
     parse: (text)->
+        currentSilent = @silent
+        @silent = true
+
         ModVersionParser = require './mod_version_parser' # to avoid require cycles
-        @_parser ?= new ModVersionParser modVersion:this
+        @_parser ?= new ModVersionParser model:this
         @_parser.parse text
+
+        @silent = currentSilent
+        @trigger Event.change, this
+
         return null # prevent calling `set`
 
     url: ->
@@ -88,4 +109,5 @@ module.exports = class ModVersion extends BaseModel
             enabled:#{@enabled},
             name:#{@name},
             version:#{@version},
-            items:#{_.keys(@items).length} items}"
+            items:#{_.keys(@_items).length} items
+        }"

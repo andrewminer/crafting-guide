@@ -5,33 +5,38 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel = require './base_model'
+BaseCollection = require './base_collection'
+BaseModel      = require './base_model'
+{Event}        = require '../constants'
+Recipe         = require './recipe'
 
 ########################################################################################################################
 
 module.exports = class Item extends BaseModel
 
-    @DEFAULT_STACK_SIZE = 64
-
     constructor: (attributes={}, options={})->
         if not attributes.name? then throw new Error 'attributes.name is required'
-        if not attributes.modVersion? then throw new Error 'attributes.modVersion is required'
 
         attributes.isGatherable ?= false
-        attributes.recipes      ?= []
         attributes.slug         ?= _.slugify attributes.name
-        attributes.stackSize    ?= Item.DEFAULT_STACK_SIZE
         super attributes, options
 
-        @modVersion.addItem this
-
-    Object.defineProperty @prototype, 'isCraftable', get:-> @recipes.length > 0
+        @_recipes = []
+        Object.defineProperties this,
+            'isCraftable': { get:-> @_recipes.length > 0 }
 
     # Public Methods ###############################################################################
 
     addRecipe: (recipe)->
-        if recipe.item isnt this then throw new Error "cannot add a recipe which isn't associated with this item"
-        @recipes.push recipe
+        if recipe.slug isnt @slug then throw new Error "cannot add a recipe for #{recipe.slug} to #{@slug}"
+        @_recipes.push recipe
+
+    eachRecipe: (callback)->
+        for recipe in @_recipes
+            callback recipe
+
+    getPrimaryRecipe: ->
+        return @_recipes[0]
 
     compareTo: (that)->
         if this.slug isnt that.slug
@@ -52,13 +57,10 @@ module.exports = class Item extends BaseModel
         if _.slugify(@name) isnt @slug
             result.push ', slug:'; result.push @slug
 
-        if @stackSize isnt Item.DEFAULT_STACK_SIZE
-            result.push ', stackSize:'; result.push @stackSize
-
         if @recipes.length > 0
-            result.push ', recipes:'
-            result.push @recipes.length
-            result.push ' items'
+            result.push ', recipes:«'
+            result.push @_recipes.length
+            result.push ' items»'
 
         result.push '}'
         return result.join ''

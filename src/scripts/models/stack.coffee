@@ -5,30 +5,18 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+BaseModel = require './base_model'
+
 ########################################################################################################################
 
-module.exports = class Stack
+module.exports = class Stack extends BaseModel
 
     constructor: (attributes={})->
-        if not attributes.itemSlug? then throw new Error 'attributes.itemSlug is required'
+        if not attributes.slug? then throw new Error 'attributes.slug is required'
         attributes.quantity ?= 1
-
-        @itemSlug = attributes.itemSlug
-        @quantity = attributes.quantity
-
-    # Public Methods ###############################################################################
-
-    canMerge: (stack)->
-        return @itemSlug is stack.itemSlug
-
-    merge: (stack)->
-        if not @canMerge stack
-            throw new Error "this stack of #{@itemSlug} cannot merge a stack of #{@stack.itemSlug}"
-
-        @quantity += stack.quantity
-        return this
+        super attributes
 
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@quantity} #{@itemSlug}"
+        return "#{@quantity} #{@slug}"

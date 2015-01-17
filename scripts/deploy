@@ -20,6 +20,7 @@ fi
 
 if [[ "$TARGET" == "new" ]]; then
     find $ROOT -name ".DS_Store" | xargs rm
+    grunt clean dist
     aws s3 sync $ROOT s3://new.$SITE --delete
 elif [[ "$TARGET" == "promote" ]]; then
     aws s3 sync s3://new.$SITE s3://$SITE --delete

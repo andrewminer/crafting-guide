@@ -49,7 +49,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         return if @_lastReported is pathname
         @_lastReported = pathname
 
-        if global.env is 'production'
+        if global.env is 'production' and ga?
             logger.info "Recording GA page view: #{pathname}"
             ga 'send', 'pageview', pathname
         else

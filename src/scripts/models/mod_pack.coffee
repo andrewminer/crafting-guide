@@ -5,11 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel        = require './base_model'
-{Event}          = require '../constants'
-ModVersionParser = require './mod_version_parser'
-{RequiredMods}   = require '../constants'
-{Url}            = require '../constants'
+BaseModel            = require './base_model'
+{Event}              = require '../constants'
+ModVersionParser     = require './mod_version_parser'
+{DefaultModVersions} = require '../constants'
+{Url}                = require '../constants'
 
 ########################################################################################################################
 
@@ -19,10 +19,19 @@ module.exports = class ModPack extends BaseModel
         attributes.modVersions ?= []
         super attributes, options
 
-        @loading = w(true)
-        @_parser = new ModVersionParser
-
     # Public Methods ###############################################################################
+
+    addModVersion: (modVersion)->
+        if modVersion.modPack isnt this then throw new Error "the mod version must be associated with this mod pack"
+        return if @modVersions.indexOf(modVersion) isnt -1
+
+        @modVersions.push modVersion
+        @trigger Event.add, modVersion, this
+
+        @modVersions.sort (a, b)-> a.compareTo b
+        @trigger Event.sort, this
+        @trigger Event.change, this
+        return this
 
     enableModsForItem: (name)->
         for modVersion in @modVersions
@@ -64,13 +73,15 @@ module.exports = class ModPack extends BaseModel
         result = {}
         item = @findItem slug, includeDisabled:true
         if item?
-            result.modSlug  = item.modVersion.slug
-            result.itemSlug = item.slug
-            result.itemName = item.name
+            result.modSlug    = item.modVersion.slug
+            result.modVersion = item.modVersion.version
+            result.itemSlug   = item.slug
+            result.itemName   = item.name
         else
-            result.modSlug  = _.slugify RequiredMods[0]
-            result.itemSlug = slug
-            result.itemName = @findName slug, includeDisabled:true
+            result.modSlug    = _.slugify DefaultModVersions[0].name
+            result.modVersion = DefaultModVersions[0].version
+            result.itemSlug   = slug
+            result.itemName   = @findName slug, includeDisabled:true
 
         result.iconUrl = Url.itemIcon result
         result.itemUrl = Url.item result
@@ -85,9 +96,6 @@ module.exports = class ModPack extends BaseModel
 
         return false
 
-    isLoading: ->
-        return @loading.inspect().state isnt 'pending'
-
     isValidName: (name, options={})->
         options.includeDisabled ?= false
 
@@ -98,59 +106,6 @@ module.exports = class ModPack extends BaseModel
             return true if name
 
         return false
-
-    loadModVersion: (url)->
-        promise = w.promise (resolve, reject)=>
-            @trigger Event.load.started, this, url
-            $.ajax
-                url: url
-                dataType: 'text'
-                success: (data, status, xhr)=>
-                    resolve @onModVersionLoaded(url, data, status, xhr)
-                error: (xhr, status, error)=>
-                    reject @onModVersionLoadFailed(url, error, status, xhr)
-
-        @loading = w.join @loading, promise
-
-    loadModVersionData: (data)->
-        modVersion = @_parser.parse data
-        @modVersions.push modVersion
-        @trigger Event.add, modVersion, this
-
-        @modVersions.sort (a, b)-> a.compareTo b
-        @trigger Event.sort, this
-
-        modVersion.on Event.change, => @trigger Event.change, this
-
-        return modVersion
-
-    loadAllModVersions: (urlList)->
-        for url in urlList
-            @loadModVersion url
-
-        return @loading
-
-    # Event Methods ################################################################################
-
-    onModVersionLoaded: (url, data, status, xhr)->
-        try
-            modVersion = @loadModVersionData data
-
-            logger.info "loaded ModVersion from #{url}: #{modVersion}"
-            @trigger Event.load.succeeded, this, modVersion
-            @trigger Event.load.finished, this
-            @trigger Event.change, this
-
-            return modVersion
-        catch e
-            @onModVersionLoadFailed url, e, status, xhr
-
-    onModVersionLoadFailed: (url, error, status, xhr)->
-        message = if error.stack? then error.stack else error
-        logger.error "failed to load ModVersion from #{url}: #{message}"
-        @trigger Event.load.failed, this, error.message
-        @trigger Event.load.finished, this
-        return error
 
     # Object Overrides #############################################################################
 

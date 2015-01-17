@@ -1,5 +1,5 @@
 ###
-Crafting Guide - mod_version_parsers/v1.coffee
+Crafting Guide - mod_version_parser_v1.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
@@ -12,27 +12,26 @@ Stack      = require '../stack'
 
 ########################################################################################################################
 
-module.exports = class V1
+module.exports = class ModVersionParserV1
 
-    constructor: ->
+    constructor: (options={})->
+        if not options.modVersion? then throw new Error 'options.modVersion is required'
+        @_modVersion    = options.modVersion
         @_errorLocation = 'the header information'
 
     parse: (data)->
         return @_parseModVersion data
 
-    unparse: (modVersion)->
-        @modVersion = modVersion
-        text = @_unparseModVersion modVersion
-        @modVersion = null
-        return text
+    unparse: ->
+        return @_unparseModVersion()
 
     # Private Methods ##############################################################################
 
     _findOrCreateItem: (name)->
-        item = @modVersion.findItemByName name
+        item = @_modVersion.findItemByName name
         if not item?
-            item = new Item modVersion:@modVersion, name:name
-            @modVersion.registerSlug item.slug, item.name
+            item = new Item modVersion:@_modVersion, name:name
+            @_modVersion.registerSlug item.slug, item.name
         return item
 
     _parseModVersion: (data)->
@@ -41,9 +40,12 @@ module.exports = class V1
         if not data.version? then throw new Error 'version is required'
         if not _.isArray(data.recipes) then throw new Error 'recipes must be an array'
 
-        @modVersion = modVersion = new ModVersion name:data.name, version:data.version
-        modVersion.description = data.description or ''
+        if data.name isnt @_modVersion.name
+            throw new Error "the data is for #{data.name}, not #{@_modVersion.name} as expected"
+        if data.version isnt @_modVersion.version
+            throw new Error "the data is for version #{data.version}, not #{@_modVersion.version} as expected"
 
+        @_modVersion.description = data.description or ''
         @_parseRawMaterials data.raw_materials
 
         for index in [0...data.recipes.length]
@@ -52,8 +54,7 @@ module.exports = class V1
             recipe = @_parseRecipe recipeData
             recipe._originalIndex = index
 
-        @modVersion = null
-        return modVersion
+        return @_modVersion
 
     _parseRawMaterials: (data)->
         return unless data? and data.length > 0
@@ -101,7 +102,7 @@ module.exports = class V1
 
         name = data[1]
         slug = _.slugify name
-        @modVersion.registerSlug slug, name
+        @_modVersion.registerSlug slug, name
 
         return new Stack itemSlug:slug, quantity:data[0]
 
@@ -190,9 +191,9 @@ module.exports = class V1
         else if stackList.length is 1
             stack = stackList[0]
             if stack.quantity is 1
-                result.push '"' + @modVersion.findName(stack.itemSlug) + '"'
+                result.push '"' + @_modVersion.findName(stack.itemSlug) + '"'
             else
-                result.push '[[' + stack.quantity + ', "' + @modVersion.findName(stack.itemSlug) + '"]]'
+                result.push '[[' + stack.quantity + ', "' + @_modVersion.findName(stack.itemSlug) + '"]]'
         else
             result.push '['
 
@@ -209,9 +210,9 @@ module.exports = class V1
             for stack in stacks
                 result.push ', ' if not firstItem
                 if stack.quantity is 1
-                    result.push '"' + @modVersion.findName(stack.itemSlug) + '"'
+                    result.push '"' + @_modVersion.findName(stack.itemSlug) + '"'
                 else
-                    result.push '[' + stack.quantity + ', "' + @modVersion.findName(stack.itemSlug) + '"]'
+                    result.push '[' + stack.quantity + ', "' + @_modVersion.findName(stack.itemSlug) + '"]'
                 firstItem = false
 
             result.push ']'

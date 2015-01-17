@@ -6,7 +6,9 @@ All rights reserved.
 ###
 
 BaseController       = require './base_controller'
-{DefaultBookUrls}    = require '../constants'
+{DefaultModVersions} = require '../constants'
+{Duration}           = require '../constants'
+ModVersion           = require '../models/mod_version'
 ModVersionController = require './mod_version_controller'
 
 ########################################################################################################################
@@ -15,10 +17,10 @@ module.exports = class ModPackController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error "options.model is required"
-        @_modVersionControllers = []
-
         options.templateName = 'mod_pack'
         super options
+
+        @_controllers = []
 
     # Event Methods ################################################################################
 
@@ -29,8 +31,9 @@ module.exports = class ModPackController extends BaseController
     # BaseController Overrides #####################################################################
 
     onWillRender: ->
-        if @model.modVersions.length is 0
-            @model.loadAllModVersions DefaultBookUrls
+        for attributes in DefaultModVersions
+            modVersion = new ModVersion _.extend attributes, modPack:@model
+            modVersion.fetch()
 
     onDidRender: ->
         @$table = @$('table')
@@ -38,16 +41,29 @@ module.exports = class ModPackController extends BaseController
         super
 
     refresh: ->
-        @$('table tr').remove()
-        return unless @model?
+        if not @model?
+            @_controllers = []
+            @$('table tr').remove()
+            return
 
-        @_modVersionControllers = []
-        for i in [@model.modVersions.length-1..0] by -1
-            modVersion = @model.modVersions[i]
-            controller = new ModVersionController model:modVersion
+        index = 0
+        while index < Math.min @_controllers.length, @model.modVersions.length
+            controller = @_controllers[index]
+            controller.model = @model.modVersions[index]
+            index++
+
+        while @_controllers.length < @model.modVersions.length
+            controller = new ModVersionController model:@model.modVersions[index]
             controller.render()
-            @_modVersionControllers.push controller
-            @$table.prepend controller.$el
+            @_controllers.push controller
+            controller.$el.hide duration:0
+            @$table.append controller.$el
+            controller.$el.slideDown duration:Duration.normal
+            index++
+
+        while @_controllers.length > @model.modVersions.length
+            controller = @_controllers.pop()
+            controller.$el.slideUp duration:Duration.normal, complete:-> controller.$el.remove()
 
         if global.feedbackController?
             @$toolbar.show duration:0

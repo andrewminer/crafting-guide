@@ -5,9 +5,9 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-Logger = require '../logger'
-V1     = require './mod_version_parsers/v1'
-V2     = require './mod_version_parsers/v2'
+Logger             = require '../logger'
+ModVersionParserV1 = require './parser_versions/mod_version_parser_v1'
+ModVersionParserV2 = require './parser_versions/mod_version_parser_v2'
 
 ########################################################################################################################
 
@@ -16,11 +16,13 @@ module.exports = class ModVersionParser
     @CURRENT_VERSION = '2'
 
     constructor: (options={})->
+        if not options.modVersion? then throw new Error 'options.modVersion is required'
         options.showAllErrors ?= false
 
+        @_modVersion = options.modVersion
         @_parsers =
-            '1': new V1 options
-            '2': new V2 options
+            '1': new ModVersionParserV1 options
+            '2': new ModVersionParserV2 options
 
     parse: (data)->
         if not data? then throw new Error 'mod description data is missing'
@@ -33,14 +35,14 @@ module.exports = class ModVersionParser
 
         if not parser? then throw new Error "cannot parse version #{data.dataVersion} mod descriptions"
 
-        oldLevel = logger.level
+        oldLevel     = logger.level
         logger.level = Logger.WARNING
-        result = parser.parse data
+        result       = parser.parse data
         logger.level = oldLevel
 
-        return result
+        return @_modVersion
 
-    unparse: (modVersion, dataVersion=ModVersionParser.CURRENT_VERSION)->
+    unparse: (dataVersion=ModVersionParser.CURRENT_VERSION)->
         if not modVersion? then throw new Error 'modVersion is required'
 
         parser = @_parsers["#{dataVersion}"]

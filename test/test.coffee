@@ -32,8 +32,8 @@ require './inventory.test'
 require './inventory_parser.test'
 require './mod_pack.test'
 require './mod_version.test'
-require './mod_version_parsers/v1.test'
-require './mod_version_parsers/v2.test'
+require './parser_versions/mod_version_parser_v1.test'
+require './parser_versions/mod_version_parser_v2.test'
 require './string_builder.test'
 
 mocha.checkLeaks()

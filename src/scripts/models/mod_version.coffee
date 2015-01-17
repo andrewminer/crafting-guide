@@ -5,16 +5,19 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel = require './base_model'
-{RequiredMods} = require '../constants'
+BaseModel        = require './base_model'
+{Event}          = require '../constants'
+{RequiredMods}   = require '../constants'
+{Url}            = require '../constants'
 
 ########################################################################################################################
 
 module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if _.isEmpty(attributes.name) then throw new Error 'name cannot be empty'
-        if _.isEmpty(attributes.version) then throw new Error 'version cannot be empty'
+        if not attributes.modPack? then throw new Error 'attributes.modPack is required'
+        if _.isEmpty(attributes.name) then throw new Error 'attributes.name cannot be empty'
+        if _.isEmpty(attributes.version) then throw new Error 'attributes.version cannot be empty'
 
         attributes.description  ?= ''
         attributes.enabled      ?= true
@@ -22,6 +25,8 @@ module.exports = class ModVersion extends BaseModel
         attributes.names        ?= {}
         attributes.slug         ?= _.slugify attributes.name
         super attributes, options
+
+        @modPack.addModVersion this
 
     # Public Methods ###############################################################################
 
@@ -31,6 +36,9 @@ module.exports = class ModVersion extends BaseModel
 
         @items[item.slug] = item
         @names[item.slug] = item.name
+        @trigger Event.add, item, this
+        @trigger Event.change, this
+
         return this
 
     compareTo: (that)->
@@ -62,6 +70,20 @@ module.exports = class ModVersion extends BaseModel
 
     registerSlug: (slug, name)->
         @names[slug] = name
+        @trigger Event.change + ':names', this, @names
+        @trigger Event.change, this
+        return this
+
+    # Backbone.Model Overrides #####################################################################
+
+    parse: (text)->
+        ModVersionParser = require './mod_version_parser' # to avoid require cycles
+        @_parser ?= new ModVersionParser modVersion:this
+        @_parser.parse text
+        return null # prevent calling `set`
+
+    url: ->
+        return Url.modVersion modSlug:@slug, modVersion:@version
 
     # Object Overrides #############################################################################
 

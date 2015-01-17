@@ -1,13 +1,13 @@
 ###
-Crafting Guide - mod_version_parsers/v1.test.coffee
+Crafting Guide - mod_version_parser_v1.test.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-Item       = require '../../src/scripts/models/item'
-ModVersion = require '../../src/scripts/models/mod_version'
-V1         = require '../../src/scripts/models/mod_version_parsers/v1'
+Item               = require '../../src/scripts/models/item'
+ModVersion         = require '../../src/scripts/models/mod_version'
+ModVersionParserV1 = require '../../src/scripts/models/parser_versions/mod_version_parser_v1'
 
 ########################################################################################################################
 
@@ -15,11 +15,11 @@ modVersion = parser = null
 
 ########################################################################################################################
 
-describe "ModParserVersion.V1", ->
+describe "ModVersionParserV1", ->
 
     beforeEach ->
-        parser = new V1
-        modVersion = parser.modVersion = new ModVersion name:'Test', version:'0.0'
+        modVersion = new ModVersion name:'Test', version:'0.0'
+        parser = new ModVersionParserV1 modVersion:modVersion
 
     describe '_parseModVersion', ->
 
@@ -33,24 +33,24 @@ describe "ModParserVersion.V1", ->
 
         it 'can parse an empty modVersion', ->
             data =
-                name: 'Empty'
-                version: '1.0'
+                name: 'Test'
+                version: '0.0'
                 recipes: []
             modVersion = parser._parseModVersion data
-            modVersion.name.should.equal 'Empty'
-            modVersion.version.should.equal '1.0'
+            modVersion.name.should.equal 'Test'
+            modVersion.version.should.equal '0.0'
 
         it 'can parse a non-empty mod version', ->
             data =
-                name: 'Minecraft'
-                version: '1.7.10'
+                name: 'Test'
+                version: '0.0'
                 recipes: [
                     { input:'Sugar Cane', output:'Sugar' }
                     { input:[[3, 'Wool'], [3, 'Planks']], tools:'Crafting Table', output:'Bed' }
                 ]
             modVersion = parser._parseModVersion data
-            modVersion.name.should.equal 'Minecraft'
-            modVersion.version.should.equal '1.7.10'
+            modVersion.name.should.equal 'Test'
+            modVersion.version.should.equal '0.0'
             slugs = (slug for slug, item of modVersion.items).sort()
             slugs.should.eql ['bed', 'sugar']
 

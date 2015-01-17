@@ -1,5 +1,5 @@
 ###
-Crafting Guide - mod_version_parsers/v2.coffee
+Crafting Guide - mod_version_parser_v2.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
@@ -13,11 +13,14 @@ StringBuilder = require '../string_builder'
 
 ########################################################################################################################
 
-module.exports = class V2
+module.exports = class ModVersionParserV2
 
     constructor: (options={})->
+        if not options.modVersion? then throw new Error 'options.modVersion is required'
         options.showAllErrors ?= false
-        @showAllErrors = options.showAllErrors
+
+        @_modVersion    = options.modVersion
+        @_showAllErrors = options.showAllErrors
 
     # Class Methods ################################################################################
 
@@ -44,12 +47,11 @@ module.exports = class V2
             for command in commands
                 @_handleErrors @_execute, command
 
-        modVersion = @_handleErrors @_buildModVersion, @_modVersionData
-        return modVersion
+        return @_handleErrors @_buildModVersion, @_modVersionData, @_modVersion
 
-    unparse: (modVersion)->
-        builder = new StringBuilder context:modVersion
-        @_unparseModVersion builder, modVersion
+    unparse: ->
+        builder = new StringBuilder context:@_modVersion
+        @_unparseModVersion builder
         return builder.toString()
 
     # Private Methods ##############################################################################
@@ -61,7 +63,7 @@ module.exports = class V2
         @_handleErrors method, command.args
 
     _parseLine: (line)->
-        line = line.replace V2.COMMENT, '$1'
+        line = line.replace ModVersionParserV2.COMMENT, '$1'
         line = line.trim()
         return [] if line.length is 0
 
@@ -70,7 +72,7 @@ module.exports = class V2
         for linePart in lineParts
             continue if linePart.length is 0
 
-            match = V2.COMMAND.exec linePart
+            match = ModVersionParserV2.COMMAND.exec linePart
             if not match? then throw new Error "Expected <command>: <args>, but found: \"#{linePart}\""
 
             args = []
@@ -86,9 +88,8 @@ module.exports = class V2
             callback.apply this, args
         catch e
             e.message = "line #{@_lineNumber}: #{e.message}"
-            if not @showAllErrors then throw e
-            console.error e.message
-
+            if not @_showAllErrors then throw e
+            logger.error e.message
 
     # Command Methods ##############################################################################
 
@@ -102,7 +103,7 @@ module.exports = class V2
 
         @_recipeData.extras = []
         for term in extraTerms
-            match = V2.STACK.exec term
+            match = ModVersionParserV2.STACK.exec term
             if match?
                 @_recipeData.extras.push quantity:parseInt(match[1]), name:match[2]
             else
@@ -142,7 +143,7 @@ module.exports = class V2
     _command_pattern: (pattern='')->
         if not @_recipeData? then throw new Error 'cannot declare "pattern" before "recipe"'
         if @_recipeData.pattern? then throw new Error 'duplicate declaration of "pattern"'
-        if not V2.PATTERN.test pattern
+        if not ModVersionParserV2.PATTERN.test pattern
             throw new Error 'a pattern must have 9 digits using 0-9 for items and "." for an empty spot;
                 spaces are optional'
 
@@ -151,7 +152,7 @@ module.exports = class V2
     _command_quantity: (quantity)->
         if not @_recipeData? then throw new Error 'cannot declare "quantity" before "recipe"'
         if @_recipeData.quantity? then throw new Error 'duplicate declaration of "quantity"'
-        if not V2.INTEGER.test(quantity) then throw new Error 'quantity must be an integer'
+        if not ModVersionParserV2.INTEGER.test(quantity) then throw new Error 'quantity must be an integer'
 
         @_recipeData.quantity = parseInt quantity
 
@@ -181,18 +182,21 @@ module.exports = class V2
 
     # Object Creation Methods ######################################################################
 
-    _buildModVersion: (modVersionData)->
+    _buildModVersion: (modVersionData, modVersion)->
         if not modVersionData.name? then throw new Error 'the "name" declaration is required'
         if not modVersionData.version? then throw new Error 'the "version" declaration is required'
+
+        if modVersionData.name isnt modVersion.name
+            throw new Error "modVersionData name (#{modVersionData.name})
+                must match the ModVersion (#{modVersion.name})"
+        if modVersionData.version isnt modVersion.version
+            throw new Error "modVersionData version (#{modVersionData.version})
+                must match the ModVersion (#{modVersion.version})"
 
         modVersionData.description ?= ''
         modVersionData.items       ?= []
 
-        attributes =
-            name:        modVersionData.name
-            version:     modVersionData.version
-            description: modVersionData.description
-        modVersion = new ModVersion attributes
+        modVersion.description = modVersionData.description
 
         for itemData in modVersionData.items
             @_handleErrors @_buildItem, modVersion, itemData
@@ -263,15 +267,15 @@ module.exports = class V2
 
     # Un-parsing Methods ###########################################################################
 
-    _unparseModVersion: (builder, modVersion)->
-        itemList = _.values modVersion.items
+    _unparseModVersion: (builder)->
+        itemList = _.values @modVersion.items
         itemList.sort (a, b)-> a.compareTo b
 
         builder
             .line 'schema: ', 2
-            .line 'name: ', modVersion.name
-            .line 'version: ', modVersion.version
-            .onlyIf modVersion.description?, => builder.line 'description: ', modVersion.description
+            .line 'name: ', @modVersion.name
+            .line 'version: ', @modVersion.version
+            .onlyIf @modVersion.description?, => builder.line 'description: ', @modVersion.description
             .line()
             .onlyIf itemList.length > 0, =>
                 builder.loop itemList, delimiter:'\n', onEach:(b, i)=> @_unparseItem(b, i)

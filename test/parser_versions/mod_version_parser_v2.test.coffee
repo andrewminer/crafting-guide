@@ -5,21 +5,24 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-V2 = require '../../src/scripts/models/mod_version_parsers/v2'
+ModVersion         = require '../../src/scripts/models/mod_version'
+ModVersionParserV2 = require '../../src/scripts/models/parser_versions/mod_version_parser_v2'
 
 ########################################################################################################################
 
-baseText = parser = null
+baseText = modVersion = parser = null
 
 ########################################################################################################################
 
-describe 'ModVersionParser.V2', ->
+describe 'ModVersionParserV2', ->
 
-    beforeEach -> parser = new V2
+    beforeEach ->
+        modVersion = new ModVersion name:'Test', version:'0.0'
+        parser     = new ModVersionParserV2 modVersion:modVersion
 
     describe 'Item', ->
 
-        beforeEach -> baseText = 'name:Alpha Bravo; version:1; '
+        beforeEach -> baseText = 'name:Test; version:0.0; '
 
         it 'allows multiple recipes', ->
             recipes = "item: Charlie;
@@ -61,27 +64,27 @@ describe 'ModVersionParser.V2', ->
     describe 'ModVersion', ->
 
         it 'allows declarations in any order', ->
-            modVersion = parser.parse 'item: Alpha; version:1; name:Bravo Charlie'
-            modVersion.name.should.equal 'Bravo Charlie'
-            modVersion.version.should.equal '1'
+            modVersion = parser.parse 'item: Alpha; version:0.0; name:Test'
+            modVersion.name.should.equal 'Test'
+            modVersion.version.should.equal '0.0'
             modVersion.items.alpha.name.should.equal 'Alpha'
 
         it 'does not allow duplicate item declarations', ->
-            func = -> parser.parse 'version:1; name:Alpha Bravo; item:Charlie; item:Charlie'
+            func = -> parser.parse 'version:0.0; name:Test; item:Charlie; item:Charlie'
             expect(func).to.throw Error, 'duplicate item for Charlie'
 
         it 'allows multiple items', ->
-            modVersion = parser.parse 'name:Alpha; version:1; item:Bravo; item:Charlie'
+            modVersion = parser.parse 'name:Test; version:0.0; item:Bravo; item:Charlie'
             _.keys(modVersion.items).sort().should.eql ['bravo', 'charlie']
 
         describe 'name', ->
 
             it 'adds "name" when present', ->
-                modVersion = parser.parse 'name:Alpha Bravo; version:1'
-                modVersion.name.should.equal 'Alpha Bravo'
+                modVersion = parser.parse 'name:Test; version:0.0'
+                modVersion.name.should.equal 'Test'
 
             it 'does not allow a duplicate "name" declaration', ->
-                func = -> parser.parse 'name:Alpha Bravo; version:1; name:Charlie'
+                func = -> parser.parse 'name:Test; version:0.0; name:Charlie'
                 expect(func).to.throw Error, 'duplicate declaration of "name"'
 
             it 'requires a "name" declaration', ->
@@ -91,21 +94,21 @@ describe 'ModVersionParser.V2', ->
         describe 'version', ->
 
             it 'adds "version" when present', ->
-                modVersion = parser.parse 'name:Alpha Bravo; version:1'
-                modVersion.version.should.equal '1'
+                modVersion = parser.parse 'name:Test; version:0.0'
+                modVersion.version.should.equal '0.0'
 
             it 'does not allow a duplicate "version" declaration', ->
-                func = -> parser.parse 'name:Alpha Bravo; version:1; item:Charlie; version:2'
+                func = -> parser.parse 'name:Test; version:0.0; item:Charlie; version:2'
                 expect(func).to.throw Error, 'duplicate declaration of "version"'
 
             it 'requires a "version" declaration', ->
-                func = -> parser.parse 'name:Alpha Bravo; item:Charlie'
+                func = -> parser.parse 'name:Test; item:Charlie'
                 expect(func).to.throw Error, 'the "version" declaration is required'
 
         describe 'description', ->
 
             it 'adds "description" when present', ->
-                modVersion = parser.parse 'name:Alpha; version:1; description:Charlie Delta'
+                modVersion = parser.parse 'name:Test; version:0.0; description:Charlie Delta'
                 modVersion.description.should.equal 'Charlie Delta'
 
             it 'does not allow a duplicate "description" declaration', ->
@@ -114,7 +117,7 @@ describe 'ModVersionParser.V2', ->
 
     describe 'Recipe', ->
 
-        beforeEach -> baseText = 'name:Alpha Bravo; version:1; item: Charlie; '
+        beforeEach -> baseText = 'name:Test; version:0.0; item: Charlie; '
 
         describe 'input', ->
 
@@ -183,7 +186,7 @@ describe 'ModVersionParser.V2', ->
         describe 'quantity', ->
 
             beforeEach ->
-                baseText = 'name:Alpha Bravo; version:1; item: Charlie; recipe:; input:Alpha; pattern:...0.0...; '
+                baseText = 'name:Test; version:0.0; item: Charlie; recipe:; input:Alpha; pattern:...0.0...; '
 
             it 'adds "quantity" when present', ->
                 modVersion = parser.parse baseText + 'quantity: 2'
@@ -208,7 +211,7 @@ describe 'ModVersionParser.V2', ->
         describe 'output', ->
 
             beforeEach ->
-                baseText = 'name:Alpha; version:1; item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
+                baseText = 'name:Test; version:0.0; item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
 
             it 'adds a single item as the default output', ->
                 modVersion = parser.parse baseText
@@ -241,7 +244,7 @@ describe 'ModVersionParser.V2', ->
         describe 'tools', ->
 
             beforeEach ->
-                baseText = 'name:Alpha; version:1; item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
+                baseText = 'name:Test; version:0.0; item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
 
             it 'can add a single tool', ->
                 modVersion = parser.parse baseText + 'tools: Furnace'

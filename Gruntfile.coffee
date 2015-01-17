@@ -113,6 +113,12 @@ module.exports = (grunt)->
             main:
                 files:
                     './dist/css/main.css': ['./src/css/main.scss']
+            dist:
+                options:
+                    sourcemap: 'none'
+                    style: 'compressed'
+                files:
+                    './dist/css/main.css': ['./src/css/main.scss']
 
         uglify:
             scripts:
@@ -159,6 +165,6 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', [ 'copy', 'sass', 'jade', 'browserify', 'exorcise' ]
+    grunt.registerTask 'build', [ 'copy', 'sass:main', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'dist', ['clean', 'build', 'rename:scripts', 'uglify']
+    grunt.registerTask 'dist', ['clean', 'build', 'sass:dist', 'rename:scripts', 'uglify']

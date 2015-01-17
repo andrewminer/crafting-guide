@@ -56,10 +56,6 @@ module.exports = class ModVersion extends BaseModel
         else
             return if this.name < that.name then -1 else +1
 
-    findItemByName: (name)->
-        slug = _.slugify name
-        return @items[slug]
-
     findName: (slug)->
         return @names[slug]
 

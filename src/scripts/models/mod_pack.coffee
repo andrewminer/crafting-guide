@@ -51,10 +51,11 @@ module.exports = class ModPack extends BaseModel
 
     findItemByName: (name, options={})->
         options.includeDisabled ?= false
+        slug = _.slugify name
 
         for modVersion in @modVersions
             continue unless modVersion.enabled or options.includeDisabled
-            item = modVersion.findItemByName name
+            item = modVersion.items[slug]
             return item if item?
 
         return null

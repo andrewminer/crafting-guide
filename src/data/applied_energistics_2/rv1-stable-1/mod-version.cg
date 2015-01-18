@@ -1,7 +1,4 @@
-schema: 2
-name: Applied Energistics 2
-version: rv1-stable-1
-description: Crafting recipes from Applied Energistics, by AlgorithmX2
+schema: 1
 
 item: 128³ Spatial Component
     recipe:

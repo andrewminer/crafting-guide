@@ -18,91 +18,86 @@ module.exports = class ModPack extends BaseModel
     constructor: (attributes={}, options={})->
         super attributes, options
 
-        @_modVersions = []
+        @_mods = []
 
     # Public Methods ###############################################################################
 
-    findItem: (slug, options={})->
-        options.includeDisabled ?= false
-
-        for modVersion in @_modVersions
-            continue unless modVersion.enabled or options.includeDisabled
-            item = modVersion.findItem slug
+    findItem: (slug)->
+        for mod in @_mods
+            continue unless mod.enabled
+            item = mod.findItem slug
             return item if item?
 
         return null
 
-    findItemByName: (name, options={})->
-        options.includeDisabled ?= false
+    findItemByName: (name)->
         slug = _.slugify name
 
-        for modVersion in @_modVersions
-            continue unless modVersion.enabled or options.includeDisabled
-            item = modVersion.findItem slug
+        for mod in @_mods
+            continue unless mod.enabled?
+            item = mod.findItem slug
             return item if item?
 
         return null
 
-    findName: (slug, options={})->
-        options.includeDisabled ?= false
-
-        for modVersion in @_modVersions
-            continue unless modVersion.enabled or options.includeDisabled
-            name = modVersion.findName slug
+    findName: (slug)->
+        for mod in @_mods
+            continue unless mod.enabled
+            name = mod.findName slug
             return name if name
 
         return null
 
     findItemDisplay: (slug)->
         result = {}
-        item = @findItem slug, includeDisabled:true
+        item = @findItem slug
         if item?
-            result.modSlug    = item.modVersion.slug
+            result.modSlug    = item.modVersion.modSlug
             result.modVersion = item.modVersion.version
-            result.slug   = item.slug
+            result.slug       = item.slug
             result.itemName   = item.name
         else
-            result.modSlug    = _.slugify DefaultModVersions[0].name
-            result.modVersion = DefaultModVersions[0].version
-            result.slug   = slug
+            result.modSlug    = @_mods[0].slug
+            result.modVersion = @_mods[0].activeVersion
+            result.slug       = slug
             result.itemName   = @findName slug, includeDisabled:true
 
         result.iconUrl = Url.itemIcon result
         result.itemUrl = Url.item result
         return result
 
-    isValidName: (name, options={})->
-        options.includeDisabled ?= false
-
+    isValidName: (name)->
         slug = _.slugify name
-        for modVersion in @_modVersions
-            continue unless modVersion.enabled or options.includeDisabled
-            name = modVersion.findName slug
+        for mod in @_mods
+            continue unless mod.enabled
+            name = mod.findName slug
             return true if name
 
         return false
 
     # Property Methods #############################################################################
 
-    addModVersion: (modVersion)->
-        return if @_modVersions.indexOf(modVersion) isnt -1
+    addMod: (mod)->
+        return if @_mods.indexOf(mod) isnt -1
 
-        @_modVersions.push modVersion
-        @trigger Event.add, modVersion, this
+        @_mods.push mod
+        @listenTo mod, Event.change, => @trigger Event.change, this
+        @trigger Event.add + ':mod', mod, this
 
-        @_modVersions.sort (a, b)-> a.compareTo b
+        @_mods.sort (a, b)-> a.compareTo b
+        @trigger Event.sort + ':mod', this
         @trigger Event.change, this
 
         return this
 
-    eachModVersion: (callback)->
-        for modVersion in @_modVersions
-            callback modVersion
+    eachMod: (callback)->
+        for mod in @_mods
+            callback mod
 
-    getModVersions: ->
-        return @_modVersions[..]
+    getMods: ->
+        return @_mods[..]
 
     # Object Overrides #############################################################################
 
     toString: ->
-        return "ModPack (#{@cid}) {modVersions:#{@_modVersions.length} items}"
+        return "ModPack (#{@cid}) {modVersions:«#{@_mods.length} items»}"

@@ -1,0 +1,7 @@
+schema: 1
+
+author:      Mojang
+description: The basic game by itself
+url:         http://www.minecraft.net
+
+version: 1.7.10

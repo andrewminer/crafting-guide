@@ -1,7 +1,4 @@
-schema: 2
-name: IC2 Classic
-version: 1.111.170-lf
-description: Crafting recipes from IndustrialCraft, by Alblaka
+schema: 1
 
 item: 10K Cooling Cell
     recipe:

@@ -16,20 +16,15 @@ modVersion = null
 
 describe 'ModVersion', ->
 
-    beforeEach -> modVersion = new ModVersion name:'Test', version:'0.0'
+    beforeEach -> modVersion = new ModVersion modSlug:'test', version:'0.0'
 
     describe 'constructor', ->
 
-        it 'requires a mod name', ->
-            expect(-> new ModVersion version:'0.0').to.throw Error, 'attributes.name is required'
+        it 'requires a mod slug', ->
+            expect(-> new ModVersion version:'0.0').to.throw Error, 'attributes.modSlug is required'
 
         it 'requires a mod version', ->
-            expect(-> new ModVersion name:'Test').to.throw Error, 'attributes.version is required'
-
-        it 'supplies default values', ->
-            modVersion.description.should.equal ''
-            modVersion.enabled.should.be.true
-            modVersion.slug.should.equal 'test'
+            expect(-> new ModVersion modSlug:'test').to.throw Error, 'attributes.version is required'
 
     describe 'addItem', ->
 
@@ -44,18 +39,6 @@ describe 'ModVersion', ->
         it 'sets the modVersion', ->
             modVersion.addItem new Item name:'Wool'
             modVersion._items.wool.modVersion.should.equal modVersion
-
-    describe 'compareTo', ->
-
-        it 'lists required mods first', ->
-            minecraft = new ModVersion name:'Minecraft', version:'1.7.10'
-            modVersion.compareTo(minecraft).should.equal +1
-            minecraft.compareTo(modVersion).should.equal -1
-
-        it 'sorts by name second', ->
-            buildcraft = new ModVersion name:'Buildcraft', version:'3.0'
-            modVersion.compareTo(buildcraft).should.equal +1
-            buildcraft.compareTo(modVersion).should.equal -1
 
     describe 'findItemByName', ->
 

@@ -135,9 +135,9 @@ describe 'Inventory', ->
             expect(-> inventory.remove('wool', 10)).to.throw Error,
                 'cannot remove 10: only 4 wool in this inventory'
 
-        it 'removes a single item by default', ->
+        it 'removes all items by default', ->
             inventory.remove 'wool'
-            inventory._stacks.wool.quantity.should.equal 3
+            expect(inventory._stacks.wool).to.be.empty
 
         it 'removes a quantity above 1', ->
             inventory.remove 'wool', 3

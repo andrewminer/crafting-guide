@@ -22,7 +22,7 @@ module.exports = class ItemPage extends BaseModel
         attributes.table   ?= new CraftingTable plan:attributes.plan
         super attributes, options
 
-        @modPack.on Event.add, (modVersion)=> modVersion.once 'sync', => @_consumeParams()
+        @modPack.on Event.add + ':mod', (mod)=> mod.on 'sync', => @_consumeParams()
         @plan.on Event.change, => @_updateLocation()
 
     # Private Methods ##############################################################################

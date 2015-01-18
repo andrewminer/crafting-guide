@@ -17,12 +17,8 @@ Item           = require './item'
 module.exports = class ModVersion extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.name? then throw new Error 'attributes.name is required'
+        if not attributes.modSlug? then throw new Error 'attributes.modSlug is required'
         if not attributes.version? then throw new Error 'attributes.version is required'
-
-        attributes.description  ?= ''
-        attributes.enabled      ?= true
-        attributes.slug         ?= _.slugify attributes.name
         super attributes, options
 
         @_items = {}
@@ -40,19 +36,13 @@ module.exports = class ModVersion extends BaseModel
         return this
 
     compareTo: (that)->
-        if this.name is that.name then return 0
+        if this.mod? and that.mod?
+            return this.mod.compareTo that.mod
 
-        thisRequired = this.name in RequiredMods
-        thatRequired = that.name in RequiredMods
+        if this.modSlug isnt that.modSlug
+            return if this.modSlug < that.modSlug then -1 else +1
 
-        if thisRequired and thatRequired
-            return if this.name < that.name then -1 else +1
-        else if thisRequired
-            return -1
-        else if thatRequired
-            return +1
-        else
-            return if this.name < that.name then -1 else +1
+        return 0
 
     eachItem: (callback)->
         for slug in @_slugs
@@ -87,27 +77,18 @@ module.exports = class ModVersion extends BaseModel
     # Backbone.Model Overrides #####################################################################
 
     parse: (text)->
-        currentSilent = @silent
-        @silent = true
-
         ModVersionParser = require './mod_version_parser' # to avoid require cycles
         @_parser ?= new ModVersionParser model:this
         @_parser.parse text
 
-        @silent = currentSilent
-        @trigger Event.change, this
-
         return null # prevent calling `set`
 
     url: ->
-        return Url.modVersion modSlug:@slug, modVersion:@version
+        return Url.modVersion modSlug:@modSlug, modVersion:@version
 
     # Object Overrides #############################################################################
 
     toString: ->
         return "ModVersion (#{@cid}) {
-            enabled:#{@enabled},
-            name:#{@name},
-            version:#{@version},
-            items:#{_.keys(@_items).length} items
+            modSlug:#{@modSlug}, version:#{@version}, items:#{_.keys(@_items).length} items
         }"

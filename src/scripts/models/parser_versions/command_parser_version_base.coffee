@@ -1,5 +1,5 @@
 ###
-Crafting Guide - command_parser_base.coffee
+Crafting Guide - command_parser_version_base.coffee
 
 Copyright (c) 2015 by Redwood Labs
 All rights reserved.
@@ -7,7 +7,7 @@ All rights reserved.
 
 ########################################################################################################################
 
-module.exports = class CommandParserBase
+module.exports = class CommandParserVersionBase
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
@@ -51,6 +51,8 @@ module.exports = class CommandParserBase
     _unparseModel: (builder, model)->
         throw new Error 'Subclasses must override this method'
 
+    _command_schema: -> # do nothing
+
     # Private Methods ##############################################################################
 
     _execute: (command)->
@@ -60,7 +62,7 @@ module.exports = class CommandParserBase
         @_handleErrors method, command.args
 
     _parseLine: (line)->
-        line = line.replace CommandParserBase.COMMENT, '$1'
+        line = line.replace CommandParserVersionBase.COMMENT, '$1'
         line = line.trim()
         return [] if line.length is 0
 
@@ -69,7 +71,7 @@ module.exports = class CommandParserBase
         for linePart in lineParts
             continue if linePart.length is 0
 
-            match = CommandParserBase.COMMAND.exec linePart
+            match = CommandParserVersionBase.COMMAND.exec linePart
             if not match? then throw new Error "Expected <command>: <args>, but found: \"#{linePart}\""
 
             args = []

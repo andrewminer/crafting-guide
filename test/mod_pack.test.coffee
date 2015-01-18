@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 Item       = require '../src/scripts/models/item'
+Mod        = require '../src/scripts/models/mod'
 ModPack    = require '../src/scripts/models/mod_pack'
 ModVersion = require '../src/scripts/models/mod_version'
 
@@ -18,23 +19,28 @@ buildcraft = industrialCraft = minecraft = modPack = null
 describe 'ModPack', ->
 
     beforeEach ->
-        minecraft = new ModVersion name:'Minecraft', version:'1.7.10', enabled:true
-        minecraft.addItem new Item name:'Wool'
-        minecraft.addItem new Item name:'Bed', recipes:['']
-        minecraft.registerSlug 'iron_chestplate', 'Iron Chestplate'
+        minecraft = new Mod name:'Minecraft'
+        minecraft.addModVersion new ModVersion modSlug:minecraft.slug, version:'1.7.10'
+        minecraft.activeModVersion.addItem new Item name:'Wool'
+        minecraft.activeModVersion.addItem new Item name:'Bed', recipes:['']
+        minecraft.activeModVersion.registerSlug 'iron_chestplate', 'Iron Chestplate'
 
-        buildcraft = new ModVersion name:'Buildcraft', version:'6.2.6', enabled:false
-        buildcraft.addItem new Item name:'Stone Gear', recipes:['']
-        buildcraft.addItem new Item name:'Bed', recipes:['']
+        buildcraft = new Mod name:'Buildcraft'
+        buildcraft.addModVersion new ModVersion modSlug:buildcraft.slug, version:'6.2.6'
+        buildcraft.activeModVersion.addItem new Item name:'Stone Gear', recipes:['']
+        buildcraft.activeModVersion.addItem new Item name:'Bed', recipes:['']
+        buildcraft.activeVersion = Mod.Version.None
 
-        industrialCraft = new ModVersion name:'Industrial Craft', version:'2.0', enabled:false
-        industrialCraft.addItem new Item name:'Resin'
-        industrialCraft.addItem new Item name:'Rubber'
+        industrialCraft = new Mod name:'Industrial Craft'
+        industrialCraft.addModVersion new ModVersion modSlug:industrialCraft.slug, version:'2.0'
+        industrialCraft.activeModVersion.addItem new Item name:'Resin'
+        industrialCraft.activeModVersion.addItem new Item name:'Rubber'
+        industrialCraft.activeVersion = Mod.Version.None
 
         modPack = new ModPack
-        modPack.addModVersion minecraft
-        modPack.addModVersion buildcraft
-        modPack.addModVersion industrialCraft
+        modPack.addMod minecraft
+        modPack.addMod buildcraft
+        modPack.addMod industrialCraft
 
     describe 'findItemByName', ->
 
@@ -46,10 +52,6 @@ describe 'ModPack', ->
             item = modPack.findItemByName 'Stone Gear'
             expect(item).to.be.null
 
-        it "doesn't ignore mod versions when include disabled is requested", ->
-            item = modPack.findItemByName 'Stone Gear', includeDisabled:true
-            item.name.should.equal 'Stone Gear'
-
     describe 'findItemDisplay', ->
 
         it 'returns all data for a regular Minecraft item', ->
@@ -60,16 +62,12 @@ describe 'ModPack', ->
             display.modSlug.should.equal 'minecraft'
 
         it 'returns all data for an item in an enabled mod', ->
-            buildcraft.enabled = true
+            buildcraft.activeVersion = '6.2.6'
             display = modPack.findItemDisplay 'stone_gear'
             display.iconUrl.should.equal '/data/buildcraft/6.2.6/images/stone_gear.png'
             display.itemUrl.should.equal '/item/Stone%20Gear'
             display.itemName.should.equal 'Stone Gear'
             display.modSlug.should.equal 'buildcraft'
-
-        it 'returns data even for a disabled mod', ->
-            display = modPack.findItemDisplay 'stone_gear'
-            display.itemName.should.equal 'Stone Gear'
 
         it 'assumes an unfound item is from Minecraft', ->
             display = modPack.findItemDisplay 'iron_chestplate'

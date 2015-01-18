@@ -31,7 +31,7 @@ module.exports = class NameFinder
         names = @_findNames nameHint
 
         names.sort (a, b)->
-            c = a.modVersion.compareTo b.modVersion
+            c = a.mod.compareTo b.mod
             if c isnt 0 then return c
 
             return 0 if a.label is b.label
@@ -59,21 +59,21 @@ module.exports = class NameFinder
         names   = []
         nameMap = {}
 
-        @modPack.eachModVersion (modVersion)=>
-            return unless modVersion.enabled or @includeDisabledMods
+        @modPack.eachMod (mod)=>
+            return unless mod.enabled or @includeDisabledMods
 
-            modVersion.eachName (name, slug)=>
+            mod.eachName (name, slug)=>
                 return if nameMap[name]
 
-                item = modVersion.findItem slug
+                item = mod.findItem slug
                 if not @includeGatherable
                     return unless item? and (not item.isGatherable)
 
-                scanName = "#{modVersion.name} : #{name}"
+                scanName = "#{mod.name} : #{name}"
                 if nameHint?
                     return unless @_isMatch scanName.toLowerCase(), nameHint
 
                 nameMap[name] = name
-                names.push value:name, label:scanName, modVersion:modVersion
+                names.push value:name, label:scanName, mod:mod
 
         return names

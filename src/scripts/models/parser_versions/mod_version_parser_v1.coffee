@@ -1,243 +1,253 @@
 ###
-Crafting Guide - mod_version_parser_v1.coffee
+Crafting Guide - mod_version_parser_v2.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-Item       = require '../item'
-ModVersion = require '../mod_version'
-Recipe     = require '../recipe'
-Stack      = require '../stack'
+CommandParserVersionBase = require './command_parser_version_base'
+Item                     = require '../item'
+ModVersion               = require '../mod_version'
+Recipe                   = require '../recipe'
+Stack                    = require '../stack'
+StringBuilder            = require '../string_builder'
 
 ########################################################################################################################
 
-module.exports = class ModVersionParserV1
+module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
-    constructor: (options={})->
-        if not options.model? then throw new Error 'options.model is required'
-        @_model         = options.model
-        @_errorLocation = 'the header information'
+    # Class Methods ################################################################################
 
-    parse: (data)->
-        return @_parseModVersion data
+    @INTEGER = /[0-9]+/
 
-    unparse: ->
-        return @_unparseModVersion()
+    @PATTERN = /^[0-9.]{3} ?[0-9.]{3} ?[0-9.]{3}$/
 
-    # Private Methods ##############################################################################
+    @STACK = /^([0-9]+) +(.*)$/
 
-    _computeDefaultPattern: (input)->
-        itemCount = input.length
-        slotCount = _.reduce input, ((total, stack)-> total + stack.quantity), 0
+    # CommandParserVersionBase Overrides ###########################################################
 
-        return '... .0. ...' if itemCount is 1 and slotCount is 1
-        return '00. 00. ...' if itemCount is 1 and slotCount is 4
-        return '000 000 000' if itemCount is 1 and slotCount is 9
+    _buildModel: (rawData, model)->
+        @_buildModVersion rawData, model
 
-        result = ['.', '.', '.', '.', '.', '.', '.', '.', '.']
-        indexes = [4, 7, 1, 3, 5, 6, 8, 0, 2]
+    _unparseModel: (builder, model)->
+        @_unparseModVersion builder, model
 
-        for i in [0...input.length]
-            stack = input[i]
-            for j in [0...stack.quantity]
-                index = indexes.shift()
-                result[index] = "#{i}"
+    # Command Methods ##############################################################################
 
-        pattern = result.join ''
-        pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
-        return pattern
+    _command_extras: (extraTerms...)->
+        if not @_recipeData? then throw new Error 'cannot declare "extras" before "recipe"'
+        if @_recipeData.extras? then throw new Error 'duplicate declaration of "extras"'
 
-    _findOrCreateItem: (name)->
-        item = @_model.findItemByName name
-        if not item?
-            item = new Item name:name
-            @_model.addItem item
+        @_recipeData.extras = []
+        for term in extraTerms
+            match = ModVersionParserV1.STACK.exec term
+            if match?
+                @_recipeData.extras.push quantity:parseInt(match[1]), name:match[2]
+            else
+                @_recipeData.extras.push quantity:1, name:term
+
+    _command_gatherable: (gatherable)->
+        if not @_itemData? then throw new Error 'cannot declare "gatherable" before "item"'
+        if @_itemData.gatherable? then throw new Error 'duplicate declaration of "gatherable"'
+        if not (gatherable in ['yes', 'no']) then throw new Error 'gatherable must be either "yes" or "no"'
+
+        @_itemData.gatherable = (gatherable is 'yes')
+
+    _command_item: (name='')->
+        if not name.length > 0 then throw new Error 'the item name cannot be empty'
+
+        @_itemData = name:name, line:@_lineNumber
+        @_rawData.items ?= []
+        @_rawData.items.push @_itemData
+
+        @_recipeData = null
+
+    _command_input: (inputNames...)->
+        if not @_recipeData? then throw new Error 'cannot declare "input" before "recipe"'
+        if @_recipeData.input? then throw new Error 'duplicate declaration of "input"'
+
+        @_recipeData.input = []
+        for name in inputNames
+            if name.length is 0 then throw new Error 'input names cannot be empty'
+            @_recipeData.input.push name
+
+    _command_pattern: (pattern='')->
+        if not @_recipeData? then throw new Error 'cannot declare "pattern" before "recipe"'
+        if @_recipeData.pattern? then throw new Error 'duplicate declaration of "pattern"'
+        if not ModVersionParserV1.PATTERN.test pattern
+            throw new Error 'a pattern must have 9 digits using 0-9 for items and "." for an empty spot;
+                spaces are optional'
+
+        @_recipeData.pattern = pattern
+
+    _command_quantity: (quantity)->
+        if not @_recipeData? then throw new Error 'cannot declare "quantity" before "recipe"'
+        if @_recipeData.quantity? then throw new Error 'duplicate declaration of "quantity"'
+        if not ModVersionParserV1.INTEGER.test(quantity) then throw new Error 'quantity must be an integer'
+
+        @_recipeData.quantity = parseInt quantity
+
+    _command_recipe: ->
+        if not @_itemData? then throw new Error 'cannot delcare "recipe" before "item"'
+
+        @_recipeData = line:@_lineNumber
+        @_itemData.recipes ?= []
+        @_itemData.recipes.push @_recipeData
+
+    _command_tools: (toolNames...)->
+        if not @_recipeData? then throw new Error 'cannot declare "tools" before "recipe"'
+        if @_recipeData.tools? then throw new Error 'duplicate declaration of "tools"'
+
+        @_recipeData.tools = []
+        for name in toolNames
+            if name.length is 0 then throw new Error 'tool names cannot be empty'
+            @_recipeData.tools.push name
+
+    # Object Creation Methods ######################################################################
+
+    _buildModVersion: (modVersionData, modVersion)->
+        modVersionData.items ?= []
+
+        for itemData in modVersionData.items
+            @_handleErrors @_buildItem, modVersion, itemData
+
+        return modVersion
+
+    _buildItem: (modVersion, itemData)->
+        @_lineNumber = itemData.line
+        itemData.gatherable ?= false
+        itemData.recipes    ?= []
+
+        item = new Item name:itemData.name, isGatherable:itemData.gatherable
+        modVersion.addItem item
+
+        for recipeData in itemData.recipes
+            @_handleErrors @_buildRecipe, modVersion, item, recipeData
+
         return item
 
-    # Parsing Methods ##############################################################################
+    _buildRecipe: (modVersion, item, recipeData)->
+        @_lineNumber = recipeData.line
+        if not recipeData.input? then throw new Error 'the "input" declaration is required'
+        if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
-    _parseModVersion: (data)->
-        if not data? then throw new Error 'mod description data is missing'
-        if not data.name? then throw new Error 'name is required'
-        if not data.version? then throw new Error 'version is required'
-        if not _.isArray(data.recipes) then throw new Error 'recipes must be an array'
+        recipeData.quantity   ?= 1
+        recipeData.extras     ?= []
+        recipeData.tools      ?= []
 
-        if data.name isnt @_model.name
-            throw new Error "the data is for #{data.name}, not #{@_model.name} as expected"
-        if data.version isnt @_model.version
-            throw new Error "the data is for version #{data.version}, not #{@_model.version} as expected"
+        inputStacks = []
+        for name in recipeData.input
+            slug = _.slugify name
+            modVersion.registerSlug slug, name
+            inputStacks.push new Stack slug:slug, quantity:0
 
-        @_model.description = data.description or ''
-        @_parseRawMaterials data.raw_materials
+        for c in recipeData.pattern
+            continue if c is '.'
+            continue if c is ' '
+            stack = inputStacks[parseInt(c)]
+            if not stack? then throw new Error "there is no input #{c} in this recipe"
+            stack.quantity += 1
 
-        for index in [0...data.recipes.length]
-            @_errorLocation = "recipe #{index + 1}"
-            recipeData = data.recipes[index]
-            recipe = @_parseRecipe recipeData
-            recipe._originalIndex = index
+        for i in [0...inputStacks.length]
+            stack = inputStacks[i]
+            if stack.quantity is 0
+                name = modVersion.findName stack.slug
+                throw new Error "#{name} is an input for this recipe, but it is not in the pattern"
 
-        return @_model
+        outputStacks = [ new Stack slug:item.slug, quantity:recipeData.quantity ]
+        for extraData in recipeData.extras
+            slug = _.slugify extraData.name
+            modVersion.registerSlug slug, extraData.name
+            outputStacks.push new Stack slug:slug, quantity:extraData.quantity
 
-    _parseRawMaterials: (data)->
-        return unless data? and data.length > 0
-
-        results = []
-        for name in data
-            item = @_findOrCreateItem name
-            item.isGatherable = true
-            results.push item
-
-    _parseRecipe: (data)->
-        if not data? then throw new Error "recipe data is missing for #{@_errorLocation}"
-        if not data.output? then throw new Error "#{@_errorLocation} is missing output"
-
-        data.output = if _.isArray(data.output) then data.output else [data.output]
-        names = (e for e in _.flatten(data.output) when _.isString(e))
-        if names.length is 0 then throw new Error "#{@_errorLocation} has an empty output list"
-
-        item = @_findOrCreateItem names[0]
-        @_errorLocation = "recipe for #{item.name}"
-
-        if not data.input? then throw new Error "#{@_errorLocation} is missing input"
-        data.tools ?= []
+        toolStacks = []
+        for name in recipeData.tools
+            slug = _.slugify name
+            modVersion.registerSlug slug, name
+            toolStacks.push new Stack slug:slug, quantity:1
 
         attributes =
-            item:   item,
-            output: @_parseStackList(data.output, field:'output', canBeEmpty:false)
-            input:  @_parseStackList(data.input,  field:'input',  canBeEmpty:true)
-            tools:  @_parseStackList(data.tools,  field:'tools',  canBeEmpty:true)
-        attributes.pattern = data.pattern or @_computeDefaultPattern attributes.input
+            input:    inputStacks
+            name:     item.name
+            pattern:  recipeData.pattern
+            output:   outputStacks
+            tools:    toolStacks
 
         recipe = new Recipe attributes
+        item.addRecipe recipe
         return recipe
-
-    _parseStack: (data, options={})->
-        errorBase = "#{options.field} element #{options.index} for #{@_errorLocation}"
-        if not data? then throw new Error "#{errorBase} is missing"
-
-        if _.isString(data) then data = [1, data]
-        if not _.isArray(data) then throw new Error "#{errorBase} must be an array"
-
-        if data.length is 1 then data.unshift 1
-        if data.length isnt 2 then throw new Error "#{errorBase} must have at least one element"
-        if not _.isNumber(data[0]) then throw new Error "#{errorBase} must start with a number"
-
-        name = data[1]
-        slug = _.slugify name
-        @_model.registerSlug slug, name
-
-        return new Stack slug:slug, quantity:data[0]
-
-    _parseStackList: (data, options={})->
-        if not data? then throw new Error "#{@_errorLocation} must have an #{options.field} field"
-
-        if not _.isArray(data) then data = [data]
-        if data.length is 0 and not options.canBeEmpty
-            throw new Error "#{options.field} for #{@_errorLocation} cannot be empty"
-
-        result = []
-        for index in [0...data.length]
-            stackData = data[index]
-            result.push @_parseStack stackData, field:options.field, index:index
-
-        return result
 
     # Un-parsing Methods ###########################################################################
 
-    _unparseModVersion: (modVersion)->
-        result = []
-        result.push '{\n'
-        result.push '    "dataVersion": 1,\n'
-        result.push '    "name": "' + modVersion.name + '",\n'
-        result.push '    "version": "' + modVersion.version + '",\n'
-        if modVersion.description.length > 0
-            result.push '    "description": "' + modVersion.description + '",\n'
+    _unparseModVersion: (builder, modVersion)->
+        itemList = _.values modVersion.items
+        itemList.sort (a, b)-> a.compareTo b
 
-        rawMaterials = (item.name for slug, item of modVersion.items when item.isGatherable)
-        rawMaterials.sort()
-        if rawMaterials.length > 0
-            result.push '    "raw_materials": [\n'
-            firstItem = true
-            for material in rawMaterials
-                if not firstItem then result.push ',\n'
-                result.push '        "' + material + '"'
-                firstItem = false
-            result.push '\n    ],\n'
+        builder
+            .line 'schema: ', 2
+            .line 'name: ', modVersion.name
+            .line 'version: ', modVersion.version
+            .onlyIf modVersion.description?, => builder.line 'description: ', modVersion.description
+            .line()
+            .onlyIf itemList.length > 0, =>
+                builder.loop itemList, delimiter:'\n', onEach:(b, i)=> @_unparseItem(b, i)
+            .outdent()
 
-        result.push '    "recipes": [\n'
+    _unparseItem: (builder, item)->
+        builder
+            .line 'item: ', item.name
+            .indent()
+                .onlyIf item.isGatherable, => builder.line 'gatherable: yes'
+                .onlyIf item.recipes.length > 0, =>
+                    builder.loop item.recipes, delimiter:'', onEach:(b, r)=> @_unparseRecipe(b, r)
+            .outdent()
 
-        items = (item for slug, item of modVersion.items when item.isCraftable)
-        items.sort (a, b)-> a.compareTo b
+    _unparseRecipe: (builder, recipe)->
+        inputNames = (builder.context.findName(stack.slug) for stack in recipe.input)
+        inputNames.sort()
 
-        firstItem = true
-        for item in items
-            for recipe in item.recipes
-                result.push if firstItem then '        {\n' else '        }, {\n'
-                @_unparseRecipe recipe, result
-                firstItem = false
-        result.push '        }\n'
+        patternMap = {'.', '.'}
+        for i in [0...recipe.input.length]
+            stack = recipe.input[i]
+            patternMap["#{i}"] = "#{inputNames.indexOf builder.context.findName(stack.slug)}"
 
-        result.push '    ]\n'
-        result.push '}'
+        pattern = recipe.pattern or recipe.defaultPattern
+        newPattern = []
+        for c in pattern.split('')
+            newPattern.push patternMap[c]
+        newPattern = newPattern.join ''
+        newPattern = newPattern.replace /(...)(...)(...)/, '$1 $2 $3'
 
-        return result.join ''
+        quantity = recipe.output[0].quantity
 
-    _unparseRecipe: (recipe, result=[])->
-        result.push '            "output": '
-        @_unparseStackList recipe.output, result, sort:false
+        extraOutputs = recipe.output[0...recipe.output.length]
+        extraOutputs.shift()
 
-        if recipe.input.length > 0
-            result.push ',\n'
-            result.push '            "input": '
-            @_unparseStackList recipe.input, result
+        builder
+            .line 'recipe:'
+            .indent()
+                .onlyIf extraOutputs.length > 0, =>
+                    builder
+                        .push 'extras: '
+                        .call => @_unparseStackList builder, extraOutputs
+                        .line()
+                .push 'input: '
+                    .loop inputNames
+                    .line()
+                .line 'pattern: ', newPattern
+                .onlyIf quantity > 1, => builder.line 'quantity: ', quantity
+                .onlyIf recipe.tools.length > 0, =>
+                    builder
+                        .push 'tools: '
+                        .call => @_unparseStackList builder, recipe.tools
+                        .line()
+            .outdent()
 
-        if recipe.pattern?
-            result.push ',\n'
-            result.push '            "pattern": "'
-            result.push recipe.pattern
-            result.push '"'
-
-        if recipe.tools.length > 0
-            result.push ',\n'
-            result.push '            "tools": '
-            @_unparseStackList recipe.tools, result
-
-        result.push '\n'
-        return result
-
-    _unparseStackList: (stackList, result, options={})->
-        options.sort ?= true
-
-        if stackList.length is 0
-            result.push '[]'
-        else if stackList.length is 1
-            stack = stackList[0]
-            if stack.quantity is 1
-                result.push '"' + @_model.findName(stack.slug) + '"'
-            else
-                result.push '[[' + stack.quantity + ', "' + @_model.findName(stack.slug) + '"]]'
+    _unparseStackList: (builder, stackList)->
+        if stackList.length is 1 and stackList[0].quantity is 1
+            builder.push builder.context.findName(stackList[0].slug)
         else
-            result.push '['
-
-            stacks = stackList.slice()
-            if options.sort
-                stacks.sort (a, b)->
-                    if a.quantity isnt b.quantity
-                        return if a.quantity > b.quantity then -1 else +1
-                    if a.slug isnt b.slug
-                        return if a.slug < b.slug then -1 else +1
-                    return 0
-
-            firstItem = true
-            for stack in stacks
-                result.push ', ' if not firstItem
-                if stack.quantity is 1
-                    result.push '"' + @_model.findName(stack.slug) + '"'
-                else
-                    result.push '[' + stack.quantity + ', "' + @_model.findName(stack.slug) + '"]'
-                firstItem = false
-
-            result.push ']'
-
-        return result
+            builder.loop stackList, onEach:(b, stack)=>
+                builder
+                    .onlyIf stack.quantity > 1, => builder.push stack.quantity, ' '
+                    .push builder.context.findName stack.slug

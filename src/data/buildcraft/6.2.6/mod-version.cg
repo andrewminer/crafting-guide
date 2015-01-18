@@ -1,7 +1,4 @@
-schema: 2
-name: Buildcraft
-version: 6.2.6
-description: Crafting recipes from BuildCraft, by SpaceToad
+schema: 1
 
 item: Advanced Crafting Table
     recipe:

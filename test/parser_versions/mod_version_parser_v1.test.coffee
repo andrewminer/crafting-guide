@@ -1,159 +1,209 @@
 ###
 Crafting Guide - mod_version_parser_v1.test.coffee
 
-Copyright (c) 2014-2015 by Redwood Labs
+Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-Item               = require '../../src/scripts/models/item'
 ModVersion         = require '../../src/scripts/models/mod_version'
 ModVersionParserV1 = require '../../src/scripts/models/parser_versions/mod_version_parser_v1'
 
 ########################################################################################################################
 
-modVersion = parser = null
+baseText = modVersion = parser = null
 
 ########################################################################################################################
 
-describe "ModVersionParserV1", ->
+describe 'ModVersionParserV1', ->
 
     beforeEach ->
-        modVersion = new ModVersion name:'Test', version:'0.0'
-        parser = new ModVersionParserV1 model:modVersion
+        modVersion = new ModVersion modSlug:'test', version:'0.0'
+        parser     = new ModVersionParserV1 model:modVersion
 
-    describe '_parseModVersion', ->
+    describe 'Item', ->
 
-        it 'requires a mod_name', ->
-            data = version:'1.0', items:[]
-            expect(-> parser._parseModVersion data).to.throw Error, 'name is required'
+        it 'allows multiple recipes', ->
+            recipes = "item: Charlie;
+                recipe:; input:Alpha; pattern:... .0. ...;
+                recipe:; input:Bravo; pattern:... 0.0 ...;"
+            modVersion = parser.parse recipes
+            recipes = modVersion._items.charlie._recipes
+            recipes[0].input[0].slug.should.equal 'alpha'
+            recipes[1].input[0].slug.should.equal 'bravo'
 
-        it 'requires a mod_version', ->
-            data = name:'Empty', items:[]
-            expect(-> parser._parseModVersion data).to.throw Error, 'version is required'
+        describe 'name', ->
 
-        it 'can parse an empty modVersion', ->
-            data =
-                name: 'Test'
-                version: '0.0'
-                recipes: []
-            modVersion = parser._parseModVersion data
-            modVersion.name.should.equal 'Test'
-            modVersion.version.should.equal '0.0'
+            it 'adds the name when present', ->
+                modVersion = parser.parse 'item: Charlie'
+                modVersion._items.charlie.name.should.equal 'Charlie'
 
-        it 'can parse a non-empty mod version', ->
-            data =
-                name: 'Test'
-                version: '0.0'
-                recipes: [
-                    { input:'Sugar Cane', output:'Sugar' }
-                    { input:[[3, 'Wool'], [3, 'Planks']], tools:'Crafting Table', output:'Bed' }
-                ]
-            modVersion = parser._parseModVersion data
-            modVersion.name.should.equal 'Test'
-            modVersion.version.should.equal '0.0'
-            modVersion._slugs.should.eql ['bed', 'crafting_table', 'planks', 'sugar', 'sugar_cane', 'wool']
+            it 'requires a non-empty name', ->
+                func = -> parser.parse 'item: \n'
+                expect(func).to.throw Error, 'cannot be empty'
 
-    describe '_parseRawMaterials', ->
+        describe 'gatherable', ->
 
-        it 'skips the section when missing', ->
-            parser._parseRawMaterials null
-            _.keys(modVersion._items).length.should.equal 0
+            it 'adds "gatherable" when present', ->
+                modVersion = parser.parse 'item: Alpha Bravo; gatherable: yes'
+                modVersion._items.alpha_bravo.isGatherable.should.be.true
 
-        it 'skips the section when empty', ->
-            parser._parseRawMaterials []
-            _.keys(modVersion._items).length.should.equal 0
+            it 'does not allow a duplicate "gatherable" declaration', ->
+                func = -> parser.parse 'item: Alpha Bravo; gatherable: yes; gatherable: yes'
+                expect(func).to.throw Error, 'duplicate'
 
-        it 'adds items marked as gatherable', ->
-            parser._parseRawMaterials ['Wool']
-            modVersion._items['wool'].isGatherable.should.be.true
+            it 'requires "gatherable" to be "yes" or "no"', ->
+                func = -> parser.parse 'item: Alpha Bravo; gatherable: true'
+                expect(func).to.throw Error, 'gatherable must be'
 
-        it 'marks an existing item as gatherable', ->
-            modVersion.addItem new Item name:'Wool'
-            modVersion._items['wool'].isGatherable.should.be.false
-            parser._parseRawMaterials ['Wool']
-            modVersion._items['wool'].isGatherable.should.be.true
+            it 'does not allow "gatherable" before "item"', ->
+                func = -> parser.parse 'gatherable: yes; item: Alpha Bravo; gatherable: yes'
+                expect(func).to.throw Error, '"gatherable" before "item"'
 
-        it 'registers the names of the items', ->
-            parser._parseRawMaterials ['Wool']
-            modVersion._names['wool'].should.equal 'Wool'
+    describe 'Recipe', ->
 
-    describe '_parseRecipe', ->
+        beforeEach -> baseText = 'item: Charlie; '
 
-        it 'requires output to be defined', ->
-            parser._errorLocation = 'boat'
-            test = -> parser._parseRecipe {input:'wool'}
-            expect(test).to.throw Error, 'boat is missing output'
+        describe 'input', ->
 
-        it 'requires input to be defined', ->
-            test = -> parser._parseRecipe {output:'wool'}
-            expect(test).to.throw Error, 'recipe for wool is missing input'
+            it 'adds "input" when present', ->
+                modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern: ... 012 ...'
+                slugs = (s.slug for s in modVersion._items.charlie._recipes[0].input)
+                slugs.should.eql ['alpha', 'bravo', 'charlie']
 
-        it 'can parse a regular recipe', ->
-            data =
-                output: 'bed'
-                input: [[3, 'planks'], [3, 'wool']]
-                tools: 'crafting table'
-            recipe = parser._parseRecipe data
-            (stack.slug for stack in recipe.output).should.eql ['bed']
-            (stack.slug for stack in recipe.input).sort().should.eql ['planks', 'wool']
-            (stack.slug for stack in recipe.tools).should.eql ['crafting_table']
+            it 'requires an "input" declaration', ->
+                func = -> parser.parse baseText + 'recipe:; pattern: ... .0. ...'
+                expect(func).to.throw Error, 'the "input" declaration is required'
 
-        it 'can parse a recipe without tools', ->
-            recipe = parser._parseRecipe {output:'sugar', input:'sugar cane'}
-            (stack.slug for stack in recipe.output).should.eql ['sugar']
-            (stack.slug for stack in recipe.input).sort().should.eql ['sugar_cane']
-            (stack.slug for stack in recipe.tools).should.eql []
+            it 'does not allow a duplicate "input" declaration', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha; pattern:....0....; input:Bravo'
+                expect(func).to.throw Error, 'duplicate declaration of "input"'
 
-        it 'registers all names', ->
-            data =
-                output: 'Bed'
-                input: [[3, 'Oak Wood Planks'], [3, 'Wool']]
-                tools: 'Crafting Table'
-            parser._parseRecipe data
-            modVersion._slugs.should.eql ['bed', 'crafting_table', 'oak_wood_planks', 'wool']
+            it 'does not allow "input" before "recipe"', ->
+                func = -> parser.parse baseText + 'input:Alpha, Bravo; recipe:; pattern:....0....'
+                expect(func).to.throw Error, 'cannot declare "input" before "recipe"'
 
-    describe '_parseStack', ->
+            it 'registers slugs for each input name', ->
+                modVersion = parser.parse baseText + 'recipe:; input:Delta, Echo, Foxtrot; pattern:...012...'
+                modVersion._slugs.should.eql ['charlie', 'delta', 'echo', 'foxtrot']
 
-        it 'requires the array to have at least one element', ->
-            parser._errorLocation = 'boat'
-            options = index:1, field:'output'
-            expect(-> parser._parseStack([], options)).to.throw Error,
-                "output element 1 for boat must have at least one element"
+        describe 'pattern', ->
 
-        it 'can fill in a missing number', ->
-            stack = parser._parseStack 'boat'
-            stack.slug.should.equal 'boat'
-            stack.quantity.should.equal 1
+            it 'adds "pattern" when present', ->
+                modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern:... .0. .1.'
+                modVersion._items.charlie._recipes[0].pattern.should.equal '... .0. .1.'
 
-            stack2 = parser._parseStack ['boat']
-            stack2.slug.should.equal 'boat'
-            stack2.quantity.should.equal 1
+            it 'requires a "pattern" declaration', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha, Bravo'
+                expect(func).to.throw Error, 'the "pattern" declaration is required'
 
-        it 'requires the data to start with a number', ->
-            parser._errorLocation = 'boat'
-            options = index:1, field:'output'
-            expect(-> parser._parseStack(['2', 'wool'], options)).to.throw Error,
-                "output element 1 for boat must start with a number"
+            it 'does not allow a duplicate "pattern" declaration', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern:....0..1.; pattern:01.......'
+                expect(func).to.throw Error, 'duplicate declaration of "pattern"'
 
-        it 'can parse a basic item', ->
-            stack = parser._parseStack [2, 'wool']
-            stack.constructor.name.should.equal 'Stack'
+            it 'requires pattern to be the right length', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha; pattern:000'
+                expect(func).to.throw Error, 'a pattern must have'
 
-    describe '_parseStackList', ->
+            it 'requires pattern to only use proper characters', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha; pattern:abc def ghi'
+                expect(func).to.throw Error, 'a pattern must have'
 
-        it 'can promote a single item to a list', ->
-            list = parser._parseStackList 'boat'
-            (stack.slug for stack in list).should.eql ['boat']
+            it 'requires pattern to only refer to existing items', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha; pattern:... 010 ...'
+                expect(func).to.throw Error, 'there is no input 1 in this recipe'
 
-        it 'can require a list to be non-empty', ->
-            parser._errorLocation = 'boat'
-            options = field:'output', canBeEmpty:false
-            expect(-> parser._parseStackList [], options).to.throw Error, 'output for boat cannot be empty'
+            it 'requires all items to appear in the pattern', ->
+                func = -> parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern: 000 0.0 000'
+                expect(func).to.throw Error, 'Bravo is an input'
 
-        it 'can allow an empty list', ->
-            list = parser._parseStackList [], canBeEmpty:true
-            list.length.should.equal 0
+            it 'computes the input stack sizes from the pattern', ->
+                modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern:111 .0. 2.2'
+                recipe = modVersion._items.charlie._recipes[0]
+                recipe.input[0].quantity.should.equal 1
+                recipe.input[1].quantity.should.equal 3
+                recipe.input[2].quantity.should.equal 2
 
-        it 'can parse a non-empty list', ->
-            list = parser._parseStackList [[3, 'plank'], [3, 'wool']]
-            (stack.slug for stack in list).sort().should.eql ['plank', 'wool']
+            it 'does not allow "pattern" before "recipe"', ->
+                func = -> parser.parse baseText + 'pattern:... .0. ...; recipe:; inputs:Alpha'
+                expect(func).to.throw Error, 'cannot declare "pattern" before "recipe"'
+
+        describe 'quantity', ->
+
+            beforeEach ->
+                baseText = 'item: Charlie; recipe:; input:Alpha; pattern:...0.0...; '
+
+            it 'adds "quantity" when present', ->
+                modVersion = parser.parse baseText + 'quantity: 2'
+                modVersion._items.charlie._recipes[0].output[0].quantity.should.equal 2
+
+            it 'does not allow a duplicate "quantity" declaration', ->
+                func = -> parser.parse baseText + 'quantity:1; quantity:2'
+                expect(func).to.throw Error, 'duplicate declaration of "quantity"'
+
+            it 'requires quantity to be an integer', ->
+                func = -> parser.parse baseText + 'quantity:ten'
+                expect(func).to.throw Error, 'quantity must be an integer'
+
+            it 'assumes a quantity of 1 by default', ->
+                modVersion = parser.parse baseText
+                modVersion._items.charlie._recipes[0].output[0].quantity.should.equal 1
+
+            it 'does not allow "quantity" before recipe', ->
+                func = -> parser.parse 'item:Bravo; quantity:12; recipe:;'
+                expect(func).to.throw Error, 'cannot declare "quantity" before "recipe"'
+
+        describe 'output', ->
+
+            beforeEach ->
+                baseText = 'item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
+
+            it 'adds a single item as the default output', ->
+                modVersion = parser.parse baseText
+                stack = modVersion._items.bravo._recipes[0].output[0]
+                stack.slug.should.equal 'bravo'
+                stack.quantity.should.equal 1
+
+            it 'can add multiple extras with quantities', ->
+                modVersion = parser.parse baseText + 'extras:2 Delta, 4 Echo'
+                output = modVersion._items.bravo._recipes[0].output
+                output[0].slug.should.equal 'bravo'
+                output[0].quantity.should.equal 1
+                output[1].slug.should.equal 'delta'
+                output[1].quantity.should.equal 2
+                output[2].slug.should.equal 'echo'
+                output[2].quantity.should.equal 4
+
+            it 'does not allow "extras" before "recipe"', ->
+                func = -> parser.parse 'item:Bravo; extras:Charlie'
+                expect(func).to.throw Error, 'cannot declare "extras" before "recipe"'
+
+            it 'registers slugs for each output name', ->
+                modVersion = parser.parse baseText + 'extras:Delta, Echo'
+                modVersion._slugs.should.eql ['bravo', 'charlie', 'delta', 'echo']
+
+            it 'does not allow a duplicate "extras" declaration', ->
+                func = -> parser.parse baseText + 'extras:Echo; extras:Delta'
+                expect(func).to.throw Error, 'duplicate declaration of "extras"'
+
+        describe 'tools', ->
+
+            beforeEach ->
+                baseText = 'item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
+
+            it 'can add a single tool', ->
+                modVersion = parser.parse baseText + 'tools: Furnace'
+                modVersion._items.bravo._recipes[0].tools[0].slug.should.equal 'furnace'
+
+            it 'can add multiple tools', ->
+                modVersion = parser.parse baseText + 'tools: Crafting Table, Furnace'
+                tools = modVersion._items.bravo._recipes[0].tools
+                tools[0].slug.should.equal 'crafting_table'
+                tools[1].slug.should.equal 'furnace'
+
+            it 'registers slugs for each tool name', ->
+                modVersion = parser.parse baseText + 'tools: Crafting Table, Furnace'
+                modVersion._slugs.should.eql ['bravo', 'charlie', 'crafting_table', 'furnace']
+
+            it 'does not allow a duplicate "tools" declaration', ->
+                func = -> parser.parse baseText + 'tools:Crafting Table; tools:Furnace'
+                expect(func).to.throw Error, 'duplicate declaration of "tools"'

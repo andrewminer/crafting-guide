@@ -26,8 +26,8 @@ module.exports = class ItemPageController extends BaseController
         options.templateName  = 'item_page'
         super options
 
-        @imageLoader = options.imageLoader
-        @storage     = options.storage
+        @_imageLoader = options.imageLoader
+        @_storage     = options.storage
 
     # Event Methods ################################################################################
 
@@ -37,23 +37,21 @@ module.exports = class ItemPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onWillRender: ->
-        @storage.register 'crafting-plan', @model.plan, 'includingTools'
-        @model.modPack.on Event.add, (modVersion)=>
-            @storage.register "mod-version:#{modVersion.slug}", modVersion, 'enabled'
+        @_storage.register 'crafting-plan', @model.plan, 'includingTools'
         super
 
     onDidRender: ->
         @wantController = @addChild InventoryController, '.want',
             editable:    true
             icon:        '/images/fishing_rod.png'
-            imageLoader: @imageLoader
+            imageLoader: @_imageLoader
             model:       @model.plan.want
             modPack:     @model.modPack
             title:       'Items you want'
 
         @haveController = @addChild InventoryController, '.have',
             editable:    true,
-            imageLoader: @imageLoader
+            imageLoader: @_imageLoader
             model:       @model.plan.have
             modPack:     @model.modPack
             nameFinder:  new NameFinder @model.modPack, includeGatherable:true
@@ -62,17 +60,20 @@ module.exports = class ItemPageController extends BaseController
         @needController = @addChild InventoryController, '.need',
             editable:    false
             icon:        '/images/boots.png'
-            imageLoader: @imageLoader
+            imageLoader: @_imageLoader
             model:       @model.plan.need
             modPack:     @model.modPack
             title:       "Items you'll need"
 
         @craftingTableController = @addChild CraftingTableController, '.view__crafting_table',
-            imageLoader: @imageLoader
+            imageLoader: @_imageLoader
             model:       @model.table
             modPack:     @model.modPack
 
-        @modPackController = @addChild ModPackController, '.view__mod_pack', model:@model.modPack
+        @modPackController = @addChild ModPackController, '.view__mod_pack',
+            model:       @model.modPack
+            plan:        @model.plan
+            storage:     @_storage
 
         @$('.want .toolbar').append '<label><input class="includeTools" type="checkbox"> include tools</label>'
         @$includeToolsBox = @$('.includeTools')

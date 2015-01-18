@@ -25,8 +25,6 @@ module.exports = class CraftingTableController extends BaseController
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
 
-        @model.plan.silent = false
-
     # Event Methods ################################################################################
 
     onNextClicked: ->

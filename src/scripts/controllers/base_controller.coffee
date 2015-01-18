@@ -105,7 +105,7 @@ module.exports = class BaseController extends Backbone.View
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@constructor.name}(#{@cid})"
+        return "#{@constructor.name}.#{@cid}"
 
     # Private Methods ##############################################################################
 

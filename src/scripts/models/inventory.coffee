@@ -15,7 +15,7 @@ module.exports = class Inventory extends BaseModel
 
     constructor: (attributes={}, options={})->
         super attributes, options
-        @clear silent:true
+        @clear()
 
         Object.defineProperties this,
             isEmpty: { get:-> @_slugs.length is 0 }
@@ -29,19 +29,16 @@ module.exports = class Inventory extends BaseModel
         return this
 
     addInventory: (inventory)->
-        @silent = true
         inventory.each (stack)=> @_add stack.slug, stack.quantity
-        @silent = false
 
         @trigger Event.change, this
         return this
 
     clear: (options={})->
-        options.silent ?= false
         @_stacks = {}
         @_slugs = []
 
-        @trigger Event.change, this unless options.silent
+        @trigger Event.change, this
 
     clone: ->
         inventory = new Inventory
@@ -75,11 +72,13 @@ module.exports = class Inventory extends BaseModel
         return 0 unless stack?
         return stack.quantity
 
-    remove: (slug, quantity=1)->
+    remove: (slug, quantity=null)->
         return if quantity is 0
 
         stack = @_stacks[slug]
         if not stack? then throw new Error "cannot remove #{slug} since it is not in this inventory"
+
+        quantity ?= stack.quantity
         if stack.quantity < quantity
             throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{slug} in this inventory"
 

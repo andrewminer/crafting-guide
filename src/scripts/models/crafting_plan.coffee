@@ -23,29 +23,26 @@ module.exports = class CraftingPlan extends BaseModel
         @need   = new Inventory
         @result = new Inventory
 
-        @clear silent:true
+        @clear()
 
         @have.on    Event.change, => @craft()
         @want.on    Event.change, => @craft()
-        @modPack.on Event.add, => @craft()
+        @modPack.on Event.change, => @craft()
 
         @on Event.change + ':includingTools', => @craft()
 
     # Public Methods ###############################################################################
 
     clear: (options={})->
-        options.silent ?= false
-
         @steps = []
         @need.clear()
         @result.clear()
 
-        @trigger 'change', this unless options.silent
+        @trigger 'change', this
         return this
 
     craft: ->
-        @clear silent:true
-        @need.silent = @result.silent = true
+        @clear()
 
         @result.addInventory @have
 
@@ -59,10 +56,18 @@ module.exports = class CraftingPlan extends BaseModel
         @_removeExtraSteps()
         @result.addInventory @want
 
-        @need.silent = @result.silent = false
         @need.trigger 'change', @need
         @result.trigger 'change', @result
         @trigger 'change', this
+
+    removeUncraftableItems: ->
+        toRemove = []
+        @want.each (stack)=>
+            item = @modPack.findItem stack.slug
+            if not item? then toRemove.push stack.slug
+
+        for slug in toRemove
+            @want.remove slug
 
     # Event Methods ################################################################################
 

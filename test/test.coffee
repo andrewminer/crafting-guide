@@ -31,10 +31,10 @@ mocha.setup 'bdd'
 require './crafting_plan.test'
 require './inventory.test'
 require './inventory_parser.test'
+require './mod.test'
 require './mod_pack.test'
 require './mod_version.test'
 require './parser_versions/mod_version_parser_v1.test'
-require './parser_versions/mod_version_parser_v2.test'
 require './string_builder.test'
 
 mocha.checkLeaks()

@@ -5,14 +5,8 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-exports.DefaultModVersions = [
-    # Current version of Minecraft must be first
-    { name:'Minecraft', version:'1.7.10' }
-
-    { name:'Applied Energistics 2', version:'rv1-stable-1' }
-    { name:'Buildcraft', version:'6.2.6' }
-    { name:'IC2 Classic', version:'1.111.170-lf' }
-]
+# Minecraft must be first
+exports.DefaultMods = [ 'Minecraft', 'Applied Energistics 2', 'Buildcraft', 'IC2 Classic' ]
 
 exports.Duration = Duration = {}
 Duration.snap    = 100
@@ -41,9 +35,7 @@ exports.Opacity = Opacity = {}
 Opacity.hidden  = 1e-6
 Opacity.shown   = 1
 
-exports.RequiredMods = [
-    'Minecraft'
-]
+exports.RequiredMods = [ 'minecraft' ]
 
 exports.ModelState  = ModelState = {}
 ModelState.unloaded = 'unloaded'

@@ -6,8 +6,9 @@ All rights reserved.
 ###
 
 CraftingPlan = require '../src/scripts/models/crafting_plan'
-ModVersion   = require '../src/scripts/models/mod_version'
+Mod          = require '../src/scripts/models/mod'
 ModPack      = require '../src/scripts/models/mod_pack'
+ModVersion   = require '../src/scripts/models/mod_version'
 
 ########################################################################################################################
 
@@ -18,9 +19,10 @@ modPack = plan = null
 describe 'CraftingPlan', ->
 
     beforeEach ->
-        modVersion = new ModVersion name:'Minecraft', version:'1.7.10'
-        modVersion.parse """
-            schema:2; name:Minecraft; version:1.7.10
+        mod = new Mod name:'Minecraft'
+        mod.addModVersion new ModVersion modSlug:mod.slug, version:'1.7.10'
+        mod.activeModVersion.parse """
+            schema:1
 
             item:Oak Plank;      recipe:; input:Oak Log;                pattern:... .0. ...; quantity:4
             item:Stick;          recipe:; input:Oak Plank;              pattern:... .0. .0.; quantity:4
@@ -30,7 +32,7 @@ describe 'CraftingPlan', ->
             item:Iron Sword;     recipe:; input:Iron Ingot, Stick;      pattern:.0. .0. .1.; tools:Crafting Table
         """
         modPack = new ModPack
-        modPack.addModVersion modVersion
+        modPack.addMod mod
 
         plan = new CraftingPlan modPack:modPack, includingTools:false
 

@@ -1,7 +1,4 @@
-schema: 2
-name: Minecraft
-version: 1.7.10
-description: Crafting recipes from vanilla Minecraft
+schema: 1
 
 item: Acacia Wood Planks
     recipe:

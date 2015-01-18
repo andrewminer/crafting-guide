@@ -13,7 +13,6 @@ All rights reserved.
 module.exports = class BaseModel extends Backbone.Model
 
     constructor: (attributes={}, options={})->
-        options.silent ?= true
         super attributes, options
 
         makeGetter = (name)-> return -> @get name
@@ -22,7 +21,6 @@ module.exports = class BaseModel extends Backbone.Model
             continue if name is 'id'
             Object.defineProperty this, name, get:makeGetter(name), set:makeSetter(name)
 
-        @silent = options.silent
         @state  = ModelState.unloaded
 
         @on 'request', => @state = ModelState.loading
@@ -31,27 +29,33 @@ module.exports = class BaseModel extends Backbone.Model
 
         @loading = null
 
-    # Public Methods ###############################################################################
+        Object.defineProperties this,
+            isUnloaded: { get:-> @state is ModelState.unloaded }
+            isLoading:  { get:-> @state is ModelState.loading  }
+            isLoaded:   { get:-> @state is ModelState.loaded   }
+            isError:    { get:-> @state is ModelState.error    }
 
     # Event Methods ################################################################################
 
     onLoadSucceeded: (text, status, xhr)->
         try
             @set @parse text
+            @trigger Event.change, this
             @trigger Event.sync, this, text
+            logger.info "#{@constructor.name}.#{@cid} loaded successfully"
         catch e
             logger.error "A parsing error occured: #{e.stack}"
             @onLoadFailed e.message, 'parsing failed', xhr
 
     onLoadFailed: (error, status, xhr)->
-        logger.error "#{@constructor.name} (#{@cid}) failed to load: status:#{status}, message:#{error}"
+        logger.error "#{@constructor.name}.#{@cid} failed to load: status:#{status}, message:#{error}"
         @trigger Event.error, this, error
 
     # Backbone.Model Overrides #####################################################################
 
     fetch: ->
         url = @url()
-        logger.info "#{@constructor.name} (#{@cid}) reading from url: #{url}"
+        logger.info "#{@constructor.name}.#{@cid} reading from url: #{url}"
 
         @trigger Event.request, this
         @loading = w.promise (resolve, reject)=>
@@ -68,14 +72,9 @@ module.exports = class BaseModel extends Backbone.Model
         return JSON.parse text
 
     sync: (method, model)->
-        throw new Error "#{@constructor.name} (#{@cid}) is not permitted to #{method}"
-
-    trigger: (name)->
-        return if @silent
-        logger.trace "#{@constructor.name}.#{@cid} triggered a \"#{name}\" event"
-        super
+        throw new Error "#{@constructor.name}.#{@cid} is not permitted to #{method}"
 
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@constructor.name} (#{@cid})"
+        return "#{@constructor.name}.#{@cid}"

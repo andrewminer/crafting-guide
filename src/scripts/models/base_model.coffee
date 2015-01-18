@@ -53,7 +53,10 @@ module.exports = class BaseModel extends Backbone.Model
 
     # Backbone.Model Overrides #####################################################################
 
-    fetch: ->
+    fetch: (options={})->
+        options.force ?= false
+        return if (@isLoading or @isLoaded) and not options.force
+
         url = @url()
         logger.info "#{@constructor.name}.#{@cid} reading from url: #{url}"
 

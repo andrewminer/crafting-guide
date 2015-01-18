@@ -37,11 +37,9 @@ module.exports = class ModController extends BaseController
     # BaseController Overrides #####################################################################
 
     onWillRender: ->
-        if not @model.isLoaded then @model.fetch()
+        @model.fetch()
         if @_storage? then @_storage.register "mod:#{@model.slug}", @model, 'activeVersion'
-
-        @model.on Event.change + ':activeModVersion', (mod, modVersion)=>
-            if modVersion? and not modVersion.isLoaded then modVersion.fetch()
+        @model.on Event.change + ':activeModVersion', (mod, modVersion)=> modVersion.fetch()
 
     onDidRender: ->
         @$enabled     = @$('td:nth-child(1) input')

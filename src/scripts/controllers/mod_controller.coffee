@@ -39,7 +39,8 @@ module.exports = class ModController extends BaseController
     onWillRender: ->
         @model.fetch()
         if @_storage? then @_storage.register "mod:#{@model.slug}", @model, 'activeVersion'
-        @model.on Event.change + ':activeModVersion', (mod, modVersion)=> modVersion.fetch()
+        @model.on Event.change + ':activeModVersion', (mod, modVersion)=>
+            if modVersion? then modVersion.fetch()
 
     onDidRender: ->
         @$enabled     = @$('td:nth-child(1) input')

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+USAGE=<<-END
+USAGE: convert-nei-dump <source> <target>
+
+    Converts output from NEI dump files into a format which can be used by
+    Crafting Guide. In particlar, this script looks for the "Item Panel" dump
+    both in PNG and CSV formats and assumes they contain all the data for the
+    target mod.
+
+    Unfortunate, NEI doesn't generate enough information to fill in all the
+    recipes for each item: only their names. Once this script has converted the
+    data, you will need to manually enter the missing content.
+
+    <source>    :    the "dumps" directory where NEI dropped its content
+    <target>    :    the mod version directory where the finished files should
+                     be placed
+
+END
+
+function die {
+    echo $1
+    exit 1
+}
+
+SOURCE_DIR="$1"; shift
+TARGET_DIR="$1"; shift
+DATA_FILE="$TARGET_DIR/mod-version.cg"
+
+if [[ "$SOURCE_DIR" == "" || "$TARGET_DIR" == "" ]]; then
+    echo $USAGE
+    die
+fi
+
+echo "schema: 1" > $DATA_FILE
+echo "" >> $DATA_FILE
+
+mkdir -p $TARGET_DIR/images
+ls $SOURCE_DIR/itempanel_icons | while read FILE; do
+    ITEM_NAME="$(echo $FILE | sed 's/.png//')"
+    TARGET_FILE="$(echo $ITEM_NAME | sed 's/[^a-zA-Z0-9]/_/g' | sed 's/__*/_/g' | tr '[A-Z]' '[a-z]').png"
+    cp "$SOURCE_DIR/itempanel_icons/$FILE" "$TARGET_DIR/images/$TARGET_FILE"
+    echo "item: $ITEM_NAME" >> $DATA_FILE
+    echo "" >> $DATA_FILE
+done

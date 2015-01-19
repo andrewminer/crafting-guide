@@ -45,7 +45,7 @@ ModelState.failed   = 'failed'
 
 exports.Url    = Url = {}
 Url.itemIcon   = _.template "/data/<%= modSlug %>/<%= modVersion %>/images/<%= slug %>.png"
-Url.item       = _.template "/item/<%= encodeURIComponent(itemName) %>"
+Url.item       = _.template "/item/<%= slug %>"
 Url.mod        = _.template "/data/<%= modSlug %>/mod.cg"
 Url.modVersion = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
 

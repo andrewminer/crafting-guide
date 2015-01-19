@@ -1,0 +1,51 @@
+/*
+Crafting Table - recipe.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__recipe {
+    position: relative; height: 20em; width: 26em;
+
+    .input {
+        position: absolute; top: 50%; left: 0;
+        @include transform(translateY(-50%));
+
+        .tool {
+            position: absolute; right: 0; bottom: -2em; left: 0; height: 1.5em;
+            text-align: center;
+
+            p { font-weight: bold; }
+        }
+    }
+
+    .output {
+        position: absolute; top: 50%; right: 0; height: 5.3em; width: 5.3em;
+        @include transform(translateY(-50%));
+
+        background: $color-gray-faint;
+        border: 0.2em solid $color-gray-medium;
+        padding: 0.1em;
+
+        a {
+            position: absolute; top: 50%; left: 50%; height: 4.8em; width: 4.8em;
+            @include transform(translate(-50%, -50%));
+        }
+
+        .multiplier {
+            position: absolute; bottom: -3em; left: 0; right: 0; height: 1.5em;
+            font-family: PressStart;
+            font-size: $font-size-large;
+            text-align: center;
+        }
+
+        .quantity {
+            position: absolute; right: 0.1em; bottom: 0.1em;
+            color: white;
+            font-family: PressStart;
+            font-size: $font-size-large;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+    }
+}

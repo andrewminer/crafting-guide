@@ -5,11 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController         = require './base_controller'
-CraftingGridController = require './crafting_grid_controller'
-{Duration}             = require '../constants'
-ImageLoader            = require './image_loader'
-InventoryParser        = require '../models/inventory_parser'
+BaseController   = require './base_controller'
+{Duration}       = require '../constants'
+ImageLoader      = require './image_loader'
+InventoryParser  = require '../models/inventory_parser'
+RecipeController = require './recipe_controller'
 
 ########################################################################################################################
 
@@ -22,19 +22,20 @@ module.exports = class CraftingTableController extends BaseController
         options.templateName = 'crafting_table'
         super options
 
-        @imageLoader = options.imageLoader
-        @modPack     = options.modPack
+        @_imageLoader = options.imageLoader
+        @_modPack    = options.modPack
 
     # Event Methods ################################################################################
 
     onNextClicked: ->
-        @model.step += 1
+        @model.stepIndex += 1
+        logger.debug "stepping to #{@model.stepIndex}"
 
     onPrevClicked: ->
-        @model.step -= 1
+        @model.stepIndex -= 1
 
     onReportProblem: ->
-        parser   = new InventoryParser @modPack
+        parser   = new InventoryParser @_modPack
         itemList = parser.unparse @model.plan.want
         message  = "When I was on step #{@model.step + 1} of making:\n\n#{itemList}\nI noticed that...\n"
         global.feedbackController.enterFeedback message
@@ -42,19 +43,16 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @gridController = @addChild CraftingGridController, '.view__crafting_grid',
-            model: @model.grid
-            imageLoader: @imageLoader
+        @recipeController = @addChild RecipeController, '.view__recipe', imageLoader:@_imageLoader, modPack:@_modPack
 
-        @$multiplier     = @$('.multiplier')
         @$next           = @$('.next')
-        @$outputImg      = @$('.output img')
-        @$outputLink     = @$('.output a')
-        @$outputQuantity = @$('.quantity')
         @$prev           = @$('.prev')
         @$problemControl = @$('.problem')
         @$title          = @$('h2 p')
         @$tool           = @$('.tool p')
+
+        @$multiplier = $('<p class="multiplier"></p>')
+        @$('.output').append @$multiplier
 
         @defaultTitle = @$title.html()
         super
@@ -66,33 +64,17 @@ module.exports = class CraftingTableController extends BaseController
         if @model.hasSteps
             if @model.hasPrevStep then @$prev.addClass 'enabled'
             if @model.hasNextStep then @$next.addClass 'enabled'
-            @$title.html "Step #{@model.step + 1} of #{@model.stepCount}"
+            @$title.html "Step #{@model.stepIndex + 1} of #{@model.stepCount}"
         else
             @$title.html @defaultTitle
 
-        @$tool.html @model.toolNames
+        currentStep = @model.currentStep
+        @recipeController.model = currentStep?.recipe
 
-        @$outputImg.attr 'src', '/images/empty.png'
-        @$outputImg.removeAttr 'alt'
-        @$outputLink.removeAttr 'href'
-        @$outputQuantity.html ''
-
-        outputStack = @model.output
-        if outputStack?
-            display = @modPack.findItemDisplay outputStack.slug
-            @$outputLink.attr 'href', display.itemUrl
-            @$outputLink.attr 'title', display.itemName
-            @$outputImg.attr 'alt', display.itemName
-            @$outputQuantity.html outputStack.quantity if outputStack.quantity > 1
-
-            @imageLoader.load display.iconUrl, @$outputImg
-
-        if @model.multiplier > 1
-            @$multiplier.html "×#{@model.multiplier}"
+        if currentStep?.multiplier > 1
+            @$multiplier.html "×#{currentStep.multiplier}"
         else
             @$multiplier.html ''
-
-        @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
 
         if not (@model.hasSteps and global.feedbackController?)
             @$problemControl.hide duration:Duration.fast

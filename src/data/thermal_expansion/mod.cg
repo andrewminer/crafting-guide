@@ -1,0 +1,7 @@
+schema: 1
+
+author:      Team CoFH
+description: A technical mod which adds ore processing, item transportion, fluid handling, and many new ores.
+url:         http://teamcofh.com/thermal-expansion/
+
+version: 4.0.0B8-23

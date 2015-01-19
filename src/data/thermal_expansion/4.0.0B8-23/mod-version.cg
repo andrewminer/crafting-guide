@@ -1,0 +1,492 @@
+schema: 1
+
+item: Aqueous Accumulator (Basic)
+
+item: Augment: CryoCoil Flux Amplifier
+
+item: Augment: CryoCoil Regulator
+
+item: Augment: Flux Linkage Optimization
+
+item: Augment: Flux Modulation Booster
+
+item: Augment: GyroServo Feedback
+
+item: Augment: Integrated Modular Framework
+
+item: Augment: Integrated Redstone Circuit
+
+item: Augment: Integrated Servo Mechanism
+
+item: Augment: Overclocked Modular Gearbox
+
+item: Augment: Secondary Gearbox
+
+item: Augment: Secondary Reception Coil
+
+item: Augment: Secondary Sieve
+
+item: Augment: Secondary Transmission Coil
+
+item: Augment: Space-Time Flux Unifier
+
+item: Augment: Stabilized Frame
+
+item: Augment: Transmission Coil Ducting
+
+item: Autonomous Activator
+
+item: Basic Cache
+
+item: Black Rockwool
+
+item: Blazing Pyrotheum Bucket
+
+item: Blazing Pyrotheum
+
+item: Blizz Powder
+
+item: Blizz Rod
+
+item: Blue Rockwool
+
+item: Brown Rockwool
+
+item: Cinnabar
+
+item: Compressed Sawdust
+
+item: Compression Dynamo
+
+item: Copper Block
+
+item: Copper Gear
+
+item: Copper Ingot
+
+item: Copper Nugget
+
+item: Copper Ore
+
+item: Creative Cache
+
+item: Creative Energy Cell
+
+item: Creative Flux Capacitor
+
+item: Creative Portable Tank
+
+item: Creative Strongbox
+
+item: Cryotheum Dust
+
+item: Cyan Rockwool
+
+item: Cyclic Assembler (Basic)
+
+item: Debugger
+
+item: Destabilized Redstone Bucket
+
+item: Destabilized Redstone
+
+item: Dimmed Glowstone Illuminator
+
+item: Dimmed Lumium Lamp
+
+item: Dimmed Radiant Lumium Lamp
+
+item: Dry Creative Sponge
+
+item: Dry Magmatic Sponge
+
+item: Dry Plain Sponge
+
+item: Electrum Blend
+
+item: Electrum Block
+
+item: Electrum Gear
+
+item: Electrum Ingot
+
+item: Electrum Nugget
+
+item: Enderium Blend
+
+item: Enderium Block
+
+item: Enderium Gear
+
+item: Enderium Ingot
+
+item: Enderium Nugget
+
+item: Energetic Infuser (Basic)
+
+item: Energized Glowstone Bucket
+
+item: Energized Glowstone
+
+item: Enervation Dynamo
+
+item: Ferrous Block
+
+item: Ferrous Gear
+
+item: Ferrous Ingot
+
+item: Ferrous Nugget
+
+item: Ferrous Ore
+
+item: Fluid Transposer (Resonant)
+
+item: Gelid Cryotheum Bucket
+
+item: Gelid Cryotheum
+
+item: Glacial Precipitator (Resonant)
+
+item: Glowstone Illuminator
+
+item: Gold Gear
+
+item: Gray Rockwool
+
+item: Green Rockwool
+
+item: Hardened Cache
+
+item: Hardened Energy Cell
+
+item: Hardened Energy Cell_2
+
+item: Hardened Flux Capacitor
+
+item: Hardened Flux Capacitor_2
+
+item: Hardened Glass
+
+item: Hardened Portable Tank
+
+item: Hardened Satchel
+
+item: Hardened Strongbox
+
+item: Igneous Extruder (Basic)
+
+item: Illuminator Frame
+
+item: Impluse Plate
+
+item: Induction Smelter (Resonant)
+
+item: Invar Axe
+
+item: Invar BattleWrench
+
+item: Invar Blend
+
+item: Invar Block
+
+item: Invar Boots
+
+item: Invar Chestplate
+
+item: Invar Gear
+
+item: Invar Helmet
+
+item: Invar Hoe
+
+item: Invar Ingot
+
+item: Invar Leggings
+
+item: Invar Nugget
+
+item: Invar Pickaxe
+
+item: Invar Reinforced Bow
+
+item: Invar Reinforced Fishing Rod
+
+item: Invar Shears
+
+item: Invar Shovel
+
+item: Invar Sickle
+
+item: Invar Sword
+
+item: Iron Gear
+
+item: Iron Nugget
+
+item: Lead Block
+
+item: Lead Gear
+
+item: Lead Ingot
+
+item: Lead Nugget
+
+item: Lead Ore
+
+item: Leadstone Energy Cell Frame
+
+item: Leadstone Energy Cell
+
+item: Leadstone Energy Cell_2
+
+item: Leadstone Flux Capacitor
+
+item: Leadstone Flux Capacitor_2
+
+item: Light Blue Rockwool
+
+item: Light Gray Rockwool
+
+item: Lime Rockwool
+
+item: Liquifacted Coal Bucket
+
+item: Liquifacted Coal
+
+item: Lumium Blend
+
+item: Lumium Block
+
+item: Lumium Gear
+
+item: Lumium Ingot
+
+item: Lumium Lamp
+
+item: Lumium Nugget
+
+item: Machine Frame (Basic)
+
+item: Machine Frame (Hardened)
+
+item: Machine Frame (Reinforced)
+
+item: Machine Frame (Resonant)
+
+item: Machinist's Workbench
+
+item: Magenta Rockwool
+
+item: Magma Crucible (Resonant)
+
+item: Magmatic Dynamo
+
+item: Mana Dust
+
+item: Mana Infused Block
+
+item: Mana Infused Gear
+
+item: Mana Infused Ingot
+
+item: Mana Infused Nugget
+
+item: Mana Infused Ore
+
+item: Multimeter
+
+item: Niter
+
+item: Nullifier
+
+item: Orange Rockwool
+
+item: Pink Rockwool
+
+item: Plate
+
+item: Pneumatic Servo
+
+item: Portable Tank
+
+item: Primal Mana Bucket
+
+item: Primal Mana
+
+item: Pulverized Charcoal
+
+item: Pulverized Coal
+
+item: Pulverized Copper
+
+item: Pulverized Ferrous Metal
+
+item: Pulverized Gold
+
+item: Pulverized Iron
+
+item: Pulverized Lead
+
+item: Pulverized Mana Infused Metal
+
+item: Pulverized Obsidian
+
+item: Pulverized Shiny Metal
+
+item: Pulverized Silver
+
+item: Pulverized Tin
+
+item: Pulverizer (Resonant)
+
+item: Purple Rockwool
+
+item: Pyrotheum Dust
+
+item: Radiant Lumium Lamp
+
+item: Reactant Dynamo
+
+item: Red Rockwool
+
+item: Redprint
+
+item: Redstone Conductance Coil
+
+item: Redstone Energy Cell Frame (Empty)
+
+item: Redstone Energy Cell Frame (Full)
+
+item: Redstone Energy Cell
+
+item: Redstone Energy Cell_2
+
+item: Redstone Flux Capacitor
+
+item: Redstone Flux Capacitor_2
+
+item: Redstone Furnace (Resonant)
+
+item: Redstone Plate
+
+item: Redstone Reception Coil
+
+item: Redstone Transmission Coil
+
+item: Reinforced Cache
+
+item: Reinforced Portable Tank
+
+item: Reinforced Satchel
+
+item: Reinforced Strongbox
+
+item: Resonant Cache
+
+item: Resonant Ender Bucket
+
+item: Resonant Ender
+
+item: Resonant Energy Cell
+
+item: Resonant Energy Cell_2
+
+item: Resonant Flux Capacitor
+
+item: Resonant Flux Capacitor_2
+
+item: Resonant Portable Tank
+
+item: Resonant Satchel
+
+item: Resonant Strongbox
+
+item: Rich Slag
+
+item: Satchel
+
+item: Sawdust
+
+item: Sawmill (Resonant)
+
+item: Schematic
+
+item: Shiny Block
+
+item: Shiny Gear
+
+item: Shiny Ingot
+
+item: Shiny Nugget
+
+item: Shiny Ore
+
+item: Signalum Blend
+
+item: Signalum Block
+
+item: Signalum Gear
+
+item: Signalum Ingot
+
+item: Signalum Nugget
+
+item: Signalum Security Lock
+
+item: Silver Block
+
+item: Silver Gear
+
+item: Silver Ingot
+
+item: Silver Nugget
+
+item: Silver Ore
+
+item: Slag
+
+item: Steam Dynamo
+
+item: Steam
+
+item: Strongbox
+
+item: Sulfur
+
+item: Terrain Smasher
+
+item: Tesseract Frame (Empty)
+
+item: Tesseract Frame (Full)
+
+item: Tesseract
+
+item: Tin Block
+
+item: Tin Gear
+
+item: Tin Ingot
+
+item: Tin Nugget
+
+item: Tin Ore
+
+item: Tinker's Alloy Blend
+
+item: Tinker's Alloy Block
+
+item: Tinker's Alloy Gear
+
+item: Tinker's Alloy Ingot
+
+item: Tinker's Alloy Nugget
+
+item: Translocation Plate
+
+item: Tuberous Flux Capacitor
+
+item: White Rockwool
+
+item: Yellow Rockwool
+

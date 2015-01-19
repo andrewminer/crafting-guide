@@ -14,45 +14,11 @@ All rights reserved.
         position: absolute; top: 5em; right: 2em; bottom: 0; left: 2em;
         background: $color-background-panel;
 
-        .input {
-            position: absolute; top: 50%; left: 33%;
-            @include transform(translate(-50%, -50%));
-
-            .tool {
-                position: absolute; right: 0; bottom: -2em; left: 0; height: 1.5em;
-                text-align: center;
-
-                p { font-weight: bold; }
-            }
-        }
-
-        .output {
-            position: absolute; top: 50%; right: 16.5%; height: 5.3em; width: 5.3em;
-            @include transform(translate(-50%, -50%));
-
-            background: $color-gray-faint;
-            border: 0.2em solid $color-gray-medium;
-            padding: 0.1em;
-
-            a {
-                position: absolute; top: 50%; left: 50%; height: 4.8em; width: 4.8em;
-                @include transform(translate(-50%, -50%));
-            }
-
-            .multiplier {
-                position: absolute; bottom: -3em; left: 0; right: 0; height: 1.5em;
-                font-family: PressStart;
-                font-size: $font-size-large;
-                text-align: center;
-            }
-
-            .quantity {
-                position: absolute; right: 0.1em; bottom: 0.1em;
-                color: white;
-                font-family: PressStart;
-                font-size: $font-size-large;
-                text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
-            }
+        .multiplier {
+            position: absolute; bottom: -3em; left: 0; right: 0; height: 1.5em;
+            font-family: PressStart;
+            font-size: $font-size-large;
+            text-align: center;
         }
 
         .next {
@@ -66,6 +32,11 @@ All rights reserved.
 
                 &:hover { background: url('/images/arrow-right-hover.png'); }
             }
+        }
+
+        .view__recipe {
+            position: absolute; top: 50%; left: 50%;
+            @include transform(translate(-50%, -50%));
         }
 
         .prev {

@@ -14,12 +14,14 @@ ImageLoader    = require './image_loader'
 module.exports = class CraftingGridController extends BaseController
 
     constructor: (options={})->
-        if not options.model? then throw new Error 'options.model is required'
+        if not options.modPack? then throw new Error 'options.modPack is required'
         options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'crafting_grid'
         super options
 
         @_imageLoader = options.imageLoader
+        @_modPack     = options.modPack
+        @_slotCount   = 9
 
     # BaseController Methods #######################################################################
 
@@ -39,7 +41,7 @@ module.exports = class CraftingGridController extends BaseController
             slot.img.attr 'src', '/images/empty.png'
             slot.img.removeAttr 'alt'
 
-            display = @model.getItemDisplayAt index
+            display = @_getItemDisplayAt index
             if display?
                 slot.a.removeClass 'empty'
                 slot.a.attr 'href', display.itemUrl
@@ -49,3 +51,15 @@ module.exports = class CraftingGridController extends BaseController
 
         @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
         super
+
+    # Private Methods ##############################################################################
+
+    _getItemDisplayAt: (slot)->
+        if slot >= @_slotCount then throw new Error "slot (#{slot}) must be less than #{@_slotCount}"
+        return null unless @model?
+
+        slug = @model.getItemSlugAt slot
+        return null unless slug?
+
+        itemDisplay = @_modPack.findItemDisplay slug
+        return itemDisplay

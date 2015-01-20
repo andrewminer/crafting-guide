@@ -19,6 +19,7 @@ module.exports = class Item extends BaseModel
 
         attributes.isGatherable ?= false
         attributes.slug         ?= _.slugify attributes.name
+        options.logEvents       ?= false
         super attributes, options
 
         @_recipes = []
@@ -57,7 +58,7 @@ module.exports = class Item extends BaseModel
         if _.slugify(@name) isnt @slug
             result.push ', slug:'; result.push @slug
 
-        if @recipes.length > 0
+        if @_recipes.length > 0
             result.push ', recipes:«'
             result.push @_recipes.length
             result.push ' items»'

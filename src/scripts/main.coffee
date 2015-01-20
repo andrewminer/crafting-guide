@@ -13,14 +13,13 @@ FeedbackController  = require './controllers/feedback_controller'
 Logger              = require './logger'
 CraftingGuideRouter = require './crafting_guide_router'
 
+########################################################################################################################
+
 if typeof(global) is 'undefined'
     window.global = window
     global = window.global
 
 global.logger = new Logger
-global.router = new CraftingGuideRouter
-global.util   = require 'util'
-global.views  = views
 
 switch window.location.hostname
     when 'localhost'
@@ -33,8 +32,14 @@ switch window.location.hostname
         global.env = 'production'
         logger.level = Logger.INFO
 
+global.router = new CraftingGuideRouter
+global.util   = require 'util'
+global.views  = views
+
 global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()
+
+global.router.loadDefaultModPack()
 
 logger.info "CraftingGuide is ready"
 Backbone.history.start pushState:true

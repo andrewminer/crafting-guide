@@ -27,6 +27,7 @@ module.exports = class Recipe extends BaseModel
         attributes.pattern = @_parsePattern attributes.pattern
         attributes.slug    ?= attributes.output[0].slug
         attributes.tools   ?= []
+        options.logEvents  ?= false
         super attributes, options
 
     # Public Methods ###############################################################################

@@ -22,6 +22,11 @@ app.get '/item(/*)?', (request, response)->
     response.set 'Content-Type', 'text/html'
     response.sendFile 'index.html', root:ROOT
 
+app.get '/mod(/*)?', (request, response)->
+    console.log ">>> index.html (for #{request.path})"
+    response.set 'Content-Type', 'text/html'
+    response.sendFile 'index.html', root:ROOT
+
 app.get '*', (request, response)->
     extension = path.extname(request.path)
     contentType = {

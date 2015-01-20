@@ -33,10 +33,6 @@ module.exports = class ModPackController extends BaseController
 
     # BaseController Overrides #####################################################################
 
-    onWillRender: ->
-        for name in DefaultMods
-            @model.addMod new Mod name:name
-
     onDidRender: ->
         @$table = @$('table')
         @$toolbar = @$('.toolbar')

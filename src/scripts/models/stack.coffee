@@ -11,10 +11,11 @@ BaseModel = require './base_model'
 
 module.exports = class Stack extends BaseModel
 
-    constructor: (attributes={})->
+    constructor: (attributes={}, options={})->
         if not attributes.slug? then throw new Error 'attributes.slug is required'
         attributes.quantity ?= 1
-        super attributes
+        options.logEvents   ?= false
+        super attributes, options
 
     # Object Overrides #############################################################################
 

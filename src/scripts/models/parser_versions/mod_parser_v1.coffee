@@ -37,6 +37,11 @@ module.exports = class ModParserV2 extends CommandParserVersionBase
 
         @_rawData.description = description
 
+    _command_name: (name)->
+        if @_rawData.name? then throw new Error 'duplicate declaration of "name"'
+        if name.length is 0 then throw new Error '"name" cannot be empty'
+        @_rawData.name = name
+
     _command_url: (url='')->
         if @_rawData.url? then throw new Error 'duplicate declaration of "url"'
         if url.length is 0 then throw new Error 'url cannot be empty'
@@ -52,11 +57,13 @@ module.exports = class ModParserV2 extends CommandParserVersionBase
     # Object Building Methods ######################################################################
 
     _buildMod: (rawData, model)->
+        if not rawData.name? then throw new Error 'the "name" declaration is required'
         if not rawData.url? then throw new Error 'the "url" declaration is required'
         if not rawData.versions? then throw new Error 'at least one "version" declaration is required'
 
         model.author      = rawData.author      if rawData.author?
         model.description = rawData.description if rawData.description?
+        model.name        = rawData.name
         model.primaryUrl  = rawData.url
 
         for version in rawData.versions

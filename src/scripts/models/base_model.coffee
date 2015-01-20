@@ -13,6 +13,7 @@ All rights reserved.
 module.exports = class BaseModel extends Backbone.Model
 
     constructor: (attributes={}, options={})->
+        options.logEvents ?= true
         super attributes, options
 
         makeGetter = (name)-> return -> @get name
@@ -21,6 +22,7 @@ module.exports = class BaseModel extends Backbone.Model
             continue if name is 'id'
             Object.defineProperty this, name, get:makeGetter(name), set:makeSetter(name)
 
+        @logEvents = options.logEvents or false
         @state  = ModelState.unloaded
 
         @on 'request', => @state = ModelState.loading
@@ -76,6 +78,11 @@ module.exports = class BaseModel extends Backbone.Model
 
     sync: (method, model)->
         throw new Error "#{@constructor.name}.#{@cid} is not permitted to #{method}"
+
+    trigger: (name, model, args...)->
+        if @logEvents
+            logger.trace "#{@constructor.name}.#{@cid} triggered event #{name} with args: #{args}"
+        super
 
     # Object Overrides #############################################################################
 

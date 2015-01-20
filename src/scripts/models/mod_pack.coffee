@@ -78,6 +78,7 @@ module.exports = class ModPack extends BaseModel
     # Property Methods #############################################################################
 
     addMod: (mod)->
+        if not mod? then throw new Error 'mod is required'
         return if @_mods.indexOf(mod) isnt -1
 
         @_mods.push mod
@@ -93,6 +94,11 @@ module.exports = class ModPack extends BaseModel
     eachMod: (callback)->
         for mod in @_mods
             callback mod
+
+    getMod: (slug)->
+        for mod in @_mods
+            return mod if mod.slug is slug
+        return null
 
     getMods: ->
         return @_mods[..]

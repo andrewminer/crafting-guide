@@ -6,7 +6,7 @@ All rights reserved.
 ###
 
 # Minecraft must be first
-exports.DefaultMods = [ 'Minecraft', 'Applied Energistics 2', 'Buildcraft', 'IC2 Classic' ]
+exports.DefaultMods = [ 'minecraft', 'applied_energistics_2', 'buildcraft', 'ic2_classic' ]
 
 exports.Duration = Duration = {}
 Duration.snap    = 100

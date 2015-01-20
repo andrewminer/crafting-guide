@@ -20,7 +20,7 @@ Storage                 = require '../models/storage'
 module.exports = class ItemPageController extends BaseController
 
     constructor: (options={})->
-        options.model        ?= new ItemPage
+        options.model        ?= new ItemPage modPack:options.modPack
         options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.storage      ?= new Storage storage:window.localStorage
         options.templateName  = 'item_page'

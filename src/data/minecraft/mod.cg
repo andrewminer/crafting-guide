@@ -1,5 +1,6 @@
 schema: 1
 
+name:        Minecraft
 author:      Mojang
 description: The basic game by itself
 url:         http://www.minecraft.net

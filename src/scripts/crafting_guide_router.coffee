@@ -5,10 +5,15 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+{DefaultMods}      = require './constants'
 {Duration}         = require './constants'
 {Event}            = require './constants'
 ItemPageController = require './controllers/item_page_controller'
+Mod                = require './models/mod'
+ModPack            = require './models/mod_pack'
+ModPageController  = require './controllers/mod_page_controller'
 {Opacity}          = require './constants'
+Storage            = require './models/storage'
 UrlParams          = require './url_params'
 
 ########################################################################################################################
@@ -21,6 +26,24 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_lastReported    = null
         super options
 
+        @modPack = new ModPack
+        @storage = new Storage storage:window.localStorage
+        @_defaultOptions = modPack:@modPack, storage:@storage
+
+    # Public Methods ###############################################################################
+
+    loadDefaultModPack: ->
+        makeResponder = (m)-> return ->
+            m.activeModVersion.fetch() if m.activeModVersion?
+
+        for slug in DefaultMods
+            mod = new Mod slug:slug
+            mod.on Event.change + ':activeModVersion', makeResponder mod
+            @storage.register "mod:#{mod.slug}", mod, 'activeVersion'
+            mod.fetch()
+
+            @modPack.addMod mod
+
     # Backbone.Router Overrides ####################################################################
 
     navigate: ->
@@ -30,6 +53,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     routes:
         '':             'root'
         'item(/:name)': 'item'
+        'mod/:slug':    'mod'
 
     # Route Methods ################################################################################
 
@@ -38,9 +62,15 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @item params.recipeName, params.count
 
     item: (name, quantity=1)->
-        @_pageControllers.item ?= new ItemPageController
+        @_pageControllers.item ?= new ItemPageController @_defaultOptions
         @_pageControllers.item.model.params = name:name, quantity:quantity
         @_setPage 'item'
+
+    mod: (slug)->
+        @_pageControllers.mod ?= new ModPageController @_defaultOptions
+        logger.debug "setting up mod page wiht mod: #{@modPack.getMod slug} for slug: #{slug}"
+        @_pageControllers.mod.model = @modPack.getMod slug
+        @_setPage 'mod'
 
     # Private Methods ##############################################################################
 

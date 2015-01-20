@@ -15,11 +15,11 @@ BaseModel      = require './base_model'
 module.exports = class Mod extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if not attributes.name? then throw new Error 'attributes.name is required'
+        if not attributes.slug? then throw new Error 'attributes.slug is required'
         attributes.author      ?= ''
         attributes.description ?= ''
+        attributes.name        ?= ''
         attributes.primaryUrl  ?= null
-        attributes.slug        ?= _.slugify attributes.name
         super attributes, options
 
         @_activeModVersion = null

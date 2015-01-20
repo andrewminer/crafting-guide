@@ -46,6 +46,8 @@ module.exports = class ModVersion extends BaseModel
 
     eachItem: (callback)->
         for slug in @_slugs
+            item = @_items[slug]
+            continue unless item?
             callback @_items[slug], slug
         return this
 

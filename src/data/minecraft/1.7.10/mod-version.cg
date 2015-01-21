@@ -306,7 +306,7 @@ item: Bucket
         pattern: ... 0.0 .0.
         tools: Crafting Table
 
-item: Button
+item: Button (stone)
     recipe:
         input: Stone
         pattern: ... .0. ...
@@ -542,7 +542,7 @@ item: Daylight Sensor
 
 item: Detector Rail
     recipe:
-        input: Iron Ingot, Pressure Plate, Redstone
+        input: Iron Ingot, Pressure Plate (stone), Redstone
         pattern: 0.0 010 020
         quantity: 6
         tools: Crafting Table
@@ -572,7 +572,7 @@ item: Diamond Chestplate
         pattern: 0.0 000 000
         tools: Crafting Table
 
-item: Diamond Helm
+item: Diamond Helmet
     recipe:
         input: Diamond
         pattern: 000 0.0 ...
@@ -599,7 +599,7 @@ item: Diamond Pickaxe
 item: Diamond Shovel
     recipe:
         input: Diamond, Stick
-        pattern: .1. .0. .0.
+        pattern: .0. .1. .1.
         tools: Crafting Table
 
 item: Diamond Sword
@@ -614,7 +614,7 @@ item: Dispenser
         pattern: 111 101 121
         tools: Crafting Table
 
-item: Door
+item: Wooden Door
     recipe:
         input: Oak Wood Planks
         pattern: .00 .00 .00
@@ -679,7 +679,7 @@ item: Fence Gate
 
 item: Fermented Spider Eye
     recipe:
-        input: Brown Mushroom, Spider Eye, Sugar
+        input: Mushroom (brown), Spider Eye, Sugar
         pattern: .2. .0. .1.
 
 item: Fire Charge
@@ -710,7 +710,7 @@ item: Firework Rocket (duration 3)
 item: Fishing Rod
     recipe:
         input: Stick, String
-        pattern: ..0 .01 .0.
+        pattern: ..0 .01 0.1
         tools: Crafting Table
 
 item: Flint and Steel
@@ -750,13 +750,6 @@ item: Glass Pane
         quantity: 16
         tools: Crafting Table
 
-item: Glass Panes
-    recipe:
-        input: Glass
-        pattern: ... 000 000
-        quantity: 16
-        tools: Crafting Table
-
 item: Glistering Melon
     recipe:
         input: Gold Nugget, Melon
@@ -768,31 +761,31 @@ item: Glowstone
         input: Glowstone Dust
         pattern: 00. 00. ...
 
-item: Gold Axe
+item: Golden Axe
     recipe:
         input: Gold Ingot, Stick
         pattern: 00. 01. .1.
         tools: Crafting Table
 
-item: Gold Boots
+item: Golden Boots
     recipe:
         input: Gold Ingot
         pattern: ... 0.0 0.0
         tools: Crafting Table
 
-item: Gold Chestplate
+item: Golden Chestplate
     recipe:
         input: Gold Ingot
         pattern: 0.0 000 000
         tools: Crafting Table
 
-item: Gold Helm
+item: Golden Helmet
     recipe:
         input: Gold Ingot
         pattern: 000 0.0 ...
         tools: Crafting Table
 
-item: Gold Hoe
+item: Golden Hoe
     recipe:
         input: Gold Ingot, Stick
         pattern: 00. .1. .1.
@@ -812,7 +805,7 @@ item: Gold Ingot
         pattern: 000 000 000
         tools: Crafting Table
 
-item: Gold Leggings
+item: Golden Leggings
     recipe:
         input: Gold Ingot
         pattern: 000 0.0 0.0
@@ -824,19 +817,19 @@ item: Gold Nugget
         pattern: ... .0. ...
         quantity: 9
 
-item: Gold Pickaxe
+item: Golden Pickaxe
     recipe:
         input: Gold Ingot, Stick
         pattern: 000 .1. .1.
         tools: Crafting Table
 
-item: Gold Shovel
+item: Golden Shovel
     recipe:
         input: Gold Ingot, Stick
-        pattern: .1. .0. .0.
+        pattern: .0. .1. .1.
         tools: Crafting Table
 
-item: Gold Sword
+item: Golden Sword
     recipe:
         input: Gold Ingot, Stick
         pattern: .0. .0. .1.
@@ -977,16 +970,16 @@ item: Iron Door
         pattern: .00 .00 .00
         tools: Crafting Table
 
-item: Iron Helm
+item: Iron Helmet
     recipe:
         input: Iron Ingot
-        pattern: 000 0.0 0.0
+        pattern: 000 0.0 ...
         tools: Crafting Table
 
 item: Iron Hoe
     recipe:
         input: Iron Ingot, Stick
-        pattern: 00. 1.. 1..
+        pattern: 00. .1. .1.
         tools: Crafting Table
 
 item: Iron Ingot
@@ -1004,12 +997,6 @@ item: Iron Leggings
         input: Iron Ingot
         pattern: 000 0.0 0.0
         tools: Crafting Table
-
-item: Iron Nugget
-    recipe:
-        input: Iron Ingot
-        pattern: ... .0. ...
-        quantity: 9
 
 item: Iron Pickaxe
     recipe:
@@ -1081,7 +1068,7 @@ item: Lapis Lazuli Block
 
 item: Lava Bucket
     recipe:
-        input: Bucket, Lava Source Block
+        input: Bucket, Lava
         pattern: ... .1. .0.
 
 item: Lead
@@ -1251,8 +1238,9 @@ item: Magenta Carpet
 
 item: Magenta Dye
     recipe:
-        input: Allium
+        input: Lilac
         pattern: ... .0. ...
+        quantity: 2
     recipe:
         input: Bone Meal, Lapis Lazuli, Rose Red
         pattern: 22. 01. ...
@@ -1265,6 +1253,9 @@ item: Magenta Dye
         input: Pink Dye, Purple Dye
         pattern: ... .0. .1.
         quantity: 2
+    recipe:
+        input: Allium
+        pattern: ... .0. ...
 
 item: Magenta Stained Clay
     recipe:
@@ -1296,11 +1287,8 @@ item: Magma Cream
         input: Blaze Powder, Slimeball
         pattern: ... .0. .1.
 
-item: Magneta Dye
-    recipe:
-        input: Lilac
-        pattern: ... .0. ...
-        quantity: 2
+item: Melon
+    gatherable: yes
 
 item: Melon (block)
     recipe:
@@ -1368,22 +1356,22 @@ item: Mundane Splash Potion
 
 item: Mushroom Stew
     recipe:
-        input: Bowl, Brown Mushroom, Red Mushroom
+        input: Bowl, Mushroom (brown), Mushroom (red)
         pattern: .2. .1. .0.
 
 item: Nether Brick (block)
     recipe:
-        input: Nether Brick (item)
-        pattern: 00. 00. 000
+        input: Nether Brick
+        pattern: 00. 00. ...
 
 item: Nether Brick Fence
     recipe:
-        input: Nether Brick (block)
+        input: Nether Brick
         pattern: ... 000 000
         quantity: 6
         tools: Crafting Table
 
-item: Nether Brick (item)
+item: Nether Brick
     recipe:
         input: Netherrack, furnace fuel
         pattern: .0. ... .1.
@@ -1482,9 +1470,10 @@ item: Painting
 
 item: Paper
     recipe:
-        input: Sugar Cane
+        input: Sugar Canes
         pattern: ... 000 ...
         quantity: 3
+        tools: Crafting Table
 
 item: Pillar Quartz Block
     recipe:
@@ -1684,7 +1673,7 @@ item: Potion of Regeneration II (0:22)
 
 item: Potion of Slowness (1:30)
     recipe:
-        input: Fermented Spider Eye, Potion of Swiftness
+        input: Fermented Spider Eye, Potion of Swiftness (3:00)
         pattern: .0. ... 111
         quantity: 3
         tools: Brewing Stand
@@ -2011,7 +2000,7 @@ item: Snow (carpet)
 
 item: Splash Potion of Fire Resistance (2:15)
     recipe:
-        input: Magma Cream, Potion of Fire Resistance (3:00)
+        input: Gunpowder, Potion of Fire Resistance (3:00)
         pattern: .0. ... 111
         quantity: 3
         tools: Brewing Stand
@@ -2081,7 +2070,7 @@ item: Splash Potion of Night Vision (6:00)
 
 item: Splash Potion of Poison (0:33)
     recipe:
-        input: Potion of Poison (0:45), Spider Eye
+        input: Potion of Poison (0:45), Gunpowder
         pattern: .1. ... 000
         quantity: 3
         tools: Brewing Stand
@@ -2095,7 +2084,7 @@ item: Splash Potion of Poison (1:30)
 
 item: Splash Potion of Poison II (0:16)
     recipe:
-        input: Glowstone, Potion of Poison II (0:22)
+        input: Gunpowder, Potion of Poison II (0:22)
         pattern: .0. ... 111
         quantity: 3
         tools: Brewing Stand
@@ -2158,7 +2147,7 @@ item: Splash Potion of Strength II (1:07)
 
 item: Splash Potion of Swiftness (2:15)
     recipe:
-        input: Potion of Swiftness (3:00), Sugar
+        input: Potion of Swiftness (3:00), Gunpowder
         pattern: .1. ... 000
         quantity: 3
         tools: Brewing Stand
@@ -2205,9 +2194,9 @@ item: Splash Potion of Weakness (3:00)
         quantity: 3
         tools: Brewing Stand
 
-item: Spruce Planks
+item: Spruce Wood Planks
     recipe:
-        input: Spruce Log
+        input: Spruce Wood
         pattern: ... .0. ...
         quantity: 4
 
@@ -2257,7 +2246,7 @@ item: Stone Axe
 item: Stone Brick Stairs
     recipe:
         input: Stone Bricks
-        pattern: 0.0 0.0 00.
+        pattern: 0.. 00. 000
         quantity: 4
 
 item: Stone Bricks
@@ -2316,7 +2305,7 @@ item: String
 
 item: Sugar
     recipe:
-        input: Sugar Cane
+        input: Sugar Canes
         pattern: ... .0. ...
 
 item: Thick Potion
@@ -2365,19 +2354,19 @@ item: Water Bottle
     recipe:
         input: Glass Bottle
         pattern: ... .0. ...
-        tools: Water Source Block
+        tools: Water
 
 item: Water Bucket
     recipe:
-        input: Bucket, Water Source Block
+        input: Bucket, Water
         pattern: ... .1. .0.
 
-item: Weighted Pressure Plate (Heavy)
+item: Weighted Pressure Plate (heavy)
     recipe:
         input: Iron Ingot
         pattern: ... 00. ...
 
-item: Weighted Pressure Plate (Light)
+item: Weighted Pressure Plate (light)
     recipe:
         input: Gold Ingot
         pattern: ... 00. ...
@@ -2415,11 +2404,6 @@ item: Wooden Axe
         pattern: 00. 01. .1.
         tools: Crafting Table
 
-item: Wooden Button
-    recipe:
-        input: Oak Wood Planks
-        pattern: ... .0. ...
-
 item: Wooden Hoe
     recipe:
         input: Oak Wood Planks, Stick
@@ -2448,7 +2432,7 @@ item: Wool
     gatherable: yes
     recipe:
         input: String
-        pattern: 00. 00. 000
+        pattern: 00. 00. ...
 
 item: Yellow Carpet
     recipe:
@@ -2480,3 +2464,6 @@ item: Yellow Wool
     recipe:
         input: Dandelion Yellow, Wool
         pattern: ... .0. .1.
+
+item: Snowball
+    gatherable: yes

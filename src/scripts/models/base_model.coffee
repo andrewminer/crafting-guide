@@ -43,7 +43,7 @@ module.exports = class BaseModel extends Backbone.Model
         try
             @set @parse text
             @trigger Event.change, this
-            @trigger Event.sync, this, text
+            @trigger Event.sync, this
             logger.info "#{@constructor.name}.#{@cid} loaded successfully"
         catch e
             logger.error "A parsing error occured: #{e.stack}"

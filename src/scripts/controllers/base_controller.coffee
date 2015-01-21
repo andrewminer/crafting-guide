@@ -87,7 +87,7 @@ module.exports = class BaseController extends Backbone.View
             logger.error "Default render called for #{@constructor.name} without a template"
             return this
 
-        logger.verbose "#{this} rendering with data: #{util.inspect(data)}"
+        logger.verbose "#{this} rendering with data: #{data}"
         @onWillRender()
         $oldEl = @$el
         $newEl = Backbone.$(@_template(data))

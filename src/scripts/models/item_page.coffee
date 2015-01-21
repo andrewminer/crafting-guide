@@ -22,7 +22,7 @@ module.exports = class ItemPage extends BaseModel
         attributes.table   ?= new CraftingTable plan:attributes.plan
         super attributes, options
 
-        @modPack.on Event.add + ':mod', (mod)=> mod.on 'sync', => @_consumeParams()
+        @modPack.on Event.change, => @_consumeParams()
         @plan.on Event.change, => @_updateLocation()
 
     # Private Methods ##############################################################################
@@ -30,7 +30,7 @@ module.exports = class ItemPage extends BaseModel
     _consumeParams: ->
         return unless @params?.name?
 
-        item = @modPack.findItemByName @params.name, includeDisabled:true
+        item = @modPack.findItemByName @params.name
         return unless item? and item.isCraftable
 
         quantity = if @params.quantity? then parseInt(@params.quantity) else 1

@@ -1,6 +1,6 @@
 schema: 1
 
-item: 10K Cooling Cell
+item: 10K Coolant Cell
     recipe:
         extras: Bucket
         input: Tin Ingot, Water Bucket
@@ -15,34 +15,34 @@ item: 2x Ins. Gold Cable
         input: Insulated Gold Cable, Rubber
         pattern: ... .0. .1.
 
-item: 2xIns. HV Cable
+item: 2x Ins. HV Cable
     recipe:
         input: HV Cable, Rubber
         pattern: ... 101 ...
     recipe:
-        input: HV Insulated Cable, Rubber
+        input: Insulated HV Cable, Rubber
         pattern: ... .0. .1.
 
-item: 30K Cooling Cell
+item: 30K Coolant Cell
     recipe:
-        input: 10K Cooling Cell, Tin Ingot
+        input: 10K Coolant Cell, Tin Ingot
         pattern: 111 000 111
         tools: Crafting Table
 
-item: 4xIns. HV Cable
+item: 4x Ins. HV Cable
     recipe:
         input: HV Cable, Rubber
         pattern: ... 111 .0.
     recipe:
-        input: HV Insulated Cable, Rubber
+        input: Insulated HV Cable, Rubber
         pattern: ... 101 ...
     recipe:
         input: HV 2x Insulated Cable, Rubber
         pattern: ... .0. .1.
 
-item: 60K Cooling Cell
+item: 60K Coolant Cell
     recipe:
-        input: 30K Cooling Cell, Dense Copper Plate, Tin Ingot
+        input: 30K Coolant Cell, Dense Copper Plate, Tin Ingot
         pattern: 202 212 202
         tools: Crafting Table
 
@@ -90,7 +90,7 @@ item: BatPack
 
 item: Bio Cell
     recipe:
-        input: Compressed Plantball, Empty Cell
+        input: Compressed Plants, Empty Cell
         pattern: ... .0. .1.
 
 item: Biofuel Cell
@@ -147,7 +147,7 @@ item: Bronze Dust
         pattern: 10. 00. ...
         quantity: 2
 
-item: Bronze Helm
+item: Bronze Helmet
     recipe:
         input: Bronze Ingot
         pattern: 000 0.0 ...
@@ -213,9 +213,9 @@ item: CF Sprayer
         pattern: 00. 01. ..0
         tools: Crafting Table
 
-item: CFPack
+item: CF Backpack
     recipe:
-        input: CF Sprayer, Electronic Circuit, Fuel Can, Tin Ingot
+        input: CF Sprayer, Electronic Circuit, (empty) Fuel Can, Tin Ingot
         pattern: 010 232 2.2
         tools: Crafting Table
 
@@ -263,6 +263,9 @@ item: Coalfuel Cell
         pattern: ... .0. ...
         tools: Extractor
 
+item: Coffee Beans
+    gatherable: yes
+
 item: Coffee Powder
     recipe:
         input: Coffee Beans
@@ -276,7 +279,7 @@ item: Component Heat Exchanger
         pattern: .0. 010 .0.
         tools: Crafting Table
 
-item: Composite Armor Vest
+item: Composite Vest
     recipe:
         input: Advanced Alloy, Iron Chestplate, Leather Tunic
         pattern: 0.0 010 020
@@ -300,7 +303,7 @@ item: Compressed Hyd. Coalclump
         pattern: ... .0. ...
         tools: Compressor
 
-item: Compressed Plantball
+item: Compressed Plants
     recipe:
         input: Plantball
         pattern: ... .0. ...
@@ -354,7 +357,7 @@ item: Copper Ore
 
 item: Crop-Matron
     recipe:
-        input: Chest, Crops, Electronic Circuit, Machine Block
+        input: Chest, Crop, Electronic Circuit, Machine Block
         pattern: 202 131 111
         tools: Crafting Table
 
@@ -364,7 +367,7 @@ item: Cropnalyzer
         pattern: 22. 313 303
         tools: Crafting Table
 
-item: Crops
+item: Crop
     recipe:
         input: Stick
         pattern: ... 0.0 0.0
@@ -383,13 +386,13 @@ item: Depleted Isotope Cell
         pattern: ... .0. .1.
         tools: Crafting Table
 
-item: Detector Cable
+item: EU Detector Cable
     recipe:
-        input: Electronic Circuit, HV 3x Insulated Cable, Redstone
+        input: Electronic Circuit, 4x Ins. HV Cable, Redstone
         pattern: .0. 212 .2.
         tools: Crafting Table
 
-item: Diamond (crafted)
+item: Diamond (industrial)
     recipe:
         input: Coal Chunk
         pattern: ... .0. ...
@@ -400,12 +403,6 @@ item: Diamond Drill
         input: Diamond, Mining Drill
         pattern: ... .0. 010
         tools: Crafting Table
-
-item: Diamond (industrial)
-    recipe:
-        input: Coal Chunk
-        pattern: ... .0. ...
-        tools: Compressor
 
 item: Dual Uranium Cell
     recipe:
@@ -446,13 +443,13 @@ item: Electric Jetpack
 
 item: Electric Treetap
     recipe:
-        input: Electric Circuit, RE Battery, Treetap
+        input: Electronic Circuit, RE Battery, Treetap
         pattern: ..2 .0. 1..
         tools: Crafting Table
 
 item: Electric Wrench
     recipe:
-        input: Electric Circuit, RE Battery, Wrench
+        input: Electronic Circuit, RE Battery, Wrench
         pattern: ..2 .1. 0..
         tools: Crafting Table
 
@@ -501,13 +498,13 @@ item: Energy Storage Upgrade
 
 item: EU Reader
     recipe:
-        input: Electronic Circuit, Glowstone, Insulated Copper Cable
+        input: Electronic Circuit, Glowstone Dust, Insulated Copper Cable
         pattern: .1. 202 2.2
         tools: Crafting Table
 
 item: EU-Splitter Cable
     recipe:
-        input: 4xIns. HV Cable, Lever, Redstone
+        input: 4x Ins. HV Cable, Lever, Redstone
         pattern: .2. 010 .2.
 
 item: Extractor
@@ -518,7 +515,7 @@ item: Extractor
 
 item: Fertilizer
     recipe:
-        input: Bonemeal, Scrap
+        input: Bone Meal, Scrap
         pattern: ... .1. .0.
         quantity: 2
     recipe:
@@ -526,13 +523,13 @@ item: Fertilizer
         pattern: ... 101 ...
         quantity: 2
 
-item: Filled Fuel Can
+item: (filled) Fuel Can
     recipe:
-        input: Coalfuel Cell, Fuel Cell
+        input: Coalfuel Cell, (empty) Fuel Can
         pattern: 000 000 .1.
         tools: Canning Machine
     recipe:
-        input: Biofuel Cell, Fuel Cell
+        input: Biofuel Cell, (empty) Fuel Can
         pattern: 000 000 .1.
         tools: Canning Machine
 
@@ -543,7 +540,7 @@ item: (Filled) Tin Can
         quantity: 3
         tools: Canning Machine
 
-item: FreqTrans
+item: Frequency Transmitter
     recipe:
         input: Electronic Circuit, Insulated Copper Cable
         pattern: ... .1. .0.
@@ -640,14 +637,14 @@ item: HV Cable
         quantity: 12
         tools: Crafting Table
 
-item: HV Insulated Cable
+item: Insulated HV Cable
     recipe:
         input: HV Cable, Rubber
         pattern: ... .0. .1.
 
 item: HV Transformer
     recipe:
-        input: Electronic Circuit, Energy Crystal, HV 3x Insulated Cable, MV Transformer
+        input: Electronic Circuit, Energy Crystal, 4x Ins. HV Cable, MV Transformer
         pattern: .2. 031 .2.
         tools: Crafting Table
 
@@ -738,7 +735,7 @@ item: Iron Furnace
 
 item: Iron Scaffold
     recipe:
-        input: Iron Fence, Reinfined Iron
+        input: Iron Fence, Refined Iron
         pattern: 111 .0. 0.0
         quantity: 16
         tools: Crafting Table
@@ -765,11 +762,11 @@ item: Lava Cell
     recipe:
         extras: Bucket
         input: Empty Cell, Lava Bucket
-        pattern: ... .0. .1.
+        pattern: ... .1. .0.
 
 item: Luminator
     recipe:
-        input: Glass, Insulated Copper Cable, Reinforced Iron, Tin Cable
+        input: Glass, Insulated Copper Cable, Refined Iron, Ultra Low Current Cable
         pattern: 212 030 000
         quantity: 8
         tools: Crafting Table
@@ -934,7 +931,7 @@ item: Overclocked Heat Vent
 
 item: Overclocker Upgrade
     recipe:
-        input: 10K Cooling Cell, Electronic Circuit, Insulated Copper Cable
+        input: 10K Coolant Cell, Electronic Circuit, Insulated Copper Cable
         pattern: ... 000 212
         tools: Crafting Table
 
@@ -1017,14 +1014,14 @@ item: QuantumSuit Leggings
         pattern: 323 141 0.0
         tools: Crafting Table
 
-item: Raw Carbon Fibers
+item: Raw Carbon Fibre
     recipe:
         input: Coal Dust
         pattern: 00. 00. ...
 
 item: Raw Carbon Mesh
     recipe:
-        input: Raw Carbon Fibers
+        input: Raw Carbon Fibre
         pattern: ... .0. .0.
 
 item: RE Battery
@@ -1058,7 +1055,7 @@ item: Reactor Plating
 
 item: Recycler
     recipe:
-        input: Compressor, Dirt, Glowstone, Refined Iron
+        input: Compressor, Dirt, Glowstone Dust, Refined Iron
         pattern: .2. 101 313
         tools: Crafting Table
 
@@ -1137,19 +1134,6 @@ item: Scuba Helmet
         pattern: .2. 303 313
         tools: Crafting Table
 
-item: Silver Dust
-    recipe:
-        input: Silver Ore
-        pattern: ... .0. ...
-        quantity: 2
-        tools: Macerator
-
-item: Silver Ingot
-    recipe:
-        input: Silver Ore, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
-
 item: Single-Use Battery
     recipe:
         input: Hydrated Coal Dust, Insulated Copper Cable, Redstone
@@ -1170,7 +1154,7 @@ item: Snowball
 
 item: Solar Helmet
     recipe:
-        input: Insulated Copper Cable, Iron Ore, Solar Panel
+        input: Insulated Copper Cable, Iron Ingot, Solar Panel
         pattern: 111 121 000
         tools: Crafting Table
 
@@ -1223,13 +1207,13 @@ item: Tesla Coil
 
 item: TFBP - Chilling
     recipe:
-        input: Snow, TFBP - Empty
+        input: Snowball, TFBP - Empty
         pattern: .0. 010 .0.
         tools: Crafting Table
 
 item: TFBP - Cultivation
     recipe:
-        input: Seed, TFBP - Empty
+        input: Seeds, TFBP - Empty
         pattern: .0. 010 .0.
         tools: Crafting Table
 
@@ -1245,7 +1229,7 @@ item: TFBP - Empty
         pattern: .1. .0. 2.2
         tools: Crafting Table
 
-item: TFBP - Flatificator
+item: TFBP - Flatification
     recipe:
         input: Dirt, TFBP - Empty
         pattern: .0. 010 .0.
@@ -1269,7 +1253,7 @@ item: Tin Block
         pattern: 000 000 000
         tools: Crafting Table
 
-item: Tin Cable
+item: Ultra Low Current Cable
     recipe:
         input: Tin Ingot
         pattern: ... 000 ...
@@ -1299,7 +1283,7 @@ item: Tin Ingot
 item: Tin Ore
     gatherable: yes
 
-item: Toolbox
+item: Tool Box
     recipe:
         input: Chest, Iron Ingot
         pattern: ... 101 111
@@ -1365,8 +1349,14 @@ item: Wind Mill
         pattern: 1.1 .0. 1.1
         tools: Crafting Table
 
-item: Wrench (industrial craft)
+item: Wrench
     recipe:
         input: Bronze Ingot
         pattern: 0.0 000 .0.
         tools: Crafting Table
+
+item: Rubber Wood
+    gatherable: yes
+
+item: Scrap
+    gatherable: yes

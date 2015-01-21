@@ -939,6 +939,9 @@ item: Hopper
         pattern: 1.1 101 .1.
         tools: Crafting Table
 
+item: Ice
+    gatherable: yes
+
 item: Iron Axe
     recipe:
         input: Iron Ingot, Stick

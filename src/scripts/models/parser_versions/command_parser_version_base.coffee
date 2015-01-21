@@ -5,6 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+StringBuilder = require '../../models/string_builder'
+
 ########################################################################################################################
 
 module.exports = class CommandParserVersionBase
@@ -39,8 +41,8 @@ module.exports = class CommandParserVersionBase
         return @_model
 
     unparse: ->
-        builder = new StringBuilder context:@model
-        @_unparseModel builder, model
+        builder = new StringBuilder context:@_model
+        @_unparseModel builder, @_model
         return builder.toString()
 
     # Subclass Methods #############################################################################

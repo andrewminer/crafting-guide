@@ -42,13 +42,14 @@ module.exports = class ModPageController extends BaseController
                 recipe = item.getPrimaryRecipe()
                 return if not recipe
 
-                controller = @_recipeControllers[controllerIndex]
-                if not controller?
-                    _.delay (=> @_createRecipeController recipe), delay
-                    delay += @_delayStep
-                else
-                    controller.model = recipe
-                controllerIndex += 1
+                item.eachRecipe (recipe)=>
+                    controller = @_recipeControllers[controllerIndex]
+                    if not controller?
+                        _.delay (=> @_createRecipeController recipe), delay
+                        delay += @_delayStep
+                    else
+                        controller.model = recipe
+                    controllerIndex += 1
         else
             @$recipes.hide duration:Duration.fast
 

@@ -32,7 +32,6 @@ module.exports = class VersionedParserBase
 
     unparse: (schema=null)->
         schema ?= @_currentSchema
-        if not modVersion? then throw new Error 'modVersion is required'
 
         parser = @_parsers["#{schema}"]
         if not parser? then throw new Error "version #{schema} is not supported"

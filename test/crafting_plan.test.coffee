@@ -19,7 +19,7 @@ modPack = plan = null
 describe 'CraftingPlan', ->
 
     beforeEach ->
-        mod = new Mod name:'Minecraft'
+        mod = new Mod name:'Minecraft', slug:'minecraft'
         mod.addModVersion new ModVersion modSlug:mod.slug, version:'1.7.10'
         mod.activeModVersion.parse """
             schema:1

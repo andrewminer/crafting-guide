@@ -180,26 +180,26 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
     # Un-parsing Methods ###########################################################################
 
     _unparseModVersion: (builder, modVersion)->
-        itemList = _.values modVersion.items
-        itemList.sort (a, b)-> a.compareTo b
+        itemList = []
+        modVersion.eachItem (item)-> itemList.push item
 
         builder
-            .line 'schema: ', 2
-            .line 'name: ', modVersion.name
-            .line 'version: ', modVersion.version
-            .onlyIf modVersion.description?, => builder.line 'description: ', modVersion.description
+            .line 'schema: ', 1
             .line()
             .onlyIf itemList.length > 0, =>
                 builder.loop itemList, delimiter:'\n', onEach:(b, i)=> @_unparseItem(b, i)
             .outdent()
 
     _unparseItem: (builder, item)->
+        recipes = []
+        item.eachRecipe (recipe)-> recipes.push recipe
+
         builder
             .line 'item: ', item.name
             .indent()
                 .onlyIf item.isGatherable, => builder.line 'gatherable: yes'
-                .onlyIf item.recipes.length > 0, =>
-                    builder.loop item.recipes, delimiter:'', onEach:(b, r)=> @_unparseRecipe(b, r)
+                .onlyIf recipes.length > 0, =>
+                    builder.loop recipes, delimiter:'', onEach:(b, r)=> @_unparseRecipe(b, r)
             .outdent()
 
     _unparseRecipe: (builder, recipe)->

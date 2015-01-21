@@ -5,6 +5,7 @@ global.Backbone = require 'backbone'
 
 fs               = require 'fs'
 Logger           = require '../src/scripts/logger'
+ModVersion       = require '../src/scripts/models/mod_version'
 ModVersionParser = require '../src/scripts/models/mod_version_parser'
 
 require '../src/scripts/underscore_mixins'
@@ -38,7 +39,7 @@ global.logger = new Logger level:Logger.WARNING
 
 try
     text       = fs.readFileSync sourceFileName, 'UTF-8'
-    parser     = new ModVersionParser
+    parser     = new ModVersionParser model:new ModVersion modSlug:'', version:''
     modVersion = parser.parse text
     text       = parser.unparse modVersion
 

@@ -8,7 +8,7 @@ item: Advanced Crafting Table
 
 item: Architect Table
     recipe:
-        input: Blueprint, Crafting Table, Dandelion Yellow, Diamond Gear, Ink Sac, Landmark
+        input: Blueprint, Crafting Table, Dandelion Yellow, Diamond Gear, Ink Sac, Land Mark
         pattern: 454 212 303
         tools: Crafting Table
 
@@ -20,7 +20,7 @@ item: Assembly Table
 
 item: Auto Workbench
     recipe:
-        input: Crafting Table, Wooden Gear
+        input: Crafting Table, Wood Gear
         pattern: .1. 101 .1.
         tools: Crafting Table
 
@@ -51,7 +51,7 @@ item: Blueprint Library
 
 item: Builder
     recipe:
-        input: Chest, Crafting Table, Dandelion Yellow, Diamond Gear, Ink Sac, Landmark
+        input: Chest, Crafting Table, Dandelion Yellow, Diamond Gear, Ink Sac, Land Mark
         pattern: 454 212 303
         tools: Crafting Table
 
@@ -63,7 +63,7 @@ item: Charging Table
 
 item: Chute
     recipe:
-        input: Chest, Cobblestone Gear, Iron Ingot
+        input: Chest, Stone Gear, Iron Ingot
         pattern: 202 212 .2.
         tools: Crafting Table
 
@@ -72,9 +72,9 @@ item: Cobblestone Fluid Pipe
         input: Cobblestone Transport Pipe, Pipe Sealant
         pattern: ... .0. .1.
 
-item: Cobblestone Gear
+item: Stone Gear
     recipe:
-        input: Cobblestone, Wooden Gear
+        input: Cobblestone, Wood Gear
         pattern: .0. 010 .0.
         tools: Crafting Table
 
@@ -145,7 +145,7 @@ item: Diamond Transport Pipe
 
 item: Docking Station
     recipe:
-        input: Gold Chipset, Iron Ingot
+        input: Golden Chipset, Iron Ingot
         pattern: ... .1. 101
         tools: Crafting Table
 
@@ -179,15 +179,15 @@ item: Emzuli Transport Pipe
         quantity: 8
         tools: Crafting Table
 
-item: Facade
+item: Facade (stone)
     recipe:
-        input: Structure Pipe, source block
+        input: Cobblestone Structure Pipe, Stone
         pattern: ... .1. 000
         tools: Assembly Table, Laser
 
 item: Filler
     recipe:
-        input: Chest, Crafting Table, Dandelion Yellow, Gold Gear, Ink Sac, Landmark
+        input: Chest, Crafting Table, Dandelion Yellow, Gold Gear, Ink Sac, Land Mark
         pattern: 454 212 303
         tools: Crafting Table
 
@@ -210,11 +210,11 @@ item: Gate Copier
 
 item: Gold AND Gate
     recipe:
-        input: Blue Pipe Wire, Gold Chipset, Red Pipe Wire
+        input: Blue Pipe Wire, Golden Chipset, Red Pipe Wire
         pattern: 1.. 20. ...
         tools: Assembly Table, Laser
 
-item: Gold Chipset
+item: Golden Chipset
     recipe:
         input: Gold Ingot, Redstone
         pattern: ... .0. .1.
@@ -228,7 +228,7 @@ item: Gold Gear
 
 item: Gold OR Gate
     recipe:
-        input: Blue Pipe Wire, Gold Chipset, Red Pipe Wire
+        input: Blue Pipe Wire, Golden Chipset, Red Pipe Wire
         pattern: 1.. 20. ...
         tools: Assembly Table, Laser
 
@@ -281,7 +281,7 @@ item: Iron Fluid Pipe
 
 item: Iron Gear
     recipe:
-        input: Cobblestone Gear, Iron Ingot
+        input: Stone Gear, Iron Ingot
         pattern: .1. 101 .1.
         tools: Crafting Table
 
@@ -303,7 +303,7 @@ item: Iron Transport Pipe
         quantity: 8
         tools: Crafting Table
 
-item: Landmark
+item: Land Mark
     recipe:
         input: Lapis Lazuli, Redstone Torch
         pattern: ... .0. .1.
@@ -340,16 +340,9 @@ item: Path Mark
         input: Cactus Green, Redstone Torch
         pattern: ... .0. .1.
 
-item: Pipe Facade
-    recipe:
-        input: Stone, Support Pipe
-        pattern: ... .0. 111
-        quantity: 6
-        tools: Assembly Table, Laser
-
 item: Pipe Plug
     recipe:
-        input: Support Pipe
+        input: Cobblestone Structure Pipe
         pattern: ... .0. ...
         tools: Assembly Table, Laser
 
@@ -414,7 +407,7 @@ item: Redstone Comp Chipset
 
 item: Redstone Engine
     recipe:
-        input: Glass, Oak Wood Planks, Piston, Wooden Gear
+        input: Glass, Oak Wood Planks, Piston, Wood Gear
         pattern: 111 .0. 323
         tools: Crafting Table
 
@@ -444,7 +437,7 @@ item: Sandstone Transport Pipe
 
 item: Stirling Engine
     recipe:
-        input: Cobblestone, Cobblestone Gear, Glass, Piston
+        input: Cobblestone, Stone Gear, Glass, Piston
         pattern: 000 .2. 131
         tools: Crafting Table
 
@@ -472,7 +465,7 @@ item: Stripes Transport Pipe
         quantity: 8
         tools: Crafting Table
 
-item: Support Pipe
+item: Cobblestone Structure Pipe
     recipe:
         input: Cobblestone Transport Pipe, Gravel
         pattern: ... .1. .0.
@@ -506,7 +499,7 @@ item: Wooden Fluid Pipe
         input: Pipe Sealant, Wooden Transport Pipe
         pattern: ... .1. .0.
 
-item: Wooden Gear
+item: Wood Gear
     recipe:
         input: Stick
         pattern: .0. 0.0 .0.
@@ -526,7 +519,7 @@ item: Wooden Transport Pipe
 
 item: Wrench
     recipe:
-        input: Cobblestone Gear, Iron Ingot
+        input: Stone Gear, Iron Ingot
         pattern: 1.1 .0. .1.
         tools: Crafting Table
 

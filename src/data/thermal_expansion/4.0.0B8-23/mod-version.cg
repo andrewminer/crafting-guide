@@ -275,7 +275,7 @@ item: Copper Gear
     recipe:
         input: Copper Ingot, Iron Ingot
         pattern: .0. 010 .0.
-        tools: Crafting Guide
+        tools: Crafting Table
 
 item: Copper Ingot
     recipe:
@@ -427,7 +427,7 @@ item: Dry Plain Sponge
     recipe:
         input: Sawdust, Slimeball, String
         pattern: 202 010 202
-        tools: Crafting Guide
+        tools: Crafting Table
 
 item: Electrum Blend
     recipe:
@@ -474,7 +474,7 @@ item: Electrum Ingot
     recipe:
         input: Electrum Nugget
         pattern: 000 000 000
-        tools: Crafting Guide
+        tools: Crafting Table
     recipe:
         input: Electrum Block
         pattern: ... .0. ...

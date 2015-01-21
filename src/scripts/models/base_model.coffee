@@ -81,7 +81,8 @@ module.exports = class BaseModel extends Backbone.Model
 
     trigger: (name, model, args...)->
         if @logEvents
-            logger.trace "#{@constructor.name}.#{@cid} triggered event #{name} with args: #{args}"
+            argText = ("#{arg}"[0..50] for arg in args).join ", "
+            logger.trace "#{@constructor.name}.#{@cid} triggered event #{name} with args: #{argText}"
         super
 
     # Object Overrides #############################################################################

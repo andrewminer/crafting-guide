@@ -16,11 +16,13 @@ module.exports = class ModPageController extends BaseController
 
     constructor: (options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
+        options.delayStep    ?= 100
         options.templateName = 'mod_page'
         super options
 
         @_modPack           = options.modPack
         @_recipeControllers = []
+        @_delayStep         = options.delayStep
 
     # BaseController Overrides #####################################################################
 
@@ -33,17 +35,19 @@ module.exports = class ModPageController extends BaseController
         @$title.html if @model? then @model.name else ''
 
         controllerIndex = 0
+        delay = 0
         if @model?.activeModVersion?.isLoaded
             @$recipes.show duration:Duration.fast
             @model.eachItem (item)=>
+                recipe = item.getPrimaryRecipe()
+                return if not recipe
+
                 controller = @_recipeControllers[controllerIndex]
                 if not controller?
-                    controller = new RecipeController modPack:@_modPack
-                    controller.render()
-                    @_recipeControllers.push controller
-                    @$recipes.append controller.$el
-
-                controller.model = item.getPrimaryRecipe()
+                    _.delay (=> @_createRecipeController recipe), delay
+                    delay += @_delayStep
+                else
+                    controller.model = recipe
                 controllerIndex += 1
         else
             @$recipes.hide duration:Duration.fast
@@ -53,3 +57,14 @@ module.exports = class ModPageController extends BaseController
             controller.$el.slideUp duration:Duration.fast, complete:-> @remove()
 
         super
+
+    # Private Methods ##############################################################################
+
+    _createRecipeController: (recipe)->
+        controller = new RecipeController model:recipe, modPack:@_modPack
+        controller.$el.hide()
+        controller.render()
+
+        @_recipeControllers.push controller
+        @$recipes.append controller.$el
+        controller.$el.slideDown duration:Duration.fast

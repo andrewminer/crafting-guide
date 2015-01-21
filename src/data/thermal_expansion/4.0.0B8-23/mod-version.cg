@@ -1,12 +1,30 @@
 schema: 1
 
-item: Aqueous Accumulator (Basic)
+item: 250mB Resonant Ender
 
-item: Augment: CryoCoil Flux Amplifier
-
-item: Augment: CryoCoil Regulator
-
-item: Augment: Flux Linkage Optimization
+# item: Aqueous Accumulator (Basic)
+#     recipe:
+#         input: Bucket, Glass, Machine Frame (basic), Copper Gear, Pneumatic Servo
+#         pattern: .0. 121 343
+#         tools: Crafting Table
+#
+# item: Augment: CryoCoil Flux Amplifier
+#     recipe:
+#         input: Silver Ingot, Redstone Transmission Coil, Cryotheum Dust
+#         pattern: .0. 010 202
+#         tools: Crafting Table
+#
+# item: Augment: CryoCoil Regulator
+#     recipe:
+#         input: Electrum Ingot, Redstone Transmission Coil, Cryotheum Dust
+#         pattern: .0. 010 202
+#         tools: Crafting Table
+#
+# item: Augment: Flux Linkage Optimization
+#     recipe:
+#         input: Electrum Ingot, Lead Ingot, Redstone Transmission Coil, Glowstone Dust
+#         pattern: .0. 121 303
+#         tools: Crafting Guide
 
 item: Augment: Flux Modulation Booster
 
@@ -389,104 +407,505 @@ item: Resonant Ender Bucket
 item: Resonant Ender
 
 item: Resonant Energy Cell
-
-item: Resonant Energy Cell_2
+    recipe:
+        input: Enderium Ingot, Redstone Energy Cell
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Resonant Flux Capacitor
-
-item: Resonant Flux Capacitor_2
+    recipe:
+        input: Redstone, Enderium Ingot, Redstone Flux Capacitor, Pyrotheum Dust
+        pattern: .0. 121 030
+        tools: Crafting Table
 
 item: Resonant Portable Tank
+    recipe:
+        input: Enderium Ingot, Reinforced Portable Tank
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Resonant Satchel
+    recipe:
+        input: Electrum Nugget, Enderium Ingot, Reinforced Satchel
+        pattern: .0. 121 0.0
+        tools: Crafting Table
 
 item: Resonant Strongbox
+    recipe:
+        input: Enderium Ingot, Reinforced Strongbox
+        pattern: .0. 010 .0.
+        tools: Crafting Guide
 
 item: Rich Slag
 
 item: Satchel
+    recipe:
+        input: Leather, Tin Ingot, Wool
+        pattern: .0. 121 0.0
+        tools: Crafting Table
+    recipe:
+        input: Light Gray Rockwool, Tin Ingot, Wool
+        pattern: .0. 121 0.0
+        tools: Crafting Table
 
 item: Sawdust
+    recipe:
+        input: Oak Wood Planks
+        pattern: ... .0. ...
+        quantity: 2
+        tools: Pulverizer
+
+item: Sawmill (Hardened)
+    recipe:
+        input: Invar Ingot, Electrum Gear, Sawmill (Basic)
+        pattern: 010 .2. 0.0
+        tools: Crafting Table
+    recipe:
+        input: Iron Axe, Oak Wood Planks, Machine Frame (Hardened), Copper Gear, Redstone Reception Coil
+        pattern: .0. 121 343
+        tools: Crafting Table
 
 item: Sawmill (Resonant)
+    recipe:
+        input: Hardened Glass, Enderium Gear, Sawmill (Reinforced)
+        pattern: 010 .2. 0.0
+        tools: Crafting Table
+    recipe:
+        input: Iron Axe, Oak Wood Planks, Machine Frame (Resonant), Copper Gear, Redstone Reception Coil
+        pattern: .0. 121 343
+        tools: Crafting Table
+
+item: Sawmill (Reinforced)
+    recipe:
+        input: Hardened Glass, Signalum Gear, Sawmill (Hardened)
+        pattern: 010 .2. 0.0
+        tools: Crafting Table
+    recipe:
+        input: Iron Axe, Oak Wood Planks, Machine Frame (Reinforced), Copper Gear, Redstone Reception Coil
+        pattern: .0. 121 343
+        tools: Crafting Table
+
+item: Sawmill (Basic)
+    recipe:
+        input: Iron Axe, Oak Wood Planks, Machine Frame (Basic), Copper Gear, Redstone Reception Coil
+        pattern: .0. 121 343
+        tools: Crafting Table
 
 item: Schematic
+    recipe:
+        input: Paper, Lapis Lazuli
+        pattern: 00. .1. ...
 
 item: Shiny Block
+    recipe:
+        input: Shiny Ingot
+        pattern: 000 000 000
+        tools: Crafting Table
 
 item: Shiny Gear
+    recipe:
+        input: Shiny Ingot, Iron Ingot
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Shiny Ingot
+    recipe:
+        input: Shiny Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Shiny Metal, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Shiny Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Pulverized Shiny Metal
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Shiny Ore, Pyrotheum Dust
+        pattern: .0. ... .1.
+    recipe:
+        input: Rich Slag, Shiny Ore
+        pattern: ... 01. ...
+        quantity: 3
+        tools: Induction Smelter
+    recipe:
+        input: Cinnabar, Shiny Ore
+        pattern: ... 01. ...
+        quantity: 3
+        tools: Induction Smelter
+    recipe:
+        input: Sand, Shiny Ore
+        pattern: ... 01. ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Pyrotheum Dust, Shiny Ore
+        pattern: ... 01. ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Sand, Pulverized Shiny Metal
+        pattern: ... 011 ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Shiny Nugget
+        pattern: 000 000 000
+        tools: Crafting Table
+    recipe:
+        input: Shiny Block
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Shiny Nugget
+    recipe:
+        input: Shiny Ingot
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Shiny Ore
+    gatherable: yes
 
 item: Signalum Blend
+    recipe:
+        input: Pulverized Copper, Pulverized Silver, Destabilized Redstone Bucket
+        pattern: 00. 01. 2..
+        extras: Bucket
+        quantity: 4
+        tools: Crafting Table
+    recipe:
+        input: Signalum Ingot
+        pattern: ... .0. ...
+        tools: Pulverizer
 
 item: Signalum Block
+    recipe:
+        input: Signalum Ingot
+        pattern: 000 000 000
+        tools: Crafting Table
 
 item: Signalum Gear
+    recipe:
+        input: Signalum Ingot, Iron Ingot
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Signalum Ingot
+    recipe:
+        input: Signalum Blend, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Signalum Blend
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Sand, Signalum Blend
+        pattern: ... 01. ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Signalum Nugget
+        pattern: 000 000 000
+        tools: Crafting Table
+    recipe:
+        input: Signalum Block
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Signalum Nugget
+    recipe:
+        input: Signalum Ingot
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Signalum Security Lock
+    recipe:
+        input: Signalum Nugget, Tinker's Alloy Ingot
+        pattern: .0. 010 000
+        tools: Crafting Table
 
 item: Silver Block
+    recipe:
+        input: Silver Ingot
+        pattern: 000 000 000
+        tools: Crafting Table
 
 item: Silver Gear
+    recipe:
+        input: Silver Ingot, Iron Ingot
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Silver Ingot
+    recipe:
+        input: Pulverized Silver, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Silver
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Silver Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Silver Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Cinnabar, Silver Ore
+        pattern: ... 01. ...
+        quantity: 3
+        extras: Lead Ingot
+        tools: Induction Smelter
+    recipe:
+        input: Rich Slag, Silver Ore
+        pattern: ... 01. ...
+        quantity: 3
+    recipe:
+        input: Sand, Silver Ore
+        pattern: ... 01. ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Pyrotheum Dust, Silver Ore
+        pattern: ... 01. ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Sand, Pulverized Silver
+        pattern: ... 011 ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Silver Ore, Pyrotheum Dust
+        pattern: ... 01. ...
+    recipe:
+        input: Silver Nugget
+        pattern: 000 000 000
+        tools: Crafting Table
+    recipe:
+        input: Silver Block
+        pattern: ... .0. ...
 
 item: Silver Nugget
+    recipe:
+        input: Silver Ingot
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Silver Ore
+    gatherable: yes
 
 item: Slag
+    gatherable: yes
 
 item: Steam Dynamo
+    recipe:
+        input: Redstone Transmission Coil, Copper Gear, Copper Ingot, Redstone
+        pattern: .0. 121 232
+        tools: Crafting Table
 
 item: Steam
 
 item: Strongbox
+    recipe:
+        input: Tin Ingot, Chest
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Sulfur
+    gatherable: yes
 
 item: Terrain Smasher
+    recipe:
+        input: Iron Pickaxe, Tin Gear, Piston, Pneumatic Servo
+        pattern: .0. 121 .3.
+        tools: Crafting Table
 
 item: Tesseract Frame (Empty)
+    recipe:
+        input: Enderium Ingot, Hardened Glass, Diamond
+        pattern: 010 121 010
+        tools: Crafting Table
 
 item: Tesseract Frame (Full)
+    recipe:
+        input: Tesseract Frame (Empty), 1000mB Resonant Ender
+        pattern: ... 0.1 ...
+        tools: Fluid Transposer
 
 item: Tesseract
+    recipe:
+        input: Tinker's Alloy Ingot, Silver Ingot, Tesseract Frame (Full)
+        pattern: 010 121 010
+        tools: Crafting Guide
 
 item: Tin Block
+    recipe:
+        input: Tin Ingot
+        pattern: 000 000 000
+        tools: Crafting Tools
 
 item: Tin Gear
+    recipe:
+        input: Tin Ingot, Iron Ingot
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Tin Ingot
+    recipe:
+        input: Pulverized Tin, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Tin
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Tin Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Tin Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Cinnabar, Tin Ore
+        pattern: ... 01. ...
+        extras: Iron Ingot
+        quantity: 3
+        tools: Induction Smelter
+    recipe:
+        input: Rich Slag, Tin Ore
+        pattern: ... 01. ...
+        quantity: 3
+        tools: Induction Smelter
+    recipe:
+        input: Sand, Tin Ore
+        pattern: ... 01. ...
+        quantity: 2
+        tools: Induction Smelter
+    recipe:
+        input: Sand, Pulverized Tin
+        pattern: ... 011 ...
+        quantity: 2
+    recipe:
+        input: Tin Ore, Pyrotheum Dust
+        pattern: ... 01. ...
+    recipe:
+        input: Pyrotheum Dust, Tin Ore
+        pattern: ... 011 ...
+        quantity: 2
+    recipe:
+        input: Tin Nugget
+        pattern: 000 000 000
+        tools: Crafting Table
+    recipe:
+        input: Tin Block
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Tin Nugget
+    recipe:
+        input: Tin Ingot
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Tin Ore
+    gatherable: yes
 
 item: Tinker's Alloy Blend
+    recipe:
+        input: Pulverized Copper, Pulverized Tin
+        pattern: 00. 01. ...
+        quantity: 4
+    recipe:
+        input: Tinker's Alloy Ingot
+        pattern: ... .0. ...
+        tools: Pulverizer
 
 item: Tinker's Alloy Block
+    recipe:
+        input: Tinker's Alloy Ingot
+        pattern: 000 000 000
+        tools: Crafting Table
 
 item: Tinker's Alloy Gear
+    recipe:
+        input: Tinker's Alloy Ingot, Iron Ingot
+        pattern: .0. 010 .0.
+        tools: Crafting Table
 
 item: Tinker's Alloy Ingot
+    recipe:
+        input: Tinker's Alloy Blend, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Tinker's Alloy Blend
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Sand, Tinker's Alloy Blend
+        pattern: ... 011 ...
+        extras: Slag
+        quantity: 3
+        tools: Induction Smelter
+    recipe:
+        input: Pulverized Copper, Pulverized Tin
+        pattern: 000 .1. ...
+        quantity: 4
+        tools: Induction Smelter
+    recipe:
+        input: Copper Ingot, Tin Ingot
+        pattern: 000 .1. ...
+        quantity: 4
+        tools: Induction Smelter
+    recipe:
+        input: Tinker's Alloy Block
+        pattern: ... .0. ...
+        quantity: 9
+    recipe:
+        input: Tinker's Alloy Nugget
+        pattern: 000 000 000
+        tools: Crafting Guide
 
 item: Tinker's Alloy Nugget
+    recipe:
+        input: Tinker's Alloy Ingot
+        pattern: ... .0. ...
+        quantity: 9
 
 item: Translocation Plate
+    recipe:
+        input: Plate, 250mB Resonant Ender
+        pattern: .0. 11. 11.
+        tools: Fluid Transposer
 
 item: Tuberous Flux Capacitor
+    recipe:
+        input: Potato, Redstone, Lead Nugget
+        pattern: 01. 2.. ...
+    recipe:
+        input: Poisonous Potato, Redstone, Lead Nugget
+        pattern: 01. 2.. ...
 
 item: White Rockwool
+    recipe:
+        input: Light Gray Rockwool, Bone Meal
+        pattern: 000 010 000
+        tools: Crafting Guide
 
 item: Yellow Rockwool
-
+    recipe:
+        input: Light Gray Rockwool, Dandelion Yellow
+        pattern: 000 010 000
+        tools: Crafting Guide

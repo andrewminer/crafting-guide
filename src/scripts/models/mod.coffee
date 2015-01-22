@@ -130,7 +130,7 @@ module.exports = class Mod extends BaseModel
         return null # prevent calling `set`
 
     url: ->
-        return Url.mod modSlug:@slug
+        return Url.modData modSlug:@slug
 
     # Private Methods ##############################################################################
 

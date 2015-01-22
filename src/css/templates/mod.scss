@@ -1,0 +1,35 @@
+/*
+Crafting Table - mod.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__mod {
+    position: relative; width: 100%;
+    padding: 1em;
+
+    div, p {
+        display: inline-block;
+    }
+
+    .version {
+        position: relative; width: 10em;
+        margin-right: 1em;
+    }
+
+    .name {
+        position: relative; width: 15em;
+        margin-right: 1em;
+
+        p {
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+//            text-decoration: underline;
+        }
+    }
+
+    &.disabled {
+        p { color: $color-gray-light; }
+    }
+}

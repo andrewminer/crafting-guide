@@ -9,6 +9,7 @@ BaseController = require './base_controller'
 {Event}        = require '../constants'
 Mod            = require '../models/mod'
 {RequiredMods} = require '../constants'
+{Url}          = require '../constants'
 
 ########################################################################################################################
 
@@ -25,38 +26,44 @@ module.exports = class ModController extends BaseController
 
     # Event Methods ################################################################################
 
-    onEnabledChanged: ->
-        return unless @rendered
-        enabled = @$(':checked').length > 0
-        if enabled
-            @model.activeVersion = Mod.Version.Latest
-        else
-            @model.activeVersion = Mod.Version.None
-            @_plan.removeUncraftableItems()
+    onVersionChanged: ->
+        @model.activeVersion = @$version.val()
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$enabled     = @$('td:nth-child(1) input')
-        @$name        = @$('td:nth-child(2) p')
-        @$description = @$('td:nth-child(3) p')
+        @$version     = @$('.version')
+        @$nameLink    = @$('.name a')
+        @$nameText    = @$('.name p')
+        @$description = @$('.description p')
         super
 
     refresh: ->
-        if @model.slug in RequiredMods
-            @$enabled.attr 'checked', 'checked'
-            @$enabled.attr 'disabled', 'disabled'
+        if @model.activeVersion is Mod.Version.None
+            @$el.addClass 'disabled'
         else
-            @$enabled.removeAttr 'disabled'
-            if @model.activeVersion is Mod.Version.None
-                @$enabled.removeAttr 'checked'
-            else
-                @$enabled.attr 'checked', 'checked'
+            @$el.removeClass 'disabled'
 
-        @$name.html "#{@model.name}"
-        @$description.html "#{@model.description}"
+        @$version.empty()
+
+        if not (@model.slug in RequiredMods)
+            option = $("<option value=\"none\">Disabled</option>")
+            if @model.activeVersion is Mod.Version.None
+                option.attr 'selected', 'selected'
+            @$version.append option
+
+        @model.eachModVersion (modVersion)=>
+            option = $("<option value=\"#{modVersion.version}\">#{modVersion.version}</option>")
+            if modVersion is @model.activeModVersion
+                option.attr 'selected', 'selected'
+            @$version.append option
+
+        # @$nameLink.attr 'href', Url.mod modSlug:@model.slug
+        @$nameText.html @model.name
+
+        @$description.html @model.description
 
     # Backbone.View Overrides ######################################################################
 
     events:
-        'change input[type="checkbox"]': 'onEnabledChanged'
+        'change .version': 'onVersionChanged'

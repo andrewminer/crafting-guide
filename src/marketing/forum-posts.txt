@@ -28,3 +28,10 @@ If you've seen it before, go look again. There's a whole new site now, which sup
 * You can now make many different items at once (e.g., a whole NanoSuit)
 
 [crafting-guide.com](http://crafting-guide.com)
+
+########################################################################################################################
+
+A few more updates to report!  First, now your preferences for which mods are active and whether tools are included
+will be remembered between visits. Second, I've finished adding support for Thermal Expansion 4.  The crafting algorithm
+doesn't yet taken into account the ore-doubling/tripling machinery, but all the recipes for the entire mod are present
+and functional.  I'll work on using the machines in a future update.  Next up: IC2 Experimental!

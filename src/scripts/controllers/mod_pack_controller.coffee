@@ -34,7 +34,7 @@ module.exports = class ModPackController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$table = @$('table')
+        @$mods = @$('.mods')
         @$toolbar = @$('.toolbar')
         super
 
@@ -56,7 +56,8 @@ module.exports = class ModPackController extends BaseController
             controller.render()
             @_controllers.push controller
             controller.$el.hide duration:0
-            @$table.append controller.$el
+
+            @$mods.append controller.$el
             controller.$el.slideDown duration:Duration.normal
             index++
 

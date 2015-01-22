@@ -3,13 +3,13 @@ schema: 1
 item: 1000mB Blazing Pyrotheum
     recipe:
         input: 500mB Blazing Pyrotheum, Pyrotheum Dust
-        pattern: ... 111 101
+        pattern: ... 101 111
         tools: Magma Crucible
 
 item: 1000mB Destabilized Redstone
     recipe:
         input: 500mB Destabilized Redstone, Redstone
-        pattern: ... 111 101
+        pattern: ... 101 111
         tools: Magma Crucible
 
 item: 1000mB Energized Glowstone
@@ -25,13 +25,13 @@ item: 1000mB Energized Glowstone
 item: 1000mB Gelid Cryotheum
     recipe:
         input: 500mB Gelid Cryotheum, Cryotheum Dust
-        pattern: ... 000 010
+        pattern: ... 101 111
         tools: Magma Crucible
 
 item: 1000mB Liquifacted Coal
     recipe:
         input: 500mB Liquifacted Coal, Pulverized Coal
-        pattern: ... 111 101
+        pattern: ... 101 111
         tools: Magma Crucible
 
 item: 1000mB Primal Mana
@@ -45,25 +45,25 @@ item: 1000mB Resonant Ender
 item: 500mB Blazing Pyrotheum
     recipe:
         input: Pyrotheum Dust
-        pattern: ... 00. 000
+        pattern: ... 0.0 000
         tools: Magma Crucible
 
 item: 500mB Destabilized Redstone
     recipe:
         input: Redstone
-        pattern: ... 00. 000
+        pattern: ... 0.0 000
         tools: Magma Crucible
 
 item: 500mB Gelid Cryotheum
     recipe:
         input: Cryotheum Dust
-        pattern: 00. 00. 0..
+        pattern: ... 0.0 000
         tools: Magma Crucible
 
 item: 500mB Liquifacted Coal
     recipe:
         input: Pulverized Coal
-        pattern: ... 00. 000
+        pattern: ... 0.0 000
         tools: Magma Crucible
 
 item: Aqueous Accumulator

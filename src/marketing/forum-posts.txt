@@ -35,3 +35,8 @@ A few more updates to report!  First, now your preferences for which mods are ac
 will be remembered between visits. Second, I've finished adding support for Thermal Expansion 4.  The crafting algorithm
 doesn't yet taken into account the ore-doubling/tripling machinery, but all the recipes for the entire mod are present
 and functional.  I'll work on using the machines in a future update.  Next up: IC2 Experimental!
+
+########################################################################################################################
+
+I've just finished adding support for the latest version of Industrial Craft (2.2.663 on the experimental branch).  I've
+also updated the site to let you select the version you're using.

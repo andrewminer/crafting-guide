@@ -496,6 +496,7 @@ item: Copper Boiler
 
 item: Copper Cable
     recipe:
+        extras: Cutter
         input: Copper Plate, Cutter
         pattern: ... 01. ...
         quantity: 4
@@ -1152,6 +1153,7 @@ item: Glass Fibre Cable
 
 item: Gold Cable
     recipe:
+        extras: Cutter
         input: Cutter, Gold Plate
         pattern: ... 10. ...
         quantity: 4
@@ -1659,9 +1661,8 @@ item: Lead Item Casing
         pattern: ... 10. ...
         quantity: 2
     recipe:
-        extras: Forge Hammer
-        input: Forge Hammer, Lead Plate
-        pattern: ... 10. ...
+        input: Lead Plate
+        pattern: ... .0. ...
         quantity: 2
         tools: Metal Former
 

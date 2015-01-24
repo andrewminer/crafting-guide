@@ -63,7 +63,7 @@ module.exports = (grunt)->
                     './dist/js/jquery.js': ['./node_modules/jquery/dist/jquery.js']
                     './dist/js/jquery-ui.js': ['./lib/jquery-ui/jquery-ui.js']
                     './dist/js/mocha.js': ['./node_modules/mocha/mocha.js']
-                    './dist/js/underscore.js': ['./node_modules/backbone/node_modules/underscore/underscore.js']
+                    './dist/js/underscore.js': ['./node_modules/underscore/underscore.js']
             styles:
                 files: [expand:true, cwd:'./src/css', src:'**/*.scss', dest:'./dist/src/css']
             style_extras:

@@ -58,7 +58,7 @@ module.exports = class ModController extends BaseController
                 option.attr 'selected', 'selected'
             @$version.append option
 
-        @$nameLink.attr 'href', Url.mod modSlug:@model.slug
+        # @$nameLink.attr 'href', Url.mod modSlug:@model.slug
         @$nameText.html @model.name
 
         @$description.html @model.description

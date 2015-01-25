@@ -976,12 +976,12 @@ item: Fermenter
 
 item: Fertilizer
     recipe:
-        input: Fertilizer, Scrap
-        pattern: 11. 0.. ...
-        quantity: 2
-    recipe:
         input: Bone Meal, Scrap
         pattern: ... 10. ...
+        quantity: 2
+    recipe:
+        input: Fertilizer, Scrap
+        pattern: 11. 0.. ...
         quantity: 2
 
 item: (Filled) Tin Can

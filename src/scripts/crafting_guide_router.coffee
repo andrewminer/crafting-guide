@@ -64,12 +64,10 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     item: (name, quantity=1)->
         @_pageControllers.item ?= new ItemPageController @_defaultOptions
         @_pageControllers.item.model.params = name:name, quantity:quantity
-        logger.debug "detected params.name: #{name}, params.quantity: #{quantity}"
         @_setPage 'item'
 
     mod: (slug)->
         @_pageControllers.mod ?= new ModPageController @_defaultOptions
-        logger.debug "setting up mod page wiht mod: #{@modPack.getMod slug} for slug: #{slug}"
         @_pageControllers.mod.model = @modPack.getMod slug
         @_setPage 'mod'
 

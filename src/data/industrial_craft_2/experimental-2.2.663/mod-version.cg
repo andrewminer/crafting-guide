@@ -499,7 +499,7 @@ item: Copper Cable
         extras: Cutter
         input: Copper Plate, Cutter
         pattern: ... 01. ...
-        quantity: 4
+        quantity: 2
     recipe:
         input: Copper Ingot
         pattern: ... .0. ...

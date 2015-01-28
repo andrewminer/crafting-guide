@@ -19,7 +19,7 @@ global.should = chai.should()
 global.util   = require 'util'
 
 Logger = require '../src/scripts/logger'
-global.logger = new Logger level:Logger.TRACE
+global.logger = new Logger level:Logger.DEBUG
 
 require '../src/scripts/polyfill'
 require '../src/scripts/underscore_mixins'
@@ -35,6 +35,7 @@ require './mod.test'
 require './mod_pack.test'
 require './mod_version.test'
 require './parser_versions/mod_version_parser_v1.test'
+require './recipe.test'
 require './string_builder.test'
 
 mocha.checkLeaks()

@@ -16,7 +16,7 @@ module.exports = class Recipe extends BaseModel
         if attributes.item?
             attributes.name = attributes.item.name
             attributes.slug = attributes.item.slug
-            attributes.output ?= [new Stack slug:item.slug, quantity:1]
+            attributes.output ?= [new Stack slug:attributes.item.slug, quantity:1]
 
         if not attributes.name? then throw new Error 'attributes.name is required'
         if not attributes.input? then throw new Error 'attributes.input is required'
@@ -33,10 +33,8 @@ module.exports = class Recipe extends BaseModel
     # Public Methods ###############################################################################
 
     getItemSlugAt: (patternSlot)->
-        pattern = if @pattern? then @pattern else @_computeDefaultPattern()
-
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
-        patternDigit = pattern[trueIndex[patternSlot]]
+        patternDigit = @pattern[trueIndex[patternSlot]]
         return null unless patternDigit?
         return null unless patternDigit.match /[0-9]/
 
@@ -44,6 +42,11 @@ module.exports = class Recipe extends BaseModel
         return null unless stack?
 
         return stack.slug
+
+    doesProduce: (itemSlug)->
+        for stack in @output
+            return true if stack.slug is itemSlug
+        return false
 
     # Object Overrides #############################################################################
 

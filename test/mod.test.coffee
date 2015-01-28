@@ -13,7 +13,7 @@ mod = null
 
 ########################################################################################################################
 
-describe 'Mod', ->
+describe 'mod.coffee', ->
 
     beforeEach -> mod = new Mod name:'Test', slug:'test'
 

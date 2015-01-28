@@ -16,7 +16,7 @@ buildcraft = industrialCraft = minecraft = modPack = null
 
 ########################################################################################################################
 
-describe 'ModPack', ->
+describe 'mod_pack.coffee', ->
 
     beforeEach ->
         minecraft = new Mod slug:'minecraft'

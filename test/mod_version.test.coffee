@@ -14,7 +14,7 @@ modVersion = null
 
 ########################################################################################################################
 
-describe 'ModVersion', ->
+describe 'mod_version.coffee', ->
 
     beforeEach -> modVersion = new ModVersion modSlug:'test', version:'0.0'
 
@@ -45,3 +45,21 @@ describe 'ModVersion', ->
         it 'locates items by slugified name', ->
             modVersion.addItem new Item name:'Crafting Table'
             modVersion.findItemByName('Crafting Table').slug.should.equal 'crafting_table'
+
+    describe 'findRecipes', ->
+
+        beforeEach ->
+            modVersion = new ModVersion modSlug:'test', version:'1.0'
+            modVersion.parse """
+                schema:1
+
+                item: Cake
+                    recipe:; input: Milk, Sugar, Egg, Wheat; pattern: 000 121 333; extras: 3 Bucket
+                    recipe:; input: Milk, Cocoa Beans, Egg, Wheat; pattern: 000 121 333; extras: 3 Bucket
+                item: Bucket
+                    recipe:; input: Iron Ingot; pattern: ... 0.0 .0.
+            """
+
+        it 'finds all recipes which list item as output', ->
+            recipes = modVersion.findRecipes 'bucket'
+            (r.output[0].slug for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']

@@ -74,6 +74,10 @@ module.exports = class Mod extends BaseModel
         return unless @_activeModVersion?
         @_activeModVersion.findName slug
 
+    findRecipes: (slug, result=[])->
+        return result unless @_activeModVersion?
+        @_activeModVersion.findRecipes slug, result
+
     # Property Methods #############################################################################
 
     addModVersion: (modVersion)->

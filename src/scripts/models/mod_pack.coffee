@@ -40,14 +40,6 @@ module.exports = class ModPack extends BaseModel
 
         return null
 
-    findName: (slug)->
-        for mod in @_mods
-            continue unless mod.enabled
-            name = mod.findName slug
-            return name if name
-
-        return null
-
     findItemDisplay: (slug)->
         result = {}
         item = @findItem slug
@@ -65,6 +57,27 @@ module.exports = class ModPack extends BaseModel
         result.iconUrl = Url.itemIcon result
         result.itemUrl = Url.item result
         return result
+
+    findName: (slug)->
+        for mod in @_mods
+            continue unless mod.enabled
+            name = mod.findName slug
+            return name if name
+
+        return null
+
+    findRecipes: (slug, result=[])->
+        for mod in @_mods
+            continue unless mod.enabled
+            mod.findRecipes slug, result
+        return result
+
+    isGatherable: (slug)->
+        item = @findItem slug
+        return true if not item?
+        return true if item.isGatherable
+        return false if item.isCraftable
+        return true
 
     isValidName: (name)->
         slug = _.slugify name

@@ -65,6 +65,15 @@ module.exports = class ModVersion extends BaseModel
     findName: (slug)->
         return @_names[slug]
 
+    findRecipes: (itemSlug, result=[])->
+        for slug in @_slugs
+            item = @_items[slug]
+            continue unless item?
+
+            item.eachRecipe (recipe)->
+                result.push recipe if recipe.doesProduce itemSlug
+        return result
+
     registerSlug: (slug, name)->
         hasSlug = @_names[slug]?
         @_names[slug] = name

@@ -25,9 +25,9 @@ module.exports = class StackController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$image         = @$('img')
-        @$nameField     = @$('.name')
-        @$quantityField = @$('.quantity')
+        @$image         = @$('.icon img')
+        @$nameField     = @$('.name p')
+        @$quantityField = @$('.quantity p')
         super
 
     refresh: ->

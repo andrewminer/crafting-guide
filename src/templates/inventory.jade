@@ -13,8 +13,9 @@
         .scrollbox
             table
                 tr.edit
-                    td: input(name="quantity")
-                    td(width="*"): input(name="name")
-                    td: button(name="add") add
+                    td.quantity: input(name="quantity")
+                    td.icon: img(src="/images/unknown.png")
+                    td.name(width="*"): input(name="name")
+                    td.action: button(name="add") add
         .toolbar
             button(name="clear") clear

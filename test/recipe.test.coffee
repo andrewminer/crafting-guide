@@ -14,7 +14,7 @@ input = output = pattern = recipe = null
 
 ########################################################################################################################
 
-describe 'Recipe', ->
+describe 'recipe.coffee', ->
 
     describe 'constructor', ->
 

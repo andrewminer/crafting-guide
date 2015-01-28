@@ -16,7 +16,7 @@ inventory = null
 
 ########################################################################################################################
 
-describe 'Inventory', ->
+describe 'inventory.coffee', ->
 
     beforeEach ->
         inventory = new Inventory {}, silent:false

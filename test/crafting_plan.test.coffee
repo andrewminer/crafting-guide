@@ -16,7 +16,7 @@ modPack = plan = null
 
 ########################################################################################################################
 
-describe 'CraftingPlan', ->
+describe 'crafting_plan.coffee', ->
 
     beforeEach ->
         mod = new Mod name:'Minecraft', slug:'minecraft'
@@ -77,6 +77,7 @@ describe 'CraftingPlan', ->
                 plan.includingTools = true
                 plan.want.add 'iron_sword'
                 plan.craft()
+
                 plan.need.toList().should.eql [
                     [8, 'cobblestone'], [2, 'furnace_fuel'], [2, 'iron_ore'], [2, 'oak_log']
                 ]

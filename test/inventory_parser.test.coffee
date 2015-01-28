@@ -15,7 +15,7 @@ parser = null
 
 ########################################################################################################################
 
-describe 'InventoryParser', ->
+describe 'inventory_parser.coffee', ->
 
     beforeEach -> parser = new InventoryParser
 

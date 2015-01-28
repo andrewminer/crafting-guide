@@ -14,7 +14,7 @@ baseText = modVersion = parser = null
 
 ########################################################################################################################
 
-describe 'ModVersionParserV1', ->
+describe 'mod_version_parser_v1.coffee', ->
 
     beforeEach ->
         modVersion = new ModVersion modSlug:'test', version:'0.0'

@@ -13,7 +13,7 @@ builder = null
 
 ########################################################################################################################
 
-describe 'StringBuilder', ->
+describe 'string_builder.coffee', ->
 
     beforeEach -> builder = new StringBuilder
 

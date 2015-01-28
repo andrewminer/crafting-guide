@@ -49,6 +49,9 @@ module.exports = class Inventory extends BaseModel
         for slug in @_slugs
             callback @_stacks[slug]
 
+    getSlugs: ->
+        return @_slugs[..]
+
     hasAtLeast: (slug, quantity=1)->
         if quantity is 0 then return true
 

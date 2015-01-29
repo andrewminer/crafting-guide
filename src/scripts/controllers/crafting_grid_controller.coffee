@@ -23,6 +23,13 @@ module.exports = class CraftingGridController extends BaseController
         @_modPack     = options.modPack
         @_slotCount   = 9
 
+    # Event Methods ################################################################################
+
+    onLinkClicked: (event)->
+        href = $(event.currentTarget).attr 'href'
+        router.navigate href, trigger:true
+        return false
+
     # BaseController Methods #######################################################################
 
     onDidRender: ->
@@ -51,6 +58,11 @@ module.exports = class CraftingGridController extends BaseController
 
         @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
         super
+
+    # Backbone.View Overrides ######################################################################
+
+    events:
+        'click td a': 'onLinkClicked'
 
     # Private Methods ##############################################################################
 

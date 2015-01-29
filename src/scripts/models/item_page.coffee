@@ -30,8 +30,8 @@ module.exports = class ItemPage extends BaseModel
     _consumeParams: ->
         return unless @params?
 
+        @plan.want.clear()
         if not @params?.name?
-            @plan.want.clear()
             @params = null
         else
             item = @modPack.findItemByName @params.name

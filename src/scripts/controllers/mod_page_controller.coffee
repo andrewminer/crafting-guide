@@ -18,7 +18,7 @@ module.exports = class ModPageController extends BaseController
 
     constructor: (options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.delayStep    ?= 100
+        options.delayStep    ?= 10
         options.templateName = 'mod_page'
         super options
 
@@ -78,7 +78,7 @@ module.exports = class ModPageController extends BaseController
 
         @_itemControllers.push controller
         @$items.append controller.$el
-        controller.$el.slideDown duration:Duration.fast
+        controller.$el.fadeIn duration:Duration.fast
 
     _getEffectiveModVersion: ->
         return @_effectiveModVersion if @_effectiveModVersion?
@@ -106,7 +106,7 @@ module.exports = class ModPageController extends BaseController
                 controller = @_itemControllers[controllerIndex]
                 if not controller?
                     _.delay (=> @_createItemController item), delay
-                    delay += @_delayStop
+                    delay += @_delayStep
                 else
                     controller.model = item
                 controllerIndex += 1

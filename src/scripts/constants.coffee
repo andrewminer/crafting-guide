@@ -49,12 +49,13 @@ ModelState.loading  = 'loading'
 ModelState.loaded   = 'loaded'
 ModelState.failed   = 'failed'
 
-exports.Url    = Url = {}
-Url.itemIcon   = _.template "/data/<%= modSlug %>/<%= modVersion %>/images/<%= slug %>.png"
-Url.item       = _.template "/item/<%= slug %>"
-Url.mod        = _.template "/mod/<%= modSlug %>"
-Url.modData    = _.template "/data/<%= modSlug %>/mod.cg"
-Url.modVersion = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
+exports.Url       = Url = {}
+Url.itemIcon      = _.template "/data/<%= modSlug %>/<%= modVersion %>/images/<%= slug %>.png"
+Url.item          = _.template "/item/<%= slug %>"
+Url.mod           = _.template "/mod/<%= modSlug %>"
+Url.modData       = _.template "/data/<%= modSlug %>/mod.cg"
+Url.modVersion    = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
+Url.modLogoImage = _.template "/data/<%= modSlug %>/logo.png"
 
 exports.UrlParam        = UrlParam = {}
 UrlParam.quantity       = 'count'

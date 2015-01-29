@@ -22,10 +22,12 @@ module.exports = class ModPack extends BaseModel
 
     # Public Methods ###############################################################################
 
-    findItem: (slug)->
+    findItem: (slug, options={})->
+        options.includeDisabled ?= false
+
         for mod in @_mods
-            continue unless mod.enabled
-            item = mod.findItem slug
+            continue unless mod.enabled or options.includeDisabled
+            item = mod.findItem slug, options
             return item if item?
 
         return null
@@ -42,7 +44,7 @@ module.exports = class ModPack extends BaseModel
 
     findItemDisplay: (slug)->
         result = {}
-        item = @findItem slug
+        item = @findItem slug, includeDisabled:true
         if item?
             result.modSlug    = item.modVersion.modSlug
             result.modVersion = item.modVersion.version

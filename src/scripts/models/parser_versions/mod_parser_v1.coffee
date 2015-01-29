@@ -42,11 +42,11 @@ module.exports = class ModParserV2 extends CommandParserVersionBase
         if name.length is 0 then throw new Error '"name" cannot be empty'
         @_rawData.name = name
 
-    _command_url: (url='')->
-        if @_rawData.url? then throw new Error 'duplicate declaration of "url"'
-        if url.length is 0 then throw new Error 'url cannot be empty'
+    _command_homePageUrl: (homePageUrl='')->
+        if @_rawData.homePageUrl? then throw new Error 'duplicate declaration of "homePageUrl"'
+        if homePageUrl.length is 0 then throw new Error 'homePageUrl cannot be empty'
 
-        @_rawData.url = url
+        @_rawData.homePageUrl = homePageUrl
 
     _command_version: (version='')->
         if version.length is 0 then throw new Error 'version cannot be empty'
@@ -58,13 +58,13 @@ module.exports = class ModParserV2 extends CommandParserVersionBase
 
     _buildMod: (rawData, model)->
         if not rawData.name? then throw new Error 'the "name" declaration is required'
-        if not rawData.url? then throw new Error 'the "url" declaration is required'
+        if not rawData.homePageUrl? then throw new Error 'the "homePageUrl" declaration is required'
         if not rawData.versions? then throw new Error 'at least one "version" declaration is required'
 
         model.author      = rawData.author      if rawData.author?
         model.description = rawData.description if rawData.description?
         model.name        = rawData.name
-        model.primaryUrl  = rawData.url
+        model.homePageUrl = rawData.homePageUrl
 
         for version in rawData.versions
             model.addModVersion new ModVersion modSlug:model.slug, version:version

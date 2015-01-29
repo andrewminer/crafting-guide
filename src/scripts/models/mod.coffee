@@ -19,7 +19,7 @@ module.exports = class Mod extends BaseModel
         attributes.author      ?= ''
         attributes.description ?= ''
         attributes.name        ?= ''
-        attributes.primaryUrl  ?= null
+        attributes.homePageUrl ?= null
         super attributes, options
 
         @_activeModVersion = null
@@ -62,9 +62,18 @@ module.exports = class Mod extends BaseModel
         return unless @_activeModVersion?
         @_activeModVersion.eachName callback
 
-    findItem: (slug)->
-        return unless @_activeModVersion?
-        @_activeModVersion.findItem slug
+    findItem: (slug, options={})->
+        options.includeDisabled ?= false
+
+        if not options.includeDisabled
+            return unless @_activeModVersion?
+            return @_activeModVersion.findItem slug
+        else
+            for modVersion in @_modVersions
+                item = modVersion.findItem slug
+                return item if item?
+
+        return null
 
     findItemByName: (name)->
         return unless @_activeModVersion?
@@ -99,6 +108,14 @@ module.exports = class Mod extends BaseModel
     eachModVersion: (callback)->
         for modVersion in @_modVersions
             callback modVersion
+
+    getModVersion: (version)->
+        return null if version is Mod.Version.None
+        return @_modVersions[@_modVersions.length-1] if version is Mod.Version.Latest
+
+        for modVersion in @_modVersions
+            return modVersion if modVersion.version is version
+        return null
 
     getActiveVersion: ->
         return @_activeVersion

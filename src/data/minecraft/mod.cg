@@ -3,6 +3,6 @@ schema: 1
 name:        Minecraft
 author:      Mojang
 description: The basic game by itself
-url:         http://www.minecraft.net
+homePageUrl: http://www.minecraft.net
 
 version: 1.7.10

@@ -1,0 +1,93 @@
+/*
+Crafting Guide - mod_page.scss
+
+Copyright (c) 2014 by Redwood Labs
+All rights reserved.
+*/
+
+.view__mod_page {
+    & > div {
+        vertical-align: top;
+        display: inline-block;
+    }
+
+    .sidebar {
+        position: relative; width: 18.75%;
+        padding: 1em;
+
+        .titleImage {
+            position: relative; height: 16em; width: 16em;
+            margin-bottom: 2em;
+
+            img {
+                position: relative; width: 100%;
+            }
+        }
+
+        .version {
+            position: relative; width: 80%;
+            margin: 0 10%;
+            margin-bottom: 1em;
+        }
+
+        .homePage {
+            position: relative; width: 80%;
+            margin: 0 10%;
+
+            p {
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                text-align: center;
+            }
+        }
+    }
+
+    .mainBody {
+        position: relative; width: 81.25%;
+        padding: 1em;
+        padding-top: 2em;
+
+        .name {
+            font-family: $font-family-header;
+            font-size: $font-size-x-large;
+            margin: 0;
+        }
+
+        .byline {
+            margin: 0.25em 0 2em 0;
+
+            p {
+                font-family: $font-family-normal;
+                font-size: $font-size-small;
+                font-style: italic;
+            }
+        }
+
+        .description {
+            margin-bottom: 4em;
+
+            p {
+                font-family: $font-family-normal;
+                font-size: $font-size-large;
+            }
+        }
+
+        .section {
+            h2 {
+                font-family: $font-family-header;
+                font-size: $font-size-large;
+            }
+
+            .panel {
+                background: white;
+                padding: 1em;
+
+                & > div {
+                    position: relative; width: 33%;
+                    display: inline-block;
+                    padding: 0.5em;
+                }
+            }
+        }
+    }
+}

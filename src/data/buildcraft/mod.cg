@@ -3,6 +3,6 @@ schema: 1
 name:        Buildcraft
 author:      SpaceToad
 description: A technical mod which adds power generation, mining, and building systems
-url:         http://www.mod-buildcraft.com
+homePageUrl: http://www.mod-buildcraft.com
 
 version: 6.2.6

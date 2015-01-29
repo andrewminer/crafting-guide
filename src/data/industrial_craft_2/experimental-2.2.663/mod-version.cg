@@ -79,7 +79,7 @@ item: Basic Machine Casing
 item: BatBox
     recipe:
         input: Insulated Tin Cable, Oak Wood Planks, RE-Battery
-        pattern: 010 222 000
+        pattern: 101 222 111
         tools: Crafting Table
 
 item: BatPack

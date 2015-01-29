@@ -111,7 +111,7 @@ module.exports = class Mod extends BaseModel
 
     getModVersion: (version)->
         return null if version is Mod.Version.None
-        return @_modVersions[@_modVersions.length-1] if version is Mod.Version.Latest
+        return @_modVersions[0] if version is Mod.Version.Latest
 
         for modVersion in @_modVersions
             return modVersion if modVersion.version is version

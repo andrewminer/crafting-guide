@@ -86,6 +86,8 @@ module.exports = class ModPageController extends BaseController
 
         modVersion = @model.activeModVersion
         modVersion ?= @model.getModVersion Mod.Version.Latest
+        modVersion.fetch()
+
         return modVersion
 
     _refreshHomePageLink: ->

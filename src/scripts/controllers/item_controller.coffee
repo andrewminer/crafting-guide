@@ -5,8 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController         = require './base_controller'
-{Url}                  = require '../constants'
+BaseController = require './base_controller'
+{Url}          = require '../constants'
 
 ########################################################################################################################
 
@@ -19,6 +19,12 @@ module.exports = class ItemController extends BaseController
         super options
 
         @_modPack = options.modPack
+
+    # Event Methods ################################################################################
+
+    onLinkClicked: ->
+        router.navigate @$nameLink.attr('href'), trigger:true
+        return false
 
     # BaseController Overrides #####################################################################
 
@@ -34,3 +40,8 @@ module.exports = class ItemController extends BaseController
         @$icon.attr 'src', Url.itemIcon display
         @$name.html display.itemName
         @$nameLink.attr 'href', Url.item display
+
+    # Backbone.View Overrides ######################################################################
+
+    events:
+        'click a': 'onLinkClicked'

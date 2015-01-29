@@ -23,25 +23,21 @@ module.exports = class ItemPage extends BaseModel
         super attributes, options
 
         @modPack.on Event.change, => @_consumeParams()
-        @plan.on Event.change, => @_updateLocation()
+        @on Event.change + ':params', => @_consumeParams()
 
     # Private Methods ##############################################################################
 
     _consumeParams: ->
-        return unless @params?.name?
+        return unless @params?
 
-        item = @modPack.findItemByName @params.name
-        return unless item? and item.isCraftable
-
-        quantity = if @params.quantity? then parseInt(@params.quantity) else 1
-        @plan.want.add item.slug, quantity
-
-        @params = null
-
-    _updateLocation: ->
-        list = @plan.want.toList()
-        if list.length is 1
-            slug = if _.isArray(list[0]) then list[0][1] else list[0]
-            router.navigate "/item/#{slug}"
+        if not @params?.name?
+            @plan.want.clear()
+            @params = null
         else
-            router.navigate "/"
+            item = @modPack.findItemByName @params.name
+            return unless item? and item.isCraftable
+
+            quantity = if @params.quantity? then parseInt(@params.quantity) else 1
+            @plan.want.add item.slug, quantity
+
+            @params = null

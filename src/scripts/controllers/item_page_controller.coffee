@@ -47,6 +47,7 @@ module.exports = class ItemPageController extends BaseController
             imageLoader: @_imageLoader
             model:       @model.plan.want
             modPack:     @model.modPack
+            onChange:    => @_updateLocation()
             title:       'Items you want'
 
         @haveController = @addChild InventoryController, '.have',
@@ -90,3 +91,13 @@ module.exports = class ItemPageController extends BaseController
 
     events:
         'change .includeTools': 'onToolsBoxToggled'
+
+    # Private Methods ##############################################################################
+
+    _updateLocation: ->
+        list = @model.plan.want.toList()
+        if list.length is 1
+            slug = if _.isArray(list[0]) then list[0][1] else list[0]
+            router.navigate "/item/#{slug}"
+        else
+            router.navigate "/"

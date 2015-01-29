@@ -3,6 +3,6 @@ schema: 1
 name:        Applied Energistics 2
 author:      AlgorithmX2
 description: A technical mod which adds an advanced, computer-based storage system
-homePageUrl: http://www.mod-buildcraft.com
+homePageUrl: http://ae-mod.info/
 
 version: rv1-stable-1

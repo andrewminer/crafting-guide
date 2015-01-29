@@ -8,6 +8,7 @@ All rights reserved.
 {DefaultMods}      = require './constants'
 {Duration}         = require './constants'
 {Event}            = require './constants'
+HeaderController   = require './controllers/header_controller'
 ItemPageController = require './controllers/item_page_controller'
 Mod                = require './models/mod'
 ModPack            = require './models/mod_pack'
@@ -30,6 +31,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @storage = new Storage storage:window.localStorage
         @_defaultOptions = modPack:@modPack, storage:@storage
 
+        @headerController = new HeaderController el:'.view__header'
+
     # Public Methods ###############################################################################
 
     loadDefaultModPack: ->
@@ -51,9 +54,9 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_recordPageView()
 
     routes:
-        '':             'root'
-        'item(/:name)': 'item'
-        'mod/:slug':    'mod'
+        '':           'root'
+        'item/:name': 'item'
+        'mod/:slug':  'mod'
 
     # Route Methods ################################################################################
 
@@ -75,8 +78,6 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
     _recordPageView: ->
         pathname = window.location.pathname
-        return if @_lastReported is pathname
-        @_lastReported = pathname
 
         if global.env is 'production' and ga?
             logger.info "Recording GA page view: #{pathname}"

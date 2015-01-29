@@ -22,21 +22,16 @@ module.exports = class InventoryController extends BaseController
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        options.editable    ?= true
-        options.nameFinder  ?= new NameFinder options.modPack
-        options.icon        ?= '/images/chest_front.png'
-        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
-        options.title       ?= 'Inventory'
+        @editable    = options.editable    ?= true
+        @icon        = options.icon        ?= '/images/chest_front.png'
+        @imageLoader = options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
+        @modPack     = options.modPack
+        @nameFinder  = options.nameFinder  ?= new NameFinder options.modPack
+        @onChange    = options.onChange    ?= -> # do nothing
+        @title       = options.title       ?= 'Inventory'
 
         options.templateName  = 'inventory'
         super options
-
-        @editable    = options.editable
-        @icon        = options.icon
-        @imageLoader = options.imageLoader
-        @modPack     = options.modPack
-        @nameFinder  = options.nameFinder
-        @title       = options.title
 
         @_stackControllers = []
 
@@ -55,8 +50,11 @@ module.exports = class InventoryController extends BaseController
         @$scrollbox.scrollTop @$scrollbox.prop 'scrollHeight'
         @$nameField.autocomplete 'close'
 
+        @onChange()
+
     onClearButtonClicked: ->
         @model.clear()
+        @onChange()
 
     onItemSelected: ->
         func = =>

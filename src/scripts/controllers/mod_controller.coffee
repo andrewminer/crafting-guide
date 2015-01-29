@@ -26,6 +26,10 @@ module.exports = class ModController extends BaseController
 
     # Event Methods ################################################################################
 
+    onNameClicked: (event)->
+        router.navigate @$nameLink.attr('href'), trigger:true
+        return false
+
     onVersionChanged: ->
         @model.activeVersion = @$version.val()
         @_plan.removeUncraftableItems()
@@ -60,7 +64,7 @@ module.exports = class ModController extends BaseController
                 option.attr 'selected', 'selected'
             @$version.append option
 
-        @$nameLink.attr 'href', Url.mod modSlug:@model.slug
+        @$nameLink.attr 'href', Url.mod(modSlug:@model.slug)
         @$nameText.html @model.name
 
         @$description.html @model.description
@@ -69,3 +73,4 @@ module.exports = class ModController extends BaseController
 
     events:
         'change .version': 'onVersionChanged'
+        'click .name a': 'onNameClicked'

@@ -34,9 +34,7 @@ module.exports = class ModPageController extends BaseController
 
     onVersionChanged: ->
         version = @$versionSelector.val()
-        logger.debug "new version: #{version}"
         modVersion = @model.getModVersion version
-        logger.debug "new mod version: #{modVersion}"
         @_effectiveModVersion = modVersion
         if modVersion? then modVersion.fetch()
         @refresh()

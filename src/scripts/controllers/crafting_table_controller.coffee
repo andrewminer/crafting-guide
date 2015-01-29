@@ -84,7 +84,8 @@ module.exports = class CraftingTableController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'click .next':      'onNextClicked'
-        'click .prev':      'onPrevClicked'
-        'click .problem a': 'onReportProblem'
+    events: ->
+        return _.extend super,
+            'click .next':      'onNextClicked'
+            'click .prev':      'onPrevClicked'
+            'click .problem a': 'onReportProblem'

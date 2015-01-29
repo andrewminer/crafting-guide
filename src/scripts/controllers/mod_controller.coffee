@@ -26,10 +26,6 @@ module.exports = class ModController extends BaseController
 
     # Event Methods ################################################################################
 
-    onNameClicked: (event)->
-        router.navigate @$nameLink.attr('href'), trigger:true
-        return false
-
     onVersionChanged: ->
         @model.activeVersion = @$version.val()
         @_plan.removeUncraftableItems()
@@ -71,6 +67,7 @@ module.exports = class ModController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'change .version': 'onVersionChanged'
-        'click .name a': 'onNameClicked'
+    events: ->
+        return _.extend super,
+            'change .version': 'onVersionChanged'
+            'click a':         'routeLinkClick'

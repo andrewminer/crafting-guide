@@ -23,13 +23,6 @@ module.exports = class CraftingGridController extends BaseController
         @_modPack     = options.modPack
         @_slotCount   = 9
 
-    # Event Methods ################################################################################
-
-    onLinkClicked: (event)->
-        href = $(event.currentTarget).attr 'href'
-        router.navigate href, trigger:true
-        return false
-
     # BaseController Methods #######################################################################
 
     onDidRender: ->
@@ -61,8 +54,9 @@ module.exports = class CraftingGridController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'click td a': 'onLinkClicked'
+    events: ->
+        return _.extend super,
+            'click td a': 'routeLinkClick'
 
     # Private Methods ##############################################################################
 

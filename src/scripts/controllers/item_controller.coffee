@@ -20,12 +20,6 @@ module.exports = class ItemController extends BaseController
 
         @_modPack = options.modPack
 
-    # Event Methods ################################################################################
-
-    onLinkClicked: ->
-        router.navigate @$nameLink.attr('href'), trigger:true
-        return false
-
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
@@ -43,5 +37,6 @@ module.exports = class ItemController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'click a': 'onLinkClicked'
+    events: ->
+        return _.extend super,
+            'click a': 'routeLinkClick'

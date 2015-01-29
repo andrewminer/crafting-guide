@@ -89,8 +89,9 @@ module.exports = class ItemPageController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'change .includeTools': 'onToolsBoxToggled'
+    events: ->
+        return _.extend super,
+            'change .includeTools': 'onToolsBoxToggled'
 
     # Private Methods ##############################################################################
 

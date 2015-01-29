@@ -65,14 +65,14 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @item params.recipeName, params.count
 
     item: (name, quantity=1)->
-        @_pageControllers.item ?= new ItemPageController @_defaultOptions
-        @_pageControllers.item.model.params = name:name, quantity:quantity
-        @_setPage 'item'
+        controller = new ItemPageController @_defaultOptions
+        controller.model.params = name:name, quantity:quantity
+        @_setPage 'item', controller
 
     mod: (slug)->
-        @_pageControllers.mod ?= new ModPageController @_defaultOptions
-        @_pageControllers.mod.model = @modPack.getMod slug
-        @_setPage 'mod'
+        controller = new ModPageController @_defaultOptions
+        controller.model = @modPack.getMod slug
+        @_setPage 'mod', controller
 
     # Private Methods ##############################################################################
 
@@ -85,15 +85,14 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         else
             logger.info "Suppressing GA page view: #{pathname}"
 
-    _setPage: (controllerName)->
-        controller = @_pageControllers[controllerName]
-        if not controller? then throw new Error "cannot find controller named: #{controllerName}"
-        return if @_page is controller
+    _setPage: (page, controller)->
+        return if @_page is page
 
-        logger.info "changing to #{controllerName} page"
+        logger.info "changing to #{page} page"
         showDuration = Duration.normal
         show = =>
-            @_page = controller
+            @_page       = page
+            @_controller = controller
 
             controller.onWillShow()
             controller.render()
@@ -105,8 +104,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             controller.$el.fadeIn showDuration, ->
                 controller.onDidShow()
 
-        if @_mainController?
+        if @_controller?
             showDuration = Duration.fast
-            @_page.$el.fadeOut Duration.fast, show
+            @_controller.$el.fadeOut showDuration, show
         else
             show()

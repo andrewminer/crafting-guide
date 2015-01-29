@@ -104,8 +104,9 @@ module.exports = class FeedbackController extends BaseController
 
     # Backbone.View Methods ########################################################################
 
-    events:
-        'click .label':   'onToggle'
-        'click button':   'onSendClicked'
-        'input textarea': 'onTextChanged'
-        'keyup textarea': 'onTextChanged'
+    events: ->
+        return _.extend super,
+            'click .label':   'onToggle'
+            'click button':   'onSendClicked'
+            'input textarea': 'onTextChanged'
+            'keyup textarea': 'onTextChanged'

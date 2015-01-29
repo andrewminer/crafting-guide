@@ -39,6 +39,11 @@ module.exports = class BaseController extends Backbone.View
     refresh: ->
         logger.verbose "#{this} refreshing"
 
+    routeLinkClick: (event)->
+        href = $(event.currentTarget).attr 'href'
+        router.navigate href, trigger:true
+        return false
+
     # Event Methods ################################################################################
 
     onDidModelChange: ->
@@ -77,6 +82,9 @@ module.exports = class BaseController extends Backbone.View
         @_tryRefresh()
 
     # Backbone.View Overrides ######################################################################
+
+    events: ->
+        return {}
 
     render: (options={})->
         return this unless not @_rendered or options.force

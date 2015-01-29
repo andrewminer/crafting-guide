@@ -23,5 +23,3 @@ module.exports = class RecipeStepController extends BaseController
         @$slotImages = (@$slots.push $(el) for el in @$('.table-slot img'))
         @$output     = @$('.output')
         super
-
-    refresh: ->

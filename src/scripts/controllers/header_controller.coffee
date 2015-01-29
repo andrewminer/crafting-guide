@@ -28,5 +28,6 @@ module.exports = class HeaderController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'click a.logo': 'onLogoClicked'
+    events: ->
+        return _.extend super,
+            'click a.logo': 'onLogoClicked'

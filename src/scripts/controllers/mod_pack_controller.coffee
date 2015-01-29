@@ -74,5 +74,6 @@ module.exports = class ModPackController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'click button[name="suggestMod"]': 'onSuggestModClicked'
+    events: ->
+        return _.extend super,
+            'click button[name="suggestMod"]': 'onSuggestModClicked'

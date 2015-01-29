@@ -152,16 +152,17 @@ module.exports = class InventoryController extends BaseController
 
     # Backbone.View Overrides ######################################################################
 
-    events:
-        'blur input[name="name"]':      'onNameFieldBlur'
-        'blur input[name="quantity"]':  'onQuantityFieldBlur'
-        'click button[name="add"]':     'onAddButtonClicked'
-        'click button[name="clear"]':   'onClearButtonClicked'
-        'focus input[name="name"]':     'onNameFieldFocused'
-        'focus input[name="quantity"]': 'onQuantityFieldFocused'
-        'input input[name="name"]':     'onNameFieldChanged'
-        'input input[name="quantity"]': 'onQuantityFieldChanged'
-        'keyup input[name="name"]':     'onNameFieldKeyUp'
+    events: ->
+        return _.extend super,
+            'blur input[name="name"]':      'onNameFieldBlur'
+            'blur input[name="quantity"]':  'onQuantityFieldBlur'
+            'click button[name="add"]':     'onAddButtonClicked'
+            'click button[name="clear"]':   'onClearButtonClicked'
+            'focus input[name="name"]':     'onNameFieldFocused'
+            'focus input[name="quantity"]': 'onQuantityFieldFocused'
+            'input input[name="name"]':     'onNameFieldChanged'
+            'input input[name="quantity"]': 'onQuantityFieldChanged'
+            'keyup input[name="name"]':     'onNameFieldKeyUp'
 
     # Private Methods ##############################################################################
 

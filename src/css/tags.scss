@@ -1,0 +1,85 @@
+/*
+Crafting Guide - tags.scss
+
+Copyright (C) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+body {
+    background: $color-background url('/images/ice.png');
+    font-size: 10px;
+}
+
+button {
+    background: $color-gray-faint;
+    border: 0.1em solid $color-gray-medium;
+    border-radius: 1em;
+    color: $color-active;
+    cursor: pointer;
+    font-size: $font-size-normal;
+    font-weight: bold;
+    padding: 0.1em 1em;
+
+    &:hover {
+        background: white;
+        color: $color-active-hover;
+    }
+}
+
+h1 {
+    margin-bottom: 1em;
+
+    * { display: inline; }
+
+    img {
+        position: relative; height: 10em; width: 10em;
+        margin-right: 1em;
+        vertical-align: bottom;
+    }
+
+    p {
+        font-family: $font-family-header;
+        font-size: $font-size-xx-large;
+        position: relative; top: -0.5em;
+    }
+}
+
+h2 {
+    margin-bottom: 1em;
+
+    * { display: inline; }
+
+    img {
+        position: relative; height: 4em; width: 4em;
+        margin-right: 1em;
+        vertical-align: bottom;
+    }
+
+    p {
+        font-family: $font-family-header;
+        font-size: $font-size-x-large;
+        position: relative; top: -0.25em;
+    }
+}
+
+h3 {
+    font-family: $font-family-normal;
+    font-weight: bold;
+
+    p { font-size: $font-size-normal; }
+}
+
+p {
+    font-family: $font-family-normal;
+    font-size: $font-size-normal;
+}
+
+input {
+    font-family: $font-family-input;
+    font-size: $font-size-normal;
+}
+
+label {
+    font-family: $font-family-normal;
+    font-size: $font-size-normal;
+}

@@ -1,0 +1,73 @@
+/*
+Crafting Guide - views.scss
+
+Copyright (c) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__footer {
+    background: $color-footer;
+    color: $color-footer-text;
+    margin-top: 2em;
+
+    a {
+        color: $color-footer-text;
+    }
+
+    .divider {
+        position: relative; height: 3.2em; width: 100%;
+        clear: both;
+    }
+
+    .divider.top {
+        background: $color-dirt url('/images/grass_side.png');
+    }
+
+    .left, .center, .right  {
+        position: relative; width: 33%;
+        float: left;
+        padding: 2em;
+
+        p {
+            font-family: sans-serif;
+            font-size: $font-size-small;
+            padding-bottom: 1.0em;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+
+        h2 {
+            padding-bottom: 1.0em;
+
+            p {
+                font-family: $font-family-header;
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    .divider.bottom {
+        background: $color-bedrock url('/images/bedrock.png');
+    }
+}
+
+.view__header {
+    background: $color-brick-light url('/images/stone_brick_light.png');
+    position: relative; height: 10em;
+    margin-top: 5em;
+
+    h1 { position: relative; top: -3em; left: -3em; }
+
+    .divider {
+        background: $color-brick-dark url('/images/stone_brick.png');
+        position: absolute; bottom: 0; height: 3.2em; width: 100%;
+    }
+}
+
+.view__screen {
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+    display: none;
+    z-index: $layer-screen;
+}

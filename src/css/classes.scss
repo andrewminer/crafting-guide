@@ -1,0 +1,23 @@
+/*
+Crafting Guide - classes.scss
+
+Copyright (C) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+.centered {
+    text-align: center;
+}
+
+.content {
+    background: $color-content;
+    box-shadow: 10px 10px 20px #666;
+    margin: 2em auto;
+    max-width: 96em;
+    position: relative;
+    width: 100%;
+}
+
+.error { background: $color-error; }
+
+.error-new { background: $color-error-new; }

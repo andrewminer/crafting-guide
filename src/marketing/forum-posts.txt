@@ -40,3 +40,10 @@ and functional.  I'll work on using the machines in a future update.  Next up: I
 
 I've just finished adding support for the latest version of Industrial Craft (2.2.663 on the experimental branch).  I've
 also updated the site to let you select the version you're using.
+
+########################################################################################################################
+
+I just pushed up a big new feature!  Now, each Mod has a dedicated page of its own which lists all the items available
+in that mod.  Clicking on an item will take you to the crafting guide for that item. It's super fast to switch back and
+forth to explore the items in any given mod.  This is the first of many steps for the new mod pages, so keep an eye out
+for more to come!

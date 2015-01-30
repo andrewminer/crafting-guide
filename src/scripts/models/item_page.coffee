@@ -34,7 +34,7 @@ module.exports = class ItemPage extends BaseModel
         if not @params?.name?
             @params = null
         else
-            item = @modPack.findItemByName @params.name
+            item = @modPack.findItemByName @params.name, enableAsNeeded:true
             return unless item? and item.isCraftable
 
             quantity = if @params.quantity? then parseInt(@params.quantity) else 1

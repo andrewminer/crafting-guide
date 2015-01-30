@@ -32,12 +32,14 @@ module.exports = class ModPack extends BaseModel
 
         return null
 
-    findItemByName: (name)->
-        slug = _.slugify name
+    findItemByName: (name, options={})->
+        options.enableAsNeeded ?= false
+        options.includeDisabled = true if options.enableAsNeeded
 
+        slug = _.slugify name
         for mod in @_mods
-            continue unless mod.enabled?
-            item = mod.findItem slug
+            continue unless mod.enabled or options.includeDisabled
+            item = mod.findItem slug, options
             return item if item?
 
         return null

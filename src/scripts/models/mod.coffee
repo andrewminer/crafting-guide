@@ -64,14 +64,19 @@ module.exports = class Mod extends BaseModel
 
     findItem: (slug, options={})->
         options.includeDisabled ?= false
+        options.enableAsNeeded  ?= false
 
         if not options.includeDisabled
             return unless @_activeModVersion?
             return @_activeModVersion.findItem slug
         else
             for modVersion in @_modVersions
+                modVersion.fetch()
+
                 item = modVersion.findItem slug
-                return item if item?
+                if item?
+                    if options.enableAsNeeded then @setActiveVersion modVersion.version
+                    return item
 
         return null
 
@@ -121,6 +126,8 @@ module.exports = class Mod extends BaseModel
         return @_activeVersion
 
     setActiveVersion: (version)->
+        return if version is @_activeVersion
+
         version ?= Mod.Version.None
         if version is Mod.Version.Latest then version = _.last(@_modVersions).version
 

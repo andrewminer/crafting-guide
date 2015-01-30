@@ -39,6 +39,11 @@ All rights reserved.
         border: 1px solid $color-gray-light;
     }
 
+    button:disabled {
+        background: white;
+        color: $color-gray-light;
+    }
+
     table {
         width: 100%;
     }

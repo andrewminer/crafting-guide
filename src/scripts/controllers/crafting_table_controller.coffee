@@ -36,7 +36,9 @@ module.exports = class CraftingTableController extends BaseController
     onReportProblem: ->
         parser   = new InventoryParser @_modPack
         itemList = parser.unparse @model.plan.want
-        message  = "When I was on step #{@model.stepIndex + 1} of making:\n\n#{itemList}\nI noticed that...\n"
+        toolsMessage = if @model.plan.includingTools then '(including tools)' else ''
+        message  = "When I was on step #{@model.stepIndex + 1} of making:
+            \n\n#{itemList}#{toolsMessage}\n\nI noticed that...\n"
         global.feedbackController.enterFeedback message
 
     # BaseController Overrides #####################################################################

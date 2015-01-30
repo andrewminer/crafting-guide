@@ -42,14 +42,15 @@ module.exports = class ModPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$name            = @$('.name')
-        @$byline          = @$('.byline p')
-        @$description     = @$('.description p')
-        @$homePageLink    = @$('.homePage')
-        @$items           = @$('.items .panel')
-        @$titleImage      = @$('.titleImage img')
-        @$versionSelector = @$('select.version')
-        @$wikiLink        = @$('.wiki')
+        @$name              = @$('.name')
+        @$byline            = @$('.byline p')
+        @$description       = @$('.description p')
+        @$documentationLink = @$('.documentation')
+        @$downloadLink      = @$('.download')
+        @$homePageLink      = @$('.homePage')
+        @$items             = @$('.items .panel')
+        @$titleImage        = @$('.titleImage img')
+        @$versionSelector   = @$('select.version')
 
         super
 
@@ -59,7 +60,10 @@ module.exports = class ModPageController extends BaseController
         @$titleImage.attr 'src', (if @model? then Url.modLogoImage(modSlug:@model.slug) else '')
         @$description.html if @model? then @model.description else ''
 
-        @_refreshHomePageLink()
+        @_refreshLink @$homePageLink, @model.homePageUrl
+        @_refreshLink @$documentationLink, @model.documentationUrl
+        @_refreshLink @$downloadLink, @model.downloadUrl
+
         @_refreshItems()
         @_refreshVersions()
         super
@@ -90,12 +94,12 @@ module.exports = class ModPageController extends BaseController
 
         return modVersion
 
-    _refreshHomePageLink: ->
-        if @model.homePageUrl?
-            @$homePageLink.fadeIn duration:Duration.fast
-            @$homePageLink.attr 'href', @model.homePageUrl
+    _refreshLink: ($link, url)->
+        if url?
+            $link.fadeIn duration:Duration.fast
+            $link.attr 'href', url
         else
-            @$homePageLink.fadeOut duration:Duration.fast
+            $link.fadeOut duration:Duration.fast
 
     _refreshItems: ->
         controllerIndex = 0

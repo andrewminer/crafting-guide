@@ -37,6 +37,16 @@ module.exports = class ModParserV2 extends CommandParserVersionBase
 
         @_rawData.description = description
 
+    _command_documentationUrl: (documentationUrl)->
+        if @_rawData.documentationUrl? then throw new Error 'duplicate declaration of "documentationUrl"'
+        if documentationUrl.length is 0 then throw new Error 'documentationUrl cannot be empty (omit it instead)'
+        @_rawData.documentationUrl = documentationUrl
+
+    _command_downloadUrl: (downloadUrl)->
+        if @_rawData.downloadUrl? then throw new Error 'duplicate declaration of "downloadUrl"'
+        if downloadUrl.length is 0 then throw new Error 'downloadUrl cannot be empty (omit it instead)'
+        @_rawData.downloadUrl = downloadUrl
+
     _command_name: (name)->
         if @_rawData.name? then throw new Error 'duplicate declaration of "name"'
         if name.length is 0 then throw new Error '"name" cannot be empty'
@@ -61,10 +71,12 @@ module.exports = class ModParserV2 extends CommandParserVersionBase
         if not rawData.homePageUrl? then throw new Error 'the "homePageUrl" declaration is required'
         if not rawData.versions? then throw new Error 'at least one "version" declaration is required'
 
-        model.author      = rawData.author      if rawData.author?
-        model.description = rawData.description if rawData.description?
-        model.name        = rawData.name
-        model.homePageUrl = rawData.homePageUrl
+        model.author           = rawData.author           if rawData.author?
+        model.description      = rawData.description      if rawData.description?
+        model.documentationUrl = rawData.documentationUrl if rawData.documentationUrl?
+        model.downloadUrl      = rawData.downloadUrl      if rawData.downloadUrl?
+        model.name             = rawData.name
+        model.homePageUrl      = rawData.homePageUrl
 
         for version in rawData.versions
             model.addModVersion new ModVersion modSlug:model.slug, version:version

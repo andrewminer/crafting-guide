@@ -16,10 +16,12 @@ module.exports = class Mod extends BaseModel
 
     constructor: (attributes={}, options={})->
         if not attributes.slug? then throw new Error 'attributes.slug is required'
-        attributes.author      ?= ''
-        attributes.description ?= ''
-        attributes.name        ?= ''
-        attributes.homePageUrl ?= null
+        attributes.author           ?= ''
+        attributes.description      ?= ''
+        attributes.documentationUrl ?= null
+        attributes.downloadUrl      ?= null
+        attributes.homePageUrl      ?= null
+        attributes.name             ?= ''
         super attributes, options
 
         @_activeModVersion = null

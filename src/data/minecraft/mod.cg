@@ -1,8 +1,10 @@
 schema: 1
 
-name:        Minecraft
-author:      Mojang
-description: The basic game by itself
-homePageUrl: http://www.minecraft.net
+name:             Minecraft
+author:           Mojang
+description:      The basic game by itself
+homePageUrl:      http://www.minecraft.net
+documentationUrl: http://minecraft.gamepedia.com/Minecraft_Wiki
+downloadUrl:      https://minecraft.net/store/minecraft
 
 version: 1.7.10

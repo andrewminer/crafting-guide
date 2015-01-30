@@ -60,6 +60,12 @@ module.exports = class RecipeController extends BaseController
 
         super
 
+    # Backbone.View Methods ########################################################################
+
+    events: ->
+        return _.extend super,
+            'click a': 'routeLinkClick'
+
     # Private Methods ##############################################################################
 
     _findToolNames: ->

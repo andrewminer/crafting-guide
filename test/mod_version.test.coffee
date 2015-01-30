@@ -16,7 +16,13 @@ modVersion = null
 
 describe 'mod_version.coffee', ->
 
-    beforeEach -> modVersion = new ModVersion modSlug:'test', version:'0.0'
+    beforeEach ->
+        modVersion = new ModVersion modSlug:'test', version:'0.0'
+        modVersion.addItem new Item name:'underscore', group:'punctuation'
+        modVersion.addItem new Item name:'bravo',      group:'letter'
+        modVersion.addItem new Item name:'alpha',      group:'letter'
+        modVersion.addItem new Item name:'one',        group:'number'
+        modVersion.addItem new Item name:'two',        group:'number'
 
     describe 'constructor', ->
 
@@ -39,6 +45,30 @@ describe 'mod_version.coffee', ->
         it 'sets the modVersion', ->
             modVersion.addItem new Item name:'Wool'
             modVersion._items.wool.modVersion.should.equal modVersion
+
+    describe 'eachGroup', ->
+
+        it 'returns all the groups in order', ->
+            groupNames = []
+            modVersion.eachGroup (groupName)-> groupNames.push groupName
+            groupNames.should.eql ['letter', 'number', 'punctuation']
+
+    describe 'eachItemInGroup', ->
+
+        it 'returns immediately for unknown group', ->
+            slugs = []
+            modVersion.eachItemInGroup 'foobar', (item)-> slugs.push item.slug
+            slugs.should.eql []
+
+        it 'calls callback for exactly the items in a group in order', ->
+            slugs = []
+            modVersion.eachItemInGroup 'letter', (item)-> slugs.push item.slug
+            slugs.should.eql ['alpha', 'bravo']
+
+            slugs = []
+            modVersion.eachItemInGroup 'number', (item)-> slugs.push item.slug
+            slugs.should.eql ['one', 'two']
+
 
     describe 'findItemByName', ->
 

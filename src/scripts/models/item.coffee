@@ -14,9 +14,12 @@ Recipe         = require './recipe'
 
 module.exports = class Item extends BaseModel
 
+    @Group = Other:'Other'
+
     constructor: (attributes={}, options={})->
         if not attributes.name? then throw new Error 'attributes.name is required'
 
+        attributes.group        ?= Item.Group.Other
         attributes.isGatherable ?= false
         attributes.slug         ?= _.slugify attributes.name
         options.logEvents       ?= false

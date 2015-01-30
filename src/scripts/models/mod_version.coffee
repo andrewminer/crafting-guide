@@ -21,16 +21,20 @@ module.exports = class ModVersion extends BaseModel
         if not attributes.version? then throw new Error 'attributes.version is required'
         super attributes, options
 
-        @_items = {}
-        @_names = {}
-        @_slugs = []
+        @_groups = {}
+        @_items  = {}
+        @_names  = {}
+        @_slugs  = []
 
     # Public Methods ###############################################################################
 
     addItem: (item)->
         if @_items[item.slug]? then throw new Error "duplicate item for #{item.name}"
 
-        @_items[item.slug] = item
+        @_items[item.slug]               = item
+        @_groups[item.group]            ?= {}
+        @_groups[item.group][item.slug]  = item
+
         item.modVersion = this
         @registerSlug item.slug, item.name
         return this
@@ -44,12 +48,23 @@ module.exports = class ModVersion extends BaseModel
 
         return 0
 
+    eachGroup: (callback)->
+        for groupName in _.keys(@_groups).sort()
+            callback groupName
+
     eachItem: (callback)->
         for slug in @_slugs
             item = @_items[slug]
             continue unless item?
             callback @_items[slug], slug
         return this
+
+    eachItemInGroup: (group, callback)->
+        group = @_groups[group]
+        return unless group?
+
+        for slug in _.keys(group).sort()
+            callback group[slug]
 
     eachName: (callback)->
         for slug in @_slugs

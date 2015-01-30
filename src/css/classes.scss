@@ -21,3 +21,24 @@ All rights reserved.
 .error { background: $color-error; }
 
 .error-new { background: $color-error-new; }
+
+.section {
+    margin-top: 3em;
+
+    h2 {
+        font-family: $font-family-header;
+        font-size: $font-size-large;
+        margin-bottom: 0.5em;
+    }
+
+    .panel {
+        background: white;
+        padding: 1em;
+
+        & > div {
+            position: relative; width: 33%;
+            display: inline-block;
+            padding: 0.5em;
+        }
+    }
+}

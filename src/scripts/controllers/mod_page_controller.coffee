@@ -5,12 +5,12 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
-{Duration}     = require '../constants'
-Mod            = require '../models/mod'
-ModPack        = require '../models/mod_pack'
-ItemController = require './item_controller'
-{Url}          = require '../constants'
+BaseController      = require './base_controller'
+{Duration}          = require '../constants'
+Mod                 = require '../models/mod'
+ModPack             = require '../models/mod_pack'
+ItemGroupController = require './item_group_controller'
+{Url}               = require '../constants'
 
 ########################################################################################################################
 
@@ -24,7 +24,7 @@ module.exports = class ModPageController extends BaseController
 
         @_delayStep           = options.delayStep
         @_effectiveModVersion = null
-        @_itemControllers     = []
+        @_groupControllers    = []
         @_modPack             = options.modPack
 
         Object.defineProperties this,
@@ -48,7 +48,7 @@ module.exports = class ModPageController extends BaseController
         @$documentationLink = @$('.documentation')
         @$downloadLink      = @$('.download')
         @$homePageLink      = @$('.homePage')
-        @$items             = @$('.items .panel')
+        @$groupContainer    = @$('.itemGroups')
         @$titleImage        = @$('.titleImage img')
         @$versionSelector   = @$('select.version')
 
@@ -64,7 +64,7 @@ module.exports = class ModPageController extends BaseController
         @_refreshLink @$documentationLink, @model.documentationUrl
         @_refreshLink @$downloadLink, @model.downloadUrl
 
-        @_refreshItems()
+        @_refreshItemGroups()
         @_refreshVersions()
         super
 
@@ -74,15 +74,6 @@ module.exports = class ModPageController extends BaseController
         'change select.version': 'onVersionChanged'
 
     # Private Methods ##############################################################################
-
-    _createItemController: (item)->
-        controller = new ItemController model:item, modPack:@_modPack
-        controller.$el.hide()
-        controller.render()
-
-        @_itemControllers.push controller
-        @$items.append controller.$el
-        controller.$el.fadeIn duration:Duration.fast
 
     _getEffectiveModVersion: ->
         return @_effectiveModVersion if @_effectiveModVersion?
@@ -94,34 +85,32 @@ module.exports = class ModPageController extends BaseController
 
         return modVersion
 
+    _refreshItemGroups: ->
+        groupIndex = 0
+        modVersion = @effectiveModVersion
+        modVersion.eachGroup (group)=>
+            controller = @_groupControllers[groupIndex]
+            if not controller?
+                controller = new ItemGroupController model:group, modVersion:modVersion, modPack:@_modPack
+                controller.render()
+                @$groupContainer.append controller.$el
+                @_groupControllers[groupIndex] = controller
+            else
+                controller.modVersion = modVersion
+                controller.model      = group
+                controller.refresh()
+            groupIndex++
+
+        while @_groupControllers.length > groupIndex + 1
+            controller = @_groupControllers.pop()
+            controller.$el.slideUp duration:Duration.fast, -> @remove()
+
     _refreshLink: ($link, url)->
         if url?
             $link.fadeIn duration:Duration.fast
             $link.attr 'href', url
         else
             $link.fadeOut duration:Duration.fast
-
-    _refreshItems: ->
-        controllerIndex = 0
-        delay = 0
-
-        effectiveModVersion = @effectiveModVersion
-        if effectiveModVersion?
-            @$items.show duration:Duration.fast
-            effectiveModVersion.eachItem (item)=>
-                controller = @_itemControllers[controllerIndex]
-                if not controller?
-                    _.delay (=> @_createItemController item), delay
-                    delay += @_delayStep
-                else
-                    controller.model = item
-                controllerIndex += 1
-        else
-            @$items.hide duration:Duration.fast
-
-        while @_itemControllers.length > controllerIndex
-            controller = @_itemControllers.pop()
-            controller.$el.slideUp duration:Duration.fast, complete:-> @remove()
 
     _refreshVersions: ->
         @$versionSelector.empty()

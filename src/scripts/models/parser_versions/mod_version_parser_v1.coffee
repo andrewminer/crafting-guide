@@ -53,10 +53,14 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
         @_itemData.gatherable = (gatherable is 'yes')
 
+    _command_group: (group)->
+        if group.length is 0 then throw new Error 'a group name cannot be empty'
+        @_rawData.group = group
+
     _command_item: (name='')->
         if not name.length > 0 then throw new Error 'the item name cannot be empty'
 
-        @_itemData = name:name, line:@_lineNumber
+        @_itemData = name:name, line:@_lineNumber, group:@_rawData.group
         @_rawData.items ?= []
         @_rawData.items.push @_itemData
 
@@ -118,7 +122,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         itemData.gatherable ?= false
         itemData.recipes    ?= []
 
-        item = new Item name:itemData.name, isGatherable:itemData.gatherable
+        item = new Item name:itemData.name, isGatherable:itemData.gatherable, group:itemData.group
         modVersion.addItem item
 
         for recipeData in itemData.recipes
@@ -186,9 +190,23 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         builder
             .line 'schema: ', 1
             .line()
-            .onlyIf itemList.length > 0, =>
-                builder.loop itemList, delimiter:'\n', onEach:(b, i)=> @_unparseItem(b, i)
-            .outdent()
+
+        modVersion.eachGroup (group)=>
+            @_unparseGroup builder, modVersion, group
+
+    _unparseGroup: (builder, modVersion, group)->
+        if group isnt Item.Group.Other
+            builder
+                .line 'group: ', group
+                .line()
+                .indent()
+
+        modVersion.eachItemInGroup group, (item)=>
+            @_unparseItem builder, item
+            builder.line()
+
+        if group isnt Item.Group.Other
+            builder.outdent()
 
     _unparseItem: (builder, item)->
         recipes = []

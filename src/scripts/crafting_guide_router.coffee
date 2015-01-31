@@ -62,11 +62,19 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
     root: ->
         params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
-        @item params.recipeName, params.count
 
-    item: (name, quantity=1)->
+        arg = null
+        if params.recipeName?
+            if params.count?
+                arg = "#{params.count}:#{params.recipeName}"
+            else
+                arg = "#{params.recipeName}"
+
+        @item arg
+
+    item: (inventoryText)->
         controller = new ItemPageController @_defaultOptions
-        controller.model.params = name:name, quantity:quantity
+        controller.model.params = inventoryText:inventoryText
         @_setPage 'item', controller
 
     mod: (slug)->

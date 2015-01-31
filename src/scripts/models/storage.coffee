@@ -17,16 +17,25 @@ module.exports = class Storage
 
     # Public Methods ###############################################################################
 
+    load: (key)->
+        value = @storage.getItem key
+        logger.verbose "loaded #{value} from #{key}"
+        return value
+
+    store: (key, value)->
+        @storage.setItem key, value
+        logger.verbose "stored #{value} into #{key}"
+
     register: (key, model, properties...)->
         modelData = @_models[key]
         if not modelData? then modelData = @_models[key] = model:model, properties:{}
-        makeStoreMethod = (k, m, p)=> return => @_store(k, m, p)
+        makeStoreMethod = (k, m, p)=> return => @_storeProperty(k, m, p)
 
         for property in properties
             continue if modelData.properties[property]?
             modelData.properties[property] = property
 
-            @_load key, model, property
+            @_loadProperty key, model, property
             model.on "change:#{property}", makeStoreMethod(key, model, property)
 
     unregister: (key, property)->
@@ -36,16 +45,13 @@ module.exports = class Storage
 
     # Private Methods ##############################################################################
 
-    _load: (key, model, property)->
-        value = @storage.getItem "#{key}:#{property}"
+    _loadProperty: (key, model, property)->
+        value = @load "#{key}:#{property}"
         value = JSON.parse(value) if value?
-
-        logger.verbose "loaded #{value} from #{key}:#{property}"
         return unless value?
 
         model[property] = value
 
-    _store: (key, model, property)->
+    _storeProperty: (key, model, property)->
         value = JSON.stringify model[property]
-        @storage.setItem "#{key}:#{property}", value
-        logger.verbose "stored #{value} into #{key}:#{property}"
+        @store "#{key}:#{property}", value

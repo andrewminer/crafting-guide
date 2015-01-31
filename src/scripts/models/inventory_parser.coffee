@@ -18,7 +18,9 @@ module.exports = class InventoryParser
 
     # Class Methods ################################################################################
 
-    @ITEM_REGEX = /^([0-9]+)(.*)$/
+    @STACK_DELIMITER = ':'
+
+    @ITEM_DELIMITER = '.'
 
     # Public Methods ###############################################################################
 
@@ -26,25 +28,31 @@ module.exports = class InventoryParser
         inventory ?= new Inventory
         return inventory if not data? or data.length is 0
 
-        lines = data.split '\n'
-        for line in lines
-            match    = InventoryParser.ITEM_REGEX.exec line
-            name     = if match? then match[2].trim() else line
-            quantity = if match? then parseInt(match[1]) else 1
+        stacks = data.split InventoryParser.STACK_DELIMITER
+        for stackText in stacks
+            stackParts = stackText.split InventoryParser.ITEM_DELIMITER
+            if stackParts.length is 2
+                quantity = parseInt stackParts[0]
+                slug = _.slugify stackParts[1]
+            else if stackParts.length is 1
+                quantity = 1
+                slug = _.slugify stackParts[0]
+            else
+                throw new Error "expected #{stackText} to have 0 or 1 parts"
 
-            if name.length > 0
-                inventory.add _.slugify(name), quantity
+            if slug.length > 0
+                inventory.add slug, quantity
 
         return inventory
 
     unparse: (inventory)->
         if not @modPack? then throw new Error 'this.modPack is needed to unparse'
 
-        builder = new StringBuilder
-        for item in inventory.toList()
-            if _.isString item
-                builder.line @modPack.findName item
+        parts = []
+        inventory.each (stack)->
+            if stack.quantity is 1
+                parts.push stack.slug
             else
-                builder.line item[0], ' ', @modPack.findName item[1]
+                parts.push "#{stack.quantity}#{InventoryParser.ITEM_DELIMITER}#{stack.slug}"
 
-        return builder.toString()
+        return parts.join InventoryParser.STACK_DELIMITER

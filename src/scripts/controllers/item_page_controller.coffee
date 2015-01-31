@@ -10,6 +10,7 @@ CraftingTableController = require './crafting_table_controller'
 {Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
+InventoryParser         = require '../models/inventory_parser'
 ItemPage                = require '../models/item_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
@@ -27,6 +28,7 @@ module.exports = class ItemPageController extends BaseController
         super options
 
         @_imageLoader = options.imageLoader
+        @_parser      = new InventoryParser modPack:options.modPack
         @_storage     = options.storage
 
     # Event Methods ################################################################################
@@ -38,6 +40,7 @@ module.exports = class ItemPageController extends BaseController
 
     onWillRender: ->
         @_storage.register 'crafting-plan', @model.plan, 'includingTools'
+        @_parser.parse @_storage.load('crafting-plan:have'), @model.plan.have
         super
 
     onDidRender: ->
@@ -55,6 +58,7 @@ module.exports = class ItemPageController extends BaseController
             imageLoader: @_imageLoader
             model:       @model.plan.have
             modPack:     @model.modPack
+            onChange:    => @_saveHaveInventory()
             nameFinder:  new NameFinder @model.modPack, includeGatherable:true
             title:       'Items you have'
 
@@ -95,10 +99,12 @@ module.exports = class ItemPageController extends BaseController
 
     # Private Methods ##############################################################################
 
+    _saveHaveInventory: ->
+        @_storage.store 'crafting-plan:have', @_parser.unparse @model.plan.have
+
     _updateLocation: ->
-        list = @model.plan.want.toList()
-        if list.length is 1
-            slug = if _.isArray(list[0]) then list[0][1] else list[0]
-            router.navigate "/item/#{slug}"
+        text = @_parser.unparse @model.plan.want
+        if @model.plan.want.isEmpty
+            router.navigate '/'
         else
-            router.navigate "/"
+            router.navigate "/item/#{text}"

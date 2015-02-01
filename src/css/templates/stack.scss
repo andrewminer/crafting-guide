@@ -24,4 +24,26 @@ All rights reserved.
         display: inline;
         font-size: $font-size-normal;
     }
+
+    .action {
+        text-align: right;
+
+        button.remove {
+            opacity: 0;
+            position: relative; width: 1.8em; height: 1.8em;
+            background: url('/images/remove.png') no-repeat center;
+            border: 0;
+            outline: none;
+
+            &:hover {
+                background: url('/images/remove-hover.png') no-repeat center;
+            }
+        }
+    }
+
+    &:hover {
+        button.remove {
+            opacity: 1;
+        }
+    }
 }

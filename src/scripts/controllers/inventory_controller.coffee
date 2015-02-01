@@ -120,7 +120,6 @@ module.exports = class InventoryController extends BaseController
         super
 
     refresh: ->
-        display = if @editable then 'block' else 'none'
         @$editPanel.css display:(if @editable then 'table-row' else 'none')
         @$toolbar.css display:(if @editable then 'block' else 'none')
         @$scrollbox.css bottom:(if @editable then @$toolbar.height() else '0')
@@ -135,6 +134,7 @@ module.exports = class InventoryController extends BaseController
         @_stackControllers = []
         @model.each (stack)=>
             options =
+                editable:    @editable
                 imageLoader: @imageLoader
                 model:       stack
                 modPack:     @modPack
@@ -167,6 +167,7 @@ module.exports = class InventoryController extends BaseController
     # Private Methods ##############################################################################
 
     _removeStack: (stack)->
+        @model.remove stack.slug, stack.quantity
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

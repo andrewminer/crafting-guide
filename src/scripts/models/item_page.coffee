@@ -31,7 +31,6 @@ module.exports = class ItemPage extends BaseModel
     # Private Methods ##############################################################################
 
     _consumeParams: ->
-        logger.debug "consuming params: #{util.inspect(@params)}"
         return unless @params?
 
         @plan.want.clear()

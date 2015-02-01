@@ -15,12 +15,22 @@ module.exports = class StackController extends BaseController
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
-        options.templateName = 'stack'
+
+        options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
+        options.editable     ?= false
+        options.onRemove     ?= (stack)-> # do nothing
+        options.templateName  = 'stack'
         super options
 
+        @editable     = options.editable
         @modPack      = options.modPack
+        @onRemove     = options.onRemove
         @_imageLoader = options.imageLoader
+
+    # Event Methods ################################################################################
+
+    onRemoveClicked: ->
+        @onRemove @model
 
     # BaseController Overrides #####################################################################
 
@@ -28,12 +38,21 @@ module.exports = class StackController extends BaseController
         @$image         = @$('.icon img')
         @$nameField     = @$('.name p')
         @$quantityField = @$('.quantity p')
+        @$removeButton  = @$('button.remove')
         super
 
     refresh: ->
         display = @modPack.findItemDisplay @model.slug
 
+        @_imageLoader.load display.iconUrl, @$image
         @$nameField.html display.itemName
         @$quantityField.html @model.quantity
-        @_imageLoader.load display.iconUrl, @$image
+        @$removeButton.css display:(if @editable then 'inherit' else 'none')
+
         super
+
+    # Backbone.View Overrides ######################################################################
+
+    events: ->
+        return _.extend super,
+            'click button.remove': 'onRemoveClicked'

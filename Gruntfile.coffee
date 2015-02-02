@@ -50,7 +50,7 @@ module.exports = (grunt)->
             data_images:
                 files: [expand:true, cwd:'./src/data', src:'**/*.png', dest:'./dist/data']
             fonts:
-                files: [expand:true, cwd:'./src/fonts', src:'**/*.ttf', dest:'./dist/fonts']
+                files: [expand:true, cwd:'./src/fonts', src:['**/*.ttf', '**/*.woff'], dest:'./dist/fonts']
             images:
                 files: [expand:true, cwd:'./src/images/', src:['**/*.png', '**/*.jpg'], dest:'./dist/images']
             jquery_ui_images:

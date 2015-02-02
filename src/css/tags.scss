@@ -29,36 +29,38 @@ button {
 h1 {
     margin-bottom: 1em;
 
-    * { display: inline; }
+    & > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
 
     img {
-        position: relative; height: 10em; width: 10em;
+        height: 6.4em; width: 6.4em;
         margin-right: 1em;
-        vertical-align: bottom;
     }
 
     p {
         font-family: $font-family-header;
-        font-size: $font-size-x-large;
-        position: relative; top: -0.5em;
+        font-size: $font-size-xx-large;
     }
 }
 
 h2 {
     margin-bottom: 0.5em;
 
-    * { display: inline; }
+    & > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
 
     img {
-        position: relative; height: 3.2em; width: 3.2em;
+        height: 3.2em; width: 3.2em;
         margin-right: 1em;
-        vertical-align: bottom;
     }
 
     p {
         font-family: $font-family-header;
-        font-size: $font-size-large;
-        position: relative; top: -0.25em;
+        font-size: $font-size-x-large;
     }
 }
 

@@ -17,21 +17,28 @@ All rights reserved.
   src: url('/fonts/press_start.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/silkscreen.ttf') format('truetype');
+}
+
 // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Font Faces //////////////////////////////////////////////////////////////////////////////////////
 
-$font-family-header: 'PressStart';
+$font-family-header: 'Silkscreen';
 $font-family-normal: sans-serif;
 $font-family-input:  monospace;
 
 // Font Sizes //////////////////////////////////////////////////////////////////////////////////////
 
-$font-size-small:    1.2em;
-$font-size-normal:   1.3em;
-$font-size-large:    1.6em;
-$font-size-x-large:  2.0em;
-$font-size-xx-large: 3.0em;
+$font-size-small:    1.0em;
+$font-size-normal:   1.5em;
+$font-size-large:    2.0em;
+$font-size-x-large:  2.5em;
+$font-size-xx-large: 4.0em;
 
 // Gray Palette ////////////////////////////////////////////////////////////////////////////////////
 

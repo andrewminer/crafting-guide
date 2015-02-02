@@ -24,29 +24,9 @@ All rights reserved.
     }
 
     .left, .center, .right  {
-        position: relative; width: 33%; height: 22em;
+        position: relative; width: 33%; height: 23em;
         float: left;
         padding: 2em;
-
-        p {
-            font-family: sans-serif;
-            font-size: $font-size-small;
-            line-height: $font-size-small + 0.2em;
-            padding-bottom: 1.0em;
-
-            &:last-child {
-                padding-bottom: 0;
-            }
-        }
-
-        h2 {
-            padding-bottom: 1.0em;
-
-            p {
-                font-family: $font-family-header;
-                font-size: 1.5em;
-            }
-        }
 
         .action {
             position: absolute; bottom: 3em; left: 50%;
@@ -64,18 +44,12 @@ All rights reserved.
     position: relative; height: 8em;
     margin-top: 3.2em;
 
-    a {
-        position: absolute; left: -1.6em; top: -1.6em;
-
-        img {
-            width: 6.4em; height: 6.4em;
-        }
-    }
-
     h1 {
-        position: absolute; top: 0.8em; left: 3.2em;
-        font-family: PressStart;
-        font-size: $font-size-x-large;
+        position: relative; top: -1.6em; left: -1.6em;
+
+        p {
+            position: relative; top: 0.2em;
+        }
     }
 
     .divider {

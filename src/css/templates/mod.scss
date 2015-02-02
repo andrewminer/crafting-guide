@@ -7,24 +7,21 @@ All rights reserved.
 
 .view__mod {
     position: relative; width: 100%;
-    padding: 1em;
+    display: table-row;
 
     div, p {
-        display: inline-block;
+        display: table-cell;
+        padding: 0.4em;
     }
 
     .version {
-        position: relative; width: 10em;
-        margin-right: 1em;
+        width: 10em;
     }
 
     .name {
-        position: relative; width: 15em;
-        margin-right: 1em;
+        width: 18em;
 
         p {
-            font-family: $font-family-normal;
-            font-size: $font-size-normal;
             text-decoration: underline;
         }
     }

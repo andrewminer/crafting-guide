@@ -34,8 +34,8 @@ All rights reserved.
         }
 
         .multiplier {
-            position: absolute; bottom: -3em; left: 0; right: 0; height: 1.5em;
-            font-family: PressStart;
+            position: absolute; bottom: -2.0em; left: 0; right: 0; height: 1.5em;
+            font-family: $font-family-header;
             font-size: $font-size-large;
             text-align: center;
         }
@@ -43,7 +43,7 @@ All rights reserved.
         .quantity {
             position: absolute; right: 0.1em; bottom: 0.1em;
             color: white;
-            font-family: PressStart;
+            font-family: $font-family-header;
             font-size: $font-size-large;
             text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
         }

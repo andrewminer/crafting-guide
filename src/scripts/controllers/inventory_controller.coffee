@@ -116,7 +116,7 @@ module.exports = class InventoryController extends BaseController
         @$scrollbox     = @$('.scrollbox')
         @$table         = @$('table')
         @$toolbar       = @$('.toolbar')
-        @$title         = @$('.title')
+        @$title         = @$('h2 p')
         super
 
     refresh: ->

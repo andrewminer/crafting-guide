@@ -60,11 +60,23 @@ All rights reserved.
 }
 
 .view__header {
-    background: $color-brick-light url('/images/stone_brick_light.png');
-    position: relative; height: 10em;
-    margin-top: 5em;
+    background: $color-gray-light;
+    position: relative; height: 8em;
+    margin-top: 3.2em;
 
-    h1 { position: relative; top: -3em; left: -3em; }
+    a {
+        position: absolute; left: -1.6em; top: -1.6em;
+
+        img {
+            width: 6.4em; height: 6.4em;
+        }
+    }
+
+    h1 {
+        position: absolute; top: 0.8em; left: 3.2em;
+        font-family: PressStart;
+        font-size: $font-size-x-large;
+    }
 
     .divider {
         background: $color-brick-dark url('/images/stone_brick.png');

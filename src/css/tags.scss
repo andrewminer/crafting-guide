@@ -39,25 +39,25 @@ h1 {
 
     p {
         font-family: $font-family-header;
-        font-size: $font-size-xx-large;
+        font-size: $font-size-x-large;
         position: relative; top: -0.5em;
     }
 }
 
 h2 {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 
     * { display: inline; }
 
     img {
-        position: relative; height: 4em; width: 4em;
+        position: relative; height: 3.2em; width: 3.2em;
         margin-right: 1em;
         vertical-align: bottom;
     }
 
     p {
         font-family: $font-family-header;
-        font-size: $font-size-x-large;
+        font-size: $font-size-large;
         position: relative; top: -0.25em;
     }
 }

@@ -49,6 +49,9 @@ ModelState.loading  = 'loading'
 ModelState.loaded   = 'loaded'
 ModelState.failed   = 'failed'
 
+exports.Text = Text = {}
+Text.title = 'Crafting Guide for Minecraft | The Ultimate Step-by-Step Tutorial for Making Anything in Minecraft'
+
 exports.Url       = Url = {}
 Url.itemIcon      = _.template "/data/<%= modSlug %>/<%= modVersion %>/images/<%= slug %>.png"
 Url.item          = _.template "/item/<%= slug %>"

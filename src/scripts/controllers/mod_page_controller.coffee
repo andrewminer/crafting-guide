@@ -10,6 +10,7 @@ BaseController      = require './base_controller'
 Mod                 = require '../models/mod'
 ModPack             = require '../models/mod_pack'
 ItemGroupController = require './item_group_controller'
+{Text}              = require '../constants'
 {Url}               = require '../constants'
 
 ########################################################################################################################
@@ -55,6 +56,8 @@ module.exports = class ModPageController extends BaseController
         super
 
     refresh: ->
+        $('title').html if @model? then "#{@model.name} | #{Text.title}" else Text.title
+
         @$name.html if @model? then @model.name else ''
         @$byline.html if @model? then "by #{@model.author}" else ''
         @$titleImage.attr 'src', (if @model? then Url.modLogoImage(modSlug:@model.slug) else '')

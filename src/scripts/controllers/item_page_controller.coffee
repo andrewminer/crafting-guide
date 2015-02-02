@@ -15,6 +15,7 @@ ItemPage                = require '../models/item_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
 Storage                 = require '../models/storage'
+{Text}                  = require '../constants'
 
 ########################################################################################################################
 
@@ -86,6 +87,8 @@ module.exports = class ItemPageController extends BaseController
         super
 
     refresh: ->
+        $('title').html Text.title
+
         if @model.plan.includingTools
             @$includeToolsBox.attr 'checked', 'checked'
         else

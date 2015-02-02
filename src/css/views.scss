@@ -24,13 +24,14 @@ All rights reserved.
     }
 
     .left, .center, .right  {
-        position: relative; width: 33%;
+        position: relative; width: 33%; height: 22em;
         float: left;
         padding: 2em;
 
         p {
             font-family: sans-serif;
             font-size: $font-size-small;
+            line-height: $font-size-small + 0.2em;
             padding-bottom: 1.0em;
 
             &:last-child {
@@ -45,6 +46,11 @@ All rights reserved.
                 font-family: $font-family-header;
                 font-size: 1.5em;
             }
+        }
+
+        .action {
+            position: absolute; bottom: 3em; left: 50%;
+            @include transform(translateX(-50%));
         }
     }
 

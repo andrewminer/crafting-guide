@@ -10,6 +10,7 @@ exports.DefaultMods = [
     'minecraft',
     'applied_energistics_2',
     'buildcraft',
+    'enderio',
     'industrial_craft_2',
     'thermal_expansion',
 ]

@@ -49,7 +49,14 @@ module.exports = class ModVersion extends BaseModel
         return 0
 
     eachGroup: (callback)->
-        for groupName in _.keys(@_groups).sort()
+        groupNames = _.keys @_groups
+        groupNames.sort (a, b)->
+            if a is b then return 0
+            if a is Item.Group.Other then return -1
+            if b is Item.Group.Other then return +1
+            return if a < b then -1 else +1
+
+        for groupName in groupNames
             callback groupName
 
     eachItem: (callback)->

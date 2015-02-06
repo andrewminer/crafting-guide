@@ -93,6 +93,104 @@ group: Agriculture
             pattern: ... .0. ...
             quantity: 9
     
+group: Carpet
+
+    item: Black Carpet
+        recipe:
+            input: Black Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Blue Carpet
+        recipe:
+            input: Blue Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Brown Carpet
+        recipe:
+            input: Brown Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Carpet
+        recipe:
+            input: Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Cyan Carpet
+        recipe:
+            input: Cyan Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Gray Carpet
+        recipe:
+            input: Gray Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Green Carpet
+        recipe:
+            input: Green Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Light Blue Carpet
+        recipe:
+            input: Light Blue Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Light Gray Carpet
+        recipe:
+            input: Light Gray Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Lime Carpet
+        recipe:
+            input: Lime Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Magenta Carpet
+        recipe:
+            input: Magenta Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Orange Carpet
+        recipe:
+            input: Orange Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Pink Carpet
+        recipe:
+            input: Pink Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Purple Carpet
+        recipe:
+            input: Purple Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Red Carpet
+        recipe:
+            input: Red Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
+    item: Yellow Carpet
+        recipe:
+            input: Yellow Wool
+            pattern: ... 00. ...
+            quantity: 3
+    
 group: Clay
 
     item: Black Stained Clay
@@ -246,625 +344,6 @@ group: Decoration
         recipe:
             input: Stick, Wool
             pattern: 000 010 000
-            tools: Crafting Table
-    
-group: Decoration: Carpet
-
-    item: Black Carpet
-        recipe:
-            input: Black Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Blue Carpet
-        recipe:
-            input: Blue Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Brown Carpet
-        recipe:
-            input: Brown Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Carpet
-        recipe:
-            input: Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Cyan Carpet
-        recipe:
-            input: Cyan Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Gray Carpet
-        recipe:
-            input: Gray Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Green Carpet
-        recipe:
-            input: Green Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Light Blue Carpet
-        recipe:
-            input: Light Blue Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Light Gray Carpet
-        recipe:
-            input: Light Gray Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Lime Carpet
-        recipe:
-            input: Lime Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Magenta Carpet
-        recipe:
-            input: Magenta Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Orange Carpet
-        recipe:
-            input: Orange Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Pink Carpet
-        recipe:
-            input: Pink Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Purple Carpet
-        recipe:
-            input: Purple Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Red Carpet
-        recipe:
-            input: Red Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-    item: Yellow Carpet
-        recipe:
-            input: Yellow Wool
-            pattern: ... 00. ...
-            quantity: 3
-    
-group: Decoration: Glass
-
-    item: Black Stained Glass
-        recipe:
-            input: Glass, Ink Sac
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Black Stained Glass Pane
-        recipe:
-            input: Black Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Blue Stained Glass
-        recipe:
-            input: Glass, Lapis Lazuli
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Blue Stained Glass Pane
-        recipe:
-            input: Blue Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Brown Stained Glass
-        recipe:
-            input: Cocoa Beans, Glass
-            pattern: 111 101 111
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Brown Stained Glass Pane
-        recipe:
-            input: Brown Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Cyan Stained Glass
-        recipe:
-            input: Cyan Dye, Glass
-            pattern: 111 101 111
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Cyan Stained Glass Pane
-        recipe:
-            input: Cyan Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Glass
-        recipe:
-            input: Sand, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-    
-    item: Glass Pane
-        recipe:
-            input: Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Gray Stained Glass
-        recipe:
-            input: Glass, Gray Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Gray Stained Glass Pane
-        recipe:
-            input: Gray Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Green Stained Glass
-        recipe:
-            input: Cactus Green, Glass
-            pattern: 111 101 111
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Green Stained Glass Pane
-        recipe:
-            input: Green Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Light Blue Stained Glass
-        recipe:
-            input: Glass, Light Blue Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Light Blue Stained Glass Pane
-        recipe:
-            input: Light Blue Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Light Gray Stained Glass
-        recipe:
-            input: Glass, Light Gray Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Light Gray Stained Glass Pane
-        recipe:
-            input: Light Gray Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Lime Stained Glass
-        recipe:
-            input: Glass, Lime Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Lime Stained Glass Pane
-        recipe:
-            input: Lime Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Magenta Stained Glass
-        recipe:
-            input: Glass, Magenta Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Magenta Stained Glass Pane
-        recipe:
-            input: Magenta Stained Glass
-            pattern: ... 000 ...
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Orange Stained Glass
-        recipe:
-            input: Glass, Orange Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Orange Stained Glass Pane
-        recipe:
-            input: Orange Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Pink Stained Glass
-        recipe:
-            input: Glass, Pink Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Pink Stained Glass Pane
-        recipe:
-            input: Pink Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Purple Stained Glass
-        recipe:
-            input: Glass, Purple Dye
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Purple Stained Glass Pane
-        recipe:
-            input: Purple Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Red Stained Glass
-        recipe:
-            input: Glass, Rose Red
-            pattern: 000 010 000
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Red Stained Glass Pane
-        recipe:
-            input: Red Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: White Stained Glass
-        recipe:
-            input: Bone Meal, Glass
-            pattern: 111 101 111
-            quantity: 8
-            tools: Crafting Table
-    
-    item: White Stained Glass Pane
-        recipe:
-            input: White Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-    item: Yellow Stained Glass
-        recipe:
-            input: Dandelion Yellow, Glass
-            pattern: 111 101 111
-            quantity: 8
-            tools: Crafting Table
-    
-    item: Yellow Stained Glass Pane
-        recipe:
-            input: Yellow Stained Glass
-            pattern: ... 000 000
-            quantity: 16
-            tools: Crafting Table
-    
-group: Decoration: Stone
-
-    item: Brick
-        recipe:
-            input: Clay, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-    
-    item: Brick Stairs
-        recipe:
-            input: Bricks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Bricks
-        recipe:
-            input: Brick
-            pattern: 00. 00. ...
-    
-    item: Bricks Slab
-        recipe:
-            input: Bricks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Chiseled Quartz Block
-        recipe:
-            input: Quartz Slab
-            pattern: ... .0. .0.
-    
-    item: Chiseled Sandstone
-        recipe:
-            input: Sandstone Slab
-            pattern: ... .0. .0.
-    
-    item: Cobblestone Slab
-        recipe:
-            input: Cobblestone
-            pattern: ... 000 ...
-            quantity: 6
-    
-    item: Cobblestone Wall
-        recipe:
-            input: Cobblestone
-            pattern: ... 000 000
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Mossy Cobblestone Wall
-        recipe:
-            input: Moss Stone
-            pattern: ... 000 000
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Nether Brick
-        recipe:
-            input: Netherrack, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-    
-    item: Nether Brick (block)
-        recipe:
-            input: Nether Brick
-            pattern: 00. 00. ...
-    
-    item: Nether Brick Fence
-        recipe:
-            input: Nether Brick
-            pattern: ... 000 000
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Nether Brick Slab
-        recipe:
-            input: Nether Brick (block)
-            pattern: ... 000 ...
-            quantity: 6
-    
-    item: Nether Brick Stairs
-        recipe:
-            input: Nether Brick (block)
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Pillar Quartz Block
-        recipe:
-            input: Block of Quartz
-            pattern: ... .0. .0.
-            quantity: 2
-    
-    item: Quartz Slab
-        recipe:
-            input: Block of Quartz
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Quartz Stairs
-        recipe:
-            input: Block of Quartz
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Sandstone Slab
-        recipe:
-            input: Sandstone
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Sandstone Stairs
-        recipe:
-            input: Sandstone
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Smooth Sandstone
-        recipe:
-            input: Sandstone
-            pattern: 00. 00. ...
-            quantity: 4
-    
-    item: Stone Brick Stairs
-        recipe:
-            input: Stone Bricks
-            pattern: 0.. 00. 000
-            quantity: 4
-    
-    item: Stone Bricks
-        recipe:
-            input: Stone
-            pattern: 00. 00. ...
-            quantity: 4
-    
-    item: Stone Bricks Slab
-        recipe:
-            input: Stone Bricks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Stone Slab
-        recipe:
-            input: Stone
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Stone Stairs
-        recipe:
-            input: Cobblestone
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-group: Decoration: Wood
-
-    item: Acacia Wood Planks
-        recipe:
-            input: Acacia Wood
-            pattern: ... .0. ...
-            quantity: 4
-    
-    item: Acacia Wood Slab
-        recipe:
-            input: Acacia Wood Planks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Acacia Wood Stairs
-        recipe:
-            input: Acacia Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Birch Wood Planks
-        recipe:
-            input: Birch Wood
-            pattern: ... .0. ...
-            quantity: 4
-    
-    item: Birch Wood Slab
-        recipe:
-            input: Birch Wood Planks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Birch Wood Stairs
-        recipe:
-            input: Birch Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Dark Oak Wood Planks
-        recipe:
-            input: Dark Oak Wood
-            pattern: ... .0. ...
-            quantity: 4
-    
-    item: Dark Oak Wood Slab
-        recipe:
-            input: Dark Oak Wood Planks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Dark Oak Wood Stairs
-        recipe:
-            input: Dark Oak Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Jungle Wood Planks
-        recipe:
-            input: Jungle Wood
-            pattern: ... .0. ...
-            quantity: 4
-    
-    item: Jungle Wood Slab
-        recipe:
-            input: Jungle Wood Planks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Jungle Wood Stairs
-        recipe:
-            input: Jungle Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-    
-    item: Oak Wood Planks
-        recipe:
-            input: Oak Wood
-            pattern: ... .0. ...
-            quantity: 4
-    
-    item: Oak Wood Slab
-        recipe:
-            input: Oak Wood Planks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Oak Wood Stairs
-        recipe:
-            input: Oak Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-    
-    item: Spruce Wood Planks
-        recipe:
-            input: Spruce Wood
-            pattern: ... .0. ...
-            quantity: 4
-    
-    item: Spruce Wood Slab
-        recipe:
-            input: Spruce Wood Planks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-    
-    item: Spruce Wood Stairs
-        recipe:
-            input: Spruce Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
             tools: Crafting Table
     
 group: Dyes
@@ -1128,6 +607,245 @@ group: Functional Blocks
         recipe:
             input: Oak Wood Planks
             pattern: .00 .00 .00
+            tools: Crafting Table
+    
+group: Glass
+
+    item: Black Stained Glass
+        recipe:
+            input: Glass, Ink Sac
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Black Stained Glass Pane
+        recipe:
+            input: Black Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Blue Stained Glass
+        recipe:
+            input: Glass, Lapis Lazuli
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Blue Stained Glass Pane
+        recipe:
+            input: Blue Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Brown Stained Glass
+        recipe:
+            input: Cocoa Beans, Glass
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Brown Stained Glass Pane
+        recipe:
+            input: Brown Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Cyan Stained Glass
+        recipe:
+            input: Cyan Dye, Glass
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Cyan Stained Glass Pane
+        recipe:
+            input: Cyan Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Glass
+        recipe:
+            input: Sand, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+    
+    item: Glass Pane
+        recipe:
+            input: Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Gray Stained Glass
+        recipe:
+            input: Glass, Gray Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Gray Stained Glass Pane
+        recipe:
+            input: Gray Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Green Stained Glass
+        recipe:
+            input: Cactus Green, Glass
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Green Stained Glass Pane
+        recipe:
+            input: Green Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Light Blue Stained Glass
+        recipe:
+            input: Glass, Light Blue Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Light Blue Stained Glass Pane
+        recipe:
+            input: Light Blue Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Light Gray Stained Glass
+        recipe:
+            input: Glass, Light Gray Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Light Gray Stained Glass Pane
+        recipe:
+            input: Light Gray Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Lime Stained Glass
+        recipe:
+            input: Glass, Lime Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Lime Stained Glass Pane
+        recipe:
+            input: Lime Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Magenta Stained Glass
+        recipe:
+            input: Glass, Magenta Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Magenta Stained Glass Pane
+        recipe:
+            input: Magenta Stained Glass
+            pattern: ... 000 ...
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Orange Stained Glass
+        recipe:
+            input: Glass, Orange Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Orange Stained Glass Pane
+        recipe:
+            input: Orange Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Pink Stained Glass
+        recipe:
+            input: Glass, Pink Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Pink Stained Glass Pane
+        recipe:
+            input: Pink Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Purple Stained Glass
+        recipe:
+            input: Glass, Purple Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Purple Stained Glass Pane
+        recipe:
+            input: Purple Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Red Stained Glass
+        recipe:
+            input: Glass, Rose Red
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Red Stained Glass Pane
+        recipe:
+            input: Red Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: White Stained Glass
+        recipe:
+            input: Bone Meal, Glass
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+    
+    item: White Stained Glass Pane
+        recipe:
+            input: White Stained Glass
+            pattern: ... 000 000
+            quantity: 16
+            tools: Crafting Table
+    
+    item: Yellow Stained Glass
+        recipe:
+            input: Dandelion Yellow, Glass
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+    
+    item: Yellow Stained Glass Pane
+        recipe:
+            input: Yellow Stained Glass
+            pattern: ... 000 000
+            quantity: 16
             tools: Crafting Table
     
 group: Husbandry
@@ -2068,6 +1786,167 @@ group: Redstone Machines
             input: Gold Ingot
             pattern: ... 00. ...
     
+group: Stone
+
+    item: Brick
+        recipe:
+            input: Clay, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+    
+    item: Brick Stairs
+        recipe:
+            input: Bricks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Bricks
+        recipe:
+            input: Brick
+            pattern: 00. 00. ...
+    
+    item: Bricks Slab
+        recipe:
+            input: Bricks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Chiseled Quartz Block
+        recipe:
+            input: Quartz Slab
+            pattern: ... .0. .0.
+    
+    item: Chiseled Sandstone
+        recipe:
+            input: Sandstone Slab
+            pattern: ... .0. .0.
+    
+    item: Cobblestone Slab
+        recipe:
+            input: Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+    
+    item: Cobblestone Wall
+        recipe:
+            input: Cobblestone
+            pattern: ... 000 000
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Mossy Cobblestone Wall
+        recipe:
+            input: Moss Stone
+            pattern: ... 000 000
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Nether Brick
+        recipe:
+            input: Netherrack, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+    
+    item: Nether Brick (block)
+        recipe:
+            input: Nether Brick
+            pattern: 00. 00. ...
+    
+    item: Nether Brick Fence
+        recipe:
+            input: Nether Brick
+            pattern: ... 000 000
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Nether Brick Slab
+        recipe:
+            input: Nether Brick (block)
+            pattern: ... 000 ...
+            quantity: 6
+    
+    item: Nether Brick Stairs
+        recipe:
+            input: Nether Brick (block)
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Pillar Quartz Block
+        recipe:
+            input: Block of Quartz
+            pattern: ... .0. .0.
+            quantity: 2
+    
+    item: Quartz Slab
+        recipe:
+            input: Block of Quartz
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Quartz Stairs
+        recipe:
+            input: Block of Quartz
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Sandstone Slab
+        recipe:
+            input: Sandstone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Sandstone Stairs
+        recipe:
+            input: Sandstone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Smooth Sandstone
+        recipe:
+            input: Sandstone
+            pattern: 00. 00. ...
+            quantity: 4
+    
+    item: Stone Brick Stairs
+        recipe:
+            input: Stone Bricks
+            pattern: 0.. 00. 000
+            quantity: 4
+    
+    item: Stone Bricks
+        recipe:
+            input: Stone
+            pattern: 00. 00. ...
+            quantity: 4
+    
+    item: Stone Bricks Slab
+        recipe:
+            input: Stone Bricks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Stone Slab
+        recipe:
+            input: Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Stone Stairs
+        recipe:
+            input: Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
 group: Tools
 
     item: Bucket
@@ -2511,5 +2390,126 @@ group: Transportation
             input: Iron Ingot, Stick
             pattern: 0.0 010 0.0
             quantity: 16
+            tools: Crafting Table
+    
+group: Wood
+
+    item: Acacia Wood Planks
+        recipe:
+            input: Acacia Wood
+            pattern: ... .0. ...
+            quantity: 4
+    
+    item: Acacia Wood Slab
+        recipe:
+            input: Acacia Wood Planks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Acacia Wood Stairs
+        recipe:
+            input: Acacia Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Birch Wood Planks
+        recipe:
+            input: Birch Wood
+            pattern: ... .0. ...
+            quantity: 4
+    
+    item: Birch Wood Slab
+        recipe:
+            input: Birch Wood Planks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Birch Wood Stairs
+        recipe:
+            input: Birch Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Dark Oak Wood Planks
+        recipe:
+            input: Dark Oak Wood
+            pattern: ... .0. ...
+            quantity: 4
+    
+    item: Dark Oak Wood Slab
+        recipe:
+            input: Dark Oak Wood Planks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Dark Oak Wood Stairs
+        recipe:
+            input: Dark Oak Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Jungle Wood Planks
+        recipe:
+            input: Jungle Wood
+            pattern: ... .0. ...
+            quantity: 4
+    
+    item: Jungle Wood Slab
+        recipe:
+            input: Jungle Wood Planks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Jungle Wood Stairs
+        recipe:
+            input: Jungle Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+    
+    item: Oak Wood Planks
+        recipe:
+            input: Oak Wood
+            pattern: ... .0. ...
+            quantity: 4
+    
+    item: Oak Wood Slab
+        recipe:
+            input: Oak Wood Planks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Oak Wood Stairs
+        recipe:
+            input: Oak Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+    
+    item: Spruce Wood Planks
+        recipe:
+            input: Spruce Wood
+            pattern: ... .0. ...
+            quantity: 4
+    
+    item: Spruce Wood Slab
+        recipe:
+            input: Spruce Wood Planks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+    
+    item: Spruce Wood Stairs
+        recipe:
+            input: Spruce Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
             tools: Crafting Table
     

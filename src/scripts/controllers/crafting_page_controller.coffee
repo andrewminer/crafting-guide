@@ -1,5 +1,5 @@
 ###
-Crafting Guide - item_page_controller.coffee
+Crafting Guide - crafting_page_controller.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
@@ -11,21 +11,22 @@ CraftingTableController = require './crafting_table_controller'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
 InventoryParser         = require '../models/inventory_parser'
-ItemPage                = require '../models/item_page'
+CraftingPage            = require '../models/crafting_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
 Storage                 = require '../models/storage'
 {Text}                  = require '../constants'
+{Url}                   = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class ItemPageController extends BaseController
+module.exports = class CraftingPageController extends BaseController
 
     constructor: (options={})->
-        options.model        ?= new ItemPage modPack:options.modPack
+        options.model        ?= new CraftingPage modPack:options.modPack
         options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.storage      ?= new Storage storage:window.localStorage
-        options.templateName  = 'item_page'
+        options.templateName  = 'crafting_page'
         super options
 
         @_imageLoader = options.imageLoader
@@ -107,7 +108,5 @@ module.exports = class ItemPageController extends BaseController
 
     _updateLocation: ->
         text = @_parser.unparse @model.plan.want
-        if @model.plan.want.isEmpty
-            router.navigate '/'
-        else
-            router.navigate "/item/#{text}"
+        url = Url.crafting inventoryText:text
+        router.navigate url

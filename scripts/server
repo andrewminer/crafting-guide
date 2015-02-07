@@ -17,15 +17,14 @@ ROOT = './dist/'
 
 app = express()
 
-app.get '/item(/*)?', (request, response)->
+serveIndex = (request, response)->
     console.log ">>> index.html (for #{request.path})"
     response.set 'Content-Type', 'text/html'
     response.sendFile 'index.html', root:ROOT
 
-app.get '/mod(/*)?', (request, response)->
-    console.log ">>> index.html (for #{request.path})"
-    response.set 'Content-Type', 'text/html'
-    response.sendFile 'index.html', root:ROOT
+app.get '/crafting(/*)?', serveIndex
+app.get '/item(/*)?', serveIndex
+app.get '/mod(/*)?', serveIndex
 
 app.get '*', (request, response)->
     extension = path.extname(request.path)

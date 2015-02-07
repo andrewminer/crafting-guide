@@ -5,17 +5,18 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-{DefaultMods}      = require './constants'
-{Duration}         = require './constants'
-{Event}            = require './constants'
-HeaderController   = require './controllers/header_controller'
-ItemPageController = require './controllers/item_page_controller'
-Mod                = require './models/mod'
-ModPack            = require './models/mod_pack'
-ModPageController  = require './controllers/mod_page_controller'
-{Opacity}          = require './constants'
-Storage            = require './models/storage'
-UrlParams          = require './url_params'
+{DefaultMods}          = require './constants'
+{Duration}             = require './constants'
+{Event}                = require './constants'
+HeaderController       = require './controllers/header_controller'
+CraftingPageController = require './controllers/crafting_page_controller'
+Mod                    = require './models/mod'
+ModPack                = require './models/mod_pack'
+ModPageController      = require './controllers/mod_page_controller'
+{Opacity}              = require './constants'
+Storage                = require './models/storage'
+UrlParams              = require './url_params'
+{Url}                  = require './constants'
 
 ########################################################################################################################
 
@@ -54,28 +55,29 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_recordPageView()
 
     routes:
-        '':           'root'
-        'item/:name': 'item'
-        'mod/:slug':  'mod'
+        '':                          'root'
+        'item/(:inventoryText)':     'crafting'
+        'crafting/(:inventoryText)': 'crafting'
+        'mod/:slug':                 'mod'
 
     # Route Methods ################################################################################
 
     root: ->
         params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
 
-        arg = null
+        text = ''
         if params.recipeName?
             if params.count?
-                arg = "#{params.count}:#{params.recipeName}"
+                text = "#{params.count}:#{params.recipeName}"
             else
-                arg = "#{params.recipeName}"
+                text = "#{params.recipeName}"
 
-        @item arg
+        @navigate Url.crafting(inventoryText:text), trigger:true
 
-    item: (inventoryText)->
-        controller = new ItemPageController @_defaultOptions
+    crafting: (inventoryText)->
+        controller = new CraftingPageController @_defaultOptions
         controller.model.params = inventoryText:inventoryText
-        @_setPage 'item', controller
+        @_setPage 'crafting', controller
 
     mod: (slug)->
         controller = new ModPageController @_defaultOptions

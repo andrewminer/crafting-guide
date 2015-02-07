@@ -1,5 +1,5 @@
 ###
-Crafting Guide - item_page.coffee
+Crafting Guide - crafting_page.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
@@ -14,7 +14,7 @@ ModPack         = require './mod_pack'
 
 ########################################################################################################################
 
-module.exports = class ItemPage extends BaseModel
+module.exports = class  extends BaseModel
 
     constructor: (attributes={}, options={})->
         attributes.modPack ?= new ModPack

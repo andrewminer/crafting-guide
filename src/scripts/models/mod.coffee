@@ -169,7 +169,7 @@ module.exports = class Mod extends BaseModel
         @_activeModVersion = modVersion
         @trigger Event.change + ':activeModVersion', this, @_activeModVersion
 
-        logger.verbose "#{@name} switched to version #{@_activeVersion}"
+        logger.verbose "#{@slug} switched to version #{@_activeVersion}"
 
         if @_activeModVersion?
             @listenTo @_activeModVersion, 'all', -> @trigger.apply this, arguments

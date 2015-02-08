@@ -6,7 +6,6 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
-{Url}          = require '../constants'
 
 ########################################################################################################################
 
@@ -31,9 +30,9 @@ module.exports = class ItemController extends BaseController
     refresh: ->
         display = @_modPack.findItemDisplay @model.slug
 
-        @$icon.attr 'src', Url.itemIcon display
+        @$icon.attr 'src', display.iconUrl
         @$name.html display.itemName
-        @$nameLink.attr 'href', Url.item display
+        @$nameLink.attr 'href', display.itemUrl
 
     # Backbone.View Overrides ######################################################################
 

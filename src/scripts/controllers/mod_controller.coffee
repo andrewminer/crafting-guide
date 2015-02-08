@@ -33,7 +33,7 @@ module.exports = class ModController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$version     = @$('.version')
+        @$version     = @$('select')
         @$nameLink    = @$('.name a')
         @$nameText    = @$('.name p')
         @$description = @$('.description p')
@@ -69,5 +69,5 @@ module.exports = class ModController extends BaseController
 
     events: ->
         return _.extend super,
-            'change .version': 'onVersionChanged'
+            'change select': 'onVersionChanged'
             'click a':         'routeLinkClick'

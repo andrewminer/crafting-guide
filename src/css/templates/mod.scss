@@ -15,7 +15,11 @@ All rights reserved.
     }
 
     .version {
-        width: 10em;
+        width: 12em;
+
+        select {
+            position: relative; width: 100%;
+        }
     }
 
     .name {

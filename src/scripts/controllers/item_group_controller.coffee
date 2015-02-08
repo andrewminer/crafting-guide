@@ -16,17 +16,26 @@ ItemController = require './item_controller'
 module.exports = class ItemGroupController extends BaseController
 
     constructor: (options={})->
-        if not options.model?      then throw new Error 'options.model is required'
-        if not options.modPack?    then throw new Error 'options.modPack is required'
-        if not options.modVersion? then throw new Error 'options.modVersion is required'
-        options.templateName = 'item_group'
+        if not options.modPack? then throw new Error 'options.modPack is required'
+        options.title        ?= ''
+        options.templateName  = 'item_group'
         super options
 
-        @modVersion       = options.modVersion
-        @_modPack         = options.modPack
         @_itemControllers = []
+        @_modPack         = options.modPack
+        @_title           = options.title
 
-        @modVersion.on Event.change, => @refresh()
+        Object.defineProperties this,
+            title: {get:@getTitle, set:@setTitle}
+
+    # Property Methods #############################################################################
+
+    getTitle: ->
+        return @_title
+
+    setTitle: (title)->
+        @_title = title
+        @tryRefresh()
 
     # BaseController Overrides #####################################################################
 
@@ -36,7 +45,7 @@ module.exports = class ItemGroupController extends BaseController
         super
 
     refresh: ->
-        @$title.html if @model is Item.Group.Other then 'Items' else @model
+        @$title.html @_title
         @_refreshItems()
         super
 
@@ -55,15 +64,16 @@ module.exports = class ItemGroupController extends BaseController
         controllerIndex = 0
         delay = 0
 
-        @modVersion.eachItemInGroup @model, (item)=>
-            controller = @_itemControllers[controllerIndex]
-            if not controller?
-                _.delay (=> @_createItemController item), delay
-                delay += @_delayStep
-            else
-                controller.model = item
-                controller.refresh()
-            controllerIndex += 1
+        if @model?
+            for item in @model
+                controller = @_itemControllers[controllerIndex]
+                if not controller?
+                    _.delay ((i)=> return => @_createItemController i)(item), delay
+                    delay += @_delayStep
+                else
+                    controller.model = item
+                    controller.refresh()
+                controllerIndex += 1
 
         while @_itemControllers.length > controllerIndex
             controller = @_itemControllers.pop()

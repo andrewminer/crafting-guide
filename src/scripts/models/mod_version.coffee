@@ -39,6 +39,12 @@ module.exports = class ModVersion extends BaseModel
         @registerSlug item.slug, item.name
         return this
 
+    allItemsInGroup: (group)->
+        result = []
+        @eachItemInGroup group, (item)-> result.push item
+        return null if result.length is 0
+        return result
+
     compareTo: (that)->
         if this.mod? and that.mod?
             return this.mod.compareTo that.mod

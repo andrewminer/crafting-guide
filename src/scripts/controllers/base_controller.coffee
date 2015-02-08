@@ -12,6 +12,7 @@ views = require '../views'
 module.exports = class BaseController extends Backbone.View
 
     constructor: (options={})->
+        @tryRefresh = _.debounce @_tryRefresh, 100
         Object.defineProperty this, 'model', get:@getModel, set:@setModel
 
         @_model    = null
@@ -22,8 +23,6 @@ module.exports = class BaseController extends Backbone.View
         Object.defineProperty this, 'rendered', get:-> return @_rendered
         @_loadTemplate options.templateName
         super options
-
-        @_tryRefresh = _.debounce @_tryRefresh, 100
 
     # Public Methods ###############################################################################
 
@@ -47,15 +46,15 @@ module.exports = class BaseController extends Backbone.View
     # Event Methods ################################################################################
 
     onDidModelChange: ->
-        @_tryRefresh()
+        @tryRefresh()
 
     onDidModelSync: ->
-        @_tryRefresh()
+        @tryRefresh()
 
     onWillRender: -> # do nothing
 
     onDidRender: ->
-        @_tryRefresh()
+        @tryRefresh()
 
     onWillShow: -> # do nothing
 
@@ -79,7 +78,7 @@ module.exports = class BaseController extends Backbone.View
         return unless @onWillChangeModel @_model, newModel
 
         @_model = newModel
-        @_tryRefresh()
+        @tryRefresh()
 
     # Backbone.View Overrides ######################################################################
 

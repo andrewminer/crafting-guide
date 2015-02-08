@@ -9,6 +9,7 @@ BaseController      = require './base_controller'
 {Duration}          = require '../constants'
 Mod                 = require '../models/mod'
 ModPack             = require '../models/mod_pack'
+Item                = require '../models/item'
 ItemGroupController = require './item_group_controller'
 {Text}              = require '../constants'
 {Url}               = require '../constants'
@@ -84,25 +85,28 @@ module.exports = class ModPageController extends BaseController
 
         modVersion = @model.activeModVersion
         modVersion ?= @model.getModVersion Mod.Version.Latest
-        modVersion.fetch()
+        modVersion.fetch() if modVersion?
 
         return modVersion
 
     _refreshItemGroups: ->
         groupIndex = 0
         modVersion = @effectiveModVersion
-        modVersion.eachGroup (group)=>
-            controller = @_groupControllers[groupIndex]
-            if not controller?
-                controller = new ItemGroupController model:group, modVersion:modVersion, modPack:@_modPack
-                controller.render()
-                @$groupContainer.append controller.$el
-                @_groupControllers[groupIndex] = controller
-            else
-                controller.modVersion = modVersion
-                controller.model      = group
-                controller.refresh()
-            groupIndex++
+        if modVersion?
+            modVersion.eachGroup (group)=>
+                controller = @_groupControllers[groupIndex]
+                items = modVersion.allItemsInGroup group
+                if not controller?
+                    title = if group is Item.Group.Other then 'Items' else group
+                    controller = new ItemGroupController model:items, modPack:@_modPack, title:title
+                    controller.render()
+                    @$groupContainer.append controller.$el
+                    @_groupControllers[groupIndex] = controller
+                else
+                    controller.modVersion = modVersion
+                    controller.model      = items
+                    controller.refresh()
+                groupIndex++
 
         while @_groupControllers.length > groupIndex + 1
             controller = @_groupControllers.pop()

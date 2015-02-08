@@ -5,18 +5,20 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+
+CraftingPageController = require './controllers/crafting_page_controller'
 {DefaultMods}          = require './constants'
 {Duration}             = require './constants'
 {Event}                = require './constants'
 HeaderController       = require './controllers/header_controller'
-CraftingPageController = require './controllers/crafting_page_controller'
+ItemPageController     = require './controllers/item_page_controller'
 Mod                    = require './models/mod'
 ModPack                = require './models/mod_pack'
 ModPageController      = require './controllers/mod_page_controller'
 {Opacity}              = require './constants'
 Storage                = require './models/storage'
-UrlParams              = require './url_params'
 {Url}                  = require './constants'
+UrlParams              = require './url_params'
 
 ########################################################################################################################
 
@@ -55,12 +57,30 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_recordPageView()
 
     routes:
-        '':                          'root'
-        'item/(:inventoryText)':     'crafting'
-        'crafting/(:inventoryText)': 'crafting'
-        'mod/:slug':                 'mod'
+        '':                 'root'
+        'item/:itemSlug':   'item'
+        'crafting/(:text)': 'crafting'
+        'mod/:modSlug':     'mod'
 
     # Route Methods ################################################################################
+
+    crafting: (text)->
+        controller = new CraftingPageController _.extend {}, @_defaultOptions
+        controller.model.params = inventoryText:text
+        @_setPage 'crafting', controller
+
+    item: (slug)->
+        # Temporarily re-route these to crafting until item page is complete. -- aminer 2015-02-08
+        #
+        # controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
+        # @_setPage 'item', controller
+
+        @navigate "/crafting/#{slug}", trigger:true
+
+    mod: (slug)->
+        controller = new ModPageController  _.extend {}, @_defaultOptions
+        controller.model = @modPack.getMod slug
+        @_setPage 'mod', controller
 
     root: ->
         params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
@@ -74,16 +94,6 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
         @navigate Url.crafting(inventoryText:text), trigger:true
 
-    crafting: (inventoryText)->
-        controller = new CraftingPageController @_defaultOptions
-        controller.model.params = inventoryText:inventoryText
-        @_setPage 'crafting', controller
-
-    mod: (slug)->
-        controller = new ModPageController @_defaultOptions
-        controller.model = @modPack.getMod slug
-        @_setPage 'mod', controller
-
     # Private Methods ##############################################################################
 
     _recordPageView: ->
@@ -96,9 +106,9 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             logger.info "Suppressing GA page view: #{pathname}"
 
     _setPage: (page, controller)->
-        return if @_page is page
+        return if @_controller is controller
 
-        logger.info "changing to #{page} page"
+        logger.info "changing to page controller: #{controller.constructor.name}"
         showDuration = Duration.normal
         show = =>
             @_page       = page
@@ -115,7 +125,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
                 controller.onDidShow()
 
         if @_controller?
-            showDuration = Duration.fast
+            showDuration = Duration.long
             @_controller.$el.fadeOut showDuration, show
         else
             show()

@@ -1,11 +1,11 @@
 /*
-Crafting Guide - mod_page.scss
+Crafting Guide - item_page.scss
 
 Copyright (c) 2014 by Redwood Labs
 All rights reserved.
 */
 
-.view__mod_page {
+.view__item_page {
     & > div {
         vertical-align: top;
         display: inline-block;
@@ -24,24 +24,6 @@ All rights reserved.
                 @include pixel-image;
             }
         }
-
-        .version {
-            position: relative; width: 80%;
-            margin: 0 10%;
-            margin-bottom: 1em;
-        }
-
-        a {
-            position: relative; width: 80%;
-            margin: 0 10%;
-            display: none;
-
-            p {
-                font-family: $font-family-normal;
-                font-size: $font-size-normal;
-                text-align: center;
-            }
-        }
     }
 
     .mainBody {
@@ -56,6 +38,7 @@ All rights reserved.
         }
 
         .byline {
+            display: none;
             margin: 0.25em 0 2em 0;
 
             p {
@@ -72,6 +55,14 @@ All rights reserved.
                 font-family: $font-family-normal;
                 font-size: $font-size-large;
             }
+        }
+
+        .usedInMaking {
+            display: none;
+        }
+
+        .similar {
+            display: none;
         }
     }
 }

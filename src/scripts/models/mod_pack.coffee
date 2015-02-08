@@ -45,6 +45,8 @@ module.exports = class ModPack extends BaseModel
         return null
 
     findItemDisplay: (slug)->
+        if not slug? then return null
+
         result = {}
         item = @findItem slug, includeDisabled:true
         if item?

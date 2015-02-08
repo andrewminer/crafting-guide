@@ -1,5 +1,5 @@
 ###
-Crafting Guide - recipe_controller.coffee
+Crafting Guide - minimal_recipe_controller.coffee
 
 Copyright (c) 2015 by Redwood Labs
 All rights reserved.
@@ -12,12 +12,12 @@ ImageLoader            = require './image_loader'
 
 ########################################################################################################################
 
-module.exports = class RecipeController extends BaseController
+module.exports = class MinimalRecipeController extends BaseController
 
     constructor: (options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
         options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
-        options.templateName = 'recipe'
+        options.templateName = 'minimal_recipe'
         super options
 
         @_imageLoader = options.imageLoader

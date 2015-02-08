@@ -9,7 +9,7 @@ BaseController   = require './base_controller'
 {Duration}       = require '../constants'
 ImageLoader      = require './image_loader'
 InventoryParser  = require '../models/inventory_parser'
-RecipeController = require './recipe_controller'
+MinimalRecipeController = require './minimal_recipe_controller'
 
 ########################################################################################################################
 
@@ -44,7 +44,7 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @recipeController = @addChild RecipeController, '.view__recipe', imageLoader:@_imageLoader, modPack:@_modPack
+        @recipeController = @addChild MinimalRecipeController, '.view__recipe', imageLoader:@_imageLoader, modPack:@_modPack
 
         @$next           = @$('.next')
         @$prev           = @$('.prev')

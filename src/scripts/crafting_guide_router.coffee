@@ -70,12 +70,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_setPage 'crafting', controller
 
     item: (slug)->
-        # Temporarily re-route these to crafting until item page is complete. -- aminer 2015-02-08
-        #
-        # controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
-        # @_setPage 'item', controller
-
-        @navigate "/crafting/#{slug}", trigger:true
+        controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
+        @_setPage 'item', controller
 
     mod: (slug)->
         controller = new ModPageController  _.extend {}, @_defaultOptions

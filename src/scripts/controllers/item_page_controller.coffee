@@ -9,6 +9,7 @@ BaseController      = require './base_controller'
 {Duration}          = require '../constants'
 {Event}             = require '../constants'
 ImageLoader         = require './image_loader'
+Item                = require '../models/item'
 ItemGroupController = require './item_group_controller'
 ItemPage            = require '../models/item_page'
 {Url}               = require '../constants'
@@ -86,9 +87,12 @@ module.exports = class ItemPageController extends BaseController
 
     _refreshSimilarItems: ->
         group = @model.item?.group
-        @_similarItemsController.title = if group? then "Other #{group}" else 'Similar Items'
+        if group? and group isnt Item.Group.Other
+            @_similarItemsController.title = "Other #{group}"
+            @_similarItemsController.model = @model.findSimilarItems()
+        else
+            @_similarItemsController.model = null
 
-        @_similarItemsController.model = @model.findSimilarItems()
         if @_similarItemsController.model?
             @$similarContainer.fadeIn duration:Duration.fast
         else

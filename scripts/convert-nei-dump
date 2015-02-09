@@ -32,9 +32,6 @@ if [[ "$SOURCE_DIR" == "" || "$TARGET_DIR" == "" ]]; then
     die
 fi
 
-echo "schema: 1" > $DATA_FILE
-echo "" >> $DATA_FILE
-
 mkdir -p $TARGET_DIR/images
 ls $SOURCE_DIR/itempanel_icons | while read FILE; do
     ITEM_NAME="$(echo $FILE | sed 's/.png//')"
@@ -46,6 +43,8 @@ ls $SOURCE_DIR/itempanel_icons | while read FILE; do
         | tr '[A-Z]' '[a-z]' \
     ).png"
     cp "$SOURCE_DIR/itempanel_icons/$FILE" "$TARGET_DIR/images/$TARGET_FILE"
-    echo "item: $ITEM_NAME" >> $DATA_FILE
-    echo "" >> $DATA_FILE
+    if ! grep -q "item: $ITEM_NAME$" $DATA_FILE; then
+        echo "item: $ITEM_NAME" >> $DATA_FILE
+        echo "" >> $DATA_FILE
+    fi
 done

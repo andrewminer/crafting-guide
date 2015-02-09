@@ -13,6 +13,7 @@ ImageLoader          = require './image_loader'
 Item                 = require '../models/item'
 ItemGroupController  = require './item_group_controller'
 ItemPage             = require '../models/item_page'
+{Text}               = require '../constants'
 {Url}                = require '../constants'
 
 ########################################################################################################################
@@ -52,6 +53,7 @@ module.exports = class ItemPageController extends BaseController
         super
 
     refresh: ->
+        $('title').html if @model.item? then "#{@model.item.name} | #{Text.title}" else Text.title
         @_resolveItemSlug()
 
         display = @_modPack.findItemDisplay @model.item?.slug

@@ -84,7 +84,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         text = ''
         if params.recipeName?
             if params.count?
-                text = "#{params.count}:#{params.recipeName}"
+                text = "#{params.count}.#{params.recipeName}"
             else
                 text = "#{params.recipeName}"
 

@@ -57,11 +57,16 @@ All rights reserved.
             }
         }
 
-        .recipe {
+        .recipes {
             display: none;
 
             .view__full_recipe {
                 width: 100%;
+                margin-top: 3em;
+
+                &:first-child {
+                    margin-top: 0;
+                }
             }
         }
 

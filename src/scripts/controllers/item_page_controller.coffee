@@ -38,17 +38,17 @@ module.exports = class ItemPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_recipeController       = @addChild FullRecipeController, '.view__full_recipe', modPack:@_modPack
         @_similarItemsController = @addChild ItemGroupController, '.similar .view__item_group', modPack:@_modPack
         @_usedInMakingController = @addChild ItemGroupController, '.usedInMaking .view__item_group', modPack:@_modPack
 
         @$byline                = @$('.byline')
         @$bylineLink            = @$('.byline a')
-        @$usedInMakingContainer = @$('.usedInMaking')
         @$name                  = @$('h1.name')
-        @$recipeContainer       = @$('.recipe')
+        @$recipeContainer       = @$('.recipes .panel')
+        @$recipesSection        = @$('.recipes')
         @$similarContainer      = @$('.similar')
         @$titleImage            = @$('.titleImage img')
+        @$usedInMakingContainer = @$('.usedInMaking')
         super
 
     refresh: ->
@@ -63,7 +63,7 @@ module.exports = class ItemPageController extends BaseController
             @$name.html ''
 
         @_refreshByline()
-        @_refreshRecipe()
+        @_refreshRecipes()
         @_refreshSimilarItems()
         @_refreshComponentIn()
 
@@ -89,12 +89,32 @@ module.exports = class ItemPageController extends BaseController
         else
             @$usedInMakingContainer.fadeOut duration:Duration.fast
 
-    _refreshRecipe: ->
-        @_recipeController.model = @model.primaryRecipe
-        if @_recipeController.model?
-            @$recipeContainer.fadeIn duration:Duration.fast
+    _refreshRecipes: ->
+        @_recipeControllers ?= []
+        index = 0
+
+        recipes = @model.findRecipes()
+        if recipes?
+            @$recipesSection.fadeIn duration:Duration.normal
+
+            for recipe in @model.findRecipes()
+                controller = @_recipeControllers[index]
+                if not controller?
+                    controller = new FullRecipeController modPack:@_modPack, model:recipe
+                    @_recipeControllers.push controller
+                    controller.render()
+                    controller.$el.hide()
+                    @$recipeContainer.append controller.$el
+                    controller.$el.fadeIn duration:Duration.normal
+                else
+                    controller.model = recipe
+                index++
         else
-            @$recipeContainer.fadeOut duration:Duration.fast
+            @$recipesSection.fadeOut duration:Duration.fast
+
+        while @_recipeControllers.length > index
+            controller = @_recipeControllers.pop()
+            controller.fadeOut duration:Duration.fast, complete:-> controller.$el.remove()
 
     _refreshSimilarItems: ->
         group = @model.item?.group

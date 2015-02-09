@@ -6,6 +6,8 @@ All rights reserved.
 */
 
 .view__full_recipe {
+    display: block;
+
     & > div {
         position: relative; width: 33%;
         display: inline-block;

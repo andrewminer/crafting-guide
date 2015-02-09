@@ -34,9 +34,16 @@ All rights reserved.
         }
     }
 
-    td.name p {
+    td.name a {
+        color: $color-text;
         display: inline;
         font-size: $font-size-normal;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-active-hover;
+            text-decoration: underline;
+        }
     }
 
     td.action {

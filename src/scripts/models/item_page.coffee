@@ -25,7 +25,6 @@ module.exports = class ItemPage extends BaseModel
         Object.defineProperties this,
             craftingRawMaterials: {get:-> @_plan.need}
             craftingSteps:        {get:-> @_plan.steps}
-            primaryRecipe:        {get:-> @_primaryRecipe}
 
     # Property Methods #############################################################################
 
@@ -53,6 +52,11 @@ module.exports = class ItemPage extends BaseModel
             return if item is @item
             result.push item
 
+        return null unless result.length > 0
+        return result
+
+    findRecipes: ->
+        result = @modPack.findRecipes @item?.slug
         return null unless result.length > 0
         return result
 

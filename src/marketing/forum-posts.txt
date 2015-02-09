@@ -47,3 +47,20 @@ I just pushed up a big new feature!  Now, each Mod has a dedicated page of its o
 in that mod.  Clicking on an item will take you to the crafting guide for that item. It's super fast to switch back and
 forth to explore the items in any given mod.  This is the first of many steps for the new mod pages, so keep an eye out
 for more to come!
+
+########################################################################################################################
+
+
+I've been working on a project to make it easier to deal with complex recipes, and I recently finished adding all the
+core Minecraft recipes. The gist of the site is that you tell it what item(s) you want to make, and it will figure out
+all the raw ingredients you need along with step-by-step instructions for any number of whatever items you like. For
+example, [http://crafting-guide.com/crafting/16.potion_of_fire_resistance_8_00:16.potion_of_healing_ii here's how you
+make] 16 potions of healing II and fire resistance (with extended duration).
+
+The maintainers of many of the mods I've added (e.g., BuildCraft / Applied Energistics) have found it useful to include
+links to Crafting Guide in their official documentation, and I was hoping you would think it a good idea to add links
+from this wiki to CraftingGuide as well.  I'd be happy to do the work of adding the links myself, but I'd like to make
+sure there are no objections first!
+
+Thanks!
+~~~~

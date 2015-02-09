@@ -37,7 +37,7 @@ module.exports = class StackController extends BaseController
     onDidRender: ->
         @$action        = @$('.action')
         @$image         = @$('.icon img')
-        @$nameField     = @$('.name p')
+        @$nameLink      = @$('.name a')
         @$quantityField = @$('.quantity p')
         @$removeButton  = @$('button.remove')
         super
@@ -46,7 +46,8 @@ module.exports = class StackController extends BaseController
         display = @modPack.findItemDisplay @model.slug
 
         @_imageLoader.load display.iconUrl, @$image
-        @$nameField.html display.itemName
+        @$nameLink.html display.itemName
+        @$nameLink.attr 'href', display.itemUrl
         @$quantityField.html @model.quantity
         @$removeButton.css display:(if @editable then 'inherit' else 'none')
 

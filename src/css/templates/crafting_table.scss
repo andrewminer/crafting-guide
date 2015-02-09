@@ -26,7 +26,7 @@ All rights reserved.
             }
         }
 
-        .view__recipe {
+        .view__minimal_recipe {
             position: absolute; top: 50%; left: 50%;
             @include transform(translate(-50%, -50%));
         }

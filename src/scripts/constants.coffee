@@ -16,7 +16,7 @@ exports.DefaultMods = [
 ]
 
 exports.Duration = Duration = {}
-Duration.snap    = 100
+Duration.snap    = 200
 Duration.fast    = Duration.snap * 2
 Duration.normal  = Duration.fast * 2
 Duration.slow    = Duration.normal * 2

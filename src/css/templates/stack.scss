@@ -8,7 +8,11 @@ All rights reserved.
 .view__stack {
     font-family: $font-family-normal;
 
-    .quantity p {
+    td {
+        padding: 0.2em 0;
+    }
+
+    td.quantity p {
         border-radius: 0.75em;
         background: $color-ice;
         color: $color-background-panel;
@@ -19,12 +23,23 @@ All rights reserved.
         padding: 0.1em 0.5em;
     }
 
-    .name p {
+    td.icon {
+        width: 4.6em;
+        padding: 0.2em 0.5em;
+
+        img {
+            width: 100%; height: auto;
+            max-height: 4.8em;
+            @include pixel-image;
+        }
+    }
+
+    td.name p {
         display: inline;
         font-size: $font-size-normal;
     }
 
-    .action {
+    td.action {
         text-align: right;
 
         button.remove {

@@ -65,10 +65,12 @@ h2 {
 }
 
 h3 {
-    font-family: $font-family-normal;
-    font-weight: bold;
+    margin-bottom: 0.5em;
 
-    p { font-size: $font-size-normal; }
+    p {
+        font-family: $font-family-header;
+        font-size: $font-size-normal;
+    }
 }
 
 p {

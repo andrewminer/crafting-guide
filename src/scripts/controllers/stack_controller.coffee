@@ -35,6 +35,7 @@ module.exports = class StackController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
+        @$action        = @$('.action')
         @$image         = @$('.icon img')
         @$nameField     = @$('.name p')
         @$quantityField = @$('.quantity p')
@@ -48,6 +49,8 @@ module.exports = class StackController extends BaseController
         @$nameField.html display.itemName
         @$quantityField.html @model.quantity
         @$removeButton.css display:(if @editable then 'inherit' else 'none')
+
+        @$action.css display:(if @ediable then 'table-cell' else 'none')
 
         super
 

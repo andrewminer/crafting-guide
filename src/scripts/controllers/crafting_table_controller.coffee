@@ -44,7 +44,7 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @recipeController = @addChild MinimalRecipeController, '.view__recipe', imageLoader:@_imageLoader, modPack:@_modPack
+        @recipeController = @addChild MinimalRecipeController, '.view__minimal_recipe', imageLoader:@_imageLoader, modPack:@_modPack
 
         @$next           = @$('.next')
         @$prev           = @$('.prev')

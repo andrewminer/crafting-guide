@@ -7,7 +7,7 @@ All rights reserved.
 
 BaseModel    = require './base_model'
 CraftingPlan = require './crafting_plan'
-Event        = require '../constants'
+{Event}      = require '../constants'
 
 ########################################################################################################################
 
@@ -25,20 +25,9 @@ module.exports = class ItemPage extends BaseModel
         Object.defineProperties this,
             craftingRawMaterials: {get:-> @_plan.need}
             craftingSteps:        {get:-> @_plan.steps}
-            similarItems:         {get:=> @getSimilarItems()}
+            primaryRecipe:        {get:-> @_primaryRecipe}
 
     # Property Methods #############################################################################
-
-    findSimilarItems: ->
-        return null unless @item?.modVersion?
-
-        result = []
-        @item.modVersion.eachItemInGroup @item.group, (item)=>
-            return if item is @item
-            result.push item
-
-        return null unless result.length > 0
-        return result
 
     findComponentInItems: ->
         return null unless @item?
@@ -56,6 +45,17 @@ module.exports = class ItemPage extends BaseModel
         return null unless result.length > 0
         return result
 
+    findSimilarItems: ->
+        return null unless @item?.modVersion?
+
+        result = []
+        @item.modVersion.eachItemInGroup @item.group, (item)=>
+            return if item is @item
+            result.push item
+
+        return null unless result.length > 0
+        return result
+
     # Private Methods ##############################################################################
 
     _updateCraftingPlan: ->
@@ -64,3 +64,8 @@ module.exports = class ItemPage extends BaseModel
         if @item?
             @_plan.want.add @item.slug
             @_plan.craft()
+
+            if @_plan.steps.length > 0
+                @_primaryRecipe = @_plan.steps[@_plan.steps.length - 1].recipe
+            else
+                @_primaryRecipe = null

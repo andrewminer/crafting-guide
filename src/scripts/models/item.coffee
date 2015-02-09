@@ -27,7 +27,8 @@ module.exports = class Item extends BaseModel
 
         @_recipes = []
         Object.defineProperties this,
-            'isCraftable': { get:-> @_recipes.length > 0 }
+            isCraftable:   { get:-> @_recipes.length > 0 }
+            primaryRecipe: { get:@getPrimaryRecipe }
 
     # Public Methods ###############################################################################
 

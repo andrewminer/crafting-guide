@@ -31,7 +31,7 @@ All rights reserved.
         padding: 1em;
         padding-top: 2em;
 
-        .name {
+        h1.name {
             font-family: $font-family-header;
             font-size: $font-size-x-large;
             margin: 0;
@@ -57,11 +57,19 @@ All rights reserved.
             }
         }
 
-        .usedInMaking {
+        .recipe {
             display: none;
+
+            .view__full_recipe {
+                width: 100%;
+            }
         }
 
         .similar {
+            display: none;
+        }
+
+        .usedInMaking {
             display: none;
         }
     }

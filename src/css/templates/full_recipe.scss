@@ -1,0 +1,39 @@
+/*
+Crafting Table - full_recipe.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__full_recipe {
+    & > div {
+        position: relative; width: 33%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .pattern {
+        .view__crafting_grid {
+            position: relative; left: 50%;
+            @include transform(translateX(-50%));
+        }
+
+        .tool {
+            margin-top: 0.5em;
+            text-align: center;
+
+            p {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .input {
+        .view__inventory {
+            width: 100%;
+        }
+    }
+
+    .output {
+    }
+}

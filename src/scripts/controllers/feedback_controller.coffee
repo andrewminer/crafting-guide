@@ -49,7 +49,7 @@ module.exports = class FeedbackController extends BaseController
         @model.send(message)
             .then =>
                 @onToggle()
-                @$error.slideUp duration:Duration.fast
+                @$error.slideUp duration:Duration.normal
             .catch (error)=>
                 @$error.slideDown duration:Duration.normal
             .finally =>
@@ -97,7 +97,7 @@ module.exports = class FeedbackController extends BaseController
         @$sendButton   = @$('button[name="send"]')
 
         windowHeight = window.innerHeight
-        @$el.delay(Duration.slow).animate {left:-@$el.outerWidth()}, Duration.slow
+        @$el.delay(Duration.slow).animate {left:-@$el.outerWidth()}, Duration.normal
         @onTextChanged()
 
         super

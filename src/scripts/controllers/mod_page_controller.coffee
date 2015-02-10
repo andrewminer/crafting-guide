@@ -110,14 +110,14 @@ module.exports = class ModPageController extends BaseController
 
         while @_groupControllers.length > groupIndex + 1
             controller = @_groupControllers.pop()
-            controller.$el.slideUp duration:Duration.fast, -> @remove()
+            controller.$el.slideUp duration:Duration.normal, -> @remove()
 
     _refreshLink: ($link, url)->
         if url?
-            $link.fadeIn duration:Duration.fast
+            $link.fadeIn duration:Duration.normal
             $link.attr 'href', url
         else
-            $link.fadeOut duration:Duration.fast
+            $link.fadeOut duration:Duration.normal
 
     _refreshVersions: ->
         @$versionSelector.empty()

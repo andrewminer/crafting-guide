@@ -49,7 +49,7 @@ module.exports = class CraftingGridController extends BaseController
                 @_imageLoader.load display.iconUrl, slot.img
                 slot.img.attr 'alt', display.itemName
 
-        @$el.tooltip show:{delay:Duration.slow, duration:Duration.fast}
+        @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
         super
 
     # Backbone.View Overrides ######################################################################

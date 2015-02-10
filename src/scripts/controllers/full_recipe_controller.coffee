@@ -49,7 +49,7 @@ module.exports = class FullRecipeController extends BaseController
         @gridController.model = @model
         @$tool.html @_findToolNames().join ', '
 
-        @$el.tooltip show:{delay:Duration.fast, duration:Duration.fast}
+        @$el.tooltip show:{delay:Duration.normal, duration:Duration.normal}
 
         @_refreshInputs()
         @_refreshOutputs()

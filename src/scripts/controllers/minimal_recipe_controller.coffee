@@ -56,7 +56,7 @@ module.exports = class MinimalRecipeController extends BaseController
 
                 @_imageLoader.load display.iconUrl, @$outputImg
 
-        @$el.tooltip show:{delay:Duration.fast, duration:Duration.fast}
+        @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
 
         super
 

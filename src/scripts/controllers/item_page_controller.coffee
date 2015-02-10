@@ -60,11 +60,11 @@ module.exports = class ItemPageController extends BaseController
         display = @_modPack.findItemDisplay @model.item?.slug
         if display?
             @$craftingPlanLink.attr href:display.craftingUrl
-            @$craftingPlanLink.fadeIn duration:Duration.fast
+            @$craftingPlanLink.fadeIn duration:Duration.normal
             @_imageLoader.load display.iconUrl, @$titleImage
             @$name.html display.itemName
         else
-            @$craftingPlanLink.fadeOut duration:Duration.fast
+            @$craftingPlanLink.fadeOut duration:Duration.normal
             @$titleImage.removeAttr 'src'
             @$name.html ''
 
@@ -89,18 +89,18 @@ module.exports = class ItemPageController extends BaseController
         if mod?.name?.length > 0
             @$bylineLink.attr 'href', Url.mod modSlug:mod.slug
             @$bylineLink.html mod.name
-            @$byline.fadeIn duration:Duration.fast
+            @$byline.fadeIn duration:Duration.normal
         else
-            @$byline.fadeOut duration:Duration.fast
+            @$byline.fadeOut duration:Duration.normal
 
     _refreshUsedToMake: ->
         @_usedToMakeController.title = 'Used to Make'
 
         @_usedToMakeController.model = @model.findComponentInItems()
         if @_usedToMakeController.model?
-            @$usedToMakeContainer.fadeIn duration:Duration.fast
+            @$usedToMakeContainer.fadeIn duration:Duration.normal
         else
-            @$usedToMakeContainer.fadeOut duration:Duration.fast
+            @$usedToMakeContainer.fadeOut duration:Duration.normal
 
     _refreshRecipes: ->
         @_recipeControllers ?= []
@@ -123,11 +123,11 @@ module.exports = class ItemPageController extends BaseController
                     controller.model = recipe
                 index++
         else
-            @$recipesSection.fadeOut duration:Duration.fast
+            @$recipesSection.fadeOut duration:Duration.normal
 
         while @_recipeControllers.length > index
             controller = @_recipeControllers.pop()
-            controller.fadeOut duration:Duration.fast, complete:-> controller.$el.remove()
+            controller.fadeOut duration:Duration.normal, complete:-> controller.$el.remove()
 
     _refreshSimilarItems: ->
         group = @model.item?.group
@@ -138,9 +138,9 @@ module.exports = class ItemPageController extends BaseController
             @_similarItemsController.model = null
 
         if @_similarItemsController.model?
-            @$similarContainer.fadeIn duration:Duration.fast
+            @$similarContainer.fadeIn duration:Duration.normal
         else
-            @$similarContainer.fadeOut duration:Duration.fast
+            @$similarContainer.fadeOut duration:Duration.normal
 
     _resolveItemSlug: ->
         oldItem = @model.item

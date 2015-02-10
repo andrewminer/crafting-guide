@@ -97,8 +97,8 @@ module.exports = class InventoryController extends BaseController
             @$quantityField.focus()
             return
 
-        @$quantityField.removeClass 'error', Duration.fast
-        @$quantityField.removeClass 'error-new', Duration.fast
+        @$quantityField.removeClass 'error', Duration.normal
+        @$quantityField.removeClass 'error-new', Duration.normal
         @_updateButtonState()
 
     onQuantityFieldFocused: ->

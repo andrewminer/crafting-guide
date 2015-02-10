@@ -78,9 +78,9 @@ module.exports = class CraftingTableController extends BaseController
             @$multiplier.html ''
 
         if not (@model.hasSteps and global.feedbackController?)
-            @$problemControl.hide duration:Duration.fast
+            @$problemControl.hide duration:Duration.snap
         else
-            @$problemControl.show duration:Duration.normal
+            @$problemControl.show duration:Duration.snap
 
         super
 

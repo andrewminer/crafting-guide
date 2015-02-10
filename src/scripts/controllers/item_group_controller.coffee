@@ -21,6 +21,7 @@ module.exports = class ItemGroupController extends BaseController
         options.templateName  = 'item_group'
         super options
 
+        @_delayStep       = 20
         @_itemControllers = []
         @_modPack         = options.modPack
         @_title           = options.title
@@ -53,12 +54,12 @@ module.exports = class ItemGroupController extends BaseController
 
     _createItemController: (item)->
         controller = new ItemController model:item, modPack:@_modPack
-        controller.$el.hide()
-        controller.render()
-
         @_itemControllers.push controller
+
+        controller.render()
+        controller.$el.hide()
         @$items.append controller.$el
-        controller.$el.slideDown duration:Duration.fast
+        controller.$el.fadeIn duration:Duration.fast
 
     _refreshItems: ->
         controllerIndex = 0
@@ -77,4 +78,4 @@ module.exports = class ItemGroupController extends BaseController
 
         while @_itemControllers.length > controllerIndex
             controller = @_itemControllers.pop()
-            controller.$el.slideUp duration:Duration.fast, complete:-> @remove()
+            controller.$el.fadeOut duration:Duration.normal, complete:-> @remove()

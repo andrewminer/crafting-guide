@@ -47,9 +47,11 @@ module.exports = class CraftingPlan extends BaseModel
         @result.addInventory @have
 
         @steps = {}
+        @_reservedSteps = {}
         @want.each (stack)=>
             @_findSteps stack.slug
             @need.add stack.slug, stack.quantity
+        @_reservedSteps = null
 
         @steps = _.values @steps
         @_resolveNeeds()
@@ -89,7 +91,6 @@ module.exports = class CraftingPlan extends BaseModel
     # Private Methods ##############################################################################
 
     _addStep: (recipe)->
-        return if @_hasStep recipe.slug
         logger.verbose "adding step: #{recipe.slug}"
         @steps[recipe.slug] = recipe:recipe
 
@@ -97,6 +98,7 @@ module.exports = class CraftingPlan extends BaseModel
         return item.getPrimaryRecipe()
 
     _findSteps: (slug)->
+        logger.debug "finding steps for #{slug}"
         item = @modPack.findItem slug
         return unless item?
         return unless item.isCraftable
@@ -109,13 +111,19 @@ module.exports = class CraftingPlan extends BaseModel
                 if not @_hasStep toolStack.slug
                     @_findSteps toolStack.slug
 
+        return if @_hasStep item.slug
+        logger.debug "reserving: #{item.slug}"
+        @_reservedSteps[item.slug] = recipe
+
         for inputStack in recipe.input
             @_findSteps inputStack.slug
 
         @_addStep recipe
 
     _hasStep: (slug)->
-        return @steps[slug]?
+        return true if @steps[slug]?
+        return true if @_reservedSteps[slug]?
+        return false
 
     _removeExtraSteps: ->
         result = (step for step in @steps when step.multiplier > 0)

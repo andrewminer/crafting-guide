@@ -279,19 +279,19 @@ item: Copper Gear
 
 item: Copper Ingot
     recipe:
-        input: Pulverized Copper, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
-    recipe:
-        input: Pulverized Copper
-        pattern: ... .0. ...
-        tools: Redstone Furnace
-    recipe:
         input: Copper Ore, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
     recipe:
         input: Copper Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Pulverized Copper, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Copper
         pattern: ... .0. ...
         tools: Redstone Furnace
     recipe:
@@ -1090,19 +1090,19 @@ item: Lead Gear
 
 item: Lead Ingot
     recipe:
-        input: Pulverized Lead, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
-    recipe:
-        input: Pulverized Lead
-        pattern: ... .0. ...
-        tools: Redstone Furnace
-    recipe:
         input: Lead Ore, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
     recipe:
         input: Lead Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Pulverized Lead, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Lead
         pattern: ... .0. ...
         tools: Redstone Furnace
     recipe:
@@ -2032,19 +2032,19 @@ item: Silver Gear
 
 item: Silver Ingot
     recipe:
-        input: Pulverized Silver, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
-    recipe:
-        input: Pulverized Silver
-        pattern: ... .0. ...
-        tools: Redstone Furnace
-    recipe:
         input: Silver Ore, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
     recipe:
         input: Silver Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Pulverized Silver, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Silver
         pattern: ... .0. ...
         tools: Redstone Furnace
     recipe:
@@ -2150,19 +2150,19 @@ item: Tin Gear
 
 item: Tin Ingot
     recipe:
-        input: Pulverized Tin, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
-    recipe:
-        input: Pulverized Tin
-        pattern: ... .0. ...
-        tools: Redstone Furnace
-    recipe:
         input: Tin Ore, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
     recipe:
         input: Tin Ore
+        pattern: ... .0. ...
+        tools: Redstone Furnace
+    recipe:
+        input: Pulverized Tin, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Pulverized Tin
         pattern: ... .0. ...
         tools: Redstone Furnace
     recipe:

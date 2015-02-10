@@ -32,12 +32,12 @@ module.exports = class EmailClient
                 text:       options.body
                 to:         [ email:options.toAddress, name:options.toName, type:'to' ]
 
-        logger.info "sending email: #{util.inspect(body)}"
+        logger.info -> "sending email: #{util.inspect(body)}"
 
         w.promise (resolve, reject)=>
 
             onSuccess = (data, status, request)->
-                logger.info "sending email result: #{util.inspect(data)}, status:#{status}"
+                logger.info -> "sending email result: #{util.inspect(data)}, status:#{status}"
                 data = if _.isArray data then data[0] else data
                 if data.status isnt "sent"
                     reject status:data.status, message:data.reject_reason
@@ -45,7 +45,7 @@ module.exports = class EmailClient
                     resolve status:data.status
 
             onError = (request, status, error)->
-                logger.error "sending email failed: #{status}, error:#{error}"
+                logger.error -> "sending email failed: #{status}, error:#{error}"
                 reject status:status, message:error
 
             $.ajax "#{@baseUrl}/messages/send.json",

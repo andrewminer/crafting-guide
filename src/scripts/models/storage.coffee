@@ -19,12 +19,12 @@ module.exports = class Storage
 
     load: (key)->
         value = @storage.getItem key
-        logger.verbose "loaded #{value} from #{key}"
+        logger.verbose -> "loaded #{value} from #{key}"
         return value
 
     store: (key, value)->
         @storage.setItem key, value
-        logger.verbose "stored #{value} into #{key}"
+        logger.verbose -> "stored #{value} into #{key}"
 
     register: (key, model, properties...)->
         modelData = @_models[key]

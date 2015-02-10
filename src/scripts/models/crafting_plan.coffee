@@ -91,14 +91,14 @@ module.exports = class CraftingPlan extends BaseModel
     # Private Methods ##############################################################################
 
     _addStep: (recipe)->
-        logger.verbose "adding step: #{recipe.slug}"
+        logger.verbose -> "adding step: #{recipe.slug}"
         @steps[recipe.slug] = recipe:recipe
 
     _chooseRecipe: (item)->
         return item.getPrimaryRecipe()
 
     _findSteps: (slug)->
-        logger.debug "finding steps for #{slug}"
+        logger.debug -> "finding steps for #{slug}"
         item = @modPack.findItem slug
         return unless item?
         return unless item.isCraftable
@@ -112,7 +112,7 @@ module.exports = class CraftingPlan extends BaseModel
                     @_findSteps toolStack.slug
 
         return if @_hasStep item.slug
-        logger.debug "reserving: #{item.slug}"
+        logger.debug -> "reserving: #{item.slug}"
         @_reservedSteps[item.slug] = recipe
 
         for inputStack in recipe.input

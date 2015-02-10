@@ -36,7 +36,7 @@ module.exports = class BaseController extends Backbone.View
         return child
 
     refresh: ->
-        logger.verbose "#{this} refreshing"
+        logger.verbose => "#{this} refreshing"
 
     routeLinkClick: (event)->
         href = $(event.currentTarget).attr 'href'
@@ -91,10 +91,10 @@ module.exports = class BaseController extends Backbone.View
         data = (@model?.toHash? and @model.toHash()) or @model or {}
 
         if not @_template?
-            logger.error "Default render called for #{@constructor.name} without a template"
+            logger.error => "Default render called for #{@constructor.name} without a template"
             return this
 
-        logger.verbose "#{this} rendering with data: #{data}"
+        logger.verbose => "#{this} rendering with data: #{data}"
         @onWillRender()
         $oldEl = @$el
         $newEl = Backbone.$(@_template(data))

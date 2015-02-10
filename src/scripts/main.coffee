@@ -24,7 +24,7 @@ global.logger = new Logger
 switch window.location.hostname
     when 'localhost'
         global.env = 'development'
-        logger.level = Logger.DEBUG
+        logger.level = Logger.INFO
     when 'new.crafting-guide.com'
         global.env = 'staging'
         logger.level = Logger.VERBOSE
@@ -41,5 +41,5 @@ feedbackController.render()
 
 global.router.loadDefaultModPack()
 
-logger.info "CraftingGuide is ready"
+logger.info -> "CraftingGuide is ready"
 Backbone.history.start pushState:true

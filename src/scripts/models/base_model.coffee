@@ -44,13 +44,13 @@ module.exports = class BaseModel extends Backbone.Model
             @set @parse text
             @trigger Event.change, this
             @trigger Event.sync, this
-            logger.info "#{@constructor.name}.#{@cid} loaded successfully"
+            logger.info => "#{@constructor.name}.#{@cid} loaded successfully"
         catch e
-            logger.error "A parsing error occured: #{e.stack}"
+            logger.error -> "A parsing error occured: #{e.stack}"
             @onLoadFailed e.message, 'parsing failed', xhr
 
     onLoadFailed: (error, status, xhr)->
-        logger.error "#{@constructor.name}.#{@cid} failed to load: status:#{status}, message:#{error}"
+        logger.error => "#{@constructor.name}.#{@cid} failed to load: status:#{status}, message:#{error}"
         @trigger Event.error, this, error
 
     # Backbone.Model Overrides #####################################################################
@@ -60,7 +60,7 @@ module.exports = class BaseModel extends Backbone.Model
         return if (@isLoading or @isLoaded) and not options.force
 
         url = @url()
-        logger.info "#{@constructor.name}.#{@cid} reading from url: #{url}"
+        logger.info => "#{@constructor.name}.#{@cid} reading from url: #{url}"
 
         @trigger Event.request, this
         @loading = w.promise (resolve, reject)=>
@@ -82,7 +82,7 @@ module.exports = class BaseModel extends Backbone.Model
     trigger: (name, model, args...)->
         if @logEvents
             argText = ("#{arg}"[0..50] for arg in args).join ", "
-            logger.trace "#{@constructor.name}.#{@cid} triggered event #{name} with args: #{argText}"
+            logger.trace => "#{@constructor.name}.#{@cid} triggered event #{name} with args: #{argText}"
         super
 
     # Object Overrides #############################################################################

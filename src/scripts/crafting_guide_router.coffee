@@ -100,15 +100,15 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         pathname = window.location.pathname
 
         if global.env is 'production' and ga?
-            logger.info "Recording GA page view: #{pathname}"
+            logger.info -> "Recording GA page view: #{pathname}"
             ga 'send', 'pageview', pathname
         else
-            logger.info "Suppressing GA page view: #{pathname}"
+            logger.info -> "Suppressing GA page view: #{pathname}"
 
     _setPage: (page, controller)->
         return if @_controller is controller
 
-        logger.info "changing to page controller: #{controller.constructor.name}"
+        logger.info -> "changing to page controller: #{controller.constructor.name}"
         showDuration = Duration.normal
         show = =>
             @_page       = page

@@ -691,6 +691,12 @@ group: Energy: Transmission
 
 group: Machine Parts
 
+    item: Advanced Alloy
+        recipe:
+            input: Mixed Metal Ingot
+            pattern: ... .0. ...
+            tools: Compressor
+
     item: Advanced Circuit
         recipe:
             input: Electronic Circuit, Glowstone Dust, Lapis Lazuli, Redstone

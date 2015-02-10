@@ -60,8 +60,9 @@ module.exports = class ModPack extends BaseModel
             result.slug       = slug
             result.itemName   = @findName slug, includeDisabled:true
 
-        result.iconUrl = Url.itemIcon result
-        result.itemUrl = Url.item result
+        result.craftingUrl = Url.crafting inventoryText:slug
+        result.iconUrl     = Url.itemIcon result
+        result.itemUrl     = Url.item result
         return result
 
     findName: (slug)->

@@ -75,6 +75,13 @@ module.exports = class ItemPageController extends BaseController
 
         super
 
+    # Backbone.View Overrides ######################################################################
+
+    events: ->
+        return _.extend super,
+            'click a.craftingPlan': 'routeLinkClick'
+            'click .byline a':      'routeLinkClick'
+
     # Private Methods ##############################################################################
 
     _refreshByline: ->

@@ -60,3 +60,4 @@ module.exports = class StackController extends BaseController
     events: ->
         return _.extend super,
             'click button.remove': 'onRemoveClicked'
+            'click .name a':       'routeLinkClick'

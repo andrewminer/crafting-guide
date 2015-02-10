@@ -40,16 +40,17 @@ module.exports = class ItemPageController extends BaseController
 
     onDidRender: ->
         @_similarItemsController = @addChild ItemGroupController, '.similar .view__item_group', modPack:@_modPack
-        @_usedInMakingController = @addChild ItemGroupController, '.usedInMaking .view__item_group', modPack:@_modPack
+        @_usedToMakeController = @addChild ItemGroupController, '.usedToMake .view__item_group', modPack:@_modPack
 
         @$byline                = @$('.byline')
         @$bylineLink            = @$('.byline a')
+        @$craftingPlanLink      = @$('a.craftingPlan')
         @$name                  = @$('h1.name')
         @$recipeContainer       = @$('.recipes .panel')
         @$recipesSection        = @$('.recipes')
         @$similarContainer      = @$('.similar')
         @$titleImage            = @$('.titleImage img')
-        @$usedInMakingContainer = @$('.usedInMaking')
+        @$usedToMakeContainer = @$('.usedToMake')
         super
 
     refresh: ->
@@ -58,16 +59,19 @@ module.exports = class ItemPageController extends BaseController
 
         display = @_modPack.findItemDisplay @model.item?.slug
         if display?
+            @$craftingPlanLink.attr href:display.craftingUrl
+            @$craftingPlanLink.fadeIn duration:Duration.fast
             @_imageLoader.load display.iconUrl, @$titleImage
             @$name.html display.itemName
         else
+            @$craftingPlanLink.fadeOut duration:Duration.fast
             @$titleImage.removeAttr 'src'
             @$name.html ''
 
         @_refreshByline()
         @_refreshRecipes()
         @_refreshSimilarItems()
-        @_refreshComponentIn()
+        @_refreshUsedToMake()
 
         super
 
@@ -82,14 +86,14 @@ module.exports = class ItemPageController extends BaseController
         else
             @$byline.fadeOut duration:Duration.fast
 
-    _refreshComponentIn: ->
-        @_usedInMakingController.title = 'Used to Make'
+    _refreshUsedToMake: ->
+        @_usedToMakeController.title = 'Used to Make'
 
-        @_usedInMakingController.model = @model.findComponentInItems()
-        if @_usedInMakingController.model?
-            @$usedInMakingContainer.fadeIn duration:Duration.fast
+        @_usedToMakeController.model = @model.findComponentInItems()
+        if @_usedToMakeController.model?
+            @$usedToMakeContainer.fadeIn duration:Duration.fast
         else
-            @$usedInMakingContainer.fadeOut duration:Duration.fast
+            @$usedToMakeContainer.fadeOut duration:Duration.fast
 
     _refreshRecipes: ->
         @_recipeControllers ?= []

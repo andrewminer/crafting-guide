@@ -24,6 +24,18 @@ All rights reserved.
                 @include pixel-image;
             }
         }
+
+        a {
+            position: relative; width: 80%;
+            margin: 0 10%;
+            display: none;
+
+            p {
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                text-align: center;
+            }
+        }
     }
 
     .mainBody {
@@ -74,7 +86,7 @@ All rights reserved.
             display: none;
         }
 
-        .usedInMaking {
+        .usedToMake {
             display: none;
         }
     }

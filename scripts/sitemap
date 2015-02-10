@@ -35,10 +35,10 @@ base = 'http://crafting-guide.com'
 
 urls = [ base ]
 for slug in _.keys(modSlugs).sort()
-    urls.push base + "/mod/#{slug}"
+    urls.push base + "#mod/#{slug}"
 
 for slug in _.keys(itemSlugs).sort()
-    urls.push base + "/item/#{slug}"
+    urls.push base + "#item/#{slug}"
 
 for url in urls
     console.log url

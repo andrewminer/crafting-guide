@@ -64,3 +64,18 @@ sure there are no objections first!
 
 Thanks!
 ~~~~
+
+########################################################################################################################
+
+Crafting Guide—the ultimate step-by-step guide for Minecraft—Now with item detail pages!
+
+I just pushed up another big update!  This one adds detail pages for each item from each mod.  These detail pages show:
+
+* the item's basic information (name, icon, ...)
+* a link to the item's full crafting plan
+* the list of all recipes for that item
+* the list of all items it can be used to make
+* the list of all similar items
+
+All of this gives you an extensive reference of related items and recipes.  Check it out by seeing what you can do with
+a [Diamond](http://crafting-guide.com/item/diamond)!

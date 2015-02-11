@@ -31,13 +31,13 @@ module.exports = class ItemPage extends BaseModel
     findComponentInItems: ->
         return null unless @item?
 
-        itemSlug = @item.qualifiedSlug
+        slugs = [@item.slug, @item.qualifiedSlug]
         result = {}
         @modPack.eachMod (mod)->
             mod.eachItem (item)->
                 item.eachRecipe (recipe)->
                     for stack in recipe.input
-                        if stack.slug is itemSlug
+                        if stack.slug in slugs
                             result[item.qualifiedSlug] = item
 
         result = _.values(result).sort (a, b)-> a.compareTo b

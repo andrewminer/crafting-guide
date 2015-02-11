@@ -1793,29 +1793,29 @@ group: Minerals
 
     item: Refined Iron Ingot
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Iron Ore
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Iron Dust
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Iron Ingot
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Crushed Iron Ore
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Purified Crushed Iron Ore
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
             input: Refined Iron Block

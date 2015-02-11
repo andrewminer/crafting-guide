@@ -91,5 +91,5 @@ describe 'mod_version.coffee', ->
             """
 
         it 'finds all recipes which list item as output', ->
-            recipes = modVersion.findRecipes 'bucket'
-            (r.output[0].slug for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']
+            recipes = modVersion.findRecipes 'test__bucket'
+            (r.output[0].slug for r in recipes).sort().should.eql ['test__bucket', 'test__cake', 'test__cake']

@@ -19,6 +19,7 @@ module.exports = class ModVersion extends BaseModel
     constructor: (attributes={}, options={})->
         if not attributes.modSlug? then throw new Error 'attributes.modSlug is required'
         if not attributes.version? then throw new Error 'attributes.version is required'
+        attributes.mod ?= null
         super attributes, options
 
         @_groups = {}

@@ -25,9 +25,16 @@ module.exports = class ModPack extends BaseModel
     findItem: (slug, options={})->
         options.includeDisabled ?= false
 
+        [modSlug, itemSlug] = _.decomposeSlug slug
+        if modSlug?
+            mod = @getMod modSlug
+            if mod?
+                item = mod.findItem itemSlug, options
+                return item if item?
+
         for mod in @_mods
             continue unless mod.enabled or options.includeDisabled
-            item = mod.findItem slug, options
+            item = mod.findItem itemSlug, options
             return item if item?
 
         return null
@@ -36,10 +43,9 @@ module.exports = class ModPack extends BaseModel
         options.enableAsNeeded ?= false
         options.includeDisabled = true if options.enableAsNeeded
 
-        slug = _.slugify name
         for mod in @_mods
             continue unless mod.enabled or options.includeDisabled
-            item = mod.findItem slug, options
+            item = mod.findItemByName name, options
             return item if item?
 
         return null
@@ -74,6 +80,14 @@ module.exports = class ModPack extends BaseModel
         return null
 
     findRecipes: (slug, result=[])->
+        [modSlug, itemSlug] = _.decomposeSlug slug
+
+        if modSlug?
+            mod = @getMod modSlug
+            if mod?
+                mod.findRecipes slug, result
+                return result if result.length > 0
+
         for mod in @_mods
             continue unless mod.enabled
             mod.findRecipes slug, result
@@ -88,12 +102,9 @@ module.exports = class ModPack extends BaseModel
 
     isValidName: (name)->
         slug = _.slugify name
-        for mod in @_mods
-            continue unless mod.enabled
-            name = mod.findName slug
-            return true if name
+        existingName = @findName slug
 
-        return false
+        return name is existingName
 
     # Property Methods #############################################################################
 
@@ -101,6 +112,7 @@ module.exports = class ModPack extends BaseModel
         if not mod? then throw new Error 'mod is required'
         return if @_mods.indexOf(mod) isnt -1
 
+        mod.modPack = this
         @_mods.push mod
         @listenTo mod, Event.change, => @trigger Event.change, this
         @trigger Event.add + ':mod', mod, this

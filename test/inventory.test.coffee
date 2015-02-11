@@ -12,7 +12,7 @@ Item          = require '../src/scripts/models/item'
 
 ########################################################################################################################
 
-inventory = null
+inventory = modPack = null
 
 ########################################################################################################################
 
@@ -106,6 +106,39 @@ describe 'inventory.coffee', ->
             inventory.hasAtLeast('wool', 3).should.be.true
             inventory.hasAtLeast('wool', 4).should.be.true
             inventory.hasAtLeast('wool', 5).should.be.false
+
+    describe 'localizeTo', ->
+
+        before ->
+            modPack =
+                map:
+                    wool:       'minecraft__wool'
+                    string:     'minecraft__string'
+                    boat:       'minecraft__boat'
+                    stone_gear: 'buildcraft__stone_gear'
+                findItem: (slug)->
+                    [modSlug, itemSlug] = _.decomposeSlug slug
+                    return slug:itemSlug, qualifiedSlug:@map[itemSlug]
+
+        it 'replaces item slugs with qualified slugs', ->
+            inventory.add 'stone_gear'
+            inventory.localizeTo modPack
+            inventory.toList().should.eql [
+                'minecraft__boat',
+                [20, 'minecraft__string'],
+                [4, 'minecraft__wool'],
+                'buildcraft__stone_gear'
+            ]
+
+        it 'ignores qualified slugs', ->
+            inventory.add 'buildcraft__stone_gear'
+            inventory.localizeTo modPack
+            inventory.toList().should.eql [
+                'minecraft__boat',
+                [20, 'minecraft__string'],
+                [4, 'minecraft__wool'],
+                'buildcraft__stone_gear'
+            ]
 
     describe 'pop', ->
 

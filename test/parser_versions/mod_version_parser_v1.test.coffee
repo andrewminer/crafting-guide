@@ -68,7 +68,7 @@ describe 'mod_version_parser_v1.coffee', ->
             it 'adds "input" when present', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern: ... 012 ...'
                 slugs = (s.slug for s in modVersion._items.charlie._recipes[0].input)
-                slugs.should.eql ['alpha', 'bravo', 'charlie']
+                slugs.should.eql ['alpha', 'bravo', 'test__charlie']
 
             it 'requires an "input" declaration', ->
                 func = -> parser.parse baseText + 'recipe:; pattern: ... .0. ...'
@@ -155,20 +155,20 @@ describe 'mod_version_parser_v1.coffee', ->
         describe 'output', ->
 
             beforeEach ->
-                baseText = 'item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
+                baseText = 'item: Delta; item:Bravo; recipe:; input:Charlie; pattern:... .0. ...; '
 
             it 'adds a single item as the default output', ->
                 modVersion = parser.parse baseText
                 stack = modVersion._items.bravo._recipes[0].output[0]
-                stack.slug.should.equal 'bravo'
+                stack.slug.should.equal 'test__bravo'
                 stack.quantity.should.equal 1
 
             it 'can add multiple extras with quantities', ->
                 modVersion = parser.parse baseText + 'extras:2 Delta, 4 Echo'
                 output = modVersion._items.bravo._recipes[0].output
-                output[0].slug.should.equal 'bravo'
+                output[0].slug.should.equal 'test__bravo'
                 output[0].quantity.should.equal 1
-                output[1].slug.should.equal 'delta'
+                output[1].slug.should.equal 'test__delta'
                 output[1].quantity.should.equal 2
                 output[2].slug.should.equal 'echo'
                 output[2].quantity.should.equal 4

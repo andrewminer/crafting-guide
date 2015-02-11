@@ -21,6 +21,7 @@ module.exports = class Mod extends BaseModel
         attributes.documentationUrl ?= null
         attributes.downloadUrl      ?= null
         attributes.homePageUrl      ?= null
+        attributes.modPack          ?= null
         attributes.name             ?= ''
         super attributes, options
 

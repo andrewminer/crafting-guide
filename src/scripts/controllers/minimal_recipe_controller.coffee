@@ -72,6 +72,6 @@ module.exports = class MinimalRecipeController extends BaseController
         result = []
         if @model?
             for stack in @model.tools
-                name = @_modPack.findName stack.slug
-                result.push name if name?
+                item = @_modPack.findItem stack.slug
+                result.push item.name if item?
         return result

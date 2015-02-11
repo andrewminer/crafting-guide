@@ -5,9 +5,10 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel = require './base_model'
-{Event}   = require '../constants'
-Stack     = require './stack'
+BaseModel      = require './base_model'
+{Event}        = require '../constants'
+{RequiredMods} = require '../constants'
+Stack          = require './stack'
 
 ########################################################################################################################
 
@@ -58,6 +59,22 @@ module.exports = class Inventory extends BaseModel
         stack = @_stacks[slug]
         return false unless stack?
         return stack.quantity >= quantity
+
+    localizeTo: (modPack)->
+        newSlugs = []
+        for slug in @_slugs
+            stack = @_stacks[slug]
+            qualifiedSlug = modPack.findItem(slug)?.qualifiedSlug
+            if qualifiedSlug?
+                delete @_stacks[slug]
+                newSlugs.push qualifiedSlug
+                @_stacks[qualifiedSlug] = stack
+                stack.slug = qualifiedSlug
+            else
+                throw new Error "could not find an item for: #{slug}"
+
+        @_slugs = newSlugs
+        @_sort()
 
     pop: ->
         slug = @_slugs.pop()
@@ -129,6 +146,22 @@ module.exports = class Inventory extends BaseModel
             stack = new Stack slug:slug, quantity:quantity
             @_stacks[slug] = stack
             @_slugs.push slug
-            @_slugs.sort()
+            @_sort()
         else
             stack.quantity += quantity
+
+    _sort: ->
+        @_slugs.sort (a, b)->
+            [modSlugA, itemSlugA] = _.decomposeSlug a
+            [modSlugB, itemSlugB] = _.decomposeSlug b
+            isRequiredA = modSlugA in RequiredMods
+            isRequiredB = modSlugB in RequiredMods
+
+            if isRequiredA isnt isRequiredB
+                return -1 if isRequiredA
+                return +1 if isRequiredB
+            else if modSlugA isnt modSlugB
+                return if modSlugA < modSlugB then -1 else +1
+            else if itemSlugA isnt itemSlugB
+                return if itemSlugA < itemSlugB then -1 else +1
+            return 0

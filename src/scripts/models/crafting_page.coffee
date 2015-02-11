@@ -14,7 +14,7 @@ ModPack         = require './mod_pack'
 
 ########################################################################################################################
 
-module.exports = class  extends BaseModel
+module.exports = class CraftingPage extends BaseModel
 
     constructor: (attributes={}, options={})->
         attributes.modPack ?= new ModPack
@@ -40,7 +40,7 @@ module.exports = class  extends BaseModel
             inventory = @_parser.parse @params.inventoryText
 
             inventory.each (stack)=>
-                item = @modPack.findItemByName stack.slug, enableAsNeeded:true
+                item = @modPack.findItem stack.slug, enableAsNeeded:true
                 return unless item? and item.isCraftable
                 @plan.want.add stack.slug, stack.quantity
                 inventory.remove stack.slug

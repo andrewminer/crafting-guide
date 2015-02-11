@@ -31,14 +31,14 @@ module.exports = class ItemPage extends BaseModel
     findComponentInItems: ->
         return null unless @item?
 
-        itemSlug = @item.slug
+        itemSlug = @item.qualifiedSlug
         result = {}
         @modPack.eachMod (mod)->
             mod.eachItem (item)->
                 item.eachRecipe (recipe)->
                     for stack in recipe.input
                         if stack.slug is itemSlug
-                            result[item.slug] = item
+                            result[item.qualifiedSlug] = item
 
         result = _.values(result).sort (a, b)-> a.compareTo b
         return null unless result.length > 0
@@ -56,7 +56,7 @@ module.exports = class ItemPage extends BaseModel
         return result
 
     findRecipes: ->
-        result = @modPack.findRecipes @item?.slug
+        result = @modPack.findRecipes @item?.qualifiedSlug
         return null unless result.length > 0
         return result
 
@@ -66,7 +66,7 @@ module.exports = class ItemPage extends BaseModel
         @_plan.clear()
 
         if @item?
-            @_plan.want.add @item.slug
+            @_plan.want.add @item.qualifiedSlug
             @_plan.craft()
 
             if @_plan.steps.length > 0

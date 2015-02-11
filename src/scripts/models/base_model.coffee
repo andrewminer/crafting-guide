@@ -25,10 +25,6 @@ module.exports = class BaseModel extends Backbone.Model
         @logEvents = options.logEvents or false
         @state  = ModelState.unloaded
 
-        @on 'request', => @state = ModelState.loading
-        @on 'sync',    => @state = ModelState.loaded
-        @on 'error',   => @state = ModelState.error
-
         @loading = null
 
         Object.defineProperties this,
@@ -42,6 +38,8 @@ module.exports = class BaseModel extends Backbone.Model
     onLoadSucceeded: (text, status, xhr)->
         try
             @set @parse text
+
+            @state = ModelState.loaded
             @trigger Event.change, this
             @trigger Event.sync, this
             logger.info => "#{@constructor.name}.#{@cid} loaded successfully"
@@ -50,6 +48,7 @@ module.exports = class BaseModel extends Backbone.Model
             @onLoadFailed e.message, 'parsing failed', xhr
 
     onLoadFailed: (error, status, xhr)->
+        @state = ModelState.error
         logger.error => "#{@constructor.name}.#{@cid} failed to load: status:#{status}, message:#{error}"
         @trigger Event.error, this, error
 
@@ -62,6 +61,7 @@ module.exports = class BaseModel extends Backbone.Model
         url = @url()
         logger.info => "#{@constructor.name}.#{@cid} reading from url: #{url}"
 
+        @state = ModelState.loading
         @trigger Event.request, this
         @loading = w.promise (resolve, reject)=>
             $.ajax

@@ -44,25 +44,29 @@ describe 'crafting_plan.coffee', ->
                 plan.want.add 'oak_plank'
                 plan.craft()
                 plan.need.toList().should.eql ['oak_log']
-                plan.result.toList().should.eql [[4, 'oak_plank']]
+                plan.result.toList().should.eql [[4, 'minecraft__oak_plank']]
 
             it 'can craft a multi-step recipe', ->
                 plan.want.add 'crafting_table'
                 plan.craft()
                 plan.need.toList().should.eql ['oak_log']
-                plan.result.toList().should.eql ['crafting_table']
+                plan.result.toList().should.eql ['minecraft__crafting_table']
 
             it 'can craft a multi-step recipe using tools', ->
                 plan.want.add 'furnace'
                 plan.craft()
                 plan.need.toList().should.eql [[8, 'cobblestone']]
-                plan.result.toList().should.eql ['furnace']
+                plan.result.toList().should.eql ['minecraft__furnace']
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.want.add 'iron_sword'
                 plan.craft()
                 plan.need.toList().should.eql [[2, 'furnace_fuel'], [2, 'iron_ore'], 'oak_log']
-                plan.result.toList().should.eql ['iron_sword', [2, 'oak_plank'], [3, 'stick']]
+                plan.result.toList().should.eql [
+                    'minecraft__iron_sword',
+                    [2, 'minecraft__oak_plank'],
+                    [3, 'minecraft__stick']
+                ]
 
         describe 'with building tools', ->
 
@@ -71,7 +75,7 @@ describe 'crafting_plan.coffee', ->
                 plan.want.add 'furnace'
                 plan.craft()
                 plan.need.toList().should.eql [[8, 'cobblestone'], 'oak_log']
-                plan.result.toList().should.eql ['crafting_table', 'furnace']
+                plan.result.toList().should.eql ['minecraft__crafting_table', 'minecraft__furnace']
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.includingTools = true
@@ -82,5 +86,9 @@ describe 'crafting_plan.coffee', ->
                     [8, 'cobblestone'], [2, 'furnace_fuel'], [2, 'iron_ore'], [2, 'oak_log']
                 ]
                 plan.result.toList().should.eql [
-                    'crafting_table', 'furnace', 'iron_sword', [2, 'oak_plank'], [3, 'stick']
+                    'minecraft__crafting_table',
+                    'minecraft__furnace',
+                    'minecraft__iron_sword',
+                    [2, 'minecraft__oak_plank'],
+                    [3, 'minecraft__stick']
                 ]

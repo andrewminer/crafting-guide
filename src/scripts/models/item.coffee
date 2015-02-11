@@ -21,27 +21,32 @@ module.exports = class Item extends BaseModel
 
         attributes.group        ?= Item.Group.Other
         attributes.isGatherable ?= false
+        attributes.modVersion   ?= null
         attributes.slug         ?= _.slugify attributes.name
+
         options.logEvents       ?= false
         super attributes, options
 
         @_recipes = []
+
         Object.defineProperties this,
             isCraftable:   { get:-> @_recipes.length > 0 }
+            qualifiedSlug:      { get:@getQualifiedSlug }
             primaryRecipe: { get:@getPrimaryRecipe }
+
+        @on Event.change + ':modVersion', => @_qualifiedSlug = null
 
     # Public Methods ###############################################################################
 
     addRecipe: (recipe)->
-        if recipe.slug isnt @slug then throw new Error "cannot add a recipe for #{recipe.slug} to #{@slug}"
+        [modSlug, itemSlug] = _.decomposeSlug recipe.slug
+        if itemSlug isnt @slug then throw new Error "cannot add a recipe for #{recipe.slug} to #{@slug}"
+        recipe.item = this
         @_recipes.push recipe
 
     eachRecipe: (callback)->
         for recipe in @_recipes
             callback recipe
-
-    getPrimaryRecipe: ->
-        return @_recipes[0]
 
     compareTo: (that)->
         if this.slug isnt that.slug
@@ -49,6 +54,19 @@ module.exports = class Item extends BaseModel
         if this.name isnt that.name
             return if this.name < that.name then -1 else +1
         return 0
+
+    # Property Methods #############################################################################
+
+    getQualifiedSlug: ->
+        return @slug if not @modVersion?
+
+        if not @_qualifiedSlug?
+            @_qualifiedSlug = _.composeSlugs @modVersion.modSlug, @slug
+
+        return @_qualifiedSlug
+
+    getPrimaryRecipe: ->
+        return @_recipes[0]
 
     # Object Overrides #############################################################################
 

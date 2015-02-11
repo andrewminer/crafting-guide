@@ -15,8 +15,7 @@ module.exports = class Recipe extends BaseModel
     constructor: (attributes={}, options={})->
         if attributes.item?
             attributes.name = attributes.item.name
-            attributes.slug = attributes.item.slug
-            attributes.output ?= [new Stack slug:attributes.item.slug, quantity:1]
+            attributes.output ?= [new Stack slug:attributes.item.qualifiedSlug, quantity:1]
 
         if not attributes.name? then throw new Error 'attributes.name is required'
         if not attributes.input? then throw new Error 'attributes.input is required'
@@ -25,10 +24,12 @@ module.exports = class Recipe extends BaseModel
         attributes.item    ?= null
         attributes.output  ?= [new Stack slug:_.slugify(attributes.name), quantity:1]
         attributes.pattern = @_parsePattern attributes.pattern
-        attributes.slug    ?= attributes.output[0].slug
         attributes.tools   ?= []
         options.logEvents  ?= false
         super attributes, options
+
+        Object.defineProperties this,
+            slug: {get:@getSlug}
 
     # Public Methods ###############################################################################
 
@@ -47,6 +48,12 @@ module.exports = class Recipe extends BaseModel
         for stack in @output
             return true if stack.slug is itemSlug
         return false
+
+    # Property Methods #############################################################################
+
+    getSlug: ->
+        return @item.qualifiedSlug if @item?
+        return @output[0].slug
 
     # Object Overrides #############################################################################
 

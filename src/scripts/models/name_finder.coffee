@@ -67,7 +67,7 @@ module.exports = class NameFinder
 
                 item = mod.findItem slug
                 if not @includeGatherable
-                    return unless item? and (not item.isGatherable)
+                    return unless item? and item.isCraftable
 
                 scanName = "#{mod.name} : #{name}"
                 if nameHint?

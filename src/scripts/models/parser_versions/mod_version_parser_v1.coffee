@@ -61,8 +61,8 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if not name.length > 0 then throw new Error 'the item name cannot be empty'
 
         @_itemData = name:name, line:@_lineNumber, group:@_rawData.group
-        @_rawData.items ?= []
-        @_rawData.items.push @_itemData
+        @_rawData.items ?= {}
+        @_rawData.items[name] = @_itemData
 
         @_recipeData = null
 
@@ -112,7 +112,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
     _buildModVersion: (modVersionData, modVersion)->
         modVersionData.items ?= []
 
-        for itemData in modVersionData.items
+        for itemName, itemData of modVersionData.items
             @_handleErrors @_buildItem, modVersion, itemData
 
         return modVersion
@@ -135,6 +135,12 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if not recipeData.input? then throw new Error 'the "input" declaration is required'
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
+        localizeSlug = (name, slug)=>
+            if @_rawData.items[name]?
+                return _.composeSlugs modVersion.modSlug, slug
+            else
+                return slug
+
         recipeData.quantity   ?= 1
         recipeData.extras     ?= []
         recipeData.tools      ?= []
@@ -143,6 +149,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         for name in recipeData.input
             slug = _.slugify name
             modVersion.registerSlug slug, name
+            slug = localizeSlug name, slug
             inputStacks.push new Stack slug:slug, quantity:0
 
         for c in recipeData.pattern
@@ -158,16 +165,18 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
                 name = modVersion.findName stack.slug
                 throw new Error "#{name} is an input for this recipe, but it is not in the pattern"
 
-        outputStacks = [ new Stack slug:item.slug, quantity:recipeData.quantity ]
+        outputStacks = [ new Stack slug:item.qualifiedSlug, quantity:recipeData.quantity ]
         for extraData in recipeData.extras
             slug = _.slugify extraData.name
             modVersion.registerSlug slug, extraData.name
+            slug = localizeSlug extraData.name, slug
             outputStacks.push new Stack slug:slug, quantity:extraData.quantity
 
         toolStacks = []
         for name in recipeData.tools
             slug = _.slugify name
             modVersion.registerSlug slug, name
+            slug = localizeSlug name, slug
             toolStacks.push new Stack slug:slug, quantity:1
 
         attributes =

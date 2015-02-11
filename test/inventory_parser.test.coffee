@@ -24,7 +24,7 @@ describe 'inventory_parser.coffee', ->
         result.toList().should.eql []
 
     it 'can parse a single item without quantity', ->
-        result = parser.parse 'Wool'
+        result = parser.parse 'wool'
         result.toList().should.eql ['wool']
 
     it 'can parse a single item with quantity', ->
@@ -32,11 +32,11 @@ describe 'inventory_parser.coffee', ->
         result.toList().should.eql [[4, 'wool']]
 
     it 'can parse multiple mixed-type items', ->
-        result = parser.parse '4.Wool:10.String:Boat'
+        result = parser.parse '4.wool:10.string:boat'
         result.toList().should.eql ['boat', [10, 'string'], [4, 'wool']]
 
     it 're-uses the given inventory object', ->
         inventory = new Inventory
         inventory.add 'string', 8
-        result = parser.parse '4.Wool', inventory
+        result = parser.parse '4.wool', inventory
         result.toList().should.eql [[8, 'string'], [4, 'wool']]

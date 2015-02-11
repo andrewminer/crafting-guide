@@ -5,6 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+Item   = require '../src/scripts/models/item'
 Recipe = require '../src/scripts/models/recipe'
 Stack  = require '../src/scripts/models/stack'
 
@@ -32,7 +33,8 @@ describe 'recipe.coffee', ->
             expect(-> new Recipe name:'Gold Gear', input:input).to.throw Error, 'attributes.pattern is required'
 
         it 'allows an item to provide required attributes', ->
-            recipe = new Recipe item:{name:'Gold Gear', slug:'gold_gear'}, input:input, pattern:pattern
+            item = new Item name:'Gold Gear'
+            recipe = new Recipe item:item, input:input, pattern:pattern
             recipe.name.should.equal 'Gold Gear'
             (o.slug for o in recipe.output).should.eql ['gold_gear']
 

@@ -33,10 +33,10 @@ module.exports = class InventoryParser
             stackParts = stackText.split InventoryParser.ITEM_DELIMITER
             if stackParts.length is 2
                 quantity = parseInt stackParts[0]
-                slug = _.slugify stackParts[1]
+                slug = stackParts[1]
             else if stackParts.length is 1
                 quantity = 1
-                slug = _.slugify stackParts[0]
+                slug = stackParts[0]
             else
                 throw new Error "expected #{stackText} to have 0 or 1 parts"
 

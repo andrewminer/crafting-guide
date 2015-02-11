@@ -57,7 +57,7 @@ module.exports = class ItemPageController extends BaseController
         $('title').html if @model.item? then "#{@model.item.name} | #{Text.title}" else Text.title
         @_resolveItemSlug()
 
-        display = @_modPack.findItemDisplay @model.item?.slug
+        display = @_modPack.findItemDisplay @model.item?.qualifiedSlug
         if display?
             @$craftingPlanLink.attr href:display.craftingUrl
             @$craftingPlanLink.fadeIn duration:Duration.normal
@@ -143,6 +143,4 @@ module.exports = class ItemPageController extends BaseController
             @$similarContainer.fadeOut duration:Duration.normal
 
     _resolveItemSlug: ->
-        oldItem = @model.item
         @model.item = @_modPack.findItem @_itemSlug, includeDisabled:true
-        newItem = @model.item

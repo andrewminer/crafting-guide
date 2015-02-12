@@ -23,7 +23,7 @@ describe 'mod_pack.coffee', ->
         minecraft.addModVersion new ModVersion modSlug:minecraft.slug, version:'1.7.10'
         minecraft.activeModVersion.addItem new Item name:'Wool'
         minecraft.activeModVersion.addItem new Item name:'Bed', recipes:['']
-        minecraft.activeModVersion.registerSlug 'iron_chestplate', 'Iron Chestplate'
+        minecraft.activeModVersion.registerName 'iron_chestplate', 'Iron Chestplate'
 
         buildcraft = new Mod slug:'buildcraft', name:'Buildcraft'
         buildcraft.addModVersion new ModVersion modSlug:buildcraft.slug, version:'6.2.6'

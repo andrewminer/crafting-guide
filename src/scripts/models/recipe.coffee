@@ -13,23 +13,23 @@ Stack     = require './stack'
 module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if attributes.item?
-            attributes.name = attributes.item.name
-            attributes.output ?= [new Stack slug:attributes.item.qualifiedSlug, quantity:1]
-
-        if not attributes.name? then throw new Error 'attributes.name is required'
         if not attributes.input? then throw new Error 'attributes.input is required'
         if not attributes.pattern? then throw new Error 'attributes.pattern is required'
 
-        attributes.item    ?= null
-        attributes.output  ?= [new Stack slug:_.slugify(attributes.name), quantity:1]
-        attributes.pattern = @_parsePattern attributes.pattern
-        attributes.tools   ?= []
-        options.logEvents  ?= false
-        super attributes, options
+        if attributes.slug? and not attributes.output?
+            attributes.output = [new Stack slug:attributes.slug, quantity:1]
+        else if attributes.output? and not attributes.slug?
+            if attributes.output.length is 0 then throw new Error 'attributes.output cannot be empty'
+            attributes.slug = attributes.output[0].slug
+        else
+            throw new Error 'attributes.slug or attributes.output is required'
 
-        Object.defineProperties this,
-            slug: {get:@getSlug}
+        attributes.pattern = @_parsePattern attributes.pattern
+
+        attributes.modVersion ?= null
+        attributes.tools      ?= []
+        options.logEvents     ?= false
+        super attributes, options
 
     # Public Methods ###############################################################################
 
@@ -43,17 +43,6 @@ module.exports = class Recipe extends BaseModel
         return null unless stack?
 
         return stack.slug
-
-    doesProduce: (itemSlug)->
-        for stack in @output
-            return true if stack.slug is itemSlug
-        return false
-
-    # Property Methods #############################################################################
-
-    getSlug: ->
-        return @item.qualifiedSlug if @item?
-        return @output[0].slug
 
     # Object Overrides #############################################################################
 

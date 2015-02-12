@@ -27,7 +27,8 @@ describe 'mod_version_parser_v1.coffee', ->
                 recipe:; input:Alpha; pattern:... .0. ...;
                 recipe:; input:Bravo; pattern:... 0.0 ...;"
             modVersion = parser.parse recipes
-            recipes = modVersion._items.charlie._recipes
+            recipes = modVersion.findRecipes 'test__charlie'
+            logger.debug "recipes: #{util.inspect(recipes)}"
             recipes[0].input[0].slug.should.equal 'alpha'
             recipes[1].input[0].slug.should.equal 'bravo'
 
@@ -67,7 +68,7 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'adds "input" when present', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern: ... 012 ...'
-                slugs = (s.slug for s in modVersion._items.charlie._recipes[0].input)
+                slugs = (s.slug for s in modVersion.findRecipes('test__charlie')[0].input)
                 slugs.should.eql ['alpha', 'bravo', 'test__charlie']
 
             it 'requires an "input" declaration', ->
@@ -90,7 +91,7 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'adds "pattern" when present', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern:... .0. .1.'
-                modVersion._items.charlie._recipes[0].pattern.should.equal '... .0. .1.'
+                modVersion.findRecipes('test__charlie')[0].pattern.should.equal '... .0. .1.'
 
             it 'requires a "pattern" declaration', ->
                 func = -> parser.parse baseText + 'recipe:; input:Alpha, Bravo'
@@ -118,7 +119,7 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'computes the input stack sizes from the pattern', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Charlie; pattern:111 .0. 2.2'
-                recipe = modVersion._items.charlie._recipes[0]
+                recipe = modVersion.findRecipes('test__charlie')[0]
                 recipe.input[0].quantity.should.equal 1
                 recipe.input[1].quantity.should.equal 3
                 recipe.input[2].quantity.should.equal 2
@@ -134,7 +135,7 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'adds "quantity" when present', ->
                 modVersion = parser.parse baseText + 'quantity: 2'
-                modVersion._items.charlie._recipes[0].output[0].quantity.should.equal 2
+                modVersion.findRecipes('test__charlie')[0].output[0].quantity.should.equal 2
 
             it 'does not allow a duplicate "quantity" declaration', ->
                 func = -> parser.parse baseText + 'quantity:1; quantity:2'
@@ -146,7 +147,7 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'assumes a quantity of 1 by default', ->
                 modVersion = parser.parse baseText
-                modVersion._items.charlie._recipes[0].output[0].quantity.should.equal 1
+                modVersion.findRecipes('test__charlie')[0].output[0].quantity.should.equal 1
 
             it 'does not allow "quantity" before recipe', ->
                 func = -> parser.parse 'item:Bravo; quantity:12; recipe:;'
@@ -159,13 +160,13 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'adds a single item as the default output', ->
                 modVersion = parser.parse baseText
-                stack = modVersion._items.bravo._recipes[0].output[0]
+                stack = modVersion.findRecipes('test__bravo')[0].output[0]
                 stack.slug.should.equal 'test__bravo'
                 stack.quantity.should.equal 1
 
             it 'can add multiple extras with quantities', ->
                 modVersion = parser.parse baseText + 'extras:2 Delta, 4 Echo'
-                output = modVersion._items.bravo._recipes[0].output
+                output = modVersion.findRecipes('test__bravo')[0].output
                 output[0].slug.should.equal 'test__bravo'
                 output[0].quantity.should.equal 1
                 output[1].slug.should.equal 'test__delta'
@@ -192,11 +193,11 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'can add a single tool', ->
                 modVersion = parser.parse baseText + 'tools: Furnace'
-                modVersion._items.bravo._recipes[0].tools[0].slug.should.equal 'furnace'
+                modVersion.findRecipes('test__bravo')[0].tools[0].slug.should.equal 'furnace'
 
             it 'can add multiple tools', ->
                 modVersion = parser.parse baseText + 'tools: Crafting Table, Furnace'
-                tools = modVersion._items.bravo._recipes[0].tools
+                tools = modVersion.findRecipes('test__bravo')[0].tools
                 tools[0].slug.should.equal 'crafting_table'
                 tools[1].slug.should.equal 'furnace'
 

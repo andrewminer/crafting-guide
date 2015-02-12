@@ -9,6 +9,7 @@ BaseCollection = require './base_collection'
 BaseModel      = require './base_model'
 {Event}        = require '../constants'
 Recipe         = require './recipe'
+StringBuilder  = require './string_builder'
 
 ########################################################################################################################
 
@@ -27,26 +28,13 @@ module.exports = class Item extends BaseModel
         options.logEvents       ?= false
         super attributes, options
 
-        @_recipes = []
-
         Object.defineProperties this,
-            isCraftable:   { get:-> @_recipes.length > 0 }
-            qualifiedSlug:      { get:@getQualifiedSlug }
-            primaryRecipe: { get:@getPrimaryRecipe }
+            isCraftable:   {get:@getIsCraftable}
+            qualifiedSlug: {get:@getQualifiedSlug}
 
         @on Event.change + ':modVersion', => @_qualifiedSlug = null
 
     # Public Methods ###############################################################################
-
-    addRecipe: (recipe)->
-        [modSlug, itemSlug] = _.decomposeSlug recipe.slug
-        if itemSlug isnt @slug then throw new Error "cannot add a recipe for #{recipe.slug} to #{@slug}"
-        recipe.item = this
-        @_recipes.push recipe
-
-    eachRecipe: (callback)->
-        for recipe in @_recipes
-            callback recipe
 
     compareTo: (that)->
         if this.slug isnt that.slug
@@ -57,6 +45,10 @@ module.exports = class Item extends BaseModel
 
     # Property Methods #############################################################################
 
+    getIsCraftable: ->
+        return false unless @modVersion?
+        return @modVersion.hasRecipes @qualifiedSlug
+
     getQualifiedSlug: ->
         return @slug if not @modVersion?
 
@@ -65,25 +57,18 @@ module.exports = class Item extends BaseModel
 
         return @_qualifiedSlug
 
-    getPrimaryRecipe: ->
-        return @_recipes[0]
-
     # Object Overrides #############################################################################
 
     toString: ->
-        result = []
-        result.push @constructor.name
-        result.push ' ('; result.push @cid; result.push ') { '
-        result.push 'name:"'; result.push @name; result.push '", '
-        result.push 'isGatherable:'; result.push @isGatherable
-
-        if _.slugify(@name) isnt @slug
-            result.push ', slug:'; result.push @slug
-
-        if @_recipes.length > 0
-            result.push ', recipes:«'
-            result.push @_recipes.length
-            result.push ' items»'
-
-        result.push '}'
-        return result.join ''
+        builder = new StringBuilder
+        return builder
+            .push @constructor.name, ' (', @cid, ') { '
+            .push 'name:"', @name, '", '
+            .push 'isCraftable:', @isCraftable, ', '
+            .push 'isGatherable:', @isGatherable, ', '
+            .onlyIf (@group isnt Item.Group.Other), (b)=>
+                b.push 'group:"', @group, '", '
+            .onlyIf (_.slugify(@name) isnt @slug), (b)=>
+                b.push 'slug:"', @slug, '", '
+            .push '}'
+            .toString()

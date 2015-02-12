@@ -135,7 +135,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if not recipeData.input? then throw new Error 'the "input" declaration is required'
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
-        localizeSlug = (name, slug)=>
+        qualifySlug = (name, slug)=>
             if @_rawData.items[name]?
                 return _.composeSlugs modVersion.modSlug, slug
             else
@@ -148,8 +148,8 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         inputStacks = []
         for name in recipeData.input
             slug = _.slugify name
-            modVersion.registerSlug slug, name
-            slug = localizeSlug name, slug
+            modVersion.registerName slug, name
+            slug = qualifySlug name, slug
             inputStacks.push new Stack slug:slug, quantity:0
 
         for c in recipeData.pattern
@@ -168,26 +168,25 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         outputStacks = [ new Stack slug:item.qualifiedSlug, quantity:recipeData.quantity ]
         for extraData in recipeData.extras
             slug = _.slugify extraData.name
-            modVersion.registerSlug slug, extraData.name
-            slug = localizeSlug extraData.name, slug
+            modVersion.registerName slug, extraData.name
+            slug = qualifySlug extraData.name, slug
             outputStacks.push new Stack slug:slug, quantity:extraData.quantity
 
         toolStacks = []
         for name in recipeData.tools
             slug = _.slugify name
-            modVersion.registerSlug slug, name
-            slug = localizeSlug name, slug
+            modVersion.registerName slug, name
+            slug = qualifySlug name, slug
             toolStacks.push new Stack slug:slug, quantity:1
 
         attributes =
-            input:    inputStacks
-            name:     item.name
-            pattern:  recipeData.pattern
-            output:   outputStacks
-            tools:    toolStacks
+            input:   inputStacks
+            output:  outputStacks
+            pattern: recipeData.pattern
+            tools:   toolStacks
 
         recipe = new Recipe attributes
-        item.addRecipe recipe
+        modVersion.addRecipe recipe
         return recipe
 
     # Un-parsing Methods ###########################################################################

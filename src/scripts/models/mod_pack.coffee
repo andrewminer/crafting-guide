@@ -91,7 +91,8 @@ module.exports = class ModPack extends BaseModel
         for mod in @_mods
             continue unless mod.enabled
             mod.findRecipes slug, result
-        return result
+
+        return if result.length > 0 then result else null
 
     isGatherable: (slug)->
         item = @findItem slug

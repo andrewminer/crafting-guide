@@ -90,7 +90,7 @@ module.exports = class CraftingPlan extends BaseModel
         return "#{@constructor.name} {
                 have:#{@have},
                 want:#{@want},
-                need:#{@_need},
+                need:#{@need},
                 result:#{@result},
                 steps:#{@steps}
             }"
@@ -98,11 +98,13 @@ module.exports = class CraftingPlan extends BaseModel
     # Private Methods ##############################################################################
 
     _addStep: (recipe)->
-        logger.verbose -> "adding step: #{recipe.item.qualifiedSlug}"
-        @steps[recipe.item.qualifiedSlug] = recipe:recipe
+        logger.verbose -> "adding step: #{recipe.slug}"
+        @steps[recipe.slug] = recipe:recipe
 
     _chooseRecipe: (item)->
-        return item.getPrimaryRecipe()
+        recipes = @modPack.findRecipes item.qualifiedSlug
+        return null unless recipes?
+        return recipes[0]
 
     _findSteps: (slug)->
         item = @modPack.findItem slug

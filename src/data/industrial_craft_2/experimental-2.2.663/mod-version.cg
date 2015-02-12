@@ -1654,6 +1654,10 @@ group: Minerals
     item: Copper Ore
 
     item: Distilled Water
+        recipe:
+            input: Water
+            pattern: ... .0. ...
+            tools: Solar Distiller
 
     item: Distilled Water Cell
         recipe:
@@ -1661,6 +1665,10 @@ group: Minerals
             pattern: ... .0. .1.
 
     item: Electrolyzed Water Cell
+        recipe:
+            input: Water Cell
+            pattern: ... .0. ...
+            tools: Electrolyzer
 
     item: Empty Cell
         recipe:
@@ -2703,8 +2711,9 @@ group: Nuclear Reactor
 
     item: Coolant Cell
         recipe:
-            input: Empty Cell, IC2 Coolant
-            pattern: ... .1. .0.
+            input: Distilled Water, Lapis Lazuli Dust, Empty Cell
+            pattern: .0. .1. .2.
+            tools: Fluid/Solid Canning Machine
 
     item: Dual Fuel Rod (Depleted MOX)
 
@@ -2782,8 +2791,6 @@ group: Nuclear Reactor
         recipe:
             input: Empty Cell, IC2 Hot Coolant
             pattern: ... .1. .0.
-
-    item: IC2 Coolant
 
     item: IC2 Hot Coolant
 

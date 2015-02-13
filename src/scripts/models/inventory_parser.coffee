@@ -49,10 +49,14 @@ module.exports = class InventoryParser
         if not @modPack? then throw new Error 'this.modPack is needed to unparse'
 
         parts = []
-        inventory.each (stack)->
+        inventory.each (stack)=>
+            [modSlug, itemSlug] = _.decomposeSlug stack.slug
+            item = @modPack.findItem itemSlug
+            slug = if item.qualifiedSlug is stack.slug then item.slug else item.qualifiedSlug
+
             if stack.quantity is 1
-                parts.push stack.slug
+                parts.push slug
             else
-                parts.push "#{stack.quantity}#{InventoryParser.ITEM_DELIMITER}#{stack.slug}"
+                parts.push "#{stack.quantity}#{InventoryParser.ITEM_DELIMITER}#{slug}"
 
         return parts.join InventoryParser.STACK_DELIMITER

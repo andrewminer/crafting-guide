@@ -40,10 +40,10 @@ module.exports = class InventoryController extends BaseController
     # Event Methods ################################################################################
 
     onAddButtonClicked: ->
-        name = @$nameField.val()
-        return unless @modPack.isValidName name
+        item = @modPack.findItemByName @$nameField.val()
+        return unless item?
 
-        @model.add _.slugify(name), parseInt(@$quantityField.val())
+        @model.add item.qualifiedSlug, parseInt(@$quantityField.val())
         @$nameField.val ''
         @$quantityField.val '1'
 
@@ -71,12 +71,11 @@ module.exports = class InventoryController extends BaseController
         @onNameFieldChanged()
 
     onNameFieldChanged: ->
-        item = @modPack.findItemByName @$nameField.val()
         @_refreshButtonState()
 
     onNameFieldFocused: ->
         @$nameField.val ''
-        @$nameField.autocomplete('search')
+        @$nameField.autocomplete 'search'
 
     onNameFieldKeyUp: (event)->
         if event.which is Key.Return

@@ -43,7 +43,6 @@ describe 'crafting_plan.coffee', ->
             it 'can craft a single step recipe', ->
                 plan.want.add 'oak_plank'
                 plan.craft()
-                logger.debug "plan: #{plan}"
                 plan.need.toList().should.eql ['oak_log']
                 plan.result.toList().should.eql [[4, 'minecraft__oak_plank']]
 

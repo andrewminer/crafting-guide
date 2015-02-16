@@ -101,7 +101,8 @@ module.exports = class ModVersion extends BaseModel
         return this
 
     findName: (slug)->
-        return @_names[slug]
+        [modSlug, itemSlug] = _.decomposeSlug slug
+        return @_names[itemSlug]
 
     registerName: (slug, name)->
         hasSlug = @_names[slug]?
@@ -127,12 +128,22 @@ module.exports = class ModVersion extends BaseModel
 
         return this
 
-    findRecipes: (itemSlug, result=[])->
-        recipeList = @_recipes[itemSlug]
+    findRecipes: (slug, result=[])->
+        recipeList = @_recipes[slug]
         if recipeList?
             for recipe in recipeList
                 result.push recipe
 
+        return result
+
+    findExternalRecipes: ->
+        result = {}
+        for slug, recipeList of @_recipes
+            [modSlug, itemSlug] = _.decomposeSlug slug
+            logger.debug "checking: #{modSlug}, #{itemSlug}"
+            continue if @_items[itemSlug]?
+            logger.debug "external: #{recipeList}"
+            result[itemSlug] = recipeList[..]
         return result
 
     hasRecipes: (itemSlug)->

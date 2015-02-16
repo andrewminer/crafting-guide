@@ -56,9 +56,7 @@ module.exports = class ItemPage extends BaseModel
         return result
 
     findRecipes: ->
-        result = @modPack.findRecipes @item?.qualifiedSlug
-        return null unless result.length > 0
-        return result
+        return @modPack.findRecipes @item?.slug
 
     # Private Methods ##############################################################################
 

@@ -3259,3 +3259,16 @@ group: Tools: Painters
             input: Dandelion Yellow, Painter
             pattern: ... 10. ...
 
+update: Iron Ingot
+    recipe:
+        input: Crushed Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Purified Crushed Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Iron Dust, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace

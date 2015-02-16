@@ -60,7 +60,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
     _command_item: (name='')->
         if not name.length > 0 then throw new Error 'the item name cannot be empty'
 
-        @_itemData = name:name, line:@_lineNumber, group:@_rawData.group
+        @_itemData = name:name, line:@_lineNumber, group:@_rawData.group, type:'new'
         @_rawData.items ?= {}
         @_rawData.items[name] = @_itemData
 
@@ -107,6 +107,15 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             if name.length is 0 then throw new Error 'tool names cannot be empty'
             @_recipeData.tools.push name
 
+    _command_update: (name='')->
+        if not name.length > 0 then throw new 'the item name cannot be empty'
+
+        @_itemData   = name:name, line:@_lineNumber, type:'update'
+        @_recipeData = null
+
+        @_rawData.items ?= {}
+        @_rawData.items[name] = @_itemData
+
     # Object Creation Methods ######################################################################
 
     _buildModVersion: (modVersionData, modVersion)->
@@ -122,24 +131,28 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         itemData.gatherable ?= false
         itemData.recipes    ?= []
 
-        item = new Item name:itemData.name, isGatherable:itemData.gatherable, group:itemData.group
-        modVersion.addItem item
+        if itemData.type is 'new'
+            item = new Item name:itemData.name, isGatherable:itemData.gatherable, group:itemData.group
+            modVersion.addItem item
 
         for recipeData in itemData.recipes
-            @_handleErrors @_buildRecipe, modVersion, item, recipeData
+            @_handleErrors @_buildRecipe, modVersion, itemData, recipeData
 
         return item
 
-    _buildRecipe: (modVersion, item, recipeData)->
+    _buildRecipe: (modVersion, itemData, recipeData)->
         @_lineNumber = recipeData.line
         if not recipeData.input? then throw new Error 'the "input" declaration is required'
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
+        itemSlug = _.slugify itemData.name
+        modVersion.registerName itemSlug, itemData.name
+        if itemData.type is 'new' then itemSlug = _.composeSlugs modVersion.modSlug, itemSlug
+
         qualifySlug = (name, slug)=>
-            if @_rawData.items[name]?
-                return _.composeSlugs modVersion.modSlug, slug
-            else
-                return slug
+            return slug unless itemData.type is 'new'
+            return slug unless @_rawData.items[name]?
+            return _.composeSlugs modVersion.modSlug, slug
 
         recipeData.quantity   ?= 1
         recipeData.extras     ?= []
@@ -165,7 +178,8 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
                 name = modVersion.findName stack.slug
                 throw new Error "#{name} is an input for this recipe, but it is not in the pattern"
 
-        outputStacks = [ new Stack slug:item.qualifiedSlug, quantity:recipeData.quantity ]
+
+        outputStacks = [ new Stack slug:itemSlug, quantity:recipeData.quantity ]
         for extraData in recipeData.extras
             slug = _.slugify extraData.name
             modVersion.registerName slug, extraData.name
@@ -179,28 +193,32 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             slug = qualifySlug name, slug
             toolStacks.push new Stack slug:slug, quantity:1
 
-        attributes =
+        recipe = new Recipe
             input:   inputStacks
             output:  outputStacks
             pattern: recipeData.pattern
             tools:   toolStacks
 
-        recipe = new Recipe attributes
         modVersion.addRecipe recipe
+        logger.debug "adding recipe: #{recipe}"
         return recipe
 
     # Un-parsing Methods ###########################################################################
 
     _unparseModVersion: (builder, modVersion)->
-        itemList = []
-        modVersion.eachItem (item)-> itemList.push item
-
         builder
             .line 'schema: ', 1
             .line()
 
         modVersion.eachGroup (group)=>
             @_unparseGroup builder, modVersion, group
+
+        for itemSlug, recipeList of modVersion.findExternalRecipes()
+            builder
+                .line 'update: ', modVersion.findName itemSlug
+                .indent()
+                .loop(recipeList, delimiter:'\n\n', onEach:(b, r)=> @_unparseRecipe(b, r))
+                .outdent()
 
     _unparseGroup: (builder, modVersion, group)->
         if group isnt Item.Group.Other
@@ -210,15 +228,14 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
                 .indent()
 
         modVersion.eachItemInGroup group, (item)=>
-            @_unparseItem builder, item
+            @_unparseItem builder, modVersion, item
             builder.line()
 
         if group isnt Item.Group.Other
             builder.outdent()
 
-    _unparseItem: (builder, item)->
-        recipes = []
-        item.eachRecipe (recipe)-> recipes.push recipe
+    _unparseItem: (builder, modVersion, item)->
+        recipes = modVersion.findRecipes item.qualifiedSlug
 
         builder
             .line 'item: ', item.name

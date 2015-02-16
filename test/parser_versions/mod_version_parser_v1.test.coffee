@@ -5,8 +5,9 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-ModVersion         = require '../../src/scripts/models/mod_version'
-ModVersionParserV1 = require '../../src/scripts/models/parser_versions/mod_version_parser_v1'
+CommandParserVersionBase = require '../../src/scripts/models/parser_versions/command_parser_version_base'
+ModVersion               = require '../../src/scripts/models/mod_version'
+ModVersionParserV1       = require '../../src/scripts/models/parser_versions/mod_version_parser_v1'
 
 ########################################################################################################################
 
@@ -28,7 +29,6 @@ describe 'mod_version_parser_v1.coffee', ->
                 recipe:; input:Bravo; pattern:... 0.0 ...;"
             modVersion = parser.parse recipes
             recipes = modVersion.findRecipes 'test__charlie'
-            logger.debug "recipes: #{util.inspect(recipes)}"
             recipes[0].input[0].slug.should.equal 'alpha'
             recipes[1].input[0].slug.should.equal 'bravo'
 
@@ -208,3 +208,43 @@ describe 'mod_version_parser_v1.coffee', ->
             it 'does not allow a duplicate "tools" declaration', ->
                 func = -> parser.parse baseText + 'tools:Crafting Table; tools:Furnace'
                 expect(func).to.throw Error, 'duplicate declaration of "tools"'
+
+    describe "unparsing", ->
+
+        beforeEach ->
+            baseText = """
+                schema: 1
+
+                group: Agriculture
+
+                    item: Apple
+
+                    item: Baked Potato
+                        recipe:
+                            input: Potato, furnace fuel
+                            pattern: .0. ... .1.
+                            tools: Furnace
+
+                group: Functional Blocks
+
+                    item: Furnace
+                        recipe:
+                            input: Cobblestone
+                            pattern: 000 0.0 000
+                            tools: Crafting Table
+
+                update: Iron Ingot
+                    recipe:
+                        input: Iron Dust, furnace fuel
+                        pattern: .0. ... .1.
+                        tools: Furnace
+            """
+
+        it 'can round-trip a data file', ->
+            text     = parser.unparse parser.parse baseText
+            actual   = CommandParserVersionBase.simplify text
+            expected = CommandParserVersionBase.simplify baseText
+
+            logger.debug "actual:\n>>>#{actual}<<<\n\n\n"
+            logger.debug "expected:\n>>>#{expected}<<<"
+            actual.should.equal expected

@@ -16,13 +16,13 @@ module.exports = class Recipe extends BaseModel
         if not attributes.input? then throw new Error 'attributes.input is required'
         if not attributes.pattern? then throw new Error 'attributes.pattern is required'
 
-        if attributes.slug? and not attributes.output?
-            attributes.output = [new Stack slug:attributes.slug, quantity:1]
-        else if attributes.output? and not attributes.slug?
+        if attributes.itemSlug? and not attributes.output?
+            attributes.output = [new Stack itemSlug:attributes.itemSlug, quantity:1]
+        else if attributes.output? and not attributes.itemSlug?
             if attributes.output.length is 0 then throw new Error 'attributes.output cannot be empty'
-            attributes.slug = attributes.output[0].slug
+            attributes.itemSlug = attributes.output[0].itemSlug
         else
-            throw new Error 'attributes.slug or attributes.output is required'
+            throw new Error 'attributes.itemSlug or attributes.output is required'
 
         attributes.pattern = @_parsePattern attributes.pattern
 
@@ -42,7 +42,14 @@ module.exports = class Recipe extends BaseModel
         stack = @input[parseInt(patternDigit)]
         return null unless stack?
 
-        return stack.slug
+        return stack.itemSlug
+
+    produces: (itemSlug)->
+        for stack in @output
+            if stack.itemSlug.matches itemSlug
+                return true
+
+        return false
 
     # Object Overrides #############################################################################
 

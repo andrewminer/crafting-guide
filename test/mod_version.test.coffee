@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 Item       = require '../src/scripts/models/item'
+ItemSlug   = require '../src/scripts/models/item_slug'
 ModVersion = require '../src/scripts/models/mod_version'
 
 ########################################################################################################################
@@ -57,24 +58,24 @@ describe 'mod_version.coffee', ->
 
         it 'returns immediately for unknown group', ->
             slugs = []
-            modVersion.eachItemInGroup 'foobar', (item)-> slugs.push item.slug
+            modVersion.eachItemInGroup 'foobar', (item)-> slugs.push item.slug.qualified
             slugs.should.eql []
 
         it 'calls callback for exactly the items in a group in order', ->
             slugs = []
-            modVersion.eachItemInGroup 'letter', (item)-> slugs.push item.slug
-            slugs.should.eql ['alpha', 'bravo']
+            modVersion.eachItemInGroup 'letter', (item)-> slugs.push item.slug.qualified
+            slugs.should.eql ['test__alpha', 'test__bravo']
 
             slugs = []
-            modVersion.eachItemInGroup 'number', (item)-> slugs.push item.slug
-            slugs.should.eql ['one', 'two']
+            modVersion.eachItemInGroup 'number', (item)-> slugs.push item.slug.qualified
+            slugs.should.eql ['test__one', 'test__two']
 
 
     describe 'findItemByName', ->
 
         it 'locates items by slugified name', ->
             modVersion.addItem new Item name:'Crafting Table'
-            modVersion.findItemByName('Crafting Table').slug.should.equal 'crafting_table'
+            modVersion.findItemByName('Crafting Table').slug.qualified.should.equal 'test__crafting_table'
 
     describe 'findRecipes', ->
 
@@ -91,5 +92,5 @@ describe 'mod_version.coffee', ->
             """
 
         it 'finds all recipes which list item as output', ->
-            recipes = modVersion.findRecipes 'test__bucket'
-            (r.output[0].slug for r in recipes).sort().should.eql ['test__bucket', 'test__cake', 'test__cake']
+            recipes = modVersion.findRecipes ItemSlug.slugify('Bucket')
+            (r.output[0].itemSlug.item for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']

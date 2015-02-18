@@ -10,7 +10,6 @@ CraftingTableController = require './crafting_table_controller'
 {Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
-InventoryParser         = require '../models/inventory_parser'
 CraftingPage            = require '../models/crafting_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
@@ -32,7 +31,6 @@ module.exports = class CraftingPageController extends BaseController
         super options
 
         @_imageLoader = options.imageLoader
-        @_parser      = new InventoryParser options.modPack
         @_storage     = options.storage
 
     # Event Methods ################################################################################

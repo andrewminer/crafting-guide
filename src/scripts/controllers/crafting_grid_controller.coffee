@@ -64,8 +64,8 @@ module.exports = class CraftingGridController extends BaseController
         if slot >= @_slotCount then throw new Error "slot (#{slot}) must be less than #{@_slotCount}"
         return null unless @model?
 
-        slug = @model.getItemSlugAt slot
-        return null unless slug?
+        itemSlug = @model.getItemSlugAt slot
+        return null unless itemSlug?
 
-        itemDisplay = @_modPack.findItemDisplay slug
+        itemDisplay = @_modPack.findItemDisplay itemSlug
         return itemDisplay

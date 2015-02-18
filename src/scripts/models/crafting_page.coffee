@@ -9,7 +9,7 @@ BaseModel       = require './base_model'
 CraftingPlan    = require './crafting_plan'
 CraftingTable   = require './crafting_table'
 {Event}         = require '../constants'
-InventoryParser = require './inventory_parser'
+Inventory       = require './inventory'
 ModPack         = require './mod_pack'
 
 ########################################################################################################################
@@ -23,8 +23,6 @@ module.exports = class CraftingPage extends BaseModel
         attributes.table   ?= new CraftingTable plan:attributes.plan
         super attributes, options
 
-        @_parser = new InventoryParser
-
         @modPack.on Event.change, => @_consumeParams()
         @on Event.change + ':params', => @_consumeParams()
 
@@ -37,12 +35,13 @@ module.exports = class CraftingPage extends BaseModel
         if not @params.inventoryText?
             @params = null
         else
-            inventory = @_parser.parse @params.inventoryText
+            inventory = new Inventory
+            inventory.parse @params.inventoryText
 
             inventory.each (stack)=>
-                item = @modPack.findItem stack.slug, enableAsNeeded:true
+                item = @modPack.findItem stack.itemSlug, enableAsNeeded:true
                 return unless item? and item.isCraftable
-                @plan.want.add stack.slug, stack.quantity
-                inventory.remove stack.slug
+                @plan.want.add stack.itemSlug, stack.quantity
+                inventory.remove stack.itemSlug
 
             if inventory.isEmpty then @params = null

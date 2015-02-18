@@ -5,10 +5,10 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseCollection = require './base_collection'
 BaseModel      = require './base_model'
 {Event}        = require '../constants'
 Item           = require './item'
+ItemSlug       = require './item_slug'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'
 
@@ -39,16 +39,19 @@ module.exports = class ModVersion extends BaseModel
 
         return 0
 
+    sort: ->
+        @_slugs.sort (a, b)-> ItemSlug.compare a, b
+
     # Item Methods #################################################################################
 
     addItem: (item)->
-        if @_items[item.slug]? then throw new Error "duplicate item for #{item.name}"
-
-        @_items[item.slug]               = item
-        @_groups[item.group]            ?= {}
-        @_groups[item.group][item.slug]  = item
+        if @findItem(item.slug)? then throw new Error "duplicate item for #{item.name}"
 
         item.modVersion = this
+        @_items[item.slug.item] = item
+        @_groups[item.group] ?= {}
+        @_groups[item.group][item.slug.item] = item
+
         @registerName item.slug, item.name
         return this
 
@@ -60,20 +63,21 @@ module.exports = class ModVersion extends BaseModel
 
     eachItem: (callback)->
         for slug in @_slugs
-            item = @_items[slug]
+            item = @findItem slug
             continue unless item?
-            callback @_items[slug], slug
+            callback item
         return this
 
     eachItemInGroup: (group, callback)->
-        group = @_groups[group]
-        return unless group?
+        itemMap = @_groups[group]
+        return unless itemMap?
 
-        for slug in _.keys(group).sort()
-            callback group[slug]
+        items = _.values(itemMap).sort (a, b)-> a.compareTo b
+        for item in items
+            callback item
 
     findItem: (itemSlug)->
-        return @_items[itemSlug]
+        return @_items[itemSlug.item]
 
     findItemByName: (name)->
         for itemSlug, item of @_items
@@ -97,22 +101,16 @@ module.exports = class ModVersion extends BaseModel
 
     eachName: (callback)->
         for slug in @_slugs
-            callback @_names[slug], slug
+            callback @_names[slug.item]
         return this
 
-    findName: (slug)->
-        [modSlug, itemSlug] = _.decomposeSlug slug
-        return @_names[itemSlug]
+    findName: (itemSlug)->
+        return @_names[itemSlug.item]
 
-    registerName: (slug, name)->
-        hasSlug = @_names[slug]?
-        @_names[slug] = name
-
-        if not hasSlug
-            @_slugs.push slug
-            @_slugs.sort()
-            @_slugs = _.uniq @_slugs, true
-
+    registerName: (itemSlug, name)->
+        return if @_names[itemSlug.item]
+        @_names[itemSlug.item] = name
+        @_slugs.push itemSlug
         return this
 
     # Recipe Methods ###############################################################################
@@ -121,15 +119,15 @@ module.exports = class ModVersion extends BaseModel
         recipe.modVersion = this
 
         for stack in recipe.output
-            recipeList = @_recipes[stack.slug]
+            recipeList = @_recipes[stack.itemSlug.item]
             if not recipeList?
-                @_recipes[stack.slug] = recipeList = []
+                recipeList = @_recipes[stack.itemSlug.item] = []
             recipeList.push recipe
 
         return this
 
-    findRecipes: (slug, result=[])->
-        recipeList = @_recipes[slug]
+    findRecipes: (itemSlug, result=[])->
+        recipeList = @_recipes[itemSlug.item]
         if recipeList?
             for recipe in recipeList
                 result.push recipe
@@ -138,16 +136,19 @@ module.exports = class ModVersion extends BaseModel
 
     findExternalRecipes: ->
         result = {}
-        for slug, recipeList of @_recipes
-            [modSlug, itemSlug] = _.decomposeSlug slug
-            logger.debug "checking: #{modSlug}, #{itemSlug}"
-            continue if @_items[itemSlug]?
-            logger.debug "external: #{recipeList}"
-            result[itemSlug] = recipeList[..]
+        for itemSlug in @_slugs
+            continue if itemSlug.isQualified
+            recipes = @_recipes[itemSlug.item]
+            continue unless recipes? and recipes.length > 0
+
+            resultList = result[itemSlug] = []
+            for recipe in recipes
+                resultList.push recipe
+
         return result
 
     hasRecipes: (itemSlug)->
-        recipeList = @_recipes[itemSlug]
+        recipeList = @_recipes[itemSlug.item]
         return true if recipeList? and recipeList.length > 0
         return false
 
@@ -167,5 +168,5 @@ module.exports = class ModVersion extends BaseModel
 
     toString: ->
         return "ModVersion (#{@cid}) {
-            modSlug:#{@modSlug}, version:#{@version}, items:#{_.keys(@_items).length} items
+            modSlug:#{@modSlug}, version:#{@version}, items:«#{@_slugs.length} items»
         }"

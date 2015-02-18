@@ -12,6 +12,7 @@ CraftingPageController = require './controllers/crafting_page_controller'
 {Event}                = require './constants'
 HeaderController       = require './controllers/header_controller'
 ItemPageController     = require './controllers/item_page_controller'
+ItemSlug               = require './models/item_slug'
 Mod                    = require './models/mod'
 ModPack                = require './models/mod_pack'
 ModPageController      = require './controllers/mod_page_controller'
@@ -42,8 +43,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         makeResponder = (m)-> return ->
             m.activeModVersion.fetch() if m.activeModVersion?
 
-        for slug in DefaultMods
-            mod = new Mod slug:slug
+        for modSlug in DefaultMods
+            mod = new Mod slug:modSlug
             mod.on Event.change + ':activeModVersion', makeResponder mod
             @storage.register "mod:#{mod.slug}", mod, 'activeVersion'
             mod.fetch()
@@ -75,13 +76,13 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_setPage 'item', controller
 
     modItem: (modSlug, itemSlug)->
-        slug = _.composeSlugs modSlug, itemSlug
+        slug = new ItemSlug modSlug, itemSlug
         controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
         @_setPage 'item', controller
 
-    mod: (slug)->
+    mod: (modSlug)->
         controller = new ModPageController  _.extend {}, @_defaultOptions
-        controller.model = @modPack.getMod slug
+        controller.model = @modPack.getMod modSlug
         @_setPage 'mod', controller
 
     root: ->
@@ -89,7 +90,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
         text = ''
         if params.recipeName?
-            if params.count?
+            if params.count? and params.count > 1
                 text = "#{params.count}.#{_.slugify(params.recipeName)}"
             else
                 text = _.slugify params.recipeName

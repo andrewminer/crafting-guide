@@ -196,4 +196,4 @@ module.exports = class InventoryController extends BaseController
             controller.$el.fadeOut duration:Duration.fast, complete:-> @remove()
 
     _removeStack: (stack)->
-        @model.remove stack.slug, stack.quantity
+        @model.remove stack.itemSlug, stack.quantity

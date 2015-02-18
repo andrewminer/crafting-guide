@@ -48,7 +48,7 @@ module.exports = class MinimalRecipeController extends BaseController
         if @model?
             outputStack = @model.output[0]
             if outputStack?
-                display = @_modPack.findItemDisplay outputStack.slug
+                display = @_modPack.findItemDisplay outputStack.itemSlug
                 @$outputLink.attr 'href', display.itemUrl
                 @$outputLink.attr 'title', display.itemName
                 @$outputImg.attr 'alt', display.itemName
@@ -72,6 +72,6 @@ module.exports = class MinimalRecipeController extends BaseController
         result = []
         if @model?
             for stack in @model.tools
-                item = @_modPack.findItem stack.slug
+                item = @_modPack.findItem stack.itemSlug
                 result.push item.name if item?
         return result

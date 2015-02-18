@@ -18,10 +18,10 @@ module.exports = class CraftingPlan extends BaseModel
         attributes.includingTools ?= false
         super attributes, options
 
-        @have   = new Inventory
-        @want   = new Inventory
-        @need   = new Inventory
-        @result = new Inventory
+        @have   = new Inventory modPack:@modPack
+        @want   = new Inventory modPack:@modPack
+        @need   = new Inventory modPack:@modPack
+        @result = new Inventory modPack:@modPack
 
         recraft = _.debounce (=> @craft()), 100
         for inventory in [@have, @want]
@@ -46,17 +46,17 @@ module.exports = class CraftingPlan extends BaseModel
         logger.info => "crafting #{@want}#{toolsMessage} starting with #{@have}"
 
         @clear()
-        @have.localizeTo @modPack
-        @want.localizeTo @modPack
+        @have.localize()
+        @want.localize()
 
         @result.addInventory @have
 
         @steps = {}
         @_reservedSteps = {}
         @want.each (stack)=>
-            @_findSteps stack.slug
-            item = @modPack.findItem stack.slug
-            @need.add item.qualifiedSlug, stack.quantity
+            @_findSteps stack.itemSlug
+            item = @modPack.findItem stack.itemSlug
+            @need.add item.slug, stack.quantity
         @_reservedSteps = null
 
         @steps = _.values @steps
@@ -72,11 +72,11 @@ module.exports = class CraftingPlan extends BaseModel
     removeUncraftableItems: ->
         toRemove = []
         @want.each (stack)=>
-            item = @modPack.findItem stack.slug
-            if not item? then toRemove.push stack.slug
+            item = @modPack.findItem stack.itemSlug
+            if not item? then toRemove.push stack.itemSlug
 
-        for slug in toRemove
-            @want.remove slug
+        for itemSlug in toRemove
+            @want.remove itemSlug
 
     # Event Methods ################################################################################
 
@@ -98,16 +98,16 @@ module.exports = class CraftingPlan extends BaseModel
     # Private Methods ##############################################################################
 
     _addStep: (recipe)->
-        logger.verbose -> "adding step: #{recipe.slug}"
-        @steps[recipe.slug] = recipe:recipe
+        logger.verbose -> "adding step: #{recipe.itemSlug}"
+        @steps[recipe.itemSlug] = recipe:recipe
 
     _chooseRecipe: (item)->
-        recipes = @modPack.findRecipes item.qualifiedSlug
+        recipes = @modPack.findRecipes item.slug
         return null unless recipes?
         return recipes[0]
 
-    _findSteps: (slug)->
-        item = @modPack.findItem slug
+    _findSteps: (itemSlug)->
+        item = @modPack.findItem itemSlug
         return unless item?
         return unless item.isCraftable
         return if item.isGatherable
@@ -116,26 +116,26 @@ module.exports = class CraftingPlan extends BaseModel
 
         if @includingTools
             for toolStack in recipe.tools
-                if not @_hasStep toolStack.slug
-                    @_findSteps toolStack.slug
+                if not @_hasStep toolStack.itemSlug
+                    @_findSteps toolStack.itemSlug
 
-        return if @_hasStep item.qualifiedSlug
-        @_reservedSteps[item.qualifiedSlug] = recipe
+        return if @_hasStep item.slug
+        @_reservedSteps[item.slug] = recipe
 
         for inputStack in recipe.input
-            @_findSteps inputStack.slug
+            @_findSteps inputStack.itemSlug
 
         @_addStep recipe
 
-    _hasStep: (slug)->
-        return true if @steps[slug]?
-        return true if @_reservedSteps[slug]?
+    _hasStep: (itemSlug)->
+        return true if @steps[itemSlug]?
+        return true if @_reservedSteps[itemSlug]?
         return false
 
-    _qualifyItemSlug: (slug)->
-        item = @modPack.findItem slug
-        return item.qualifiedSlug if item?
-        return slug
+    _qualifyItemSlug: (itemSlug)->
+        item = @modPack.findItem itemSlug
+        return item.slug if item?
+        return itemSlug
 
     _removeExtraSteps: ->
         result = (step for step in @steps when step.multiplier > 0)
@@ -146,31 +146,31 @@ module.exports = class CraftingPlan extends BaseModel
             step   = @steps[i]
             recipe = step.recipe
 
-            step.multiplier = Math.ceil(@need.quantityOf(recipe.slug) / recipe.output[0].quantity)
+            step.multiplier = Math.ceil(@need.quantityOf(recipe.itemSlug) / recipe.output[0].quantity)
 
             if @includingTools
                 for stack in recipe.tools
-                    slug      = @_qualifyItemSlug stack.slug
-                    available = @result.quantityOf(slug) + @need.quantityOf(slug)
+                    itemSlug  = @_qualifyItemSlug stack.itemSlug
+                    available = @result.quantityOf(itemSlug) + @need.quantityOf(itemSlug)
                     needed    = Math.max 0, stack.quantity - available
 
-                    @need.add slug, needed
-                    @result.add slug, needed
+                    @need.add itemSlug, needed
+                    @result.add itemSlug, needed
 
             for stack in recipe.input
-                slug      = @_qualifyItemSlug stack.slug
+                itemSlug  = @_qualifyItemSlug stack.itemSlug
                 needed    = step.multiplier * stack.quantity
-                consumed  = Math.min needed, @result.quantityOf slug
+                consumed  = Math.min needed, @result.quantityOf itemSlug
                 remaining = needed - consumed
 
-                @result.remove slug, consumed
-                @need.add slug, remaining
+                @result.remove itemSlug, consumed
+                @need.add itemSlug, remaining
 
             for stack in recipe.output
-                slug      = @_qualifyItemSlug stack.slug
+                itemSlug  = @_qualifyItemSlug stack.itemSlug
                 created   = stack.quantity * step.multiplier
-                consumed  = Math.min created, @need.quantityOf slug
+                consumed  = Math.min created, @need.quantityOf itemSlug
                 remaining = created - consumed
 
-                @result.add slug, remaining
-                @need.remove slug, consumed
+                @result.add itemSlug, remaining
+                @need.remove itemSlug, consumed

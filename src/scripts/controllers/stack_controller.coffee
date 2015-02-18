@@ -49,7 +49,6 @@ module.exports = class StackController extends BaseController
         @$nameLink.html display.itemName
         @$nameLink.attr 'href', display.itemUrl
         @$quantityField.html @model.quantity
-        # @$removeButton.css opacity:(if @editable then 1 else 0)
 
         @$action.css display:(if @editable then 'table-cell' else 'none')
 

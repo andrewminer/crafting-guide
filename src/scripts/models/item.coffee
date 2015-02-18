@@ -5,9 +5,9 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseCollection = require './base_collection'
 BaseModel      = require './base_model'
 {Event}        = require '../constants'
+ItemSlug       = require './item_slug'
 Recipe         = require './recipe'
 StringBuilder  = require './string_builder'
 
@@ -23,16 +23,12 @@ module.exports = class Item extends BaseModel
         attributes.group        ?= Item.Group.Other
         attributes.isGatherable ?= false
         attributes.modVersion   ?= null
-        attributes.slug         ?= _.slugify attributes.name
+        attributes.slug         ?= ItemSlug.slugify attributes.name
 
         options.logEvents       ?= false
         super attributes, options
 
-        Object.defineProperties this,
-            isCraftable:   {get:@getIsCraftable}
-            qualifiedSlug: {get:@getQualifiedSlug}
-
-        @on Event.change + ':modVersion', => @_qualifiedSlug = null
+        @on Event.change + ':modVersion', => @slug.mod = @modVersion?.modSlug
 
     # Public Methods ###############################################################################
 
@@ -47,15 +43,10 @@ module.exports = class Item extends BaseModel
 
     getIsCraftable: ->
         return false unless @modVersion?
-        return @modVersion.hasRecipes @qualifiedSlug
+        return @modVersion.hasRecipes @slug
 
-    getQualifiedSlug: ->
-        return @slug if not @modVersion?
-
-        if not @_qualifiedSlug?
-            @_qualifiedSlug = _.composeSlugs @modVersion.modSlug, @slug
-
-        return @_qualifiedSlug
+    Object.defineProperties @prototype,
+        isCraftable: {get:@prototype.getIsCraftable}
 
     # Object Overrides #############################################################################
 
@@ -68,7 +59,6 @@ module.exports = class Item extends BaseModel
             .push 'isGatherable:', @isGatherable, ', '
             .onlyIf (@group isnt Item.Group.Other), (b)=>
                 b.push 'group:"', @group, '", '
-            .onlyIf (_.slugify(@name) isnt @slug), (b)=>
-                b.push 'slug:"', @slug, '", '
+            .push 'slug:"', @slug, '", '
             .push '}'
             .toString()

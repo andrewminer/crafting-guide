@@ -7,6 +7,7 @@ All rights reserved.
 
 CommandParserVersionBase = require './command_parser_version_base'
 Item                     = require '../item'
+ItemSlug                 = require '../item_slug'
 ModVersion               = require '../mod_version'
 Recipe                   = require '../recipe'
 Stack                    = require '../stack'
@@ -124,6 +125,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         for itemName, itemData of modVersionData.items
             @_handleErrors @_buildItem, modVersion, itemData
 
+        modVersion.sort()
         return modVersion
 
     _buildItem: (modVersion, itemData)->
@@ -134,6 +136,10 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if itemData.type is 'new'
             item = new Item name:itemData.name, isGatherable:itemData.gatherable, group:itemData.group
             modVersion.addItem item
+            itemData.slug = item.slug
+        else
+            itemData.slug = ItemSlug.slugify itemData.name
+            modVersion.registerName itemData.slug, itemData.name
 
         for recipeData in itemData.recipes
             @_handleErrors @_buildRecipe, modVersion, itemData, recipeData
@@ -145,14 +151,14 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if not recipeData.input? then throw new Error 'the "input" declaration is required'
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
-        itemSlug = _.slugify itemData.name
-        modVersion.registerName itemSlug, itemData.name
-        if itemData.type is 'new' then itemSlug = _.composeSlugs modVersion.modSlug, itemSlug
-
-        qualifySlug = (name, slug)=>
-            return slug unless itemData.type is 'new'
-            return slug unless @_rawData.items[name]?
-            return _.composeSlugs modVersion.modSlug, slug
+        createSlug = (name)=>
+            item = @_rawData.items[name]
+            if item?
+                slug = new ItemSlug modVersion.modSlug, _.slugify name
+            else
+                slug = new ItemSlug _.slugify name
+            modVersion.registerName slug, name
+            return slug
 
         recipeData.quantity   ?= 1
         recipeData.extras     ?= []
@@ -160,10 +166,8 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
         inputStacks = []
         for name in recipeData.input
-            slug = _.slugify name
-            modVersion.registerName slug, name
-            slug = qualifySlug name, slug
-            inputStacks.push new Stack slug:slug, quantity:0
+            inputSlug = createSlug name
+            inputStacks.push new Stack itemSlug:inputSlug, quantity:0
 
         for c in recipeData.pattern
             continue if c is '.'
@@ -175,23 +179,18 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         for i in [0...inputStacks.length]
             stack = inputStacks[i]
             if stack.quantity is 0
-                name = modVersion.findName stack.slug
+                name = modVersion.findName stack.itemSlug
                 throw new Error "#{name} is an input for this recipe, but it is not in the pattern"
 
-
-        outputStacks = [ new Stack slug:itemSlug, quantity:recipeData.quantity ]
+        outputStacks = [ new Stack itemSlug:itemData.slug, quantity:recipeData.quantity ]
         for extraData in recipeData.extras
-            slug = _.slugify extraData.name
-            modVersion.registerName slug, extraData.name
-            slug = qualifySlug extraData.name, slug
-            outputStacks.push new Stack slug:slug, quantity:extraData.quantity
+            outputSlug = createSlug extraData.name
+            outputStacks.push new Stack itemSlug:outputSlug, quantity:extraData.quantity
 
         toolStacks = []
         for name in recipeData.tools
-            slug = _.slugify name
-            modVersion.registerName slug, name
-            slug = qualifySlug name, slug
-            toolStacks.push new Stack slug:slug, quantity:1
+            toolSlug = createSlug name
+            toolStacks.push new Stack itemSlug:toolSlug, quantity:1
 
         recipe = new Recipe
             input:   inputStacks
@@ -200,7 +199,6 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             tools:   toolStacks
 
         modVersion.addRecipe recipe
-        logger.debug "adding recipe: #{recipe}"
         return recipe
 
     # Un-parsing Methods ###########################################################################
@@ -213,9 +211,9 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         modVersion.eachGroup (group)=>
             @_unparseGroup builder, modVersion, group
 
-        for itemSlug, recipeList of modVersion.findExternalRecipes()
+        for itemSlugText, recipeList of modVersion.findExternalRecipes()
             builder
-                .line 'update: ', modVersion.findName itemSlug
+                .line 'update: ', modVersion.findName ItemSlug.slugify(itemSlugText)
                 .indent()
                 .loop(recipeList, delimiter:'\n\n', onEach:(b, r)=> @_unparseRecipe(b, r))
                 .outdent()
@@ -235,7 +233,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             builder.outdent()
 
     _unparseItem: (builder, modVersion, item)->
-        recipes = modVersion.findRecipes item.qualifiedSlug
+        recipes = modVersion.findRecipes item.slug
 
         builder
             .line 'item: ', item.name
@@ -246,13 +244,13 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             .outdent()
 
     _unparseRecipe: (builder, recipe)->
-        inputNames = (builder.context.findName(stack.slug) for stack in recipe.input)
+        inputNames = (builder.context.findName(stack.itemSlug) for stack in recipe.input)
         inputNames.sort()
 
         patternMap = {'.', '.'}
         for i in [0...recipe.input.length]
             stack = recipe.input[i]
-            patternMap["#{i}"] = "#{inputNames.indexOf builder.context.findName(stack.slug)}"
+            patternMap["#{i}"] = "#{inputNames.indexOf builder.context.findName(stack.itemSlug)}"
 
         pattern = recipe.pattern or recipe.defaultPattern
         newPattern = []
@@ -288,9 +286,9 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
     _unparseStackList: (builder, stackList)->
         if stackList.length is 1 and stackList[0].quantity is 1
-            builder.push builder.context.findName(stackList[0].slug)
+            builder.push builder.context.findName(stackList[0].itemSlug)
         else
             builder.loop stackList, onEach:(b, stack)=>
                 builder
                     .onlyIf stack.quantity > 1, => builder.push stack.quantity, ' '
-                    .push builder.context.findName stack.slug
+                    .push builder.context.findName stack.itemSlug

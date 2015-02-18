@@ -5,12 +5,15 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+{RequiredMods} = require '../constants'
+
 ########################################################################################################################
 
 module.exports = class ItemSlug
 
     constructor: ->
         @_item = @_mod = null
+
         if arguments.length is 1
             @item = arguments[0]
         else if arguments.length is 2
@@ -21,10 +24,14 @@ module.exports = class ItemSlug
 
     # Class Methods ################################################################################
 
-    DELIMITER = '__'
-
     @compare: (a, b)->
-        if a.isQualified isnt b.isQualified
+        aIsRequired = a.mod in RequiredMods
+        bIsRequired = b.mod in RequiredMods
+
+        if aIsRequired isnt bIsRequired
+            return -1 if aIsRequired
+            return +1 if bIsRequired
+        else if a.isQualified isnt b.isQualified
             return -1 if a.isQualified
             return +1 if b.isQualified
         else if a.mod isnt b.mod
@@ -34,18 +41,36 @@ module.exports = class ItemSlug
 
         return 0
 
-    @equals: (a, b)->
+    @equal: (a, b)->
         return false unless a.mod is b.mod
         return false unless a.item is b.item
         return true
 
+    @slugify: (arg)->
+        return arg if arg?.constructor?.name is 'ItemSlug'
+
+        [modSlug, itemSlug] = _.decomposeSlug arg
+        itemSlug = _.slugify itemSlug
+
+        if modSlug?
+            return new ItemSlug modSlug, itemSlug
+        else
+            return new ItemSlug itemSlug
+
+    # Public Methods ###############################################################################
+
+    matches: (slug, options={exact:false})->
+        return false unless slug?.constructor?.name is 'ItemSlug'
+
+        if slug.isQualified and this.isQualified
+            return slug.qualified is this.qualified
+        else
+            return slug.item is this.item
+
     # Property Methods #############################################################################
 
-    Object.defineProperties @prototype,
-        isQualified: { get:@prototype.isQualified }
-        mod:         { get:@prototype.getMod,      set:@prototype.setMod       }
-        item:        { get:@prototype.getItem,     set:@prototype.setItem      }
-        qualified:   { get:@prototype.getQualified set:@prototype.setQualified }
+    getIsQualified: ->
+        return @_mod?
 
     getItem: ->
         return @_item
@@ -53,17 +78,24 @@ module.exports = class ItemSlug
     setItem: (item)->
         if not item? then throw new Error 'item is required'
         @_item = item
-        @mod = mod
+
+        @mod = @mod # reset @_qualified
 
     getMod: ->
         return @_mod
 
     setMod: (mod)->
-        @_qualified = if mod? then "#{@mod}#{ItemSlug.DELIMITER}#{@item}" else @item
         @_mod = mod
+        @_qualified = if @_mod? then _.composeSlugs(@_mod, @_item) else @_item
 
-    isQualified: ->
-        return @_mod?
+    getQualified: ->
+        return @_qualified
+
+    Object.defineProperties @prototype,
+        isQualified: { get:@prototype.getIsQualified                  }
+        mod:         { get:@prototype.getMod,  set:@prototype.setMod  }
+        item:        { get:@prototype.getItem, set:@prototype.setItem }
+        qualified:   { get:@prototype.getQualified                    }
 
     # Object Overrides #############################################################################
 

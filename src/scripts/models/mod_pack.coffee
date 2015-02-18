@@ -22,12 +22,11 @@ module.exports = class ModPack extends BaseModel
 
     # Public Methods ###############################################################################
 
-    findItem: (slug, options={})->
+    findItem: (itemSlug, options={})->
         options.includeDisabled ?= false
 
-        [modSlug, itemSlug] = _.decomposeSlug slug
-        if modSlug?
-            mod = @getMod modSlug
+        if itemSlug.isQualified
+            mod = @getMod itemSlug.mod
             if mod?
                 item = mod.findItem itemSlug, options
                 return item if item?
@@ -50,62 +49,49 @@ module.exports = class ModPack extends BaseModel
 
         return null
 
-    findItemDisplay: (slug)->
-        if not slug? then return null
+    findItemDisplay: (itemSlug)->
+        if not itemSlug? then return null
 
         result = {}
-        item = @findItem slug, includeDisabled:true
+        item = @findItem itemSlug, includeDisabled:true
         if item?
-            result.modSlug    = item.modVersion.modSlug
+            result.modSlug    = item.slug.mod
             result.modVersion = item.modVersion.version
-            result.slug       = item.slug
+            result.itemSlug   = item.slug.item
             result.itemName   = item.name
         else
             result.modSlug    = @_mods[0].slug
             result.modVersion = @_mods[0].activeVersion
-            result.slug       = slug
-            result.itemName   = @findName slug, includeDisabled:true
+            result.itemSlug   = itemSlug.item
+            result.itemName   = @findName itemSlug, includeDisabled:true
 
-        result.craftingUrl = Url.crafting inventoryText:slug
+        result.craftingUrl = Url.crafting inventoryText:itemSlug.item
         result.iconUrl     = Url.itemIcon result
         result.itemUrl     = Url.item result
         return result
 
-    findName: (slug)->
+    findName: (slug, options={})->
+        options.includeDisabled ?= false
+
         for mod in @_mods
-            continue unless mod.enabled
+            continue unless mod.enabled or options.includeDisabled
             name = mod.findName slug
             return name if name
 
         return null
 
-    findRecipes: (slug, result=[])->
-        [modSlug, itemSlug] = _.decomposeSlug slug
-
-        if modSlug?
-            mod = @getMod modSlug
+    findRecipes: (itemSlug, result=[])->
+        if itemSlug.isQualified
+            mod = @getMod itemSlug.mod
             if mod?
-                mod.findRecipes slug, result
+                mod.findRecipes itemSlug, result
                 return result if result.length > 0
 
         for mod in @_mods
             continue unless mod.enabled
-            mod.findRecipes slug, result
+            mod.findRecipes itemSlug, result
 
         return if result.length > 0 then result else null
-
-    isGatherable: (slug)->
-        item = @findItem slug
-        return true if not item?
-        return true if item.isGatherable
-        return false if item.isCraftable
-        return true
-
-    isValidName: (name)->
-        slug = _.slugify name
-        existingName = @findName slug
-
-        return name is existingName
 
     # Property Methods #############################################################################
 

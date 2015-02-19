@@ -422,7 +422,7 @@ item: Fluix Crystal
         input: Charged Certus Quartz Crystal, Nether Quartz, Redstone
         pattern: ... 012 ...
         quantity: 2
-        tools: Water Source Block
+        tools: Water
     recipe:
         input: Fluix Block
         pattern: ... .0. ...
@@ -554,7 +554,7 @@ item: ME Crafting Terminal
 
 item: ME Dense Cable - Fluix
     recipe:
-        input: ME Covered Cable, Redstone, Glowstone Dust
+        input: ME Covered Cable - Fluix, Redstone, Glowstone Dust
         pattern: ... 102 000
         tools: Crafting Table
 
@@ -819,19 +819,19 @@ item: Pure Certus Quartz Crystal
     recipe:
         input: Certus Quartz Seed
         pattern: ... .0. ...
-        tools: Water Source Block
+        tools: Water
 
 item: Pure Fluix Crystal
     recipe:
         input: Fluix Seed
         pattern: ... .0. ...
-        tools: Water Source Block
+        tools: Water
 
 item: Pure Nether Quartz Crystal
     recipe:
         input: Nether Quartz Seed
         pattern: ... .0. ...
-        tools: Water Source Block
+        tools: Water
 
 item: Quantum Entangled Singularity
     recipe:
@@ -856,7 +856,7 @@ item: Quartz Glass
 
 item: Quartz Grindstone
     recipe:
-        input: Stone, Wooden Gear, Certus Quartz Crystal, Cobblestone
+        input: Stone, Wood Gear, Certus Quartz Crystal, Cobblestone
         pattern: 010 202 323
         tools: Crafting Table
 

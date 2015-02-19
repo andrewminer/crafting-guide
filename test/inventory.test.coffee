@@ -9,10 +9,11 @@
 EventRecorder = require './event_recorder'
 Inventory     = require '../src/scripts/models/inventory'
 Item          = require '../src/scripts/models/item'
+ItemSlug      = require '../src/scripts/models/item_slug'
 
 ########################################################################################################################
 
-inventory = null
+inventory = modPack = null
 
 ########################################################################################################################
 
@@ -20,30 +21,30 @@ describe 'inventory.coffee', ->
 
     beforeEach ->
         inventory = new Inventory {}, silent:false
-        inventory.add 'wool', 4
-        inventory.add 'string', 20
-        inventory.add 'boat'
+        inventory.add ItemSlug.slugify('wool'), 4
+        inventory.add ItemSlug.slugify('string'), 20
+        inventory.add ItemSlug.slugify('boat')
 
     describe 'add', ->
 
         it 'can add to an empty inventory', ->
-            inventory.add 'iron_ingot', 4
+            inventory.add ItemSlug.slugify('iron_ingot'), 4
             stack = inventory._stacks['iron_ingot']
             stack.constructor.name.should.equal 'Stack'
-            stack.slug.should.equal 'iron_ingot'
+            stack.itemSlug.qualified.should.equal 'iron_ingot'
             stack.quantity.should.equal 4
 
         it 'can augment quantity of existing items', ->
-            inventory.add 'wool', 2
-            inventory.toList().should.eql ['boat', [20, 'string'], [6, 'wool']]
+            inventory.add ItemSlug.slugify('wool'), 2
+            inventory.unparse().should.equal 'boat:20.string:6.wool'
 
         it 'can add zero quantity', ->
-            inventory.add 'wool', 0
-            inventory.toList().should.eql ['boat', [20, 'string'], [4, 'wool']]
+            inventory.add ItemSlug.slugify('wool'), 0
+            inventory.unparse().should.equal 'boat:20.string:4.wool'
 
         it 'emits the proper events', ->
             events = new EventRecorder inventory
-            inventory.add 'iron_ingot', 10
+            inventory.add ItemSlug.slugify('iron_ingot'), 10
             events.names.should.eql [Event.add, Event.change]
 
     describe 'addInventory', ->
@@ -51,24 +52,24 @@ describe 'inventory.coffee', ->
         it 'can add to an empty inventory', ->
             newInventory = new Inventory
             newInventory.addInventory inventory
-            newInventory._slugs.should.eql ['boat', 'string', 'wool']
+            newInventory.unparse().should.equal 'boat:20.string:4.wool'
 
         it 'can add a mix of new and existing items', ->
             newInventory = new Inventory
-            newInventory.add 'string', 2
+            newInventory.add ItemSlug.slugify('string'), 2
             newInventory.addInventory inventory
-            newInventory.toList().should.eql ['boat', [22, 'string'], [4, 'wool']]
+            newInventory.unparse().should.equal 'boat:22.string:4.wool'
 
     describe 'clone', ->
 
         it 'creates an empty inventory from an empty inventory', ->
             a = new Inventory
             b = a.clone()
-            b._slugs.should.eql []
+            b._itemSlugs.should.eql []
 
         it 'faithfully copies an existing inventory', ->
             copy = inventory.clone()
-            copy.toList().should.eql ['boat', [20, 'string'], [4, 'wool']]
+            copy.unparse().should.equal 'boat:20.string:4.wool'
 
     describe 'each', ->
 
@@ -80,16 +81,16 @@ describe 'inventory.coffee', ->
 
         it 'works when items have only been added', ->
             result = []
-            inventory.each (stack)-> result.push stack.slug
+            inventory.each (stack)-> result.push stack.itemSlug.qualified
             result.should.eql ['boat', 'string', 'wool']
 
         it 'works when items have been augmented', ->
-            inventory.add 'iron_ingot'
-            inventory.add 'boat'
-            inventory.add 'wool', 2
+            inventory.add ItemSlug.slugify 'iron_ingot'
+            inventory.add ItemSlug.slugify 'boat'
+            inventory.add ItemSlug.slugify('wool'), 2
 
             result = []
-            inventory.each (stack)-> result.push stack.slug
+            inventory.each (stack)-> result.push stack.itemSlug.qualified
             result.should.eql ['boat', 'iron_ingot', 'string', 'wool']
 
     describe 'hasAtLeast', ->
@@ -107,6 +108,67 @@ describe 'inventory.coffee', ->
             inventory.hasAtLeast('wool', 4).should.be.true
             inventory.hasAtLeast('wool', 5).should.be.false
 
+    describe 'localize', ->
+
+        before ->
+            modPack =
+                modSlug:
+                    wool:       'minecraft'
+                    string:     'minecraft'
+                    boat:       'minecraft'
+                    stone_gear: 'buildcraft'
+                findItem: (slug)->
+                    return slug:new ItemSlug @modSlug[slug.item], slug.item
+
+        it 'replaces item slugs with qualified slugs', ->
+            inventory.add ItemSlug.slugify 'stone_gear'
+            inventory.modPack = modPack
+            inventory.localize()
+
+            slugs = []
+            inventory.each (stack)-> slugs.push stack.itemSlug.qualified
+            slugs.should.eql [
+                'minecraft__boat'
+                'minecraft__string'
+                'minecraft__wool'
+                'buildcraft__stone_gear'
+            ]
+
+        it 'ignores qualified slugs', ->
+            inventory.add ItemSlug.slugify 'buildcraft__stone_gear'
+            inventory.modPack = modPack
+            inventory.localize()
+
+            slugs = []
+            inventory.each (stack)-> slugs.push stack.itemSlug.qualified
+            slugs.should.eql [
+                'minecraft__boat'
+                'minecraft__string'
+                'minecraft__wool'
+                'buildcraft__stone_gear'
+            ]
+
+    describe 'parse', ->
+
+        beforeEach ->
+            inventory = new Inventory {}, silent:false
+
+        it 'ignores an empty string', ->
+            result = inventory.parse ''
+            result.unparse().should.eql ''
+
+        it 'can parse a single item without quantity', ->
+            result = inventory.parse 'wool'
+            result.unparse().should.equal 'wool'
+
+        it 'can parse a single item with quantity', ->
+            result = inventory.parse '4.wool'
+            result.unparse().should.equal '4.wool'
+
+        it 'can parse multiple mixed-type items', ->
+            result = inventory.parse '4.wool:10.string:boat'
+            result.unparse().should.equal 'boat:10.string:4.wool'
+
     describe 'pop', ->
 
         it 'returns null for an empty inventory', ->
@@ -116,9 +178,9 @@ describe 'inventory.coffee', ->
 
         it 'completely removes the last item', ->
             stack = inventory.pop()
-            stack.slug.should.equal 'wool'
+            stack.itemSlug.qualified.should.equal 'wool'
             stack.quantity.should.equal 4
-            inventory.toList().should.eql ['boat', [20, 'string']]
+            inventory.unparse().should.equal 'boat:20.string'
 
         it 'triggers the right events', ->
             events = new EventRecorder inventory

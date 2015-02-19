@@ -5,10 +5,10 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseCollection = require './base_collection'
 BaseModel      = require './base_model'
 {Event}        = require '../constants'
 Item           = require './item'
+ItemSlug       = require './item_slug'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'
 
@@ -19,31 +19,16 @@ module.exports = class ModVersion extends BaseModel
     constructor: (attributes={}, options={})->
         if not attributes.modSlug? then throw new Error 'attributes.modSlug is required'
         if not attributes.version? then throw new Error 'attributes.version is required'
+        attributes.mod ?= null
         super attributes, options
 
-        @_groups = {}
-        @_items  = {}
-        @_names  = {}
-        @_slugs  = []
+        @_groups  = {}
+        @_items   = {}
+        @_names   = {}
+        @_recipes = {}
+        @_slugs   = []
 
     # Public Methods ###############################################################################
-
-    addItem: (item)->
-        if @_items[item.slug]? then throw new Error "duplicate item for #{item.name}"
-
-        @_items[item.slug]               = item
-        @_groups[item.group]            ?= {}
-        @_groups[item.group][item.slug]  = item
-
-        item.modVersion = this
-        @registerSlug item.slug, item.name
-        return this
-
-    allItemsInGroup: (group)->
-        result = []
-        @eachItemInGroup group, (item)-> result.push item
-        return null if result.length is 0
-        return result
 
     compareTo: (that)->
         if this.mod? and that.mod?
@@ -53,6 +38,53 @@ module.exports = class ModVersion extends BaseModel
             return if this.modSlug < that.modSlug then -1 else +1
 
         return 0
+
+    sort: ->
+        @_slugs.sort (a, b)-> ItemSlug.compare a, b
+
+    # Item Methods #################################################################################
+
+    addItem: (item)->
+        if @findItem(item.slug)? then throw new Error "duplicate item for #{item.name}"
+
+        item.modVersion = this
+        @_items[item.slug.item] = item
+        @_groups[item.group] ?= {}
+        @_groups[item.group][item.slug.item] = item
+
+        @registerName item.slug, item.name
+        return this
+
+    allItemsInGroup: (group)->
+        result = []
+        @eachItemInGroup group, (item)-> result.push item
+        return null if result.length is 0
+        return result
+
+    eachItem: (callback)->
+        for slug in @_slugs
+            item = @findItem slug
+            continue unless item?
+            callback item
+        return this
+
+    eachItemInGroup: (group, callback)->
+        itemMap = @_groups[group]
+        return unless itemMap?
+
+        items = _.values(itemMap).sort (a, b)-> a.compareTo b
+        for item in items
+            callback item
+
+    findItem: (itemSlug)->
+        return @_items[itemSlug.item]
+
+    findItemByName: (name)->
+        for itemSlug, item of @_items
+            return item if item.name is name
+        return null
+
+    # Group Methods ################################################################################
 
     eachGroup: (callback)->
         groupNames = _.keys @_groups
@@ -65,53 +97,65 @@ module.exports = class ModVersion extends BaseModel
         for groupName in groupNames
             callback groupName
 
-    eachItem: (callback)->
-        for slug in @_slugs
-            item = @_items[slug]
-            continue unless item?
-            callback @_items[slug], slug
-        return this
-
-    eachItemInGroup: (group, callback)->
-        group = @_groups[group]
-        return unless group?
-
-        for slug in _.keys(group).sort()
-            callback group[slug]
+    # Name Methods #################################################################################
 
     eachName: (callback)->
         for slug in @_slugs
-            callback @_names[slug], slug
+            callback @_names[slug.item], slug
         return this
 
-    findItem: (slug)->
-        return @_items[slug]
+    findName: (itemSlug)->
+        return @_names[itemSlug.item]
 
-    findItemByName: (name)->
-        return @findItem _.slugify name
+    registerName: (itemSlug, name)->
+        return if @_names[itemSlug.item]
+        @_names[itemSlug.item] = name
+        @_slugs.push itemSlug
+        return this
 
-    findName: (slug)->
-        return @_names[slug]
+    # Recipe Methods ###############################################################################
+
+    addRecipe: (recipe)->
+        recipe.modVersion = this
+
+        for stack in recipe.output
+            recipeList = @_recipes[stack.itemSlug.item]
+            if not recipeList?
+                recipeList = @_recipes[stack.itemSlug.item] = []
+            recipeList.push recipe
+
+        return this
+
+    eachRecipe: (callback)->
+        for itemSlugText, recipeList of @_recipes
+            for recipe in recipeList
+                callback recipe
 
     findRecipes: (itemSlug, result=[])->
-        for slug in @_slugs
-            item = @_items[slug]
-            continue unless item?
+        for k, recipeList of @_recipes
+            for recipe in recipeList
+                if recipe.produces itemSlug
+                    result.push recipe
 
-            item.eachRecipe (recipe)->
-                result.push recipe if recipe.doesProduce itemSlug
         return result
 
-    registerSlug: (slug, name)->
-        hasSlug = @_names[slug]?
-        @_names[slug] = name
+    findExternalRecipes: ->
+        result = {}
+        for itemSlug in @_slugs
+            continue if itemSlug.isQualified
+            recipes = @_recipes[itemSlug.item]
+            continue unless recipes? and recipes.length > 0
 
-        if not hasSlug
-            @_slugs.push slug
-            @_slugs.sort()
-            @_slugs = _.uniq @_slugs, true
+            resultList = result[itemSlug] = []
+            for recipe in recipes
+                resultList.push recipe
 
-        return this
+        return result
+
+    hasRecipes: (itemSlug)->
+        recipeList = @_recipes[itemSlug.item]
+        return true if recipeList? and recipeList.length > 0
+        return false
 
     # Backbone.Model Overrides #####################################################################
 
@@ -129,5 +173,5 @@ module.exports = class ModVersion extends BaseModel
 
     toString: ->
         return "ModVersion (#{@cid}) {
-            modSlug:#{@modSlug}, version:#{@version}, items:#{_.keys(@_items).length} items
+            modSlug:#{@modSlug}, version:#{@version}, items:«#{@_slugs.length} items»
         }"

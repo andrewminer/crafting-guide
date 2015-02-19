@@ -40,10 +40,10 @@ module.exports = class InventoryController extends BaseController
     # Event Methods ################################################################################
 
     onAddButtonClicked: ->
-        name = @$nameField.val()
-        return unless @modPack.isValidName name
+        item = @modPack.findItemByName @$nameField.val()
+        return unless item?
 
-        @model.add _.slugify(name), parseInt(@$quantityField.val())
+        @model.add item.slug, parseInt(@$quantityField.val())
         @$nameField.val ''
         @$quantityField.val '1'
 
@@ -71,12 +71,11 @@ module.exports = class InventoryController extends BaseController
         @onNameFieldChanged()
 
     onNameFieldChanged: ->
-        item = @modPack.findItemByName @$nameField.val()
-        @_updateButtonState()
+        @_refreshButtonState()
 
     onNameFieldFocused: ->
         @$nameField.val ''
-        @$nameField.autocomplete('search')
+        @$nameField.autocomplete 'search'
 
     onNameFieldKeyUp: (event)->
         if event.which is Key.Return
@@ -99,7 +98,7 @@ module.exports = class InventoryController extends BaseController
 
         @$quantityField.removeClass 'error', Duration.normal
         @$quantityField.removeClass 'error-new', Duration.normal
-        @_updateButtonState()
+        @_refreshButtonState()
 
     onQuantityFieldFocused: ->
         @$quantityField.val ''
@@ -129,24 +128,9 @@ module.exports = class InventoryController extends BaseController
 
         if _.isEmpty(@$quantityField.val()) then @$quantityField.val '1'
 
-        @$table.find('tr:not(:last-child)').remove()
-        $lastRow = @$table.find 'tr:last-child'
-        @_stackControllers = []
-        @model.each (stack)=>
-            options =
-                editable:    @editable
-                imageLoader: @imageLoader
-                model:       stack
-                modPack:     @modPack
-                onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
-
-            controller = new StackController options
-            controller.render()
-            controller.$el.insertBefore $lastRow
-            @_stackControllers.push controller
-
-        @_updateNameAutocomplete()
-        @_updateButtonState()
+        @_refreshStacks()
+        @_refreshNameAutocomplete()
+        @_refreshButtonState()
 
         super
 
@@ -166,10 +150,15 @@ module.exports = class InventoryController extends BaseController
 
     # Private Methods ##############################################################################
 
-    _removeStack: (stack)->
-        @model.remove stack.slug, stack.quantity
+    _refreshButtonState: ->
+        if @model.isEmpty then @$clearButton.attr('disabled', 'disabled') else @$clearButton.removeAttr('disabled')
 
-    _updateNameAutocomplete: ->
+        itemValid     = @modPack.findItemByName(@$nameField.val())?
+        quantityValid = @$quantityField.val().match(InventoryController.ONLY_DIGITS)
+        disable       = not (itemValid and quantityValid)
+        if disable then @$addButton.attr('disabled', 'disabled') else @$addButton.removeAttr('disabled')
+
+    _refreshNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()
         onSelected = => @onItemSelected()
 
@@ -181,10 +170,30 @@ module.exports = class InventoryController extends BaseController
             close:     onChanged
             select:    onSelected
 
-    _updateButtonState: ->
-        if @model.isEmpty then @$clearButton.attr('disabled', 'disabled') else @$clearButton.removeAttr('disabled')
+    _refreshStacks: ->
+        @_stackControllers ?= []
+        index = 0
 
-        itemValid     = @modPack.findItemByName(@$nameField.val())?
-        quantityValid = @$quantityField.val().match(InventoryController.ONLY_DIGITS)
-        disable       = not (itemValid and quantityValid)
-        if disable then @$addButton.attr('disabled', 'disabled') else @$addButton.removeAttr('disabled')
+        $lastRow = @$table.find 'tr:last-child'
+        @model.each (stack)=>
+            controller = @_stackControllers[index]
+            if not controller?
+                controller = new StackController
+                    editable:    @editable
+                    imageLoader: @imageLoader
+                    model:       stack
+                    modPack:     @modPack
+                    onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
+                controller.render()
+                controller.$el.insertBefore $lastRow
+                @_stackControllers.push controller
+            else
+                controller.model = stack
+            index += 1
+
+        while @_stackControllers.length > index
+            controller = @_stackControllers.pop()
+            controller.$el.fadeOut duration:Duration.fast, complete:-> @remove()
+
+    _removeStack: (stack)->
+        @model.remove stack.itemSlug, stack.quantity

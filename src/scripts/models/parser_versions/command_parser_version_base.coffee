@@ -24,6 +24,15 @@ module.exports = class CommandParserVersionBase
 
     @COMMENT = /([^\\]?)#.*/
 
+    @simplify: (text)->
+        text = text.trim()
+        text = text.replace /\  */g , ' '
+        text = text.replace /\n/g, ';'
+        text = text.replace /; */g, ';'
+        text = text.replace /;;*/g, ';'
+        text = text.replace /: /g, ':'
+        return text
+
     # Public Methods ###############################################################################
 
     parse: (text)->

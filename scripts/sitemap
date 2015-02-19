@@ -34,11 +34,11 @@ for modSlug in fs.readdirSync './src/data'
 base = 'http://crafting-guide.com'
 
 urls = [ base ]
-for slug in _.keys(modSlugs).sort()
-    urls.push base + "#mod/#{slug}"
+for modSlug in _.keys(modSlugs).sort()
+    urls.push base + "mod/#{modSlug}"
 
-for slug in _.keys(itemSlugs).sort()
-    urls.push base + "#item/#{slug}"
+for itemSlug in _.keys(itemSlugs).sort()
+    urls.push base + "item/#{itemSlug}"
 
 for url in urls
     console.log url

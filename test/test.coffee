@@ -28,15 +28,16 @@ require '../src/scripts/underscore_mixins'
 
 mocha.setup 'bdd'
 
-require './crafting_plan.test'
+# tests are roughly in order of how errors should be tackled
+require './string_builder.test'
+require './item_slug.test'
 require './inventory.test'
-require './inventory_parser.test'
+require './recipe.test'
+require './mod_version.test'
 require './mod.test'
 require './mod_pack.test'
-require './mod_version.test'
 require './parser_versions/mod_version_parser_v1.test'
-require './recipe.test'
-require './string_builder.test'
+require './crafting_plan.test'
 
 mocha.checkLeaks()
 mocha.globals ['LiveReload']

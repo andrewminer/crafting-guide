@@ -6,9 +6,10 @@ All rights reserved.
 ###
 
 BaseModel            = require './base_model'
+{DefaultModVersions} = require '../constants'
 {Event}              = require '../constants'
 ModVersionParser     = require './mod_version_parser'
-{DefaultModVersions} = require '../constants'
+Recipe               = require './recipe'
 {Url}                = require '../constants'
 
 ########################################################################################################################
@@ -22,12 +23,18 @@ module.exports = class ModPack extends BaseModel
 
     # Public Methods ###############################################################################
 
-    findItem: (slug, options={})->
+    findItem: (itemSlug, options={})->
         options.includeDisabled ?= false
+
+        if itemSlug.isQualified
+            mod = @getMod itemSlug.mod
+            if mod?
+                item = mod.findItem itemSlug, options
+                return item if item?
 
         for mod in @_mods
             continue unless mod.enabled or options.includeDisabled
-            item = mod.findItem slug, options
+            item = mod.findItem itemSlug, options
             return item if item?
 
         return null
@@ -36,64 +43,54 @@ module.exports = class ModPack extends BaseModel
         options.enableAsNeeded ?= false
         options.includeDisabled = true if options.enableAsNeeded
 
-        slug = _.slugify name
         for mod in @_mods
             continue unless mod.enabled or options.includeDisabled
-            item = mod.findItem slug, options
+            item = mod.findItemByName name, options
             return item if item?
 
         return null
 
-    findItemDisplay: (slug)->
-        if not slug? then return null
+    findItemDisplay: (itemSlug)->
+        if not itemSlug? then throw new Error 'itemSlug is required'
 
         result = {}
-        item = @findItem slug, includeDisabled:true
+        item = @findItem itemSlug, includeDisabled:true
         if item?
-            result.modSlug    = item.modVersion.modSlug
+            result.modSlug    = item.slug.mod
             result.modVersion = item.modVersion.version
-            result.slug       = item.slug
+            result.itemSlug   = item.slug.item
             result.itemName   = item.name
         else
             result.modSlug    = @_mods[0].slug
             result.modVersion = @_mods[0].activeVersion
-            result.slug       = slug
-            result.itemName   = @findName slug, includeDisabled:true
+            result.itemSlug   = itemSlug.item
+            result.itemName   = @findName itemSlug, includeDisabled:true
 
-        result.craftingUrl = Url.crafting inventoryText:slug
+        result.craftingUrl = Url.crafting inventoryText:itemSlug.item
         result.iconUrl     = Url.itemIcon result
         result.itemUrl     = Url.item result
         return result
 
-    findName: (slug)->
+    findName: (slug, options={})->
+        options.includeDisabled ?= false
+
         for mod in @_mods
-            continue unless mod.enabled
+            continue unless mod.enabled or options.includeDisabled
             name = mod.findName slug
             return name if name
 
         return null
 
-    findRecipes: (slug, result=[])->
+    findRecipes: (itemSlug, result=[])->
+        return null unless itemSlug?
+
         for mod in @_mods
             continue unless mod.enabled
-            mod.findRecipes slug, result
-        return result
+            mod.findRecipes itemSlug, result
 
-    isGatherable: (slug)->
-        item = @findItem slug
-        return true if not item?
-        return true if item.isGatherable
-        return false if item.isCraftable
-        return true
+        result.sort (a, b)-> Recipe.compareFor a, b, itemSlug
 
-    isValidName: (name)->
-        slug = _.slugify name
-        for mod in @_mods
-            continue unless mod.enabled
-            name = mod.findName slug
-            return true if name
-
-        return false
+        return if result.length > 0 then result else null
 
     # Property Methods #############################################################################
 
@@ -101,6 +98,7 @@ module.exports = class ModPack extends BaseModel
         if not mod? then throw new Error 'mod is required'
         return if @_mods.indexOf(mod) isnt -1
 
+        mod.modPack = this
         @_mods.push mod
         @listenTo mod, Event.change, => @trigger Event.change, this
         @trigger Event.add + ':mod', mod, this

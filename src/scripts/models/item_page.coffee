@@ -31,18 +31,17 @@ module.exports = class ItemPage extends BaseModel
     findComponentInItems: ->
         return null unless @item?
 
-        itemSlug = @item.slug
         result = {}
-        @modPack.eachMod (mod)->
-            mod.eachItem (item)->
-                item.eachRecipe (recipe)->
-                    for stack in recipe.input
-                        if stack.slug is itemSlug
-                            result[item.slug] = item
+        @modPack.eachMod (mod)=>
+            mod.eachRecipe (recipe)=>
+                if recipe.requires @item.slug
+                    outputItem = @modPack.findItem recipe.itemSlug
+                    result[outputItem.slug] = outputItem
 
-        result = _.values(result).sort (a, b)-> a.compareTo b
+        result = _.values result
         return null unless result.length > 0
-        return result
+
+        return result.sort (a, b)-> a.compareTo b
 
     findSimilarItems: ->
         return null unless @item?.modVersion?
@@ -56,9 +55,7 @@ module.exports = class ItemPage extends BaseModel
         return result
 
     findRecipes: ->
-        result = @modPack.findRecipes @item?.slug
-        return null unless result.length > 0
-        return result
+        return @modPack.findRecipes @item?.slug
 
     # Private Methods ##############################################################################
 

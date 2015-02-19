@@ -21,6 +21,7 @@ module.exports = class Mod extends BaseModel
         attributes.documentationUrl ?= null
         attributes.downloadUrl      ?= null
         attributes.homePageUrl      ?= null
+        attributes.modPack          ?= null
         attributes.name             ?= ''
         super attributes, options
 
@@ -64,6 +65,10 @@ module.exports = class Mod extends BaseModel
         return unless @_activeModVersion?
         @_activeModVersion.eachName callback
 
+    eachRecipe: (callback)->
+        return unless @_activeModVersion?
+        @_activeModVersion.eachRecipe callback
+
     findItem: (slug, options={})->
         options.includeDisabled ?= false
         options.enableAsNeeded  ?= false
@@ -86,13 +91,13 @@ module.exports = class Mod extends BaseModel
         return unless @_activeModVersion?
         @_activeModVersion.findItemByName name
 
-    findName: (slug)->
+    findName: (itemSlug)->
         return unless @_activeModVersion?
-        @_activeModVersion.findName slug
+        @_activeModVersion.findName itemSlug
 
-    findRecipes: (slug, result=[])->
+    findRecipes: (itemSlug, result=[])->
         return result unless @_activeModVersion?
-        @_activeModVersion.findRecipes slug, result
+        @_activeModVersion.findRecipes itemSlug, result
 
     # Property Methods #############################################################################
 
@@ -122,6 +127,7 @@ module.exports = class Mod extends BaseModel
 
         for modVersion in @_modVersions
             return modVersion if modVersion.version is version
+
         return null
 
     getActiveVersion: ->
@@ -148,7 +154,6 @@ module.exports = class Mod extends BaseModel
             @_activeVersion = version
             @trigger Event.change + ':activeVersion', this, @_activeVersion
             @trigger Event.change, this
-
 
     # Backbone.View Overrides ######################################################################
 

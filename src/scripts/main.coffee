@@ -24,7 +24,7 @@ global.logger = new Logger
 switch window.location.hostname
     when 'localhost'
         global.env = 'development'
-        logger.level = Logger.INFO
+        logger.level = Logger.DEBUG
     when 'new.crafting-guide.com'
         global.env = 'staging'
         logger.level = Logger.VERBOSE

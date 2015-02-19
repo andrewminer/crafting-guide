@@ -8,6 +8,7 @@ All rights reserved.
 BaseModel = require './base_model'
 {Event}   = require '../constants'
 Inventory = require './inventory'
+ItemSlug  = require './item_slug'
 
 ########################################################################################################################
 
@@ -18,18 +19,18 @@ module.exports = class CraftingPlan extends BaseModel
         attributes.includingTools ?= false
         super attributes, options
 
-        @have   = new Inventory
-        @want   = new Inventory
-        @need   = new Inventory
-        @result = new Inventory
+        @have   = new Inventory modPack:@modPack
+        @want   = new Inventory modPack:@modPack
+        @need   = new Inventory modPack:@modPack
+        @result = new Inventory modPack:@modPack
+
+        recraft = _.debounce (=> @craft()), 100
+        for inventory in [@have, @want]
+            inventory.on 'change', recraft
+
+        @on Event.change + ':includingTools', recraft
 
         @clear()
-
-        @have.on    Event.change, => @craft()
-        @want.on    Event.change, => @craft()
-        @modPack.on Event.change, => @craft()
-
-        @on Event.change + ':includingTools', => @craft()
 
     # Public Methods ###############################################################################
 
@@ -42,20 +43,26 @@ module.exports = class CraftingPlan extends BaseModel
         return this
 
     craft: ->
+        toolsMessage = if @includingTools then ' (including tools)' else ''
+        haveMessage = if @have.isEmpty then '' else " starting with #{@have.unparse()}"
+        logger.info => "crafting #{@want.unparse()}#{toolsMessage}#{haveMessage}"
+
         @clear()
+        @have.localize()
+        @want.localize()
 
         @result.addInventory @have
 
         @steps = {}
-        @_reservedSteps = {}
         @want.each (stack)=>
-            @_findSteps stack.slug
-            @need.add stack.slug, stack.quantity
-        @_reservedSteps = null
+            @_findSteps stack.itemSlug, {}, ignoreGatherable:true
+            item = @modPack.findItem stack.itemSlug
+            @need.add item.slug, stack.quantity
 
-        @steps = _.values @steps
+        @steps = (recipe:recipe for recipeSlug, recipe of @steps)
         @_resolveNeeds()
         @_removeExtraSteps()
+
         @result.addInventory @want
 
         @need.trigger 'change', @need
@@ -65,11 +72,11 @@ module.exports = class CraftingPlan extends BaseModel
     removeUncraftableItems: ->
         toRemove = []
         @want.each (stack)=>
-            item = @modPack.findItem stack.slug
-            if not item? then toRemove.push stack.slug
+            item = @modPack.findItem stack.itemSlug
+            if not item? then toRemove.push stack.itemSlug
 
-        for slug in toRemove
-            @want.remove slug
+        for itemSlug in toRemove
+            @want.remove itemSlug
 
     # Event Methods ################################################################################
 
@@ -83,7 +90,7 @@ module.exports = class CraftingPlan extends BaseModel
         return "#{@constructor.name} {
                 have:#{@have},
                 want:#{@want},
-                need:#{@_need},
+                need:#{@need},
                 result:#{@result},
                 steps:#{@steps}
             }"
@@ -91,39 +98,75 @@ module.exports = class CraftingPlan extends BaseModel
     # Private Methods ##############################################################################
 
     _addStep: (recipe)->
-        logger.verbose -> "adding step: #{recipe.slug}"
-        @steps[recipe.slug] = recipe:recipe
+        logger.verbose -> "adding step for: #{recipe.slug}"
+        @steps[recipe.slug] = recipe
 
     _chooseRecipe: (item)->
-        return item.getPrimaryRecipe()
+        recipes = @modPack.findRecipes item.slug
+        return null unless recipes? and recipes.length > 0
+        return recipes[0]
 
-    _findSteps: (slug)->
-        logger.debug -> "finding steps for #{slug}"
-        item = @modPack.findItem slug
+    _findSteps: (itemSlug, parentSteps={})->
+        item = @modPack.findItem itemSlug
         return unless item?
         return unless item.isCraftable
-        return if item.isGatherable
 
-        recipe = @_chooseRecipe item
+        ignoreGatherable = @want.hasAtLeast itemSlug, 1
+        if (not item.isGatherable) or ignoreGatherable
+            recipes = @modPack.findRecipes item.slug
+            recipes ?= []
 
-        if @includingTools
-            for toolStack in recipe.tools
-                if not @_hasStep toolStack.slug
-                    @_findSteps toolStack.slug
+            if parentSteps[item.slug]?
+                logger.verbose -> "found cycle at #{item.slug}"
+                throw new Error 'invalid recipe path'
+            parentSteps[item.slug] = item
 
-        return if @_hasStep item.slug
-        logger.debug -> "reserving: #{item.slug}"
-        @_reservedSteps[item.slug] = recipe
+            logger.verbose -> "exploring: #{item.slug}"
+            logger.indent()
 
-        for inputStack in recipe.input
-            @_findSteps inputStack.slug
+            currentSteps = _.clone @steps
+            foundValidRecipe = false
+            for i in [0...recipes.length] by 1
+                recipe = recipes[i]
+                logger.verbose -> "trying recipe #{i+1} of #{recipes.length}: #{recipe.slug}"
+                if @steps[recipe.slug]?
+                    logger.verbose -> "already accepted this recipe"
+                    foundValidRecipe = true
+                    break
 
-        @_addStep recipe
+                try
+                    if @includingTools
+                        for toolStack in recipe.tools
+                            if not @_hasStep toolStack.itemSlug
+                                @_findSteps toolStack.itemSlug, parentSteps
 
-    _hasStep: (slug)->
-        return true if @steps[slug]?
-        return true if @_reservedSteps[slug]?
+                    for inputStack in recipe.input
+                        @_findSteps inputStack.itemSlug, parentSteps
+
+                    @_addStep recipe
+                    foundValidRecipe = true
+                    break
+                catch error
+                    logger.verbose -> "recipe didn't work out: #{recipe.slug}"
+                    if error.message isnt 'invalid recipe path' then throw error
+                    @steps = _.clone currentSteps
+
+            delete parentSteps[item.slug]
+            logger.outdent()
+
+        if not (foundValidRecipe or item.isGatherable)
+            logger.verbose -> "could not find a valid recipe for #{item.slug}"
+            throw new Error 'invalid recipe path'
+
+    _hasStep: (itemSlug)->
+        for recipeSlug, recipe of @steps
+            return true if recipe.produces itemSlug
         return false
+
+    _qualifyItemSlug: (itemSlug)->
+        item = @modPack.findItem itemSlug
+        return item.slug if item?
+        return itemSlug
 
     _removeExtraSteps: ->
         result = (step for step in @steps when step.multiplier > 0)
@@ -133,30 +176,33 @@ module.exports = class CraftingPlan extends BaseModel
         for i in [@steps.length-1..0] by -1
             step   = @steps[i]
             recipe = step.recipe
+            stepItemSlug = @_qualifyItemSlug step.recipe.itemSlug
 
-            step.multiplier = Math.ceil(@need.quantityOf(recipe.slug) / step.recipe.output[0].quantity)
+            step.multiplier = Math.ceil(@need.quantityOf(stepItemSlug) / recipe.output[0].quantity)
 
             if @includingTools
                 for stack in recipe.tools
-                    slug      = stack.slug
-                    available = @result.quantityOf(slug) + @need.quantityOf(slug)
+                    itemSlug  = @_qualifyItemSlug stack.itemSlug
+                    available = @result.quantityOf(itemSlug) + @need.quantityOf(itemSlug)
                     needed    = Math.max 0, stack.quantity - available
 
-                    @need.add stack.slug, needed
-                    @result.add stack.slug, needed
+                    @need.add itemSlug, needed
+                    @result.add itemSlug, needed
 
             for stack in recipe.input
+                itemSlug  = @_qualifyItemSlug stack.itemSlug
                 needed    = step.multiplier * stack.quantity
-                consumed  = Math.min needed, @result.quantityOf(stack.slug)
+                consumed  = Math.min needed, @result.quantityOf itemSlug
                 remaining = needed - consumed
 
-                @result.remove stack.slug, consumed
-                @need.add stack.slug, remaining
+                @result.remove itemSlug, consumed
+                @need.add itemSlug, remaining
 
             for stack in recipe.output
+                itemSlug  = @_qualifyItemSlug stack.itemSlug
                 created   = stack.quantity * step.multiplier
-                consumed  = Math.min created, @need.quantityOf stack.slug
+                consumed  = Math.min created, @need.quantityOf itemSlug
                 remaining = created - consumed
 
-                @result.add stack.slug, remaining
-                @need.remove stack.slug, consumed
+                @result.add itemSlug, remaining
+                @need.remove itemSlug, consumed

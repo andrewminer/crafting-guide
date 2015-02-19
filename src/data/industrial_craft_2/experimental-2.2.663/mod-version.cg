@@ -566,9 +566,9 @@ group: Energy: Transmission
 
     item: Copper Cable
         recipe:
-            extras: Cutter
-            input: Copper Plate, Cutter
-            pattern: ... 01. ...
+            tools: Cutter
+            input: Copper Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Copper Ingot
@@ -607,9 +607,9 @@ group: Energy: Transmission
 
     item: Gold Cable
         recipe:
-            extras: Cutter
-            input: Cutter, Gold Plate
-            pattern: ... 10. ...
+            tools: Cutter
+            input: Gold Plate
+            pattern: ... .0. ...
             quantity: 4
         recipe:
             input: Gold Ingot
@@ -674,9 +674,9 @@ group: Energy: Transmission
 
     item: Tin Cable
         recipe:
-            extras: Cutter
-            input: Cutter, Tin Plate
-            pattern: ... 10. ...
+            tools: Cutter
+            input: Tin Plate
+            pattern: ... .0. ...
             quantity: 3
         recipe:
             input: Tin Ingot
@@ -735,9 +735,9 @@ group: Machine Parts
 
     item: Bronze Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Bronze Plate, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Bronze Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Bronze Plate
@@ -747,9 +747,9 @@ group: Machine Parts
 
     item: Bronze Plate
         recipe:
-            extras: Forge Hammer
-            input: Bronze Ingot, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Bronze Ingot
+            pattern: ... .0. ...
         recipe:
             input: Bronze Ingot
             pattern: ... .0. ...
@@ -786,9 +786,9 @@ group: Machine Parts
 
     item: Copper Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Copper Plate, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Copper Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Copper Plate
@@ -798,9 +798,9 @@ group: Machine Parts
 
     item: Copper Plate
         recipe:
-            extras: Forge Hammer
-            input: Copper Ingot, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Copper Ingot
+            pattern: ... .0. ...
         recipe:
             input: Copper Ingot
             pattern: ... .0. ...
@@ -909,9 +909,9 @@ group: Machine Parts
 
     item: Gold Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Gold Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Gold Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Gold Plate
@@ -921,9 +921,9 @@ group: Machine Parts
 
     item: Gold Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Gold Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Gold Ingot
+            pattern: ... .0. ...
         recipe:
             input: Gold Ingot
             pattern: ... .0. ...
@@ -941,9 +941,9 @@ group: Machine Parts
 
     item: Iron Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Iron Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Iron Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Iron Plate
@@ -953,9 +953,9 @@ group: Machine Parts
 
     item: Iron Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Iron Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Iron Ingot
+            pattern: ... .0. ...
         recipe:
             input: Iron Ingot
             pattern: ... .0. ...
@@ -1026,9 +1026,9 @@ group: Machine Parts
 
     item: Lead Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Lead Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Lead Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Lead Plate
@@ -1038,9 +1038,9 @@ group: Machine Parts
 
     item: Lead Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Lead Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Lead Ingot
+            pattern: ... .0. ...
         recipe:
             input: Lead Ingot
             pattern: ... .0. ...
@@ -1230,9 +1230,9 @@ group: Machine Parts
 
     item: Tin Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Tin Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Tin Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Tin Plate
@@ -1242,9 +1242,9 @@ group: Machine Parts
 
     item: Tin Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Tin Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Tin Ingot
+            pattern: ... .0. ...
         recipe:
             input: Tin Ingot
             pattern: ... .0. ...
@@ -1654,6 +1654,10 @@ group: Minerals
     item: Copper Ore
 
     item: Distilled Water
+        recipe:
+            input: Water
+            pattern: ... .0. ...
+            tools: Solar Distiller
 
     item: Distilled Water Cell
         recipe:
@@ -1661,6 +1665,10 @@ group: Minerals
             pattern: ... .0. .1.
 
     item: Electrolyzed Water Cell
+        recipe:
+            input: Water Cell
+            pattern: ... .0. ...
+            tools: Electrolyzer
 
     item: Empty Cell
         recipe:
@@ -1793,29 +1801,29 @@ group: Minerals
 
     item: Refined Iron Ingot
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Iron Ore
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Iron Dust
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Iron Ingot
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Crushed Iron Ore
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
-            extras: Slag, Empty Cell
+            extras: Slag, 6 Empty Cell
             input: Compressed Air Cell, Purified Crushed Iron Ore
-            pattern: ... .1. .0.
+            pattern: .1. 000 000
             tools: Blast Furnace
         recipe:
             input: Refined Iron Block
@@ -1851,31 +1859,6 @@ group: Minerals
             tools: Furnace
 
     item: Slag
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Iron Ore
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Iron Dust
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Iron Ingot
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Crushed Iron Ore
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Purified Crushed Iron Ore
-            pattern: ... .1. .0.
-            tools: Blast Furnace
 
     item: Steam
 
@@ -2435,22 +2418,6 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Copper Dust
         recipe:
-            extras: Purified Crushed Copper Ore, Stone Dust
-            input: Crushed Copper Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Lead Dust
-            input: Purified Crushed Lead Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Lead Dust, Stone Dust
-            input: Crushed Lead Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
             input: Copper Plate
             pattern: ... .0. ...
             quantity: 8
@@ -2458,49 +2425,12 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Gold Dust
         recipe:
-            extras: Purified Crushed Gold Ore, Stone Dust
-            input: Crushed Gold Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Iron Dust
-            input: Purified Crushed Iron Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Iron Dust, Stone Dust
-            input: Crushed Iron Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 5 Coal Dust
-            input: Slag
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
             input: Gold Plate
             pattern: ... .0. ...
             quantity: 8
             tools: Macerator
 
     item: Tiny Pile of Iron Dust
-        recipe:
-            extras: Purified Crushed Iron Ore, Stone Dust
-            input: Crushed Iron Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Tin Dust
-            input: Purified Crushed Tin Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Tin Dust, Stone Dust
-            input: Crushed Tin Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Iron Plate
             pattern: ... .0. ...
@@ -2515,17 +2445,6 @@ group: Minerals: Dusts
             tools: Macerator
 
     item: Tiny Pile of Lead Dust
-        recipe:
-            extras: Purified Crushed Uranium Ore, Stone Dust
-            input: Crushed Uranium Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Silver Dust
-            input: Purified Crushed Silver Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Lead Plate
             pattern: ... .0. ...
@@ -2547,77 +2466,15 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Plutonium
         recipe:
-            extras: 16 Uranium 238, 6 Iron Dust
-            input: Quad Fuel Rod (Depleted Uranium)
-            pattern: ... .0. ...
-            quantity: 4
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 12 Plutonium, 6 Iron Dust
-            input: Quad Fuel Rod (Depleted MOX)
-            pattern: ... .0. ...
-            quantity: 4
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 8 Uranium 238, 3 Iron Dust
-            input: Dual Fuel Rod (Depleted Uranium)
-            pattern: ... .0. ...
-            quantity: 2
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 6 Plutonium, 3 Iron Ingot
-            input: Dual Fuel Rod (Depleted MOX)
-            pattern: ... .0. ...
-            quantity: 2
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 4 Uranium 238, Iron Dust
-            input: Fuel Rod (Depleted Uranium)
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 3 Plutonium, Iron Ingot
-            input: Fuel Rod (Depleted MOX)
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
             input: Plutonium
             pattern: ... .0. ...
             quantity: 9
 
     item: Tiny Pile of Silver Dust
-        recipe:
-            extras: Purified Crushed Silver Ore, Stone Dust
-            input: Crushed Silver Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
 
     item: Tiny Pile of Sulfur Dust
-        recipe:
-            extras: Purified Crushed Lead Ore, Stone Dust
-            input: Crushed Lead Ore, Water
-            pattern: ... .0. .1.
-            quantity: 3
-            tools: Ore Washing Plant
 
     item: Tiny Pile of Tin Dust
-        recipe:
-            extras: Purified Crushed Tin Ore, Stone Dust
-            input: Crushed Tin Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Copper Dust
-            input: Purified Crushed Copper Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Copper Dust, Stone Dust
-            input: Crushed Copper Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Tin Plate
             pattern: ... .0. ...
@@ -2625,17 +2482,6 @@ group: Minerals: Dusts
             tools: Macerator
 
     item: Tiny Pile of Uranium 235
-        recipe:
-            extras: 5 Uranium 238
-            input: Purified Crushed Uranium Ore
-            pattern: ... .0. ...
-            quantity: 2
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 4 Uranium 238, Stone Dust
-            input: Crushed Uranium Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Uranium 235
             pattern: ... .0. ...
@@ -2703,8 +2549,9 @@ group: Nuclear Reactor
 
     item: Coolant Cell
         recipe:
-            input: Empty Cell, IC2 Coolant
-            pattern: ... .1. .0.
+            input: Distilled Water, Lapis Lazuli Dust, Empty Cell
+            pattern: .0. .1. .2.
+            tools: Fluid/Solid Canning Machine
 
     item: Dual Fuel Rod (Depleted MOX)
 
@@ -2782,8 +2629,6 @@ group: Nuclear Reactor
         recipe:
             input: Empty Cell, IC2 Hot Coolant
             pattern: ... .1. .0.
-
-    item: IC2 Coolant
 
     item: IC2 Hot Coolant
 
@@ -3252,3 +3097,22 @@ group: Tools: Painters
             input: Dandelion Yellow, Painter
             pattern: ... 10. ...
 
+update: Iron Ingot
+    recipe:
+        input: Crushed Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Purified Crushed Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Iron Dust, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+update: Diamond
+    recipe:
+        input: Coal Chunk
+        pattern: ... .0. ...
+        tools: Compressor

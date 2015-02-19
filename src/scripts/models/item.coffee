@@ -5,10 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseCollection = require './base_collection'
 BaseModel      = require './base_model'
 {Event}        = require '../constants'
+ItemSlug       = require './item_slug'
 Recipe         = require './recipe'
+StringBuilder  = require './string_builder'
 
 ########################################################################################################################
 
@@ -21,27 +22,15 @@ module.exports = class Item extends BaseModel
 
         attributes.group        ?= Item.Group.Other
         attributes.isGatherable ?= false
-        attributes.slug         ?= _.slugify attributes.name
+        attributes.modVersion   ?= null
+        attributes.slug         ?= ItemSlug.slugify attributes.name
+
         options.logEvents       ?= false
         super attributes, options
 
-        @_recipes = []
-        Object.defineProperties this,
-            isCraftable:   { get:-> @_recipes.length > 0 }
-            primaryRecipe: { get:@getPrimaryRecipe }
+        @on Event.change + ':modVersion', => @slug.mod = @modVersion?.modSlug
 
     # Public Methods ###############################################################################
-
-    addRecipe: (recipe)->
-        if recipe.slug isnt @slug then throw new Error "cannot add a recipe for #{recipe.slug} to #{@slug}"
-        @_recipes.push recipe
-
-    eachRecipe: (callback)->
-        for recipe in @_recipes
-            callback recipe
-
-    getPrimaryRecipe: ->
-        return @_recipes[0]
 
     compareTo: (that)->
         if this.slug isnt that.slug
@@ -50,22 +39,26 @@ module.exports = class Item extends BaseModel
             return if this.name < that.name then -1 else +1
         return 0
 
+    # Property Methods #############################################################################
+
+    getIsCraftable: ->
+        return false unless @modVersion?
+        return @modVersion.hasRecipes @slug
+
+    Object.defineProperties @prototype,
+        isCraftable: {get:@prototype.getIsCraftable}
+
     # Object Overrides #############################################################################
 
     toString: ->
-        result = []
-        result.push @constructor.name
-        result.push ' ('; result.push @cid; result.push ') { '
-        result.push 'name:"'; result.push @name; result.push '", '
-        result.push 'isGatherable:'; result.push @isGatherable
-
-        if _.slugify(@name) isnt @slug
-            result.push ', slug:'; result.push @slug
-
-        if @_recipes.length > 0
-            result.push ', recipes:«'
-            result.push @_recipes.length
-            result.push ' items»'
-
-        result.push '}'
-        return result.join ''
+        builder = new StringBuilder
+        return builder
+            .push @constructor.name, ' (', @cid, ') { '
+            .push 'name:"', @name, '", '
+            .push 'isCraftable:', @isCraftable, ', '
+            .push 'isGatherable:', @isGatherable, ', '
+            .onlyIf (@group isnt Item.Group.Other), (b)=>
+                b.push 'group:"', @group, '", '
+            .push 'slug:"', @slug, '", '
+            .push '}'
+            .toString()

@@ -304,6 +304,7 @@ item: Copper Ingot
         input: Copper Ore, Rich Slag
         pattern: ... 10. ...
         quantity: 3
+        tools: Induction Smelter
     recipe:
         input: Copper Ore, Sand
         pattern: ... 10. ...
@@ -329,6 +330,7 @@ item: Copper Ingot
     recipe:
         input: Copper Block
         pattern: ... .0. ...
+        quantity: 9
 
 item: Copper Nugget
     recipe:

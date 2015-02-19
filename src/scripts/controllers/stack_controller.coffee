@@ -43,15 +43,14 @@ module.exports = class StackController extends BaseController
         super
 
     refresh: ->
-        display = @modPack.findItemDisplay @model.slug
+        display = @modPack.findItemDisplay @model.itemSlug
 
         @_imageLoader.load display.iconUrl, @$image
         @$nameLink.html display.itemName
         @$nameLink.attr 'href', display.itemUrl
         @$quantityField.html @model.quantity
-        @$removeButton.css display:(if @editable then 'inherit' else 'none')
 
-        @$action.css display:(if @ediable then 'table-cell' else 'none')
+        @$action.css display:(if @editable then 'table-cell' else 'none')
 
         super
 

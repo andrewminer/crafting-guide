@@ -52,14 +52,17 @@ module.exports = class ItemGroupController extends BaseController
 
     # Private Methods ##############################################################################
 
-    _createItemController: (item)->
+    _createItemController: (item, delay)->
         controller = new ItemController model:item, modPack:@_modPack
         @_itemControllers.push controller
 
-        controller.render()
-        controller.$el.hide()
-        @$items.append controller.$el
-        controller.$el.fadeIn duration:Duration.fast
+        attachController = =>
+            controller.render()
+            controller.$el.hide()
+            @$items.append controller.$el
+            controller.$el.fadeIn duration:Duration.fast
+
+        _.delay attachController, delay
 
     _refreshItems: ->
         controllerIndex = 0
@@ -69,7 +72,7 @@ module.exports = class ItemGroupController extends BaseController
             for item in @model
                 controller = @_itemControllers[controllerIndex]
                 if not controller?
-                    _.delay ((i)=> return => @_createItemController i)(item), delay
+                    @_createItemController item, delay
                     delay += @_delayStep
                 else
                     controller.model = item

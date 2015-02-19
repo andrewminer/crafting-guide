@@ -68,8 +68,8 @@ module.exports = class FullRecipeController extends BaseController
         result = []
         if @model?
             for stack in @model.tools
-                name = @modPack.findName stack.slug
-                result.push name if name?
+                item = @modPack.findItem stack.itemSlug
+                result.push item.name if item?
         return result
 
     _refreshInputs: ->
@@ -78,7 +78,7 @@ module.exports = class FullRecipeController extends BaseController
 
         if @model?
             for stack in @model.input
-                inputs.add stack.slug, stack.quantity
+                inputs.add stack.itemSlug, stack.quantity
 
 
     _refreshOutputs: ->
@@ -87,4 +87,4 @@ module.exports = class FullRecipeController extends BaseController
 
         if @model?
             for stack in @model.output
-                outputs.add stack.slug, stack.quantity
+                outputs.add stack.itemSlug, stack.quantity

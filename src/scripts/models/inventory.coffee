@@ -5,9 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel = require './base_model'
-{Event}   = require '../constants'
-Stack     = require './stack'
+BaseModel      = require './base_model'
+{Event}        = require '../constants'
+ItemSlug       = require './item_slug'
+{RequiredMods} = require '../constants'
+Stack          = require './stack'
 
 ########################################################################################################################
 
@@ -15,28 +17,35 @@ module.exports = class Inventory extends BaseModel
 
     constructor: (attributes={}, options={})->
         super attributes, options
+        attributes.modPack ?= null
         @clear()
 
         Object.defineProperties this,
-            isEmpty: { get:-> @_slugs.length is 0 }
+            isEmpty: { get:-> @_itemSlugs.length is 0 }
+
+    # Class Methods ################################################################################
+
+    @Delimiters =
+        Item: '.'
+        Stack: ':'
 
     # Public Methods ###############################################################################
 
-    add: (slug, quantity=1)->
-        @_add slug, quantity
-        @trigger Event.add, this, slug, quantity
+    add: (itemSlug, quantity=1)->
+        @_add itemSlug, quantity
+        @trigger Event.add, this, itemSlug, quantity
         @trigger Event.change, this
         return this
 
     addInventory: (inventory)->
-        inventory.each (stack)=> @_add stack.slug, stack.quantity
+        inventory.each (stack)=> @_add stack.itemSlug, stack.quantity
 
         @trigger Event.change, this
         return this
 
     clear: (options={})->
         @_stacks = {}
-        @_slugs = []
+        @_itemSlugs = []
 
         @trigger Event.change, this
 
@@ -46,62 +55,110 @@ module.exports = class Inventory extends BaseModel
         return inventory
 
     each: (callback)->
-        for slug in @_slugs
-            callback @_stacks[slug]
+        for itemSlug in @_itemSlugs
+            callback @_stacks[itemSlug]
 
     getSlugs: ->
-        return @_slugs[..]
+        return @_itemSlugs[..]
 
-    hasAtLeast: (slug, quantity=1)->
+    hasAtLeast: (itemSlug, quantity=1)->
         if quantity is 0 then return true
 
-        stack = @_stacks[slug]
+        stack = @_stacks[itemSlug]
         return false unless stack?
         return stack.quantity >= quantity
 
+    localize: ->
+        if not @modPack? then throw new Error 'localize requires @modPack'
+
+        newSlugs = []
+        for itemSlug in @_itemSlugs
+            stack = @_stacks[itemSlug]
+
+            qualifiedSlug = @modPack.findItem(itemSlug)?.slug
+            if qualifiedSlug?
+                delete @_stacks[itemSlug]
+                newSlugs.push qualifiedSlug
+                @_stacks[qualifiedSlug] = stack
+                stack.itemSlug = qualifiedSlug
+            else
+                newSlugs.push itemSlug
+
+        @_itemSlugs = newSlugs
+        @_sort()
+
     pop: ->
-        slug = @_slugs.pop()
-        return null unless slug?
+        itemSlug = @_itemSlugs.pop()
+        return null unless itemSlug?
 
-        stack = @_stacks[slug]
-        delete @_stacks[slug]
+        stack = @_stacks[itemSlug]
+        delete @_stacks[itemSlug]
 
-        @trigger Event.remove, this, stack.slug, stack.quantity
+        @trigger Event.remove, this, stack.itemSlug, stack.quantity
         @trigger Event.change, this
         return stack
 
-    quantityOf: (slug)->
-        stack = @_stacks[slug]
+    quantityOf: (itemSlug)->
+        stack = @_stacks[itemSlug]
         return 0 unless stack?
         return stack.quantity
 
-    remove: (slug, quantity=null)->
+    remove: (itemSlug, quantity=null)->
         return if quantity is 0
 
-        stack = @_stacks[slug]
-        if not stack? then throw new Error "cannot remove #{slug} since it is not in this inventory"
+        stack = @_stacks[itemSlug]
+        if not stack? then throw new Error "cannot remove #{itemSlug} since it is not in this inventory"
 
         quantity ?= stack.quantity
         if stack.quantity < quantity
-            throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{slug} in this inventory"
+            throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{itemSlug} in this inventory"
 
         stack.quantity -= quantity
         if stack.quantity is 0
-            delete @_stacks[slug]
-            @_slugs = _(@_slugs).without slug
+            delete @_stacks[itemSlug]
+            @_itemSlugs = _(@_itemSlugs).without itemSlug
 
-        @trigger Event.remove, this, slug, quantity
+        @trigger Event.remove, this, itemSlug, quantity
         @trigger Event.change, this
         return this
 
-    toList: ->
-        result = []
-        @each (stack)->
-            if stack.quantity > 1
-                result.push [stack.quantity, stack.slug]
+    # Parsing Methods ##############################################################################
+
+    parse: (data)->
+        return this if not data? or data.length is 0
+
+        stacks = data.split Inventory.Delimiters.Stack
+        for stackText in stacks
+            stackParts = stackText.split Inventory.Delimiters.Item
+            if stackParts.length is 2
+                quantity = parseInt stackParts[0], 10
+                itemSlug = ItemSlug.slugify stackParts[1]
+            else if stackParts.length is 1
+                quantity = 1
+                itemSlug = ItemSlug.slugify stackParts[0]
             else
-                result.push stack.slug
-        return result
+                throw new Error "expected #{stackText} to have 0 or 1 parts"
+
+            if itemSlug.qualified.length > 0
+                @add itemSlug, quantity
+
+        return this
+
+    unparse: (options={})->
+        parts = []
+        @each (stack)=>
+            slugText = stack.itemSlug.item
+            if @modPack?
+                item = @modPack.findItem ItemSlug.slugify slugText
+                if item? and item.slug.qualified isnt stack.itemSlug.qualified
+                    slugText = item.slug.qualified
+
+            if stack.quantity is 1
+                parts.push slugText
+            else
+                parts.push "#{stack.quantity}#{Inventory.Delimiters.Item}#{slugText}"
+
+        return parts.join Inventory.Delimiters.Stack
 
     # Object Overrides #############################################################################
 
@@ -120,15 +177,18 @@ module.exports = class Inventory extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _add: (slug, quantity=1)->
-        return unless slug?
+    _add: (itemSlug, quantity=1)->
+        return unless itemSlug?
         return if quantity is 0
 
-        stack = @_stacks[slug]
+        stack = @_stacks[itemSlug]
         if not stack?
-            stack = new Stack slug:slug, quantity:quantity
-            @_stacks[slug] = stack
-            @_slugs.push slug
-            @_slugs.sort()
+            stack = new Stack itemSlug:itemSlug, quantity:quantity
+            @_stacks[itemSlug] = stack
+            @_itemSlugs.push itemSlug
+            @_sort()
         else
             stack.quantity += quantity
+
+    _sort: ->
+        @_itemSlugs.sort (a, b)-> ItemSlug.compare a, b

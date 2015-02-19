@@ -7,8 +7,9 @@ All rights reserved.
 
 BaseController  = require './base_controller'
 {Duration}      = require '../constants'
-{Key}           = require '../constants'
 ImageLoader     = require './image_loader'
+ItemSlug        = require '../models/item_slug'
+{Key}           = require '../constants'
 NameFinder      = require '../models/name_finder'
 StackController = require './stack_controller'
 
@@ -38,10 +39,10 @@ module.exports = class InventoryTableController extends BaseController
     # Event Methods ################################################################################
 
     onAddButtonClicked: ->
-        name = @$nameField.val()
-        return unless @modPack.isValidName name
+        name = @modpack.findItemByName @$nameField.val()
+        return unless item?
 
-        @model.add _.slugify(name), parseInt(@$quantityField.val())
+        @model.add item.slug, parseInt(@$quantityField.val())
         @$nameField.val ''
         @$quantityField.val '1'
 
@@ -160,7 +161,7 @@ module.exports = class InventoryTableController extends BaseController
     # Private Methods ##############################################################################
 
     _removeStack: (stack)->
-        @model.remove stack.slug, stack.quantity
+        @model.remove stack.itemSlug, stack.quantity
 
     _updateNameAutocomplete: ->
         onChanged = => @onNameFieldChanged()

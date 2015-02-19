@@ -5,32 +5,66 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel = require './base_model'
-Stack     = require './stack'
+BaseModel     = require './base_model'
+Stack         = require './stack'
+StringBuilder = require './string_builder'
 
 ########################################################################################################################
 
 module.exports = class Recipe extends BaseModel
 
     constructor: (attributes={}, options={})->
-        if attributes.item?
-            attributes.name = attributes.item.name
-            attributes.slug = attributes.item.slug
-            attributes.output ?= [new Stack slug:attributes.item.slug, quantity:1]
-
-        if not attributes.name? then throw new Error 'attributes.name is required'
         if not attributes.input? then throw new Error 'attributes.input is required'
         if not attributes.pattern? then throw new Error 'attributes.pattern is required'
 
-        attributes.item    ?= null
-        attributes.output  ?= [new Stack slug:_.slugify(attributes.name), quantity:1]
+        if attributes.itemSlug? and not attributes.output?
+            attributes.output = [new Stack itemSlug:attributes.itemSlug, quantity:1]
+        else if attributes.output? and not attributes.itemSlug?
+            if attributes.output.length is 0 then throw new Error 'attributes.output cannot be empty'
+            attributes.itemSlug = attributes.output[0].itemSlug
+        else
+            throw new Error 'attributes.itemSlug or attributes.output is required'
+
         attributes.pattern = @_parsePattern attributes.pattern
-        attributes.slug    ?= attributes.output[0].slug
-        attributes.tools   ?= []
-        options.logEvents  ?= false
+
+        attributes.modVersion ?= null
+        attributes.tools      ?= []
+        options.logEvents     ?= false
         super attributes, options
 
+    # Class Methods ################################################################################
+
+    @compareFor: (a, b, itemSlug)->
+        aValue = a.itemSlug.matches itemSlug
+        bValue = b.itemSlug.matches itemSlug
+        if aValue isnt bValue
+            return -1 if aValue
+            return +1 if bValue
+
+        aValue = a.getQuantityProducedOf itemSlug
+        bValue = b.getQuantityProducedOf itemSlug
+        if aValue isnt bValue
+            return if aValue > bValue then -1 else +1
+
+        aValue = a.getInputCount()
+        bValue = b.getInputCount()
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
+
+        aValue = a.getOutputCount()
+        bValue = b.getOutputCount()
+        if aValue isnt bValue
+            return if aValue > bValue then -1 else +1
+
+        return 0
+
     # Public Methods ###############################################################################
+
+    getInputCount: ->
+        result = 0
+        for stack in @input
+            result += stack.quantity
+        return result
 
     getItemSlugAt: (patternSlot)->
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
@@ -41,12 +75,51 @@ module.exports = class Recipe extends BaseModel
         stack = @input[parseInt(patternDigit)]
         return null unless stack?
 
-        return stack.slug
+        return stack.itemSlug
 
-    doesProduce: (itemSlug)->
+    getOutputCount: ->
+        result = 0
         for stack in @output
-            return true if stack.slug is itemSlug
+            result += stack.quantity
+        return result
+
+    getQuantityProducedOf: (itemSlug)->
+        for stack in @output
+            if stack.itemSlug.matches itemSlug
+                return stack.quantity
+
+        return 0
+
+    produces: (itemSlug)->
+        for stack in @output
+            if stack.itemSlug.matches itemSlug
+                return true
+
         return false
+
+    requires: (itemSlug)->
+        for stack in @input
+            if stack.itemSlug.matches itemSlug
+                return true
+        return false
+
+    # Property Methods #############################################################################
+
+    getSlug: ->
+        if not @_slug?
+            builder = new StringBuilder
+            builder
+                .loop(@input, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+                .onlyIf @tools.length > 0, (b)=>
+                    b.push(' + ').loop(@tools, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+                .push(' => ')
+                .loop(@output, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+            @_slug = builder.toString()
+
+        return @_slug
+
+    Object.defineProperties @prototype,
+        slug: {get:@prototype.getSlug}
 
     # Object Overrides #############################################################################
 

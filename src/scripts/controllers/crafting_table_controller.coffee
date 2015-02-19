@@ -8,7 +8,6 @@ All rights reserved.
 BaseController   = require './base_controller'
 {Duration}       = require '../constants'
 ImageLoader      = require './image_loader'
-InventoryParser  = require '../models/inventory_parser'
 MinimalRecipeController = require './minimal_recipe_controller'
 
 ########################################################################################################################
@@ -34,7 +33,6 @@ module.exports = class CraftingTableController extends BaseController
         @model.stepIndex -= 1
 
     onReportProblem: ->
-        parser   = new InventoryParser @_modPack
         itemList = parser.unparse @model.plan.want
         toolsMessage = if @model.plan.includingTools then '(including tools)' else ''
         message  = "When I was on step #{@model.stepIndex + 1} of making:

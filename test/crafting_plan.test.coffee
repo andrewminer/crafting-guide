@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 CraftingPlan = require '../src/scripts/models/crafting_plan'
+ItemSlug     = require '../src/scripts/models/item_slug'
 Mod          = require '../src/scripts/models/mod'
 ModPack      = require '../src/scripts/models/mod_pack'
 ModVersion   = require '../src/scripts/models/mod_version'
@@ -41,46 +42,43 @@ describe 'crafting_plan.coffee', ->
         describe 'under the simplest conditions', ->
 
             it 'can craft a single step recipe', ->
-                plan.want.add 'oak_plank'
+                plan.want.add ItemSlug.slugify 'oak_plank'
                 plan.craft()
-                plan.need.toList().should.eql ['oak_log']
-                plan.result.toList().should.eql [[4, 'oak_plank']]
+                plan.need.unparse().should.equal 'oak_log'
+                plan.result.unparse().should.equal '4.oak_plank'
 
             it 'can craft a multi-step recipe', ->
-                plan.want.add 'crafting_table'
+                plan.want.add ItemSlug.slugify 'crafting_table'
                 plan.craft()
-                plan.need.toList().should.eql ['oak_log']
-                plan.result.toList().should.eql ['crafting_table']
+                plan.need.unparse().should.equal 'oak_log'
+                plan.result.unparse().should.equal 'crafting_table'
 
             it 'can craft a multi-step recipe using tools', ->
-                plan.want.add 'furnace'
+                plan.want.add ItemSlug.slugify 'furnace'
                 plan.craft()
-                plan.need.toList().should.eql [[8, 'cobblestone']]
-                plan.result.toList().should.eql ['furnace']
+                plan.need.unparse().should.equal '8.cobblestone'
+                plan.result.unparse().should.equal 'furnace'
 
             it 'can craft a multi-step recipe re-using tools', ->
-                plan.want.add 'iron_sword'
+                plan.want.add ItemSlug.slugify 'iron_sword'
                 plan.craft()
-                plan.need.toList().should.eql [[2, 'furnace_fuel'], [2, 'iron_ore'], 'oak_log']
-                plan.result.toList().should.eql ['iron_sword', [2, 'oak_plank'], [3, 'stick']]
+                plan.need.unparse().should.equal '2.furnace_fuel:2.iron_ore:oak_log'
+                plan.result.unparse().should.equal 'iron_sword:2.oak_plank:3.stick'
 
         describe 'with building tools', ->
 
             it 'can craft a multi-step recipe using tools', ->
                 plan.includingTools = true
-                plan.want.add 'furnace'
+                plan.want.add ItemSlug.slugify 'furnace'
                 plan.craft()
-                plan.need.toList().should.eql [[8, 'cobblestone'], 'oak_log']
-                plan.result.toList().should.eql ['crafting_table', 'furnace']
+                plan.need.unparse().should.equal '8.cobblestone:oak_log'
+                plan.result.unparse().should.equal 'crafting_table:furnace'
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.includingTools = true
-                plan.want.add 'iron_sword'
+                plan.want.add ItemSlug.slugify 'iron_sword'
                 plan.craft()
 
-                plan.need.toList().should.eql [
-                    [8, 'cobblestone'], [2, 'furnace_fuel'], [2, 'iron_ore'], [2, 'oak_log']
-                ]
-                plan.result.toList().should.eql [
-                    'crafting_table', 'furnace', 'iron_sword', [2, 'oak_plank'], [3, 'stick']
-                ]
+                plan.need.unparse().should.eql '8.cobblestone:2.furnace_fuel:2.iron_ore:2.oak_log'
+                plan.result.unparse().should.equal 'crafting_table:furnace:' +
+                    'iron_sword:2.oak_plank:3.stick'

@@ -435,7 +435,7 @@ group: Fluids
 
     item: Fire Water Bucket
         recipe:
-            input: Bucket, Hootch
+            input: Bucket, Fire Water
             pattern: ... .1. .0.
 
     item: Fluid Tank

@@ -10,7 +10,6 @@ CraftingTableController = require './crafting_table_controller'
 {Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
-InventoryParser         = require '../models/inventory_parser'
 CraftingPage            = require '../models/crafting_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
@@ -23,6 +22,8 @@ Storage                 = require '../models/storage'
 module.exports = class CraftingPageController extends BaseController
 
     constructor: (options={})->
+        if not options.modPack? then throw new Error 'options.modPack is required'
+
         options.model        ?= new CraftingPage modPack:options.modPack
         options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.storage      ?= new Storage storage:window.localStorage
@@ -30,7 +31,6 @@ module.exports = class CraftingPageController extends BaseController
         super options
 
         @_imageLoader = options.imageLoader
-        @_parser      = new InventoryParser modPack:options.modPack
         @_storage     = options.storage
 
     # Event Methods ################################################################################
@@ -42,7 +42,8 @@ module.exports = class CraftingPageController extends BaseController
 
     onWillRender: ->
         @_storage.register 'crafting-plan', @model.plan, 'includingTools'
-        @_parser.parse @_storage.load('crafting-plan:have'), @model.plan.have
+        @model.plan.have.clear()
+        @model.plan.have.parse @_storage.load('crafting-plan:have')
         super
 
     onDidRender: ->
@@ -104,9 +105,9 @@ module.exports = class CraftingPageController extends BaseController
     # Private Methods ##############################################################################
 
     _saveHaveInventory: ->
-        @_storage.store 'crafting-plan:have', @_parser.unparse @model.plan.have
+        @_storage.store 'crafting-plan:have', @model.plan.have.unparse()
 
     _updateLocation: ->
-        text = @_parser.unparse @model.plan.want
+        text = @model.plan.want.unparse()
         url = Url.crafting inventoryText:text
         router.navigate url

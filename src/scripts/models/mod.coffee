@@ -58,16 +58,16 @@ module.exports = class Mod extends BaseModel
     # ModVersion Proxy Methods #####################################################################
 
     eachItem: (callback)->
-        return unless @_activeModVersion?
-        @_activeModVersion.eachItem callback
+        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
+        effectiveModVersion.eachItem callback
 
     eachName: (callback)->
-        return unless @_activeModVersion?
-        @_activeModVersion.eachName callback
+        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
+        effectiveModVersion.eachName callback
 
     eachRecipe: (callback)->
-        return unless @_activeModVersion?
-        @_activeModVersion.eachRecipe callback
+        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
+        effectiveModVersion.eachRecipe callback
 
     findItem: (slug, options={})->
         options.includeDisabled ?= false
@@ -96,8 +96,14 @@ module.exports = class Mod extends BaseModel
         @_activeModVersion.findName itemSlug
 
     findRecipes: (itemSlug, result=[], options={})->
-        return result unless @_activeModVersion?
-        @_activeModVersion.findRecipes itemSlug, result, options
+        options.alwaysFromOwningMod ?= false
+
+        if @_activeModVersion?
+            return @_activeModVersion.findRecipes itemSlug, result, options
+        else if options.alwaysFromOwningMod and itemSlug.mod is @slug
+            return @getModVersion(Mod.Version.Latest).findRecipes itemSlug, result, options
+
+        return null
 
     # Property Methods #############################################################################
 

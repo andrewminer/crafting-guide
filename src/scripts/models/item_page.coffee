@@ -27,7 +27,7 @@ module.exports = class ItemPage extends BaseModel
         @modPack.eachMod (mod)=>
             mod.eachRecipe (recipe)=>
                 if recipe.requires @item.slug
-                    outputItem = @modPack.findItem recipe.itemSlug
+                    outputItem = @modPack.findItem recipe.itemSlug, includeDisabled:true
                     result[outputItem.slug] = outputItem
 
         result = _.values result
@@ -47,4 +47,4 @@ module.exports = class ItemPage extends BaseModel
         return result
 
     findRecipes: ->
-        return @modPack.findRecipes @item?.slug
+        return @modPack.findRecipes @item?.slug, [], alwaysFromOwningMod:true

@@ -81,12 +81,12 @@ module.exports = class ModPack extends BaseModel
 
         return null
 
-    findRecipes: (itemSlug, result=[])->
+    findRecipes: (itemSlug, result=[], options={})->
         return null unless itemSlug?
 
         for mod in @_mods
             continue unless mod.enabled
-            mod.findRecipes itemSlug, result
+            mod.findRecipes itemSlug, result, options
 
         result.sort (a, b)-> Recipe.compareFor a, b, itemSlug
 

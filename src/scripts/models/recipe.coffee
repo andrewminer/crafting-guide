@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseModel     = require './base_model'
+{Event}       = require '../constants'
 Stack         = require './stack'
 StringBuilder = require './string_builder'
 
@@ -31,6 +32,8 @@ module.exports = class Recipe extends BaseModel
         attributes.tools      ?= []
         options.logEvents     ?= false
         super attributes, options
+
+        @on Event.change + ':modVersion', => @_slug = null
 
     # Class Methods ################################################################################
 

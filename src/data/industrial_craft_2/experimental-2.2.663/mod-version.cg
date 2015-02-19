@@ -94,98 +94,95 @@ group: Agriculture
         recipe:
             input: Steak, Tin Can
             pattern: 101 111 111
-            tools: Canning Machine
             quantity: 8
+            tools: Canning Machine
         recipe:
             input: Cooked Porkchop, Tin Can
             pattern: 101 111 111
-            tools: Canning Machine
             quantity: 8
+            tools: Canning Machine
         recipe:
             input: Baked Potato, Tin Can
             pattern: .0. 111 111
-            tools: Canning Machine
             quantity: 6
+            tools: Canning Machine
         recipe:
             input: Cooked Chicken, Tin Can
             pattern: .0. 111 111
-            tools: Canning Machine
             quantity: 6
+            tools: Canning Machine
         recipe:
             input: Pumpkin Pie, Tin Can
             pattern: .0. 111 111
-            tools: Canning Machine
             quantity: 6
+            tools: Canning Machine
         recipe:
             input: Mushroom Stew, Tin Can
             pattern: .0. 111 111
-            tools: Canning Machine
             quantity: 6
+            tools: Canning Machine
         recipe:
             input: Bread, Tin Can
             pattern: ... 101 111
-            tools: Canning Machine
             quantity: 5
+            tools: Canning Machine
         recipe:
             input: Cooked Fish, Tin Can
             pattern: ... 101 111
-            tools: Canning Machine
             quantity: 5
+            tools: Canning Machine
         recipe:
             input: Carrot, Tin Can
             pattern: ... .01 111
-            tools: Canning Machine
             quantity: 4
+            tools: Canning Machine
         recipe:
             input: Apple, Tin Can
             pattern: ... .01 111
-            tools: Canning Machine
             quantity: 4
+            tools: Canning Machine
         recipe:
             input: Raw Beef, Tin Can
             pattern: ... .0. 111
-            tools: Canning Machine
             quantity: 3
+            tools: Canning Machine
         recipe:
             input: Raw Porkchop, Tin Can
             pattern: ... .0. 111
-            tools: Canning Machine
             quantity: 3
+            tools: Canning Machine
         recipe:
             input: Melon, Tin Can
             pattern: ... .0. 1.1
-            tools: Canning Machine
             quantity: 2
+            tools: Canning Machine
         recipe:
             input: Cookie, Tin Can
             pattern: ... .0. 1.1
-            tools: Canning Machine
             quantity: 2
+            tools: Canning Machine
         recipe:
             input: Raw Chicken, Tin Can
             pattern: ... .0. 1.1
-            tools: Canning Machine
             quantity: 2
+            tools: Canning Machine
         recipe:
             input: Raw Fish, Tin Can
             pattern: ... .0. 1.1
-            tools: Canning Machine
             quantity: 2
+            tools: Canning Machine
         recipe:
             input: Potato, Tin Can
             pattern: ... .0. .1.
             tools: Canning Machine
-            quantity: 1
         recipe:
             input: Poisonous Potato, Tin Can
             pattern: .0. .0. .1.
             tools: Canning Machine
-            quantity: 1
         recipe:
             input: Rotten Flesh, Tin Can
             pattern: .0. .0. .1.
             tools: Canning Machine
-            quantity: 1
 
     item: Grin Powder
         recipe:
@@ -566,10 +563,10 @@ group: Energy: Transmission
 
     item: Copper Cable
         recipe:
-            tools: Cutter
             input: Copper Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Cutter
         recipe:
             input: Copper Ingot
             pattern: ... .0. ...
@@ -607,10 +604,10 @@ group: Energy: Transmission
 
     item: Gold Cable
         recipe:
-            tools: Cutter
             input: Gold Plate
             pattern: ... .0. ...
             quantity: 4
+            tools: Cutter
         recipe:
             input: Gold Ingot
             pattern: ... .0. ...
@@ -674,10 +671,10 @@ group: Energy: Transmission
 
     item: Tin Cable
         recipe:
-            tools: Cutter
             input: Tin Plate
             pattern: ... .0. ...
             quantity: 3
+            tools: Cutter
         recipe:
             input: Tin Ingot
             pattern: ... .0. ...
@@ -735,10 +732,10 @@ group: Machine Parts
 
     item: Bronze Item Casing
         recipe:
-            tools: Forge Hammer
             input: Bronze Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Forge Hammer
         recipe:
             input: Bronze Plate
             pattern: ... .0. ...
@@ -747,9 +744,9 @@ group: Machine Parts
 
     item: Bronze Plate
         recipe:
-            tools: Forge Hammer
             input: Bronze Ingot
             pattern: ... .0. ...
+            tools: Forge Hammer
         recipe:
             input: Bronze Ingot
             pattern: ... .0. ...
@@ -786,10 +783,10 @@ group: Machine Parts
 
     item: Copper Item Casing
         recipe:
-            tools: Forge Hammer
             input: Copper Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Forge Hammer
         recipe:
             input: Copper Plate
             pattern: ... .0. ...
@@ -798,9 +795,9 @@ group: Machine Parts
 
     item: Copper Plate
         recipe:
-            tools: Forge Hammer
             input: Copper Ingot
             pattern: ... .0. ...
+            tools: Forge Hammer
         recipe:
             input: Copper Ingot
             pattern: ... .0. ...
@@ -909,10 +906,10 @@ group: Machine Parts
 
     item: Gold Item Casing
         recipe:
-            tools: Forge Hammer
             input: Gold Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Forge Hammer
         recipe:
             input: Gold Plate
             pattern: ... .0. ...
@@ -921,9 +918,9 @@ group: Machine Parts
 
     item: Gold Plate
         recipe:
-            tools: Forge Hammer
             input: Gold Ingot
             pattern: ... .0. ...
+            tools: Forge Hammer
         recipe:
             input: Gold Ingot
             pattern: ... .0. ...
@@ -941,10 +938,10 @@ group: Machine Parts
 
     item: Iron Item Casing
         recipe:
-            tools: Forge Hammer
             input: Iron Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Forge Hammer
         recipe:
             input: Iron Plate
             pattern: ... .0. ...
@@ -953,9 +950,9 @@ group: Machine Parts
 
     item: Iron Plate
         recipe:
-            tools: Forge Hammer
             input: Iron Ingot
             pattern: ... .0. ...
+            tools: Forge Hammer
         recipe:
             input: Iron Ingot
             pattern: ... .0. ...
@@ -1012,11 +1009,6 @@ group: Machine Parts
             pattern: ... .0. ...
             quantity: 9
             tools: Block Cutting Machine
-        recipe:
-            input: Lapis Lazuli Block
-            pattern: ... .0. ...
-            quantity: 9
-            tools: Block Cutting Machine
 
     item: Lapotron Crystal
         recipe:
@@ -1026,10 +1018,10 @@ group: Machine Parts
 
     item: Lead Item Casing
         recipe:
-            tools: Forge Hammer
             input: Lead Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Forge Hammer
         recipe:
             input: Lead Plate
             pattern: ... .0. ...
@@ -1038,9 +1030,9 @@ group: Machine Parts
 
     item: Lead Plate
         recipe:
-            tools: Forge Hammer
             input: Lead Ingot
             pattern: ... .0. ...
+            tools: Forge Hammer
         recipe:
             input: Lead Ingot
             pattern: ... .0. ...
@@ -1068,11 +1060,6 @@ group: Machine Parts
             input: Obsidian Dust
             pattern: ... .0. ...
             tools: Compressor
-        recipe:
-            input: Obsidian
-            pattern: ... .0. ...
-            quantity: 9
-            tools: Block Cutting Machine
 
     item: Overclocker Upgrade
         recipe:
@@ -1230,10 +1217,10 @@ group: Machine Parts
 
     item: Tin Item Casing
         recipe:
-            tools: Forge Hammer
             input: Tin Plate
             pattern: ... .0. ...
             quantity: 2
+            tools: Forge Hammer
         recipe:
             input: Tin Plate
             pattern: ... .0. ...
@@ -1242,9 +1229,9 @@ group: Machine Parts
 
     item: Tin Plate
         recipe:
-            tools: Forge Hammer
             input: Tin Ingot
             pattern: ... .0. ...
+            tools: Forge Hammer
         recipe:
             input: Tin Ingot
             pattern: ... .0. ...
@@ -2549,8 +2536,8 @@ group: Nuclear Reactor
 
     item: Coolant Cell
         recipe:
-            input: Distilled Water, Lapis Lazuli Dust, Empty Cell
-            pattern: .0. .1. .2.
+            input: Distilled Water, Empty Cell, Lapis Lazuli Dust
+            pattern: .0. .2. .1.
             tools: Fluid/Solid Canning Machine
 
     item: Dual Fuel Rod (Depleted MOX)
@@ -3102,10 +3089,12 @@ update: Iron Ingot
         input: Crushed Iron Ore, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
+
     recipe:
         input: Purified Crushed Iron Ore, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
+
     recipe:
         input: Iron Dust, furnace fuel
         pattern: .0. ... .1.

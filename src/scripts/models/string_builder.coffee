@@ -40,7 +40,7 @@ module.exports = class StringBuilder
         return this
 
     line: (args...)->
-        @push.apply this, args
+        @push.apply(this, args) if args.length > 0
         @push '\n'
 
     loop: (list, options={})->

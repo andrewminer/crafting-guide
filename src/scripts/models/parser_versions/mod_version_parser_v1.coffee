@@ -215,8 +215,9 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             builder
                 .line 'update: ', modVersion.findName ItemSlug.slugify(itemSlugText)
                 .indent()
-                .loop(recipeList, delimiter:'\n\n', onEach:(b, r)=> @_unparseRecipe(b, r))
+                .loop(recipeList, delimiter:'\n', onEach:(b, r)=> @_unparseRecipe(b, r))
                 .outdent()
+                .line()
 
     _unparseGroup: (builder, modVersion, group)->
         if group isnt Item.Group.Other
@@ -233,7 +234,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             builder.outdent()
 
     _unparseItem: (builder, modVersion, item)->
-        recipes = modVersion.findRecipes item.slug
+        recipes = modVersion.findRecipes item.slug, [], onlyPrimary:true
 
         builder
             .line 'item: ', item.name

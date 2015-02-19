@@ -117,23 +117,24 @@ module.exports = class ModVersion extends BaseModel
 
     addRecipe: (recipe)->
         recipe.modVersion = this
-
-        for stack in recipe.output
-            recipeList = @_recipes[stack.itemSlug.item]
-            if not recipeList?
-                recipeList = @_recipes[stack.itemSlug.item] = []
-            recipeList.push recipe
-
+        if @_recipes[recipe.slug]? then throw new Error "duplicate recipe: #{recipe.slug}"
+        @_recipes[recipe.slug] = recipe
         return this
 
     eachRecipe: (callback)->
-        for itemSlugText, recipeList of @_recipes
-            for recipe in recipeList
-                callback recipe
+        recipes = _.values(@_recipes).sort (a, b)-> a.compareTo b
+        for recipe in recipes
+            callback recipe
+        return this
 
-    findRecipes: (itemSlug, result=[])->
-        for k, recipeList of @_recipes
-            for recipe in recipeList
+    findRecipes: (itemSlug, result=[], options={})->
+        options.onlyPrimary ?= false
+
+        for k, recipe of @_recipes
+            if options.onlyPrimary
+                if recipe.itemSlug.matches itemSlug
+                    result.push recipe
+            else
                 if recipe.produces itemSlug
                     result.push recipe
 
@@ -141,20 +142,19 @@ module.exports = class ModVersion extends BaseModel
 
     findExternalRecipes: ->
         result = {}
-        for itemSlug in @_slugs
-            continue if itemSlug.isQualified
-            recipes = @_recipes[itemSlug.item]
-            continue unless recipes? and recipes.length > 0
+        for k, recipe of @_recipes
+            continue if recipe.itemSlug.isQualified
 
-            resultList = result[itemSlug] = []
-            for recipe in recipes
-                resultList.push recipe
+            recipeList = result[recipe.itemSlug]
+            if not recipeList then recipeList = result[recipe.itemSlug] = []
+
+            recipeList.push recipe
 
         return result
 
     hasRecipes: (itemSlug)->
-        recipeList = @_recipes[itemSlug.item]
-        return true if recipeList? and recipeList.length > 0
+        for k, recipe of @_recipes
+            return true if recipe.produces itemSlug
         return false
 
     # Backbone.Model Overrides #####################################################################

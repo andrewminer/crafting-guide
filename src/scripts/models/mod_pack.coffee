@@ -6,9 +6,10 @@ All rights reserved.
 ###
 
 BaseModel            = require './base_model'
+{DefaultModVersions} = require '../constants'
 {Event}              = require '../constants'
 ModVersionParser     = require './mod_version_parser'
-{DefaultModVersions} = require '../constants'
+Recipe               = require './recipe'
 {Url}                = require '../constants'
 
 ########################################################################################################################
@@ -50,7 +51,7 @@ module.exports = class ModPack extends BaseModel
         return null
 
     findItemDisplay: (itemSlug)->
-        if not itemSlug? then return null
+        if not itemSlug? then throw new Error 'itemSlug is required'
 
         result = {}
         item = @findItem itemSlug, includeDisabled:true
@@ -81,15 +82,18 @@ module.exports = class ModPack extends BaseModel
         return null
 
     findRecipes: (itemSlug, result=[])->
+        return null unless itemSlug?
+
         if itemSlug.isQualified
             mod = @getMod itemSlug.mod
-            if mod?
-                mod.findRecipes itemSlug, result
-                return result if result.length > 0
+            if mod? then mod.findRecipes itemSlug, result
 
-        for mod in @_mods
-            continue unless mod.enabled
-            mod.findRecipes itemSlug, result
+        if result.length is 0
+            for mod in @_mods
+                continue unless mod.enabled
+                mod.findRecipes itemSlug, result
+
+        result.sort (a, b)-> Recipe.compareFor a, b, itemSlug
 
         return if result.length > 0 then result else null
 

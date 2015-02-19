@@ -101,7 +101,7 @@ module.exports = class ModVersion extends BaseModel
 
     eachName: (callback)->
         for slug in @_slugs
-            callback @_names[slug.item]
+            callback @_names[slug.item], slug
         return this
 
     findName: (itemSlug)->
@@ -125,6 +125,11 @@ module.exports = class ModVersion extends BaseModel
             recipeList.push recipe
 
         return this
+
+    eachRecipe: (callback)->
+        for itemSlugText, recipeList of @_recipes
+            for recipe in recipeList
+                callback recipe
 
     findRecipes: (itemSlug, result=[])->
         recipeList = @_recipes[itemSlug.item]

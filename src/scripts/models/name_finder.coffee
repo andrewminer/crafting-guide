@@ -62,10 +62,10 @@ module.exports = class NameFinder
         @modPack.eachMod (mod)=>
             return unless mod.enabled or @includeDisabledMods
 
-            mod.eachName (name, slug)=>
+            mod.eachName (name, itemSlug)=>
                 return if nameMap[name]
 
-                item = mod.findItem slug
+                item = mod.findItem itemSlug
                 if not @includeGatherable
                     return unless item? and item.isCraftable
 

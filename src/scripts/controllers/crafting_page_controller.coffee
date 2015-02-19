@@ -42,7 +42,8 @@ module.exports = class CraftingPageController extends BaseController
 
     onWillRender: ->
         @_storage.register 'crafting-plan', @model.plan, 'includingTools'
-        @_parser.parse @_storage.load('crafting-plan:have'), @model.plan.have
+        @model.plan.have.clear()
+        @model.plan.have.parse @_storage.load('crafting-plan:have')
         super
 
     onDidRender: ->
@@ -104,9 +105,9 @@ module.exports = class CraftingPageController extends BaseController
     # Private Methods ##############################################################################
 
     _saveHaveInventory: ->
-        @_storage.store 'crafting-plan:have', @_parser.unparse @model.plan.have
+        @_storage.store 'crafting-plan:have', @model.plan.have.unparse()
 
     _updateLocation: ->
-        text = @_parser.unparse @model.plan.want
+        text = @model.plan.want.unparse()
         url = Url.crafting inventoryText:text
         router.navigate url

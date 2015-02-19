@@ -43,7 +43,7 @@ module.exports = class InventoryController extends BaseController
         item = @modPack.findItemByName @$nameField.val()
         return unless item?
 
-        @model.add item.qualifiedSlug, parseInt(@$quantityField.val())
+        @model.add item.slug, parseInt(@$quantityField.val())
         @$nameField.val ''
         @$quantityField.val '1'
 

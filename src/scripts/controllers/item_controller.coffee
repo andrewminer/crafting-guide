@@ -28,7 +28,7 @@ module.exports = class ItemController extends BaseController
         super
 
     refresh: ->
-        display = @_modPack.findItemDisplay @model.qualifiedSlug
+        display = @_modPack.findItemDisplay @model.slug
 
         @$icon.attr 'src', display.iconUrl
         @$name.html display.itemName

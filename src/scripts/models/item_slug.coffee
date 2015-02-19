@@ -59,6 +59,9 @@ module.exports = class ItemSlug
 
     # Public Methods ###############################################################################
 
+    compareTo: (that)->
+        return ItemSlug.compare this, that
+
     matches: (slug, options={exact:false})->
         return false unless slug?.constructor?.name is 'ItemSlug'
 

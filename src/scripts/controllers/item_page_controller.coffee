@@ -54,11 +54,11 @@ module.exports = class ItemPageController extends BaseController
         super
 
     refresh: ->
-        $('title').html if @model.item? then "#{@model.item.name} | #{Text.title}" else Text.title
+        $('title').html if @model.item? then "#{@model.item?.name} | #{Text.title}" else Text.title
         @_resolveItemSlug()
 
-        display = @_modPack.findItemDisplay @model.item?.qualifiedSlug
-        if display?
+        if @model.item?
+            display = @_modPack.findItemDisplay @model.item.slug
             @$craftingPlanLink.attr href:display.craftingUrl
             @$craftingPlanLink.fadeIn duration:Duration.normal
             @_imageLoader.load display.iconUrl, @$titleImage

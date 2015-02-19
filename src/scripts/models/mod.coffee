@@ -65,6 +65,10 @@ module.exports = class Mod extends BaseModel
         return unless @_activeModVersion?
         @_activeModVersion.eachName callback
 
+    eachRecipe: (callback)->
+        return unless @_activeModVersion?
+        @_activeModVersion.eachRecipe callback
+
     findItem: (slug, options={})->
         options.includeDisabled ?= false
         options.enableAsNeeded  ?= false

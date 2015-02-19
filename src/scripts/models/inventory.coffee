@@ -144,14 +144,14 @@ module.exports = class Inventory extends BaseModel
 
         return this
 
-    unparse: ->
+    unparse: (options={})->
         parts = []
         @each (stack)=>
-            slugText = stack.itemSlug.qualified
+            slugText = stack.itemSlug.item
             if @modPack?
-                item = @modPack.findItem stack.itemSlug.item
-                if item?
-                    slugText = if item.slug isnt stack.itemSlug then item.slug.qualified
+                item = @modPack.findItem ItemSlug.slugify slugText
+                if item? and item.slug.qualified isnt stack.itemSlug.qualified
+                    slugText = item.slug.qualified
 
             if stack.quantity is 1
                 parts.push slugText

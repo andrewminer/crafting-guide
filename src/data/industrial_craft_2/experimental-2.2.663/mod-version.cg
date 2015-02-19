@@ -2443,22 +2443,6 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Copper Dust
         recipe:
-            extras: Purified Crushed Copper Ore, Stone Dust
-            input: Crushed Copper Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Lead Dust
-            input: Purified Crushed Lead Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Lead Dust, Stone Dust
-            input: Crushed Lead Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
             input: Copper Plate
             pattern: ... .0. ...
             quantity: 8
@@ -2466,49 +2450,12 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Gold Dust
         recipe:
-            extras: Purified Crushed Gold Ore, Stone Dust
-            input: Crushed Gold Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Iron Dust
-            input: Purified Crushed Iron Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Iron Dust, Stone Dust
-            input: Crushed Iron Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 5 Coal Dust
-            input: Slag
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
             input: Gold Plate
             pattern: ... .0. ...
             quantity: 8
             tools: Macerator
 
     item: Tiny Pile of Iron Dust
-        recipe:
-            extras: Purified Crushed Iron Ore, Stone Dust
-            input: Crushed Iron Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Tin Dust
-            input: Purified Crushed Tin Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Tin Dust, Stone Dust
-            input: Crushed Tin Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Iron Plate
             pattern: ... .0. ...
@@ -2523,17 +2470,6 @@ group: Minerals: Dusts
             tools: Macerator
 
     item: Tiny Pile of Lead Dust
-        recipe:
-            extras: Purified Crushed Uranium Ore, Stone Dust
-            input: Crushed Uranium Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Silver Dust
-            input: Purified Crushed Silver Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Lead Plate
             pattern: ... .0. ...
@@ -2555,77 +2491,15 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Plutonium
         recipe:
-            extras: 16 Uranium 238, 6 Iron Dust
-            input: Quad Fuel Rod (Depleted Uranium)
-            pattern: ... .0. ...
-            quantity: 4
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 12 Plutonium, 6 Iron Dust
-            input: Quad Fuel Rod (Depleted MOX)
-            pattern: ... .0. ...
-            quantity: 4
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 8 Uranium 238, 3 Iron Dust
-            input: Dual Fuel Rod (Depleted Uranium)
-            pattern: ... .0. ...
-            quantity: 2
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 6 Plutonium, 3 Iron Ingot
-            input: Dual Fuel Rod (Depleted MOX)
-            pattern: ... .0. ...
-            quantity: 2
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 4 Uranium 238, Iron Dust
-            input: Fuel Rod (Depleted Uranium)
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 3 Plutonium, Iron Ingot
-            input: Fuel Rod (Depleted MOX)
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
             input: Plutonium
             pattern: ... .0. ...
             quantity: 9
 
     item: Tiny Pile of Silver Dust
-        recipe:
-            extras: Purified Crushed Silver Ore, Stone Dust
-            input: Crushed Silver Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
 
     item: Tiny Pile of Sulfur Dust
-        recipe:
-            extras: Purified Crushed Lead Ore, Stone Dust
-            input: Crushed Lead Ore, Water
-            pattern: ... .0. .1.
-            quantity: 3
-            tools: Ore Washing Plant
 
     item: Tiny Pile of Tin Dust
-        recipe:
-            extras: Purified Crushed Tin Ore, Stone Dust
-            input: Crushed Tin Ore, Water
-            pattern: ... .0. .1.
-            quantity: 2
-            tools: Ore Washing Plant
-        recipe:
-            extras: Copper Dust
-            input: Purified Crushed Copper Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
-        recipe:
-            extras: Copper Dust, Stone Dust
-            input: Crushed Copper Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Tin Plate
             pattern: ... .0. ...
@@ -2633,17 +2507,6 @@ group: Minerals: Dusts
             tools: Macerator
 
     item: Tiny Pile of Uranium 235
-        recipe:
-            extras: 5 Uranium 238
-            input: Purified Crushed Uranium Ore
-            pattern: ... .0. ...
-            quantity: 2
-            tools: Thermal Centrifuge
-        recipe:
-            extras: 4 Uranium 238, Stone Dust
-            input: Crushed Uranium Ore
-            pattern: ... .0. ...
-            tools: Thermal Centrifuge
         recipe:
             input: Uranium 235
             pattern: ... .0. ...

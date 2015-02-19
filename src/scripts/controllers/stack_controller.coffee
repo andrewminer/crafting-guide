@@ -43,7 +43,7 @@ module.exports = class StackController extends BaseController
         super
 
     refresh: ->
-        display = @modPack.findItemDisplay @model.slug
+        display = @modPack.findItemDisplay @model.itemSlug
 
         @_imageLoader.load display.iconUrl, @$image
         @$nameLink.html display.itemName

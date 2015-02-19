@@ -32,14 +32,16 @@ module.exports = class ItemPage extends BaseModel
         return null unless @item?
 
         result = {}
-        @modPack.eachMod (mod)->
-            mod.eachRecipe (recipe)->
-                if recipe.produces @item.slug
-                    result[item.slug] = item
+        @modPack.eachMod (mod)=>
+            mod.eachRecipe (recipe)=>
+                if recipe.requires @item.slug
+                    outputItem = @modPack.findItem recipe.itemSlug
+                    result[outputItem.slug] = outputItem
 
-        result = _.values(result).sort (a, b)-> a.compareTo b
+        result = _.values result
         return null unless result.length > 0
-        return result
+
+        return result.sort (a, b)-> a.compareTo b
 
     findSimilarItems: ->
         return null unless @item?.modVersion?
@@ -61,7 +63,7 @@ module.exports = class ItemPage extends BaseModel
         @_plan.clear()
 
         if @item?
-            @_plan.want.add @item.qualifiedSlug
+            @_plan.want.add @item.slug
             @_plan.craft()
 
             if @_plan.steps.length > 0

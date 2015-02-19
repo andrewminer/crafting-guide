@@ -31,7 +31,39 @@ module.exports = class Recipe extends BaseModel
         options.logEvents     ?= false
         super attributes, options
 
+    # Class Methods ################################################################################
+
+    @compareFor: (a, b, itemSlug)->
+        aValue = a.itemSlug.matches itemSlug
+        bValue = b.itemSlug.matches itemSlug
+        if aValue isnt bValue
+            return -1 if aValue
+            return +1 if bValue
+
+        aValue = a.getQuantityProducedOf itemSlug
+        bValue = b.getQuantityProducedOf itemSlug
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
+
+        aValue = a.getInputCount()
+        bValue = b.getInputCount()
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
+
+        aValue = a.getOutputCount()
+        bValue = b.getOutputCount()
+        if aValue isnt bValue
+            return if aValue > bValue then -1 else +1
+
+        return 0
+
     # Public Methods ###############################################################################
+
+    getInputCount: ->
+        result = 0
+        for stack in @input
+            result += stack.quantity
+        return result
 
     getItemSlugAt: (patternSlot)->
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
@@ -44,11 +76,30 @@ module.exports = class Recipe extends BaseModel
 
         return stack.itemSlug
 
+    getOutputCount: ->
+        result = 0
+        for stack in @output
+            result += stack.quantity
+        return result
+
+    getQuantityProducedOf: (itemSlug)->
+        for stack in @output
+            if stack.itemSlug.matches itemSlug
+                return stack.quantity
+
+        return 0
+
     produces: (itemSlug)->
         for stack in @output
             if stack.itemSlug.matches itemSlug
                 return true
 
+        return false
+
+    requires: (itemSlug)->
+        for stack in @input
+            if stack.itemSlug.matches itemSlug
+                return true
         return false
 
     # Object Overrides #############################################################################

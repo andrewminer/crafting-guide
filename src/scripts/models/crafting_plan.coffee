@@ -43,7 +43,8 @@ module.exports = class CraftingPlan extends BaseModel
 
     craft: ->
         toolsMessage = if @includingTools then ' (including tools)' else ''
-        logger.info => "crafting #{@want}#{toolsMessage} starting with #{@have}"
+        haveMessage = if @have.isEmpty then '' else " starting with #{@have.unparse()}"
+        logger.info => "crafting #{@want.unparse()}#{toolsMessage}#{haveMessage}"
 
         @clear()
         @have.localize()
@@ -103,7 +104,7 @@ module.exports = class CraftingPlan extends BaseModel
 
     _chooseRecipe: (item)->
         recipes = @modPack.findRecipes item.slug
-        return null unless recipes?
+        return null unless recipes? and recipes.length > 0
         return recipes[0]
 
     _findSteps: (itemSlug)->
@@ -145,8 +146,9 @@ module.exports = class CraftingPlan extends BaseModel
         for i in [@steps.length-1..0] by -1
             step   = @steps[i]
             recipe = step.recipe
+            stepItemSlug = @_qualifyItemSlug step.recipe.itemSlug
 
-            step.multiplier = Math.ceil(@need.quantityOf(recipe.itemSlug) / recipe.output[0].quantity)
+            step.multiplier = Math.ceil(@need.quantityOf(stepItemSlug) / recipe.output[0].quantity)
 
             if @includingTools
                 for stack in recipe.tools

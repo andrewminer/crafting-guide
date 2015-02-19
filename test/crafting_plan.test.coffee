@@ -45,25 +45,25 @@ describe 'crafting_plan.coffee', ->
                 plan.want.add ItemSlug.slugify 'oak_plank'
                 plan.craft()
                 plan.need.unparse().should.equal 'oak_log'
-                plan.result.unparse().should.equal '4.minecraft__oak_plank'
+                plan.result.unparse().should.equal '4.oak_plank'
 
             it 'can craft a multi-step recipe', ->
                 plan.want.add ItemSlug.slugify 'crafting_table'
                 plan.craft()
                 plan.need.unparse().should.equal 'oak_log'
-                plan.result.unparse().should.equal 'minecraft__crafting_table'
+                plan.result.unparse().should.equal 'crafting_table'
 
             it 'can craft a multi-step recipe using tools', ->
                 plan.want.add ItemSlug.slugify 'furnace'
                 plan.craft()
                 plan.need.unparse().should.equal '8.cobblestone'
-                plan.result.unparse().should.equal 'minecraft__furnace'
+                plan.result.unparse().should.equal 'furnace'
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.want.add ItemSlug.slugify 'iron_sword'
                 plan.craft()
                 plan.need.unparse().should.equal '2.furnace_fuel:2.iron_ore:oak_log'
-                plan.result.unparse().should.equal 'minecraft__iron_sword:2.minecraft__oak_plank:3.minecraft__stick'
+                plan.result.unparse().should.equal 'iron_sword:2.oak_plank:3.stick'
 
         describe 'with building tools', ->
 
@@ -72,7 +72,7 @@ describe 'crafting_plan.coffee', ->
                 plan.want.add ItemSlug.slugify 'furnace'
                 plan.craft()
                 plan.need.unparse().should.equal '8.cobblestone:oak_log'
-                plan.result.unparse().should.equal 'minecraft__crafting_table:minecraft__furnace'
+                plan.result.unparse().should.equal 'crafting_table:furnace'
 
             it 'can craft a multi-step recipe re-using tools', ->
                 plan.includingTools = true
@@ -80,5 +80,5 @@ describe 'crafting_plan.coffee', ->
                 plan.craft()
 
                 plan.need.unparse().should.eql '8.cobblestone:2.furnace_fuel:2.iron_ore:2.oak_log'
-                plan.result.unparse().should.equal 'minecraft__crafting_table:minecraft__furnace:' +
-                    'minecraft__iron_sword:2.minecraft__oak_plank:3.minecraft__stick'
+                plan.result.unparse().should.equal 'crafting_table:furnace:' +
+                    'iron_sword:2.oak_plank:3.stick'

@@ -566,9 +566,9 @@ group: Energy: Transmission
 
     item: Copper Cable
         recipe:
-            extras: Cutter
-            input: Copper Plate, Cutter
-            pattern: ... 01. ...
+            tools: Cutter
+            input: Copper Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Copper Ingot
@@ -607,9 +607,9 @@ group: Energy: Transmission
 
     item: Gold Cable
         recipe:
-            extras: Cutter
-            input: Cutter, Gold Plate
-            pattern: ... 10. ...
+            tools: Cutter
+            input: Gold Plate
+            pattern: ... .0. ...
             quantity: 4
         recipe:
             input: Gold Ingot
@@ -674,9 +674,9 @@ group: Energy: Transmission
 
     item: Tin Cable
         recipe:
-            extras: Cutter
-            input: Cutter, Tin Plate
-            pattern: ... 10. ...
+            tools: Cutter
+            input: Tin Plate
+            pattern: ... .0. ...
             quantity: 3
         recipe:
             input: Tin Ingot
@@ -735,9 +735,9 @@ group: Machine Parts
 
     item: Bronze Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Bronze Plate, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Bronze Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Bronze Plate
@@ -747,9 +747,9 @@ group: Machine Parts
 
     item: Bronze Plate
         recipe:
-            extras: Forge Hammer
-            input: Bronze Ingot, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Bronze Ingot
+            pattern: ... .0. ...
         recipe:
             input: Bronze Ingot
             pattern: ... .0. ...
@@ -786,9 +786,9 @@ group: Machine Parts
 
     item: Copper Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Copper Plate, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Copper Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Copper Plate
@@ -798,9 +798,9 @@ group: Machine Parts
 
     item: Copper Plate
         recipe:
-            extras: Forge Hammer
-            input: Copper Ingot, Forge Hammer
-            pattern: ... 01. ...
+            tools: Forge Hammer
+            input: Copper Ingot
+            pattern: ... .0. ...
         recipe:
             input: Copper Ingot
             pattern: ... .0. ...
@@ -909,9 +909,9 @@ group: Machine Parts
 
     item: Gold Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Gold Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Gold Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Gold Plate
@@ -921,9 +921,9 @@ group: Machine Parts
 
     item: Gold Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Gold Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Gold Ingot
+            pattern: ... .0. ...
         recipe:
             input: Gold Ingot
             pattern: ... .0. ...
@@ -941,9 +941,9 @@ group: Machine Parts
 
     item: Iron Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Iron Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Iron Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Iron Plate
@@ -953,9 +953,9 @@ group: Machine Parts
 
     item: Iron Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Iron Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Iron Ingot
+            pattern: ... .0. ...
         recipe:
             input: Iron Ingot
             pattern: ... .0. ...
@@ -1026,9 +1026,9 @@ group: Machine Parts
 
     item: Lead Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Lead Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Lead Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Lead Plate
@@ -1038,9 +1038,9 @@ group: Machine Parts
 
     item: Lead Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Lead Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Lead Ingot
+            pattern: ... .0. ...
         recipe:
             input: Lead Ingot
             pattern: ... .0. ...
@@ -1230,9 +1230,9 @@ group: Machine Parts
 
     item: Tin Item Casing
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Tin Plate
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Tin Plate
+            pattern: ... .0. ...
             quantity: 2
         recipe:
             input: Tin Plate
@@ -1242,9 +1242,9 @@ group: Machine Parts
 
     item: Tin Plate
         recipe:
-            extras: Forge Hammer
-            input: Forge Hammer, Tin Ingot
-            pattern: ... 10. ...
+            tools: Forge Hammer
+            input: Tin Ingot
+            pattern: ... .0. ...
         recipe:
             input: Tin Ingot
             pattern: ... .0. ...
@@ -1859,31 +1859,6 @@ group: Minerals
             tools: Furnace
 
     item: Slag
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Iron Ore
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Iron Dust
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Iron Ingot
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Crushed Iron Ore
-            pattern: ... .1. .0.
-            tools: Blast Furnace
-        recipe:
-            extras: Reinforced Iron Ingot, Empty Cell
-            input: Compressed Air Cell, Purified Crushed Iron Ore
-            pattern: ... .1. .0.
-            tools: Blast Furnace
 
     item: Steam
 
@@ -3135,3 +3110,9 @@ update: Iron Ingot
         input: Iron Dust, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
+
+update: Diamond
+    recipe:
+        input: Coal Chunk
+        pattern: ... .0. ...
+        tools: Compressor

@@ -5,8 +5,9 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel = require './base_model'
-Stack     = require './stack'
+BaseModel     = require './base_model'
+Stack         = require './stack'
+StringBuilder = require './string_builder'
 
 ########################################################################################################################
 
@@ -43,7 +44,7 @@ module.exports = class Recipe extends BaseModel
         aValue = a.getQuantityProducedOf itemSlug
         bValue = b.getQuantityProducedOf itemSlug
         if aValue isnt bValue
-            return if aValue < bValue then -1 else +1
+            return if aValue > bValue then -1 else +1
 
         aValue = a.getInputCount()
         bValue = b.getInputCount()
@@ -101,6 +102,24 @@ module.exports = class Recipe extends BaseModel
             if stack.itemSlug.matches itemSlug
                 return true
         return false
+
+    # Property Methods #############################################################################
+
+    getSlug: ->
+        if not @_slug?
+            builder = new StringBuilder
+            builder
+                .loop(@input, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+                .onlyIf @tools.length > 0, (b)=>
+                    b.push(' + ').loop(@tools, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+                .push(' => ')
+                .loop(@output, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+            @_slug = builder.toString()
+
+        return @_slug
+
+    Object.defineProperties @prototype,
+        slug: {get:@prototype.getSlug}
 
     # Object Overrides #############################################################################
 

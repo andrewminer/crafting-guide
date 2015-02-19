@@ -21,16 +21,23 @@ module.exports = class Logger
 
     constructor: (options={})->
         options.level ?= Logger.FATAL
-        @formatText = if options.format? then options.format else "<%= timestamp %> | <%= level %> | <%= message %>"
+        @formatText = options.format
+        @formatText ?= "<%= timestamp %> | <%= level %> | <%= indent %><%= message %>"
         @level      = @_parseLevel options
 
-        @_format   = _.template @formatText
+        @_format = _.template @formatText
+        @_indent = ''
+
+    # Public Methods ###############################################################################
+
+    indent: ->
+        @_indent += '    '
 
     log: (level, message)->
         return unless level.value >= @level.value
         message = message() if _.isFunction message
 
-        entry = {timestamp:new Date(), level:level, message:message}
+        entry = {timestamp:new Date(), level:level, message:message, indent:@_indent}
         entry.level ?= @level
 
         lines = @_formatEntry entry
@@ -38,6 +45,9 @@ module.exports = class Logger
             console.log(line) for line in lines
         else
             console.error(line) for line in lines
+
+    outdent: ->
+        @_indent = @_indent[0...@_indent.length - 4]
 
     # Log Methods ##################################################################################
 
@@ -67,6 +77,7 @@ module.exports = class Logger
                 timestamp: "#{entry.timestamp}"
                 level:     entry.level.name
                 message:   line
+                indent:    entry.indent
             lines.push result.join ''
         return lines
 

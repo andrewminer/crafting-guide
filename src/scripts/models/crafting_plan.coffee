@@ -8,6 +8,7 @@ All rights reserved.
 BaseModel = require './base_model'
 {Event}   = require '../constants'
 Inventory = require './inventory'
+ItemSlug  = require './item_slug'
 
 ########################################################################################################################
 
@@ -53,14 +54,12 @@ module.exports = class CraftingPlan extends BaseModel
         @result.addInventory @have
 
         @steps = {}
-        @_reservedSteps = {}
         @want.each (stack)=>
-            @_findSteps stack.itemSlug
+            @_findSteps stack.itemSlug, {}, ignoreGatherable:true
             item = @modPack.findItem stack.itemSlug
             @need.add item.slug, stack.quantity
-        @_reservedSteps = null
 
-        @steps = _.values @steps
+        @steps = (recipe:recipe for recipeSlug, recipe of @steps)
         @_resolveNeeds()
         @_removeExtraSteps()
 
@@ -99,38 +98,69 @@ module.exports = class CraftingPlan extends BaseModel
     # Private Methods ##############################################################################
 
     _addStep: (recipe)->
-        logger.verbose -> "adding step: #{recipe.itemSlug}"
-        @steps[recipe.itemSlug] = recipe:recipe
+        logger.verbose -> "adding step for: #{recipe.slug}"
+        @steps[recipe.slug] = recipe
 
     _chooseRecipe: (item)->
         recipes = @modPack.findRecipes item.slug
         return null unless recipes? and recipes.length > 0
         return recipes[0]
 
-    _findSteps: (itemSlug)->
+    _findSteps: (itemSlug, parentSteps={})->
         item = @modPack.findItem itemSlug
         return unless item?
         return unless item.isCraftable
-        return if item.isGatherable
 
-        recipe = @_chooseRecipe item
+        ignoreGatherable = @want.hasAtLeast itemSlug, 1
+        if (not item.isGatherable) or ignoreGatherable
+            recipes = @modPack.findRecipes item.slug
+            recipes ?= []
 
-        if @includingTools
-            for toolStack in recipe.tools
-                if not @_hasStep toolStack.itemSlug
-                    @_findSteps toolStack.itemSlug
+            if parentSteps[item.slug]?
+                logger.verbose -> "found cycle at #{item.slug}"
+                throw new Error 'invalid recipe path'
+            parentSteps[item.slug] = item
 
-        return if @_hasStep item.slug
-        @_reservedSteps[item.slug] = recipe
+            logger.verbose -> "exploring: #{item.slug}"
+            logger.indent()
 
-        for inputStack in recipe.input
-            @_findSteps inputStack.itemSlug
+            currentSteps = _.clone @steps
+            foundValidRecipe = false
+            for i in [0...recipes.length] by 1
+                recipe = recipes[i]
+                logger.verbose -> "trying recipe #{i+1} of #{recipes.length}: #{recipe.slug}"
+                if @steps[recipe.slug]?
+                    logger.verbose -> "already accepted this recipe"
+                    foundValidRecipe = true
+                    break
 
-        @_addStep recipe
+                try
+                    if @includingTools
+                        for toolStack in recipe.tools
+                            if not @_hasStep toolStack.itemSlug
+                                @_findSteps toolStack.itemSlug, parentSteps
+
+                    for inputStack in recipe.input
+                        @_findSteps inputStack.itemSlug, parentSteps
+
+                    @_addStep recipe
+                    foundValidRecipe = true
+                    break
+                catch error
+                    logger.verbose -> "recipe didn't work out: #{recipe.slug}"
+                    if error.message isnt 'invalid recipe path' then throw error
+                    @steps = _.clone currentSteps
+
+            delete parentSteps[item.slug]
+            logger.outdent()
+
+        if not (foundValidRecipe or item.isGatherable)
+            logger.verbose -> "could not find a valid recipe for #{item.slug}"
+            throw new Error 'invalid recipe path'
 
     _hasStep: (itemSlug)->
-        return true if @steps[itemSlug]?
-        return true if @_reservedSteps[itemSlug]?
+        for recipeSlug, recipe of @steps
+            return true if recipe.produces itemSlug
         return false
 
     _qualifyItemSlug: (itemSlug)->

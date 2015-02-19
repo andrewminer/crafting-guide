@@ -13,6 +13,7 @@ exports.DefaultMods = [
     'enderio',
     'industrial_craft_2',
     'thermal_expansion',
+    'forestry'
 ]
 
 exports.Duration = Duration = {}

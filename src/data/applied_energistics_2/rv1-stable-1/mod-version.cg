@@ -554,7 +554,7 @@ item: ME Crafting Terminal
 
 item: ME Dense Cable - Fluix
     recipe:
-        input: ME Covered Cable, Redstone, Glowstone Dust
+        input: ME Covered Cable - Fluix, Redstone, Glowstone Dust
         pattern: ... 102 000
         tools: Crafting Table
 

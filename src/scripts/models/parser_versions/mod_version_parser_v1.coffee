@@ -211,11 +211,15 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         modVersion.eachGroup (group)=>
             @_unparseGroup builder, modVersion, group
 
-        for itemSlugText, recipeList of modVersion.findExternalRecipes()
+        externalRecipes = modVersion.findExternalRecipes()
+        keys = _.keys(externalRecipes).sort()
+        for itemSlugText in keys
+            recipeList = externalRecipes[itemSlugText]
+
             builder
                 .line 'update: ', modVersion.findName ItemSlug.slugify(itemSlugText)
                 .indent()
-                .loop(recipeList, delimiter:'\n', onEach:(b, r)=> @_unparseRecipe(b, r))
+                .loop(recipeList, delimiter:'', onEach:(b, r)=> @_unparseRecipe(b, r))
                 .outdent()
                 .line()
 

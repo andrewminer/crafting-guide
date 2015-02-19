@@ -3084,24 +3084,110 @@ group: Tools: Painters
             input: Dandelion Yellow, Painter
             pattern: ... 10. ...
 
-update: Iron Ingot
+update: Blaze Powder
     recipe:
-        input: Crushed Iron Ore, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
+        input: Blaze Rod
+        pattern: ... .0. ...
+        quantity: 5
+        tools: Macerator
 
+update: Bone Meal
     recipe:
-        input: Purified Crushed Iron Ore, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
+        input: Bone
+        pattern: ... .0. ...
+        quantity: 4
+        tools: Macerator
 
+update: Cobblestone
     recipe:
-        input: Iron Dust, furnace fuel
-        pattern: .0. ... .1.
-        tools: Furnace
+        input: Stone
+        pattern: ... .0. ...
+        tools: Macerator
 
 update: Diamond
     recipe:
         input: Coal Chunk
         pattern: ... .0. ...
         tools: Compressor
+
+update: Dirt
+    recipe:
+        input: Bio Chaff
+        pattern: ... .0. ...
+        tools: Macerator
+
+update: Flint
+    recipe:
+        input: Gravel
+        pattern: ... .0. ...
+        tools: Macerator
+
+update: Glowstone Dust
+    recipe:
+        input: Glowstone
+        pattern: ... .0. ...
+        quantity: 4
+        tools: Macerator
+
+update: Gold Ingot
+    recipe:
+        input: Crushed Gold Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Purified Crushed Gold Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Gold Dust, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+update: Iron Ingot
+    recipe:
+        input: Crushed Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Purified Crushed Iron Ore, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+    recipe:
+        input: Iron Dust, furnace fuel
+        pattern: .0. ... .1.
+        tools: Furnace
+
+update: Nether Quartz
+    recipe:
+        input: Quartz Stairs
+        pattern: ... .0. ...
+        quantity: 6
+        tools: Macerator
+    recipe:
+        input: Block of Quartz
+        pattern: ... .0. ...
+        quantity: 4
+        tools: Macerator
+
+update: Sand
+    recipe:
+        input: Cobblestone
+        pattern: ... .0. ...
+        tools: Macerator
+    recipe:
+        input: Sandstone
+        pattern: ... .0. ...
+        tools: Macerator
+
+update: Snowball
+    recipe:
+        input: Ice
+        pattern: ... .0. ...
+        tools: Macerator
+
+update: String
+    recipe:
+        input: Wool
+        pattern: ... .0. ...
+        quantity: 2
+        tools: Macerator

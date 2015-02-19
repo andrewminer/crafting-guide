@@ -9,6 +9,7 @@ BaseModel      = require './base_model'
 {Event}        = require '../constants'
 Item           = require './item'
 ItemSlug       = require './item_slug'
+Recipe         = require './recipe'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'
 
@@ -116,13 +117,16 @@ module.exports = class ModVersion extends BaseModel
     # Recipe Methods ###############################################################################
 
     addRecipe: (recipe)->
+        return unless recipe?
+
         recipe.modVersion = this
         if @_recipes[recipe.slug]? then throw new Error "duplicate recipe: #{recipe.slug}"
+
         @_recipes[recipe.slug] = recipe
         return this
 
     eachRecipe: (callback)->
-        recipes = _.values(@_recipes).sort (a, b)-> a.compareTo b
+        recipes = _.values(@_recipes).sort (a, b)-> Recipe.compareFor a, b
         for recipe in recipes
             callback recipe
         return this

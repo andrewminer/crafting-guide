@@ -38,16 +38,17 @@ module.exports = class Recipe extends BaseModel
     # Class Methods ################################################################################
 
     @compareFor: (a, b, itemSlug)->
-        aValue = a.itemSlug.matches itemSlug
-        bValue = b.itemSlug.matches itemSlug
-        if aValue isnt bValue
-            return -1 if aValue
-            return +1 if bValue
+        if itemSlug?
+            aValue = a.itemSlug.matches itemSlug
+            bValue = b.itemSlug.matches itemSlug
+            if aValue isnt bValue
+                return -1 if aValue
+                return +1 if bValue
 
-        aValue = a.getQuantityProducedOf itemSlug
-        bValue = b.getQuantityProducedOf itemSlug
-        if aValue isnt bValue
-            return if aValue > bValue then -1 else +1
+            aValue = a.getQuantityProducedOf itemSlug
+            bValue = b.getQuantityProducedOf itemSlug
+            if aValue isnt bValue
+                return if aValue > bValue then -1 else +1
 
         aValue = a.getInputCount()
         bValue = b.getInputCount()

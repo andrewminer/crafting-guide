@@ -2924,12 +2924,6 @@ group: Tools
             pattern: 0.0 .0. 101
             tools: Crafting Table
 
-    item: Windmeter
-        recipe:
-            input: Bronze Item Casing, Small Power Unit, Tin Item Casing
-            pattern: .2. 202 .21
-            tools: Crafting Table
-
     item: Wrench
         recipe:
             input: Bronze Ingot
@@ -2994,6 +2988,12 @@ group: Tools: Electric
         recipe:
             input: Advanced Alloy, Carbon Plate, Energy Crystal, Glowstone Dust
             pattern: 30. 30. 121
+            tools: Crafting Table
+
+    item: Windmeter
+        recipe:
+            input: Bronze Item Casing, Small Power Unit, Tin Item Casing
+            pattern: .2. 202 .21
             tools: Crafting Table
 
 group: Tools: Painters

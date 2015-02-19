@@ -132,10 +132,10 @@ module.exports = class ModVersion extends BaseModel
                 callback recipe
 
     findRecipes: (itemSlug, result=[])->
-        recipeList = @_recipes[itemSlug.item]
-        if recipeList?
+        for k, recipeList of @_recipes
             for recipe in recipeList
-                result.push recipe
+                if recipe.produces itemSlug
+                    result.push recipe
 
         return result
 

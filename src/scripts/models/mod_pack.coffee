@@ -86,7 +86,6 @@ module.exports = class ModPack extends BaseModel
 
         for mod in @_mods
             continue unless mod.enabled
-            continue if itemSlug.isQualified and itemSlug.mod isnt mod.slug
             mod.findRecipes itemSlug, result
 
         result.sort (a, b)-> Recipe.compareFor a, b, itemSlug

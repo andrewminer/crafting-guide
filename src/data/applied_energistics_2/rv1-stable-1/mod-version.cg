@@ -2,28 +2,43 @@ schema: 1
 
 item: 128³ Spatial Component
     recipe:
-        input: Glowstone Dust, 16³ Spatial Component, Engineering Processor
-        pattern: 010 121 010
+        input: 16³ Spatial Component, Engineering Processor, Glowstone Dust
+        pattern: 202 010 202
         tools: Crafting Table
 
 item: 128³ Spatial Storage Cell
     recipe:
-        input: Quartz Glass, Redstone, 128³ Spatial Component, Iron Ingot
-        pattern: 010 121 333
+        input: 128³ Spatial Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
     recipe:
         input: 128³ Spatial Component, ME Storage Housing
         pattern: ... .0. .1.
 
+item: 16³ Spatial Component
+    recipe:
+        input: 2³ Spatial Component, Engineering Processor, Glowstone Dust
+        pattern: 202 010 202
+        tools: Crafting Table
+
+item: 16³ Spatial Storage Cell
+    recipe:
+        input: 16³ Spatial Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
+        tools: Crafting Table
+    recipe:
+        input: 16³ Spatial Component, ME Storage Housing
+        pattern: ... .0. .1.
+
 item: 16k Crafting Storage
     recipe:
-        input: Crafting Unit, 16k ME Storage Component
-        pattern: ... .1. .0.
+        input: 16k ME Storage Component, Crafting Unit
+        pattern: ... .0. .1.
 
 item: 16k ME Storage Cell
     recipe:
-        input: Quartz Glass, Redstone, 16k ME Storage Component, Iron Ingot
-        pattern: 010 121 333
+        input: 16k ME Storage Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
     recipe:
         input: 16k ME Storage Component, ME Storage Housing
@@ -31,34 +46,19 @@ item: 16k ME Storage Cell
 
 item: 16k ME Storage Component
     recipe:
-        input: Glowstone Dust, Engineering Processor, 4k ME Storage Component, Quartz Glass
-        pattern: 010 232 020
+        input: 4k ME Storage Component, Engineering Processor, Glowstone Dust, Quartz Glass
+        pattern: 212 030 202
         tools: Crafting Table
-
-item: 16³ Spatial Component
-    recipe:
-        input: Glowstone Dust, 2³ Spatial Component, Engineering Processor
-        pattern: 010 121 010
-        tools: Crafting Table
-
-item: 16³ Spatial Storage Cell
-    recipe:
-        input: Quartz Glass, Redstone, 16³ Spatial Component, Iron Ingot
-        pattern: 010 121 333
-        tools: Crafting Table
-    recipe:
-        input: 16³ Spatial Component, ME Storage Housing
-        pattern: ... .0. .1.
 
 item: 1k Crafting Storage
     recipe:
-        input: Crafting Unit, 1k ME Storage Component
-        pattern: ... .1. .0.
+        input: 1k ME Storage Component, Crafting Unit
+        pattern: ... .0. .1.
 
 item: 1k ME Storage Cell
     recipe:
-        input: Quartz Glass, Redstone, 1k ME Storage Component, Iron Ingot
-        pattern: 010 121 333
+        input: 1k ME Storage Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
     recipe:
         input: 1k ME Storage Component, ME Storage Housing
@@ -66,20 +66,20 @@ item: 1k ME Storage Cell
 
 item: 1k ME Storage Component
     recipe:
-        input: Redstone, Certus Quartz Crystal, Logic Processor
-        pattern: 010 121 010
+        input: Certus Quartz Crystal, Logic Processor, Redstone
+        pattern: 202 010 202
         tools: Crafting Table
 
 item: 2³ Spatial Component
     recipe:
-        input: Glowstone Dust, Fluix Pearl, Engineering Processor
-        pattern: 010 121 010
+        input: Engineering Processor, Fluix Pearl, Glowstone Dust
+        pattern: 212 101 212
         tools: Crafting Table
 
 item: 2³ Spatial Storage Cell
     recipe:
-        input: Quartz Glass, Redstone, 2³ Spatial Component, Iron Ingot
-        pattern: 010 121 333
+        input: 2³ Spatial Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
     recipe:
         input: 2³ Spatial Component, ME Storage Housing
@@ -87,13 +87,13 @@ item: 2³ Spatial Storage Cell
 
 item: 4k Crafting Storage
     recipe:
-        input: Crafting Unit, 4k ME Storage Component
-        pattern: ... .1. .0.
+        input: 4k ME Storage Component, Crafting Unit
+        pattern: ... .0. .1.
 
 item: 4k ME Storage Cell
     recipe:
-        input: Quartz Glass, Redstone, 4k ME Storage Component, Iron Ingot
-        pattern: 010 121 333
+        input: 4k ME Storage Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
     recipe:
         input: 4k ME Storage Component, ME Storage Housing
@@ -101,8 +101,8 @@ item: 4k ME Storage Cell
 
 item: 4k ME Storage Component
     recipe:
-        input: Redstone, Calculation Processor, 1k ME Storage Component, Quartz Glass
-        pattern: 010 232 020
+        input: 1k ME Storage Component, Calculation Processor, Quartz Glass, Redstone
+        pattern: 313 020 303
         tools: Crafting Table
 
 item: 64k Crafting Storage
@@ -112,8 +112,8 @@ item: 64k Crafting Storage
 
 item: 64k ME Storage Cell
     recipe:
-        input: Quartz Glass, Redstone, 64k ME Storage Component, Iron Ingot
-        pattern: 010 121 333
+        input: 64k ME Storage Component, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
     recipe:
         input: 64k ME Storage Component, ME Storage Housing
@@ -121,8 +121,8 @@ item: 64k ME Storage Cell
 
 item: 64k ME Storage Component
     recipe:
-        input: Glowstone Dust, Engineering Processor, 16k ME Storage Component, Quartz Glass
-        pattern: 010 232 020
+        input: 16k ME Storage Component, Engineering Processor, Glowstone Dust, Quartz Glass
+        pattern: 212 030 202
         tools: Crafting Table
 
 item: Acceleration Card
@@ -132,35 +132,35 @@ item: Acceleration Card
 
 item: Advanced Card
     recipe:
-        input: Diamond, Iron Ingot, Redstone, Calculation Processor
-        pattern: 01. 231 01.
+        input: Calculation Processor, Diamond, Iron Ingot, Redstone
+        pattern: 12. 302 12.
         quantity: 2
         tools: Crafting Table
 
 item: Annihilation Core
     recipe:
-        input: Nether Quartz, Fluix Dust, Logic Processor
-        pattern: ... 012 ...
+        input: Fluix Dust, Logic Processor, Nether Quartz
+        pattern: ... 201 ...
         quantity: 2
         tools: Crafting Table
 
 item: Basic Card
     recipe:
-        input: Gold Ingot, Iron Ingot, Redstone, Calculation Processor
-        pattern: 01. 231 01.
+        input: Calculation Processor, Gold Ingot, Iron Ingot, Redstone
+        pattern: 12. 302 12.
         quantity: 2
         tools: Crafting Table
 
 item: Biometric Card
     recipe:
-        input: Engineering Processor, Iron Ingot, Gold Ingot, Redstone
-        pattern: ... 011 232
+        input: Engineering Processor, Gold Ingot, Iron Ingot, Redstone
+        pattern: ... 022 131
         tools: Crafting Table
 
 item: Blank Pattern
     recipe:
-        input: Quartz Glass, Glowstone Dust, Certus Quartz Crystal, Iron Ingot
-        pattern: 010 121 333
+        input: Certus Quartz Crystal, Glowstone Dust, Iron Ingot, Quartz Glass
+        pattern: 313 101 222
         tools: Crafting Table
 
 item: Bright Illuminated Panel
@@ -210,8 +210,8 @@ item: Capacity Card
 
 item: Cell Workbench
     recipe:
-        input: Wool, Calculation Processor, Iron Ingot, Chest
-        pattern: 010 232 222
+        input: Calculation Processor, Chest, Iron Ingot, Wool
+        pattern: 303 212 222
         tools: Crafting Table
 
 item: Certus Quartz Axe
@@ -245,8 +245,8 @@ item: Certus Quartz Crystal
 
 item: Certus Quartz Cutting Knife
     recipe:
-        input: Stick, Iron Ingot, Certus Quartz Crystal
-        pattern: ..0 10. 22.
+        input: Certus Quartz Crystal, Iron Ingot, Stick
+        pattern: ..2 12. 00.
         tools: Crafting Table
 
 item: Certus Quartz Dust
@@ -275,8 +275,8 @@ item: Certus Quartz Pillar
 
 item: Certus Quartz Seed
     recipe:
-        input: Sand, Certus Quartz Dust
-        pattern: ... .1. .0.
+        input: Certus Quartz Dust, Sand
+        pattern: ... .0. .1.
         quantity: 2
 
 item: Certus Quartz Shovel
@@ -318,8 +318,8 @@ item: Charged Staff
 
 item: Charger
     recipe:
-        input: Iron Ingot, Fluix Crystal
-        pattern: 010 0.. 010
+        input: Fluix Crystal, Iron Ingot
+        pattern: 101 1.. 101
         tools: Crafting Table
 
 item: Chiseled Certus Quartz Block
@@ -330,8 +330,8 @@ item: Chiseled Certus Quartz Block
 
 item: Color Applicator
     recipe:
-        input: Formation Core, Iron Ingot, 4k ME Storage Component, Energy Cell
-        pattern: 01. 12. ..3
+        input: 4k ME Storage Component, Energy Cell, Formation Core, Iron Ingot
+        pattern: 23. 30. ..1
         tools: Crafting Table
 
 item: Crafting Card
@@ -351,14 +351,14 @@ item: Crafting Monitor
 
 item: Crafting Unit
     recipe:
-        input: Iron Ingot, Calculation Processor, ME Glass Cable, Logic Processor
-        pattern: 010 232 010
+        input: Calculation Processor, Iron Ingot, Logic Processor, ME Glass Cable
+        pattern: 101 323 101
         tools: Crafting Table
 
 item: Crystal Growth Accelerator
     recipe:
-        input: Iron Ingot, ME Glass Cable, Quartz Glass, Fluix Block
-        pattern: 010 232 010
+        input: Fluix Block, Iron Ingot, ME Glass Cable, Quartz Glass
+        pattern: 121 303 121
         tools: Crafting Table
 
 item: Dark Illuminated Panel
@@ -368,8 +368,8 @@ item: Dark Illuminated Panel
 
 item: Dense Energy Cell
     recipe:
-        input: Energy Cell, Calculation Processor
-        pattern: 000 010 000
+        input: Calculation Processor, Energy Cell
+        pattern: 111 101 111
         tools: Crafting Table
 
 item: Ender Dust
@@ -380,8 +380,8 @@ item: Ender Dust
 
 item: Energy Acceptor
     recipe:
-        input: Iron Ingot, Quartz Glass, Fluix Crystal
-        pattern: 010 121 010
+        input: Fluix Crystal, Iron Ingot, Quartz Glass
+        pattern: 121 202 121
         tools: Crafting Table
 
 item: Energy Cell
@@ -398,8 +398,8 @@ item: Engineering Processor
 
 item: Entropy Manipulator
     recipe:
-        input: Fluix Crystal, Energy Cell, Engineering Processor, Iron Ingot
-        pattern: 01. 23. ..3
+        input: Energy Cell, Engineering Processor, Fluix Crystal, Iron Ingot
+        pattern: 20. 13. ..3
         tools: Crafting Table
 
 item: Flour
@@ -436,14 +436,14 @@ item: Fluix Dust
 
 item: Fluix Pearl
     recipe:
-        input: Fluix Dust, Fluix Crystal, Ender Pearl
-        pattern: 010 121 010
+        input: Ender Pearl, Fluix Crystal, Fluix Dust
+        pattern: 212 101 212
         tools: Crafting Table
 
 item: Fluix Seed
     recipe:
-        input: Sand, Fluix Dust
-        pattern: ... .1. .0.
+        input: Fluix Dust, Sand
+        pattern: ... .0. .1.
 
 item: Formation Core
     recipe:
@@ -459,15 +459,15 @@ item: Fuzzy Card
 
 item: Illuminated Panel
     recipe:
-        input: Glowstone Dust, Quartz Glass, Iron Ingot, Redstone
-        pattern: .01 231 .01
+        input: Glowstone Dust, Iron Ingot, Quartz Glass, Redstone
+        pattern: .02 132 .02
         quantity: 3
         tools: Crafting Table
 
 item: Inscriber
     recipe:
-        input: Iron Ingot, Sticky Piston, Fluix Crystal
-        pattern: 010 2.0 010
+        input: Fluix Crystal, Iron Ingot, Sticky Piston
+        pattern: 121 0.1 121
         tools: Crafting Table
 
 item: Inscriber Calculation Press
@@ -498,8 +498,8 @@ item: Iron Nugget
 
 item: Light Detecting Fixture
     recipe:
-        input: Nether Quartz, Iron Ingot
-        pattern: ... 01. ...
+        input: Iron Ingot, Nether Quartz
+        pattern: ... 10. ...
 
 item: Logic Processor
     recipe:
@@ -509,38 +509,38 @@ item: Logic Processor
 
 item: Matter Cannon
     recipe:
-        input: Iron Ingot, Formation Core, 4k ME Storage Component, Energy Cell
-        pattern: 001 23. 0..
+        input: 4k ME Storage Component, Energy Cell, Formation Core, Iron Ingot
+        pattern: 332 01. 3..
         tools: Crafting Table
 
 item: Matter Condenser
     recipe:
-        input: Iron Ingot, Glass, Fluix Dust
-        pattern: 010 121 010
+        input: Fluix Dust, Glass, Iron Ingot
+        pattern: 212 101 212
         tools: Crafting Table
 
 item: ME Annihilation Plane
     recipe:
-        input: Fluix Crystal, Iron Ingot, Annihilation Core
-        pattern: ... 000 121
+        input: Annihilation Core, Fluix Crystal, Iron Ingot
+        pattern: ... 111 202
         tools: Crafting Table
 
 item: ME Chest
     recipe:
-        input: Glass, ME Terminal, ME Glass Cable, Iron Ingot, Fluix Crystal
-        pattern: 010 2.2 343
+        input: Fluix Crystal, Glass, Iron Ingot, ME Glass Cable, ME Terminal
+        pattern: 141 3.3 202
         tools: Crafting Table
 
 item: ME Controller
     recipe:
-        input: Sky Stone Block, Pure Fluix Crystal, Engineering Processor
-        pattern: 010 121 010
+        input: Engineering Processor, Pure Fluix Crystal, Sky Stone Block
+        pattern: 212 101 212
         tools: Crafting Table
 
 item: ME Conversion Monitor
     recipe:
-        input: Annihilation Core, ME Storage Monitor, Formation Core
-        pattern: 01. .2. ...
+        input: Annihilation Core, Formation Core, ME Storage Monitor
+        pattern: 02. .1. ...
 
 item: ME Covered Cable - Fluix
     recipe:
@@ -549,37 +549,37 @@ item: ME Covered Cable - Fluix
 
 item: ME Crafting Terminal
     recipe:
-        input: ME Terminal, Crafting Table, Calculation Processor
-        pattern: 01. .2. ...
+        input: Calculation Processor, Crafting Table, ME Terminal
+        pattern: 21. .0. ...
 
 item: ME Dense Cable - Fluix
     recipe:
-        input: ME Covered Cable - Fluix, Redstone, Glowstone Dust
-        pattern: ... 102 000
+        input: Glowstone Dust, ME Covered Cable - Fluix, Redstone
+        pattern: ... 210 111
         tools: Crafting Table
 
 item: ME Drive
     recipe:
-        input: Iron Ingot, Engineering Processor, ME Glass Cable
-        pattern: 010 2.2 010
+        input: Engineering Processor, Iron Ingot, ME Glass Cable
+        pattern: 101 2.2 101
         tools: Crafting Table
 
 item: ME Export Bus
     recipe:
-        input: Iron Ingot, Formation Core, Piston
-        pattern: ... 101 .2.
+        input: Formation Core, Iron Ingot, Piston
+        pattern: ... 010 .2.
         tools: Crafting Table
 
 item: ME Formation Plane
     recipe:
-        input: Fluix Crystal, Iron Ingot, Formation Core
-        pattern: ... 000 121
+        input: Fluix Crystal, Formation Core, Iron Ingot
+        pattern: ... 000 212
         tools: Crafting Table
 
 item: ME Glass Cable
     recipe:
-        input: Quartz Fiber, Fluix Crystal
-        pattern: 11. .0. ...
+        input: Fluix Crystal, Quartz Fiber
+        pattern: 00. .1. ...
         quantity: 4
 
 item: ME Import Bus
@@ -590,8 +590,8 @@ item: ME Import Bus
 
 item: ME Interface (block)
     recipe:
-        input: Iron Ingot, Glass, Annihilation Core, Formation Core
-        pattern: 010 2.3 010
+        input: Annihilation Core, Formation Core, Glass, Iron Ingot
+        pattern: 323 0.1 323
         tools: Crafting Table
 
 item: ME Interface (panel)
@@ -601,8 +601,8 @@ item: ME Interface (panel)
 
 item: ME Interface Terminal
     recipe:
-        input: Illuminated Panel, ME Interface (block), Engineering Processor
-        pattern: 01. .2. ...
+        input: Engineering Processor, Illuminated Panel, ME Interface (block)
+        pattern: 12. .0. ...
 
 item: ME Inverted Toggle Bus
     recipe:
@@ -611,8 +611,8 @@ item: ME Inverted Toggle Bus
 
 item: ME IO Port
     recipe:
-        input: Glass, ME Drive, ME Glass Cable, Iron Ingot, Logic Processor
-        pattern: 000 121 343
+        input: Glass, Iron Ingot, Logic Processor, ME Drive, ME Glass Cable
+        pattern: 000 343 121
         tools: Crafting Table
 
 item: ME Level Emitter
@@ -622,81 +622,81 @@ item: ME Level Emitter
 
 item: ME Pattern Terminal
     recipe:
-        input: ME Crafting Terminal, Engineering Processor
-        pattern: ... .0. .1.
+        input: Engineering Processor, ME Crafting Terminal
+        pattern: ... .1. .0.
 
 item: ME Quantum Link Chamber
     recipe:
-        input: Quartz Glass, Fluix Pearl
-        pattern: 010 1.1 010
+        input: Fluix Pearl, Quartz Glass
+        pattern: 101 0.0 101
         tools: Crafting Table
 
 item: ME Quantum Ring
     recipe:
-        input: Iron Ingot, Logic Processor, Engineering Processor, Energy Cell, ME Dense Cable - Fluix
-        pattern: 010 234 010
+        input: Energy Cell, Engineering Processor, Iron Ingot, Logic Processor, ME Dense Cable - Fluix
+        pattern: 232 104 232
         tools: Crafting Table
 
 item: ME Security Terminal
     recipe:
-        input: Iron Ingot, ME Chest, ME Glass Cable, 16k ME Storage Component, Engineering Processor
-        pattern: 010 232 040
+        input: 16k ME Storage Component, Engineering Processor, Iron Ingot, ME Chest, ME Glass Cable
+        pattern: 232 404 212
         tools: Crafting Table
 
 item: ME Smart Cable
     recipe:
-        input: ME Covered Cable - Fluix, Redstone, Glowstone Dust
-        pattern: 01. .2. ...
+        input: Glowstone Dust, ME Covered Cable - Fluix, Redstone
+        pattern: 12. .0. ...
 
 item: ME Storage Bus
     recipe:
-        input: ME Interface, Sticky Piston, Piston
-        pattern: 01. .2. ...
+        input: ME Interface, Piston, Sticky Piston
+        pattern: 02. .1. ...
 
 item: ME Storage Housing
     recipe:
-        input: Quartz Glass, Redstone, Iron Ingot
-        pattern: 010 1.1 222
+        input: Iron Ingot, Quartz Glass, Redstone
+        pattern: 121 2.2 000
         tools: Crafting Table
 
 item: ME Storage Monitor
     recipe:
-        input: ME Level Emitter, Illuminated Panel
-        pattern: ... .0. .1.
+        input: Illuminated Panel, ME Level Emitter
+        pattern: ... .1. .0.
 
 item: ME Terminal
     recipe:
-        input: Illuminated Panel, Annihilation Core, Formation Core, Logic Processor
-        pattern: 12. 03. ...
+        input: Annihilation Core, Formation Core, Illuminated Panel, Logic Processor
+        pattern: 01. 23. ...
 
 item: ME Toggle Bus
     recipe:
-        input: Redstone, ME Glass Cable, Lever
-        pattern: .0. 121 .0.
+        input: Lever, ME Glass Cable, Redstone
+        pattern: .2. 101 .2.
         tools: Crafting Table
 
 item: ME Wireless Access Point
     recipe:
-        input: Wireless Reciever, Calculation Processor, ME Glass Cable
-        pattern: .0. .1. .2.
+        input: Calculation Processor, ME Glass Cable, Wireless Reciever
+        pattern: .2. .0. .1.
         tools: Crafting Table
 
 item: Memory Card
     recipe:
-        input: Calculation Processor, Iron Ingot, Gold Ingot, Redstone
-        pattern: ... 011 232
+        input: Calculation Processor, Gold Ingot, Iron Ingot, Redstone
+        pattern: ... 022 131
         tools: Crafting Table
 
 item: Meteorite Compass
     recipe:
-        input: Iron Ingot, Certus Quartz Crystal
-        pattern: .0. 010 .0.
+        input: Certus Quartz Crystal, Iron Ingot
+        pattern: .1. 101 .1.
         tools: Crafting Table
 
 item: Molecular Assembler
     recipe:
-        input: Iron Ingot, Quartz Glass, Annihilation Core, Crafting Table, Formation Core
-        pattern: 010 234 040
+        input: Annihilation Core, Crafting Table, Formation Core, Iron Ingot, Quartz Glass
+        pattern: 343 012 323
         tools: Crafting Table
 
 item: Nether Quartz Axe
@@ -707,8 +707,8 @@ item: Nether Quartz Axe
 
 item: Nether Quartz Cutting Knife
     recipe:
-        input: Stick, Iron Ingot, Nether Quartz
-        pattern: ..0 10. 22.
+        input: Iron Ingot, Nether Quartz, Stick
+        pattern: ..2 02. 11.
         tools: Crafting Table
 
 item: Nether Quartz Dust
@@ -731,8 +731,8 @@ item: Nether Quartz Pickaxe
 
 item: Nether Quartz Seed
     recipe:
-        input: Sand, Nether Quartz Dust
-        pattern: ... .1. .0.
+        input: Nether Quartz Dust, Sand
+        pattern: ... .0. .1.
         quantity: 2
 
 item: Nether Quartz Shovel
@@ -755,64 +755,64 @@ item: Nether Quartz Wrench
 
 item: Network Tool
     recipe:
-        input: Nether Quartz Wrench, Illuminated Panel, Calculation Processor, Chest
-        pattern: 01. 23. ...
+        input: Calculation Processor, Chest, Illuminated Panel, Nether Quartz Wrench
+        pattern: 32. 01. ...
     recipe:
-        input: Certus Quartz Wrench, Illuminated Panel, Calculation Processor, Chest
-        pattern: 01. 23. ...
+        input: Calculation Processor, Certus Quartz Wrench, Chest, Illuminated Panel
+        pattern: 13. 02. ...
 
 item: P2P Tunnel - ME
     recipe:
-        input: Iron Ingot, Engineering Processor, Fluix Crystal
-        pattern: .0. 010 222
-        tools: Crafting Table
-
-item: Paint Ball - White
-    recipe:
-        input: Matter Ball, Bone Meal
-        pattern: 000 010 000
-        quantity: 8
+        input: Engineering Processor, Fluix Crystal, Iron Ingot
+        pattern: .2. 202 111
         tools: Crafting Table
 
 item: Paint Ball - Lumen White
     recipe:
-        input: Paint Ball - White, Glowstone Dust
-        pattern: 000 010 000
+        input: Glowstone Dust, Paint Ball - White
+        pattern: 111 101 111
+        quantity: 8
+        tools: Crafting Table
+
+item: Paint Ball - White
+    recipe:
+        input: Bone Meal, Matter Ball
+        pattern: 111 101 111
         quantity: 8
         tools: Crafting Table
 
 item: Portable Cell
     recipe:
-        input: ME Chest, 1k ME Storage Component, Energy Cell
-        pattern: ... 012 ...
+        input: 1k ME Storage Component, Energy Cell, ME Chest
+        pattern: ... 201 ...
         tools: Crafting Table
 
 item: Printed Calculation Circuit
     recipe:
+        extras: Inscriber Calculation Press
         input: Inscriber Calculation Press, Pure Certus Quartz Crystal
         pattern: 0.. .1. ...
-        extras: Inscriber Calculation Press
         tools: Inscriber
 
 item: Printed Engineering Circuit
     recipe:
-        input: Inscriber Engineering Press, Diamond
-        pattern: 0.. .1. ...
         extras: Inscriber Engineering Press
+        input: Diamond, Inscriber Engineering Press
+        pattern: 1.. .0. ...
         tools: Inscriber
 
 item: Printed Logic Circuit
     recipe:
-        input: Inscriber Logic Press, Gold Ingot
-        pattern: 0.. .1. ...
         extras: Inscriber Logic Press
+        input: Gold Ingot, Inscriber Logic Press
+        pattern: 1.. .0. ...
         tools: Inscriber
 
 item: Printed Silicon
     recipe:
+        extras: Inscriber Silicon Press
         input: Inscriber Silicon Press, Silicon
         pattern: 0.. .1. ...
-        extras: Inscriber Silicon Press
         tools: Inscriber
 
 item: Pure Certus Quartz Crystal
@@ -835,8 +835,8 @@ item: Pure Nether Quartz Crystal
 
 item: Quantum Entangled Singularity
     recipe:
-        input: Singularity, Ender Dust
-        pattern: ... 01. ...
+        input: Ender Dust, Singularity
+        pattern: ... 10. ...
         quantity: 2
         tools: TNT
 
@@ -849,15 +849,15 @@ item: Quartz Fiber
 
 item: Quartz Glass
     recipe:
-        input: Nether Quartz Dust, Glass
-        pattern: 010 101 010
+        input: Glass, Nether Quartz Dust
+        pattern: 101 010 101
         quantity: 4
         tools: Crafting Table
 
 item: Quartz Grindstone
     recipe:
-        input: Stone, Wood Gear, Certus Quartz Crystal, Cobblestone
-        pattern: 010 202 323
+        input: Certus Quartz Crystal, Cobblestone, Stone, Wood Gear
+        pattern: 232 020 101
         tools: Crafting Table
 
 item: Redstone Card
@@ -917,14 +917,14 @@ item: Sky Stone Small Brick
 
 item: Spatial IO Port
     recipe:
-        input: Glass, ME Glass Cable, ME IO Port, Iron Ingot, Engineering Processor
-        pattern: 000 121 343
+        input: Engineering Processor, Glass, Iron Ingot, ME Glass Cable, ME IO Port
+        pattern: 111 343 202
         tools: Crafting Table
 
 item: Spatial Pylon
     recipe:
-        input: Quartz Glass, ME Glass Cable, Fluix Dust, Fluix Crystal
-        pattern: 010 232 010
+        input: Fluix Crystal, Fluix Dust, ME Glass Cable, Quartz Glass
+        pattern: 323 101 323
         tools: Crafting Table
 
 item: Tiny TNT
@@ -940,20 +940,20 @@ item: Vibrant Quartz Glass
 
 item: Vibration Chamber
     recipe:
-        input: Iron Ingot, Furnace, Energy Acceptor
-        pattern: 000 010 020
+        input: Energy Acceptor, Furnace, Iron Ingot
+        pattern: 222 212 202
         tools: Crafting Table
 
 item: View Cell
     recipe:
-        input: Quartz Glass, Redstone, Certus Quartz Crystal, Iron Ingot
-        pattern: 010 121 333
+        input: Certus Quartz Crystal, Iron Ingot, Quartz Glass, Redstone
+        pattern: 232 303 111
         tools: Crafting Table
 
 item: Wireless Booster
     recipe:
-        input: Fluix Dust, Certus Quartz Crystal, Ender Dust, Iron Ingot
-        pattern: ... 012 333
+        input: Certus Quartz Crystal, Ender Dust, Fluix Dust, Iron Ingot
+        pattern: ... 201 333
         quantity: 2
         tools: Crafting Table
 
@@ -965,8 +965,8 @@ item: Wireless Receiver
 
 item: Wireless Terminal
     recipe:
-        input: Wireless Reciever, ME Terminal, Dense Energy Cell
-        pattern: .0. .1. .2.
+        input: Dense Energy Cell, ME Terminal, Wireless Reciever
+        pattern: .2. .1. .0.
         tools: Crafting Table
 
 item: Wooden Crank

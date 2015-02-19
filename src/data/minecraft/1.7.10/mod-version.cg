@@ -493,9 +493,209 @@ group: Dyes
             input: Rose
             pattern: ... .0. ...
             quantity: 2
+
+group: Earth Materials
+
+    item: Bedrock
+
+    item: Brick
         recipe:
-            input: Poppy
-            pattern: ... .0. ...
+            input: Clay, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+
+    item: Brick Stairs
+        recipe:
+            input: Bricks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Bricks
+        recipe:
+            input: Brick
+            pattern: 00. 00. ...
+
+    item: Bricks Slab
+        recipe:
+            input: Bricks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Chiseled Quartz Block
+        recipe:
+            input: Quartz Slab
+            pattern: ... .0. .0.
+
+    item: Chiseled Sandstone
+        recipe:
+            input: Sandstone Slab
+            pattern: ... .0. .0.
+
+    item: Chiseled Stone Bricks
+
+    item: Cobblestone
+
+    item: Cobblestone Slab
+        recipe:
+            input: Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+
+    item: Cobblestone Wall
+        recipe:
+            input: Cobblestone
+            pattern: ... 000 000
+            quantity: 6
+            tools: Crafting Table
+
+    item: Cracked Stone Bricks
+
+    item: Dirt
+
+    item: End Stone
+
+    item: Flint
+
+    item: Grass Block
+
+    item: Gravel
+
+    item: Moss Stone
+
+    item: Mossy Cobblestone Wall
+        recipe:
+            input: Moss Stone
+            pattern: ... 000 000
+            quantity: 6
+            tools: Crafting Table
+
+    item: Mossy Stone Bricks
+
+    item: Mycelium
+
+    item: Nether Brick
+        recipe:
+            input: Netherrack, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+
+    item: Nether Brick (block)
+        recipe:
+            input: Nether Brick
+            pattern: 00. 00. ...
+
+    item: Nether Brick Fence
+        recipe:
+            input: Nether Brick
+            pattern: ... 000 000
+            quantity: 6
+            tools: Crafting Table
+
+    item: Nether Brick Slab
+        recipe:
+            input: Nether Brick (block)
+            pattern: ... 000 ...
+            quantity: 6
+
+    item: Nether Brick Stairs
+        recipe:
+            input: Nether Brick (block)
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Netherrack
+
+    item: Obsidian
+
+    item: Pillar Quartz Block
+        recipe:
+            input: Block of Quartz
+            pattern: ... .0. .0.
+            quantity: 2
+
+    item: Podzol
+
+    item: Quartz Slab
+        recipe:
+            input: Block of Quartz
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Quartz Stairs
+        recipe:
+            input: Block of Quartz
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Red Sand
+
+    item: Sand
+
+    item: Sandstone Slab
+        recipe:
+            input: Sandstone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sandstone Stairs
+        recipe:
+            input: Sandstone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Smooth Sandstone
+        recipe:
+            input: Sandstone
+            pattern: 00. 00. ...
+            quantity: 4
+
+    item: Soul Sand
+
+    item: Stone
+        recipe:
+            input: Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+
+    item: Stone Brick Stairs
+        recipe:
+            input: Stone Bricks
+            pattern: 0.. 00. 000
+            quantity: 4
+
+    item: Stone Bricks
+        recipe:
+            input: Stone
+            pattern: 00. 00. ...
+            quantity: 4
+
+    item: Stone Bricks Slab
+        recipe:
+            input: Stone Bricks
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Stone Slab
+        recipe:
+            input: Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Stone Stairs
+        recipe:
+            input: Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
 
 group: Enchanting
 
@@ -1036,11 +1236,11 @@ group: Husbandry: Wool
 
 group: Liquids
 
+    item: Fire
+
     item: Lava
 
     item: Water
-
-    item: Fire
 
 group: Minerals
 
@@ -1083,10 +1283,6 @@ group: Minerals
             tools: Crafting Table
 
     item: Charcoal
-        recipe:
-            input: Oak Wood, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
         recipe:
             input: Oak Wood, furnace fuel
             pattern: .0. ... .1.
@@ -2000,209 +2196,6 @@ group: Spawn Eggs
     item: Spawn Zombie
 
     item: Spawn Zombie Pigman
-
-group: Earth Materials
-
-    item: Bedrock
-
-    item: Brick
-        recipe:
-            input: Clay, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-
-    item: Brick Stairs
-        recipe:
-            input: Bricks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-    item: Bricks
-        recipe:
-            input: Brick
-            pattern: 00. 00. ...
-
-    item: Bricks Slab
-        recipe:
-            input: Bricks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-
-    item: Chiseled Quartz Block
-        recipe:
-            input: Quartz Slab
-            pattern: ... .0. .0.
-
-    item: Chiseled Sandstone
-        recipe:
-            input: Sandstone Slab
-            pattern: ... .0. .0.
-
-    item: Chiseled Stone Bricks
-
-    item: Cobblestone
-
-    item: Cobblestone Slab
-        recipe:
-            input: Cobblestone
-            pattern: ... 000 ...
-            quantity: 6
-
-    item: Cobblestone Wall
-        recipe:
-            input: Cobblestone
-            pattern: ... 000 000
-            quantity: 6
-            tools: Crafting Table
-
-    item: Cracked Stone Bricks
-
-    item: Dirt
-
-    item: End Stone
-
-    item: Flint
-
-    item: Grass Block
-
-    item: Gravel
-
-    item: Moss Stone
-
-    item: Mossy Cobblestone Wall
-        recipe:
-            input: Moss Stone
-            pattern: ... 000 000
-            quantity: 6
-            tools: Crafting Table
-
-    item: Mossy Stone Bricks
-
-    item: Mycelium
-
-    item: Nether Brick
-        recipe:
-            input: Netherrack, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-
-    item: Nether Brick (block)
-        recipe:
-            input: Nether Brick
-            pattern: 00. 00. ...
-
-    item: Nether Brick Fence
-        recipe:
-            input: Nether Brick
-            pattern: ... 000 000
-            quantity: 6
-            tools: Crafting Table
-
-    item: Nether Brick Slab
-        recipe:
-            input: Nether Brick (block)
-            pattern: ... 000 ...
-            quantity: 6
-
-    item: Nether Brick Stairs
-        recipe:
-            input: Nether Brick (block)
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-    item: Netherrack
-
-    item: Obsidian
-
-    item: Pillar Quartz Block
-        recipe:
-            input: Block of Quartz
-            pattern: ... .0. .0.
-            quantity: 2
-
-    item: Podzol
-
-    item: Quartz Slab
-        recipe:
-            input: Block of Quartz
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-
-    item: Quartz Stairs
-        recipe:
-            input: Block of Quartz
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-    item: Red Sand
-
-    item: Sand
-
-    item: Sandstone Slab
-        recipe:
-            input: Sandstone
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-
-    item: Sandstone Stairs
-        recipe:
-            input: Sandstone
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-    item: Smooth Sandstone
-        recipe:
-            input: Sandstone
-            pattern: 00. 00. ...
-            quantity: 4
-
-    item: Soul Sand
-
-    item: Stone
-        recipe:
-            input: Cobblestone, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-
-    item: Stone Brick Stairs
-        recipe:
-            input: Stone Bricks
-            pattern: 0.. 00. 000
-            quantity: 4
-
-    item: Stone Bricks
-        recipe:
-            input: Stone
-            pattern: 00. 00. ...
-            quantity: 4
-
-    item: Stone Bricks Slab
-        recipe:
-            input: Stone Bricks
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-
-    item: Stone Slab
-        recipe:
-            input: Stone
-            pattern: ... 000 ...
-            quantity: 6
-            tools: Crafting Table
-
-    item: Stone Stairs
-        recipe:
-            input: Cobblestone
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
 
 group: Tools
 

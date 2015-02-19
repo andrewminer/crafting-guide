@@ -1568,6 +1568,10 @@ group: Minerals
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
+            input: Bronze Dust
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
             input: Bronze Block
             pattern: ... .0. ...
             quantity: 9
@@ -1637,6 +1641,22 @@ group: Minerals
             input: Copper Block
             pattern: ... .0. ...
             quantity: 9
+        recipe:
+            input: Copper Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Copper Dust
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Crushed Copper Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Purified Crushed Copper Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
 
     item: Copper Ore
 
@@ -1739,6 +1759,22 @@ group: Minerals
             input: Lead Block
             pattern: ... .0. ...
             quantity: 9
+        recipe:
+            input: Lead Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Lead Dust
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Crushed Lead Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Purified Crushed Lead Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
 
     item: Lead Ore
 
@@ -1844,6 +1880,18 @@ group: Minerals
             input: Crushed Silver Ore, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
+        recipe:
+            input: Silver Dust
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Purified Crushed Silver Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
+        recipe:
+            input: Crushed Silver Ore
+            pattern: ... .0. ...
+            tools: Electric Furnace
 
     item: Slag
 
@@ -3142,6 +3190,18 @@ update: Gold Ingot
         input: Gold Dust, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
+    recipe:
+        input: Crushed Gold Ore
+        pattern: ... .0. ...
+        tools: Electric Furnace
+    recipe:
+        input: Purified Crushed Gold Ore
+        pattern: ... .0. ...
+        tools: Electric Furnace
+    recipe:
+        input: Gold Dust
+        pattern: ... .0. ...
+        tools: Electric Furnace
 
 update: Iron Ingot
     recipe:
@@ -3156,6 +3216,18 @@ update: Iron Ingot
         input: Iron Dust, furnace fuel
         pattern: .0. ... .1.
         tools: Furnace
+    recipe:
+        input: Crushed Iron Ore
+        pattern: ... .0. ...
+        tools: Electric Furnace
+    recipe:
+        input: Purified Crushed Iron Ore
+        pattern: ... .0. ...
+        tools: Electric Furnace
+    recipe:
+        input: Iron Dust
+        pattern: ... .0. ...
+        tools: Electric Furnace
 
 update: Nether Quartz
     recipe:

@@ -25,3 +25,6 @@ if [[ "$TARGET" == "new" ]]; then
 elif [[ "$TARGET" == "promote" ]]; then
     aws s3 sync s3://new.$SITE s3://$SITE --delete
 fi
+
+grunt clean build
+

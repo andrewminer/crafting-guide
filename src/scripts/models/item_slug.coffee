@@ -63,7 +63,7 @@ module.exports = class ItemSlug
         return ItemSlug.compare this, that
 
     matches: (slug, options={exact:false})->
-        return false unless slug?.constructor?.name is 'ItemSlug'
+        return false unless typeof(slug.matches) is 'function'
 
         if slug.isQualified and this.isQualified
             return slug.qualified is this.qualified

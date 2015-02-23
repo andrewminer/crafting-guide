@@ -134,7 +134,7 @@ module.exports = class ModVersion extends BaseModel
     findRecipes: (itemSlug, result=[], options={})->
         options.onlyPrimary ?= false
 
-        for k, recipe of @_recipes
+        for recipe in _.values @_recipes
             if options.onlyPrimary
                 if recipe.itemSlug.matches itemSlug
                     result.push recipe

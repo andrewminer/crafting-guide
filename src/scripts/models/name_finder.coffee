@@ -54,8 +54,8 @@ module.exports = class NameFinder
             mod.eachName (name, itemSlug)=>
                 return if nameMap[name]?
 
-                item = mod.findItem itemSlug
                 if not @includeGatherable
+                    item = mod.findItem itemSlug
                     return unless item? and item.isCraftable
 
                 scanName = "#{mod.name} : #{name}"

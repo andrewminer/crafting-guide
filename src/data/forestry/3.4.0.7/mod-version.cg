@@ -725,7 +725,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Biomass Capsule_2
+    item: Biomass Capsule (Refractory)
         recipe:
             input: Biomass, Refractory Capsule
             pattern: ... .0. .1.
@@ -737,7 +737,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Ethanol Capsule_2
+    item: Ethanol Capsule (Refractory)
         recipe:
             input: Ethanol, Refractory Capsule
             pattern: ... .0. .1.
@@ -745,7 +745,7 @@ group: Capsules
 
     item: Fuel Capsule
 
-    item: Fuel Capsule_2
+    item: Fuel Capsule (Refractory)
 
     item: Honey Capsule
         recipe:
@@ -753,7 +753,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Honey Capsule_2
+    item: Honey Capsule (Refractory)
         recipe:
             input: Honey, Refractory Capsule
             pattern: ... .0. .1.
@@ -765,7 +765,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Ice Capsule_2
+    item: Ice Capsule (Refractory)
         recipe:
             input: Crushed Ice, Refractory Capsule
             pattern: ... .0. .1.
@@ -783,7 +783,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Juice Capsule_2
+    item: Juice Capsule (Refractory)
         recipe:
             input: Fruit Juice, Refractory Capsule
             pattern: ... .0. .1.
@@ -797,7 +797,7 @@ group: Capsules
 
     item: Oil Capsule
 
-    item: Oil Capsule_2
+    item: Oil Capsule (Refractory)
 
     item: Refractory Capsule
         recipe:
@@ -812,7 +812,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Seed Oil Capsule_2
+    item: Seed Oil Capsule (Refractory)
         recipe:
             input: Refractory Capsule, Seed Oil
             pattern: ... .1. .0.
@@ -824,7 +824,7 @@ group: Capsules
             pattern: ... .0. .1.
             tools: Bottler
 
-    item: Water Capsule_2
+    item: Water Capsule (Refractory)
         recipe:
             input: Refractory Capsule, Water
             pattern: ... .1. .0.

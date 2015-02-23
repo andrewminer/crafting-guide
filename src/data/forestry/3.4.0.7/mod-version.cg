@@ -1,1834 +1,1253 @@
 schema: 1
 
-group: Fences
+group: Analyzers
 
-	item: Acacia Fence
+    item: Analyzer
         recipe:
-            input: Acacia Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
+            input: Beealyzer, Bronze Ingot, Sturdy Casing
+            pattern: 101 .2. 1.1
             tools: Crafting Table
-				
-	item: Balsa Fence
         recipe:
-            input: Balsa Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
+            input: Bronze Ingot, Sturdy Casing, Treealyzer
+            pattern: 020 .1. 0.0
             tools: Crafting Table
 
-	item: Baobab Fence
+    item: Beealyzer
         recipe:
-            input: Baobab Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Cherry Fence
-        recipe:
-            input: Cherry Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Chestnut Fence
-        recipe:
-            input: Chestnut Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Citrus Fence
-        recipe:
-            input: Citrus Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Cocobolo Fence
-        recipe:
-            input: Cocobolo Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Ebony Fence
-        recipe:
-            input: Ebony Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Giant Sequoia Fence
-        recipe:
-            input: Giant Sequoia Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Greenheart Fence
-        recipe:
-            input: Greenheart Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Ipe Fence
-        recipe:
-            input: Ipe Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Kapok Fence
-        recipe:
-            input: Kapok Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Larch Fence
-        recipe:
-            input: Larch Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Lime Fence
-        recipe:
-            input: Lime Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Mahoe Fence
-        recipe:
-            input: Mahoe Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Mahogany Fence
-        recipe:
-            input: Mahogany Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Maple Fence
-        recipe:
-            input: Maple Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Padauk Fence
-        recipe:
-            input: Padauk Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Palm Fence
-        recipe:
-            input: Palm Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Papaya Fence
-        recipe:
-            input: Papaya Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Pine Fence
-        recipe:
-            input: Pine Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Plum Fence
-        recipe:
-            input: Plum Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Poplar Fence
-        recipe:
-            input: Poplar Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Sequoia Fence
-        recipe:
-            input: Sequoia Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Teak Fence
-        recipe:
-            input: Teak Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Walnut Fence
-        recipe:
-            input: Walnut Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Wenge Fence
-        recipe:
-            input: Wenge Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Willow Fence
-        recipe:
-            input: Willow Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-			
-	item: Zebrawood Fence
-        recipe:
-            input: Zebrawood Wood Planks
-            pattern: 000 0.0 ...
-            quantity: 4
-            tools: Crafting Table
-
-group: Stairs
-
-	item: Acacia Stairs
-        recipe:
-            input: Acacia Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Balsa Stairs
-        recipe:
-            input: Balsa Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Baobab Stairs
-        recipe:
-            input: Baobab Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Cherry Stairs
-        recipe:
-            input: Cherry Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Chestnut Stairs
-        recipe:
-            input: Chestnut Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Citrus Stairs
-        recipe:
-            input: Citrus Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Cocobolo Stairs
-        recipe:
-            input: Cocobolo Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Ebony Stairs
-        recipe:
-            input: Ebony Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Giant Sequoia Stairs
-        recipe:
-            input: Giant Sequoia Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Greenheart Stairs
-        recipe:
-            input: Greenheart Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Ipe Stairs
-        recipe:
-            input: Ipe Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Kapok Stairs
-        recipe:
-            input: Kapok Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Larch Stairs
-        recipe:
-            input: Larch Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Lime Stairs
-        recipe:
-            input: Lime Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Mahoe Stairs
-        recipe:
-            input: Mahoe Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Mahogany Stairs
-        recipe:
-            input: Mahogany Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Maple Stairs
-        recipe:
-            input: Maple Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Padauk Stairs
-        recipe:
-            input: Padauk Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Palm Stairs
-        recipe:
-            input: Palm Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Papaya Stairs
-        recipe:
-            input: Papaya Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Pine Stairs
-        recipe:
-            input: Pine Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Plum Stairs
-        recipe:
-            input: Plum Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Poplar Stairs
-        recipe:
-            input: Poplar Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Sequoia Stairs
-        recipe:
-            input: Sequoia Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Teak Stairs
-        recipe:
-            input: Teak Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Walnut Stairs
-        recipe:
-            input: Walnut Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Wenge Stairs
-        recipe:
-            input: Wenge Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Willow Stairs
-        recipe:
-            input: Willow Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-	item: Zebrawood Stairs
-        recipe:
-            input: Zebrawood Wood Planks
-            pattern: 0.. 00. 000
-            quantity: 4
-            tools: Crafting Table
-
-
-group: Slabs
-
-	item: Acacia Wood Slab
-        recipe:
-            input: Acacia Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Balsa Wood Slab
-        recipe:
-            input: Balsa Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Baobab Wood Slab
-        recipe:
-            input: Baobab Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Cherry Wood Slab
-        recipe:
-            input: Cherry Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Chestnut Wood Slab
-        recipe:
-            input: Chestnut Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Citrus Wood Slab
-        recipe:
-            input: Citrus Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Cocobolo Wood Slab
-        recipe:
-            input: Cocobolo Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Ebony Wood Slab
-        recipe:
-            input: Ebony Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Giant Sequoia Wood Slab
-        recipe:
-            input: Giant Sequoia Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Greenheart Wood Slab
-        recipe:
-            input: Greenheart Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Ipe Wood Slab
-        recipe:
-            input: Ipe Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Kapok Wood Slab
-        recipe:
-            input: Kapok Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Larch Wood Slab
-        recipe:
-            input: Larch Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Lime Wood Slab
-        recipe:
-            input: Lime Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Mahoe Wood Slab
-        recipe:
-            input: Mahoe Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Mahogany Wood Slab
-        recipe:
-            input: Mahogany Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Maple Wood Slab
-        recipe:
-            input: Maple Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Padauk Wood Slab
-        recipe:
-            input: Padauk Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Palm Wood Slab
-        recipe:
-            input: Palm Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Papaya Wood Slab
-        recipe:
-            input: Papaya Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Pine Wood Slab
-        recipe:
-            input: Pine Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Plum Wood Slab
-        recipe:
-            input: Plum Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Poplar Wood Slab
-        recipe:
-            input: Poplar Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
+            input: Diamond, Glass Pane, Redstone, Tin Ingot
+            pattern: 313 313 202
+            tools: Carpenter
 
-	item: Sequoia Wood Slab
+    item: Flutterlyzer
         recipe:
-            input: Sequoia Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Teak Wood Slab
-        recipe:
-            input: Teak Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Walnut Wood Slab
-        recipe:
-            input: Walnut Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Wenge Wood Slab
-        recipe:
-            input: Wenge Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Willow Wood Slab
-        recipe:
-            input: Willow Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-	item: Zebrawood Wood Slab
-        recipe:
-            input: Zebrawood Wood Planks
-            pattern: 000 ... ...
-            quantity: 6
-            tools: Crafting Table
-
-group: Planks
-
-	item: Acacia Wood Planks
-        recipe:
-            input: Acacia Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Balsa Wood Planks
-        recipe:
-            input: Balsa Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Baobab Wood Planks
-        recipe:
-            input: Baobab Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Cherry Wood Planks
-        recipe:
-            input: Cherry Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Chestnut Wood Planks
-        recipe:
-            input: Chestnut Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Citrus Wood Planks
-        recipe:
-            input: Citrus Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Cocobolo Wood Planks
-        recipe:
-            input: Cocobolo Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Ebony Wood Planks
-        recipe:
-            input: Ebony Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Giant Sequoia Wood Planks
-        recipe:
-            input: Giant Sequoia Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Greenheart Wood Planks
-        recipe:
-            input: Greenheart Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Ipe Wood Planks
-        recipe:
-            input: Ipe Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Kapok Wood Planks
-        recipe:
-            input: Kapok Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Larch Wood Planks
-        recipe:
-            input: Larch Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Lime Wood Planks
-        recipe:
-            input: Lime Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Mahoe Wood Planks
-        recipe:
-            input: Mahoe Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Mahogany Wood Planks
-        recipe:
-            input: Mahogany Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Maple Wood Planks
-        recipe:
-            input: Maple Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Padauk Wood Planks
-        recipe:
-            input: Padauk Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Palm Wood Planks
-        recipe:
-            input: Palm Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Papaya Wood Planks
-        recipe:
-            input: Papaya Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Pine Wood Planks
-        recipe:
-            input: Pine Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Plum Wood Planks
-        recipe:
-            input: Plum Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Poplar Wood Planks
-        recipe:
-            input: Poplar Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Sequoia Wood Planks
-        recipe:
-            input: Sequoia Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Teak Wood Planks
-        recipe:
-            input: Teak Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Walnut Wood Planks
-        recipe:
-            input: Walnut Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Wenge Wood Planks
-        recipe:
-            input: Wenge Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Willow Wood Planks
-        recipe:
-            input: Willow Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-	item: Zebrawood Wood Planks
-        recipe:
-            input: Zebrawood Wood
-            pattern: ... .0. ...
-            quantity: 4
-
-group: Leaves
-
-	item: Acacia Leaves
-	item: Apple Oak Leaves
-	item: Balsa Leaves
-	item: Blue Mahoe Leaves
-	item: Bull Pine Leaves
-	item: Coast Sequoia Leaves
-	item: Cocobolo Leaves
-	item: Common Walnut Leaves
-	item: Dark Oak Leaves
-	item: Date Palm Leaves
-	item: Desert Acacia Leaves
-	item: Giant Sequoia Leaves
-	item: Grandidier's Baobab Leaves
-	item: Hill Cherry Leaves
-	item: Ipe Leaves
-	item: Jungle Leaves
-	item: Kapok Leaves
-	item: Lemon Leaves
-	item: Mundane Larch Leaves
-	item: Myrtle Ebony Leaves
-	item: Padauk Leaves
-	item: Papaya Leaves
-	item: Plum Leaves
-	item: Red Spruce Leaves
-	item: Silver Birch Leaves
-	item: Silver Lime Leaves
-	item: Sipiri Leaves
-	item: Sugar Maple Leaves
-	item: Sweet Chestnut Leaves
-	item: Teak Leaves
-	item: Wenge Leaves
-	item: White Poplar Leaves
-	item: White Willow Leaves
-	item: Yellow Meranti Leaves
-	item: Zebrawood Leaves
-
-
-group: Wood
-
-	item: Acacia Wood
-	item: Balsa Wood
-	item: Baobab Wood
-	item: Cherry Wood
-	item: Chestnut Wood
-	item: Citrus Wood
-	item: Cocobolo Wood
-	item: Ebony Wood
-	item: Giant Sequoia Wood
-	item: Greenheart Wood
-	item: Ipe Wood
-	item: Kapok Wood
-	item: Larch Wood
-	item: Lime Wood
-	item: Mahoe Wood
-	item: Mahogany Wood
-	item: Maple Wood
-	item: Padauk Wood
-	item: Palm Wood
-	item: Papaya Wood
-	item: Pine Wood
-	item: Plum Wood
-	item: Poplar Wood
-	item: Sequoia Wood
-	item: Teak Wood
-	item: Walnut Wood
-	item: Wenge Wood
-	item: Willow Wood
-	item: Zebrawood Wood
-
-group: Saplings
-
-	item: Acacia Sapling
-	item: Apple Oak Sapling
-	item: Balsa Sapling
-	item: Blue Mahoe Sapling
-	item: Bull Pine Sapling
-	item: Coast Sequoia Sapling
-	item: Cocobolo Sapling
-	item: Common Walnut Sapling
-	item: Crated Oak Sapling
-	item: Dark Oak Sapling
-	item: Date Palm Sapling
-	item: Desert Acacia Sapling
-	item: Giant Sequoia Sapling
-	item: Grandidier's Baobab Sapling
-	item: Hill Cherry Sapling
-	item: Ipe Sapling
-	item: Jungle Sapling
-	item: Kapok Sapling
-	item: Lemon Sapling
-	item: Mundane Larch Sapling
-	item: Myrtle Ebony Sapling
-	item: Padauk Sapling
-	item: Papaya Sapling
-	item: Plum Sapling
-	item: Red Spruce Sapling
-	item: Sapling
-	item: Silver Birch Sapling
-	item: Silver Lime Sapling
-	item: Sipiri Sapling
-	item: Sugar Maple Sapling
-	item: Sweet Chestnut Sapling
-	item: Teak Sapling
-	item: Wenge Sapling
-	item: White Poplar Sapling
-	item: White Willow Sapling
-	item: Yellow Meranti Sapling
-	item: Zebrawood Sapling
-
-group: Stained Glass
-
-	item: Black Stained Glass
-        recipe:
-            input: Inc Sac, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Inc Sac, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Inc Sac, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Blue Stained Glass
-        recipe:
-            input: Lapis Lazuli, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Lapis Lazuli, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Lapis Lazuli, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Brown Stained Glass
-        recipe:
-            input: Cocoa Beans, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Cocoa Beans, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Cocoa Beans, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Cyan Stained Glass
-        recipe:
-            input: Cyan Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Cyan Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Cyan Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Gray Stained Glass
-        recipe:
-            input: Gray Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Gray Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Gray Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Green Stained Glass
-        recipe:
-            input: Cactus Green, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Cactus Green, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Cactus Green, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Light Blue Stained Glass
-        recipe:
-            input: Light Blue Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Light Blue Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Light Blue Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Light Gray Stained Glass
-        recipe:
-            input: Light Gray Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Light Gray Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Light Gray Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Lime Stained Glass
-        recipe:
-            input: Lime Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Lime Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Lime Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Magenta Stained Glass
-        recipe:
-            input: Magenta Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Magenta Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Magenta Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Orange Stained Glass
-        recipe:
-            input: Orange Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Orange Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Orange Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Pink Stained Glass
-        recipe:
-            input: Pink Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Pink Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Pink Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Purple Stained Glass
-        recipe:
-            input: Purple Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Purple Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Purple Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Red Stained Glass
-        recipe:
-            input: Rose Red, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Rose Red, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Rose Red, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: White Stained Glass
-        recipe:
-            input: Bone Meal, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Bone Meal, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Bone Meal, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-	item: Yellow Stained Glass
-        recipe:
-            input: Dandelion Yellow, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Dandelion Yellow, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-        recipe:
-            input: Dandelion Yellow, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
-            tools: Thermionic Fabricator
-
-group: Pollen
-
-	item: Acacia Pollen
-	item: Apple Oak Pollen
-	item: Balsa Pollen
-	item: Blue Mahoe Pollen
-	item: Bull Pine Pollen
-	item: Coast Sequoia Pollen
-	item: Cocobolo Pollen
-	item: Common Walnut Pollen
-	item: Crated Pollen Cluster
-	item: Dark Oak Pollen
-	item: Date Palm Pollen
-	item: Desert Acacia Pollen
-	item: Giant Sequoia Pollen
-	item: Grandidier's Baobab Pollen
-	item: Hill Cherry Pollen
-	item: Ipe Pollen
-	item: Jungle Pollen
-	item: Kapok Pollen
-	item: Lemon Pollen
-	item: Mundane Larch Pollen
-	item: Myrtle Ebony Pollen
-	item: Padauk Pollen
-	item: Papaya Pollen
-	item: Plum Pollen
-	item: Red Spruce Pollen
-	item: Silver Birch Pollen
-	item: Silver Lime Pollen
-	item: Sipiri Pollen
-	item: Sugar Maple Pollen
-	item: Sweet Chestnut Pollen
-	item: Teak Pollen
-	item: Wenge Pollen
-	item: White Poplar Pollen
-	item: White Willow Pollen
-	item: Yellow Meranti Pollen
-	item: Zebrawood Pollen
-
-group: Fireproof Planks
-
-	item: Acacia Wood Planks (Fireproof)
-	item: Balsa Wood Planks (Fireproof)
-	item: Baobab Wood Planks (Fireproof)
-	item: Cherry Wood Planks (Fireproof)
-	item: Chestnut Wood Planks (Fireproof)
-	item: Citrus Wood Planks (Fireproof)
-	item: Cocobolo Wood Planks (Fireproof)
-	item: Ebony Wood Planks (Fireproof)
-	item: Giant Sequoia Wood Planks (Fireproof)
-	item: Greenheart Wood Planks (Fireproof)
-	item: Ipe Wood Planks (Fireproof)
-	item: Kapok Wood Planks (Fireproof)
-	item: Larch Wood Planks (Fireproof)
-	item: Lime Wood Planks (Fireproof)
-	item: Mahoe Wood Planks (Fireproof)
-	item: Mahogany Wood Planks (Fireproof)
-	item: Maple Wood Planks (Fireproof)
-	item: Padauk Wood Planks (Fireproof)
-	item: Palm Wood Planks (Fireproof)
-	item: Papaya Wood Planks (Fireproof)
-	item: Pine Wood Planks (Fireproof)
-	item: Plum Wood Planks (Fireproof)
-	item: Poplar Wood Planks (Fireproof)
-	item: Sequoia Wood Planks (Fireproof)
-	item: Teak Wood Planks (Fireproof)
-	item: Walnut Wood Planks (Fireproof)
-	item: Wenge Wood Planks (Fireproof)
-	item: Willow Wood Planks (Fireproof)
-	item: Zebrawood Wood Planks (Fireproof)
-
-group: Fireproof Wood
-
-	item: Acacia Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Acacia Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Balsa Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Balsa Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Baobab Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Baobab Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Cherry Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Cherry Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Chestnut Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Chestnut Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Citrus Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Citrus Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Cocobolo Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Cocobolo Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Ebony Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Ebony Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Giant Sequoia Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Giant Sequoia Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Greenheart Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Greenheart Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Ipe Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Ipe Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Kapok Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Kapok Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Larch Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Larch Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Lime Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Lime Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Mahoe Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Mahoe Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Mahogany Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Mahogany Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Maple Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Maple Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Padauk Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Padauk Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Palm Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Palm Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Papaya Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Papaya Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Pine Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Pine Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Plum Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Plum Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Poplar Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Poplar Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
+            input: Bronze Ingot, Diamond, Glass Pane, Redstone
+            pattern: 020 020 313
+            tools: Carpenter
 
-	item: Sequoia Wood (Fireproof)
+    item: Treealyzer
         recipe:
-            input: Refractory Wax, Sequoia Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Teak Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Teak Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Walnut Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Walnut Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Wenge Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Wenge Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Willow Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Willow Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-	item: Zebrawood Wood (Fireproof)
-        recipe:
-            input: Refractory Wax, Zebrawood Wood
-            pattern: .0. 010 .0.
-            tools: Thermionic Fabricator
-
-group: Bees
-
-	item: Agrarian Drone
-	item: Agrarian Princess
-	item: Agrarian Queen
-	item: Austere Drone
-	item: Austere Princess
-	item: Austere Queen
-	item: Avenging Drone
-	item: Avenging Princess
-	item: Avenging Queen
-	item: Boggy Drone
-	item: Boggy Princess
-	item: Boggy Queen
-	item: Common Drone
-	item: Common Princess
-	item: Common Queen
-	item: Cultivated Drone
-	item: Cultivated Princess
-	item: Cultivated Queen
-	item: Demonic Drone
-	item: Demonic Princess
-	item: Demonic Queen
-	item: Diligent Drone
-	item: Diligent Princess
-	item: Diligent Queen
-	item: Edenic Drone
-	item: Edenic Princess
-	item: Edenic Queen
-	item: Ender Drone
-	item: Ender Princess
-	item: Ender Queen
-	item: Exotic Drone
-	item: Exotic Princess
-	item: Exotic Queen
-	item: Farmerly Drone
-	item: Farmerly Princess
-	item: Farmerly Queen
-	item: Fiendish Drone
-	item: Fiendish Princess
-	item: Fiendish Queen
-	item: Forest Drone
-	item: Frugal Drone
-	item: Frugal Princess
-	item: Frugal Queen
-	item: Glacial Drone
-	item: Glacial Princess
-	item: Glacial Queen
-	item: Hermitic Drone
-	item: Hermitic Princess
-	item: Hermitic Queen
-	item: Heroic Drone
-	item: Heroic Princess
-	item: Heroic Queen
-	item: Icy Drone
-	item: Icy Princess
-	item: Icy Queen
-	item: Imperial Drone
-	item: Imperial Princess
-	item: Imperial Queen
-	item: Industrious Drone
-	item: Industrious Princess
-	item: Industrious Queen
-	item: Leporine Drone
-	item: Leporine Princess
-	item: Leporine Queen
-	item: Majestic Drone
-	item: Majestic Princess
-	item: Majestic Queen
-	item: Marshy Drone
-	item: Marshy Princess
-	item: Marshy Queen
-	item: Meadows Drone
-	item: Merry Drone
-	item: Merry Princess
-	item: Merry Queen
-	item: Miry Drone
-	item: Miry Princess
-	item: Miry Queen
-	item: Modest Drone
-	item: Modest Princess
-	item: Modest Queen
-	item: Monastic Drone
-	item: Monastic Princess
-	item: Monastic Queen
-	item: Noble Drone
-	item: Noble Princess
-	item: Noble Queen
-	item: Phantasmal Drone
-	item: Phantasmal Princess
-	item: Phantasmal Queen
-	item: Rural Drone
-	item: Rural Princess
-	item: Rural Queen
-	item: Secluded Drone
-	item: Secluded Princess
-	item: Secluded Queen
-	item: Sinister Drone
-	item: Sinister Princess
-	item: Sinister Queen
-	item: Spectral Drone
-	item: Spectral Princess
-	item: Spectral Queen
-	item: Steadfast Drone
-	item: Steadfast Princess
-	item: Steadfast Queen
-	item: Tipsy Drone
-	item: Tipsy Princess
-	item: Tipsy Queen
-	item: Tricky Drone
-	item: Tricky Princess
-	item: Tricky Queen
-	item: Tropical Drone
-	item: Tropical Princess
-	item: Tropical Queen
-	item: Unweary Drone
-	item: Unweary Princess
-	item: Unweary Queen
-	item: Valiant Drone
-	item: Valiant Princess
-	item: Valiant Queen
-	item: Vengeful Drone
-	item: Vengeful Princess
-	item: Vengeful Queen
-	item: Vindictive Drone
-	item: Vindictive Princess
-	item: Vindictive Queen
-	item: Wintry Drone
-	item: Wintry Princess
-	item: Wintry Queen
-
-group: Butterfly
-
-    item: Atlas Moth_2
-    item: Atlas Moth_3
-    item: Atlas Moth
-    item: Black Swallowtail_2
-    item: Black Swallowtail_3
-    item: Black Swallowtail
-    item: Blue Duke_2
-    item: Blue Duke_3
-    item: Blue Duke
-    item: Blue Wing_2
-    item: Blue Wing_3
-    item: Blue Wing
-    item: Brimstone Moth_2
-    item: Brimstone Moth_3
-    item: Brimstone Moth
-    item: Canary Speckled Wood_2
-    item: Canary Speckled Wood_3
-    item: Canary Speckled Wood
-    item: Citrus Swallowtail_2
-    item: Citrus Swallowtail_3
-    item: Citrus Swallowtail
-    item: Common Clouded Yellow_2
-    item: Common Clouded Yellow_3
-    item: Common Clouded Yellow
-    item: Diana Fritillary_2
-    item: Diana Fritillary_3
-    item: Diana Fritillary
-    item: Eastern Bath White_2
-    item: Eastern Bath White_3
-    item: Eastern Bath White
-    item: Emerald Peacock_2
-    item: Emerald Peacock_3
-    item: Emerald Peacock
-    item: Glasswing_2
-    item: Glasswing_3
-    item: Glasswing
-    item: Glassy Tiger_2
-    item: Glassy Tiger_3
-    item: Glassy Tiger
-    item: Gozora Azure_2
-    item: Gozora Azure_3
-    item: Gozora Azure
-    item: Holly Blue_2
-    item: Holly Blue_3
-    item: Holly Blue
-    item: Latticed Heath_2
-    item: Latticed Heath_3
-    item: Latticed Heath
-    item: Leopard Lacewing_2
-    item: Leopard Lacewing_3
-    item: Leopard Lacewing
-    item: Madeiran Speckled Wood_2
-    item: Madeiran Speckled Wood_3
-    item: Madeiran Speckled Wood
-    item: Malachite_2
-    item: Malachite_3
-    item: Malachite
-    item: Menelaus Blue Morpho_2
-    item: Menelaus Blue Morpho_3
-    item: Menelaus Blue Morpho
-    item: Orange Tip_2
-    item: Orange Tip_3
-    item: Orange Tip
-    item: Painted Beauty_2
-    item: Painted Beauty_3
-    item: Painted Beauty
-    item: Palaeno Sulphur_2
-    item: Palaeno Sulphur_3
-    item: Palaeno Sulphur
-    item: Monarch_2
-    item: Monarch_3
-    item: Monarch
-    item: Peleides Blue Morpho_2
-    item: Peleides Blue Morpho_3
-    item: Peleides Blue Morpho
-    item: Postman_2
-    item: Postman_3
-    item: Postmanitem: Rhetenor Blue Morpho_2
-    item: Rhetenor Blue Morpho_3
-    item: Rhetenor Blue Morpho
-    item: Speckled Wood_2
-    item: Speckled Wood_3
-    item: Speckled Wood
-    item: Spicebush Swallowtail_2
-    item: Spicebush Swallowtail_3
-    item: Spicebush Swallowtail
-    item: Thoas Swallowtail_2
-    item: Thoas Swallowtail_3
-    item: Thoas Swallowtail
-    item: Zebra Swallowtail_2
-    item: Zebra Swallowtail_3
-    item: Zebra Swallowtail
+            input: Copper Ingot, Diamond, Glass Pane, Redstone
+            pattern: 020 020 313
+            tools: Carpenter
 
 group: Backpacks
 
     item: Adventurer's Backpack
         recipe:
-            input: String, Wool, Stick, Chest
-            pattern: 010 232 010
+            input: Chest, Stick, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Adventurer's Woven Backpack
         recipe:
-            input: Woven Silk, Diamond, Adventurer's Backpack
-            pattern: 010 020 000
+            input: Adventurer's Backpack, Diamond, Woven Silk
+            pattern: 212 202 222
             tools: Carpenter
 
     item: Apiarist's Backpack
         recipe:
-            input: String, Wool, Stick, Apiarist's Chest
-            pattern: 010 232 010
+            input: Apiarist's Chest, Stick, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Builder's Backpack
         recipe:
-            input: String, Wool, Clay, Chest
-            pattern: 010 232 010
+            input: Chest, Clay, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Builder's WovenBackpack
         recipe:
-            input: Woven Silk, Diamond, Builder's Backpack
-            pattern: 010 020 000
+            input: Builder's Backpack, Diamond, Woven Silk
+            pattern: 212 202 222
             tools: Carpenter
 
     item: Digger's Backpack
         recipe:
-            input: String, Wool, Stone, Chest
-            pattern: 010 232 010
+            input: Chest, Stone, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Digger's Woven Backpack
         recipe:
-            input: Woven Silk, Diamond, Digger's Backpack
-            pattern: 010 020 000
+            input: Diamond, Digger's Backpack, Woven Silk
+            pattern: 202 212 222
             tools: Carpenter
 
     item: Forester's Backpack
         recipe:
-            input: String, Wool, Oak Wood, Chest
-            pattern: 010 232 010
+            input: Chest, Oak Wood, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Forester's Woven Backpack
         recipe:
-            input: Woven Silk, Diamond, Forester's Backpack
-            pattern: 010 020 000
+            input: Diamond, Forester's Backpack, Woven Silk
+            pattern: 202 212 222
             tools: Carpenter
 
     item: Hunter's Backpack
         recipe:
-            input: String, Wool, Feather, Chest
-            pattern: 010 232 010
+            input: Chest, Feather, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Hunter's Woven Backpack
         recipe:
-            input: Woven Silk, Diamond, Hunter's Backpack
-            pattern: 010 020 000
+            input: Diamond, Hunter's Backpack, Woven Silk
+            pattern: 202 212 222
             tools: Carpenter
 
     item: Lepidopterist's Backpack
         recipe:
-            input: String, Wool, Stick, Chest
-            pattern: 010 232 010
+            input: Chest, Stick, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Miner's Backpack
         recipe:
-            input: String, Wool, Iron Ingot, Chest
-            pattern: 010 232 010
+            input: Chest, Iron Ingot, String, Wool
+            pattern: 232 101 232
             tools: Crafting Table
 
     item: Miner's Woven Backpack
         recipe:
-            input: Woven Silk, Diamond, Miner's Backpack
-            pattern: 010 020 000
+            input: Diamond, Miner's Backpack, Woven Silk
+            pattern: 202 212 222
             tools: Carpenter
 
-group: Machines
+group: Bee Produce
 
-    item: Alveary Fan
+    item: Dripping Comb
+
+    item: Frozen Comb
+
+    item: Honey Comb
+
+    item: Mellow Comb
+
+    item: Mossy Comb
+
+    item: Parched Comb
+
+    item: Silky Comb
+
+    item: Simmering Comb
+
+    item: Stringy Comb
+
+group: Bees
+
+    item: Agrarian Drone
+
+    item: Agrarian Princess
+
+    item: Agrarian Queen
+
+    item: Austere Drone
+
+    item: Austere Princess
+
+    item: Austere Queen
+
+    item: Avenging Drone
+
+    item: Avenging Princess
+
+    item: Avenging Queen
+
+    item: Boggy Drone
+
+    item: Boggy Princess
+
+    item: Boggy Queen
+
+    item: Common Drone
+
+    item: Common Princess
+
+    item: Common Queen
+
+    item: Cultivated Drone
+
+    item: Cultivated Princess
+
+    item: Cultivated Queen
+
+    item: Demonic Drone
+
+    item: Demonic Princess
+
+    item: Demonic Queen
+
+    item: Diligent Drone
+
+    item: Diligent Princess
+
+    item: Diligent Queen
+
+    item: Edenic Drone
+
+    item: Edenic Princess
+
+    item: Edenic Queen
+
+    item: Ender Drone
+
+    item: Ender Princess
+
+    item: Ender Queen
+
+    item: Exotic Drone
+
+    item: Exotic Princess
+
+    item: Exotic Queen
+
+    item: Farmerly Drone
+
+    item: Farmerly Princess
+
+    item: Farmerly Queen
+
+    item: Fiendish Drone
+
+    item: Fiendish Princess
+
+    item: Fiendish Queen
+
+    item: Forest Drone
+
+    item: Forest Princess
+
+    item: Forest Queen
+
+    item: Frugal Drone
+
+    item: Frugal Princess
+
+    item: Frugal Queen
+
+    item: Glacial Drone
+
+    item: Glacial Princess
+
+    item: Glacial Queen
+
+    item: Hermitic Drone
+
+    item: Hermitic Princess
+
+    item: Hermitic Queen
+
+    item: Heroic Drone
+
+    item: Heroic Princess
+
+    item: Heroic Queen
+
+    item: Icy Drone
+
+    item: Icy Princess
+
+    item: Icy Queen
+
+    item: Imperial Drone
+
+    item: Imperial Princess
+
+    item: Imperial Queen
+
+    item: Industrious Drone
+
+    item: Industrious Princess
+
+    item: Industrious Queen
+
+    item: Leporine Drone
+
+    item: Leporine Princess
+
+    item: Leporine Queen
+
+    item: Majestic Drone
+
+    item: Majestic Princess
+
+    item: Majestic Queen
+
+    item: Marshy Drone
+
+    item: Marshy Princess
+
+    item: Marshy Queen
+
+    item: Meadows Drone
+
+    item: Meadows Princess
+
+    item: Meadows Queen
+
+    item: Merry Drone
+
+    item: Merry Princess
+
+    item: Merry Queen
+
+    item: Miry Drone
+
+    item: Miry Princess
+
+    item: Miry Queen
+
+    item: Modest Drone
+
+    item: Modest Princess
+
+    item: Modest Queen
+
+    item: Monastic Drone
+
+    item: Monastic Princess
+
+    item: Monastic Queen
+
+    item: Noble Drone
+
+    item: Noble Princess
+
+    item: Noble Queen
+
+    item: Phantasmal Drone
+
+    item: Phantasmal Princess
+
+    item: Phantasmal Queen
+
+    item: Rural Drone
+
+    item: Rural Princess
+
+    item: Rural Queen
+
+    item: Secluded Drone
+
+    item: Secluded Princess
+
+    item: Secluded Queen
+
+    item: Sinister Drone
+
+    item: Sinister Princess
+
+    item: Sinister Queen
+
+    item: Spectral Drone
+
+    item: Spectral Princess
+
+    item: Spectral Queen
+
+    item: Steadfast Drone
+
+    item: Steadfast Princess
+
+    item: Steadfast Queen
+
+    item: Tipsy Drone
+
+    item: Tipsy Princess
+
+    item: Tipsy Queen
+
+    item: Tricky Drone
+
+    item: Tricky Princess
+
+    item: Tricky Queen
+
+    item: Tropical Drone
+
+    item: Tropical Princess
+
+    item: Tropical Queen
+
+    item: Unweary Drone
+
+    item: Unweary Princess
+
+    item: Unweary Queen
+
+    item: Valiant Drone
+
+    item: Valiant Princess
+
+    item: Valiant Queen
+
+    item: Vengeful Drone
+
+    item: Vengeful Princess
+
+    item: Vengeful Queen
+
+    item: Vindictive Drone
+
+    item: Vindictive Princess
+
+    item: Vindictive Queen
+
+    item: Wintry Drone
+
+    item: Wintry Princess
+
+    item: Wintry Queen
+
+group: Buckets
+
+    item: Biomass Bucket
         recipe:
-            input: Iron Ingot, Alveary, Golden Electron Tube
-            pattern: 0.0 .1. 020
+            input: Biomass, Bucket
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Crushed Ice Bucket
+        recipe:
+            input: Bucket, Crushed Ice
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Ethanol Bucket
+        recipe:
+            input: Bucket, Ethanol
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Honey Bucket
+        recipe:
+            input: Bucket, Honey
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Juice Bucket
+        recipe:
+            input: Bucket, Fruit Juice
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Molten Glass Bucket
+        recipe:
+            input: Bucket, Liquid Glass
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Seed Oil Bucket
+        recipe:
+            input: Bucket, Seed Oil
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Short Mead Bucket
+        recipe:
+            input: Bucket, Short Mead
+            pattern: ... .1. .0.
+            tools: Bottler
+
+group: Butterfly
+
+    item: Atlas Moth
+
+    item: Atlas Moth_2
+
+    item: Atlas Moth_3
+
+    item: Black Swallowtail
+
+    item: Black Swallowtail_2
+
+    item: Black Swallowtail_3
+
+    item: Blue Duke
+
+    item: Blue Duke_2
+
+    item: Blue Duke_3
+
+    item: Blue Wing
+
+    item: Blue Wing_2
+
+    item: Blue Wing_3
+
+    item: Brimstone
+
+    item: Brimstone_2
+
+    item: Brimstone_3
+
+    item: Brimstone Moth
+
+    item: Brimstone Moth_2
+
+    item: Brimstone Moth_3
+
+    item: Cabbage White
+
+    item: Cabbage White_2
+
+    item: Cabbage White_3
+
+    item: Canary Speckled Wood
+
+    item: Canary Speckled Wood_2
+
+    item: Canary Speckled Wood_3
+
+    item: Citrus Swallowtail
+
+    item: Citrus Swallowtail_2
+
+    item: Citrus Swallowtail_3
+
+    item: Comma
+
+    item: Comma_2
+
+    item: Comma_3
+
+    item: Common Clouded Yellow
+
+    item: Common Clouded Yellow_2
+
+    item: Common Clouded Yellow_3
+
+    item: Diana Fritillary
+
+    item: Diana Fritillary_2
+
+    item: Diana Fritillary_3
+
+    item: Eastern Bath White
+
+    item: Eastern Bath White_2
+
+    item: Eastern Bath White_3
+
+    item: Emerald Peacock
+
+    item: Emerald Peacock_2
+
+    item: Emerald Peacock_3
+
+    item: Glasswing
+
+    item: Glasswing_2
+
+    item: Glasswing_3
+
+    item: Glassy Tiger
+
+    item: Glassy Tiger_2
+
+    item: Glassy Tiger_3
+
+    item: Gozora Azure
+
+    item: Gozora Azure_2
+
+    item: Gozora Azure_3
+
+    item: Holly Blue
+
+    item: Holly Blue_2
+
+    item: Holly Blue_3
+
+    item: Latticed Heath
+
+    item: Latticed Heath_2
+
+    item: Latticed Heath_3
+
+    item: Leopard Lacewing
+
+    item: Leopard Lacewing_2
+
+    item: Leopard Lacewing_3
+
+    item: Madeiran Speckled Wood
+
+    item: Madeiran Speckled Wood_2
+
+    item: Madeiran Speckled Wood_3
+
+    item: Malachite
+
+    item: Malachite_2
+
+    item: Malachite_3
+
+    item: Menelaus Blue Morpho
+
+    item: Menelaus Blue Morpho_2
+
+    item: Menelaus Blue Morpho_3
+
+    item: Monarch
+
+    item: Monarch_2
+
+    item: Monarch_3
+
+    item: Orange Tip
+
+    item: Orange Tip_2
+
+    item: Orange Tip_3
+
+    item: Painted Beauty
+
+    item: Painted Beauty_2
+
+    item: Painted Beauty_3
+
+    item: Palaeno Sulphur
+
+    item: Palaeno Sulphur_2
+
+    item: Palaeno Sulphur_3
+
+    item: Peleides Blue Morpho
+
+    item: Peleides Blue Morpho_2
+
+    item: Peleides Blue Morpho_3
+
+    item: Postman_2
+
+    item: Postman_3
+
+    item: Postmanitem: Rhetenor Blue Morpho_2
+
+    item: Rhetenor Blue Morpho
+
+    item: Rhetenor Blue Morpho_3
+
+    item: Speckled Wood
+
+    item: Speckled Wood_2
+
+    item: Speckled Wood_3
+
+    item: Spicebush Swallowtail
+
+    item: Spicebush Swallowtail_2
+
+    item: Spicebush Swallowtail_3
+
+    item: Thoas Swallowtail
+
+    item: Thoas Swallowtail_2
+
+    item: Thoas Swallowtail_3
+
+    item: Zebra Swallowtail
+
+    item: Zebra Swallowtail_2
+
+    item: Zebra Swallowtail_3
+
+group: Cans
+
+    item: Biomass Can
+        recipe:
+            input: Biomass, Can
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Can
+        recipe:
+            input: Tin Ingot
+            pattern: .0. 0.0 ...
+            quantity: 12
             tools: Crafting Table
 
-    item: Alveary Heater
+    item: Ethanol Can
         recipe:
-            input: Iron Ingot, Alveary, Golden Electron Tube, Stone
-            pattern: 202 .1. 333
+            input: Can, Ethanol
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Fuel Can
+
+    item: Honey Can
+        recipe:
+            input: Can, Honey
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Ice Can
+        recipe:
+            input: Can, Crushed Ice
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Juice Can
+        recipe:
+            input: Can, Fruit Juice
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Lava Can
+        recipe:
+            input: Can, Lava
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Oil Can
+
+    item: Seed Oil Can
+        recipe:
+            input: Can, Seed Oil
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Water Can
+        recipe:
+            input: Can, Water
+            pattern: ... .1. .0.
+            tools: Bottler
+
+group: Capsules
+
+    item: Biomass Capsule
+        recipe:
+            input: Biomass, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Biomass Capsule_2
+        recipe:
+            input: Biomass, Refractory Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Ethanol Capsule
+        recipe:
+            input: Ethanol, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Ethanol Capsule_2
+        recipe:
+            input: Ethanol, Refractory Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Fuel Capsule
+
+    item: Fuel Capsule_2
+
+    item: Honey Capsule
+        recipe:
+            input: Honey, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Honey Capsule_2
+        recipe:
+            input: Honey, Refractory Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Ice Capsule
+        recipe:
+            input: Crushed Ice, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Ice Capsule_2
+        recipe:
+            input: Crushed Ice, Refractory Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Iodine Capsule
+        recipe:
+            input: Can, Gunpowder, Honey Drop, Pollen Cluster
+            pattern: 232 303 131
+            tools: Carpenter
+
+    item: Juice Capsule
+        recipe:
+            input: Fruit Juice, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Juice Capsule_2
+        recipe:
+            input: Fruit Juice, Refractory Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Lava Capsule
+        recipe:
+            input: Lava, Refractory Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Oil Capsule
+
+    item: Oil Capsule_2
+
+    item: Refractory Capsule
+        recipe:
+            input: Refractory Wax
+            pattern: 000 ... ...
+            quantity: 4
             tools: Crafting Table
 
-    item: Alveary Hygroregulator
+    item: Seed Oil Capsule
         recipe:
-            input: Glass, Iron Ingot, Alveary
-            pattern: 010 020 010
+            input: Seed Oil, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Seed Oil Capsule_2
+        recipe:
+            input: Refractory Capsule, Seed Oil
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Water Capsule
+        recipe:
+            input: Water, Wax Capsule
+            pattern: ... .0. .1.
+            tools: Bottler
+
+    item: Water Capsule_2
+        recipe:
+            input: Refractory Capsule, Water
+            pattern: ... .1. .0.
+            tools: Bottler
+
+    item: Wax Capsule
+        recipe:
+            input: Beeswax
+            pattern: 000 ... ...
+            quantity: 4
             tools: Crafting Table
 
-    item: Alveary
-        recipe:
-            input: Scented Paneling, Impregnated Casing
-            pattern: 000 010 000
-            tools: Crafting Table
+group: Circuit Boards
 
-    item: Alveary Sieve
+    item: Basic Circuit Board
         recipe:
-            input: Iron Ingot, Alveary, Woven Silk
-            pattern: 000 .1. 222
-            tools: Crafting Table
-
-    item: Alveary Stabiliser
-        recipe:
-            input: Nether Quartz, Alveary
+            input: Redstone, Tin Ingot
             pattern: 0.0 010 0.0
-            tools: Crafting Table
+            tools: Carpenter
 
-    item: Analyzer
+    item: Enhanced Circuit Board
         recipe:
-            input: Bronze Ingot, Beealyzer, Sturdy Casing
-            pattern: 010 .2. 0.0
-            tools: Crafting Table
+            input: Bronze Ingot, Redstone
+            pattern: 101 101 101
+            tools: Carpenter
 
+    item: Intricate Circuit Board
         recipe:
-            input: Bronze Ingot, Treealyzer, Sturdy Casing
-            pattern: 010 .2. 0.0
-            tools: Crafting Table
+            input: Gold Ingot, Redstone
+            pattern: 101 101 101
+            tools: Carpenter
 
-    item: Apiary
+    item: Refined Circuit Board
         recipe:
-            input: Oak Wood Slab, Oak Wood Planks, Impregnated Casing
-            pattern: 000 121 111
-            tools: Crafting Table
+            input: Iron Ingot, Redstone
+            pattern: 101 101 101
+            tools: Carpenter
+
+group: Clothing
+
+    item: Apiarist's Hat
+        recipe:
+            input: Woven Silk
+            pattern: 000 0.0 ...
+            tools: Carpenter
+
+    item: Apiarist's Pants
+        recipe:
+            input: Woven Silk
+            pattern: 000 0.0 0.0
+            tools: Carpenter
+
+    item: Apiarist's Shirt
+        recipe:
+            input: Woven Silk
+            pattern: 0.0 000 000
+            tools: Carpenter
+
+    item: Apiarist's Shoes
+        recipe:
+            input: Woven Silk
+            pattern: 0.0 0.0 ...
+            tools: Carpenter
+
+group: Crated
+
+    item: Crate
+        recipe:
+            input: Oak Wood
+            pattern: .0. 0.0 .0.
+            quantity: 24
+            tools: Carpenter
+
+    item: Crated Apatite
+        recipe:
+            input: Apatite
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Apple
+        recipe:
+            input: Apple
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Ash
+        recipe:
+            input: Ash
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Beeswax
+        recipe:
+            input: Beeswax
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Bog Earth
+        recipe:
+            input: Bog Earth
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Bricks
+        recipe:
+            input: Bricks
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Bronze Ingot
+        recipe:
+            input: Bronze Ingot
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Cactus
+        recipe:
+            input: Cactus
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Carrot
+        recipe:
+            input: Carrot
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Charcoal
+        recipe:
+            input: Charcoal
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Clay
+        recipe:
+            input: Clay
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Coal
+        recipe:
+            input: Coal
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Cobblestone
+        recipe:
+            input: Cobblestone
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Cocoa Comb
+        recipe:
+            input: Cocoa Comb
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Cookie
+        recipe:
+            input: Cookie
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Copper Ingot
+        recipe:
+            input: Copper Ingot
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Dirt
+        recipe:
+            input: Dirt
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Dripping Comb
+        recipe:
+            input: Dripping Comb
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Fertilizer
+        recipe:
+            input: Fertilizer
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Frozen Comb
+        recipe:
+            input: Frozen Comb
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Glowstone Dust
+        recipe:
+            input: Glowstone Dust
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Gravel
+        recipe:
+            input: Gravel
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Honey Comb
+        recipe:
+            input: Honey Comb
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Honeydew
+        recipe:
+            input: Honeydew
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Humus
+        recipe:
+            input: Humus
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Lapis Lazuli
+        recipe:
+            input: Lapis Lazuli
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Mulch
+        recipe:
+            input: Mulch
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Mycelium
+        recipe:
+            input: Mycelium
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Nether Brick
+        recipe:
+            input: Nether Brick
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Nether Wart
+        recipe:
+            input: Nether Wart
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Netherrack
+        recipe:
+            input: Netherrack
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Oak Sapling
+        recipe:
+            input: Oak Sapling
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Oak Wood
+        recipe:
+            input: Oak Wood
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Obsidian
+        recipe:
+            input: Obsidian
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Peat
+        recipe:
+            input: Peat
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Phosphor
+        recipe:
+            input: Phosphor
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Pollen Cluster
+        recipe:
+            input: Pollen Cluster
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Potato
+        recipe:
+            input: Potato
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Propolis
+        recipe:
+            input: Propolis
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Redstone
+        recipe:
+            input: Redstone
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Refractory Wax
+        recipe:
+            input: Refractory Wax
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Royal Jelly
+        recipe:
+            input: Royal Jelly
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Sand
+        recipe:
+            input: Sand
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Sandstone
+        recipe:
+            input: Sandstone
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Seeds
+        recipe:
+            input: Seeds
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Simmering Comb
+        recipe:
+            input: Simmering Comb
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Soul Sand
+        recipe:
+            input: Soul Sand
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Stone
+        recipe:
+            input: Stone
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Stringy Comb
+        recipe:
+            input: Stringy Comb
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Sugar Canes
+        recipe:
+            input: Sugar Canes
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Tin Ingot
+        recipe:
+            input: Tin Ingot
+            pattern: 000 000 000
+            tools: Carpenter
+
+    item: Crated Wheat
+        recipe:
+            input: Wheat
+            pattern: 000 000 000
+            tools: Carpenter
+
+group: Engines
 
     item: Biogas Engine
         recipe:
-            input: Bronze Ingot, Glass, Bronze Gear, Piston
-            pattern: 000 .1. 232
+            input: Bronze Gear, Bronze Ingot, Glass, Piston
+            pattern: 111 .2. 030
             tools: Crafting Table
 
-    item: Bottler
+    item: Clockwork Engine
         recipe:
-            input: Can, Glass, Sturdy Casing
-            pattern: 010 020 010
-            tools: Crafting Table
-
-    item: Carpenter
-        recipe:
-            input: Bronze Ingot, Glass, Sturdy Casing
-            pattern: 010 020 010
-            tools: Crafting Table
-
-    item: Centrifuge
-        recipe:
-            input: Copper Ingot, Glass, Sturdy Casing
-            pattern: 010 020 010
-            tools: Crafting Table
-
-    item: Fertilizer
-        recipe:
-            input: Sand, Apatite
-            pattern: .0. .1. .0.
-            quantity: 8
-            tools: Crafting Table
-        recipe:
-            input: Ash, Apatite
-            pattern: 000 010 000
-            quantity: 16
-            tools: Crafting Table
-
-    item: Moistener
-        recipe:
-            input: Copper Gear, Glass, Sturdy Casing
-            pattern: 010 121 010
+            input: Clock, Copper Gear, Glass, Oak Wood Planks, Piston
+            pattern: 333 .2. 140
             tools: Crafting Table
 
     item: Peat-fired Engine
         recipe:
-            input: Copper Ingot, Glass, Copper Gear, Piston
-            pattern: 000 .1. 232
+            input: Copper Gear, Copper Ingot, Glass, Piston
+            pattern: 111 .2. 030
             tools: Crafting Table
-
-    item: Rainmaker
-        recipe:
-            input: Tin Gear, Glass, Hardened Casing
-            pattern: 010 121 010
-            tools: Crafting Table
-
-    item: Thermionic Fabricator
-        recipe:
-            input: Gold Ingot, Glass, Sturdy Casing, Chest
-            pattern: 010 121 030
-            tools: Crafting Table
-
-group: Alyzers
-
-    item: Beealyzer
-        recipe:
-            input: Tin Ingot, Glass Pane, Redstone, Diamond
-            pattern: 010 010 232
-            tools: Carpenter
-
-    item: Flutterlyzer
-        recipe:
-            input: Bronze Ingot, Glass Pane, Redstone, Diamond
-            pattern: 010 010 232
-            tools: Carpenter
 
 group: Farm block etc.
 
+    item: Farm Block
+        recipe:
+            input: Copper Ingot, Oak Wood Slab, Stone Bricks, Tin Electron Tube
+            pattern: 020 131 ...
+            tools: Crafting Table
+
     item: Farm Block_10
         recipe:
-            input: Copper Ingot, Chiseled Quartz Block, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
+            input: Chiseled Quartz Block, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
             tools: Crafting Table
 
     item: Farm Block_11
         recipe:
-            input: Copper Ingot, Pillar Quartz Block, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
+            input: Copper Ingot, Oak Wood Slab, Pillar Quartz Block, Tin Electron Tube
+            pattern: 020 131 ...
             tools: Crafting Table
 
     item: Farm Block_2
@@ -1845,20 +1264,20 @@ group: Farm block etc.
 
     item: Farm Block_4
         recipe:
-            input: Copper Ingot, Bricks, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
+            input: Bricks, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
             tools: Crafting Table
 
     item: Farm Block_5
         recipe:
-            input: Copper Ingot, Smooth Sandstone, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
+            input: Copper Ingot, Oak Wood Slab, Smooth Sandstone, Tin Electron Tube
+            pattern: 020 131 ...
             tools: Crafting Table
 
     item: Farm Block_6
         recipe:
-            input: Copper Ingot, Chiseled Sandstone, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
+            input: Chiseled Sandstone, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
             tools: Crafting Table
 
     item: Farm Block_7
@@ -1869,86 +1288,86 @@ group: Farm block etc.
 
     item: Farm Block_8
         recipe:
-            input: Copper Ingot, Chiseled Stone Bricks, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
+            input: Chiseled Stone Bricks, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
             tools: Crafting Table
 
     item: Farm Block_9
         recipe:
-            input: Copper Ingot, Block of Quartz, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
-            tools: Crafting Table
-
-    item: Farm Block
-        recipe:
-            input: Copper Ingot, Stone Bricks, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
-            tools: Crafting Table
-
-    item: Farm Control_10
-        recipe:
-            input: Farm Block_10, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_11
-        recipe:
-            input: Farm Block_11, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_2
-        recipe:
-            input: Farm Block_2, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_3
-        recipe:
-            input: Farm Block_3, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_4
-        recipe:
-            input: Farm Block_4, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_5
-        recipe:
-            input: Farm Block_5, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_6
-        recipe:
-            input: Farm Block_6, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_7
-        recipe:
-            input: Farm Block_7, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_8
-        recipe:
-            input: Farm Block_8, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
-            tools: Crafting Table
-
-    item: Farm Control_9
-        recipe:
-            input: Farm Block_9, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
+            input: Block of Quartz, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
             tools: Crafting Table
 
     item: Farm Control
         recipe:
-            input: Farm Block, Redstone, Golden Electron Tube
-            pattern: .0. 121 ...
+            input: Farm Block, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_10
+        recipe:
+            input: Farm Block_10, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_11
+        recipe:
+            input: Farm Block_11, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_2
+        recipe:
+            input: Farm Block_2, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_3
+        recipe:
+            input: Farm Block_3, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_4
+        recipe:
+            input: Farm Block_4, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_5
+        recipe:
+            input: Farm Block_5, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_6
+        recipe:
+            input: Farm Block_6, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_7
+        recipe:
+            input: Farm Block_7, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_8
+        recipe:
+            input: Farm Block_8, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Control_9
+        recipe:
+            input: Farm Block_9, Golden Electron Tube, Redstone
+            pattern: .0. 212 ...
+            tools: Crafting Table
+
+    item: Farm Gearbox
+        recipe:
+            input: Farm Block, Tin Gear
+            pattern: .0. 111 ...
             tools: Crafting Table
 
     item: Farm Gearbox_10
@@ -2011,10 +1430,10 @@ group: Farm block etc.
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox
+    item: Farm Hatch
         recipe:
-            input: Farm Block, Tin Gear
-            pattern: .0. 111 ...
+            input: Farm Block, Tin Gear, Trapdoor
+            pattern: .0. 121 ...
             tools: Crafting Table
 
     item: Farm Hatch_10
@@ -2077,9 +1496,9 @@ group: Farm block etc.
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch
+    item: Farm Valve
         recipe:
-            input: Farm Block, Tin Gear, Trapdoor
+            input: Farm Block, Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
@@ -2143,11 +1562,2505 @@ group: Farm block etc.
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve
+group: Fences
+
+    item: Acacia Fence
         recipe:
-            input: Farm Block, Glass, Tin Gear
-            pattern: .0. 121 ...
+            input: Acacia Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
             tools: Crafting Table
+
+    item: Balsa Fence
+        recipe:
+            input: Balsa Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Baobab Fence
+        recipe:
+            input: Baobab Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Cherry Fence
+        recipe:
+            input: Cherry Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Chestnut Fence
+        recipe:
+            input: Chestnut Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Citrus Fence
+        recipe:
+            input: Citrus Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Cocobolo Fence
+        recipe:
+            input: Cocobolo Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Ebony Fence
+        recipe:
+            input: Ebony Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Giant Sequoia Fence
+        recipe:
+            input: Giant Sequoia Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Greenheart Fence
+        recipe:
+            input: Greenheart Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Ipe Fence
+        recipe:
+            input: Ipe Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Kapok Fence
+        recipe:
+            input: Kapok Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Larch Fence
+        recipe:
+            input: Larch Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Lime Fence
+        recipe:
+            input: Lime Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Mahoe Fence
+        recipe:
+            input: Mahoe Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Mahogany Fence
+        recipe:
+            input: Mahogany Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Maple Fence
+        recipe:
+            input: Maple Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Padauk Fence
+        recipe:
+            input: Padauk Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Palm Fence
+        recipe:
+            input: Palm Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Papaya Fence
+        recipe:
+            input: Papaya Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Pine Fence
+        recipe:
+            input: Pine Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Plum Fence
+        recipe:
+            input: Plum Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Poplar Fence
+        recipe:
+            input: Poplar Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Sequoia Fence
+        recipe:
+            input: Sequoia Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Teak Fence
+        recipe:
+            input: Teak Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Walnut Fence
+        recipe:
+            input: Walnut Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Wenge Fence
+        recipe:
+            input: Wenge Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Willow Fence
+        recipe:
+            input: Willow Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+    item: Zebrawood Fence
+        recipe:
+            input: Zebrawood Wood Planks
+            pattern: 000 0.0 ...
+            quantity: 4
+            tools: Crafting Table
+
+group: Fireproof Planks
+
+    item: Acacia Wood Planks (Fireproof)
+        recipe:
+            input: Acacia Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Balsa Wood Planks (Fireproof)
+        recipe:
+            input: Balsa Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Baobab Wood Planks (Fireproof)
+        recipe:
+            input: Baobab Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Cherry Wood Planks (Fireproof)
+        recipe:
+            input: Cherry Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Chestnut Wood Planks (Fireproof)
+        recipe:
+            input: Chestnut Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Citrus Wood Planks (Fireproof)
+        recipe:
+            input: Citrus Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Cocobolo Wood Planks (Fireproof)
+        recipe:
+            input: Cocobolo Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Ebony Wood Planks (Fireproof)
+        recipe:
+            input: Ebony Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Giant Sequoia Wood Planks (Fireproof)
+        recipe:
+            input: Giant Sequoia Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Greenheart Wood Planks (Fireproof)
+        recipe:
+            input: Greenheart Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Ipe Wood Planks (Fireproof)
+        recipe:
+            input: Ipe Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Kapok Wood Planks (Fireproof)
+        recipe:
+            input: Kapok Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Larch Wood Planks (Fireproof)
+        recipe:
+            input: Larch Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Lime Wood Planks (Fireproof)
+        recipe:
+            input: Lime Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Mahoe Wood Planks (Fireproof)
+        recipe:
+            input: Mahoe Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Mahogany Wood Planks (Fireproof)
+        recipe:
+            input: Mahogany Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Maple Wood Planks (Fireproof)
+        recipe:
+            input: Maple Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Padauk Wood Planks (Fireproof)
+        recipe:
+            input: Padauk Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Palm Wood Planks (Fireproof)
+        recipe:
+            input: Palm Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Papaya Wood Planks (Fireproof)
+        recipe:
+            input: Papaya Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Pine Wood Planks (Fireproof)
+        recipe:
+            input: Pine Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Plum Wood Planks (Fireproof)
+        recipe:
+            input: Plum Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Poplar Wood Planks (Fireproof)
+        recipe:
+            input: Poplar Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Sequoia Wood Planks (Fireproof)
+        recipe:
+            input: Sequoia Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Teak Wood Planks (Fireproof)
+        recipe:
+            input: Teak Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Walnut Wood Planks (Fireproof)
+        recipe:
+            input: Walnut Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Wenge Wood Planks (Fireproof)
+        recipe:
+            input: Wenge Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Willow Wood Planks (Fireproof)
+        recipe:
+            input: Willow Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Zebrawood Wood Planks (Fireproof)
+        recipe:
+            input: Zebrawood Wood (Fireproof)
+            pattern: ... .0. ...
+            quantity: 4
+
+group: Fireproof Wood
+
+    item: Acacia Wood (Fireproof)
+        recipe:
+            input: Acacia Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Balsa Wood (Fireproof)
+        recipe:
+            input: Balsa Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Baobab Wood (Fireproof)
+        recipe:
+            input: Baobab Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Cherry Wood (Fireproof)
+        recipe:
+            input: Cherry Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Chestnut Wood (Fireproof)
+        recipe:
+            input: Chestnut Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Citrus Wood (Fireproof)
+        recipe:
+            input: Citrus Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Cocobolo Wood (Fireproof)
+        recipe:
+            input: Cocobolo Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Ebony Wood (Fireproof)
+        recipe:
+            input: Ebony Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Giant Sequoia Wood (Fireproof)
+        recipe:
+            input: Giant Sequoia Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Greenheart Wood (Fireproof)
+        recipe:
+            input: Greenheart Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Ipe Wood (Fireproof)
+        recipe:
+            input: Ipe Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Kapok Wood (Fireproof)
+        recipe:
+            input: Kapok Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Larch Wood (Fireproof)
+        recipe:
+            input: Larch Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Lime Wood (Fireproof)
+        recipe:
+            input: Lime Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Mahoe Wood (Fireproof)
+        recipe:
+            input: Mahoe Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Mahogany Wood (Fireproof)
+        recipe:
+            input: Mahogany Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Maple Wood (Fireproof)
+        recipe:
+            input: Maple Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Padauk Wood (Fireproof)
+        recipe:
+            input: Padauk Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Palm Wood (Fireproof)
+        recipe:
+            input: Palm Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Papaya Wood (Fireproof)
+        recipe:
+            input: Papaya Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Pine Wood (Fireproof)
+        recipe:
+            input: Pine Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Plum Wood (Fireproof)
+        recipe:
+            input: Plum Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Poplar Wood (Fireproof)
+        recipe:
+            input: Poplar Wood, Refractory Wax
+            pattern: .1. 101 .1.
+            tools: Thermionic Fabricator
+
+    item: Sequoia Wood (Fireproof)
+        recipe:
+            input: Refractory Wax, Sequoia Wood
+            pattern: .0. 010 .0.
+            tools: Thermionic Fabricator
+
+    item: Teak Wood (Fireproof)
+        recipe:
+            input: Refractory Wax, Teak Wood
+            pattern: .0. 010 .0.
+            tools: Thermionic Fabricator
+
+    item: Walnut Wood (Fireproof)
+        recipe:
+            input: Refractory Wax, Walnut Wood
+            pattern: .0. 010 .0.
+            tools: Thermionic Fabricator
+
+    item: Wenge Wood (Fireproof)
+        recipe:
+            input: Refractory Wax, Wenge Wood
+            pattern: .0. 010 .0.
+            tools: Thermionic Fabricator
+
+    item: Willow Wood (Fireproof)
+        recipe:
+            input: Refractory Wax, Willow Wood
+            pattern: .0. 010 .0.
+            tools: Thermionic Fabricator
+
+    item: Zebrawood Wood (Fireproof)
+        recipe:
+            input: Refractory Wax, Zebrawood Wood
+            pattern: .0. 010 .0.
+            tools: Thermionic Fabricator
+
+group: Hives
+
+    item: Forest Hive
+
+    item: Marshy Hive
+
+    item: Meadows Hive
+
+    item: Modest Hive
+
+    item: Tropical Hive
+
+    item: Wintry Hive
+
+group: Larvae
+
+    item: Forest Larvae
+
+    item: Marshy Larvae
+
+    item: Meadows Larvae
+
+    item: Modest Larvae
+
+    item: Tropical Larvae
+
+    item: Wintry Larvae
+
+group: Leaves
+
+    item: Acacia Leaves
+
+    item: Apple Oak Leaves
+
+    item: Balsa Leaves
+
+    item: Blue Mahoe Leaves
+
+    item: Bull Pine Leaves
+
+    item: Coast Sequoia Leaves
+
+    item: Cocobolo Leaves
+
+    item: Common Walnut Leaves
+
+    item: Dark Oak Leaves
+
+    item: Date Palm Leaves
+
+    item: Desert Acacia Leaves
+
+    item: Giant Sequoia Leaves
+
+    item: Grandidier's Baobab Leaves
+
+    item: Hill Cherry Leaves
+
+    item: Ipe Leaves
+
+    item: Jungle Leaves
+
+    item: Kapok Leaves
+
+    item: Lemon Leaves
+
+    item: Mundane Larch Leaves
+
+    item: Myrtle Ebony Leaves
+
+    item: Padauk Leaves
+
+    item: Papaya Leaves
+
+    item: Plum Leaves
+
+    item: Red Spruce Leaves
+
+    item: Silver Birch Leaves
+
+    item: Silver Lime Leaves
+
+    item: Sipiri Leaves
+
+    item: Sugar Maple Leaves
+
+    item: Sweet Chestnut Leaves
+
+    item: Teak Leaves
+
+    item: Wenge Leaves
+
+    item: White Poplar Leaves
+
+    item: White Willow Leaves
+
+    item: Yellow Meranti Leaves
+
+    item: Zebrawood Leaves
+
+group: Liquids
+
+    item: Biomass
+        recipe:
+            input: Compost, Oak Sapling, Water
+            pattern: .2. .0. .1.
+            tools: Fermenter
+        recipe:
+            input: Fertilizer, Oak Sapling, Water
+            pattern: .2. .0. .1.
+            tools: Fermenter
+        recipe:
+            input: Mulch, Oak Sapling, Water
+            pattern: .2. .0. .1.
+            tools: Fermenter
+
+    item: Crushed Ice
+        recipe:
+            input: Ice Shard, Snowball
+            pattern: 10. ... ...
+            tools: Squeezer
+
+    item: Ethanol
+        recipe:
+            input: Biomass
+            pattern: .0. ... ...
+            tools: Still
+
+    item: Fruit Juice
+        recipe:
+            input: Lemon
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            input: Plum
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            input: Papaya
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            input: Date
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            input: Apple
+            pattern: .0. ... ...
+            tools: Squeezer
+
+    item: Honey
+        recipe:
+            extras: Propolis
+            input: Honey Drop
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            input: Honeydew
+            pattern: .0. ... ...
+            tools: Squeezer
+
+    item: Liquid Glass
+
+    item: Milk
+
+    item: Seed Oil
+        recipe:
+            extras: Mulch
+            input: Cherry
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Mulch
+            input: Walnut
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Mulch
+            input: Chestnut
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Mulch
+            input: Pumpkin Seeds
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Mulch
+            input: Seeds
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Mulch
+            input: Melon Seeds
+            pattern: .0. ... ...
+            tools: Squeezer
+
+    item: Short Mead
+        recipe:
+            input: Fertilizer, Honey, Honeydew
+            pattern: .1. .2. .0.
+            tools: Fermenter
+        recipe:
+            input: Honey, Honeydew, Mulch
+            pattern: .0. .1. .2.
+            tools: Fermenter
+        recipe:
+            input: Compost, Honey, Honeydew
+            pattern: .1. .2. .0.
+            tools: Fermenter
+
+group: Machine Parts
+
+    item: Bronze Gear
+        recipe:
+            input: Bronze Ingot
+            pattern: .0. 000 .0.
+            tools: Crafting Table
+
+    item: Copper Gear
+        recipe:
+            input: Copper Ingot
+            pattern: .0. 000 .0.
+            tools: Crafting Table
+
+    item: Hardened Casing
+        recipe:
+            input: Diamond, Sturdy Casing
+            pattern: 0.0 .1. 0.0
+            tools: Carpenter
+
+    item: Impregnated Casing
+        recipe:
+            input: Oak Wood
+            pattern: 000 0.0 000
+            tools: Carpenter
+
+    item: Sturdy Casing
+        recipe:
+            input: Bronze Ingot
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Tin Gear
+        recipe:
+            input: Tin Ingot
+            pattern: .0. 000 .0.
+            tools: Crafting Table
+
+group: Machines
+
+    item: Alveary
+        recipe:
+            input: Impregnated Casing, Scented Paneling
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Alveary Fan
+        recipe:
+            input: Alveary, Golden Electron Tube, Iron Ingot
+            pattern: 2.2 .0. 212
+            tools: Crafting Table
+
+    item: Alveary Heater
+        recipe:
+            input: Alveary, Golden Electron Tube, Iron Ingot, Stone
+            pattern: 121 .0. 333
+            tools: Crafting Table
+
+    item: Alveary Hygroregulator
+        recipe:
+            input: Alveary, Glass, Iron Ingot
+            pattern: 121 101 121
+            tools: Crafting Table
+
+    item: Alveary Sieve
+        recipe:
+            input: Alveary, Iron Ingot, Woven Silk
+            pattern: 111 .0. 222
+            tools: Crafting Table
+
+    item: Alveary Stabiliser
+        recipe:
+            input: Alveary, Nether Quartz
+            pattern: 1.1 101 1.1
+            tools: Crafting Table
+
+    item: Apiary
+        recipe:
+            input: Impregnated Casing, Oak Wood Planks, Oak Wood Slab
+            pattern: 222 101 111
+            tools: Crafting Table
+
+    item: Bottler
+        recipe:
+            input: Can, Glass, Sturdy Casing
+            pattern: 010 121 010
+            tools: Crafting Table
+
+    item: Carpenter
+        recipe:
+            input: Bronze Ingot, Glass, Sturdy Casing
+            pattern: 010 020 010
+            tools: Crafting Table
+
+    item: Centrifuge
+        recipe:
+            input: Copper Ingot, Glass, Sturdy Casing
+            pattern: 010 020 010
+            tools: Crafting Table
+
+    item: Fermenter
+        recipe:
+            input: Bronze Gear, Glass, Sturdy Casing
+            pattern: 010 121 010
+            tools: Crafting Table
+
+    item: Moistener
+        recipe:
+            input: Copper Gear, Glass, Sturdy Casing
+            pattern: 010 121 010
+            tools: Crafting Table
+
+    item: Rainmaker
+        recipe:
+            input: Glass, Hardened Casing, Tin Gear
+            pattern: 202 010 202
+            tools: Crafting Table
+
+    item: Raintank
+        recipe:
+            input: Glass, Iron Ingot, Sturdy Casing
+            pattern: 101 121 101
+            tools: Crafting Table
+
+    item: Squeezer
+        recipe:
+            input: Glass, Sturdy Casing, Tin Ingot
+            pattern: 202 212 202
+            tools: Crafting Table
+
+    item: Still
+        recipe:
+            input: Glass, Redstone, Sturdy Casing
+            pattern: 101 020 101
+            tools: Crafting Table
+
+    item: Swarmer
+        recipe:
+            input: Alveary, Diamantine Electron Tube, Gold Ingot
+            pattern: 121 .0. 121
+            tools: Crafting Table
+
+    item: Thermionic Fabricator
+        recipe:
+            input: Chest, Glass, Gold Ingot, Sturdy Casing
+            pattern: 212 131 202
+            tools: Crafting Table
+
+    item: Worktable
+        recipe:
+            input: Book, Chest, Crafting Table
+            pattern: 0.. 2.. 1..
+            tools: Crafting Table
+
+group: Minerals
+
+    item: Apatite
+        recipe:
+            input: Block of Apatite
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Apatite Ore
+
+    item: Block of Apatite
+        recipe:
+            input: Apatite
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Bronze
+        recipe:
+            input: Bronze Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Copper
+        recipe:
+            input: Copper Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Tin
+        recipe:
+            input: Tin Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Bronze Ingot
+        recipe:
+            input: Copper Ingot, Tin Ingot
+            pattern: 10. 00. ...
+        recipe:
+            input: Block of Bronze
+            pattern: ... .0. ...
+            quantity: 9
+        recipe:
+            input: Bronze Nugget
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Copper Ingot
+        recipe:
+            input: Copper Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Block of Copper
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Copper Ore
+
+    item: Tin Ingot
+        recipe:
+            input: Tin Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Block of Tin
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Tin Ore
+
+group: Misc For Now
+
+    item: Ambrosia
+        recipe:
+            input: Honeydew, Royal Jelly, Wax Capsule
+            pattern: 020 111 000
+            tools: Crafting Table
+
+    item: Ash
+        recipe:
+            input: Peat, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+
+    item: Bee House
+        recipe:
+            input: Honeycomb, Oak Wood Planks, Oak Wood Slab
+            pattern: 222 101 111
+            tools: Crafting Table
+
+    item: Beeswax
+        recipe:
+            extras: Honey Drop
+            input: Honey Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop, Crystalline Pollen Cluster, Snowball
+            input: Frozen Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop, Nether Quartz
+            input: Mellow Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop
+            input: Mossy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop
+            input: Parched Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Bituminous Peat
+        recipe:
+            input: Ash, Peat, Propolis
+            pattern: .0. 121 .0.
+            tools: Crafting Table
+
+    item: Bog Earth
+        recipe:
+            input: Dirt, Water Bucket
+            pattern: 000 010 000
+            quantity: 6
+            tools: Crafting Table
+        recipe:
+            input: Dirt, Water Can
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Dirt, Water Capsule
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Dirt, Mulch
+            pattern: 000 010 000
+            quantity: 8
+            tools: Carpenter
+
+    item: Broken Pickaxe
+
+    item: Broken Shovel
+
+    item: Candle Stump
+
+    item: Carton
+        recipe:
+            input: Wood Pulp
+            pattern: .0. 0.0 .0.
+            tools: Carpenter
+
+    item: Compost
+        recipe:
+            input: Dirt, Wheat
+            pattern: .1. 101 .1.
+            quantity: 4
+            tools: Crafting Table
+        recipe:
+            input: Ash, Dirt
+            pattern: .0. 010 .0.
+            quantity: 4
+            tools: Crafting Table
+        recipe:
+            input: Podzol, Wheat
+            pattern: .1. 101 .1.
+            quantity: 4
+            tools: Crafting Table
+        recipe:
+            input: Ash, Podzol
+            pattern: .0. 010 .0.
+            quantity: 4
+            tools: Crafting Table
+
+    item: Crystalline Pollen Cluster
+        recipe:
+            extras: Beeswax, Honey Drop, Snowball
+            input: Frozen Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Curative Mead
+
+    item: Decaying Wheat
+        recipe:
+            input: Mouldy Wheat
+            pattern: ... ... 0..
+            tools: Moistener
+
+    item: Dissipation Charge
+        recipe:
+            input: Can, Gunpowder, Honeydew, Royal Jelly
+            pattern: 323 202 121
+            tools: Carpeneter
+
+    item: Escritoire
+        recipe:
+            input: Oak Wood Planks
+            pattern: 0.. 000 0.0
+            tools: Carpenter
+
+    item: Fertilizer
+        recipe:
+            input: Apatite, Sand
+            pattern: .1. .0. .1.
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Apatite, Ash
+            pattern: 111 101 111
+            quantity: 16
+            tools: Crafting Table
+
+    item: Honey Drop
+        recipe:
+            extras: Beeswax
+            input: Honey Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Propolis
+            input: Stringy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honeydew
+            input: Dripping Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Crystalline Pollen Cluster, Snowball, Beeswax
+            input: Frozen Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Silky Propolis
+            input: Silky Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Beeswax
+            input: Parched Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Beeswax
+            input: Mossy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Honey Pot
+        recipe:
+            input: Honey Drop, Wax Capsule
+            pattern: 0.0 .1. 0.0
+            tools: Crafting Table
+
+    item: Honeydew
+        recipe:
+            extras: Honey Drop
+            input: Dripping Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Nether Quartz, Beeswax
+            input: Mellow Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Honeyed Slice
+        recipe:
+            input: Bread, Honey Drop
+            pattern: 111 101 111
+            quantity: 4
+            tools: Crafting Table
+
+    item: Humus
+        recipe:
+            input: Compost, Dirt
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Dirt, Fertilizer
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Dirt, Mulch
+            pattern: 000 010 000
+            quantity: 9
+            tools: Carpenter
+
+    item: Ice Shard
+
+    item: Impregnated Frame
+        recipe:
+            input: Impregnated Stick, String
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Impregnated Stick
+        recipe:
+            input: Oak Wood, Seed Oil
+            pattern: .0. .0. .1.
+            tools: Carpenter
+
+    item: Imprinter
+
+    item: Letter
+        recipe:
+            input: Paper, Propolis
+            pattern: 01. ... ...
+            tools: Crafting Table
+
+    item: Mailbox
+        recipe:
+            input: Chest, Sturdy Casing, Tin Ingot
+            pattern: .2. 212 000
+            tools: Crafting Table
+
+    item: Mouldy Wheat
+        recipe:
+            input: Wheat
+            pattern: .0. ... ...
+            tools: Moistener
+
+    item: Mulch
+        recipe:
+            extras: Fruit Juice
+            input: Apple
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            input: Decaying Wheat
+            pattern: .0. ... ...
+            tools: Moistener
+
+    item: Mushroom
+
+    item: Mushroom_2
+
+    item: Peat
+
+    item: Phosphor
+        recipe:
+            extras: Refractory Wax
+            input: Simmering Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Pickaxe Kit
+        recipe:
+            input: Carton, Survivalist's Pickaxe
+            pattern: 10. ... ...
+            tools: Crafting Table
+
+    item: Pod
+
+    item: Pollen Cluster
+
+    item: Propolis
+        recipe:
+            extras: Honey Drop
+            input: Stringy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Silk Wisp
+            input: Silky Propolis
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey
+            input: Honey Drop
+            pattern: .0. ... ...
+            tools: Squeezer
+
+    item: Proven Frame
+
+    item: Proven Grafter
+
+    item: Pulsating Dust
+
+    item: Pulsating Mesh
+        recipe:
+            input: Pulsating Propolis
+            pattern: 0.0 .0. 0.0
+            tools: Crafting Table
+
+    item: Refractory Wax
+        recipe:
+            extras: Phosphor
+            input: Simmering Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Royal Jelly
+
+    item: Scented Paneling
+        recipe:
+            input: Beeswax, Oak Wood Planks, Pollen Cluster, Royal Jelly
+            pattern: .3. 111 020
+            tools: Carpenter
+
+    item: Sengir's Notes
+
+    item: Short Mead_2
+
+    item: Shovel Kit
+        recipe:
+            input: Carton, Survivalist's Shovel
+            pattern: 10. ... ...
+
+    item: Silk Wisp
+        recipe:
+            extras: Propolis
+            input: Silky Propolis
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Silky Propolis
+        recipe:
+            extras: Honey Drop
+            input: Silky Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Spectacles
+        recipe:
+            input: Bronze Ingot, Glass Pane
+            pattern: .0. 1.1 ...
+            tools: Crafting Table
+
+    item: Sticky Propolis
+
+    item: Trade Station
+        recipe:
+            input: Bronze Electron Tube, Chest, Iron Electron Tube, Refined Circuit Board, Sturdy Casing
+            pattern: 202 040 131
+            tools: Crafting Table
+
+    item: Unlit Candle
+        recipe:
+            input: Beeswax, String
+            pattern: 010 ... ...
+            quantity: 6
+            tools: Carpenter
+
+    item: Untreated Frame
+        recipe:
+            input: Stick, String
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Wax Cast
+        recipe:
+            input: Beeswax
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Wood Pulp
+        recipe:
+            input: Oak Wood
+            pattern: 0.. ... ...
+            quantity: 4
+            tools: Carpenter
+
+    item: Woven Silk
+        recipe:
+            input: Silk Wisp
+            pattern: 000 000 000
+            tools: Carpenter
+
+group: Planks
+
+    item: Acacia Wood Planks
+        recipe:
+            input: Acacia Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Balsa Wood Planks
+        recipe:
+            input: Balsa Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Baobab Wood Planks
+        recipe:
+            input: Baobab Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Cherry Wood Planks
+        recipe:
+            input: Cherry Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Chestnut Wood Planks
+        recipe:
+            input: Chestnut Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Citrus Wood Planks
+        recipe:
+            input: Citrus Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Cocobolo Wood Planks
+        recipe:
+            input: Cocobolo Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Ebony Wood Planks
+        recipe:
+            input: Ebony Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Giant Sequoia Wood Planks
+        recipe:
+            input: Giant Sequoia Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Greenheart Wood Planks
+        recipe:
+            input: Greenheart Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Ipe Wood Planks
+        recipe:
+            input: Ipe Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Kapok Wood Planks
+        recipe:
+            input: Kapok Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Larch Wood Planks
+        recipe:
+            input: Larch Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Lime Wood Planks
+        recipe:
+            input: Lime Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Mahoe Wood Planks
+        recipe:
+            input: Mahoe Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Mahogany Wood Planks
+        recipe:
+            input: Mahogany Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Maple Wood Planks
+        recipe:
+            input: Maple Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Padauk Wood Planks
+        recipe:
+            input: Padauk Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Palm Wood Planks
+        recipe:
+            input: Palm Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Papaya Wood Planks
+        recipe:
+            input: Papaya Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Pine Wood Planks
+        recipe:
+            input: Pine Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Plum Wood Planks
+        recipe:
+            input: Plum Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Poplar Wood Planks
+        recipe:
+            input: Poplar Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Sequoia Wood Planks
+        recipe:
+            input: Sequoia Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Teak Wood Planks
+        recipe:
+            input: Teak Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Walnut Wood Planks
+        recipe:
+            input: Walnut Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Wenge Wood Planks
+        recipe:
+            input: Wenge Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Willow Wood Planks
+        recipe:
+            input: Willow Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Zebrawood Wood Planks
+        recipe:
+            input: Zebrawood Wood
+            pattern: ... .0. ...
+            quantity: 4
+
+group: Pollen
+
+    item: Acacia Pollen
+
+    item: Apple Oak Pollen
+
+    item: Balsa Pollen
+
+    item: Blue Mahoe Pollen
+
+    item: Bull Pine Pollen
+
+    item: Coast Sequoia Pollen
+
+    item: Cocobolo Pollen
+
+    item: Common Walnut Pollen
+
+    item: Dark Oak Pollen
+
+    item: Date Palm Pollen
+
+    item: Desert Acacia Pollen
+
+    item: Giant Sequoia Pollen
+
+    item: Grandidier's Baobab Pollen
+
+    item: Hill Cherry Pollen
+
+    item: Ipe Pollen
+
+    item: Jungle Pollen
+
+    item: Kapok Pollen
+
+    item: Lemon Pollen
+
+    item: Mundane Larch Pollen
+
+    item: Myrtle Ebony Pollen
+
+    item: Padauk Pollen
+
+    item: Papaya Pollen
+
+    item: Plum Pollen
+
+    item: Red Spruce Pollen
+
+    item: Silver Birch Pollen
+
+    item: Silver Lime Pollen
+
+    item: Sipiri Pollen
+
+    item: Sugar Maple Pollen
+
+    item: Sweet Chestnut Pollen
+
+    item: Teak Pollen
+
+    item: Wenge Pollen
+
+    item: White Poplar Pollen
+
+    item: White Willow Pollen
+
+    item: Yellow Meranti Pollen
+
+    item: Zebrawood Pollen
+
+group: Saplings
+
+    item: Acacia Sapling
+
+    item: Apple Oak Sapling
+
+    item: Balsa Sapling
+
+    item: Blue Mahoe Sapling
+
+    item: Bull Pine Sapling
+
+    item: Coast Sequoia Sapling
+
+    item: Cocobolo Sapling
+
+    item: Common Walnut Sapling
+
+    item: Dark Oak Sapling
+
+    item: Date Palm Sapling
+
+    item: Desert Acacia Sapling
+
+    item: Giant Sequoia Sapling
+
+    item: Grandidier's Baobab Sapling
+
+    item: Hill Cherry Sapling
+
+    item: Ipe Sapling
+
+    item: Jungle Sapling
+
+    item: Kapok Sapling
+
+    item: Lemon Sapling
+
+    item: Mundane Larch Sapling
+
+    item: Myrtle Ebony Sapling
+
+    item: Padauk Sapling
+
+    item: Papaya Sapling
+
+    item: Plum Sapling
+
+    item: Red Spruce Sapling
+
+    item: Sapling
+
+    item: Silver Birch Sapling
+
+    item: Silver Lime Sapling
+
+    item: Sipiri Sapling
+
+    item: Sugar Maple Sapling
+
+    item: Sweet Chestnut Sapling
+
+    item: Teak Sapling
+
+    item: Wenge Sapling
+
+    item: White Poplar Sapling
+
+    item: White Willow Sapling
+
+    item: Yellow Meranti Sapling
+
+    item: Zebrawood Sapling
+
+group: Slabs
+
+    item: Acacia Wood Slab
+        recipe:
+            input: Acacia Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Balsa Wood Slab
+        recipe:
+            input: Balsa Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Baobab Wood Slab
+        recipe:
+            input: Baobab Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Cherry Wood Slab
+        recipe:
+            input: Cherry Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Chestnut Wood Slab
+        recipe:
+            input: Chestnut Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Citrus Wood Slab
+        recipe:
+            input: Citrus Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Cocobolo Wood Slab
+        recipe:
+            input: Cocobolo Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Ebony Wood Slab
+        recipe:
+            input: Ebony Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Giant Sequoia Wood Slab
+        recipe:
+            input: Giant Sequoia Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Greenheart Wood Slab
+        recipe:
+            input: Greenheart Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Ipe Wood Slab
+        recipe:
+            input: Ipe Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Kapok Wood Slab
+        recipe:
+            input: Kapok Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Larch Wood Slab
+        recipe:
+            input: Larch Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Lime Wood Slab
+        recipe:
+            input: Lime Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Mahoe Wood Slab
+        recipe:
+            input: Mahoe Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Mahogany Wood Slab
+        recipe:
+            input: Mahogany Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Maple Wood Slab
+        recipe:
+            input: Maple Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Padauk Wood Slab
+        recipe:
+            input: Padauk Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Palm Wood Slab
+        recipe:
+            input: Palm Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Papaya Wood Slab
+        recipe:
+            input: Papaya Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Pine Wood Slab
+        recipe:
+            input: Pine Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Plum Wood Slab
+        recipe:
+            input: Plum Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Poplar Wood Slab
+        recipe:
+            input: Poplar Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sequoia Wood Slab
+        recipe:
+            input: Sequoia Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Teak Wood Slab
+        recipe:
+            input: Teak Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Walnut Wood Slab
+        recipe:
+            input: Walnut Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Wenge Wood Slab
+        recipe:
+            input: Wenge Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Willow Wood Slab
+        recipe:
+            input: Willow Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Zebrawood Wood Slab
+        recipe:
+            input: Zebrawood Wood Planks
+            pattern: 000 ... ...
+            quantity: 6
+            tools: Crafting Table
+
+group: Stained Glass
+
+    item: Black Stained Glass
+        recipe:
+            input: Inc Sac, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Inc Sac, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Inc Sac, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Blue Stained Glass
+        recipe:
+            input: Lapis Lazuli, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Lapis Lazuli, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Lapis Lazuli, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Brown Stained Glass
+        recipe:
+            input: Cocoa Beans, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Cocoa Beans, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Cocoa Beans, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Cyan Stained Glass
+        recipe:
+            input: Cyan Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Cyan Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Cyan Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Gray Stained Glass
+        recipe:
+            input: Gray Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Gray Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Gray Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Green Stained Glass
+        recipe:
+            input: Cactus Green, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Cactus Green, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Cactus Green, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Light Blue Stained Glass
+        recipe:
+            input: Light Blue Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Light Blue Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Light Blue Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Light Gray Stained Glass
+        recipe:
+            input: Light Gray Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Light Gray Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Light Gray Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Lime Stained Glass
+        recipe:
+            input: Lime Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Lime Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Lime Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Magenta Stained Glass
+        recipe:
+            input: Magenta Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Magenta Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Magenta Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Orange Stained Glass
+        recipe:
+            input: Orange Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Orange Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Orange Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Pink Stained Glass
+        recipe:
+            input: Pink Dye, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Pink Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Pink Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Purple Stained Glass
+        recipe:
+            input: Propolis, Purple Dye, Wax Cast
+            pattern: 1.. 0.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Purple Dye, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Purple Dye, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Red Stained Glass
+        recipe:
+            input: Propolis, Rose Red, Wax Cast
+            pattern: 1.. 0.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Rose Red, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Rose Red, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: White Stained Glass
+        recipe:
+            input: Bone Meal, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Bone Meal, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Bone Meal, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+    item: Yellow Stained Glass
+        recipe:
+            input: Dandelion Yellow, Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Dandelion Yellow, Silky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+        recipe:
+            input: Dandelion Yellow, Sticky Propolis, Wax Cast
+            pattern: 0.. 1.. ..2
+            tools: Thermionic Fabricator
+
+group: Stairs
+
+    item: Acacia Stairs
+        recipe:
+            input: Acacia Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Balsa Stairs
+        recipe:
+            input: Balsa Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Baobab Stairs
+        recipe:
+            input: Baobab Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Cherry Stairs
+        recipe:
+            input: Cherry Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Chestnut Stairs
+        recipe:
+            input: Chestnut Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Citrus Stairs
+        recipe:
+            input: Citrus Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Cocobolo Stairs
+        recipe:
+            input: Cocobolo Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Ebony Stairs
+        recipe:
+            input: Ebony Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Giant Sequoia Stairs
+        recipe:
+            input: Giant Sequoia Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Greenheart Stairs
+        recipe:
+            input: Greenheart Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Ipe Stairs
+        recipe:
+            input: Ipe Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Kapok Stairs
+        recipe:
+            input: Kapok Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Larch Stairs
+        recipe:
+            input: Larch Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Lime Stairs
+        recipe:
+            input: Lime Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Mahoe Stairs
+        recipe:
+            input: Mahoe Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Mahogany Stairs
+        recipe:
+            input: Mahogany Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Maple Stairs
+        recipe:
+            input: Maple Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Padauk Stairs
+        recipe:
+            input: Padauk Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Palm Stairs
+        recipe:
+            input: Palm Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Papaya Stairs
+        recipe:
+            input: Papaya Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Pine Stairs
+        recipe:
+            input: Pine Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Plum Stairs
+        recipe:
+            input: Plum Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Poplar Stairs
+        recipe:
+            input: Poplar Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Sequoia Stairs
+        recipe:
+            input: Sequoia Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Teak Stairs
+        recipe:
+            input: Teak Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Walnut Stairs
+        recipe:
+            input: Walnut Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Wenge Stairs
+        recipe:
+            input: Wenge Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Willow Stairs
+        recipe:
+            input: Willow Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Zebrawood Stairs
+        recipe:
+            input: Zebrawood Wood Planks
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+group: Stamps
+
+    item: Catalogue
+        recipe:
+            input: Book, Stamp (1n)
+            pattern: 1.. 0.. ...
+
+    item: Stamp (100n)
+
+    item: Stamp (10n)
+
+    item: Stamp (1n)
+
+    item: Stamp (20n)
+
+    item: Stamp (2n)
+
+    item: Stamp (50n)
+
+    item: Stamp (5n)
+
+    item: Stamp Collector
+
+group: Storage
+
+    item: Apiarist's Chest
+        recipe:
+            input: Chest, Dripping Comb, Glass
+            pattern: .2. 101 111
+            tools: Crafting Table
+        recipe:
+            input: Chest, Frozen Comb, Glass
+            pattern: .2. 101 111
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Honey Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Mellow Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Mossy Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Parched Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Silky Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Simmering Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+        recipe:
+            input: Chest, Glass, Stringy Comb
+            pattern: .1. 202 222
+            tools: Crafting Table
+
+    item: Arborist's Chest
+        recipe:
+            input: Chest, Glass, Oak Sapling
+            pattern: .1. 202 222
+            tools: Crafting Table
+
+    item: Lepidopterist's Chest
+        recipe:
+            input: Chest, Glass, Monarch
+            pattern: .1. 202 222
+            tools: Crafting Table
+
+group: Tools
+
+    item: Grafter
+        recipe:
+            input: Bronze Ingot, Stick
+            pattern: ..0 .1. 1..
+            tools: Crafting Table
+
+    item: Infuser
+        recipe:
+            input: Bronze Ingot, Iron Ingot
+            pattern: 0.. 1.. 0..
+            tools: Crafting Table
+
+    item: Pipette
+        recipe:
+            input: Glass, Wool
+            pattern: ..1 .0. 0..
+            tools: Crafting Table
+
+    item: Scoop
+        recipe:
+            input: Stick, Wool
+            pattern: 010 000 .0.
+            tools: Crafting Table
+
+    item: Soldering Iron
+        recipe:
+            input: Bronze Ingot, Iron Ingot
+            pattern: .1. 1.1 ..0
+            tools: Carpenter
+
+    item: Survivalist's Pickaxe
+        recipe:
+            input: Bronze Ingot, Stick
+            pattern: .1. .1. 000
+            tools: Crafting Table
+
+    item: Survivalist's Shovel
+        recipe:
+            input: Bronze Ingot, Stick
+            pattern: .1. .1. .0.
+            tools: Crafting Table
+
+    item: Wrench
+        recipe:
+            input: Bronze Ingot
+            pattern: 0.0 .0. .0.
+            tools: Crafting Table
+
+group: Tree Produce
+
+    item: Cherry
+
+    item: Chestnut
+
+    item: Date
+
+    item: Lemon
+
+    item: Papaya
+
+    item: Plum
+
+    item: Walnut
 
 group: Tubes
 
@@ -2215,552 +4128,66 @@ group: Tubes
 
     item: Tin Electron Tube
         recipe:
-            input: Tin Ingot, Redstone
-            pattern: .0. 101 000
+            input: Redstone, Tin Ingot
+            pattern: .1. 010 111
             tools: Thermionic Fabricator
 
-group: Ingots
+group: Wood
 
-    item: Bronze Ingot
-        recipe:
-            input: Tin Ingot, Copper Ingot
-            pattern: 01. 11. ...
-        recipe:
-            input: Block of Bronze
-            pattern: ... .0. ...
-            quantity: 9
-        recipe:
-            input: Bronze Nugget
-            pattern: 000 000 000
-            tools: Crafting Table
+    item: Acacia Wood
 
-    item: Copper Ingot
-        recipe:
-            input: Copper Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Block of Copper
-            pattern: ... .0. ...
-            quantity: 9
+    item: Balsa Wood
 
-    item: Tin Ingot
-        recipe:
-            input: Tin Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Block of Tin
-            pattern: ... .0. ...
-            quantity: 9
+    item: Baobab Wood
 
+    item: Cherry Wood
 
-group: Other
+    item: Chestnut Wood
 
-    item: Catalogue
+    item: Citrus Wood
 
-    item: Grafter
-        recipe:
-            input: Bronze Ingot, Stick
-            pattern: 001 020 200
-            tools: Crafting Table
+    item: Cocobolo Wood
 
-    item: Imprinter
+    item: Ebony Wood
 
-    item: Infuser
+    item: Giant Sequoia Wood
 
-    item: Lepidopterist's Chest
+    item: Greenheart Wood
 
-    item: Crystalline Pollen Cluster
+    item: Ipe Wood
 
-    item: Pollen Cluster
+    item: Kapok Wood
 
-	item: Marshy Hive
+    item: Larch Wood
 
-	item: Marshy Larvae
+    item: Lime Wood
 
-	item: Modest Hive
+    item: Mahoe Wood
 
-	item: Modest Larvae
+    item: Mahogany Wood
 
-	item: Tropical Hive
+    item: Maple Wood
 
-	item: Tropical Larvae
+    item: Padauk Wood
 
-	item: Wintry Hive
+    item: Palm Wood
 
-	item: Wintry Larvae
+    item: Papaya Wood
 
-    item: Cherry
+    item: Pine Wood
 
-    item: Chestnut
+    item: Plum Wood
 
-    item: Papaya
+    item: Poplar Wood
 
-    item: Pipette
+    item: Sequoia Wood
 
-    item: Plum
+    item: Teak Wood
 
-    item: Walnut
+    item: Walnut Wood
 
-    item: Ambrosia
+    item: Wenge Wood
 
-    item: Apatite Ore
+    item: Willow Wood
 
-    item: Apatite
-
-    item: Apiarist's Chest
-
-    item: Apiarist's Hat
-
-    item: Apiarist's Pants
-
-    item: Apiarist's Shirt
-
-    item: Apiarist's Shoes
-
-    item: Arborist's Chest
-
-    item: Ash
-
-    item: Basic Circuit Board
-
-    item: Clockwork Engine
-
-    item: Bee House
-
-    item: Beeswax
-
-    item: Biomass Bucket
-
-    item: Biomass Can
-
-    item: Biomass Capsule_2
-
-    item: Biomass Capsule
-
-    item: Biomass
-
-    item: Bituminous Peat
-
-    item: Block of Apatite
-
-    item: Block of Bronze
-
-    item: Block of Copper
-
-    item: Block of Tin
-
-    item: Bog Earth
-
-    item: Brimstone_2
-
-    item: Brimstone_3
-
-    item: Brimstone
-
-    item: Broken Pickaxe
-
-    item: Broken Shovel
-
-    item: Bronze Gear
-
-    item: Cabbage White_2
-
-    item: Cabbage White_3
-
-    item: Cabbage White
-
-    item: Candle Stump
-
-    item: Can
-
-    item: Carton
-
-    item: Comma_2
-
-    item: Comma_3
-
-    item: Comma
-
-    item: Compost
-
-    item: Copper Gear
-
-    item: Copper Ore
-
-    item: Crate
-
-    item: Crushed Ice Bucket
-
-    item: Crushed Ice
-
-    item: Curative Mead
-
-    item: Date
-
-    item: Decaying Wheat
-
-    item: Dissipation Charge
-
-    item: Dripping Comb
-
-    item: Enhanced Circuit Board
-
-    item: Escritoire
-
-    item: Ethanol Bucket
-
-    item: Ethanol Can
-
-    item: Ethanol Capsule_2
-
-    item: Ethanol Capsule
-
-    item: Ethanol
-
-    item: Fermenter
-
-    item: Forest Hive
-
-    item: Forest Larvae
-
-    item: Forest Princess
-
-    item: Forest Queen
-
-    item: Frozen Comb
-
-    item: Fruit Juice
-
-    item: Fuel Can
-
-    item: Fuel Capsule_2
-
-    item: Fuel Capsule
-
-    item: Hardened Casing
-
-    item: Honey Bucket
-
-    item: Honey Can
-
-    item: Honey Capsule_2
-
-    item: Honey Capsule
-
-    item: Honey Comb
-
-    item: Honeydew
-
-    item: Honey Drop
-
-    item: Honeyed Slice
-
-    item: Honey
-
-    item: Honey Pot
-
-    item: Humus
-
-    item: Ice Can
-
-    item: Ice Capsule_2
-
-    item: Ice Capsule
-
-    item: Ice Shard
-
-    item: Impregnated Casing
-
-    item: Impregnated Frame
-
-    item: Impregnated Stick
-
-    item: Intricate Circuit Board
-
-    item: Iodine Capsule
-
-    item: Juice Bucket
-
-    item: Juice Can
-
-    item: Juice Capsule_2
-
-    item: Juice Capsule
-
-    item: Lava Can
-
-    item: Lava Capsule
-
-    item: Lemon
-
-    item: Letter
-
-    item: Liquid Glass
-
-    item: Mailbox
-
-    item: Meadows Hive
-
-    item: Meadows Larvae
-
-    item: Meadows Princess
-
-    item: Meadows Queen
-
-    item: Mellow Comb
-
-    item: Milk
-
-    item: Molten Glass Bucket
-
-    item: Mossy Comb
-
-    item: Mouldy Wheat
-
-    item: Mulch
-
-    item: Mushroom_2
-
-    item: Mushroom
-
-    item: Oil Can
-
-    item: Oil Capsule_2
-
-    item: Oil Capsule
-
-    item: Parched Comb
-
-    item: Peat
-
-    item: Phosphor
-
-    item: Pickaxe Kit
-
-    item: Pod
-
-    item: Propolis
-
-    item: Proven Frame
-
-    item: Proven Grafter
-
-    item: Pulsating Dust
-
-    item: Pulsating Mesh
-
-    item: Raintank
-
-    item: Refined Circuit Board
-
-    item: Refractory Capsule
-
-    item: Refractory Wax
-
-    item: Royal Jelly
-
-    item: Scented Paneling
-        recipe:
-            input: Royal Jelly, Oak Wood Planks, Beeswax, Pollen Cluster
-            pattern: .0. 111 232
-            tools: Carpenter
-
-    item: Scoop
-
-    item: Seed Oil Bucket
-
-    item: Seed Oil Can
-
-    item: Seed Oil Capsule_2
-
-    item: Seed Oil Capsule
-
-    item: Seed Oil
-
-    item: Sengir's Notes
-
-    item: Short Mead_2
-
-    item: Short Mead Bucket
-
-    item: Short Mead
-
-    item: Shovel Kit
-
-    item: Silk Wisp
-
-    item: Silky Comb
-
-    item: Silky Propolis
-
-    item: Simmering Comb
-
-    item: Soldering Iron
-
-    item: Spectacles
-
-    item: Squeezer
-
-    item: Stamp (100n)
-
-    item: Stamp (10n)
-
-    item: Stamp (1n)
-
-    item: Stamp (20n)
-
-    item: Stamp (2n)
-
-    item: Stamp (50n)
-
-    item: Stamp (5n)
-
-    item: Stamp Collector
-
-    item: Sticky Propolis
-
-    item: Still
-
-    item: Stringy Comb
-
-    item: Sturdy Casing
-
-    item: Survivalist's Pickaxe
-
-    item: Survivalist's Shovel
-
-    item: Swarmer
-
-    item: Tin Gear
-
-    item: Tin Ore
-
-    item: Trade Station
-
-    item: Treealyzer
-
-    item: Unlit Candle
-
-    item: Untreated Frame
-
-    item: Water Can
-
-    item: Water Capsule_2
-
-    item: Water Capsule
-
-    item: Wax Capsule
-
-    item: Wax Cast
-
-    item: Wood Pulp
-
-    item: Worktable
-
-    item: Woven Silk
-
-    item: Wrench
-
-group: Crated
-
-    item: Crated Apatite
-
-    item: Crated Apple
-
-    item: Crated Ash
-
-    item: Crated Beeswax
-
-    item: Crated Bog Earth
-
-    item: Crated Bricks
-
-    item: Crated Bronze Ingot
-
-    item: Crated Cactus
-
-    item: Crated Carrot
-
-    item: Crated Charcoal
-
-    item: Crated Clay
-
-    item: Crated Coal
-
-    item: Crated Cobblestone
-
-    item: Crated Cocoa Comb
-
-    item: Crated Cookie
-
-    item: Crated Copper Ingot
-
-    item: Crated Dirt
-
-    item: Crated Dripping Comb
-
-    item: Crated Fertilizer
-
-    item: Crated Frozen Comb
-
-    item: Crated Glowstone Dust
-
-    item: Crated Gravel
-
-    item: Crated Honey Comb
-
-    item: Crated Honeydew
-
-    item: Crated Humus
-
-    item: Crated Lapis Lazuli
-
-    item: Crated Mulch
-
-    item: Crated Mycelium
-
-    item: Crated Nether Brick
-
-    item: Crated Netherrack
-
-    item: Crated Nether Wart
-
-    item: Crated Oak Wood
-
-    item: Crated Obsidian
-
-    item: Crated Peat
-
-    item: Crated Phosphor
-
-    item: Crated Potato
-
-    item: Crated Propolis
-
-    item: Crated Redstone
-
-    item: Crated Refractory Wax
-
-    item: Crated Royal Jelly
-
-    item: Crated Sand
-
-    item: Crated Sandstone
-
-    item: Crated Seeds
-
-    item: Crated Simmering Comb
-
-    item: Crated Soul Sand
-
-    item: Crated Stone
-
-    item: Crated Stringy Comb
-
-    item: Crated Sugar Canes
-
-    item: Crated Tin Ingot
-
-    item: Crated Wheat
+    item: Zebrawood Wood

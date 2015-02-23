@@ -1232,333 +1232,333 @@ group: Engines
 
 group: Farm block etc.
 
-    item: Farm Block
-        recipe:
-            input: Copper Ingot, Oak Wood Slab, Stone Bricks, Tin Electron Tube
-            pattern: 020 131 ...
-            tools: Crafting Table
-
-    item: Farm Block_10
-        recipe:
-            input: Chiseled Quartz Block, Copper Ingot, Oak Wood Slab, Tin Electron Tube
-            pattern: 101 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_11
-        recipe:
-            input: Copper Ingot, Oak Wood Slab, Pillar Quartz Block, Tin Electron Tube
-            pattern: 020 131 ...
-            tools: Crafting Table
-
-    item: Farm Block_2
-        recipe:
-            input: Copper Ingot, Mossy Stone Bricks, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_3
-        recipe:
-            input: Copper Ingot, Cracked Stone Bricks, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_4
-        recipe:
-            input: Bricks, Copper Ingot, Oak Wood Slab, Tin Electron Tube
-            pattern: 101 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_5
-        recipe:
-            input: Copper Ingot, Oak Wood Slab, Smooth Sandstone, Tin Electron Tube
-            pattern: 020 131 ...
-            tools: Crafting Table
-
-    item: Farm Block_6
-        recipe:
-            input: Chiseled Sandstone, Copper Ingot, Oak Wood Slab, Tin Electron Tube
-            pattern: 101 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_7
-        recipe:
-            input: Copper Ingot, Nether Bricks, Oak Wood Slab, Tin Electron Tube
-            pattern: 010 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_8
-        recipe:
-            input: Chiseled Stone Bricks, Copper Ingot, Oak Wood Slab, Tin Electron Tube
-            pattern: 101 232 ...
-            tools: Crafting Table
-
-    item: Farm Block_9
+    item: Farm Block (Block of Quartz)
         recipe:
             input: Block of Quartz, Copper Ingot, Oak Wood Slab, Tin Electron Tube
             pattern: 101 232 ...
             tools: Crafting Table
 
-    item: Farm Control
+    item: Farm Block (Bricks)
         recipe:
-            input: Farm Block, Golden Electron Tube, Redstone
+            input: Bricks, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Chiseled Quartz Block)
+        recipe:
+            input: Chiseled Quartz Block, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Chiseled Sandstone)
+        recipe:
+            input: Chiseled Sandstone, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Chiseled Stone Bricks)
+        recipe:
+            input: Chiseled Stone Bricks, Copper Ingot, Oak Wood Slab, Tin Electron Tube
+            pattern: 101 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Cracked Stone Bricks)
+        recipe:
+            input: Copper Ingot, Cracked Stone Bricks, Oak Wood Slab, Tin Electron Tube
+            pattern: 010 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Mossy Stone Bricks)
+        recipe:
+            input: Copper Ingot, Mossy Stone Bricks, Oak Wood Slab, Tin Electron Tube
+            pattern: 010 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Nether Brick)
+        recipe:
+            input: Copper Ingot, Nether Bricks, Oak Wood Slab, Tin Electron Tube
+            pattern: 010 232 ...
+            tools: Crafting Table
+
+    item: Farm Block (Pillar Quartz Block)
+        recipe:
+            input: Copper Ingot, Oak Wood Slab, Pillar Quartz Block, Tin Electron Tube
+            pattern: 020 131 ...
+            tools: Crafting Table
+
+    item: Farm Block (Smooth Sandstone)
+        recipe:
+            input: Copper Ingot, Oak Wood Slab, Smooth Sandstone, Tin Electron Tube
+            pattern: 020 131 ...
+            tools: Crafting Table
+
+    item: Farm Block (Stone Bricks)
+        recipe:
+            input: Copper Ingot, Oak Wood Slab, Stone Bricks, Tin Electron Tube
+            pattern: 020 131 ...
+            tools: Crafting Table
+
+    item: Farm Control (Block of Quartz)
+        recipe:
+            input: Farm Block (Block of Quartz), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_10
+    item: Farm Control (Bricks)
         recipe:
-            input: Farm Block_10, Golden Electron Tube, Redstone
+            input: Farm Block (Bricks), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_11
+    item: Farm Control (Chiseled Quartz Block)
         recipe:
-            input: Farm Block_11, Golden Electron Tube, Redstone
+            input: Farm Block (Chiseled Quartz Block), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_2
+    item: Farm Control (Chiseled Sandstone)
         recipe:
-            input: Farm Block_2, Golden Electron Tube, Redstone
+            input: Farm Block (Chiseled Sandstone), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_3
+    item: Farm Control (Chiseled Stone Bricks)
         recipe:
-            input: Farm Block_3, Golden Electron Tube, Redstone
+            input: Farm Block (Chiseled Stone Bricks), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_4
+    item: Farm Control (Cracked Stone Bricks)
         recipe:
-            input: Farm Block_4, Golden Electron Tube, Redstone
+            input: Farm Block (Cracked Stone Bricks), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_5
+    item: Farm Control (Mossy Stone Bricks)
         recipe:
-            input: Farm Block_5, Golden Electron Tube, Redstone
+            input: Farm Block (Mossy Stone Bricks), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_6
+    item: Farm Control (Nether Brick)
         recipe:
-            input: Farm Block_6, Golden Electron Tube, Redstone
+            input: Farm Block (Nether Brick), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_7
+    item: Farm Control (Pillar Quartz Block)
         recipe:
-            input: Farm Block_7, Golden Electron Tube, Redstone
+            input: Farm Block (Pillar Quartz Block), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_8
+    item: Farm Control (Smooth Sandstone)
         recipe:
-            input: Farm Block_8, Golden Electron Tube, Redstone
+            input: Farm Block (Smooth Sandstone), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Control_9
+    item: Farm Control (Stone Bricks)
         recipe:
-            input: Farm Block_9, Golden Electron Tube, Redstone
+            input: Farm Block (Stone Bricks), Golden Electron Tube, Redstone
             pattern: .0. 212 ...
             tools: Crafting Table
 
-    item: Farm Gearbox
+    item: Farm Gearbox (Block of Quartz)
         recipe:
-            input: Farm Block, Tin Gear
+            input: Farm Block (Block of Quartz), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_10
+    item: Farm Gearbox (Bricks)
         recipe:
-            input: Farm Block_10, Tin Gear
+            input: Farm Block (Bricks), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_11
+    item: Farm Gearbox (Chiseled Quartz Block)
         recipe:
-            input: Farm Block_11, Tin Gear
+            input: Farm Block (Chiseled Quartz Block), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_2
+    item: Farm Gearbox (Chiseled Sandstone)
         recipe:
-            input: Farm Block_2, Tin Gear
+            input: Farm Block (Chiseled Sandstone), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_3
+    item: Farm Gearbox (Chiseled Stone Bricks)
         recipe:
-            input: Farm Block_3, Tin Gear
+            input: Farm Block (Chiseled Stone Bricks), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_4
+    item: Farm Gearbox (Cracked Stone Bricks)
         recipe:
-            input: Farm Block_4, Tin Gear
+            input: Farm Block (Cracked Stone Bricks), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_5
+    item: Farm Gearbox (Mossy Stone Bricks)
         recipe:
-            input: Farm Block_5, Tin Gear
+            input: Farm Block (Mossy Stone Bricks), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_6
+    item: Farm Gearbox (Nether Brick)
         recipe:
-            input: Farm Block_6, Tin Gear
+            input: Farm Block (Nether Brick), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_7
+    item: Farm Gearbox (Pillar Quartz Block)
         recipe:
-            input: Farm Block_7, Tin Gear
+            input: Farm Block (Pillar Quartz Block), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_8
+    item: Farm Gearbox (Smooth Sandstone)
         recipe:
-            input: Farm Block_8, Tin Gear
+            input: Farm Block (Smooth Sandstone), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Gearbox_9
+    item: Farm Gearbox (Stone Bricks)
         recipe:
-            input: Farm Block_9, Tin Gear
+            input: Farm Block (Stone Bricks), Tin Gear
             pattern: .0. 111 ...
             tools: Crafting Table
 
-    item: Farm Hatch
+    item: Farm Hatch (Block of Quartz)
         recipe:
-            input: Farm Block, Tin Gear, Trapdoor
+            input: Farm Block (Block of Quartz), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_10
+    item: Farm Hatch (Bricks)
         recipe:
-            input: Farm Block_10, Tin Gear, Trapdoor
+            input: Farm Block (Bricks), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_11
+    item: Farm Hatch (Chiseled Quartz Block)
         recipe:
-            input: Farm Block_11, Tin Gear, Trapdoor
+            input: Farm Block (Chiseled Quartz Block), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_2
+    item: Farm Hatch (Chiseled Sandstone)
         recipe:
-            input: Farm Block_2, Tin Gear, Trapdoor
+            input: Farm Block (Chiseled Sandstone), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_3
+    item: Farm Hatch (Chiseled Stone Bricks)
         recipe:
-            input: Farm Block_3, Tin Gear, Trapdoor
+            input: Farm Block (Chiseled Stone Bricks), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_4
+    item: Farm Hatch (Cracked Stone Bricks)
         recipe:
-            input: Farm Block_4, Tin Gear, Trapdoor
+            input: Farm Block (Cracked Stone Bricks), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_5
+    item: Farm Hatch (Mossy Stone Bricks)
         recipe:
-            input: Farm Block_51, Tin Gear, Trapdoor
+            input: Farm Block (Mossy Stone Bricks), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_6
+    item: Farm Hatch (Nether Brick)
         recipe:
-            input: Farm Block_6, Tin Gear, Trapdoor
+            input: Farm Block (Nether Brick), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_7
+    item: Farm Hatch (Pillar Quartz Block)
         recipe:
-            input: Farm Block_7, Tin Gear, Trapdoor
+            input: Farm Block (Pillar Quartz Block), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_8
+    item: Farm Hatch (Smooth Sandstone)
         recipe:
-            input: Farm Block_8, Tin Gear, Trapdoor
+            input: Farm Block (Smooth Sandstone), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Hatch_9
+    item: Farm Hatch (Stone Bricks)
         recipe:
-            input: Farm Block_9, Tin Gear, Trapdoor
+            input: Farm Block (Stone Bricks), Tin Gear, Trapdoor
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve
+    item: Farm Valve (Block of Quartz)
         recipe:
-            input: Farm Block, Glass, Tin Gear
+            input: Farm Block (Block of Quartz), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_10
+    item: Farm Valve (Bricks)
         recipe:
-            input: Farm Block_10, Glass, Tin Gear
+            input: Farm Block (Bricks), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_11
+    item: Farm Valve (Chiseled Quartz Block)
         recipe:
-            input: Farm Block_11, Glass, Tin Gear
+            input: Farm Block (Chiseled Quartz Block), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_2
+    item: Farm Valve (Chiseled Sandstone)
         recipe:
-            input: Farm Block_2, Glass, Tin Gear
+            input: Farm Block (Chiseled Sandstone), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_3
+    item: Farm Valve (Chiseled Stone Bricks)
         recipe:
-            input: Farm Block_3, Glass, Tin Gear
+            input: Farm Block (Chiseled Stone Bricks), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_4
+    item: Farm Valve (Cracked Stone Bricks)
         recipe:
-            input: Farm Block_4, Glass, Tin Gear
+            input: Farm Block (Cracked Stone Bricks), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_5
+    item: Farm Valve (Mossy Stone Bricks)
         recipe:
-            input: Farm Block_5, Glass, Tin Gear
+            input: Farm Block (Mossy Stone Bricks), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_6
+    item: Farm Valve (Nether Brick)
         recipe:
-            input: Farm Block_6, Glass, Tin Gear
+            input: Farm Block (Nether Brick), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_7
+    item: Farm Valve (Pillar Quartz Block)
         recipe:
-            input: Farm Block_7, Glass, Tin Gear
+            input: Farm Block (Pillar Quartz Block), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_8
+    item: Farm Valve (Smooth Sandstone)
         recipe:
-            input: Farm Block_8, Glass, Tin Gear
+            input: Farm Block (Smooth Sandstone), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 
-    item: Farm Valve_9
+    item: Farm Valve (Stone Bricks)
         recipe:
-            input: Farm Block_9, Glass, Tin Gear
+            input: Farm Block (Stone Bricks), Glass, Tin Gear
             pattern: .0. 121 ...
             tools: Crafting Table
 

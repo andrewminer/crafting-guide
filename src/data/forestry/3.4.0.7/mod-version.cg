@@ -116,7 +116,123 @@ group: Backpacks
             pattern: 202 212 222
             tools: Carpenter
 
+group: Bee Housing
+
+    item: Alveary
+        recipe:
+            input: Impregnated Casing, Scented Paneling
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Alveary Fan
+        recipe:
+            input: Alveary, Golden Electron Tube, Iron Ingot
+            pattern: 2.2 .0. 212
+            tools: Crafting Table
+
+    item: Alveary Heater
+        recipe:
+            input: Alveary, Golden Electron Tube, Iron Ingot, Stone
+            pattern: 121 .0. 333
+            tools: Crafting Table
+
+    item: Alveary Hygroregulator
+        recipe:
+            input: Alveary, Glass, Iron Ingot
+            pattern: 121 101 121
+            tools: Crafting Table
+
+    item: Alveary Sieve
+        recipe:
+            input: Alveary, Iron Ingot, Woven Silk
+            pattern: 111 .0. 222
+            tools: Crafting Table
+
+    item: Alveary Stabiliser
+        recipe:
+            input: Alveary, Nether Quartz
+            pattern: 1.1 101 1.1
+            tools: Crafting Table
+
+    item: Apiary
+        recipe:
+            input: Impregnated Casing, Oak Wood Planks, Oak Wood Slab
+            pattern: 222 101 111
+            tools: Crafting Table
+
+    item: Bee House
+        recipe:
+            input: Honeycomb, Oak Wood Planks, Oak Wood Slab
+            pattern: 222 101 111
+            tools: Crafting Table
+
+    item: Impregnated Frame
+        recipe:
+            input: Impregnated Stick, String
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Impregnated Stick
+        recipe:
+            input: Oak Wood, Seed Oil
+            pattern: .0. .0. .1.
+            tools: Carpenter
+
+    item: Proven Frame
+
+    item: Scented Paneling
+        recipe:
+            input: Beeswax, Oak Wood Planks, Pollen Cluster, Royal Jelly
+            pattern: .3. 111 020
+            tools: Carpenter
+
+    item: Untreated Frame
+        recipe:
+            input: Stick, String
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Wax Cast
+        recipe:
+            input: Beeswax
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
 group: Bee Produce
+
+    item: Beeswax
+        recipe:
+            extras: Honey Drop
+            input: Honey Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop, Crystalline Pollen Cluster, Snowball
+            input: Frozen Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop, Nether Quartz
+            input: Mellow Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop
+            input: Mossy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey Drop
+            input: Parched Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Crystalline Pollen Cluster
+        recipe:
+            extras: Beeswax, Honey Drop, Snowball
+            input: Frozen Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
 
     item: Dripping Comb
 
@@ -124,17 +240,131 @@ group: Bee Produce
 
     item: Honey Comb
 
+    item: Honey Drop
+        recipe:
+            extras: Beeswax
+            input: Honey Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Propolis
+            input: Stringy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honeydew
+            input: Dripping Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Crystalline Pollen Cluster, Snowball, Beeswax
+            input: Frozen Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Silky Propolis
+            input: Silky Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Beeswax
+            input: Parched Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Beeswax
+            input: Mossy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Honeydew
+        recipe:
+            extras: Honey Drop
+            input: Dripping Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Nether Quartz, Beeswax
+            input: Mellow Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
     item: Mellow Comb
 
     item: Mossy Comb
 
     item: Parched Comb
 
+    item: Phosphor
+        recipe:
+            extras: Refractory Wax
+            input: Simmering Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Pollen Cluster
+
+    item: Propolis
+        recipe:
+            extras: Honey Drop
+            input: Stringy Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Silk Wisp
+            input: Silky Propolis
+            pattern: .0. ... ...
+            tools: Centrifuge
+        recipe:
+            extras: Honey
+            input: Honey Drop
+            pattern: .0. ... ...
+            tools: Squeezer
+
+    item: Pulsating Dust
+
+    item: Pulsating Mesh
+        recipe:
+            input: Pulsating Propolis
+            pattern: 0.0 .0. 0.0
+            tools: Crafting Table
+
+    item: Refractory Wax
+        recipe:
+            extras: Phosphor
+            input: Simmering Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
+
+    item: Royal Jelly
+
+    item: Silk Wisp
+        recipe:
+            extras: Propolis
+            input: Silky Propolis
+            pattern: .0. ... ...
+            tools: Centrifuge
+
     item: Silky Comb
+
+    item: Silky Propolis
+        recipe:
+            extras: Honey Drop
+            input: Silky Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
 
     item: Simmering Comb
 
+    item: Sticky Propolis
+
     item: Stringy Comb
+
+    item: Woven Silk
+        recipe:
+            input: Silk Wisp
+            pattern: 000 000 000
+            tools: Carpenter
 
 group: Bees
 
@@ -671,6 +901,12 @@ group: Cans
             quantity: 12
             tools: Crafting Table
 
+    item: Dissipation Charge
+        recipe:
+            input: Can, Gunpowder, Honeydew, Royal Jelly
+            pattern: 323 202 121
+            tools: Carpenter
+
     item: Ethanol Can
         recipe:
             input: Can, Ethanol
@@ -719,6 +955,12 @@ group: Cans
 
 group: Capsules
 
+    item: Ambrosia
+        recipe:
+            input: Honeydew, Royal Jelly, Wax Capsule
+            pattern: 020 111 000
+            tools: Crafting Table
+
     item: Biomass Capsule
         recipe:
             input: Biomass, Wax Capsule
@@ -758,6 +1000,12 @@ group: Capsules
             input: Honey, Refractory Capsule
             pattern: ... .0. .1.
             tools: Bottler
+
+    item: Honey Pot
+        recipe:
+            input: Honey Drop, Wax Capsule
+            pattern: 0.0 .1. 0.0
+            tools: Crafting Table
 
     item: Ice Capsule
         recipe:
@@ -1230,7 +1478,7 @@ group: Engines
             pattern: 111 .2. 030
             tools: Crafting Table
 
-group: Farm block etc.
+group: Farm blocks
 
     item: Farm Block (Block of Quartz)
         recipe:
@@ -2370,48 +2618,6 @@ group: Machine Parts
 
 group: Machines
 
-    item: Alveary
-        recipe:
-            input: Impregnated Casing, Scented Paneling
-            pattern: 111 101 111
-            tools: Crafting Table
-
-    item: Alveary Fan
-        recipe:
-            input: Alveary, Golden Electron Tube, Iron Ingot
-            pattern: 2.2 .0. 212
-            tools: Crafting Table
-
-    item: Alveary Heater
-        recipe:
-            input: Alveary, Golden Electron Tube, Iron Ingot, Stone
-            pattern: 121 .0. 333
-            tools: Crafting Table
-
-    item: Alveary Hygroregulator
-        recipe:
-            input: Alveary, Glass, Iron Ingot
-            pattern: 121 101 121
-            tools: Crafting Table
-
-    item: Alveary Sieve
-        recipe:
-            input: Alveary, Iron Ingot, Woven Silk
-            pattern: 111 .0. 222
-            tools: Crafting Table
-
-    item: Alveary Stabiliser
-        recipe:
-            input: Alveary, Nether Quartz
-            pattern: 1.1 101 1.1
-            tools: Crafting Table
-
-    item: Apiary
-        recipe:
-            input: Impregnated Casing, Oak Wood Planks, Oak Wood Slab
-            pattern: 222 101 111
-            tools: Crafting Table
-
     item: Bottler
         recipe:
             input: Can, Glass, Sturdy Casing
@@ -2482,6 +2688,47 @@ group: Machines
         recipe:
             input: Book, Chest, Crafting Table
             pattern: 0.. 2.. 1..
+            tools: Crafting Table
+
+group: Mail Items
+
+    item: Catalogue
+        recipe:
+            input: Book, Stamp (1n)
+            pattern: 1.. 0.. ...
+
+    item: Letter
+        recipe:
+            input: Paper, Propolis
+            pattern: 01. ... ...
+            tools: Crafting Table
+
+    item: Mailbox
+        recipe:
+            input: Chest, Sturdy Casing, Tin Ingot
+            pattern: .2. 212 000
+            tools: Crafting Table
+
+    item: Stamp (100n)
+
+    item: Stamp (10n)
+
+    item: Stamp (1n)
+
+    item: Stamp (20n)
+
+    item: Stamp (2n)
+
+    item: Stamp (50n)
+
+    item: Stamp (5n)
+
+    item: Stamp Collector
+
+    item: Trade Station
+        recipe:
+            input: Bronze Electron Tube, Chest, Iron Electron Tube, Refined Circuit Board, Sturdy Casing
+            pattern: 202 040 131
             tools: Crafting Table
 
 group: Minerals
@@ -2555,52 +2802,13 @@ group: Minerals
 
     item: Tin Ore
 
-group: Misc For Now
-
-    item: Ambrosia
-        recipe:
-            input: Honeydew, Royal Jelly, Wax Capsule
-            pattern: 020 111 000
-            tools: Crafting Table
+group: Organic Matter
 
     item: Ash
         recipe:
             input: Peat, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
-
-    item: Bee House
-        recipe:
-            input: Honeycomb, Oak Wood Planks, Oak Wood Slab
-            pattern: 222 101 111
-            tools: Crafting Table
-
-    item: Beeswax
-        recipe:
-            extras: Honey Drop
-            input: Honey Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey Drop, Crystalline Pollen Cluster, Snowball
-            input: Frozen Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey Drop, Nether Quartz
-            input: Mellow Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey Drop
-            input: Mossy Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey Drop
-            input: Parched Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
 
     item: Bituminous Peat
         recipe:
@@ -2630,18 +2838,6 @@ group: Misc For Now
             quantity: 8
             tools: Carpenter
 
-    item: Broken Pickaxe
-
-    item: Broken Shovel
-
-    item: Candle Stump
-
-    item: Carton
-        recipe:
-            input: Wood Pulp
-            pattern: .0. 0.0 .0.
-            tools: Carpenter
-
     item: Compost
         recipe:
             input: Dirt, Wheat
@@ -2664,32 +2860,11 @@ group: Misc For Now
             quantity: 4
             tools: Crafting Table
 
-    item: Crystalline Pollen Cluster
-        recipe:
-            extras: Beeswax, Honey Drop, Snowball
-            input: Frozen Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Curative Mead
-
     item: Decaying Wheat
         recipe:
             input: Mouldy Wheat
             pattern: ... ... 0..
             tools: Moistener
-
-    item: Dissipation Charge
-        recipe:
-            input: Can, Gunpowder, Honeydew, Royal Jelly
-            pattern: 323 202 121
-            tools: Carpeneter
-
-    item: Escritoire
-        recipe:
-            input: Oak Wood Planks
-            pattern: 0.. 000 0.0
-            tools: Carpenter
 
     item: Fertilizer
         recipe:
@@ -2701,68 +2876,6 @@ group: Misc For Now
             input: Apatite, Ash
             pattern: 111 101 111
             quantity: 16
-            tools: Crafting Table
-
-    item: Honey Drop
-        recipe:
-            extras: Beeswax
-            input: Honey Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Propolis
-            input: Stringy Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honeydew
-            input: Dripping Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Crystalline Pollen Cluster, Snowball, Beeswax
-            input: Frozen Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Silky Propolis
-            input: Silky Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Beeswax
-            input: Parched Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Beeswax
-            input: Mossy Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Honey Pot
-        recipe:
-            input: Honey Drop, Wax Capsule
-            pattern: 0.0 .1. 0.0
-            tools: Crafting Table
-
-    item: Honeydew
-        recipe:
-            extras: Honey Drop
-            input: Dripping Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Nether Quartz, Beeswax
-            input: Mellow Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Honeyed Slice
-        recipe:
-            input: Bread, Honey Drop
-            pattern: 111 101 111
-            quantity: 4
             tools: Crafting Table
 
     item: Humus
@@ -2782,34 +2895,6 @@ group: Misc For Now
             quantity: 9
             tools: Carpenter
 
-    item: Ice Shard
-
-    item: Impregnated Frame
-        recipe:
-            input: Impregnated Stick, String
-            pattern: 000 010 000
-            tools: Crafting Table
-
-    item: Impregnated Stick
-        recipe:
-            input: Oak Wood, Seed Oil
-            pattern: .0. .0. .1.
-            tools: Carpenter
-
-    item: Imprinter
-
-    item: Letter
-        recipe:
-            input: Paper, Propolis
-            pattern: 01. ... ...
-            tools: Crafting Table
-
-    item: Mailbox
-        recipe:
-            input: Chest, Sturdy Casing, Tin Ingot
-            pattern: .2. 212 000
-            tools: Crafting Table
-
     item: Mouldy Wheat
         recipe:
             input: Wheat
@@ -2827,140 +2912,13 @@ group: Misc For Now
             pattern: .0. ... ...
             tools: Moistener
 
-    item: Mushroom
-
-    item: Mushroom (Red)
-
     item: Peat
-
-    item: Phosphor
-        recipe:
-            extras: Refractory Wax
-            input: Simmering Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Pickaxe Kit
-        recipe:
-            input: Carton, Survivalist's Pickaxe
-            pattern: 10. ... ...
-            tools: Crafting Table
-
-    item: Pod
-
-    item: Pollen Cluster
-
-    item: Propolis
-        recipe:
-            extras: Honey Drop
-            input: Stringy Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Silk Wisp
-            input: Silky Propolis
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey
-            input: Honey Drop
-            pattern: .0. ... ...
-            tools: Squeezer
-
-    item: Proven Frame
-
-    item: Proven Grafter
-
-    item: Pulsating Dust
-
-    item: Pulsating Mesh
-        recipe:
-            input: Pulsating Propolis
-            pattern: 0.0 .0. 0.0
-            tools: Crafting Table
-
-    item: Refractory Wax
-        recipe:
-            extras: Phosphor
-            input: Simmering Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Royal Jelly
-
-    item: Scented Paneling
-        recipe:
-            input: Beeswax, Oak Wood Planks, Pollen Cluster, Royal Jelly
-            pattern: .3. 111 020
-            tools: Carpenter
-
-    item: Sengir's Notes
-
-    item: Short Mead (Bottle)
-
-    item: Shovel Kit
-        recipe:
-            input: Carton, Survivalist's Shovel
-            pattern: 10. ... ...
-
-    item: Silk Wisp
-        recipe:
-            extras: Propolis
-            input: Silky Propolis
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Silky Propolis
-        recipe:
-            extras: Honey Drop
-            input: Silky Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-
-    item: Spectacles
-        recipe:
-            input: Bronze Ingot, Glass Pane
-            pattern: .0. 1.1 ...
-            tools: Crafting Table
-
-    item: Sticky Propolis
-
-    item: Trade Station
-        recipe:
-            input: Bronze Electron Tube, Chest, Iron Electron Tube, Refined Circuit Board, Sturdy Casing
-            pattern: 202 040 131
-            tools: Crafting Table
-
-    item: Unlit Candle
-        recipe:
-            input: Beeswax, String
-            pattern: 010 ... ...
-            quantity: 6
-            tools: Carpenter
-
-    item: Untreated Frame
-        recipe:
-            input: Stick, String
-            pattern: 000 010 000
-            tools: Crafting Table
-
-    item: Wax Cast
-        recipe:
-            input: Beeswax
-            pattern: 000 0.0 000
-            tools: Crafting Table
 
     item: Wood Pulp
         recipe:
             input: Oak Wood
             pattern: 0.. ... ...
             quantity: 4
-            tools: Carpenter
-
-    item: Woven Silk
-        recipe:
-            input: Silk Wisp
-            pattern: 000 000 000
             tools: Carpenter
 
 group: Planks
@@ -3921,29 +3879,6 @@ group: Stairs
             quantity: 4
             tools: Crafting Table
 
-group: Stamps
-
-    item: Catalogue
-        recipe:
-            input: Book, Stamp (1n)
-            pattern: 1.. 0.. ...
-
-    item: Stamp (100n)
-
-    item: Stamp (10n)
-
-    item: Stamp (1n)
-
-    item: Stamp (20n)
-
-    item: Stamp (2n)
-
-    item: Stamp (50n)
-
-    item: Stamp (5n)
-
-    item: Stamp Collector
-
 group: Storage
 
     item: Apiarist's Chest
@@ -4015,6 +3950,8 @@ group: Tools
             input: Glass, Wool
             pattern: ..1 .0. 0..
             tools: Crafting Table
+
+    item: Proven Grafter
 
     item: Scoop
         recipe:
@@ -4131,6 +4068,73 @@ group: Tubes
             input: Redstone, Tin Ingot
             pattern: .1. 010 111
             tools: Thermionic Fabricator
+
+group: Various Items
+
+    item: Broken Pickaxe
+
+    item: Broken Shovel
+
+    item: Candle Stump
+
+    item: Carton
+        recipe:
+            input: Wood Pulp
+            pattern: .0. 0.0 .0.
+            tools: Carpenter
+
+    item: Curative Mead
+
+    item: Escritoire
+        recipe:
+            input: Oak Wood Planks
+            pattern: 0.. 000 0.0
+            tools: Carpenter
+
+    item: Honeyed Slice
+        recipe:
+            input: Bread, Honey Drop
+            pattern: 111 101 111
+            quantity: 4
+            tools: Crafting Table
+
+    item: Ice Shard
+
+    item: Imprinter
+
+    item: Mushroom
+
+    item: Mushroom (Red)
+
+    item: Pickaxe Kit
+        recipe:
+            input: Carton, Survivalist's Pickaxe
+            pattern: 10. ... ...
+            tools: Crafting Table
+
+    item: Pod
+
+    item: Sengir's Notes
+
+    item: Short Mead (Bottle)
+
+    item: Shovel Kit
+        recipe:
+            input: Carton, Survivalist's Shovel
+            pattern: 10. ... ...
+
+    item: Spectacles
+        recipe:
+            input: Bronze Ingot, Glass Pane
+            pattern: .0. 1.1 ...
+            tools: Crafting Table
+
+    item: Unlit Candle
+        recipe:
+            input: Beeswax, String
+            pattern: 010 ... ...
+            quantity: 6
+            tools: Carpenter
 
 group: Wood
 

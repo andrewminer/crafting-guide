@@ -22,10 +22,10 @@ Storage                 = require '../models/storage'
 module.exports = class CraftingPageController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
         options.model        ?= new CraftingPage modPack:options.modPack
-        options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.storage      ?= new Storage storage:window.localStorage
         options.templateName  = 'crafting_page'
         super options

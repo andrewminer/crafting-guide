@@ -6,6 +6,8 @@ All rights reserved.
 */
 
 .view__item_page {
+    display: none;
+
     & > div {
         vertical-align: top;
         display: inline-block;

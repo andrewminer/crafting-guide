@@ -59,7 +59,7 @@ module.exports = class CraftingPlan extends BaseModel
             item = @modPack.findItem stack.itemSlug
             @need.add item.slug, stack.quantity
 
-        @steps = (recipe:recipe for recipeSlug, recipe of @steps)
+        @steps = (step for recipeSlug, step of @steps)
         @_resolveNeeds()
         @_removeExtraSteps()
 
@@ -96,10 +96,6 @@ module.exports = class CraftingPlan extends BaseModel
             }"
 
     # Private Methods ##############################################################################
-
-    _addStep: (recipe)->
-        logger.verbose -> "adding step for: #{recipe.slug}"
-        @steps[recipe.slug] = recipe
 
     _chooseRecipe: (item)->
         recipes = @modPack.findRecipes item.slug
@@ -143,7 +139,8 @@ module.exports = class CraftingPlan extends BaseModel
                     for inputStack in recipe.input
                         @_findSteps inputStack.itemSlug, parentSteps
 
-                    @_addStep recipe
+                    logger.verbose -> "adding step for: #{recipe.slug}"
+                    @steps[recipe.slug] = recipe:recipe, itemSlug:item.slug
                     foundValidRecipe = true
                     break
                 catch error
@@ -159,8 +156,8 @@ module.exports = class CraftingPlan extends BaseModel
             throw new Error 'invalid recipe path'
 
     _hasStep: (itemSlug)->
-        for recipeSlug, recipe of @steps
-            return true if recipe.produces itemSlug
+        for recipeSlug, step of @steps
+            return true if step.recipe.produces itemSlug
         return false
 
     _qualifyItemSlug: (itemSlug)->
@@ -176,9 +173,8 @@ module.exports = class CraftingPlan extends BaseModel
         for i in [@steps.length-1..0] by -1
             step   = @steps[i]
             recipe = step.recipe
-            stepItemSlug = @_qualifyItemSlug step.recipe.itemSlug
 
-            step.multiplier = Math.ceil(@need.quantityOf(stepItemSlug) / recipe.output[0].quantity)
+            step.multiplier = Math.ceil(@need.quantityOf(step.itemSlug) / recipe.output[0].quantity)
 
             if @includingTools
                 for stack in recipe.tools

@@ -43,35 +43,24 @@ module.exports = class NameFinder
 
     # Private Methods ##############################################################################
 
-    _isMatch: (name, hint)->
-        nameWords = name.split ' '
-        hintWords = hint.split ' '
-
-        for hintWord in hintWords
-            while true
-                return false if nameWords.length is 0
-                nameWord = nameWords.shift()
-                break if nameWord.indexOf(hintWord) is 0
-
-        return true
-
     _findNames: (nameHint=null)->
         names   = []
         nameMap = {}
+        hintRegex = new RegExp(nameHint, 'i') if nameHint?
 
         @modPack.eachMod (mod)=>
             return unless mod.enabled or @includeDisabledMods
 
             mod.eachName (name, itemSlug)=>
-                return if nameMap[name]
+                return if nameMap[name]?
 
                 item = mod.findItem itemSlug
                 if not @includeGatherable
                     return unless item? and item.isCraftable
 
                 scanName = "#{mod.name} : #{name}"
-                if nameHint?
-                    return unless @_isMatch scanName.toLowerCase(), nameHint
+                if hintRegex?
+                    return unless hintRegex.test scanName
 
                 nameMap[name] = name
                 names.push value:name, label:scanName, mod:mod

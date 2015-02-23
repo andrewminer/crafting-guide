@@ -50,15 +50,20 @@ module.exports = class Recipe extends BaseModel
             if aValue isnt bValue
                 return if aValue > bValue then -1 else +1
 
-        aValue = a.getInputCount()
-        bValue = b.getInputCount()
-        if aValue isnt bValue
-            return if aValue < bValue then -1 else +1
-
         aValue = a.getOutputCount()
         bValue = b.getOutputCount()
         if aValue isnt bValue
             return if aValue > bValue then -1 else +1
+
+        aValue = a.tools.length
+        bValue = b.tools.length
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
+
+        aValue = a.getInputCount()
+        bValue = b.getInputCount()
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
 
         return 0
 

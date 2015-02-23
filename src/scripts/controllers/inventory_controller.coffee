@@ -19,12 +19,13 @@ module.exports = class InventoryController extends BaseController
     @ONLY_DIGITS = /^[0-9]*$/
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
         @editable    = options.editable    ?= true
         @icon        = options.icon        ?= '/images/chest_front.png'
-        @imageLoader = options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
+        @imageLoader = options.imageLoader
         @modPack     = options.modPack
         @nameFinder  = options.nameFinder  ?= new NameFinder options.modPack
         @onChange    = options.onChange    ?= -> # do nothing
@@ -168,6 +169,7 @@ module.exports = class InventoryController extends BaseController
             minLength: 0
             change:    onChanged
             close:     onChanged
+            minLength: 3
             select:    onSelected
 
     _refreshStacks: ->
@@ -185,7 +187,9 @@ module.exports = class InventoryController extends BaseController
                     modPack:     @modPack
                     onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
                 controller.render()
+                controller.$el.hide()
                 controller.$el.insertBefore $lastRow
+                controller.$el.slideDown duration:Duration.fast
                 @_stackControllers.push controller
             else
                 controller.model = stack

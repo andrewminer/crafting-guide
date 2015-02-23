@@ -40,7 +40,6 @@ module.exports = class ItemPage extends BaseModel
 
         result = []
         @item.modVersion.eachItemInGroup @item.group, (item)=>
-            return if item is @item
             result.push item
 
         return null unless result.length > 0

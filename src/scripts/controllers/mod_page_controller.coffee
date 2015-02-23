@@ -19,15 +19,18 @@ ItemGroupController = require './item_group_controller'
 module.exports = class ModPageController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
         options.delayStep    ?= 10
         options.templateName = 'mod_page'
         super options
 
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
+
         @_delayStep           = options.delayStep
         @_effectiveModVersion = null
         @_groupControllers    = []
-        @_modPack             = options.modPack
 
         Object.defineProperties this,
             effectiveModVersion: {get:@_getEffectiveModVersion}
@@ -59,10 +62,15 @@ module.exports = class ModPageController extends BaseController
     refresh: ->
         $('title').html if @model? then "#{@model.name} | #{Text.title}" else Text.title
 
-        @$name.html if @model? then @model.name else ''
-        @$byline.html if @model? then "by #{@model.author}" else ''
-        @$titleImage.attr 'src', (if @model? then Url.modLogoImage(modSlug:@model.slug) else '')
-        @$description.html if @model? then @model.description else ''
+        if @model?
+            @$name.html @model.name
+            @$byline.html "by #{@model.author}"
+            @$titleImage.attr 'src', Url.modLogoImage modSlug:@model.slug
+            @$description.html @model.description
+
+            @$el.slideDown duration:Duration.normal
+        else
+            @$el.slideUp duration:Duration.normal
 
         @_refreshLink @$homePageLink, @model.homePageUrl
         @_refreshLink @$documentationLink, @model.documentationUrl
@@ -98,7 +106,11 @@ module.exports = class ModPageController extends BaseController
                 items = modVersion.allItemsInGroup group
                 if not controller?
                     title = if group is Item.Group.Other then 'Items' else group
-                    controller = new ItemGroupController model:items, modPack:@_modPack, title:title
+                    controller = new ItemGroupController
+                        imageLoader: @imageLoader
+                        model:       items
+                        modPack:     @modPack
+                        title:       title
                     controller.render()
                     @$groupContainer.append controller.$el
                     @_groupControllers[groupIndex] = controller
@@ -114,10 +126,10 @@ module.exports = class ModPageController extends BaseController
 
     _refreshLink: ($link, url)->
         if url?
-            $link.fadeIn duration:Duration.normal
+            $link.slideDown duration:Duration.normal
             $link.attr 'href', url
         else
-            $link.fadeOut duration:Duration.normal
+            $link.sludeUp duration:Duration.normal
 
     _refreshVersions: ->
         @$versionSelector.empty()

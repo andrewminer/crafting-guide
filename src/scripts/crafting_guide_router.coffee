@@ -13,6 +13,7 @@ CraftingPageController = require './controllers/crafting_page_controller'
 HeaderController       = require './controllers/header_controller'
 ItemPageController     = require './controllers/item_page_controller'
 ItemSlug               = require './models/item_slug'
+ImageLoader            = require './controllers/image_loader'
 Mod                    = require './models/mod'
 ModPack                = require './models/mod_pack'
 ModPageController      = require './controllers/mod_page_controller'
@@ -31,9 +32,10 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_lastReported    = null
         super options
 
-        @modPack = new ModPack
-        @storage = new Storage storage:window.localStorage
-        @_defaultOptions = modPack:@modPack, storage:@storage
+        @imageLoader     = new ImageLoader defaultUrl:'/images/unknown.png'
+        @modPack         = new ModPack
+        @storage         = new Storage storage:window.localStorage
+        @_defaultOptions = imageLoader:@imageLoader, modPack:@modPack, storage:@storage
 
         @headerController = new HeaderController el:'.view__header'
 
@@ -124,11 +126,11 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             controller.$el.addClass 'page'
             $pageContent.replaceWith controller.$el
 
-            controller.$el.fadeIn showDuration, ->
+            controller.$el.slideDown showDuration, ->
                 controller.onDidShow()
 
         if @_controller?
-            showDuration = Duration.long
-            @_controller.$el.fadeOut showDuration, show
+            showDuration = showDuration / 2
+            @_controller.$el.slideUp showDuration, show
         else
             show()

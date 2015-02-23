@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController = require './base_controller'
 {Duration}     = require '../constants'
+{Event}        = require '../constants'
 ImageLoader    = require './image_loader'
 
 ########################################################################################################################
@@ -14,14 +15,16 @@ ImageLoader    = require './image_loader'
 module.exports = class CraftingGridController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'crafting_grid'
         super options
 
         @_imageLoader = options.imageLoader
         @_modPack     = options.modPack
         @_slotCount   = 9
+
+        @_modPack.on Event.change, => @tryRefresh()
 
     # BaseController Methods #######################################################################
 

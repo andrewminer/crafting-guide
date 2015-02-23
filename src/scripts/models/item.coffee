@@ -28,7 +28,9 @@ module.exports = class Item extends BaseModel
         options.logEvents       ?= false
         super attributes, options
 
-        @on Event.change + ':modVersion', => @slug.mod = @modVersion?.modSlug
+        @on Event.change + ':modVersion', =>
+            @_isCraftable = null
+            @slug.mod = @modVersion?.modSlug
 
     # Public Methods ###############################################################################
 
@@ -42,8 +44,12 @@ module.exports = class Item extends BaseModel
     # Property Methods #############################################################################
 
     getIsCraftable: ->
-        return false unless @modVersion?
-        return @modVersion.hasRecipes @slug
+        if not @_isCraftable?
+            @_isCraftable = false
+            if @modVersion?
+                @_isCraftable = @modVersion.hasRecipes @slug
+
+        return @_isCraftable
 
     Object.defineProperties @prototype,
         isCraftable: {get:@prototype.getIsCraftable}

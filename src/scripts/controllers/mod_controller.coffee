@@ -29,6 +29,7 @@ module.exports = class ModController extends BaseController
     onVersionChanged: ->
         @model.activeVersion = @$version.val()
         @_plan.removeUncraftableItems()
+        @_plan.craft()
 
     # BaseController Overrides #####################################################################
 

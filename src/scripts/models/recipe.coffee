@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseModel     = require './base_model'
+{Event}       = require '../constants'
 Stack         = require './stack'
 StringBuilder = require './string_builder'
 
@@ -32,29 +33,37 @@ module.exports = class Recipe extends BaseModel
         options.logEvents     ?= false
         super attributes, options
 
+        @on Event.change + ':modVersion', => @_slug = null
+
     # Class Methods ################################################################################
 
     @compareFor: (a, b, itemSlug)->
-        aValue = a.itemSlug.matches itemSlug
-        bValue = b.itemSlug.matches itemSlug
-        if aValue isnt bValue
-            return -1 if aValue
-            return +1 if bValue
+        if itemSlug?
+            aValue = a.itemSlug.matches itemSlug
+            bValue = b.itemSlug.matches itemSlug
+            if aValue isnt bValue
+                return -1 if aValue
+                return +1 if bValue
 
-        aValue = a.getQuantityProducedOf itemSlug
-        bValue = b.getQuantityProducedOf itemSlug
-        if aValue isnt bValue
-            return if aValue > bValue then -1 else +1
-
-        aValue = a.getInputCount()
-        bValue = b.getInputCount()
-        if aValue isnt bValue
-            return if aValue < bValue then -1 else +1
+            aValue = a.getQuantityProducedOf itemSlug
+            bValue = b.getQuantityProducedOf itemSlug
+            if aValue isnt bValue
+                return if aValue > bValue then -1 else +1
 
         aValue = a.getOutputCount()
         bValue = b.getOutputCount()
         if aValue isnt bValue
             return if aValue > bValue then -1 else +1
+
+        aValue = a.tools.length
+        bValue = b.tools.length
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
+
+        aValue = a.getInputCount()
+        bValue = b.getInputCount()
+        if aValue isnt bValue
+            return if aValue < bValue then -1 else +1
 
         return 0
 
@@ -91,11 +100,14 @@ module.exports = class Recipe extends BaseModel
         return 0
 
     produces: (itemSlug)->
-        for stack in @output
-            if stack.itemSlug.matches itemSlug
-                return true
+        if not @_produces?
+            @_produces = {}
 
-        return false
+            for stack in @output
+                @_produces[stack.itemSlug.qualified] = true
+                @_produces[stack.itemSlug.item] = true
+
+        return @_produces[itemSlug.qualified]
 
     requires: (itemSlug)->
         for stack in @input

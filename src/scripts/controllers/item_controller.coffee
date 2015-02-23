@@ -12,12 +12,14 @@ BaseController = require './base_controller'
 module.exports = class ItemController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
         options.templateName = 'item'
         super options
 
-        @_modPack = options.modPack
+        @_imageLoader = options.imageLoader
+        @_modPack     = options.modPack
 
     # BaseController Overrides #####################################################################
 
@@ -30,7 +32,7 @@ module.exports = class ItemController extends BaseController
     refresh: ->
         display = @_modPack.findItemDisplay @model.slug
 
-        @$icon.attr 'src', display.iconUrl
+        @_imageLoader.load display.iconUrl, @$icon
         @$name.html display.itemName
         @$nameLink.attr 'href', display.itemUrl
 

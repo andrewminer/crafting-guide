@@ -41,7 +41,7 @@ try
     text       = fs.readFileSync sourceFileName, 'UTF-8'
     parser     = new ModVersionParser model:new ModVersion modSlug:'', version:''
     modVersion = parser.parse text
-    text       = parser.unparse modVersion
+    text       = parser.unparse(modVersion).trim().replace(/^\s\s*$/gm, '')
 
     if targetFileName is '-'
         console.log text

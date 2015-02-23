@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
+{Event}        = require '../constants'
 ImageLoader    = require './image_loader'
 
 ########################################################################################################################
@@ -13,10 +14,10 @@ ImageLoader    = require './image_loader'
 module.exports = class StackController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        options.imageLoader  ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.editable     ?= false
         options.onRemove     ?= (stack)-> # do nothing
         options.templateName  = 'stack'
@@ -26,6 +27,8 @@ module.exports = class StackController extends BaseController
         @modPack      = options.modPack
         @onRemove     = options.onRemove
         @_imageLoader = options.imageLoader
+
+        @modPack.on Event.change, => @tryRefresh()
 
     # Event Methods ################################################################################
 

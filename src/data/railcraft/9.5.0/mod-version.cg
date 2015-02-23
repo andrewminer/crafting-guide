@@ -1,0 +1,3245 @@
+schema: 1
+
+group: Armor
+
+    item: Engineer's Overalls
+        recipe:
+            input: Light Blue Wool
+            pattern: 000 0.0 0.0
+            tools: Crafting Table
+
+    item: Steel Boots
+        recipe:
+            input: Steel Ingot
+            pattern: ... 0.0 0.0
+            tools: Crafting Table
+
+    item: Steel Chestplate
+        recipe:
+            input: Steel Ingot
+            pattern: 0.0 000 000
+            tools: Crafting Table
+
+    item: Steel Helmet
+        recipe:
+            input: Steel Ingot
+            pattern: 000 0.0 ...
+            tools: Crafting Table
+
+    item: Steel Leggings
+        recipe:
+            input: Steel Ingot
+            pattern: 000 0.0 0.0
+            tools: Crafting Table
+
+    item: Trackman's Goggles
+        recipe:
+            input: Glass Pane, Leather, Receiver Circuit, Steel Ingot
+            pattern: 020 3.3 111
+            tools: Crafting Table
+
+group: Carts
+
+    item: Admin Anchor Cart
+        recipe:
+            input: Admin Anchor, Minecart
+            pattern: .0. .1. ...
+
+    item: Anchor Cart
+        recipe:
+            input: Minecart, World Anchor
+            pattern: .1. .0. ...
+
+    item: Gift Cart
+
+    item: Personal Anchor Cart
+        recipe:
+            input: Minecart, Personal Anchor
+            pattern: .1. .0. ...
+
+    item: Pumpkin Cart
+
+    item: Tank Cart
+        recipe:
+            input: Iron Tank Gauge, Minecart
+            pattern: .0. .1. ...
+
+    item: Track Layer Cart
+        recipe:
+            input: Anvil, Block of Steel, Dandelion Yellow, Dispenser, Minecart, Redstone Lamp
+            pattern: 252 010 343
+            tools: Crafting Table
+
+    item: Track Relayer Cart
+        recipe:
+            input: Blaze Rod, Block of Steel, Dandelion Yellow, Diamond Pickaxe, Minecart, Redstone Lamp
+            pattern: 252 010 343
+            tools: Crafting Table
+
+    item: Track Remover Cart
+        recipe:
+            input: Block of Steel, Crowbar, Dandelion Yellow, Minecart, Redstone Lamp, Sticky Piston
+            pattern: 242 505 131
+            tools: Crafting Table
+
+    item: Undercutter Cart
+        recipe:
+            input: Block of Steel, Dandelion Yellow, Diamond Shovel, Minecart, Piston, Redstone Lamp
+            pattern: 151 404 232
+            tools: Crafting Table
+
+    item: Wooden TNT Cart
+        recipe:
+            input: Oak Wood Slab, TNT
+            pattern: ... 010 000
+            tools: Crafting Table
+
+    item: Work Cart
+        recipe:
+            input: Crafting Table, Minecart
+            pattern: .0. .1. ...
+
+group: Decorative Blocks
+
+    item: Abyssal Block
+        recipe:
+            input: Abyssal Stone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Abyssal Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Abyssal Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Abyssal Block Slab
+            pattern: .0. .0. ...
+
+    item: Abyssal Brick
+        recipe:
+            input: Fitted Abyssal Stone
+            pattern: ... .0. ...
+        recipe:
+            input: Abyssal Brick Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Abyssal Brick Slab
+            pattern: .0. .0. ...
+
+    item: Abyssal Cobblestone
+        recipe:
+            input: Abyssal Stone
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Abyssal Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Abyssal Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Abyssal Stone
+        gatherable: yes
+
+    item: Bleached Bone Block
+        recipe:
+            input: Bleached Clay, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Bleached Bone Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Bleached Bone Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Bleached Bone Block Slab
+            pattern: .0. .0. ...
+
+    item: Bleached Bone Brick
+        recipe:
+            input: Bleached Bone Block, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Bleached Bone Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Bleached Bone Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Bleached Bone Block Slab
+            pattern: .0. .0. ...
+
+    item: Bleached Bone Cobblestone
+        recipe:
+            input: Bleached Bone Brick
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Bleached Bone Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Bleached Bone Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Bleached Clay
+        recipe:
+            input: Bone Meal, Clay
+            pattern: 10. 00. ...
+
+    item: Block of Concrete
+        recipe:
+            input: Rebar, Stone
+            pattern: 101 010 101
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Concrete Slab
+            pattern: .0. .0. ...
+        recipe:
+            input: Concrete Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Blood Stained Block
+        recipe:
+            input: Rotten Flesh, Smooth Sandstone
+            pattern: .0. .1. ...
+        recipe:
+            input: Smooth Sandstone, Steak
+            pattern: .1. .0. ...
+        recipe:
+            input: Blood Stained Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Blood Stained Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Blood Stained Block Slab
+            pattern: ... .0. ...
+
+    item: Blood Stained Brick
+        recipe:
+            input: Fitted Blood Stained Stone
+            pattern: ... .0. ...
+        recipe:
+            input: Blood Stained Brick Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Blood Stained Brick Slab
+            pattern: .0. .0. ...
+
+    item: Blood Stained Cobblestone
+        recipe:
+            input: Blood Stained Brick
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Blood Stained Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Blood Stained Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Creosote Wood Block
+        recipe:
+            input: Creosote Bottle, Oak Wood
+            pattern: .0. .1. ...
+        recipe:
+            input: Creosote Bucket, Oak Wood
+            pattern: .0. .1. ...
+
+    item: Emblem
+
+    item: Etched Abyssal Stone
+        recipe:
+            input: Abyssal Block, Gunpowder
+            pattern: .1. .0. ...
+
+    item: Etched Bleached Bone Stone
+        recipe:
+            input: Bleached Bone Block, Gunpowder
+            pattern: .1. .0. ...
+
+    item: Etched Blood Stained Stone
+        recipe:
+            input: Blood Stained Block, Gunpowder
+            pattern: .1. .0. ...
+
+    item: Etched Frost Bound Stone
+        recipe:
+            input: Frost Bound Block, Gunpowder
+            pattern: .1. .0. ...
+
+    item: Etched Infernal Stone
+        recipe:
+            input: Gunpowder, Infernal Block
+            pattern: .0. .1. ...
+
+    item: Etched Nether Stone
+        recipe:
+            input: Gunpowder, Nether Block
+            pattern: .0. .1. ...
+
+    item: Etched Quarried Stone
+        recipe:
+            input: Gunpowder, Quarried Block
+            pattern: .0. .1. ...
+
+    item: Etched Sandy Stone
+        recipe:
+            input: Gunpowder, Sandy Block
+            pattern: .0. .1. ...
+
+    item: Fitted Abyssal Stone
+        recipe:
+            input: Abyssal Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Abyssal Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Abyssal Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Bleached Bone Stone
+        recipe:
+            input: Bleached Bone Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Bleached Bone Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Bleached Bone Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Blood Stained Stone
+        recipe:
+            input: Blood Stained Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Blood Stained Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Blood Stained Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Frost Bound Stone
+        recipe:
+            input: Frost Bound Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Frost Bound Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Frost Bound Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Infernal Stone
+        recipe:
+            input: Infernal Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Infernal Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Infernal Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Nether Stone
+        recipe:
+            input: Nether Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Nether Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Nether Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Quarried Stone
+        recipe:
+            input: Quarried Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Quarried Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Quarried Stone Slab
+            pattern: .0. .0. ...
+
+    item: Fitted Sandy Stone
+        recipe:
+            input: Sandy Block
+            pattern: ... .0. ...
+        recipe:
+            input: Fitted Sandy Stone Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Fitted Sandy Stone Slab
+            pattern: .0. .0. ...
+
+    item: Frost Bound Block
+        recipe:
+            input: Ice, Lapis Lazuli
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Frost Bound Block Slab
+            pattern: .0. .0. ...
+        recipe:
+            input: Frost Bound Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+
+    item: Frost Bound Brick
+        recipe:
+            input: Fitted Frost Bound Stone
+            pattern: ... .0. ...
+        recipe:
+            input: Frost Bound Brick Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Frost Bound Brick Slab
+            pattern: .0. .0. ...
+
+    item: Frost Bound Cobblestone
+        recipe:
+            input: Frost Bound Brick
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Frost Bound Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Frost Bound Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Infernal Block
+        recipe:
+            input: Nether Brick, Soul Sand
+            pattern: 10. 01. ...
+        recipe:
+            input: Infernal Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Infernal Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Infernal Block Slab
+            pattern: .0. .0. ...
+
+    item: Infernal Brick
+        recipe:
+            input: Fitted Infernal Stone
+            pattern: ... .0. ...
+        recipe:
+            input: Infernal Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Infernal Block Slab
+            pattern: .0. .0. ...
+
+    item: Infernal Cobblestone
+        recipe:
+            input: Infernal Brick
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Infernal Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Infernal Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Nether Block
+        recipe:
+            input: Nether Brick (block), furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Nether Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Nether Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Nether Block Slab
+            pattern: .0. .0. ...
+
+    item: Nether Cobblestone
+        recipe:
+            input: Nether Brick
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Nether Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Nether Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Ornate Abyssal Stone
+        recipe:
+            input: Abyssal Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Bleached Bone Stone
+        recipe:
+            input: Bleached Bone Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Blood Stained Stone
+        recipe:
+            input: Blood Stained Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Frost Bound Stone
+        recipe:
+            input: Frost Bound Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Infernal Stone
+        recipe:
+            input: Infernal Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Nether Stone
+        recipe:
+            input: Nether Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Quarried Stone
+        recipe:
+            input: Quarried Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Ornate Sandy Stone
+        recipe:
+            input: Sandy Block
+            pattern: 000 0.0 000
+            tools: Crafting Table
+
+    item: Quarried Block
+        recipe:
+            input: Quarried Stone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Quarried Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Quarried Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Quarried Block Slab
+            pattern: .0. .0. ...
+
+    item: Quarried Brick
+        recipe:
+            input: Fitted Quarried Stone
+            pattern: ... .0. ...
+        recipe:
+            input: Quarried Brick Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Quarried Brick Slab
+            pattern: .0. .0. ...
+
+    item: Quarried Cobblestone
+        recipe:
+            input: Quarried Stone
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Quarried Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+        recipe:
+            input: Quarried Cobble Slab
+            pattern: .0. .0. ...
+
+    item: Quarried Stone
+        gatherable: yes
+
+    item: Sandy Block
+        recipe:
+            input: Brick, Sand
+            pattern: 01. 10. ...
+        recipe:
+            input: Sandy Block Slab
+            pattern: .0. .0. ...
+        recipe:
+            input: Sandy Cobblestone, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Sandy Block Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Sandy Brick
+        recipe:
+            input: Fitted Sandy Stone
+            pattern: ... .0. ...
+        recipe:
+            input: Sandy Brick Slab
+            pattern: .0. .0. ...
+        recipe:
+            input: Sandy Brick Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Sandy Cobblestone
+        gatherable: yes
+        recipe:
+            input: Sandy Cobble Slab
+            pattern: .0. .0. ...
+        recipe:
+            input: Sandy Cobble Stairs
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+group: Decorative Lanterns
+
+    item: Abyssal Stone Lantern
+        recipe:
+            input: Abyssal Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Bleached Bone Stone Lantern
+        recipe:
+            input: Bleached Bone Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Bloodstained Stone Lantern
+        recipe:
+            input: Blood Stained Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Copper Lantern
+        recipe:
+            input: Copper Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Frostbound Stone Lantern
+        recipe:
+            input: Frost Bound Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Gold Lantern
+        recipe:
+            input: Gold Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Infernal Stone Lantern
+        recipe:
+            input: Infernal Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Iron Lantern
+        recipe:
+            input: Iron Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Lead Lantern
+        recipe:
+            input: Lead Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Nether Stone Lantern
+        recipe:
+            input: Nether Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Quarried Stone Lantern
+        recipe:
+            input: Quarried Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Sandstone Lantern
+        recipe:
+            input: Sandstone Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Sandy Stone Lantern
+        recipe:
+            input: Sandy Block, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Steel Lantern
+        recipe:
+            input: Steel Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Stone Lantern
+        recipe:
+            input: Stone Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+    item: Tin Lantern
+        recipe:
+            input: Tin Slab, Torch
+            pattern: .0. .1. .0.
+            tools: Crafting Table
+
+group: Decorative Platforms
+
+    item: Black Metal Platform
+        recipe:
+            input: Ink Sac, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Blue Metal Platform
+        recipe:
+            input: Lapis Lazuli, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Brown Metal Platform
+        recipe:
+            input: Cocoa Beans, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Cyan Metal Platform
+        recipe:
+            input: Cyan Dye, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Gray Metal Platform
+        recipe:
+            input: Gray Dye, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Green Metal Platform
+        recipe:
+            input: Cactus Green, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Light Blue Metal Platform
+        recipe:
+            input: Light Blue Dye, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Light Gray Metal Platform
+        recipe:
+            input: Light Gray Dye, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Lime Metal Platform
+        recipe:
+            input: Lime Dye, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Magenta Metal Platform
+        recipe:
+            input: Magenta Dye, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Metal Platform
+        recipe:
+            input: Iron Slab, Metal Post
+            pattern: .0. .1. ...
+            quantity: 4
+
+    item: Orange Metal Platform
+        recipe:
+            input: Metal Platform, Orange Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Pink Metal Platform
+        recipe:
+            input: Metal Platform, Pink Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Purple Metal Platform
+        recipe:
+            input: Metal Platform, Purple Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Red Metal Platform
+        recipe:
+            input: Metal Platform, Rose Red
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Stone Platform
+        recipe:
+            input: Concrete Slab, Stone Post
+            pattern: .0. .1. ...
+
+    item: White Metal Platform
+        recipe:
+            input: Bone Meal, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Wooden Platform
+        recipe:
+            input: Creosote Block Slab, Wooden Post
+            pattern: .0. .1. ...
+
+    item: Yellow Metal Platform
+        recipe:
+            input: Dandelion Yellow, Metal Platform
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+group: Decorative Posts
+
+    item: Black Metal Post
+        recipe:
+            input: Ink Sac, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Blue Metal Post
+        recipe:
+            input: Lapis Lazuli, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Brown Metal Post
+        recipe:
+            input: Cocoa Beans, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Cyan Metal Post
+        recipe:
+            input: Cyan Dye, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Gray Metal Post
+        recipe:
+            input: Gray Dye, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Green Metal Post
+        recipe:
+            input: Cactus Green, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Light Blue Metal Post
+        recipe:
+            input: Light Blue Dye, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Light Gray Metal Post
+        recipe:
+            input: Light Gray Dye, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Lime Metal Post
+        recipe:
+            input: Lime Dye, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Magenta Metal Post
+        recipe:
+            input: Magenta Dye, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Metal Post
+        recipe:
+            input: Iron Ingot
+            pattern: 000 .0. 000
+            quantity: 16
+            tools: Rolling Machine
+        recipe:
+            input: Steel Ingot
+            pattern: 000 .0. 000
+            quantity: 32
+            tools: Rolling Machine
+
+    item: Orange Metal Post
+        recipe:
+            input: Metal Post, Orange Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Pink Metal Post
+        recipe:
+            input: Metal Post, Pink Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Purple Metal Post
+        recipe:
+            input: Metal Post, Purple Dye
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Red Metal Post
+        recipe:
+            input: Metal Post, Rose Red
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+
+    item: Stone Post
+        recipe:
+            input: Rebar, Stone
+            pattern: 101 101 101
+            quantity: 8
+            tools: Crafting Table
+
+    item: White Metal Post
+        recipe:
+            input: Bone Meal, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+    item: Wooden Post
+        recipe:
+            input: Wooden Tie
+            pattern: ... .0. ...
+            quantity: 4
+
+    item: Yellow Metal Post
+        recipe:
+            input: Dandelion Yellow, Metal Post
+            pattern: 111 101 111
+            quantity: 8
+            tools: Crafting Table
+
+group: Decorative Slabs
+
+    item: Abyssal Block Slab
+        recipe:
+            input: Abyssal Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Abyssal Brick Slab
+        recipe:
+            input: Abyssal Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Abyssal Cobble Slab
+        recipe:
+            input: Abyssal Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Bleached Bone Block Slab
+        recipe:
+            input: Bleached Bone Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Bleached Bone Brick Slab
+        recipe:
+            input: Bleached Bone Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Bleached Bone Cobble Slab
+        recipe:
+            input: Bleached Bone Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Blood Stained Block Slab
+        recipe:
+            input: Blood Stained Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Blood Stained Brick Slab
+        recipe:
+            input: Blood Stained Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Blood Stained Cobble Slab
+        recipe:
+            input: Blood Stained Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Concrete Slab
+        recipe:
+            input: Block of Concrete
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Copper Slab
+        recipe:
+            input: Block of Copper
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Creosote Block Slab
+        recipe:
+            input: Creosote Wood Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Diamond Slab
+        recipe:
+            input: Block of Diamond
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Abyssal Stone Slab
+        recipe:
+            input: Fitted Abyssal Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Bleached Bone Stone Slab
+        recipe:
+            input: Fitted Bleached Bone Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Blood Stained Stone Slab
+        recipe:
+            input: Fitted Blood Stained Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Frost Bound Stone Slab
+        recipe:
+            input: Fitted Frost Bound Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Infernal Stone Slab
+        recipe:
+            input: Fitted Infernal Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Nether Stone Slab
+        recipe:
+            input: Fitted Nether Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Quarried Stone Slab
+        recipe:
+            input: Fitted Quarried Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Fitted Sandy Stone Slab
+        recipe:
+            input: Fitted Sandy Stone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Frost Bound Block Slab
+        recipe:
+            input: Frost Bound Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Frost Bound Brick Slab
+        recipe:
+            input: Frost Bound Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Frost Bound Cobble Slab
+        recipe:
+            input: Frost Bound Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Gold Slab
+        recipe:
+            input: Block of Gold
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Ice Slab
+        recipe:
+            input: Ice
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Infernal Block Slab
+        recipe:
+            input: Infernal Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Infernal Brick Slab
+        recipe:
+            input: Infernal Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Infernal Cobble Slab
+        recipe:
+            input: Infernal Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Iron Slab
+        recipe:
+            input: Block of Iron
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Lead Slab
+        recipe:
+            input: Block of Lead
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Nether Block Slab
+        recipe:
+            input: Nether Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Nether Cobble Slab
+        recipe:
+            input: Nether Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Obsidian Slab
+        recipe:
+            input: Obsidian
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Packed Ice Slab
+        recipe:
+            input: Packed Ice
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Quarried Block Slab
+        recipe:
+            input: Quarried Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Quarried Brick Slab
+        recipe:
+            input: Quarried Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Quarried Cobble Slab
+        recipe:
+            input: Quarried Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sandy Block Slab
+        recipe:
+            input: Sandy Block
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sandy Brick Slab
+        recipe:
+            input: Sandy Brick
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sandy Cobble Slab
+        recipe:
+            input: Sandy Cobblestone
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Snow Slab
+        recipe:
+            input: Snow (block)
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Steel Slab
+        recipe:
+            input: Block of Steel
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Tin Slab
+        recipe:
+            input: Block of Tin
+            pattern: ... 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+group: Decorative Stairs
+
+    item: Abyssal Block Stairs
+        recipe:
+            input: Abyssal Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Abyssal Brick Stairs
+        recipe:
+            input: Abyssal Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Abyssal Cobble Stairs
+        recipe:
+            input: Abyssal Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Bleached Bone Block Stairs
+        recipe:
+            input: Bleached Bone Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Bleached Bone Brick Stairs
+        recipe:
+            input: Bleached Bone Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Bleached Bone Cobble Stairs
+        recipe:
+            input: Bleached Bone Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Blood Stained Block Stairs
+        recipe:
+            input: Blood Stained Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Blood Stained Brick Stairs
+        recipe:
+            input: Blood Stained Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Blood Stained Cobble Stairs
+        recipe:
+            input: Blood Stained Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Concrete Stairs
+        recipe:
+            input: Block of Concrete
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Copper Stairs
+        recipe:
+            input: Block of Copper
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Creosote Block Stairs
+        recipe:
+            input: Creosote Wood Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Diamond Stairs
+        recipe:
+            input: Block of Diamond
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Abyssal Stone Stairs
+        recipe:
+            input: Fitted Abyssal Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Bleached Bone Stone Stairs
+        recipe:
+            input: Fitted Bleached Bone Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Blood Stained Stone Stairs
+        recipe:
+            input: Fitted Blood Stained Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Frost Bound Stone Stairs
+        recipe:
+            input: Fitted Frost Bound Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Infernal Stone Stairs
+        recipe:
+            input: Fitted Infernal Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Nether Stone Stairs
+        recipe:
+            input: Fitted Nether Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Quarried Stone Stairs
+        recipe:
+            input: Fitted Quarried Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Fitted Sandy Stone Stairs
+        recipe:
+            input: Fitted Sandy Stone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Frost Bound Block Stairs
+        recipe:
+            input: Frost Bound Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Frost Bound Brick Stairs
+        recipe:
+            input: Frost Bound Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Frost Bound Cobble Stairs
+        recipe:
+            input: Frost Bound Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Gold Stairs
+        recipe:
+            input: Block of Gold
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Ice Stairs
+        recipe:
+            input: Ice
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Infernal Block Stairs
+        recipe:
+            input: Infernal Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Infernal Brick Stairs
+        recipe:
+            input: Infernal Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Infernal Cobble Stairs
+        recipe:
+            input: Infernal Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Iron Stairs
+        recipe:
+            input: Block of Iron
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Lead Stairs
+        recipe:
+            input: Block of Lead
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Nether Block Stairs
+        recipe:
+            input: Nether Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Nether Cobble Stairs
+        recipe:
+            input: Nether Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Obsidian Stairs
+        recipe:
+            input: Obsidian
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Packed Ice Stairs
+        recipe:
+            input: Packed Ice
+            pattern: 0.. 00. 000
+            tools: Crafting Table
+
+    item: Quarried Block Stairs
+        recipe:
+            input: Quarried Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Quarried Brick Stairs
+        recipe:
+            input: Quarried Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Quarried Cobble Stairs
+        recipe:
+            input: Quarried Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Sandy Block Stairs
+        recipe:
+            input: Sandy Block
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Sandy Brick Stairs
+        recipe:
+            input: Sandy Brick
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Sandy Cobble Stairs
+        recipe:
+            input: Sandy Cobblestone
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Snow Stairs
+        recipe:
+            input: Snow (block)
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Steel Stairs
+        recipe:
+            input: Block of Steel
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+    item: Tin Stairs
+        recipe:
+            input: Block of Tin
+            pattern: 0.. 00. 000
+            quantity: 4
+            tools: Crafting Table
+
+group: Decorative Walls
+
+    item: Abyssal Brick Wall
+        recipe:
+            input: Abyssal Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Bleached Bone Brick Wall
+        recipe:
+            input: Bleached Bone Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Blood Stained Brick Wall
+        recipe:
+            input: Blood Stained Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Brick Wall
+        recipe:
+            input: Bricks
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Chiseled Quartz Wall
+        recipe:
+            input: Chiseled Quartz Block
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Chiseled Sandstone Wall
+        recipe:
+            input: Chiseled Sandstone
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Chiseled Stone Brick Wall
+        recipe:
+            input: Chiseled Stone Bricks
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Concrete Wall
+        recipe:
+            input: Block of Concrete
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Cracked Stone Brick Wall
+        recipe:
+            input: Cracked Stone Bricks
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Diamond Wall
+        recipe:
+            input: Block of Diamond
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Frost Bound Brick Wall
+        recipe:
+            input: Frost Bound Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Gold Wall
+        recipe:
+            input: Block of Gold
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Ice Wall
+        recipe:
+            input: Ice
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Infernal Brick Wall
+        recipe:
+            input: Infernal Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Iron Wall
+        recipe:
+            input: Block of Iron
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Mossy Stone Brick Wall
+        recipe:
+            input: Mossy Stone Bricks
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Nether Brick Wall
+        recipe:
+            input: Nether Brick
+            pattern: 0.0 000 ...
+            quantity: 5
+            tools: Crafting Table
+
+    item: Obsidian Wall
+        recipe:
+            input: Obsidian
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Quarried Brick Wall
+        recipe:
+            input: Quarried Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Quartz Wall
+        recipe:
+            input: Block of Quartz
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sandstone Wall
+        recipe:
+            input: Sandstone
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Sandy Brick Wall
+        recipe:
+            input: Sandy Brick
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Smooth Sandstone Wall
+        recipe:
+            input: Smooth Sandstone
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Snow Wall
+        recipe:
+            input: Snow (block)
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+    item: Stone Brick Wall
+        recipe:
+            input: Stone Bricks
+            pattern: 000 000 ...
+            quantity: 6
+            tools: Crafting Table
+
+group: Energy
+
+    item: Admin Steam Producer
+
+    item: Commercial Steam Engine
+        recipe:
+            input: Glass, Iron Gear, Iron Plate, Piston
+            pattern: 222 .0. 131
+            tools: Crafting Table
+
+    item: High Pressure Boiler Tank
+        recipe:
+            input: Steel Plate
+            pattern: .0. .0. ...
+
+    item: Hobbyist's Steam Engine
+        recipe:
+            input: Glass, Gold Nugget, Gold-Plate Gear, Piston
+            pattern: 111 .0. 232
+            tools: Crafting Table
+
+    item: Industrial Steam Engine
+        recipe:
+            input: Glass, Piston, Steel Gear, Steel Plate
+            pattern: 333 .0. 212
+            tools: Crafting Table
+
+    item: Liquid Fueled Boiler Firebox
+        recipe:
+            input: Bucket, Fire Charge, Furnace, Iron Bars, Steel Plate
+            pattern: 404 313 424
+            tools: Crafting Table
+
+    item: Low Pressure Boiler Tank
+        recipe:
+            input: Iron Plate
+            pattern: .0. .0. ...
+
+    item: Solid Fueled Boiler Firebox
+        recipe:
+            input: Brick, Fire Charge, Furnace
+            pattern: 000 010 020
+            tools: Crafting Table
+
+    item: Steam Oven
+        recipe:
+            input: Furnace, Steel Plate
+            pattern: 111 101 111
+            quantity: 4
+            tools: Crafting Table
+
+    item: Steam Turbine Housing
+        recipe:
+            input: Block of Steel, Steel Plate
+            pattern: 010 1.1 010
+            quantity: 3
+            tools: Crafting Table
+
+group: Engines
+
+    item: Electric Locomotive
+        recipe:
+            input: Electric Feeder Unit, Minecart, Redstone Lamp, Steel Gear, Steel Plate
+            pattern: 24. 404 313
+            tools: Crafting Table
+
+    item: Steam Locomotive
+        recipe:
+            input: High Pressure Boiler Tank, Iron Bars, Minecart, Solid Fueled Boiler Firebox
+            pattern: 003 003 122
+            tools: Crafting Table
+
+    item: Tunnel Bore
+        recipe:
+            input: Block of Steel, Furnace, Minecart, Minecart with Chest
+            pattern: 020 121 .3.
+            tools: Crafting Table
+
+group: Fluids
+
+    item: 1000mB Creosote Oil
+        recipe:
+            input: 500mB Creosote Oil
+            pattern: ... 00. ...
+
+    item: 500mB Creosote Oil
+
+    item: Creosote Bottle
+        recipe:
+            input: 1000mB Creosote Oil, Glass Bottle
+            pattern: .0. .1. ...
+
+    item: Creosote Bucket
+        recipe:
+            input: 1000mB Creosote Oil, Bucket
+            pattern: .0. .1. ...
+
+    item: Creosote Can
+
+    item: Creosote Capsule
+
+    item: Creosote Cell
+        recipe:
+            input: 1000mB Creosote Oil, Empty Cell
+            pattern: .0. .1. ...
+
+    item: Iron Tank Gauge
+        recipe:
+            input: Glass Pane, Iron Plate
+            pattern: 010 101 010
+            quantity: 8
+            tools: Crafting Table
+
+    item: Iron Tank Valve
+        recipe:
+            input: Iron Bars, Iron Plate, Lever
+            pattern: 010 121 010
+            quantity: 8
+            tools: Crafting Table
+
+    item: Iron Tank Wall
+        recipe:
+            input: Iron Plate
+            pattern: 00. 00. ...
+            quantity: 8
+
+    item: Steam
+
+    item: Steam Bottle
+
+    item: Steel Tank Gauge
+        recipe:
+            input: Glass Pane, Steel Plate
+            pattern: 010 101 010
+            quantity: 8
+            tools: Crafting Table
+
+    item: Steel Tank Valve
+        recipe:
+            input: Iron Bars, Lever, Steel Plate
+            pattern: 020 212 020
+            quantity: 8
+            tools: Crafting Table
+
+    item: Steel Tank Wall
+        recipe:
+            input: Steel Plate
+            pattern: 00. 00. ...
+            quantity: 8
+
+    item: Water Tank Siding
+
+group: Functional Blocks
+
+    item: Admin Anchor
+
+    item: Personal Anchor
+        recipe:
+            input: Emerald, Ender Pearl, Gold Ingot, Obsidian
+            pattern: 232 010 232
+            tools: Crafting Table
+
+    item: World Anchor
+        recipe:
+            input: Diamond, Ender Pearl, Gold Ingot, Obsidian
+            pattern: 232 010 232
+            tools: Crafting Table
+
+group: Machine Parts
+
+    item: Admin Feeder Unit
+
+    item: Controller Circuit
+        recipe:
+            input: Gold Ingot, Lapis Lazuli, Red Wool, Redstone, Redstone Repeater, Slimeball
+            pattern: .42 503 231
+            tools: Crafting Table
+
+    item: Copper Plate
+        recipe:
+            input: Copper Ingot
+            pattern: 00. 00. ...
+            quantity: 4
+            tools: Rolling Machine
+
+    item: Diamond Bore Head
+        recipe:
+            input: Block of Diamond, Steel Ingot
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Electric Feeder Unit
+        recipe:
+            input: Copper Ingot, Tin Plate
+            pattern: 101 000 101
+            tools: Crafting Table
+
+    item: Gold-Plate Gear
+        recipe:
+            input: Gold Nugget, Tin Gear Bushing
+            pattern: .0. 010 .0.
+            tools: Crafting Table
+
+    item: Iron Bore Head
+        recipe:
+            input: Block of Iron, Steel Ingot
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Iron Gear
+        recipe:
+            input: Iron Ingot, Tin Gear Bushing
+            pattern: .0. 010 .0.
+            tools: Crafting Table
+
+    item: Iron Plate
+        recipe:
+            input: Iron Ingot
+            pattern: 00. 00. ...
+            quantity: 4
+            tools: Rolling Machine
+
+    item: Rebar
+        recipe:
+            input: Iron Ingot
+            pattern: ..0 .0. 0..
+            quantity: 4
+            tools: Rolling Machine
+        recipe:
+            input: Steel Ingot
+            pattern: ..0 .0. 0..
+            quantity: 8
+            tools: Rolling Machine
+
+    item: Receiver Circuit
+        recipe:
+            input: Gold Ingot, Green Wool, Lapis Lazuli, Redstone, Redstone Repeater, Slimeball
+            pattern: .41 503 132
+            tools: Crafting Table
+
+    item: Signal Circuit
+        recipe:
+            input: Gold Ingot, Lapis Lazuli, Redstone, Redstone Repeater, Slimeball, Yellow Wool
+            pattern: .35 402 521
+            tools: Crafting Table
+
+    item: Signal Lamp
+        recipe:
+            input: Dandelion Yellow, Glass Pane, Glowstone Dust, Lime Dye, Redstone, Rose Red
+            pattern: 13. 102 154
+            tools: Crafting Table
+
+    item: Steel Bore Head
+        recipe:
+            input: Block of Steel, Steel Ingot
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Steel Gear
+        recipe:
+            input: Steel Ingot, Tin Gear Bushing
+            pattern: .0. 010 .0.
+            tools: Crafting Table
+
+    item: Steel Plate
+        recipe:
+            input: Steel Ingot
+            pattern: 00. 00. ...
+            quantity: 4
+            tools: Rolling Machine
+
+    item: Tin Gear Bushing
+        recipe:
+            input: Tin Ingot
+            pattern: 00. 00. ...
+            quantity: 2
+
+    item: Tin Plate
+        recipe:
+            input: Iron Ingot, Tin Ingot
+            pattern: 01. 10. ...
+            quantity: 4
+            tools: Rolling Machine
+
+    item: Turbine Blade
+        recipe:
+            input: Steel Ingot
+            pattern: .0. .0. .0.
+            tools: Crafting Table
+
+    item: Turbine Disk
+        recipe:
+            input: Block of Steel, Turbine Blade
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Turbine Rotor
+        recipe:
+            input: Turbine Disk
+            pattern: ... 000 ...
+            tools: Crafting Table
+
+group: Machines
+
+    item: Adv. Item Loader
+        recipe:
+            input: Item Loader, Redstone, Steel Ingot, Steel Shovel
+            pattern: 212 101 232
+            tools: Crafting Table
+
+    item: Adv. Item Unloader
+        recipe:
+            input: Item Unloader, Redstone, Steel Ingot, Steel Shovel
+            pattern: 212 101 232
+            tools: Crafting Table
+
+    item: Anchor Sentinel
+        recipe:
+            input: Ender Pearl, Gold Ingot, Obsidian
+            pattern: .0. .2. 212
+            tools: Crafting Table
+
+    item: Automated Steam Trap
+        recipe:
+            input: Dispenser, High Pressure Boiler Tank, Iron Bars, Redstone
+            pattern: .2. 313 .0.
+            tools: Crafting Table
+        recipe:
+            input: Manual Steam Trap, Redstone
+            pattern: ... 101 ...
+            tools: Crafting Table
+
+    item: Cart Dispenser
+        recipe:
+            input: Dispenser, Minecart
+            pattern: ... 10. ...
+
+    item: Engraving Bench
+        recipe:
+            input: Book, Crafting Table, Diamond Pickaxe, Piston, Steel Plate
+            pattern: 240 414 343
+            tools: Crafting Table
+
+    item: Feed Station
+        recipe:
+            input: Golden Carrot, Oak Wood Planks, Steel Plate
+            pattern: 101 020 101
+            tools: Crafting Table
+
+    item: Fluid Loader
+        recipe:
+            input: Detector - Tank, Glass, Hopper
+            pattern: 121 1.1 101
+            tools: Crafting Table
+
+    item: Fluid Unloader
+        recipe:
+            input: Detector - Tank, Glass, Hopper
+            pattern: 101 1.1 121
+            tools: Crafting Table
+
+    item: Item Loader
+        recipe:
+            input: Cobblestone, Detector - Item, Hopper
+            pattern: 000 020 010
+            tools: Crafting Table
+
+    item: Item Unloader
+        recipe:
+            input: Cobblestone, Detector - Item, Hopper
+            pattern: 000 010 020
+            tools: Crafting Table
+
+    item: Manual Steam Trap
+        recipe:
+            input: Dispenser, High Pressure Boiler Tank, Iron Bars
+            pattern: .2. .1. .0.
+            tools: Crafting Table
+
+    item: Metals Chest
+        recipe:
+            input: Anvil, Piston, Steel Gear
+            pattern: 212 101 212
+            tools: Crafting Table
+
+    item: Rolling Machine
+        recipe:
+            input: Crafting Table, Iron Ingot, Piston
+            pattern: 121 202 121
+            tools: Crafting Table
+
+    item: Smoker
+        recipe:
+            input: Cauldron, Netherrack, Redstone
+            pattern: .1. 202 ...
+            tools: Crafting Table
+
+    item: Trade Station
+        recipe:
+            input: Dispenser, Emerald, Glass Pane, Steel Plate
+            pattern: 323 101 323
+            tools: Crafting Recipe
+
+    item: Train Dispenser
+        recipe:
+            input: Cart Dispenser, Crowbar, Redstone
+            pattern: 212 101 212
+            tools: Crafting Table
+
+    item: Void Chest
+        recipe:
+            input: Ender Pearl, Obsidian
+            pattern: 111 101 111
+            tools: Crafting Table
+
+group: Minerals
+
+    item: Block of Coal Coke
+        recipe:
+            input: Coal Coke
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Copper
+        recipe:
+            input: Copper Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Lead
+        recipe:
+            input: Lead Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Steel
+        recipe:
+            input: Steel Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Block of Tin
+        recipe:
+            input: Tin Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Charcoal Dust
+        recipe:
+            input: Charcoal
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Coal Coke
+        recipe:
+            extras: 500mB Creosote Oil
+            input: Coal
+            pattern: ... .0. ...
+            tools: Coke Oven
+
+    item: Copper Ingot
+        recipe:
+            input: Copper Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Copper Nugget
+            pattern: 000 000 000
+            tools: Crafting Table
+        recipe:
+            input: Block of Copper
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Copper Nugget
+        recipe:
+            input: Copper Ingot
+            pattern: ... .0. ...
+            quantity: 9
+        recipe:
+            input: Poor Copper Ore, furnace fuel
+            pattern: .0. ... .1.
+            quantity: 2
+            tools: Furnace
+
+    item: Cracked Firestone
+
+    item: Crushed Obsidian
+        recipe:
+            input: Obsidian
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Cut Firestone
+        recipe:
+            input: Diamond Pickaxe, Raw Firestone
+            pattern: .0. 010 .0.
+            tools: Crafting Table
+
+    item: Dark Diamond Ore
+
+    item: Dark Emerald Ore
+
+    item: Dark Lapis Lazuli Ore
+
+    item: Firestone Ore
+
+    item: Iron Nugget
+        recipe:
+            input: Iron Ingot
+            pattern: ... .0. ...
+            quantity: 9
+        recipe:
+            input: Poor Iron Ore, furnace fuel
+            pattern: .0. ... .1.
+            quantity: 2
+            tools: Furance
+
+    item: Lead Ingot
+        recipe:
+            input: Lead Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Lead Nugget
+            pattern: 000 000 000
+            tools: Crafting Table
+        recipe:
+            input: Block of Lead
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Lead Nugget
+        recipe:
+            input: Lead Ingot
+            pattern: ... .0. ...
+            quantity: 9
+        recipe:
+            input: Poor Lead Ore, furnace fuel
+            pattern: .0. ... .1.
+            quantity: 2
+            tools: Furance
+
+    item: Obsidian Dust
+        recipe:
+            input: Crushed Obsidian
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Poor Copper Ore
+        gatherable: yes
+
+    item: Poor Gold Ore
+        gatherable: yes
+
+    item: Poor Iron Ore
+        gatherable: yes
+
+    item: Poor Lead Ore
+        gatherable: yes
+
+    item: Poor Tin Ore
+        gatherable: yes
+
+    item: Raw Firestone
+        recipe:
+            input: Firestone Ore
+            pattern: ... .0. ...
+            tools: Rock Crusher
+
+    item: Refined Firestone
+        recipe:
+            input: Block of Redstone, Cut Firestone, Lava Bucket
+            pattern: 202 010 202
+            tools: Crafting Table
+        recipe:
+            input: Block of Redstone, Cracked Firestone, Lava Bucket, Raw Firestone
+            pattern: 232 010 202
+            tools: Crafting Table
+
+    item: Saltpeter
+        gatherable: yes
+
+    item: Saltpeter Ore
+        gatherable: yes
+
+    item: Steel Ingot
+        recipe:
+            input: Coal Coke, Iron Ingot
+            pattern: .1. ... .0.
+            tools: Blast Furnace
+        recipe:
+            input: Charcoal, Iron Ingot
+            pattern: .1. .0. 000
+            tools: Blast Furnace
+        recipe:
+            input: Steel Nugget
+            pattern: 000 000 000
+            tools: Crafting Table
+        recipe:
+            input: Block of Steel
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Steel Nugget
+        recipe:
+            input: Steel Ingot
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Strengthened Glass
+        recipe:
+            extras: Bucket
+            input: Glass, Saltpeter, Tin Ingot, Water Bucket
+            pattern: 020 010 030
+            quantity: 6
+        recipe:
+            extras: Bucket
+            input: Glass, Iron Ingot, Saltpeter, Water Bucket
+            pattern: 010 020 030
+            quantity: 6
+
+    item: Sulfur
+        gatherable: yes
+
+    item: Sulfur Ore
+        gatherable: yes
+
+    item: Tin Ingot
+        recipe:
+            input: Tin Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Tin Nugget
+            pattern: 000 000 000
+            tools: Crafting Table
+        recipe:
+            input: Block of Tin
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Tin Nugget
+        recipe:
+            input: Tin Ingot
+            pattern: ... .0. ...
+            quantity: 9
+        recipe:
+            input: Poor Tin Ore, furnace fuel
+            pattern: .0. ... .1.
+            quantity: 2
+            tools: Furnace
+
+group: Multi-Block Structures
+
+    item: Blast Furnace
+        recipe:
+            input: Blast Furnace (bottom half), Blast Furnace (inner layer), Blast Furnace (outer layer)
+            pattern: .2. .1. .0.
+
+    item: Blast Furnace (bottom half)
+        recipe:
+            input: Blast Furnace (inner layer), Blast Furnace (outer layer)
+            pattern: ... .0. .1.
+
+    item: Blast Furnace Brick
+        recipe:
+            input: Magma Cream, Nether Brick, Soul Sand
+            pattern: 212 101 212
+            quantity: 4
+            tools: Crafting Table
+
+    item: Blast Furnace (inner layer)
+        recipe:
+            input: Blast Furnace Brick
+            pattern: 000 0.0 000
+
+    item: Blast Furnace (outer layer)
+        recipe:
+            input: Blast Furnace Brick
+            pattern: 000 000 000
+
+    item: Coke Oven
+        recipe:
+            input: Coke Oven Layer
+            pattern: .0. .0. .0.
+
+    item: Coke Oven Brick
+        recipe:
+            input: Brick, Sand
+            pattern: 101 010 101
+            tools: Crafting Table
+
+    item: Coke Oven (layer)
+        recipe:
+            input: Coke Oven Brick
+            pattern: 000 000 000
+
+    item: Rock Crusher
+        recipe:
+            input: Rock Crusher (layer)
+            pattern: ... .0. .0.
+
+    item: Rock Crusher (block)
+        recipe:
+            input: Block of Steel, Diamond, Piston
+            pattern: 212 101 212
+            quantity: 4
+            tools: Crafting Table
+
+    item: Rock Crusher (layer)
+        recipe:
+            input: Rock Crusher (block)
+            pattern: ... 000 000
+
+    item: Steam Boiler (simple)
+        recipe:
+            input: Low Pressure Boiler Tank, Solid Fueled Boiler Firebox
+            pattern: ... .0. .1.
+
+group: Signals
+
+    item: Analog Signal Controller Box
+        recipe:
+            input: Controller Circuit, Iron Ingot, Redstone Comparator
+            pattern: 101 121 ...
+            tools: Crafting Table
+
+    item: Block Signal
+        recipe:
+            input: Ink Sac, Iron Ingot, Signal Circuit, Signal Lamp
+            pattern: 321 .01 ...
+            tools: Crafting Table
+
+    item: Detector - Advanced
+        recipe:
+            input: Pressure Plate (stone), Steel Ingot
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Age
+        recipe:
+            input: Pressure Plate (stone), Spruce Wood
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Animal
+        recipe:
+            input: Oak Wood, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Any
+        recipe:
+            input: Pressure Plate (stone), Stone
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Empty
+        recipe:
+            input: Pressure Plate (stone), Stone Bricks
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Energy
+        recipe:
+            input: Pressure Plate (stone), Tin Ingot
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Explosive
+        recipe:
+            input: Oak Wood Slab, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Item
+        recipe:
+            input: Oak Wood Planks, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Locomotive
+        recipe:
+            input: Infernal Brick, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Mob
+        recipe:
+            input: Moss Stone, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+        recipe:
+            input: Mossy Stone Bricks, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Player
+        recipe:
+            input: Pressure Plate (stone), Stone Slab
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Powered
+        recipe:
+            input: Cobblestone, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Routing
+        recipe:
+            input: Chiseled Quartz Block, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Sheep
+        recipe:
+            input: Pressure Plate (stone), Wool
+            pattern: 111 101 111
+            tools: Crafting Table
+
+    item: Detector - Tank
+        recipe:
+            input: Brick, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Train
+        recipe:
+            input: Nether Brick (block), Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Detector - Villager
+        recipe:
+            input: Leather, Pressure Plate (stone)
+            pattern: 000 010 000
+            tools: Crafting Table
+
+    item: Distant Signal
+        recipe:
+            input: Ink Sac, Iron Ingot, Receiver Circuit, Signal Lamp
+            pattern: 321 .01 ...
+            tools: Crafting Table
+
+    item: Dual-Head Block Signal
+        recipe:
+            input: Ink Sac, Iron Ingot, Receiver Circuit, Signal Circuit, Signal Lamp
+            pattern: 431 .01 421
+            tools: Crafting Table
+
+    item: Dual-Head Distant Signal
+        recipe:
+            input: Ink Sac, Iron Ingot, Receiver Circuit, Signal Lamp
+            pattern: 321 .01 321
+            tools: Crafting Table
+
+    item: Routing Switch Motor
+        recipe:
+            input: Detector - Routing, Switch Motor
+            pattern: .1. .0. ...
+
+    item: Signal Block Relay Box
+        recipe:
+            input: Iron Ingot, Redstone, Signal Circuit
+            pattern: 020 010 ...
+            tools: Crafting Table
+
+    item: Signal Capacitor Box
+        recipe:
+            input: Iron Ingot, Redstone, Redstone Repeater
+            pattern: 020 010 ...
+            tools: Crafting Table
+
+    item: Signal Controller Box
+        recipe:
+            input: Controller Circuit, Iron Ingot, Redstone
+            pattern: 101 121 ...
+            tools: Crafting Table
+
+    item: Signal Interlock Box
+        recipe:
+            input: Controller Circuit, Iron Ingot, Receiver Circuit, Redstone
+            pattern: .2. 101 131
+            tools: Crafting Table
+
+    item: Signal Receiver Box
+        recipe:
+            input: Iron Ingot, Receiver Circuit, Redstone
+            pattern: 010 020 ...
+            tools: Crafting Table
+
+    item: Signal Sequencer Box
+        recipe:
+            input: Iron Ingot, Redstone, Redstone Comparator
+            pattern: 020 010 ...
+            tools: Crafting Table
+
+    item: Switch Lever
+        recipe:
+            input: Bone Meal, Ink Sac, Iron Ingot, Lever, Piston, Rose Red
+            pattern: 510 432 ...
+            tools: Crafting Table
+
+    item: Switch Motor
+        recipe:
+            input: Bone Meal, Ink Sac, Iron Ingot, Piston, Receiver Circuit, Rose Red
+            pattern: 510 342 ...
+            tools: Crafting Table
+
+group: Tools
+
+    item: Crowbar
+        recipe:
+            input: Iron Ingot, Rose Red
+            pattern: .10 101 01.
+            tools: Crafting Table
+
+    item: Electric Meter
+        recipe:
+            input: Button (stone), Copper Ingot, Glass Pane, Tin Ingot
+            pattern: 3.3 020 .1.
+            tools: Crafting Table
+
+    item: Golden Railway Ticket
+        recipe:
+            input: Gold Nugget, Paper
+            pattern: ... 10. ...
+
+    item: Magnifying Glass
+        recipe:
+            input: Glass Pane, Stick
+            pattern: .0. 1.. ...
+
+    item: Railway Ticket
+        recipe:
+            extras: Golden Railway Ticket
+            input: Golden Railway Ticket, Paper
+            pattern: ... 10. ...
+
+    item: Reinforced Crowbar
+        recipe:
+            input: Rose Red, Steel Ingot
+            pattern: .01 010 10.
+            tools: Crafting Table
+
+    item: Routing Table
+        recipe:
+            input: Book and Quill, Lapis Lazuli
+            pattern: ... 01. ...
+
+    item: Signal Block Surveyor
+        recipe:
+            input: Button (stone), Compass, Glass Pane, Redstone
+            pattern: .1. 020 .3.
+            tools: Crafting Table
+
+    item: Signal Tuner
+        recipe:
+            input: Button (stone), Receiver Circuit, Redstone Torch
+            pattern: .2. 010 ...
+            tools: Crafting Table
+
+    item: Steel Anvil
+        recipe:
+            input: Block of Steel, Steel Ingot
+            pattern: 000 .1. 111
+            tools: Crafting Table
+
+    item: Steel Axe
+        recipe:
+            input: Steel Ingot, Stick
+            pattern: 00. 01. .1.
+            tools: Crafting Table
+
+    item: Steel Hoe
+        recipe:
+            input: Steel Ingot, Stick
+            pattern: 00. .1. .1.
+            tools: Crafting Table
+
+    item: Steel Pickaxe
+        recipe:
+            input: Steel Ingot, Stick
+            pattern: 000 .1. .1.
+            tools: Crafting Table
+
+    item: Steel Shears
+        recipe:
+            input: Steel Ingot
+            pattern: .0. 0.. ...
+
+    item: Steel Shovel
+        recipe:
+            input: Steel Ingot, Stick
+            pattern: .0. .1. .1.
+            tools: Crafting Table
+
+    item: Steel Sword
+        recipe:
+            input: Steel Ingot, Stick
+            pattern: .0. .0. .1.
+            tools: Crafting Table
+
+    item: Whistle Tuner
+        recipe:
+            input: Steel Nugget
+            pattern: 0.0 000 .0.
+            tools: Crafting Table
+
+group: Track Parts
+
+    item: Advanced Rail
+        recipe:
+            input: Gold Ingot, Redstone, Standard Rail
+            pattern: 210 210 210
+            quantity: 8
+            tools: Rolling Machine
+
+    item: Electric Rail
+        recipe:
+            input: Copper Ingot, Standard Rail
+            pattern: 101 101 101
+            quantity: 6
+            tools: Rolling Machine
+
+    item: H.S. Rail
+        recipe:
+            input: Blaze Powder, Gold Ingot, Steel Ingot
+            pattern: 201 201 201
+            quantity: 8
+            tools: Rolling Machine
+
+    item: Reinforced Rail
+        recipe:
+            input: Obsidian Dust, Steel Ingot
+            pattern: 101 101 101
+            quantity: 8
+            tools: Rolling Machine
+
+    item: Standard Rail
+        recipe:
+            input: Rail
+            pattern: 0.0 000 000
+            tools: Crafting Table
+        recipe:
+            input: Iron Ingot
+            pattern: 0.0 0.0 0.0
+            quantity: 8
+            tools: Rolling Machine
+        recipe:
+            input: Steel Ingot
+            pattern: 0.0 0.0 0.0
+            quantity: 16
+            tools: Rolling Machine
+
+    item: Stone Railbed
+        recipe:
+            input: Stone Tie
+            pattern: 00. 00. ...
+
+    item: Stone Tie
+        recipe:
+            input: Rebar, Stone Slab
+            pattern: .0. 111 ...
+            tools: Crafting Table
+
+    item: Wooden Rail
+        recipe:
+            input: Iron Ingot, Wooden Tie
+            pattern: ... 01. ...
+            quantity: 6
+
+    item: Wooden Railbed
+        recipe:
+            input: Wooden Tie
+            pattern: 00. 00. ...
+
+    item: Wooden Tie
+        recipe:
+            extras: Bucket
+            input: Creosote Bucket, Oak Wood Slab
+            pattern: .0. 111 ...
+            tools: Crafting Table
+
+group: Tracks: Advanced
+
+    item: Coupler Track
+        recipe:
+            input: Advanced Rail, Crowbar, Wooden Railbed
+            pattern: 010 020 010
+            quantity: 16
+            tools: Crafting Table
+
+    item: Disembarking Track
+        recipe:
+            input: Advanced Rail, Pressure Plate (stone), Redstone, Wooden Railbed
+            pattern: 010 030 020
+            quantity: 16
+            tools: Crafting Table
+
+    item: Disposal Track
+        recipe:
+            input: Advanced Rail, Pressure Plate (stone), Redstone, Wooden Railbed
+            pattern: 010 030 020
+            quantity: 16
+            tools: Crafting Table
+
+    item: Elevator Track
+        recipe:
+            input: Advanced Rail, Redstone, Standard Rail
+            pattern: 010 020 010
+            quantity: 8
+            tools: Crafting Table
+
+    item: Embarking Track
+        recipe:
+            input: Advanced Rail, Ender Pearl, Wooden Railbed
+            pattern: 010 020 010
+            quantity: 16
+            tools: Crafting Table
+
+    item: Force Track Emitter
+        recipe:
+            input: Block of Diamond, Copper Ingot, Tin Plate
+            pattern: 212 101 212
+            tools: Crafting Table
+
+    item: Locking Track
+        recipe:
+            input: Advanced Rail, Pressure Plate (stone), Redstone, Wooden Railbed
+            pattern: 020 010 030
+            quantity: 16
+            tools: Crafting Table
+
+group: Tracks: Electric
+
+    item: Electric Junction Track
+        recipe:
+            input: Electric Rail, Stone Railbed
+            pattern: 000 010 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Electric Shunting Wire
+        recipe:
+            input: Block of Copper, Lead Ingot, Paper
+            pattern: 121 202 121
+            quantity: 8
+            tools: Rolling Machine
+
+    item: Electric Switch Track
+        recipe:
+            input: Electric Rail, Stone Railbed
+            pattern: 010 000 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Electric Track
+        recipe:
+            input: Electric Rail, Stone Railbed
+            pattern: 0.0 010 0.0
+            quantity: 32
+            tools: Crafting Table
+
+    item: Electric Wye Track
+        recipe:
+            input: Electric Rail, Stone Railbed
+            pattern: 000 001 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Flux Transformer
+        recipe:
+            input: Block of Redstone, Copper Plate, Gold Ingot
+            pattern: 121 202 121
+            quantity: 2
+            tools: Crafting Table
+
+    item: Wire Support Frame
+        recipe:
+            input: Iron Plate, Rebar
+            pattern: 000 1.1 111
+            quantity: 6
+            tools: Crafting Table
+
+group: Tracks: High-Speed
+
+    item: H.S. Booster Track
+        recipe:
+            input: Advanced Rail, Redstone, Stone Railbed
+            pattern: 010 020 010
+            quantity: 16
+            tools: Crafting Table
+
+    item: H.S. Switch Track
+        recipe:
+            input: H.S. Rail, Stone Railbed
+            pattern: 010 000 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: H.S. Track
+        recipe:
+            input: H.S. Rail, Stone Railbed
+            pattern: 0.0 010 0.0
+            quantity: 32
+            tools: Crafting Table
+
+    item: H.S. Transition Track
+        recipe:
+            input: H.S. Rail, Redstone, Stone Railbed
+            pattern: 010 010 020
+            quantity: 16
+            tools: Crafting Table
+
+    item: H.S. Wye Track
+        recipe:
+            input: Advanced Rail, Stone Railbed
+            pattern: 000 001 000
+            quantity: 16
+            tools: Crafting Table
+
+group: Tracks: Reinforced
+
+    item: Launcher Track
+        recipe:
+            input: Block of Steel, Piston, Reinforced Rail, Stone Railbed
+            pattern: 232 010 232
+            quantity: 2
+            tools: Crafting Table
+
+    item: Reinforced Booster Track
+        recipe:
+            input: Redstone, Reinforced Rail, Stone Railbed
+            pattern: 1.1 121 101
+            quantity: 16
+            tools: Crafting Table
+
+    item: Reinforced Junction Track
+        recipe:
+            input: Reinforced Rail, Stone Railbed
+            pattern: 000 010 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Reinforced Switch Track
+        recipe:
+            input: Reinforced Rail, Stone Railbed
+            pattern: 010 000 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Reinforced Track
+        recipe:
+            input: Reinforced Rail, Stone Railbed
+            pattern: 0.0 010 0.0
+            quantity: 32
+            tools: Crafting Table
+
+    item: Reinforced Wye Track
+        recipe:
+            input: Reinforced Rail, Stone Railbed
+            pattern: 000 001 000
+            quantity: 16
+            tools: Crafting Table
+
+group: Tracks: Standard
+
+    item: Buffer Stop Track
+        recipe:
+            input: Block of Iron, Standard Rail, Wooden Railbed
+            pattern: 1.1 121 101
+            quantity: 16
+            tools: Crafting Table
+
+    item: Control Track
+        recipe:
+            input: Advanced Rail, Redstone, Standard Rail, Wooden Railbed
+            pattern: 212 030 212
+            quantity: 32
+            tools: Crafting Table
+
+    item: Directional Detector Track
+        recipe:
+            input: Pressure Plate (stone), Redstone, Standard Rail, Wooden Railbed
+            pattern: 212 232 202
+            quantity: 16
+            tools: Crafting Table
+
+    item: Gated One-Way Track
+        recipe:
+            input: Advanced Rail, Gate, Standard Rail, Wooden Railbed
+            pattern: 212 030 212
+            quantity: 8
+            tools: Crafting Table
+
+    item: Gated Track
+        recipe:
+            input: Gate, Standard Rail, Wooden Railbed
+            pattern: 101 121 101
+            quantity: 8
+            tools: Crafting Table
+
+    item: Junction Track
+        recipe:
+            input: Standard Rail, Wooden Railbed
+            pattern: 000 010 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Limiter Track
+        recipe:
+            input: Redstone Repeater, Standard Rail, Wooden Railbed
+            pattern: 101 121 101
+            quantity: 16
+            tools: Crafting Table
+
+    item: Locomotive Track
+        recipe:
+            input: Signal Lamp, Standard Rail, Wooden Railbed
+            pattern: 101 121 101
+            quantity: 16
+            tools: Crafting Table
+
+    item: One-Way Track
+        recipe:
+            input: Piston, Pressure Plate (stone), Standard Rail, Wooden Railbed
+            pattern: 212 232 202
+            quantity: 16
+            tools: Crafting Table
+
+    item: Priming Track
+        recipe:
+            input: Flint and Steel, Pressure Plate (stone), Standard Rail, Stone Railbed
+            pattern: 212 232 202
+            quantity: 16
+            tools: Crafting Table
+
+    item: Routing Track
+        recipe:
+            input: Railway Ticket, Redstone, Standard Rail, Wooden Railbed
+            pattern: 212 232 202
+            quantity: 16
+            tools: Crafting Table
+        recipe:
+            extras: Golden Railway Ticket
+            input: Golden Railway Ticket, Redstone, Standard Rail, Wooden Railbed
+            pattern: 212 232 202
+            quantity: 16
+            tools: Crafting Table
+
+    item: Suspended Track
+        recipe:
+            input: Standard Rail, Wooden Tie
+            pattern: 010 010 010
+            quantity: 16
+            tools: Crafting Table
+
+    item: Switch Track
+        recipe:
+            input: Standard Rail, Wooden Railbed
+            pattern: 010 000 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Track
+        recipe:
+            input: Standard Rail, Wooden Railbed
+            pattern: 0.0 010 0.0
+            quantity: 32
+            tools: Crafting Table
+
+    item: Whistle Track
+        recipe:
+            input: Dandelion Yellow, Ink Sac, Standard Rail, Wooden Railbed
+            pattern: 202 232 212
+            quantity: 16
+            tools: Crafting Table
+
+    item: Wye Track
+        recipe:
+            input: Standard Rail, Wooden Railbed
+            pattern: 000 001 000
+            quantity: 16
+            tools: Crafting Table
+
+group: Tracks: Wooden
+
+    item: Wooden Booster Track
+        recipe:
+            input: Gold Ingot, Redstone, Wooden Rail, Wooden Railbed
+            pattern: 2.2 030 212
+            quantity: 16
+            tools: Crafting Table
+
+    item: Wooden Junction Track
+        recipe:
+            input: Wooden Rail, Wooden Railbed
+            pattern: 000 010 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Wooden Switch Track
+        recipe:
+            input: Wooden Rail, Wooden Railbed
+            pattern: 010 000 000
+            quantity: 16
+            tools: Crafting Table
+
+    item: Wooden Track
+        recipe:
+            input: Wooden Rail, Wooden Railbed
+            pattern: 0.0 010 0.0
+            quantity: 32
+            tools: Crafting Table
+
+    item: Wooden Wye Track
+        recipe:
+            input: Wooden Rail, Wooden Railbed
+            pattern: 000 001 000
+            quantity: 16
+            tools: Crafting Table
+
+update: Gold Nugget
+    recipe:
+        input: Poor Gold Ore, furnace fuel
+        pattern: .0. ... .1.
+        quantity: 2
+        tools: Furnace
+
+update: Iron Ingot
+    recipe:
+        input: Iron Nugget
+        pattern: 000 000 000
+        tools: Crafting Table

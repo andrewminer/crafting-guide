@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController   = require './base_controller'
 {Duration}       = require '../constants'
+{Event}          = require '../constants'
 ImageLoader      = require './image_loader'
 MinimalRecipeController = require './minimal_recipe_controller'
 
@@ -15,14 +16,14 @@ MinimalRecipeController = require './minimal_recipe_controller'
 module.exports = class CraftingTableController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'crafting_table'
         super options
 
-        @_imageLoader = options.imageLoader
-        @_modPack    = options.modPack
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
 
     # Event Methods ################################################################################
 
@@ -42,7 +43,7 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @recipeController = @addChild MinimalRecipeController, '.view__minimal_recipe', imageLoader:@_imageLoader, modPack:@_modPack
+        @recipeController = @addChild MinimalRecipeController, '.view__minimal_recipe', imageLoader:@imageLoader, modPack:@modPack
 
         @$next           = @$('.next')
         @$prev           = @$('.prev')

@@ -12,6 +12,7 @@ exports.DefaultMods = [
     'buildcraft',
     'enderio',
     'industrial_craft_2',
+    'railcraft',
     'thermal_expansion',
     'forestry'
 ]

@@ -18,14 +18,6 @@ module.exports = class ItemPage extends BaseModel
         attributes.item ?= null
         super attributes, options
 
-        @_plan = new CraftingPlan modPack:@modPack
-        @on Event.change + ':item', => @_updateCraftingPlan()
-        @_updateCraftingPlan()
-
-        Object.defineProperties this,
-            craftingRawMaterials: {get:-> @_plan.need}
-            craftingSteps:        {get:-> @_plan.steps}
-
     # Property Methods #############################################################################
 
     findComponentInItems: ->
@@ -35,7 +27,7 @@ module.exports = class ItemPage extends BaseModel
         @modPack.eachMod (mod)=>
             mod.eachRecipe (recipe)=>
                 if recipe.requires @item.slug
-                    outputItem = @modPack.findItem recipe.itemSlug
+                    outputItem = @modPack.findItem recipe.itemSlug, includeDisabled:true
                     result[outputItem.slug] = outputItem
 
         result = _.values result
@@ -48,25 +40,10 @@ module.exports = class ItemPage extends BaseModel
 
         result = []
         @item.modVersion.eachItemInGroup @item.group, (item)=>
-            return if item is @item
             result.push item
 
         return null unless result.length > 0
         return result
 
     findRecipes: ->
-        return @modPack.findRecipes @item?.slug
-
-    # Private Methods ##############################################################################
-
-    _updateCraftingPlan: ->
-        @_plan.clear()
-
-        if @item?
-            @_plan.want.add @item.slug
-            @_plan.craft()
-
-            if @_plan.steps.length > 0
-                @_primaryRecipe = @_plan.steps[@_plan.steps.length - 1].recipe
-            else
-                @_primaryRecipe = null
+        return @modPack.findRecipes @item?.slug, [], alwaysFromOwningMod:true

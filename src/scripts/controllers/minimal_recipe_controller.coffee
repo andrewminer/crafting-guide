@@ -15,8 +15,8 @@ ImageLoader            = require './image_loader'
 module.exports = class MinimalRecipeController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'minimal_recipe'
         super options
 

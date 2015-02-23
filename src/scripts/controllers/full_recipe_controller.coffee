@@ -17,12 +17,12 @@ InventoryTableController = require './inventory_table_controller'
 module.exports = class FullRecipeController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.imageLoader ?= new ImageLoader defaultUrl:'/images/unknown.png'
         options.templateName = 'full_recipe'
         super options
 
-        @_imageLoader = options.imageLoader
+        @imageLoader = options.imageLoader
         @modPack     = options.modPack
 
     # BaseController Overrides #####################################################################
@@ -30,17 +30,19 @@ module.exports = class FullRecipeController extends BaseController
     onDidRender: ->
         @gridController = @addChild CraftingGridController, '.view__crafting_grid',
             modPack:     @modPack
-            imageLoader: @_imageLoader
+            imageLoader: @imageLoader
 
         @inputController = @addChild InventoryTableController, '.input .view__inventory_table',
-            editable: false
-            model:    new Inventory
-            modPack:  @modPack
+            editable:    false
+            imageLoader: @imageLoader
+            model:       new Inventory
+            modPack:     @modPack
 
         @outputController = @addChild InventoryTableController, '.output .view__inventory_table',
-            editable: false
-            model:    new Inventory
-            modPack:  @modPack
+            editable:    false
+            imageLoader: @imageLoader
+            model:       new Inventory
+            modPack:     @modPack
 
         @$tool = @$('.tool p')
         super

@@ -16,12 +16,14 @@ ItemController = require './item_controller'
 module.exports = class ItemGroupController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
         options.title        ?= ''
         options.templateName  = 'item_group'
         super options
 
         @_delayStep       = 20
+        @_imageLoader     = options.imageLoader
         @_itemControllers = []
         @_modPack         = options.modPack
         @_title           = options.title
@@ -53,14 +55,12 @@ module.exports = class ItemGroupController extends BaseController
     # Private Methods ##############################################################################
 
     _createItemController: (item, delay)->
-        controller = new ItemController model:item, modPack:@_modPack
+        controller = new ItemController imageLoader:@_imageLoader, model:item, modPack:@_modPack
         @_itemControllers.push controller
 
         attachController = =>
             controller.render()
-            controller.$el.hide()
             @$items.append controller.$el
-            controller.$el.fadeIn duration:Duration.fast
 
         _.delay attachController, delay
 
@@ -81,4 +81,4 @@ module.exports = class ItemGroupController extends BaseController
 
         while @_itemControllers.length > controllerIndex
             controller = @_itemControllers.pop()
-            controller.$el.fadeOut duration:Duration.normal, complete:-> @remove()
+            controller.$el.slideUp duration:Duration.normal, complete:-> @remove()

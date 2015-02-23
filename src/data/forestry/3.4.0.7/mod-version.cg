@@ -2829,7 +2829,7 @@ group: Misc For Now
 
     item: Mushroom
 
-    item: Mushroom_2
+    item: Mushroom (Red)
 
     item: Peat
 
@@ -2896,7 +2896,7 @@ group: Misc For Now
 
     item: Sengir's Notes
 
-    item: Short Mead_2
+    item: Short Mead (Bottle)
 
     item: Shovel Kit
         recipe:

@@ -79,3 +79,17 @@ I just pushed up another big update!  This one adds detail pages for each item f
 
 All of this gives you an extensive reference of related items and recipes.  Check it out by seeing what you can do with
 a [Diamond](http://crafting-guide.com/item/diamond)!
+
+########################################################################################################################
+
+I just released another exciting update for Crafting Guide!  This update adds a lot of small tweaks and adjustments to
+the site's animations and some performance enhancements, but the big news is an enhanced crafting algorithm and
+Railcraft support!
+
+The new crafting algorithm, instead of using the first available recipe for any given item, will now choose the recipe
+which is most effecient at producing that item. In other words, if you have a Macerator, it will be smart enough to use
+it. It is also smart about using machines like the Block Cutting Machine to make plates.  And, as an extra bonus, it's
+about twice as fast as the old algorithm.
+
+With Railcraft support not only comes the huge richness of that mod, but the first multi-block structures in Crafting
+Guide.  For example, check out how to make a [url=http://crafting-guide.com/crafting/blast_furnace]Blast Furnace[/url]!

@@ -16,7 +16,18 @@ All rights reserved.
             position: absolute; right: 0; bottom: -2em; left: 0; height: 1.5em;
             text-align: center;
 
-            p { font-weight: bold; }
+            a {
+                color: $color-text;
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                font-weight: bold;
+                text-decoration: none;
+
+                &:hover {
+                    color: $color-link;
+                    text-decoration: underline;
+                }
+            }
         }
     }
 

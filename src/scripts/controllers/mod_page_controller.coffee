@@ -129,7 +129,7 @@ module.exports = class ModPageController extends BaseController
             $link.slideDown duration:Duration.normal
             $link.attr 'href', url
         else
-            $link.sludeUp duration:Duration.normal
+            $link.slideUp duration:Duration.normal
 
     _refreshVersions: ->
         @$versionSelector.empty()

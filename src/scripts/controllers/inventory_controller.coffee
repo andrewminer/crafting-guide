@@ -16,6 +16,8 @@ StackController = require './stack_controller'
 
 module.exports = class InventoryController extends BaseController
 
+    @MAX_QUANTITY = 9999
+
     @ONLY_DIGITS = /^[0-9]*$/
 
     constructor: (options={})->
@@ -85,7 +87,7 @@ module.exports = class InventoryController extends BaseController
     onQuantityFieldBlur: ->
         value = @$quantityField.val().replace /[^0-9]/g, ''
         if value.length is 0 then value = '1'
-        value = Math.min value, 64
+        value = Math.min value, InventoryController.MAX_QUANTITY
         @$quantityField.val value
         @onQuantityFieldChanged()
 

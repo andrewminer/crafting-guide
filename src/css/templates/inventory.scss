@@ -53,20 +53,6 @@ All rights reserved.
         vertical-align: middle;
     }
 
-    td.quantity {
-        position: relative;
-        width: 2.4em;
-
-        input {
-            position: absolute; top: 50%; height: $font-size-small; width: 100%;
-            @include transform(translateY(-50%));
-            border-radius: 0.75em;
-            margin: 0 auto;
-            text-align: center;
-            max-width: 2.8em;
-        }
-    }
-
     td.icon {
         width: 4.8em;
         padding: 0 1em;

@@ -18,9 +18,9 @@ All rights reserved.
     width: 100%;
 }
 
-.error { background: $color-error; }
+.error { background: $color-error !important; }
 
-.error-new { background: $color-error-new; }
+.error-new { background: $color-error-new !important; }
 
 .section {
     margin-top: 3em;

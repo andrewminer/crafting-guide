@@ -43,12 +43,15 @@ module.exports = class InventoryController extends BaseController
     # Event Methods ################################################################################
 
     onAddButtonClicked: ->
+        if @$nameField.val().trim().length is 0
+            @$nameField.focus()
+            return
+
         item = @modPack.findItemByName @$nameField.val()
         return unless item?
 
-        @model.add item.slug, parseInt(@$quantityField.val())
+        @model.add item.slug, 1
         @$nameField.val ''
-        @$quantityField.val '1'
 
         @$scrollbox.scrollTop @$scrollbox.prop 'scrollHeight'
         @$nameField.autocomplete 'close'
@@ -84,28 +87,6 @@ module.exports = class InventoryController extends BaseController
         if event.which is Key.Return
             @onAddButtonClicked()
 
-    onQuantityFieldBlur: ->
-        value = @$quantityField.val().replace /[^0-9]/g, ''
-        if value.length is 0 then value = '1'
-        value = Math.min value, InventoryController.MAX_QUANTITY
-        @$quantityField.val value
-        @onQuantityFieldChanged()
-
-    onQuantityFieldChanged: ->
-        if not @$quantityField.val().match /^[0-9]*$/
-            @$quantityField.addClass 'error', 0
-            @$quantityField.addClass 'error-new', 0
-            @$quantityField.removeClass 'error-new', Duration.slow
-            @$quantityField.focus()
-            return
-
-        @$quantityField.removeClass 'error', Duration.normal
-        @$quantityField.removeClass 'error-new', Duration.normal
-        @_refreshButtonState()
-
-    onQuantityFieldFocused: ->
-        @$quantityField.val ''
-
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
@@ -114,7 +95,6 @@ module.exports = class InventoryController extends BaseController
         @$icon          = @$('.icon')
         @$editPanel     = @$('.edit')
         @$nameField     = @$('input[name="name"]')
-        @$quantityField = @$('input[name="quantity"]')
         @$scrollbox     = @$('.scrollbox')
         @$table         = @$('table')
         @$toolbar       = @$('.toolbar')
@@ -129,8 +109,6 @@ module.exports = class InventoryController extends BaseController
         @$icon.attr 'src', @icon
         @$title.html @title
 
-        if _.isEmpty(@$quantityField.val()) then @$quantityField.val '1'
-
         @_refreshStacks()
         @_refreshNameAutocomplete()
         @_refreshButtonState()
@@ -142,13 +120,10 @@ module.exports = class InventoryController extends BaseController
     events: ->
         return _.extend super,
             'blur input[name="name"]':      'onNameFieldBlur'
-            'blur input[name="quantity"]':  'onQuantityFieldBlur'
             'click button[name="add"]':     'onAddButtonClicked'
             'click button[name="clear"]':   'onClearButtonClicked'
             'focus input[name="name"]':     'onNameFieldFocused'
-            'focus input[name="quantity"]': 'onQuantityFieldFocused'
             'input input[name="name"]':     'onNameFieldChanged'
-            'input input[name="quantity"]': 'onQuantityFieldChanged'
             'keyup input[name="name"]':     'onNameFieldKeyUp'
 
     # Private Methods ##############################################################################
@@ -156,9 +131,9 @@ module.exports = class InventoryController extends BaseController
     _refreshButtonState: ->
         if @model.isEmpty then @$clearButton.attr('disabled', 'disabled') else @$clearButton.removeAttr('disabled')
 
+        noText        = @$nameField.val().trim().length is 0
         itemValid     = @modPack.findItemByName(@$nameField.val())?
-        quantityValid = @$quantityField.val().match(InventoryController.ONLY_DIGITS)
-        disable       = not (itemValid and quantityValid)
+        disable       = not (itemValid or noText)
         if disable then @$addButton.attr('disabled', 'disabled') else @$addButton.removeAttr('disabled')
 
     _refreshNameAutocomplete: ->
@@ -171,7 +146,6 @@ module.exports = class InventoryController extends BaseController
             minLength: 0
             change:    onChanged
             close:     onChanged
-            minLength: 3
             select:    onSelected
 
     _refreshStacks: ->

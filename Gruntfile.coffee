@@ -170,3 +170,5 @@ module.exports = (grunt)->
     grunt.registerTask 'build', [ 'copy', 'sass:main', 'jade', 'browserify', 'exorcise' ]
 
     grunt.registerTask 'dist', ['clean', 'build', 'sass:dist', 'rename:scripts', 'uglify']
+
+    grunt.registerTask 'full-watch', ['clean', 'build', 'watch']

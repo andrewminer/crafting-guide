@@ -21,19 +21,7 @@ module.exports = class ItemPage extends BaseModel
     # Property Methods #############################################################################
 
     findComponentInItems: ->
-        return null unless @item?
-
-        result = {}
-        @modPack.eachMod (mod)=>
-            mod.eachRecipe (recipe)=>
-                if recipe.requires @item.slug
-                    outputItem = @modPack.findItem recipe.itemSlug, includeDisabled:true
-                    result[outputItem.slug] = outputItem
-
-        result = _.values result
-        return null unless result.length > 0
-
-        return result.sort (a, b)-> a.compareTo b
+        return @_findRecipesMatching (recipe)=> recipe.requires @item.slug
 
     findSimilarItems: ->
         return null unless @item?.modVersion?
@@ -47,3 +35,23 @@ module.exports = class ItemPage extends BaseModel
 
     findRecipes: ->
         return @modPack.findRecipes @item?.slug, [], alwaysFromOwningMod:true
+
+    findToolForRecipes: ->
+        return @_findRecipesMatching (recipe)=> recipe.requiresTool @item.slug
+
+    # Private Methods ##############################################################################
+
+    _findRecipesMatching: (callback)->
+        return null unless @item?
+
+        result = {}
+        @modPack.eachMod (mod)=>
+            mod.eachRecipe (recipe)=>
+                if callback(recipe)
+                    outputItem = @modPack.findItem recipe.itemSlug, includeDisabled:true
+                    result[outputItem.slug] = outputItem
+
+        result = _.values result
+        return null unless result.length > 0
+
+        return result.sort (a, b)-> a.compareTo b

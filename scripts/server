@@ -22,6 +22,9 @@ serveIndex = (request, response)->
     response.set 'Content-Type', 'text/html'
     response.sendFile 'index.html', root:ROOT
 
+app.get '/browse(/*)?', serveIndex
+app.get '/configure(/*)?', serveIndex
+app.get '/craft(/*)?', serveIndex
 app.get '/crafting(/*)?', serveIndex
 app.get '/item(/*)?', serveIndex
 app.get '/mod(/*)?', serveIndex

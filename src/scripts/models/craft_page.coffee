@@ -1,5 +1,5 @@
 ###
-Crafting Guide - crafting_page.coffee
+Crafting Guide - craft_page.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.

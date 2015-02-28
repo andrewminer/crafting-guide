@@ -1,5 +1,5 @@
 ###
-Crafting Guide - crafting_page_controller.coffee
+Crafting Guide - craft_page_controller.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
@@ -10,7 +10,7 @@ CraftingTableController = require './crafting_table_controller'
 {Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
-CraftingPage            = require '../models/crafting_page'
+CraftingPage            = require '../models/craft_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
 Storage                 = require '../models/storage'
@@ -27,7 +27,7 @@ module.exports = class CraftingPageController extends BaseController
 
         options.model        ?= new CraftingPage modPack:options.modPack
         options.storage      ?= new Storage storage:window.localStorage
-        options.templateName  = 'crafting_page'
+        options.templateName  = 'craft_page'
         super options
 
         @_imageLoader = options.imageLoader

@@ -23,7 +23,7 @@ ModPageController       = require './controllers/mod_page_controller'
 Storage                 = require './models/storage'
 {Url}                   = require './constants'
 UrlParams               = require './url_params'
-WhatsNewPageController  = require './controllers/whats_new_page_controller'
+HomePageController  = require './controllers/home_page_controller'
 
 ########################################################################################################################
 
@@ -64,7 +64,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_recordPageView()
 
     routes:
-        '':                          'route__whats_new'
+        '':                          'route__home'
         'browse':                    'route__browse'
         'browse/:modSlug':           'route__browseMod'
         'browse/:modSlug/:itemSlug': 'route__browseModItem'
@@ -78,13 +78,13 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
     # Route Methods ################################################################################
 
-    route__whats_new: ->
+    route__home: ->
         params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
         if params.recipeName?
             @deprecated__v1_root params
             return
 
-        @_setPage 'whats_new', new WhatsNewPageController _.extend {}, @_defaultOptions
+        @_setPage 'home', new HomePageController _.extend {}, @_defaultOptions
 
     route__browse: ->
         @_setPage 'browse', new BrowsePageController _.extend {}, @_defaultOptions

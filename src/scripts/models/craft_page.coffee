@@ -14,7 +14,7 @@ ModPack         = require './mod_pack'
 
 ########################################################################################################################
 
-module.exports = class CraftingPage extends BaseModel
+module.exports = class CraftPage extends BaseModel
 
     constructor: (attributes={}, options={})->
         attributes.modPack ?= new ModPack

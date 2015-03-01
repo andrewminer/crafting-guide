@@ -22,6 +22,48 @@ All rights reserved.
 
 .error-new { background: $color-error-new !important; }
 
+.sidebar {
+    position: relative; width: 18.75%;
+
+    display: inline-block;
+    padding: 1em;
+    vertical-align: top;
+
+    .titleImage {
+        position: relative; height: 16em; width: 16em;
+        margin-bottom: 2em;
+
+        a {
+            position: relative; width: 100%;
+
+            img {
+                @include pixel-image;
+            }
+        }
+    }
+
+    .externalLink {
+        position: relative; width: 80%;
+        margin: 0 10%;
+        display: none;
+
+        p {
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+            text-align: center;
+        }
+    }
+}
+
+.mainBody {
+    position: relative; width: 81.25%;
+
+    display: inline-block;
+    padding: 1em;
+    padding-top: 2em;
+    vertical-align: top;
+}
+
 .section {
     margin-top: 3em;
 
@@ -31,14 +73,19 @@ All rights reserved.
         margin-bottom: 0.5em;
     }
 
+    h3 {
+        font-family: $font-family-header;
+        font-size: $font-size-normal;
+        margin: 2em 0 0 0.5em;
+    }
+
+    .entry {
+        position: relative; width: 100%;
+        padding: 0 2em;
+    }
+
     .panel {
         background: white;
         padding: 1em;
-
-        & > div {
-            position: relative; width: 33%;
-            display: inline-block;
-            padding: 0.5em;
-        }
     }
 }

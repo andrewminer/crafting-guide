@@ -10,7 +10,7 @@ CraftingTableController = require './crafting_table_controller'
 {Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
-CraftingPage            = require '../models/craft_page'
+CraftPage               = require '../models/craft_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
 Storage                 = require '../models/storage'
@@ -19,13 +19,13 @@ Storage                 = require '../models/storage'
 
 ########################################################################################################################
 
-module.exports = class CraftingPageController extends BaseController
+module.exports = class CraftPageController extends BaseController
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        options.model        ?= new CraftingPage modPack:options.modPack
+        options.model        ?= new CraftPage modPack:options.modPack
         options.storage      ?= new Storage storage:window.localStorage
         options.templateName  = 'craft_page'
         super options

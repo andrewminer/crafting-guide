@@ -35,6 +35,7 @@ Event.request        = 'request'        # model
 Event.route          = 'route'
 Event.sort           = 'sort'
 Event.sync           = 'sync'           # model, response
+Event.transitionEnd  = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'
 
 exports.Key = Key = {}
 Key.Return = 13
@@ -60,6 +61,7 @@ Url.itemIcon     = _.template "/data/<%= modSlug %>/<%= modVersion %>/images/<%=
 Url.item         = _.template "/browse/<%= modSlug %>/<%= itemSlug %>"
 Url.mod          = _.template "/browse/<%= modSlug %>"
 Url.modData      = _.template "/data/<%= modSlug %>/mod.cg"
+Url.modLogo      = _.template "/data/<%= modSlug %>/logo.png"
 Url.modVersion   = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
 Url.modLogoImage = _.template "/data/<%= modSlug %>/logo.png"
 

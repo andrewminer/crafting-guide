@@ -1,0 +1,58 @@
+/*
+Crafting Guide - mod.scss
+
+Copyright (C) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__mod {
+    position: relative; height: 18em;
+
+    background: $color-background-panel;
+    display: inline-block;
+    padding: 0.2em;
+    text-decoration: none;
+    vertical-align: top;
+
+    transition:
+        height $animate-normal,
+        opacity $animate-normal;
+
+    &:hover {
+        border: 0.2em solid $color-link;
+        padding: 0;
+
+        .name {
+            color: $color-link;
+            text-decoration: underline;
+        }
+    }
+
+    &.empty {
+        height: 0;
+    }
+
+    &.removing {
+        height: 0;
+        opacity: 0;
+    }
+
+    .description {
+        margin: 1em;
+    }
+
+    a {
+        color: $color-text;
+        text-decoration: none;
+    }
+
+    h3 {
+        font-size: $font-size-normal;
+        margin-top: 1em;
+    }
+
+    img {
+        float: left;
+        margin: 1em;
+    }
+}

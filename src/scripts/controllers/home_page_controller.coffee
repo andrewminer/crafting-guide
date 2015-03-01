@@ -5,11 +5,11 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
+PageController = require './page_controller'
 
 ########################################################################################################################
 
-module.exports = class HomeController extends BaseController
+module.exports = class HomeController extends PageController
 
     constructor: (options={})->
         options.templateName = 'home_page'

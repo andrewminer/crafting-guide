@@ -5,14 +5,14 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
+PageController = require './page_controller'
 {Duration}     = require '../constants'
 {Event}        = require '../constants'
 ModController  = require './mod_controller'
 
 ########################################################################################################################
 
-module.exports = class BrowsePageController extends BaseController
+module.exports = class BrowsePageController extends PageController
 
     constructor: (options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
@@ -21,6 +21,11 @@ module.exports = class BrowsePageController extends BaseController
 
         @modPack = options.modPack
         @modPack.on Event.change, => @tryRefresh()
+
+    # PageController Overrides #####################################################################
+
+    getTitle: ->
+        return 'Browse'
 
     # BaseController Overrides #####################################################################
 

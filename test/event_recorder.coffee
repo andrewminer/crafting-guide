@@ -20,7 +20,7 @@ module.exports = class EventRecorder
         Object.defineProperty this, 'names', get:-> e.event for e in @events
 
         @model.on 'all', (event, model, args...)=>
-            logger.verbose "#{model?.constructor?.name}(#{model?.cid}) emitted #{event}
+            logger.verbose -> "#{model?.constructor?.name}(#{model?.cid}) emitted #{event}
                 with args: #{util.inspect(args)}"
             @events.push id:model?.cid, event:event, args:args
 

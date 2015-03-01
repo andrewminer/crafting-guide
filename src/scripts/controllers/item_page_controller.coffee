@@ -5,7 +5,6 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController       = require './base_controller'
 {Duration}           = require '../constants'
 {Event}              = require '../constants'
 FullRecipeController = require './full_recipe_controller'
@@ -13,12 +12,13 @@ ImageLoader          = require './image_loader'
 Item                 = require '../models/item'
 ItemGroupController  = require './item_group_controller'
 ItemPage             = require '../models/item_page'
+PageController       = require './page_controller'
 {Text}               = require '../constants'
 {Url}                = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class ItemPageController extends BaseController
+module.exports = class ItemPageController extends PageController
 
     constructor: (options={})->
         if not options.itemSlug? then throw new Error 'options.itemSlug is required'
@@ -35,6 +35,11 @@ module.exports = class ItemPageController extends BaseController
         @modPack     = options.modPack
 
         @modPack.on Event.change, => @tryRefresh()
+
+    # PageController Overrides #####################################################################
+
+    getTitle: ->
+        return @model.item?.name
 
     # BaseController Overrides #####################################################################
 
@@ -64,7 +69,6 @@ module.exports = class ItemPageController extends BaseController
         super
 
     refresh: ->
-        $('title').html if @model.item? then "#{@model.item?.name} | #{Text.title}" else Text.title
         @_resolveItemSlug()
 
         if @model.item?

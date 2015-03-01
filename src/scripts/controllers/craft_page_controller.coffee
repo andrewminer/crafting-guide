@@ -5,21 +5,21 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController          = require './base_controller'
 CraftingTableController = require './crafting_table_controller'
+CraftPage               = require '../models/craft_page'
 {Event}                 = require '../constants'
 ImageLoader             = require './image_loader'
 InventoryController     = require './inventory_controller'
-CraftPage               = require '../models/craft_page'
 ModPackController       = require './mod_pack_controller'
 NameFinder              = require '../models/name_finder'
+PageController          = require './page_controller'
 Storage                 = require '../models/storage'
 {Text}                  = require '../constants'
 {Url}                   = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class CraftPageController extends BaseController
+module.exports = class CraftPageController extends PageController
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
@@ -30,27 +30,32 @@ module.exports = class CraftPageController extends BaseController
         options.templateName  = 'craft_page'
         super options
 
-        @_imageLoader = options.imageLoader
-        @_storage     = options.storage
+        @imageLoader = options.imageLoader
+        @storage     = options.storage
 
     # Event Methods ################################################################################
 
     onToolsBoxToggled: ->
         @model.plan.includingTools = @$('.includeTools:checked').length isnt 0
 
+    # PageController Overrides #####################################################################
+
+    getTitle: ->
+        return 'Craft'
+
     # BaseController Overrides #####################################################################
 
     onWillRender: ->
-        @_storage.register 'crafting-plan', @model.plan, 'includingTools'
+        @storage.register 'crafting-plan', @model.plan, 'includingTools'
         @model.plan.have.clear()
-        @model.plan.have.parse @_storage.load('crafting-plan:have')
+        @model.plan.have.parse @storage.load('crafting-plan:have')
         super
 
     onDidRender: ->
         @wantController = @addChild InventoryController, '.want',
             editable:    true
             icon:        '/images/fishing_rod.png'
-            imageLoader: @_imageLoader
+            imageLoader: @imageLoader
             model:       @model.plan.want
             modPack:     @model.modPack
             onChange:    => @_updateLocation()
@@ -58,7 +63,7 @@ module.exports = class CraftPageController extends BaseController
 
         @haveController = @addChild InventoryController, '.have',
             editable:    true,
-            imageLoader: @_imageLoader
+            imageLoader: @imageLoader
             model:       @model.plan.have
             modPack:     @model.modPack
             onChange:    => @_saveHaveInventory()
@@ -68,13 +73,13 @@ module.exports = class CraftPageController extends BaseController
         @needController = @addChild InventoryController, '.need',
             editable:    false
             icon:        '/images/boots.png'
-            imageLoader: @_imageLoader
+            imageLoader: @imageLoader
             model:       @model.plan.need
             modPack:     @model.modPack
             title:       "Items you'll need"
 
         @craftingTableController = @addChild CraftingTableController, '.view__crafting_table',
-            imageLoader: @_imageLoader
+            imageLoader: @imageLoader
             model:       @model.table
             modPack:     @model.modPack
 
@@ -84,12 +89,12 @@ module.exports = class CraftPageController extends BaseController
         super
 
     refresh: ->
-        $('title').html Text.title
-
         if @model.plan.includingTools
             @$includeToolsBox.attr 'checked', 'checked'
         else
             @$includeToolsBox.removeAttr 'checked'
+
+        super
 
     # Backbone.View Overrides ######################################################################
 
@@ -100,7 +105,7 @@ module.exports = class CraftPageController extends BaseController
     # Private Methods ##############################################################################
 
     _saveHaveInventory: ->
-        @_storage.store 'crafting-plan:have', @model.plan.have.unparse()
+        @storage.store 'crafting-plan:have', @model.plan.have.unparse()
 
     _updateLocation: ->
         text = @model.plan.want.unparse()

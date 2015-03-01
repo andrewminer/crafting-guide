@@ -10,7 +10,7 @@ Item                     = require '../item'
 ItemSlug                 = require '../item_slug'
 ModVersion               = require '../mod_version'
 Recipe                   = require '../recipe'
-Stack                    = require '../stack'
+Stack                    = require '../simple_stack'
 StringBuilder            = require '../string_builder'
 
 ########################################################################################################################

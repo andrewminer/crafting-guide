@@ -17,19 +17,15 @@ module.exports = class ModController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
-        if not options.plan? then throw new Error 'options.plan is required'
         options.templateName  = 'mod'
         super options
 
-        @_plan    = options.plan
         @_storage = options.storage
 
     # Event Methods ################################################################################
 
     onVersionChanged: ->
         @model.activeVersion = @$version.val()
-        @_plan.removeUncraftableItems()
-        @_plan.craft()
 
     # BaseController Overrides #####################################################################
 

@@ -88,6 +88,15 @@ All rights reserved.
                 }
             }
 
+            .dot {
+                position: absolute; top: 50%; right: 1em; height: 1.5em; width: 1.5em;
+                @include transform(translateY(-50%));
+
+                background: $color-active;
+                border-radius: 0.75em;
+                opacity: 0;
+            }
+
             p {
                 position: absolute; top: 50%; left: 50%; width: 100%;
                 @include transform(translateX(-50%) translateY(-50%));

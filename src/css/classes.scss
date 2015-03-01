@@ -30,13 +30,11 @@ All rights reserved.
     vertical-align: top;
 
     .titleImage {
-        position: relative; height: 16em; width: 16em;
         margin-bottom: 2em;
 
         a {
-            position: relative; width: 100%;
-
             img {
+                position: relative; width: 16em; min-height: 16em;
                 @include pixel-image;
             }
         }
@@ -44,7 +42,7 @@ All rights reserved.
 
     .externalLink {
         position: relative; width: 80%;
-        margin: 0 10%;
+        margin: 0.5em 10%;
         display: none;
 
         p {

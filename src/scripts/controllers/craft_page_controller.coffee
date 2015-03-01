@@ -78,11 +78,6 @@ module.exports = class CraftPageController extends BaseController
             model:       @model.table
             modPack:     @model.modPack
 
-        @modPackController = @addChild ModPackController, '.view__mod_pack',
-            model:       @model.modPack
-            plan:        @model.plan
-            storage:     @_storage
-
         @$('.want .toolbar').append '<label><input class="includeTools" type="checkbox"> include tools</label>'
         @$includeToolsBox = @$('.includeTools')
 

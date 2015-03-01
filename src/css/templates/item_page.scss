@@ -62,11 +62,7 @@ All rights reserved.
         }
     }
 
-    .panel {
-        & > div {
-            position: relative; width: 33%;
-            display: inline-block;
-            padding: 0.5em;
-        }
+    .view__item {
+        position: relative; width: 33%;
     }
 }

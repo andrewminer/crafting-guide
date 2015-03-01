@@ -17,13 +17,11 @@ module.exports = class ModPackController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
-        if not options.plan? then throw new Error 'options.plan is required'
         options.templateName  = 'mod_pack'
         super options
 
         @_controllers = []
-        @_plan        = options.plan
-        @_storage     = options.storage
+        @storage      = options.storage
 
     # Event Methods ################################################################################
 
@@ -52,7 +50,7 @@ module.exports = class ModPackController extends BaseController
             index++
 
         while @_controllers.length < mods.length
-            controller = new ModController model:mods[index], plan:@_plan, storage:@_storage
+            controller = new ModController model:mods[index], storage:@storage
             controller.render()
             @_controllers.push controller
             controller.$el.hide duration:0

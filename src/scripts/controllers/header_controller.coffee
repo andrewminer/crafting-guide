@@ -41,11 +41,16 @@ module.exports = class HeaderController extends BaseController
 
     refresh: ->
         for $navLink in @$navLinks
-            logger.debug "@model: #{@model}, page: #{$navLink.data('page')}"
-            if $navLink.data('page') is @model
+            linkPage = $navLink.data('page')
+            if @model is linkPage
                 $navLink.addClass 'selected'
             else
                 $navLink.removeClass 'selected'
+
+                if @model.indexOf(linkPage) isnt -1
+                    $navLink.find('.dot').css 'opacity': 1;
+                else
+                    $navLink.find('.dot').css 'opacity': 0;
 
     # Backbone.View Overrides ######################################################################
 

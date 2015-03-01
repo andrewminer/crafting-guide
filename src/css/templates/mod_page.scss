@@ -14,7 +14,6 @@ All rights reserved.
     }
 
     .sidebar {
-
         .version {
             position: relative; width: 80%;
             margin: 0 10%;
@@ -48,5 +47,9 @@ All rights reserved.
                 font-size: $font-size-large;
             }
         }
+    }
+
+    .view__item {
+        position: relative; width: 33%;
     }
 }

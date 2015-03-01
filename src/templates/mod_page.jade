@@ -7,11 +7,11 @@
 
 .view__mod_page
     .sidebar
-        .titleImage: img
+        .titleImage: a: img
         select.version
-        a.homePage(target="new"): p Offical Home Page
-        a.documentation(target="new"): p Documentation
-        a.download(target="new"): p Download
+        a.homePage.externalLink(target="new"): p Offical Home Page
+        a.documentation.externalLink(target="new"): p Documentation
+        a.download.externalLink(target="new"): p Download
 
     .mainBody
         h1.name

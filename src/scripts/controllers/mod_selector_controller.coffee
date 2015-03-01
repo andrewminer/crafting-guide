@@ -13,11 +13,11 @@ Mod            = require '../models/mod'
 
 ########################################################################################################################
 
-module.exports = class ModController extends BaseController
+module.exports = class ModSelectorController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
-        options.templateName  = 'mod'
+        options.templateName  = 'mod_selector'
         super options
 
         @_storage = options.storage
@@ -67,4 +67,4 @@ module.exports = class ModController extends BaseController
     events: ->
         return _.extend super,
             'change select': 'onVersionChanged'
-            'click a':         'routeLinkClick'
+            'click a':       'routeLinkClick'

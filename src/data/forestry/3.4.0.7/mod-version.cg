@@ -56,7 +56,7 @@ group: Backpacks
             pattern: 232 101 232
             tools: Crafting Table
 
-    item: Builder's WovenBackpack
+    item: Builder's Woven Backpack
         recipe:
             input: Builder's Backpack, Diamond, Woven Silk
             pattern: 212 202 222
@@ -100,7 +100,7 @@ group: Backpacks
 
     item: Lepidopterist's Backpack
         recipe:
-            input: Chest, Stick, String, Wool
+            input: Lepitopterist's Chest, Stick, String, Wool
             pattern: 232 101 232
             tools: Crafting Table
 
@@ -162,7 +162,7 @@ group: Bee Housing
 
     item: Bee House
         recipe:
-            input: Honeycomb, Oak Wood Planks, Oak Wood Slab
+            input: Honey Comb, Oak Wood Planks, Oak Wood Slab
             pattern: 222 101 111
             tools: Crafting Table
 
@@ -2471,16 +2471,16 @@ group: Liquids
 
     item: Biomass
         recipe:
-            input: Compost, Oak Sapling, Water
-            pattern: .2. .0. .1.
+            input: Compost, Oak Sapling
+            pattern: .1. .0. ...
             tools: Fermenter
         recipe:
-            input: Fertilizer, Oak Sapling, Water
-            pattern: .2. .0. .1.
+            input: Fertilizer, Oak Sapling
+            pattern: .0. .1. ...
             tools: Fermenter
         recipe:
-            input: Mulch, Oak Sapling, Water
-            pattern: .2. .0. .1.
+            input: Mulch, Oak Sapling
+            pattern: .0. .1. ...
             tools: Fermenter
 
     item: Crushed Ice
@@ -2497,22 +2497,27 @@ group: Liquids
 
     item: Fruit Juice
         recipe:
+            extras: Mulch
             input: Lemon
             pattern: .0. ... ...
             tools: Squeezer
         recipe:
+            extras: Mulch
             input: Plum
             pattern: .0. ... ...
             tools: Squeezer
         recipe:
+            extras: Mulch
             input: Papaya
             pattern: .0. ... ...
             tools: Squeezer
         recipe:
+            extras: Mulch
             input: Date
             pattern: .0. ... ...
             tools: Squeezer
         recipe:
+            extras: Mulch
             input: Apple
             pattern: .0. ... ...
             tools: Squeezer
@@ -2582,8 +2587,8 @@ group: Machine Parts
 
     item: Bronze Gear
         recipe:
-            input: Bronze Ingot
-            pattern: .0. 000 .0.
+            input: Bronze Ingot, Copper Ingot
+            pattern: .0. 010 .0.
             tools: Crafting Table
 
     item: Copper Gear
@@ -2612,8 +2617,8 @@ group: Machine Parts
 
     item: Tin Gear
         recipe:
-            input: Tin Ingot
-            pattern: .0. 000 .0.
+            input: Copper Ingot, Tin Ingot
+            pattern: .1. 101 .1.
             tools: Crafting Table
 
 group: Machines
@@ -2767,8 +2772,8 @@ group: Minerals
 
     item: Bronze Ingot
         recipe:
-            input: Copper Ingot, Tin Ingot
-            pattern: 10. 00. ...
+            input: Copper Ingot, Tin Ingot, furnace fuel
+            pattern: 10. 00. .2.
         recipe:
             input: Block of Bronze
             pattern: ... .0. ...
@@ -2829,6 +2834,11 @@ group: Organic Matter
             tools: Crafting Table
         recipe:
             input: Dirt, Water Capsule
+            pattern: 000 010 000
+            quantity: 8
+            tools: Crafting Table
+        recipe:
+            input: Dirt, Water Capsule (Refractory)
             pattern: 000 010 000
             quantity: 8
             tools: Crafting Table
@@ -2902,6 +2912,26 @@ group: Organic Matter
             tools: Moistener
 
     item: Mulch
+        recipe:
+            extras: Fruit Juice
+            input: Lemon
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Fruit Juice
+            input: Plum
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Fruit Juice
+            input: Papaya
+            pattern: .0. ... ...
+            tools: Squeezer
+        recipe:
+            extras: Fruit Juice
+            input: Date
+            pattern: .0. ... ...
+            tools: Squeezer
         recipe:
             extras: Fruit Juice
             input: Apple
@@ -3452,226 +3482,226 @@ group: Stained Glass
 
     item: Black Stained Glass
         recipe:
-            input: Inc Sac, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            input: Ink Sac, Propolis, Wax Cast
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
-            input: Inc Sac, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            input: Ink Sac, Silky Propolis, Wax Cast
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
-            input: Inc Sac, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            input: Ink Sac, Sticky Propolis, Wax Cast
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Blue Stained Glass
         recipe:
             input: Lapis Lazuli, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Lapis Lazuli, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Lapis Lazuli, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Brown Stained Glass
         recipe:
             input: Cocoa Beans, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Cocoa Beans, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Cocoa Beans, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Cyan Stained Glass
         recipe:
             input: Cyan Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Cyan Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Cyan Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Gray Stained Glass
         recipe:
             input: Gray Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Gray Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Gray Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Green Stained Glass
         recipe:
             input: Cactus Green, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Cactus Green, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Cactus Green, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Light Blue Stained Glass
         recipe:
             input: Light Blue Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Light Blue Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Light Blue Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Light Gray Stained Glass
         recipe:
             input: Light Gray Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Light Gray Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Light Gray Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Lime Stained Glass
         recipe:
             input: Lime Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Lime Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Lime Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Magenta Stained Glass
         recipe:
             input: Magenta Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Magenta Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Magenta Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Orange Stained Glass
         recipe:
             input: Orange Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Orange Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Orange Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Pink Stained Glass
         recipe:
             input: Pink Dye, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Pink Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Pink Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Purple Stained Glass
         recipe:
             input: Propolis, Purple Dye, Wax Cast
-            pattern: 1.. 0.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Purple Dye, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Purple Dye, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Red Stained Glass
         recipe:
             input: Propolis, Rose Red, Wax Cast
-            pattern: 1.. 0.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Rose Red, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Rose Red, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: White Stained Glass
         recipe:
             input: Bone Meal, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Bone Meal, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Bone Meal, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
     item: Yellow Stained Glass
         recipe:
             input: Dandelion Yellow, Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Dandelion Yellow, Silky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
         recipe:
             input: Dandelion Yellow, Sticky Propolis, Wax Cast
-            pattern: 0.. 1.. ..2
+            pattern: .0. .1. ..2
             tools: Thermionic Fabricator
 
 group: Stairs
@@ -3883,39 +3913,7 @@ group: Storage
 
     item: Apiarist's Chest
         recipe:
-            input: Chest, Dripping Comb, Glass
-            pattern: .2. 101 111
-            tools: Crafting Table
-        recipe:
-            input: Chest, Frozen Comb, Glass
-            pattern: .2. 101 111
-            tools: Crafting Table
-        recipe:
             input: Chest, Glass, Honey Comb
-            pattern: .1. 202 222
-            tools: Crafting Table
-        recipe:
-            input: Chest, Glass, Mellow Comb
-            pattern: .1. 202 222
-            tools: Crafting Table
-        recipe:
-            input: Chest, Glass, Mossy Comb
-            pattern: .1. 202 222
-            tools: Crafting Table
-        recipe:
-            input: Chest, Glass, Parched Comb
-            pattern: .1. 202 222
-            tools: Crafting Table
-        recipe:
-            input: Chest, Glass, Silky Comb
-            pattern: .1. 202 222
-            tools: Crafting Table
-        recipe:
-            input: Chest, Glass, Simmering Comb
-            pattern: .1. 202 222
-            tools: Crafting Table
-        recipe:
-            input: Chest, Glass, Stringy Comb
             pattern: .1. 202 222
             tools: Crafting Table
 

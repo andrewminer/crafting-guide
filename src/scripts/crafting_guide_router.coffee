@@ -7,7 +7,7 @@ All rights reserved.
 
 
 BrowsePageController    = require './controllers/browse_page_controller'
-CraftPageController  = require './controllers/craft_page_controller'
+CraftPageController     = require './controllers/craft_page_controller'
 ConfigurePageController = require './controllers/configure_page_controller'
 {DefaultMods}           = require './constants'
 {Duration}              = require './constants'
@@ -23,7 +23,7 @@ ModPageController       = require './controllers/mod_page_controller'
 Storage                 = require './models/storage'
 {Url}                   = require './constants'
 UrlParams               = require './url_params'
-HomePageController  = require './controllers/home_page_controller'
+HomePageController      = require './controllers/home_page_controller'
 
 ########################################################################################################################
 
@@ -66,10 +66,13 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
     routes:
         '':                          'route__home'
         'browse':                    'route__browse'
+        'browse/':                   'route__browse'
         'browse/:modSlug':           'route__browseMod'
         'browse/:modSlug/:itemSlug': 'route__browseModItem'
         'configure':                 'route__configure'
-        'craft(/:text)':             'route__craft'
+        'craft':                     'route__craft'
+        'craft/':                    'route__craft'
+        'craft/:text':               'route__craft'
 
         'item/:itemSlug':         'deprecated__item'
         'crafting/(:text)':       'deprecated__crafting'

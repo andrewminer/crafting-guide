@@ -109,5 +109,6 @@ module.exports = class CraftPageController extends PageController
 
     _updateLocation: ->
         text = @model.plan.want.unparse()
+        logger.debug "setting location to: #{text}"
         url = Url.crafting inventoryText:text
         router.navigate url

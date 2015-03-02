@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController  = require './base_controller'
 {Duration}      = require '../constants'
+{Event}         = require '../constants'
 {Key}           = require '../constants'
 ImageLoader     = require './image_loader'
 NameFinder      = require '../models/name_finder'
@@ -38,7 +39,7 @@ module.exports = class InventoryController extends BaseController
 
         @_stackControllers = []
 
-        @listenTo @modPack, 'change', => @refresh()
+        @listenTo @modPack, Event.change, => @refresh()
 
     # Event Methods ################################################################################
 
@@ -161,6 +162,7 @@ module.exports = class InventoryController extends BaseController
                     imageLoader: @imageLoader
                     model:       stack
                     modPack:     @modPack
+                    onChange:    @onChange
                     onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
                 controller.render()
                 controller.$el.hide()

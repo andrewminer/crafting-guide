@@ -23,12 +23,14 @@ module.exports = class StackController extends BaseController
         if not options.modPack? then throw new Error 'options.modPack is required'
 
         options.editable     ?= false
+        options.onChange     ?= -> # do nothing
         options.onRemove     ?= (stack)-> # do nothing
         options.templateName  = 'stack'
         super options
 
         @editable     = options.editable
         @modPack      = options.modPack
+        @onChange     = options.onChange
         @onRemove     = options.onRemove
         @_imageLoader = options.imageLoader
 
@@ -55,6 +57,7 @@ module.exports = class StackController extends BaseController
             @$quantityField.removeClass 'error-new', Duration.snap
 
             @model.quantity = quantity
+            @onChange()
 
     onQuantityFieldChanged: ->
         quantityText = @$quantityField.val().trim()
@@ -79,6 +82,7 @@ module.exports = class StackController extends BaseController
 
     onRemoveClicked: ->
         @onRemove @model
+        @onChange()
 
     # BaseController Overrides #####################################################################
 

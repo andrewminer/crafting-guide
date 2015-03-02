@@ -31,8 +31,8 @@ module.exports = class ItemPageController extends PageController
         super options
 
         @imageLoader = options.imageLoader
-        @_itemSlug    = options.itemSlug
         @modPack     = options.modPack
+        @_itemSlug   = options.itemSlug
 
         @modPack.on Event.change, => @tryRefresh()
 

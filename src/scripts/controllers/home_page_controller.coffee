@@ -19,4 +19,4 @@ module.exports = class HomeController extends PageController
 
     events: ->
         return _.extend super,
-            'click .mainBody a': 'routeLinkClick'
+            'click a': 'routeLinkClick'

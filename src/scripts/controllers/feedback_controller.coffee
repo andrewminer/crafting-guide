@@ -67,7 +67,7 @@ module.exports = class FeedbackController extends BaseController
 
             if @isOpen
                 @$screen.css display:'none'
-                @$el.animate {left:-@$el.outerWidth()}, duration:Duration.normal, complete:=>
+                @$el.animate {left:-@$el.outerWidth()}, duration:Duration.fast, complete:=>
                     @$commentField.val ''
                     @$('input, textarea').blur()
                     resolve()
@@ -75,7 +75,7 @@ module.exports = class FeedbackController extends BaseController
                 @$screen.on 'click', => @onToggle()
                 @$screen.css display:'block'
 
-                @$el.animate {left:0}, duration:Duration.normal, complete:=>
+                @$el.animate {left:0}, duration:Duration.fast, complete:=>
                     if @$nameField.val().length is 0
                         @$nameField.focus()
                     else if @$emailField.val().length is 0

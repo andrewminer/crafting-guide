@@ -115,7 +115,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_setPage 'crafting', controller
 
     deprecated__item: (itemSlug)->
-        controller = new ItemPageController _.extend {itemSlug:itemSlug}, @_defaultOptions
+        controller = new ItemPageController _.extend {itemSlug:ItemSlug.slugify(itemSlug)}, @_defaultOptions
         @_setPage 'item', controller
 
     deprecated__modItem: (modSlug, itemSlug)->

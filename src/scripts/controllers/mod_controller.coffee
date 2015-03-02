@@ -40,4 +40,4 @@ module.exports = class ModController extends BaseController
 
     events: ->
         return _.extend super,
-            'click a', 'routeLinkClick'
+            'click a': 'routeLinkClick'

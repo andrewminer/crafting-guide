@@ -12,15 +12,39 @@ All rights reserved.
         padding: 0.2em 0;
     }
 
-    td.quantity p {
-        border-radius: 0.75em;
-        background: $color-ice;
-        color: $color-background-panel;
-        font-size: $font-size-normal;
-        font-weight: bold;
-        text-align: center;
-        min-width: 3em;
-        padding: 0.1em 0.5em;
+    td.quantity {
+        position: relative;
+        width: 4em;
+
+        input {
+            position: absolute; top: 50%; height: $font-size-small; width: 100%;
+            @include transform(translateY(-50%));
+
+            border-radius: 0.75em;
+            background: $color-ice;
+            color: $color-background-panel;
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+            font-weight: bold;
+            text-align: center;
+
+            &.editable {
+                &:focus {
+                    background: $color-background-panel;
+                    color: $color-text;
+                    font-family: $font-family-input;
+                    font-weight: normal;
+                    outline: none;
+                }
+
+                &:hover {
+                    background: $color-background-panel;
+                    color: $color-text;
+                    font-family: $font-family-input;
+                    font-weight: normal;
+                }
+            }
+        }
     }
 
     td.icon {

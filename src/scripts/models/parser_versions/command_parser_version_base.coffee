@@ -99,4 +99,4 @@ module.exports = class CommandParserVersionBase
         catch e
             e.message = "line #{@_lineNumber}: #{e.message}"
             if not @_showAllErrors then throw e
-            logger.error e.message
+            logger.error -> e.message

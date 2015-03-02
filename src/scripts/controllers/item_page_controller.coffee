@@ -5,7 +5,6 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController       = require './base_controller'
 {Duration}           = require '../constants'
 {Event}              = require '../constants'
 FullRecipeController = require './full_recipe_controller'
@@ -13,12 +12,13 @@ ImageLoader          = require './image_loader'
 Item                 = require '../models/item'
 ItemGroupController  = require './item_group_controller'
 ItemPage             = require '../models/item_page'
+PageController       = require './page_controller'
 {Text}               = require '../constants'
 {Url}                = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class ItemPageController extends BaseController
+module.exports = class ItemPageController extends PageController
 
     constructor: (options={})->
         if not options.itemSlug? then throw new Error 'options.itemSlug is required'
@@ -30,42 +30,52 @@ module.exports = class ItemPageController extends BaseController
 
         super options
 
-        @_imageLoader = options.imageLoader
-        @_itemSlug    = options.itemSlug
-        @_modPack     = options.modPack
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
+        @_itemSlug   = options.itemSlug
 
-        @_modPack.on Event.change, => @tryRefresh()
+        @modPack.on Event.change, => @tryRefresh()
+
+    # PageController Overrides #####################################################################
+
+    getTitle: ->
+        return @model.item?.name
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_similarItemsController = @addChild ItemGroupController, '.similar .view__item_group',
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
-        @_usedToMakeController = @addChild ItemGroupController, '.usedToMake .view__item_group',
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
+        @_usedAsToolToMakeController = @addChild ItemGroupController, '.usedAsToolToMake .view__item_group',
+            imageLoader: @imageLoader
+            modPack:     @modPack
 
-        @$byline            = @$('.byline')
-        @$bylineLink        = @$('.byline a')
-        @$craftingPlanLink  = @$('a.craftingPlan')
-        @$name              = @$('h1.name')
-        @$recipeContainer   = @$('.recipes .panel')
-        @$recipesSection    = @$('.recipes')
-        @$similarSection    = @$('.similar')
-        @$titleImage        = @$('.titleImage img')
-        @$usedToMakeSection = @$('.usedToMake')
+        @_similarItemsController = @addChild ItemGroupController, '.similar .view__item_group',
+            imageLoader: @imageLoader
+            modPack:     @modPack
+
+        @_usedToMakeController = @addChild ItemGroupController, '.usedToMake .view__item_group',
+            imageLoader: @imageLoader
+            modPack:     @modPack
+
+        @$usedAsToolToMakeSection = @$('.usedAsToolToMake')
+        @$byline                  = @$('.byline')
+        @$bylineLink              = @$('.byline a')
+        @$craftingPlanLink        = @$('a.craftingPlan')
+        @$name                    = @$('h1.name')
+        @$recipeContainer         = @$('.recipes .panel')
+        @$recipesSection          = @$('.recipes')
+        @$similarSection          = @$('.similar')
+        @$titleImage              = @$('.titleImage img')
+        @$usedToMakeSection       = @$('.usedToMake')
         super
 
     refresh: ->
-        $('title').html if @model.item? then "#{@model.item?.name} | #{Text.title}" else Text.title
         @_resolveItemSlug()
 
         if @model.item?
-            display = @_modPack.findItemDisplay @model.item.slug
+            display = @modPack.findItemDisplay @model.item.slug
             @$craftingPlanLink.attr href:display.craftingUrl
             @$craftingPlanLink.fadeIn duration:Duration.fast
-            @_imageLoader.load display.iconUrl, @$titleImage
+            @imageLoader.load display.iconUrl, @$titleImage
             @$name.html display.itemName
 
             @$el.slideDown duration:Duration.normal
@@ -75,6 +85,7 @@ module.exports = class ItemPageController extends BaseController
         @_refreshByline()
         @_refreshRecipes()
         @_refreshSimilarItems()
+        @_refreshUsedAsToolToMake()
         @_refreshUsedToMake()
 
         super
@@ -87,6 +98,15 @@ module.exports = class ItemPageController extends BaseController
             'click .byline a':      'routeLinkClick'
 
     # Private Methods ##############################################################################
+
+    _refreshUsedAsToolToMake: ->
+        @_usedAsToolToMakeController.title = 'Used as Tool to Make'
+
+        @_usedAsToolToMakeController.model = @model.findToolForRecipes()
+        if @_usedAsToolToMakeController.model?
+            @$usedAsToolToMakeSection.slideDown duration:Duration.normal
+        else
+            @$usedAsToolToMakeSection.slideUp duration:Duration.normal
 
     _refreshByline: ->
         mod = @model.item?.modVersion?.mod
@@ -117,7 +137,7 @@ module.exports = class ItemPageController extends BaseController
             for recipe in @model.findRecipes()
                 controller = @_recipeControllers[index]
                 if not controller?
-                    controller = new FullRecipeController imageLoader:@_imageLoader, modPack:@_modPack, model:recipe
+                    controller = new FullRecipeController imageLoader:@imageLoader, modPack:@modPack, model:recipe
                     @_recipeControllers.push controller
                     controller.render()
                     @$recipeContainer.append controller.$el
@@ -145,4 +165,4 @@ module.exports = class ItemPageController extends BaseController
             @$similarSection.slideUp duration:Duration.normal
 
     _resolveItemSlug: ->
-        @model.item = @_modPack.findItem @_itemSlug, includeDisabled:true
+        @model.item = @modPack.findItem @_itemSlug, includeDisabled:true

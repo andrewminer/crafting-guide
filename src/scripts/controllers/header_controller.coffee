@@ -20,14 +20,41 @@ module.exports = class HeaderController extends BaseController
         router.navigate '/', trigger:true
         return false
 
+    onNavItemClicked: (event)->
+        return true unless $(event.currentTarget).attr('href')?
+
+        router.navigate $(event.currentTarget).attr('href'), trigger:true
+        return false
+
     # BaseController Overrides #####################################################################
 
     render: ->
         # Overriding render because the header is already part of the stock page layout, and we
         # don't need to replace it here.
+        @_rendered = true
+
+        @$navLinks = ($(el) for el in @$('.navBar a'))
+
+        zIndex = @$navLinks.length + 100
+        for $navLink in @$navLinks
+            $navLink.css 'z-index', zIndex--
+
+    refresh: ->
+        for $navLink in @$navLinks
+            linkPage = $navLink.data('page')
+            if @model is linkPage
+                $navLink.addClass 'selected'
+            else
+                $navLink.removeClass 'selected'
+
+                if @model.indexOf(linkPage) isnt -1
+                    $navLink.find('.dot').css 'opacity': 1;
+                else
+                    $navLink.find('.dot').css 'opacity': 0;
 
     # Backbone.View Overrides ######################################################################
 
     events: ->
         return _.extend super,
-            'click a.logo': 'onLogoClicked'
+            'click a.logo':    'onLogoClicked'
+            'click .navBar a': 'onNavItemClicked'

@@ -1,11 +1,11 @@
 /*
-Crafting Guide - crafting_page.scss
+Crafting Guide - craft_page.scss
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 */
 
-.view__crafting_page {
+.view__craft_page {
 
     & > div {
         display: inline-block;
@@ -15,11 +15,9 @@ All rights reserved.
         vertical-align: top;
     }
 
-    .view__inventory { width: 50%; height: 26em; }
+    .view__inventory { width: 50%; height: 30em; }
 
-    .view__crafting_table { width: 50%; height: 26em; }
-
-    .view__mod_pack { margin-top: 2em; width: 100%; }
+    .view__crafting_table { width: 50%; height: 30em; }
 
     .want label {
         position: absolute; top: 50%; left: 0.5em;

@@ -5,11 +5,13 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 */
 
+@import 'browse_page';
 @import 'crafting_grid';
-@import 'crafting_page';
+@import 'craft_page';
 @import 'crafting_table';
 @import 'feedback';
 @import 'full_recipe';
+@import 'home_page';
 @import 'inventory';
 @import 'inventory_table';
 @import 'item';
@@ -18,4 +20,5 @@ All rights reserved.
 @import 'mod';
 @import 'mod_pack';
 @import 'mod_page';
+@import 'mod_selector';
 @import 'stack';

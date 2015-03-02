@@ -5,18 +5,18 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController      = require './base_controller'
 {Duration}          = require '../constants'
-Mod                 = require '../models/mod'
-ModPack             = require '../models/mod_pack'
 Item                = require '../models/item'
 ItemGroupController = require './item_group_controller'
+Mod                 = require '../models/mod'
+ModPack             = require '../models/mod_pack'
+PageController      = require './page_controller'
 {Text}              = require '../constants'
 {Url}               = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class ModPageController extends BaseController
+module.exports = class ModPageController extends PageController
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
@@ -44,6 +44,11 @@ module.exports = class ModPageController extends BaseController
         if modVersion? then modVersion.fetch()
         @refresh()
 
+    # PageController Overrides #####################################################################
+
+    getTitle: ->
+        return @model?.name
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
@@ -60,8 +65,6 @@ module.exports = class ModPageController extends BaseController
         super
 
     refresh: ->
-        $('title').html if @model? then "#{@model.name} | #{Text.title}" else Text.title
-
         if @model?
             @$name.html @model.name
             @$byline.html "by #{@model.author}"
@@ -129,7 +132,7 @@ module.exports = class ModPageController extends BaseController
             $link.slideDown duration:Duration.normal
             $link.attr 'href', url
         else
-            $link.sludeUp duration:Duration.normal
+            $link.slideUp duration:Duration.normal
 
     _refreshVersions: ->
         @$versionSelector.empty()

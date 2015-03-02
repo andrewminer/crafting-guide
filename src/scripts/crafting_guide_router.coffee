@@ -6,21 +6,24 @@ All rights reserved.
 ###
 
 
-CraftingPageController = require './controllers/crafting_page_controller'
-{DefaultMods}          = require './constants'
-{Duration}             = require './constants'
-{Event}                = require './constants'
-HeaderController       = require './controllers/header_controller'
-ItemPageController     = require './controllers/item_page_controller'
-ItemSlug               = require './models/item_slug'
-ImageLoader            = require './controllers/image_loader'
-Mod                    = require './models/mod'
-ModPack                = require './models/mod_pack'
-ModPageController      = require './controllers/mod_page_controller'
-{Opacity}              = require './constants'
-Storage                = require './models/storage'
-{Url}                  = require './constants'
-UrlParams              = require './url_params'
+BrowsePageController    = require './controllers/browse_page_controller'
+CraftPageController     = require './controllers/craft_page_controller'
+ConfigurePageController = require './controllers/configure_page_controller'
+{DefaultMods}           = require './constants'
+{Duration}              = require './constants'
+{Event}                 = require './constants'
+HeaderController        = require './controllers/header_controller'
+ItemPageController      = require './controllers/item_page_controller'
+ItemSlug                = require './models/item_slug'
+ImageLoader             = require './controllers/image_loader'
+Mod                     = require './models/mod'
+ModPack                 = require './models/mod_pack'
+ModPageController       = require './controllers/mod_page_controller'
+{Opacity}               = require './constants'
+Storage                 = require './models/storage'
+{Url}                   = require './constants'
+UrlParams               = require './url_params'
+HomePageController      = require './controllers/home_page_controller'
 
 ########################################################################################################################
 
@@ -38,6 +41,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_defaultOptions = imageLoader:@imageLoader, modPack:@modPack, storage:@storage
 
         @headerController = new HeaderController el:'.view__header'
+        @headerController.render()
 
     # Public Methods ###############################################################################
 
@@ -60,36 +64,75 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_recordPageView()
 
     routes:
-        '':                       'root'
-        'item/:itemSlug':         'item'
-        'crafting/(:text)':       'crafting'
-        'mod/:modSlug':           'mod'
-        'mod/:modSlug/:itemSlug': 'modItem'
+        '':                          'route__home'
+        'browse':                    'route__browse'
+        'browse/':                   'route__browse'
+        'browse/:modSlug':           'route__browseMod'
+        'browse/:modSlug/:itemSlug': 'route__browseModItem'
+        'configure':                 'route__configure'
+        'configure/':                'route__configure'
+        'craft':                     'route__craft'
+        'craft/':                    'route__craft'
+        'craft/:text':               'route__craft'
+
+        'item/:itemSlug':         'deprecated__item'
+        'crafting/(:text)':       'deprecated__crafting'
+        'mod/:modSlug':           'deprecated__mod'
+        'mod/:modSlug/:itemSlug': 'deprecated__modItem'
 
     # Route Methods ################################################################################
 
-    crafting: (text)->
-        controller = new CraftingPageController _.extend {}, @_defaultOptions
+    route__home: ->
+        params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
+        if params.recipeName?
+            @deprecated__v1_root params
+            return
+
+        @_setPage 'home', new HomePageController _.extend {}, @_defaultOptions
+
+    route__browse: ->
+        @_setPage 'browse', new BrowsePageController _.extend {}, @_defaultOptions
+
+    route__browseMod: (modSlug)->
+        controller = new ModPageController  _.extend {}, @_defaultOptions
+        controller.model = @modPack.getMod modSlug
+        @_setPage 'browseMod', controller
+
+    route__browseModItem: (modSlug, itemSlug)->
+        slug = new ItemSlug modSlug, itemSlug
+        controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
+        @_setPage 'browseModItem', controller
+
+    route__configure: ->
+        @_setPage 'configure', new ConfigurePageController _.extend {}, @_defaultOptions
+
+    route__craft: (text)->
+        controller = new CraftPageController _.extend {}, @_defaultOptions
+        controller.model.params = inventoryText:text
+        @_setPage 'craft', controller
+
+    # Deprecated Route Methods #####################################################################
+
+    deprecated__crafting: (text)->
+        controller = new CraftPageController _.extend {}, @_defaultOptions
         controller.model.params = inventoryText:text
         @_setPage 'crafting', controller
 
-    item: (itemSlug)->
-        controller = new ItemPageController _.extend {itemSlug:itemSlug}, @_defaultOptions
+    deprecated__item: (itemSlug)->
+        controller = new ItemPageController _.extend {itemSlug:ItemSlug.slugify(itemSlug)}, @_defaultOptions
         @_setPage 'item', controller
 
-    modItem: (modSlug, itemSlug)->
+    deprecated__modItem: (modSlug, itemSlug)->
         slug = new ItemSlug modSlug, itemSlug
         controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
         @_setPage 'item', controller
 
-    mod: (modSlug)->
+    deprecated__mod: (modSlug)->
         controller = new ModPageController  _.extend {}, @_defaultOptions
         controller.model = @modPack.getMod modSlug
         @_setPage 'mod', controller
 
-    root: ->
-        params = new UrlParams recipeName:{type:'string'}, count:{type:'integer'}
-
+    deprecated__v1_root: (params)->
         text = ''
         if params.recipeName?
             if params.count? and params.count > 1
@@ -114,6 +157,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         return if @_controller is controller
 
         logger.info -> "changing to page controller: #{controller.constructor.name}"
+        @headerController.model = page
+
         showDuration = Duration.normal
         show = =>
             @_page       = page

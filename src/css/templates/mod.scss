@@ -1,36 +1,58 @@
 /*
-Crafting Table - mod.scss
+Crafting Guide - mod.scss
 
-Copyright (c) 2014-2015 by Redwood Labs
+Copyright (C) 2015 by Redwood Labs
 All rights reserved.
 */
 
 .view__mod {
-    position: relative; width: 100%;
-    display: table-row;
+    position: relative; height: 18em;
 
-    div, p {
-        display: table-cell;
-        padding: 0.4em;
-    }
+    background: $color-background-panel;
+    display: inline-block;
+    padding: 0.2em;
+    text-decoration: none;
+    vertical-align: top;
 
-    .version {
-        width: 12em;
+    transition:
+        height $animate-normal,
+        opacity $animate-normal;
 
-        select {
-            position: relative; width: 100%;
-        }
-    }
+    &:hover {
+        border: 0.2em solid $color-link;
+        padding: 0;
 
-    .name {
-        width: 18em;
-
-        p {
+        .name {
+            color: $color-link;
             text-decoration: underline;
         }
     }
 
-    &.disabled {
-        p { color: $color-gray-light; }
+    &.empty {
+        height: 0;
+    }
+
+    &.removing {
+        height: 0;
+        opacity: 0;
+    }
+
+    .description {
+        margin: 1em;
+    }
+
+    a {
+        color: $color-text;
+        text-decoration: none;
+    }
+
+    h3 {
+        font-size: $font-size-normal;
+        margin-top: 1em;
+    }
+
+    img {
+        float: left;
+        margin: 1em;
     }
 }

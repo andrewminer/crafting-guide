@@ -115,6 +115,11 @@ module.exports = class Recipe extends BaseModel
                 return true
         return false
 
+    requiresTool: (itemSlug)->
+        for stack in @tools
+            if stack.itemSlug.matches itemSlug
+                return true
+
     # Property Methods #############################################################################
 
     getSlug: ->

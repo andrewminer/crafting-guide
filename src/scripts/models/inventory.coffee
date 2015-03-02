@@ -115,6 +115,7 @@ module.exports = class Inventory extends BaseModel
 
         stack.quantity -= quantity
         if stack.quantity is 0
+            @stopListening stack
             delete @_stacks[itemSlug]
             @_itemSlugs = _(@_itemSlugs).without itemSlug
 
@@ -184,6 +185,7 @@ module.exports = class Inventory extends BaseModel
         stack = @_stacks[itemSlug]
         if not stack?
             stack = new Stack itemSlug:itemSlug, quantity:quantity
+            @listenTo stack, Event.change, => @trigger Event.change
             @_stacks[itemSlug] = stack
             @_itemSlugs.push itemSlug
             @_sort()

@@ -570,12 +570,12 @@ group: Energy: Transmission
         recipe:
             input: Copper Ingot
             pattern: ... .0. ...
-            quantity: 4
+            quantity: 3
             tools: Metal Former
         recipe:
             input: Copper Plate
             pattern: ... .0. ...
-            quantity: 4
+            quantity: 3
             tools: Metal Former
 
     item: EU-Detector Cable

@@ -11,6 +11,7 @@ CraftingGridController   = require './crafting_grid_controller'
 ImageLoader              = require './image_loader'
 Inventory                = require '../models/inventory'
 InventoryTableController = require './inventory_table_controller'
+StringBuilder            = require '../models/string_builder'
 
 ########################################################################################################################
 
@@ -44,17 +45,17 @@ module.exports = class FullRecipeController extends BaseController
             model:       new Inventory
             modPack:     @modPack
 
-        @$tool = @$('.tool p')
+        @$toolContainer = @$('.tool')
         super
 
     refresh: ->
         @gridController.model = @model
-        @$tool.html @_findToolNames().join ', '
 
         @$el.tooltip show:{delay:Duration.normal, duration:Duration.normal}
 
         @_refreshInputs()
         @_refreshOutputs()
+        @_refreshTools()
 
         super
 
@@ -65,14 +66,6 @@ module.exports = class FullRecipeController extends BaseController
             'click a': 'routeLinkClick'
 
     # Private Methods ##############################################################################
-
-    _findToolNames: ->
-        result = []
-        if @model?
-            for stack in @model.tools
-                item = @modPack.findItem stack.itemSlug
-                result.push item.name if item?
-        return result
 
     _refreshInputs: ->
         inputs = @inputController.model
@@ -90,3 +83,13 @@ module.exports = class FullRecipeController extends BaseController
         if @model?
             for stack in @model.output
                 outputs.add stack.itemSlug, stack.quantity
+
+    _refreshTools: ->
+        @$toolContainer.empty()
+        return unless @model?
+
+        builder = new StringBuilder
+        builder.loop @model.tools, delimiter:', ', onEach:(b, stack)=>
+            display = @modPack.findItemDisplay stack.itemSlug
+            b.push "<a href=\"#{display.itemUrl}\">#{display.itemName}</a>"
+        @$toolContainer.html builder.toString()

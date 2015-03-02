@@ -9,6 +9,7 @@ BaseController         = require './base_controller'
 CraftingGridController = require './crafting_grid_controller'
 {Duration}             = require '../constants'
 ImageLoader            = require './image_loader'
+StringBuilder          = require '../models/string_builder'
 
 ########################################################################################################################
 
@@ -20,25 +21,24 @@ module.exports = class MinimalRecipeController extends BaseController
         options.templateName = 'minimal_recipe'
         super options
 
-        @_imageLoader = options.imageLoader
-        @_modPack     = options.modPack
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
         @gridController = @addChild CraftingGridController, '.view__crafting_grid',
-            modPack:     @_modPack
-            imageLoader: @_imageLoader
+            modPack:     @modPack
+            imageLoader: @imageLoader
 
         @$outputImg      = @$('.output img')
         @$outputLink     = @$('.output a')
         @$outputQuantity = @$('.quantity')
-        @$tool           = @$('.tool p')
+        @$toolContainer  = @$('.tool')
         super
 
     refresh: ->
         @gridController.model = @model
-        @$tool.html @_findToolNames().join ', '
 
         @$outputImg.attr 'src', '/images/empty.png'
         @$outputImg.removeAttr 'alt'
@@ -48,16 +48,17 @@ module.exports = class MinimalRecipeController extends BaseController
         if @model?
             outputStack = @model.output[0]
             if outputStack?
-                display = @_modPack.findItemDisplay outputStack.itemSlug
+                display = @modPack.findItemDisplay outputStack.itemSlug
                 @$outputLink.attr 'href', display.itemUrl
                 @$outputLink.attr 'title', display.itemName
                 @$outputImg.attr 'alt', display.itemName
                 @$outputQuantity.html outputStack.quantity if outputStack.quantity > 1
 
-                @_imageLoader.load display.iconUrl, @$outputImg
+                @imageLoader.load display.iconUrl, @$outputImg
 
         @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
 
+        @_refreshTools()
         super
 
     # Backbone.View Methods ########################################################################
@@ -68,10 +69,12 @@ module.exports = class MinimalRecipeController extends BaseController
 
     # Private Methods ##############################################################################
 
-    _findToolNames: ->
-        result = []
-        if @model?
-            for stack in @model.tools
-                item = @_modPack.findItem stack.itemSlug
-                result.push item.name if item?
-        return result
+    _refreshTools: ->
+        @$toolContainer.empty()
+        return unless @model?
+
+        builder = new StringBuilder
+        builder.loop @model.tools, delimiter:', ', onEach:(b, stack)=>
+            display = @modPack.findItemDisplay stack.itemSlug
+            b.push "<a href=\"#{display.itemUrl}\">#{display.itemName}</a>"
+        @$toolContainer.html builder.toString()

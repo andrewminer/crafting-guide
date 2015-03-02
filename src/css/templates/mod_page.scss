@@ -14,42 +14,14 @@ All rights reserved.
     }
 
     .sidebar {
-        position: relative; width: 18.75%;
-        padding: 1em;
-
-        .titleImage {
-            position: relative; height: 16em; width: 16em;
-            margin-bottom: 2em;
-
-            img {
-                position: relative; width: 100%;
-                @include pixel-image;
-            }
-        }
-
         .version {
             position: relative; width: 80%;
             margin: 0 10%;
             margin-bottom: 1em;
         }
-
-        a {
-            position: relative; width: 80%;
-            margin: 0 10%;
-            display: none;
-
-            p {
-                font-family: $font-family-normal;
-                font-size: $font-size-normal;
-                text-align: center;
-            }
-        }
     }
 
     .mainBody {
-        position: relative; width: 81.25%;
-        padding: 1em;
-        padding-top: 2em;
 
         .name {
             font-family: $font-family-header;
@@ -75,5 +47,9 @@ All rights reserved.
                 font-size: $font-size-large;
             }
         }
+    }
+
+    .view__item {
+        position: relative; width: 33%;
     }
 }

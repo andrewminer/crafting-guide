@@ -6,12 +6,16 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
+{Duration}     = require '../constants'
 {Event}        = require '../constants'
 ImageLoader    = require './image_loader'
+{Key}          = require '../constants'
 
 ########################################################################################################################
 
 module.exports = class StackController extends BaseController
+
+    @MAX_QUANTITY = 9999
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
@@ -19,12 +23,14 @@ module.exports = class StackController extends BaseController
         if not options.modPack? then throw new Error 'options.modPack is required'
 
         options.editable     ?= false
+        options.onChange     ?= -> # do nothing
         options.onRemove     ?= (stack)-> # do nothing
         options.templateName  = 'stack'
         super options
 
         @editable     = options.editable
         @modPack      = options.modPack
+        @onChange     = options.onChange
         @onRemove     = options.onRemove
         @_imageLoader = options.imageLoader
 
@@ -32,8 +38,51 @@ module.exports = class StackController extends BaseController
 
     # Event Methods ################################################################################
 
+    onQuantityFieldBlur: ->
+        quantityText = @$quantityField.val().trim()
+        if quantityText.length is 0
+            quantity = @_priorValue
+        else if not quantityText.match /^[0-9]*$/
+            quantity = 1
+        else
+            quantity = parseInt quantityText, 10
+            if _.isNaN quantity then quantity = 1
+
+            quantity = Math.min quantity, StackController.MAX_QUANTITY
+            quantity = Math.max 1, quantity
+
+        if quantity?
+            @$quantityField.val "#{quantity}"
+            @$quantityField.removeClass 'error', Duration.snap
+            @$quantityField.removeClass 'error-new', Duration.snap
+
+            @model.quantity = quantity
+            @onChange()
+
+    onQuantityFieldChanged: ->
+        quantityText = @$quantityField.val().trim()
+        if not quantityText.match /^[0-9]*$/
+            @$quantityField.addClass 'error', 0
+            @$quantityField.addClass 'error-new', 0
+            @$quantityField.removeClass 'error-new', Duration.fast
+        else
+            @$quantityField.removeClass 'error', Duration.snap
+            @$quantityField.removeClass 'error-new', Duration.snap
+
+    onQuantityFieldFocused: ->
+        if @editable
+            @_priorValue = @model.quantity
+            @$quantityField.val ''
+        else
+            @$quantityField.blur()
+
+    onQuantityKeyUp: (event)->
+        if event.which is Key.Return
+            @$quantityField.blur()
+
     onRemoveClicked: ->
         @onRemove @model
+        @onChange()
 
     # BaseController Overrides #####################################################################
 
@@ -41,7 +90,7 @@ module.exports = class StackController extends BaseController
         @$action        = @$('.action')
         @$image         = @$('.icon img')
         @$nameLink      = @$('.name a')
-        @$quantityField = @$('.quantity p')
+        @$quantityField = @$('.quantity input')
         @$removeButton  = @$('button.remove')
         super
 
@@ -51,7 +100,14 @@ module.exports = class StackController extends BaseController
         @_imageLoader.load display.iconUrl, @$image
         @$nameLink.html display.itemName
         @$nameLink.attr 'href', display.itemUrl
-        @$quantityField.html @model.quantity
+        @$quantityField.val @model.quantity
+
+        if @editable
+            @$quantityField.removeAttr 'readonly'
+            @$quantityField.addClass 'editable'
+        else
+            @$quantityField.attr 'readonly', 'readonly'
+            @$quantityField.removeClass 'editable'
 
         @$action.css display:(if @editable then 'table-cell' else 'none')
 
@@ -61,5 +117,9 @@ module.exports = class StackController extends BaseController
 
     events: ->
         return _.extend super,
-            'click button.remove': 'onRemoveClicked'
-            'click .name a':       'routeLinkClick'
+            'blur .quantity input':  'onQuantityFieldBlur'
+            'click button.remove':   'onRemoveClicked'
+            'click .name a':         'routeLinkClick'
+            'focus .quantity input': 'onQuantityFieldFocused'
+            'input .quantity input': 'onQuantityFieldChanged'
+            'keyup .quantity input': 'onQuantityKeyUp'

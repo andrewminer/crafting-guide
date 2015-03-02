@@ -13,14 +13,20 @@ module.exports = class ImageLoader
 
     constructor: (options={})->
         options.defaultUrl   ?= null
-        options.onLoading    ?= -> @hide()
-        options.onLoad       ?= -> @show()
+
+        if not options.defaultUrl?
+            options.onLoading ?= -> @hide()
+            options.onLoad    ?= -> @show()
 
         @defaultUrl = options.defaultUrl
         @onLoading  = options.onLoading
         @onLoad     = options.onLoad
 
         @_images = {}
+
+        if @defaultUrl
+            @_defaultImage = new Image
+            @_defaultImage.src = @defaultUrl
 
     # Class Methods ################################################################################
 
@@ -48,7 +54,11 @@ module.exports = class ImageLoader
         if data.isLoaded
             @_loadImageIntoElement data.imageUrl, $el
         else
-            $el.removeAttr 'src'
+            if @defaultUrl?
+                $el.attr 'src', @defaultUrl
+            else
+                $el.removeAttr 'src'
+
             if data.elements.indexOf($el) is -1 then data.elements.push $el
 
         return this

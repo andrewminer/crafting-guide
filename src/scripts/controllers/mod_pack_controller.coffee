@@ -5,11 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
-{DefaultMods}  = require '../constants'
-{Duration}     = require '../constants'
-Mod            = require '../models/mod'
-ModController  = require './mod_controller'
+BaseController        = require './base_controller'
+{DefaultMods}         = require '../constants'
+{Duration}            = require '../constants'
+Mod                   = require '../models/mod'
+ModSelectorController = require './mod_selector_controller'
 
 ########################################################################################################################
 
@@ -17,13 +17,11 @@ module.exports = class ModPackController extends BaseController
 
     constructor: (options={})->
         if not options.model? then throw new Error 'options.model is required'
-        if not options.plan? then throw new Error 'options.plan is required'
         options.templateName  = 'mod_pack'
         super options
 
         @_controllers = []
-        @_plan        = options.plan
-        @_storage     = options.storage
+        @storage      = options.storage
 
     # Event Methods ################################################################################
 
@@ -52,7 +50,7 @@ module.exports = class ModPackController extends BaseController
             index++
 
         while @_controllers.length < mods.length
-            controller = new ModController model:mods[index], plan:@_plan, storage:@_storage
+            controller = new ModSelectorController model:mods[index], storage:@storage
             controller.render()
             @_controllers.push controller
             controller.$el.hide duration:0

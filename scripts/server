@@ -22,6 +22,9 @@ serveIndex = (request, response)->
     response.set 'Content-Type', 'text/html'
     response.sendFile 'index.html', root:ROOT
 
+app.get '/browse(/*)?', serveIndex
+app.get '/configure(/*)?', serveIndex
+app.get '/craft(/*)?', serveIndex
 app.get '/crafting(/*)?', serveIndex
 app.get '/item(/*)?', serveIndex
 app.get '/mod(/*)?', serveIndex
@@ -41,7 +44,10 @@ app.get '*', (request, response)->
     console.log ">>> #{request.path}"
 
     response.set 'Content-Type', contentType
-    response.sendFile request.path, root:ROOT
+
+    sendFile = -> response.sendFile request.path, root:ROOT
+
+    setTimeout sendFile, 100 # change the zero to post files after a short delay
 
 server = app.listen 8000, ->
     console.log "listening at: #{server.address().address}:#{server.address().port}"

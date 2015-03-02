@@ -36,6 +36,22 @@ All rights reserved.
         }
     }
 
-    .output {
+    .tool {
+        a {
+            color: $color-text;
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+            font-weight: bold;
+            text-decoration: none;
+
+            &:hover {
+                color: $color-link;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    h3 {
+        margin-top: 0; margin-left: 0;
     }
 }

@@ -93,3 +93,10 @@ about twice as fast as the old algorithm.
 
 With Railcraft support not only comes the huge richness of that mod, but the first multi-block structures in Crafting
 Guide.  For example, check out how to make a [url=http://crafting-guide.com/crafting/blast_furnace]Blast Furnace[/url]!
+
+########################################################################################################################
+
+Another big release for Crafting Guide!  This time, I've been working on the navigation of the site itself.  You'll now
+see a small navigation bar at the top of each page which both tells you where you are as well as letting you jump to
+another location.  This make the whole item/mod-browsing part of the site much more visible, and simplifies the crafting
+page a bit.  There's even a real home page with a change log!

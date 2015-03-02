@@ -16,6 +16,15 @@ fs               = require 'fs'
 modSlugs = {}
 itemSlugs = {}
 
+base = 'http://crafting-guide.com'
+
+urls = [
+    base
+    "#{base}/configure"
+    "#{base}/browse"
+    "#{base}/craft"
+]
+
 for modSlug in fs.readdirSync './src/data'
     continue if modSlug[0] is '.'
     modSlugs[modSlug] = modSlug
@@ -31,14 +40,12 @@ for modSlug in fs.readdirSync './src/data'
         modVersion.eachItem (item)->
             itemSlugs[item.slug] = item.slug
 
-base = 'http://crafting-guide.com'
+for modSlug in _.values(modSlugs).sort()
+    urls.push base + "/browse/#{modSlug}"
 
-urls = [ base ]
-for modSlug in _.keys(modSlugs).sort()
-    urls.push base + "mod/#{modSlug}"
-
-for itemSlug in _.keys(itemSlugs).sort()
-    urls.push base + "item/#{itemSlug}"
+for key in _.keys(itemSlugs).sort()
+    itemSlug = itemSlugs[key]
+    urls.push base + "/browse/#{itemSlug.mod}/#{itemSlug.item}"
 
 for url in urls
     console.log url

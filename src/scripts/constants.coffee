@@ -14,6 +14,7 @@ exports.DefaultMods = [
     'industrial_craft_2',
     'railcraft',
     'thermal_expansion',
+    'forestry'
 ]
 
 exports.Duration = Duration = {}

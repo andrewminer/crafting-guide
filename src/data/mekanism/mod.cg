@@ -1,0 +1,10 @@
+schema: 1
+
+name:             Mekanism
+author:           aidancbrady
+description:      A tech mod adding multiple tiers of ore processing and power, a breadth of tools and armor, and robots!
+homePageUrl:      http://aidancbrady.com/mekanism/
+documentationUrl: http://wiki.aidancbrady.com/wiki/Main_Page
+downloadUrl:      http://aidancbrady.com/mekanism/download/
+
+version: 7.1.1.127

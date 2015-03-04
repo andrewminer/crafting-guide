@@ -202,16 +202,6 @@ group: Bee Produce
 
     item: Beeswax
         recipe:
-            extras: Honey Drop
-            input: Honey Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey Drop, Crystalline Pollen Cluster, Snowball
-            input: Frozen Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
             extras: Honey Drop, Nether Quartz
             input: Mellow Comb
             pattern: .0. ... ...
@@ -226,10 +216,15 @@ group: Bee Produce
             input: Parched Comb
             pattern: .0. ... ...
             tools: Centrifuge
+        recipe:
+            extras: Honey Drop
+            input: Honey Comb
+            pattern: .0. ... ...
+            tools: Centrifuge
 
     item: Crystalline Pollen Cluster
         recipe:
-            extras: Beeswax, Honey Drop, Snowball
+            extras: Honey Drop, Beeswax, Snowball
             input: Frozen Comb
             pattern: .0. ... ...
             tools: Centrifuge
@@ -241,51 +236,11 @@ group: Bee Produce
     item: Honey Comb
 
     item: Honey Drop
-        recipe:
-            extras: Beeswax
-            input: Honey Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Propolis
-            input: Stringy Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honeydew
-            input: Dripping Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Crystalline Pollen Cluster, Snowball, Beeswax
-            input: Frozen Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Silky Propolis
-            input: Silky Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Beeswax
-            input: Parched Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Beeswax
-            input: Mossy Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
 
     item: Honeydew
         recipe:
             extras: Honey Drop
             input: Dripping Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Nether Quartz, Beeswax
-            input: Mellow Comb
             pattern: .0. ... ...
             tools: Centrifuge
 
@@ -310,16 +265,6 @@ group: Bee Produce
             input: Stringy Comb
             pattern: .0. ... ...
             tools: Centrifuge
-        recipe:
-            extras: Silk Wisp
-            input: Silky Propolis
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey
-            input: Honey Drop
-            pattern: .0. ... ...
-            tools: Squeezer
 
     item: Pulsating Dust
 
@@ -4099,10 +4044,6 @@ group: Various Items
     item: Ice Shard
 
     item: Imprinter
-
-    item: Mushroom
-
-    item: Mushroom (Red)
 
     item: Pickaxe Kit
         recipe:

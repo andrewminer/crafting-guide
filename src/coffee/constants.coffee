@@ -6,7 +6,6 @@ All rights reserved.
 ###
 
 # Minecraft must be first
-
 exports.DefaultMods =
     minecraft:             { defaultVersion: '1.7.10' }
     applied_energistics_2: { defaultVersion: 'rv1-stable-1' }

@@ -1,0 +1,10 @@
+http://crafting-guide.com/browse/thermal_expansion/tin_ore
+http://crafting-guide.com/browse/thermal_expansion/tinker_s_alloy_blend
+http://crafting-guide.com/browse/thermal_expansion/tinker_s_alloy_block
+http://crafting-guide.com/browse/thermal_expansion/tinker_s_alloy_gear
+http://crafting-guide.com/browse/thermal_expansion/tinker_s_alloy_ingot
+http://crafting-guide.com/browse/thermal_expansion/tinker_s_alloy_nugget
+http://crafting-guide.com/browse/thermal_expansion/translocation_plate
+http://crafting-guide.com/browse/thermal_expansion/tuberous_flux_capacitor
+http://crafting-guide.com/browse/thermal_expansion/white_rockwool
+http://crafting-guide.com/browse/thermal_expansion/yellow_rockwool

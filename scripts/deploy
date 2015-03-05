@@ -2,7 +2,7 @@
 
 export AWS_CONFIG_FILE="$HOME/Documents/CraftingGuide/aws.config"
 
-ROOT="./dist"
+DIST="./dist"
 SITE="crafting-guide.com"
 TARGET=""
 while [[ "$1" != "" ]]; do
@@ -19,10 +19,10 @@ if [[ "$TARGET" == "" ]]; then
 fi
 
 if [[ "$TARGET" == "new" ]]; then
-    find $ROOT -name ".DS_Store" | xargs rm
+    find "$DIST" -name ".DS_Store" | xargs rm
     grunt clean dist
-    aws s3 sync $ROOT s3://new.$SITE --delete
+    s3cmd sync -r --delete-removed "$DIST/" "s3://new.$SITE/"
     grunt clean build
 elif [[ "$TARGET" == "promote" ]]; then
-    aws s3 sync s3://new.$SITE s3://$SITE --delete
+    aws s3 sync "s3://new.$SITE" "s3://$SITE" --delete
 fi

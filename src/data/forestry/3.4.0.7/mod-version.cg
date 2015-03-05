@@ -202,31 +202,31 @@ group: Bee Produce
 
     item: Beeswax
         recipe:
+            extras: Honey Drop
+            input: Honey Comb
+            pattern: ... .0. ...
+            tools: Centrifuge
+        recipe:
             extras: Honey Drop, Nether Quartz
             input: Mellow Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
         recipe:
             extras: Honey Drop
             input: Mossy Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
         recipe:
             extras: Honey Drop
             input: Parched Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
-        recipe:
-            extras: Honey Drop
-            input: Honey Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Crystalline Pollen Cluster
         recipe:
             extras: Honey Drop, Beeswax, Snowball
             input: Frozen Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Dripping Comb
@@ -241,7 +241,7 @@ group: Bee Produce
         recipe:
             extras: Honey Drop
             input: Dripping Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Mellow Comb
@@ -254,7 +254,7 @@ group: Bee Produce
         recipe:
             extras: Refractory Wax
             input: Simmering Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Pollen Cluster
@@ -263,7 +263,7 @@ group: Bee Produce
         recipe:
             extras: Honey Drop
             input: Stringy Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Pulsating Dust
@@ -275,11 +275,6 @@ group: Bee Produce
             tools: Crafting Table
 
     item: Refractory Wax
-        recipe:
-            extras: Phosphor
-            input: Simmering Comb
-            pattern: .0. ... ...
-            tools: Centrifuge
 
     item: Royal Jelly
 
@@ -287,7 +282,7 @@ group: Bee Produce
         recipe:
             extras: Propolis
             input: Silky Propolis
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Silky Comb
@@ -296,7 +291,7 @@ group: Bee Produce
         recipe:
             extras: Honey Drop
             input: Silky Comb
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Centrifuge
 
     item: Simmering Comb
@@ -2437,45 +2432,45 @@ group: Liquids
     item: Ethanol
         recipe:
             input: Biomass
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Still
 
     item: Fruit Juice
         recipe:
             extras: Mulch
             input: Lemon
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Plum
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Papaya
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Date
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Apple
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
 
     item: Honey
         recipe:
             extras: Propolis
             input: Honey Drop
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             input: Honeydew
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
 
     item: Liquid Glass
@@ -2486,32 +2481,32 @@ group: Liquids
         recipe:
             extras: Mulch
             input: Cherry
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Walnut
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Chestnut
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Pumpkin Seeds
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Seeds
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Mulch
             input: Melon Seeds
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
 
     item: Short Mead
@@ -2853,38 +2848,38 @@ group: Organic Matter
     item: Mouldy Wheat
         recipe:
             input: Wheat
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Moistener
 
     item: Mulch
         recipe:
             extras: Fruit Juice
             input: Lemon
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Fruit Juice
             input: Plum
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Fruit Juice
             input: Papaya
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Fruit Juice
             input: Date
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             extras: Fruit Juice
             input: Apple
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Squeezer
         recipe:
             input: Decaying Wheat
-            pattern: .0. ... ...
+            pattern: ... .0. ...
             tools: Moistener
 
     item: Peat

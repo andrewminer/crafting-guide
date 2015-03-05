@@ -21,7 +21,7 @@ fi
 if [[ "$TARGET" == "new" ]]; then
     find "$DIST" -name ".DS_Store" | xargs rm
     grunt clean dist
-    s3cmd sync -r --delete-removed "$DIST/" "s3://new.$SITE/"
+    s3cmd sync -r --delete-removed --add-header="cache-control:max-age=1800" "$DIST/" "s3://new.$SITE/"
     grunt clean build
 elif [[ "$TARGET" == "promote" ]]; then
     aws s3 sync "s3://new.$SITE" "s3://$SITE" --delete

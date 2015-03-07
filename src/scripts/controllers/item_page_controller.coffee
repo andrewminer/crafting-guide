@@ -12,6 +12,7 @@ ImageLoader          = require './image_loader'
 Item                 = require '../models/item'
 ItemGroupController  = require './item_group_controller'
 ItemPage             = require '../models/item_page'
+ItemSlug             = require '../models/item_slug'
 PageController       = require './page_controller'
 {Text}               = require '../constants'
 {Url}                = require '../constants'
@@ -165,4 +166,11 @@ module.exports = class ItemPageController extends PageController
             @$similarSection.slideUp duration:Duration.normal
 
     _resolveItemSlug: ->
-        @model.item = @modPack.findItem @_itemSlug, includeDisabled:true
+        item = @modPack.findItem @_itemSlug, includeDisabled:false
+        if @_itemSlug? and not item?
+            router.navigate '/browse/', trigger:true
+        else if not ItemSlug.equal item.slug, @_itemSlug
+            router.navigate Url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true
+            return
+
+        @model.item = item

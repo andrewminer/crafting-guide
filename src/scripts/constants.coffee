@@ -58,8 +58,8 @@ Text.title = 'Crafting Guide for Minecraft | The Ultimate Step-by-Step Tutorial 
 exports.Url      = Url = {}
 Url.crafting     = _.template "/craft/<%= inventoryText %>"
 Url.itemIcon     = _.template "/data/<%= modSlug %>/<%= modVersion %>/images/<%= itemSlug %>.png"
-Url.item         = _.template "/browse/<%= modSlug %>/<%= itemSlug %>"
-Url.mod          = _.template "/browse/<%= modSlug %>"
+Url.item         = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
+Url.mod          = _.template "/browse/<%= modSlug %>/"
 Url.modData      = _.template "/data/<%= modSlug %>/mod.cg"
 Url.modLogo      = _.template "/data/<%= modSlug %>/logo.png"
 Url.modVersion   = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"

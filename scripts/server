@@ -1,6 +1,6 @@
 #!/usr/bin/env coffee
 #
-# Crafting Guide - server
+# Crafting Guide - serve-build
 #
 # Copyright (c) 2014-2015 by Redwood Labs
 # All rights reserved.
@@ -45,10 +45,7 @@ app.get '*', (request, response)->
     console.log ">>> #{request.path}"
 
     response.set 'Content-Type', contentType
-
-    sendFile = -> response.sendFile request.path, root:ROOT
-
-    setTimeout sendFile, 100 # change the zero to post files after a short delay
+    response.sendFile request.path, root:ROOT
 
 server = app.listen 8000, ->
     console.log "listening at: #{server.address().address}:#{server.address().port}"

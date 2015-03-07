@@ -1,0 +1,41 @@
+#!/usr/bin/env coffee
+#
+# Crafting Guide - serve-prerendered
+#
+# Copyright (c) 2014-2015 by Redwood Labs
+# All rights reserved.
+#
+
+express = require 'express'
+path    = require 'path'
+
+########################################################################################################################
+
+ROOT = './dist'
+
+########################################################################################################################
+
+app = express()
+
+app.get '*', (request, response)->
+    effectivePath = request.path.replace /\/$/, '/index.html'
+
+    extension = path.extname(effectivePath)
+    contentType = {
+        '.css':  'text/css'
+        '.html': 'text/html'
+        '.js':   'text/javascript'
+        '.json': 'application/json'
+        '.map':  'application/json'
+        '.png':  'image/png'
+        '.ttf':  'application/octet-stream'
+        '.scss': 'text/css'
+    }[extension]
+
+    console.log ">>> #{effectivePath}"
+
+    response.set 'Content-Type', contentType
+    setTimeout (-> response.sendFile effectivePath, root:ROOT), 100 # post files after a short delay
+
+server = app.listen 8001, ->
+    console.log "listening at: #{server.address().address}:#{server.address().port}"

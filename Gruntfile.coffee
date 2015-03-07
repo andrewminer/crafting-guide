@@ -43,8 +43,6 @@ module.exports = (grunt)->
             build: ['./build']
 
         copy:
-            data_json:
-                files: [expand:true, cwd:'./src/data', src:'**/*.json', dest:'./dist/data']
             data_cg:
                 files: [expand:true, cwd:'./src/data', src:'**/*.cg', dest:'./dist/data']
             data_images:
@@ -57,6 +55,8 @@ module.exports = (grunt)->
                 files: [expand:true, cwd:'./lib/jquery-ui/images', src:['*.png'], dest:'./dist/css/images']
             raw_pages:
                 files: [expand:true, cwd:'./src/pages', src:['**/*.html', '**/*.txt'], dest:'./dist']
+            rendered_pages:
+                files: [expand: true, cwd:'./prerender', src:['**/*.html'], dest:'./dist']
             scripts:
                 files:
                     './dist/js/backbone.js': ['./node_modules/backbone/backbone.js']
@@ -167,8 +167,13 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', [ 'copy', 'sass:main', 'jade', 'browserify', 'exorcise' ]
+    grunt.registerTask 'build', [ 'copy_for_build', 'sass:main', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'dist', ['clean', 'build', 'sass:dist', 'rename:scripts', 'uglify']
+    grunt.registerTask 'copy_for_build', [
+        'copy:data_cg', 'copy:data_images', 'copy:fonts', 'copy:images', 'copy:jquery_ui_images',
+        'copy:raw_pages', 'copy:scripts', 'copy:styles', 'copy:style_extras'
+    ]
+
+    grunt.registerTask 'dist', ['clean', 'build', 'copy:rendered_pages', 'sass:dist', 'rename:scripts', 'uglify']
 
     grunt.registerTask 'full-watch', ['clean', 'build', 'watch']

@@ -19,10 +19,10 @@ itemSlugs = {}
 base = 'http://crafting-guide.com'
 
 urls = [
-    base
-    "#{base}/configure"
-    "#{base}/browse"
-    "#{base}/craft"
+    "#{base}/"
+    "#{base}/configure/"
+    "#{base}/browse/"
+    "#{base}/craft/"
 ]
 
 for modSlug in fs.readdirSync './src/data'
@@ -41,11 +41,11 @@ for modSlug in fs.readdirSync './src/data'
             itemSlugs[item.slug] = item.slug
 
 for modSlug in _.values(modSlugs).sort()
-    urls.push base + "/browse/#{modSlug}"
+    urls.push base + "/browse/#{modSlug}/"
 
 for key in _.keys(itemSlugs).sort()
     itemSlug = itemSlugs[key]
-    urls.push base + "/browse/#{itemSlug.mod}/#{itemSlug.item}"
+    urls.push base + "/browse/#{itemSlug.mod}/#{itemSlug.item}/"
 
 for url in urls
     console.log url

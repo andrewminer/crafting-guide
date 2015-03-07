@@ -1,0 +1,40 @@
+#!/bin/bash
+
+OUTPUT_DIR='./prerender'
+SCRIPT='/tmp/phantomjs_render.coffee'
+SITEMAP_FILE='./src/pages/sitemap.txt'
+
+cat > $SCRIPT <<END
+url      = require('system').args[1]
+page     = require('webpage').create()
+path     = "#{url}".replace(/http:\/\/[^/]*/, '').replace(/^\//, '').replace(/\/$/, '')
+localUrl = "http://localhost:8000/#{path}"
+
+page.open localUrl, (status)->
+    if status isnt 'success'
+        console.error "Could not load #{url}"
+        phantom.exit(1)
+
+    setTimeout (->
+        console.log page.content
+        phantom.exit(0)
+    ), 5000
+END
+
+./scripts/sitemap > $SITEMAP_FILE
+
+cat $SITEMAP_FILE | while read URL; do
+    OUTPUT_FILE=$(sed 's/http:\/\/[^/]*\///' <<< $URL)
+    OUTPUT_FILE="$OUTPUT_DIR/$OUTPUT_FILE/index.html"
+    OUTPUT_FILE=$(sed 's/\/\//\//' <<< $OUTPUT_FILE)
+
+    if [[ ! -e "$OUTPUT_FILE" ]]; then
+        mkdir -p $(dirname "$OUTPUT_FILE")
+        echo "prerendering $URL into $OUTPUT_FILE"
+        phantomjs --web-security=false --load-images=false $SCRIPT "$URL" >"$OUTPUT_FILE" 2>/dev/null
+    else
+        echo "Skipping $URL..."
+    fi
+done
+
+rm $SCRIPT

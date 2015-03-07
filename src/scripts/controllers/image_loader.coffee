@@ -43,6 +43,8 @@ module.exports = class ImageLoader
         return data.isLoaded
 
     load: (imageUrl, $el)->
+        return if not $el
+
         data = @preload imageUrl
         if $el.attr('src')?
             return if $el.attr('src').indexOf(imageUrl) isnt -1

@@ -34,7 +34,7 @@ module.exports = class CraftingTableController extends BaseController
         @model.stepIndex -= 1
 
     onReportProblem: ->
-        itemList = parser.unparse @model.plan.want
+        itemList = @model.plan.want.unparse()
         toolsMessage = if @model.plan.includingTools then '(including tools)' else ''
         message  = "When I was on step #{@model.stepIndex + 1} of making:
             \n\n#{itemList}#{toolsMessage}\n\nI noticed that...\n"
@@ -43,7 +43,9 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @recipeController = @addChild MinimalRecipeController, '.view__minimal_recipe', imageLoader:@imageLoader, modPack:@modPack
+        @recipeController = @addChild MinimalRecipeController, '.view__minimal_recipe',
+            imageLoader: @imageLoader
+            modPack:     @modPack
 
         @$next           = @$('.next')
         @$prev           = @$('.prev')

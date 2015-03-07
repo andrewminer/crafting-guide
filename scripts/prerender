@@ -2,7 +2,12 @@
 
 OUTPUT_DIR='./prerender'
 SCRIPT='/tmp/phantomjs_render.coffee'
-SITEMAP_FILE='./src/pages/sitemap.txt'
+
+if [[ "$1" != "" ]]; then
+    SITEMAP_FILE="$1"
+else
+    SITEMAP_FILE='./src/pages/sitemap.txt'
+fi
 
 cat > $SCRIPT <<END
 url      = require('system').args[1]
@@ -20,8 +25,6 @@ page.open localUrl, (status)->
         phantom.exit(0)
     ), 5000
 END
-
-./scripts/sitemap > $SITEMAP_FILE
 
 cat $SITEMAP_FILE | while read URL; do
     OUTPUT_FILE=$(sed 's/http:\/\/[^/]*\///' <<< $URL)

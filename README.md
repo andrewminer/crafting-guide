@@ -10,4 +10,4 @@ If there's something you'd like to see Crafting Guide do, feel free to open an i
 
 ## Adding a new Mod
 
-The data files for Crafting Guide are kept in a separate repository, [crafting-guide-data](https://github.com/andrewminer/crafting-guide-data), along with all the documentation on how to add support for your own favorite mod.  No programming required!
+Is Crafting Guide missing a mod you use?  Check out the [Adding a new Mod](https://github.com/andrewminer/crafting-guide/wiki/Adding-support-for-a-new-Mod) page for full details on how to add support for your favorite mod.  No programming required!

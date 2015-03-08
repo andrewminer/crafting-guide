@@ -7,6 +7,7 @@
 #
 
 express = require 'express'
+fs      = require 'fs'
 path    = require 'path'
 
 ########################################################################################################################
@@ -17,18 +18,16 @@ ROOT = './dist/'
 
 app = express()
 
-serveIndex = (request, response)->
-    console.log ">>> index.html (for #{request.path})"
+app.get '*/$', (request, response)->
     response.set 'Content-Type', 'text/html'
-    response.sendFile 'index.html', root:ROOT
-
-app.get '/', serveIndex
-app.get '/browse(/*)?', serveIndex
-app.get '/configure(/*)?', serveIndex
-app.get '/craft(/*)?', serveIndex
-app.get '/crafting(/*)?', serveIndex
-app.get '/item(/*)?', serveIndex
-app.get '/mod(/*)?', serveIndex
+    filePath = "#{request.path}index.html"
+    fs.stat "#{ROOT}#{filePath}", (err, stats)->
+        if stats.isFile()
+            response.sendFile filePath, root:ROOT
+            console.log ">>> #{filePath} (for #{request.path})"
+        else
+            response.sendFile '/index.html', root:ROOT
+            console.log ">>> index.html (for #{request.path})"
 
 app.get '*', (request, response)->
     extension = path.extname(request.path)

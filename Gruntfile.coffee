@@ -21,7 +21,7 @@ module.exports = (grunt)->
                         debug: true
                         extensions: ['.coffee']
                 files:
-                    './dist/js/main.js': ['./src/scripts/main.coffee']
+                    './dist/js/main.js': ['./src/coffee/main.coffee']
             test:
                 options:
                     transform: ['coffeeify']
@@ -29,7 +29,7 @@ module.exports = (grunt)->
                         debug: true
                         extensions: ['.coffee']
                 files:
-                    './dist/js/test.js': ['./test/test.coffee']
+                    './dist/js/test.js': ['./src/coffee/test/test.coffee']
             when:
                 options:
                     browserifyOptions:
@@ -40,31 +40,21 @@ module.exports = (grunt)->
 
         clean:
             dist: ['./dist']
-            build: ['./build']
 
         copy:
-            data_cg:
-                files: [expand:true, cwd:'./src/data', src:'**/*.cg', dest:'./dist/data']
-            data_images:
-                files: [expand:true, cwd:'./src/data', src:'**/*.png', dest:'./dist/data']
-            fonts:
-                files: [expand:true, cwd:'./src/fonts', src:['**/*.ttf', '**/*.woff'], dest:'./dist/fonts']
-            images:
-                files: [expand:true, cwd:'./src/images/', src:['**/*.png', '**/*.jpg'], dest:'./dist/images']
+            index_prerender:
+                files:
+                    './dist/index.html': ['./static/index.html']
             jquery_ui_images:
                 files: [expand:true, cwd:'./lib/jquery-ui/images', src:['*.png'], dest:'./dist/css/images']
-            raw_pages:
-                files: [expand:true, cwd:'./src/pages', src:['**/*.html', '**/*.txt'], dest:'./dist']
-            rendered_pages:
-                files: [expand: true, cwd:'./prerender', src:['**/*.html'], dest:'./dist']
             scripts:
                 files:
-                    './dist/js/backbone.js': ['./node_modules/backbone/backbone.js']
-                    './dist/js/chai.js': ['./node_modules/chai/chai.js']
-                    './dist/js/jade.js': ['./node_modules/jade/runtime.js']
-                    './dist/js/jquery.js': ['./node_modules/jquery/dist/jquery.js']
-                    './dist/js/jquery-ui.js': ['./lib/jquery-ui/jquery-ui.js']
-                    './dist/js/mocha.js': ['./node_modules/mocha/mocha.js']
+                    './dist/js/backbone.js':   ['./node_modules/backbone/backbone.js']
+                    './dist/js/chai.js':       ['./node_modules/chai/chai.js']
+                    './dist/js/jade.js':       ['./node_modules/jade/runtime.js']
+                    './dist/js/jquery.js':     ['./node_modules/jquery/dist/jquery.js']
+                    './dist/js/jquery-ui.js':  ['./lib/jquery-ui/jquery-ui.js']
+                    './dist/js/mocha.js':      ['./node_modules/mocha/mocha.js']
                     './dist/js/underscore.js': ['./node_modules/underscore/underscore.js']
             styles:
                 files: [expand:true, cwd:'./src/css', src:'**/*.scss', dest:'./dist/src/css']
@@ -87,7 +77,7 @@ module.exports = (grunt)->
                     pretty: true
                 files: [
                     expand: true
-                    cwd: './src/pages'
+                    cwd: './src/jade'
                     src: '*.jade'
                     dest: './dist'
                     ext: '.html'
@@ -98,29 +88,31 @@ module.exports = (grunt)->
                     client: true
                     node: true
                     processName: (f)->
-                        f = f.replace './src/templates/', ''
+                        f = f.replace './src/jade/templates/', ''
                         f = f.replace '_view', ''
                         f = f.replace '.jade', ''
                         f = f.replace /\//g, '_'
                         return f
                 files:
-                    './src/scripts/views.js': ['./src/templates/**/*.jade']
+                    './src/coffee/views.js': ['./src/jade/templates/**/*.jade']
 
-        rename:
-            scripts:
-                src: './dist/js'
-                dest: './build/js'
+        rsync:
+            static:
+                options:
+                    src: './static/'
+                    dest: './dist/'
+                    recursive: true
 
         sass:
-            main:
+            build:
                 files:
-                    './dist/css/main.css': ['./src/css/main.scss']
+                    './dist/css/main.css': ['./src/scss/main.scss']
             dist:
                 options:
                     sourcemap: 'none'
                     style: 'compressed'
                 files:
-                    './dist/css/main.css': ['./src/css/main.scss']
+                    './dist/css/main.css': ['./src/scss/main.scss']
 
         uglify:
             scripts:
@@ -128,52 +120,32 @@ module.exports = (grunt)->
                     maxLineLen: 20
                 files: [
                     expand: true
-                    cwd: './build/js'
+                    cwd: './dist/js'
                     src: '**/*.js'
                     dest: './dist/js'
                 ]
 
         watch:
-            data_json:
-                files: ['./src/data/**/*.json']
-                tasks: ['copy:data_json']
-            data_cg:
-                files: ['./src/data/**/*.cg']
-                tasks: ['copy:data_cg']
-            data_images:
-                files: ['./src/data/**/*.png']
-                tasks: ['copy:data_images']
-            fonts:
-                files: ['./src/fonts/**/*']
-                tasks: ['copy:fonts']
-            images:
-                files: ['./src/images/**/*']
-                tasks: ['copy:images']
-            source:
-                files: ['./src/scripts/**/*.coffee']
+            static:
+                files: ['./static/**/*']
+                tasks: ['rsync:static']
+            coffee:
+                files: ['./src/**/*.coffee']
                 tasks: ['browserify:main']
-            pages:
-                files: ['./src/pages/**/*.jade']
-                tasks: ['jade:pages']
-            templates:
-                files: ['./src/templates/**/*.jade']
-                tasks: ['jade:templates', 'browserify:main']
+            jade:
+                files: ['./src/**/*.jade']
+                tasks: ['jade:pages', 'jade:templates']
             sass:
-                files: ['./src/css/**/*.scss']
+                files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']
             tests:
-                files: ['./src/scripts/**/*.coffee', './test/**/*.coffee']
+                files: ['./src/**/*.coffee', './test/**/*.coffee']
                 tasks: ['browserify:test']
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', [ 'copy_for_build', 'sass:main', 'jade', 'browserify', 'exorcise' ]
+    grunt.registerTask 'build', [ 'rsync', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'copy_for_build', [
-        'copy:data_cg', 'copy:data_images', 'copy:fonts', 'copy:images', 'copy:jquery_ui_images',
-        'copy:raw_pages', 'copy:scripts', 'copy:styles', 'copy:style_extras'
-    ]
+    grunt.registerTask 'dist', ['clean', 'build', 'copy:index_prerender', 'sass:dist', 'uglify']
 
-    grunt.registerTask 'dist', ['clean', 'build', 'copy:rendered_pages', 'sass:dist', 'rename:scripts', 'uglify']
-
-    grunt.registerTask 'full-watch', ['clean', 'build', 'watch']
+    grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUTPUT_DIR='./prerender'
+OUTPUT_DIR='./static'
 SCRIPT='/tmp/phantomjs_render.coffee'
 
 if [[ "$1" != "" ]]; then

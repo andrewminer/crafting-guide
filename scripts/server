@@ -20,9 +20,9 @@ app = express()
 
 app.get '*/$', (request, response)->
     response.set 'Content-Type', 'text/html'
-    filePath = "#{request.path}index.html"
+    filePath = "#{request.path}index.html".replace /^\//, ''
     fs.stat "#{ROOT}#{filePath}", (err, stats)->
-        if stats.isFile()
+        if not err?
             response.sendFile filePath, root:ROOT
             console.log ">>> #{filePath} (for #{request.path})"
         else

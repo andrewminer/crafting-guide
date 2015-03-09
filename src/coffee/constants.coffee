@@ -11,7 +11,8 @@ exports.DefaultMods = [
     'applied_energistics_2',
     'buildcraft',
     'enderio',
-    'industrial_craft_2',
+    'ic2_classic',
+    'ic2_exp',
     'railcraft',
     'thermal_expansion',
 ]

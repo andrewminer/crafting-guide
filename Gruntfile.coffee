@@ -127,7 +127,7 @@ module.exports = (grunt)->
 
         watch:
             static:
-                files: ['./static/**/*']
+                files: ['./static/**/*.cg', './static/**/*.txt']
                 tasks: ['rsync:static']
             coffee:
                 files: ['./src/**/*.coffee']

@@ -7,6 +7,10 @@ All rights reserved.
 
 .adsbygoogle {
     margin-top: 3em;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
 .centered {

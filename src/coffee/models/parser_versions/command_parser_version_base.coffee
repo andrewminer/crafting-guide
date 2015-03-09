@@ -78,7 +78,7 @@ module.exports = class CommandParserVersionBase
         line = line.trim()
         return [] if line.length is 0
 
-        hereDoc = @_parseHereDoc line
+        [line, hereDoc] = @_parseHereDoc line
 
         lineParts = (part.trim() for part in line.split(';'))
         commands = []
@@ -89,8 +89,10 @@ module.exports = class CommandParserVersionBase
             if not match? then throw new Error "Expected <command>: <args>, but found: \"#{linePart}\""
 
             args = []
-            args = (s.trim() for s in match[2].split(',')) if match[2]?
-            args.push hereDoc if hereDoc
+            args = (s for s in match[2].split(',') when s.length > 0) if match[2]?
+            args = (s.trim() for s in args)
+            args = (s for s in args when s.length > 0)
+            args.push hereDoc if hereDoc?
             commands.push name:match[1], args:args
 
         return commands
@@ -107,9 +109,11 @@ module.exports = class CommandParserVersionBase
 
     _parseHereDoc: (line)->
         hereDocIndex = line.indexOf '<<-'
-        return null unless hereDocIndex isnt -1
+        return [line, null] unless hereDocIndex isnt -1
 
         hereDocStopText = line[hereDocIndex+3...line.length]
+        line = line[0...hereDocIndex]
+
         hereDocLines = []
         while true
             @_lineNumber += 1
@@ -120,11 +124,11 @@ module.exports = class CommandParserVersionBase
             hereDocLines.push nextLine
 
         shortestIndent = Number.MAX_VALUE
-        for line in hereDocLines
-            shortestIndent = Math.min line.match(/( *).*/)[1].length, shortestIndent
+        for hereDocLine in hereDocLines
+            shortestIndent = Math.min hereDocLine.match(/( *).*/)[1].length, shortestIndent
 
         for i in [0...hereDocLines.length]
             hereDocLines[i] = hereDocLines[i][shortestIndent..]
 
-        return null unless hereDocLines.length > 0
-        return hereDocLines.join '\n'
+        return [line, null] unless hereDocLines.length > 0
+        return [line, hereDocLines.join('\n')]

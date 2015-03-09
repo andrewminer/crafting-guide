@@ -10,6 +10,7 @@ BaseModel      = require './base_model'
 ItemSlug       = require './item_slug'
 Recipe         = require './recipe'
 StringBuilder  = require './string_builder'
+{Url}          = require '../constants'
 
 ########################################################################################################################
 
@@ -56,6 +57,18 @@ module.exports = class Item extends BaseModel
 
     Object.defineProperties @prototype,
         isCraftable: {get:@prototype.getIsCraftable}
+
+    # Backbone.Model Overrides #####################################################################
+
+    parse: (text)->
+        ItemParser = require './item_parser' # to avoid require cycles
+        @_parser ?= new ItemParser model:this
+        @_parser.parse text
+
+        return null # prevent calling `set`
+
+    url: ->
+        return Url.itemData modSlug:@slug.mod, itemSlug:@slug.item
 
     # Object Overrides #############################################################################
 

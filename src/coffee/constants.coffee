@@ -56,14 +56,15 @@ ModelState.failed   = 'failed'
 exports.Text = Text = {}
 Text.title = 'Crafting Guide for Minecraft | The Ultimate Step-by-Step Tutorial for Making Anything in Minecraft'
 
-exports.Url      = Url = {}
-Url.crafting     = _.template "/craft/<%= inventoryText %>"
-Url.itemIcon     = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/icon.png"
-Url.item         = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
-Url.mod          = _.template "/browse/<%= modSlug %>/"
-Url.modData      = _.template "/data/<%= modSlug %>/mod.cg"
-Url.modIcon      = _.template "/browse/<%= modSlug %>/icon.png"
-Url.modVersion   = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
+exports.Url        = Url = {}
+Url.crafting       = _.template "/craft/<%= inventoryText %>"
+Url.item           = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
+Url.itemData       = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/item.cg"
+Url.itemIcon       = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/icon.png"
+Url.mod            = _.template "/browse/<%= modSlug %>/"
+Url.modData        = _.template "/data/<%= modSlug %>/mod.cg"
+Url.modIcon        = _.template "/browse/<%= modSlug %>/icon.png"
+Url.modVersionData = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
 
 exports.UrlParam        = UrlParam = {}
 UrlParam.quantity       = 'count'

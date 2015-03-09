@@ -171,7 +171,7 @@ module.exports = class ModVersion extends BaseModel
         return null # prevent calling `set`
 
     url: ->
-        return Url.modVersion modSlug:@modSlug, modVersion:@version
+        return Url.modVersionData modSlug:@modSlug, modVersion:@version
 
     # Object Overrides #############################################################################
 

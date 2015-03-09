@@ -57,15 +57,17 @@ module.exports = class ItemPageController extends PageController
             imageLoader: @imageLoader
             modPack:     @modPack
 
-        @$usedAsToolToMakeSection = @$('.usedAsToolToMake')
         @$byline                  = @$('.byline')
         @$bylineLink              = @$('.byline a')
         @$craftingPlanLink        = @$('a.craftingPlan')
+        @$descriptionPanel        = @$('.description .panel')
+        @$descriptionSection      = @$('.description')
         @$name                    = @$('h1.name')
         @$recipeContainer         = @$('.recipes .panel')
         @$recipesSection          = @$('.recipes')
         @$similarSection          = @$('.similar')
         @$titleImage              = @$('.titleImage img')
+        @$usedAsToolToMakeSection = @$('.usedAsToolToMake')
         @$usedToMakeSection       = @$('.usedToMake')
         super
 
@@ -84,6 +86,7 @@ module.exports = class ItemPageController extends PageController
             @$el.slideUp duration:Duration.normal
 
         @_refreshByline()
+        @_refreshDescription()
         @_refreshRecipes()
         @_refreshSimilarItems()
         @_refreshUsedAsToolToMake()
@@ -100,15 +103,6 @@ module.exports = class ItemPageController extends PageController
 
     # Private Methods ##############################################################################
 
-    _refreshUsedAsToolToMake: ->
-        @_usedAsToolToMakeController.title = 'Used as Tool to Make'
-
-        @_usedAsToolToMakeController.model = @model.findToolForRecipes()
-        if @_usedAsToolToMakeController.model?
-            @$usedAsToolToMakeSection.slideDown duration:Duration.normal
-        else
-            @$usedAsToolToMakeSection.slideUp duration:Duration.normal
-
     _refreshByline: ->
         mod = @model.item?.modVersion?.mod
         if mod?.name?.length > 0
@@ -118,14 +112,15 @@ module.exports = class ItemPageController extends PageController
         else
             @$byline.fadeOut duration:Duration.fast
 
-    _refreshUsedToMake: ->
-        @_usedToMakeController.title = 'Used to Make'
-
-        @_usedToMakeController.model = @model.findComponentInItems()
-        if @_usedToMakeController.model?
-            @$usedToMakeSection.slideDown duration:Duration.normal
+    _refreshDescription: ->
+        logger.debug "refreshing description"
+        logger.debug "item.description: #{@model?.item?.description}"
+        description = @model.compileDescription()
+        if description?
+            @$descriptionPanel.html description
+            @$descriptionSection.slideDown duration:Duration.normal
         else
-            @$usedToMakeSection.slideUp duration:Duration.normal
+            @$descriptionSection.slideUp duration:Duration.normal
 
     _refreshRecipes: ->
         @_recipeControllers ?= []
@@ -165,10 +160,35 @@ module.exports = class ItemPageController extends PageController
         else
             @$similarSection.slideUp duration:Duration.normal
 
-    _resolveItemSlug: ->
-        item = @modPack.findItem @_itemSlug, includeDisabled:false
-        if item? and not ItemSlug.equal item.slug, @_itemSlug
-            router.navigate Url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true
-            return
+    _refreshUsedAsToolToMake: ->
+        @_usedAsToolToMakeController.title = 'Used as Tool to Make'
 
-        @model.item = item
+        @_usedAsToolToMakeController.model = @model.findToolForRecipes()
+        if @_usedAsToolToMakeController.model?
+            @$usedAsToolToMakeSection.slideDown duration:Duration.normal
+        else
+            @$usedAsToolToMakeSection.slideUp duration:Duration.normal
+
+    _refreshUsedToMake: ->
+        @_usedToMakeController.title = 'Used to Make'
+
+        @_usedToMakeController.model = @model.findComponentInItems()
+        if @_usedToMakeController.model?
+            @$usedToMakeSection.slideDown duration:Duration.normal
+        else
+            @$usedToMakeSection.slideUp duration:Duration.normal
+
+    _resolveItemSlug: ->
+        return if @model.item?
+
+        item = @modPack.findItem @_itemSlug, includeDisabled:false
+        if item?
+            if not ItemSlug.equal item.slug, @_itemSlug
+                router.navigate Url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true
+                return
+
+            @model.item = item
+            item.fetch()
+            item.on Event.sync, =>
+                logger.debug "item loaded"
+                @refresh()

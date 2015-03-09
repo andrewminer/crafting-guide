@@ -76,7 +76,6 @@ module.exports = class ItemGroupController extends BaseController
                     delay += @_delayStep
                 else
                     controller.model = item
-                    controller.refresh()
                 controllerIndex += 1
 
         while @_itemControllers.length > controllerIndex

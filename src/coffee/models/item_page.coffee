@@ -20,6 +20,10 @@ module.exports = class ItemPage extends BaseModel
 
     # Property Methods #############################################################################
 
+    compileDescription: ->
+        return null unless @item?.description?
+        return markdown.parse @item.description
+
     findComponentInItems: ->
         return @_findRecipesMatching (recipe)=> recipe.requires @item.slug
 

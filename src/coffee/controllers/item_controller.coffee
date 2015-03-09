@@ -18,8 +18,8 @@ module.exports = class ItemController extends BaseController
         options.templateName = 'item'
         super options
 
-        @_imageLoader = options.imageLoader
-        @_modPack     = options.modPack
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
 
     # BaseController Overrides #####################################################################
 
@@ -30,9 +30,9 @@ module.exports = class ItemController extends BaseController
         super
 
     refresh: ->
-        display = @_modPack.findItemDisplay @model.slug
+        display = @modPack.findItemDisplay @model.slug
 
-        @_imageLoader.load display.iconUrl, @$icon
+        @imageLoader.load display.iconUrl, @$icon
         @$name.html display.itemName
         @$nameLink.attr 'href', display.itemUrl
 

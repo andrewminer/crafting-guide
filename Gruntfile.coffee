@@ -22,6 +22,7 @@ module.exports = (grunt)->
                         extensions: ['.coffee']
                 files:
                     './dist/js/main.js': ['./src/coffee/main.coffee']
+
             test:
                 options:
                     transform: ['coffeeify']
@@ -30,6 +31,15 @@ module.exports = (grunt)->
                         extensions: ['.coffee']
                 files:
                     './dist/js/test.js': ['./src/coffee/test/test.coffee']
+
+            markdown:
+                options:
+                    browserifyOptions:
+                        debug: false
+                        standalone: 'markdown'
+                files:
+                    './dist/js/markdown.js': ['./node_modules/markdown/lib/index.js']
+
             when:
                 options:
                     browserifyOptions:
@@ -102,6 +112,12 @@ module.exports = (grunt)->
                     src: './static/'
                     dest: './dist/'
                     recursive: true
+            non_html:
+                options:
+                    src: './static/'
+                    dest: './dist/'
+                    exclude: '*.html'
+                    recursive: true
 
         sass:
             build:
@@ -134,7 +150,7 @@ module.exports = (grunt)->
                 tasks: ['browserify:main']
             jade:
                 files: ['./src/**/*.jade']
-                tasks: ['jade:pages', 'jade:templates']
+                tasks: ['jade:pages', 'jade:templates', 'browserify:main']
             sass:
                 files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']
@@ -144,8 +160,8 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', [ 'rsync', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
+    grunt.registerTask 'build', [ 'rsync:non_html', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'dist', ['clean', 'build', 'copy:index_prerender', 'sass:dist', 'uglify']
+    grunt.registerTask 'dist', ['clean', 'build', 'rsync:static', 'copy:index_prerender', 'sass:dist', 'uglify']
 
     grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']

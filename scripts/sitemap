@@ -1,16 +1,17 @@
 #!/usr/bin/env coffee
 
-Logger = require '../src/scripts/logger'
+Logger = require '../src/coffee/logger'
 
 global._        = require 'underscore'
 global.Backbone = require 'backbone'
 global.logger   = new Logger level:Logger.FATAL
 
-require '../src/scripts/underscore_mixins'
+require '../src/coffee/underscore_mixins'
 
-Mod              = require '../src/scripts/models/mod'
-ModParser        = require '../src/scripts/models/mod_parser'
-ModVersionParser = require '../src/scripts/models/mod_version_parser'
+{DefaultMods}    = require '../src/coffee/constants'
+Mod              = require '../src/coffee/models/mod'
+ModParser        = require '../src/coffee/models/mod_parser'
+ModVersionParser = require '../src/coffee/models/mod_version_parser'
 fs               = require 'fs'
 
 modSlugs = {}
@@ -25,17 +26,17 @@ urls = [
     "#{base}/craft/"
 ]
 
-for modSlug in fs.readdirSync './src/data'
-    continue if modSlug[0] is '.'
+for modSlug in DefaultMods
     modSlugs[modSlug] = modSlug
 
     mod = new Mod slug:modSlug
     modParser = new ModParser model:mod
-    modParser.parse fs.readFileSync "./src/data/#{modSlug}/mod.cg", 'utf-8'
+    modParser.parse fs.readFileSync "./static/data/#{modSlug}/mod.cg", 'utf-8'
 
     mod.eachModVersion (modVersion)->
+        modVersionDataFile = "./static/data/#{modSlug}/#{modVersion.version}/mod-version.cg"
         modVersionParser = new ModVersionParser model:modVersion
-        modVersionParser.parse fs.readFileSync "./src/data/#{modSlug}/#{modVersion.version}/mod-version.cg", 'utf-8'
+        modVersionParser.parse fs.readFileSync modVersionDataFile, 'utf-8'
 
         modVersion.eachItem (item)->
             itemSlugs[item.slug] = item.slug

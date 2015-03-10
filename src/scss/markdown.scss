@@ -1,0 +1,22 @@
+/*
+Crafting Guide - markdown.scss
+
+Copyright (C) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+.markdown {
+
+    p {
+        font-family: $font-family-normal;
+        font-size: $font-size-normal;
+        line-height: $font-size-normal + 0.25em;
+    }
+
+    img {
+        position: relative; left: 50%;
+        @include transform(translateX(-50%));
+        margin: 2em 0;
+        text-align: center;
+    }
+}

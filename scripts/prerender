@@ -1,18 +1,40 @@
 #!/bin/bash
 
-OUTPUT_DIR='./prerender'
-SCRIPT='/tmp/phantomjs_render.coffee'
+USAGE=<<END
+USAGE: prerender <options>
 
-if [[ "$1" != "" ]]; then
-    SITEMAP_FILE="$1"
-else
-    SITEMAP_FILE='./src/pages/sitemap.txt'
-fi
+    Options:
 
+        --force                      : overwrite existing files (default skips)
+        --clean                      : remove all files before starting
+        --only <pattern>             : restrict rendering to the given pattern
+        --output <dir>               : output directory (default: ./static)
+        --sitemap <file>             : sitemap file (default: ./static/sitemap.txt
+
+END
+
+CLEAN="no"
+FORCE="no"
+ONLY=".*"
+OUTPUT_DIR="./static"
+SITEMAP_FILE="./static/sitemap.txt"
+while [[ "$1" != "" ]]; do
+    case "$1" in
+        "--force") FORCE="yes";;
+        "--help") echo $USAGE; exit 0;;
+        "--clean") CLEAN="yes";;
+        "--only") shift; ONLY="$1";;
+        "--output") shift; OUTPUT_DIR="$1";;
+        "--sitemap") shift; SITEMAP_FILE="$1";;
+    esac
+    shift
+done
+
+SCRIPT='/tmp/prerender_script.coffee'
 cat > $SCRIPT <<END
 url      = require('system').args[1]
 page     = require('webpage').create()
-path     = "#{url}".replace(/http:\/\/[^/]*/, '').replace(/^\//, '').replace(/\/$/, '')
+path     = "#{url}".replace(/http:\/\/[^/]*/, '').replace(/^\//, '')
 localUrl = "http://localhost:8000/#{path}"
 
 page.open localUrl, (status)->
@@ -26,15 +48,23 @@ page.open localUrl, (status)->
     ), 5000
 END
 
-cat $SITEMAP_FILE | while read URL; do
+if [[ "$CLEAN" == "yes" ]]; then
+    find "$OUTPUT_DIR/browse" -name "*.html" | xargs rm
+fi
+
+cat $SITEMAP_FILE | grep "$ONLY" | while read URL; do
     OUTPUT_FILE=$(sed 's/http:\/\/[^/]*\///' <<< $URL)
     OUTPUT_FILE="$OUTPUT_DIR/$OUTPUT_FILE/index.html"
     OUTPUT_FILE=$(sed 's/\/\//\//' <<< $OUTPUT_FILE)
 
-    if [[ ! -e "$OUTPUT_FILE" ]]; then
+    if [[ ! -e "$OUTPUT_FILE" || "$FORCE" == "yes" ]]; then
         mkdir -p $(dirname "$OUTPUT_FILE")
         echo "prerendering $URL into $OUTPUT_FILE"
         phantomjs --web-security=false --load-images=false $SCRIPT "$URL" >"$OUTPUT_FILE" 2>/dev/null
+        if [[ "$?" != "0" ]]; then
+            echo "An error occured rendering $URL"
+            rm "$OUTPUT_FILE" 2>/dev/null
+        fi
     else
         echo "Skipping $URL..."
     fi

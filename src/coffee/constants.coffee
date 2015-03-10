@@ -6,16 +6,15 @@ All rights reserved.
 ###
 
 # Minecraft must be first
-exports.DefaultMods = [
-    'minecraft',
-    'applied_energistics_2',
-    'buildcraft',
-    'enderio',
-    'ic2_classic',
-    'industrial_craft_2',
-    'railcraft',
-    'thermal_expansion',
-]
+exports.DefaultMods =
+    minecraft:             { defaultVersion: '1.7.10' }
+    applied_energistics_2: { defaultVersion: 'rv1-stable-1' }
+    buildcraft:            { defaultVersion: '6.2.6' }
+    enderio:               { defaultVersion: '2.2.7.235' }
+    ic2_classic:           { defaultVersion: 'none' }
+    industrial_craft_2:    { defaultVersion: '2.2.663' }
+    railcraft:             { defaultVersion: '9.5.0' }
+    thermal_expansion:     { defaultVersion: '4.0.0B6-23' }
 
 exports.Duration = Duration = {}
 Duration.snap    = 200

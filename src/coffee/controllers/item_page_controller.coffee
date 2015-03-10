@@ -113,8 +113,6 @@ module.exports = class ItemPageController extends PageController
             @$byline.fadeOut duration:Duration.fast
 
     _refreshDescription: ->
-        logger.debug "refreshing description"
-        logger.debug "item.description: #{@model?.item?.description}"
         description = @model.compileDescription()
         if description?
             @$descriptionPanel.html description
@@ -189,6 +187,4 @@ module.exports = class ItemPageController extends PageController
 
             @model.item = item
             item.fetch()
-            item.on Event.sync, =>
-                logger.debug "item loaded"
-                @refresh()
+            item.on Event.sync, => @refresh()

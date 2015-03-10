@@ -3,4 +3,4 @@
 build
 dist
 node_modules
-src/scripts/views.js
+src/coffee/views.js

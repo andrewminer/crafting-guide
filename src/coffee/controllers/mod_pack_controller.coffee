@@ -6,7 +6,6 @@ All rights reserved.
 ###
 
 BaseController        = require './base_controller'
-{DefaultMods}         = require '../constants'
 {Duration}            = require '../constants'
 Mod                   = require '../models/mod'
 ModSelectorController = require './mod_selector_controller'

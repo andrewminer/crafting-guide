@@ -49,10 +49,10 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         makeResponder = (m)-> return ->
             m.activeModVersion.fetch() if m.activeModVersion?
 
-        for modSlug in DefaultMods
+        for modSlug, modData of DefaultMods
             mod = new Mod slug:modSlug
             mod.on Event.change + ':activeModVersion', makeResponder mod
-            @storage.register "mod:#{mod.slug}", mod, 'activeVersion'
+            @storage.register "mod:#{mod.slug}", mod, 'activeVersion', modData.defaultVersion
             mod.fetch()
 
             @modPack.addMod mod

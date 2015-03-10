@@ -12,7 +12,7 @@ exports.DefaultMods = [
     'buildcraft',
     'enderio',
     'ic2_classic',
-    'ic2_exp',
+    'industrial_craft_2',
     'railcraft',
     'thermal_expansion',
 ]
@@ -54,7 +54,7 @@ ModelState.loaded   = 'loaded'
 ModelState.failed   = 'failed'
 
 exports.Text = Text = {}
-Text.title = 'Crafting Guide for Minecraft | The Ultimate Step-by-Step Tutorial for Making Anything in Minecraft'
+Text.title = 'The Ultimate Minecraft Crafting Guide'
 
 exports.Url        = Url = {}
 Url.crafting       = _.template "/craft/<%= inventoryText %>"

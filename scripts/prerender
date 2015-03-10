@@ -13,8 +13,9 @@ USAGE: prerender <options>
 
 END
 
-CLEAN="yes"
+CLEAN="no"
 FORCE="no"
+ONLY=".*"
 OUTPUT_DIR="./static"
 SITEMAP_FILE="./static/sitemap.txt"
 while [[ "$1" != "" ]]; do
@@ -51,7 +52,7 @@ if [[ "$CLEAN" == "yes" ]]; then
     find "$OUTPUT_DIR/browse" -name "*.html" | xargs rm
 fi
 
-cat $SITEMAP_FILE | while read URL; do
+cat $SITEMAP_FILE | grep "$ONLY" | while read URL; do
     OUTPUT_FILE=$(sed 's/http:\/\/[^/]*\///' <<< $URL)
     OUTPUT_FILE="$OUTPUT_DIR/$OUTPUT_FILE/index.html"
     OUTPUT_FILE=$(sed 's/\/\//\//' <<< $OUTPUT_FILE)

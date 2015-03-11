@@ -159,6 +159,6 @@ module.exports = (grunt)->
 
     grunt.registerTask 'build', [ 'rsync:non_html', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'dist', ['clean', 'build', 'rsync:static', 'copy:index_prerender', 'sass:dist', 'uglify']
+    grunt.registerTask 'dist', ['clean', 'build', 'rsync:static', 'sass:dist', 'uglify']
 
     grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']

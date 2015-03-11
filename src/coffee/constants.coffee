@@ -44,7 +44,7 @@ exports.Opacity = Opacity = {}
 Opacity.hidden  = 1e-6
 Opacity.shown   = 1
 
-exports.ProductionEnvs = [ 'production' ]
+exports.ProductionEnvs = [ 'staging', 'production' ]
 
 exports.RequiredMods = [ 'minecraft' ]
 

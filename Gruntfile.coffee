@@ -52,9 +52,6 @@ module.exports = (grunt)->
             dist: ['./dist']
 
         copy:
-            index_prerender:
-                files:
-                    './dist/index.html': ['./static/index.html']
             jquery_ui_images:
                 files: [expand:true, cwd:'./lib/jquery-ui/images', src:['*.png'], dest:'./dist/css/images']
             scripts:
@@ -116,7 +113,7 @@ module.exports = (grunt)->
                 options:
                     src: './static/'
                     dest: './dist/'
-                    exclude: '*.html'
+                    exclude: ['*.html']
                     recursive: true
 
         sass:

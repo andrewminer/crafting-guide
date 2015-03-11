@@ -26,8 +26,8 @@ app.get '*/$', (request, response)->
             response.sendFile filePath, root:ROOT
             console.log ">>> #{filePath} (for #{request.path})"
         else
-            response.sendFile '/index.html', root:ROOT
-            console.log ">>> index.html (for #{request.path})"
+            response.sendFile '/app.html', root:ROOT
+            console.log ">>> app.html (for #{request.path})"
 
 app.get '*', (request, response)->
     extension = path.extname(request.path)

@@ -5,25 +5,25 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-
 BrowsePageController    = require './controllers/browse_page_controller'
-CraftPageController     = require './controllers/craft_page_controller'
 ConfigurePageController = require './controllers/configure_page_controller'
-{DefaultMods}           = require './constants'
-{Duration}              = require './constants'
-{Event}                 = require './constants'
+CraftPageController     = require './controllers/craft_page_controller'
 HeaderController        = require './controllers/header_controller'
+HomePageController      = require './controllers/home_page_controller'
+ImageLoader             = require './controllers/image_loader'
 ItemPageController      = require './controllers/item_page_controller'
 ItemSlug                = require './models/item_slug'
-ImageLoader             = require './controllers/image_loader'
 Mod                     = require './models/mod'
 ModPack                 = require './models/mod_pack'
 ModPageController       = require './controllers/mod_page_controller'
-{Opacity}               = require './constants'
 Storage                 = require './models/storage'
-{Url}                   = require './constants'
 UrlParams               = require './url_params'
-HomePageController      = require './controllers/home_page_controller'
+{AdsenseEnvs}           = require './constants'
+{DefaultMods}           = require './constants'
+{Duration}              = require './constants'
+{Event}                 = require './constants'
+{Opacity}               = require './constants'
+{Url}                   = require './constants'
 
 ########################################################################################################################
 
@@ -158,6 +158,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
         showDuration = Duration.normal
         show = =>
+            @_resetGlobals()
+
             @_page       = page
             @_controller = controller
 
@@ -176,3 +178,13 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             @_controller.$el.slideUp showDuration, show
         else
             show()
+
+    _resetGlobals: ->
+        if global.env in AdsenseEnvs
+            for key, value of global
+                if key.indexOf('google') isnt -1
+                    delete global[key]
+
+            delete global.adsByGoogle
+            $('script[src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]').remove()
+            $('body').append('<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>')

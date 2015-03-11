@@ -5,6 +5,8 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+exports.AdsenseEnvs = [ 'production' ]
+
 # Minecraft must be first
 exports.DefaultMods =
     minecraft:             { defaultVersion: '1.7.10' }

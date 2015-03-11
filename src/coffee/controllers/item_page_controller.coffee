@@ -5,8 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-{Duration}           = require '../constants'
-{Event}              = require '../constants'
+AdsenseController    = require './adsense_controller'
 FullRecipeController = require './full_recipe_controller'
 ImageLoader          = require './image_loader'
 Item                 = require '../models/item'
@@ -14,6 +13,8 @@ ItemGroupController  = require './item_group_controller'
 ItemPage             = require '../models/item_page'
 ItemSlug             = require '../models/item_slug'
 PageController       = require './page_controller'
+{Duration}           = require '../constants'
+{Event}              = require '../constants'
 {Text}               = require '../constants'
 {Url}                = require '../constants'
 
@@ -45,11 +46,13 @@ module.exports = class ItemPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_usedAsToolToMakeController = @addChild ItemGroupController, '.usedAsToolToMake .view__item_group',
+        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+
+        @_similarItemsController = @addChild ItemGroupController, '.similar .view__item_group',
             imageLoader: @imageLoader
             modPack:     @modPack
 
-        @_similarItemsController = @addChild ItemGroupController, '.similar .view__item_group',
+        @_usedAsToolToMakeController = @addChild ItemGroupController, '.usedAsToolToMake .view__item_group',
             imageLoader: @imageLoader
             modPack:     @modPack
 

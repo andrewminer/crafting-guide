@@ -5,10 +5,11 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-PageController = require './page_controller'
-{Duration}     = require '../constants'
-{Event}        = require '../constants'
-ModController  = require './mod_controller'
+AdsenseController = require './adsense_controller'
+ModController     = require './mod_controller'
+PageController    = require './page_controller'
+{Duration}        = require '../constants'
+{Event}           = require '../constants'
 
 ########################################################################################################################
 
@@ -30,7 +31,8 @@ module.exports = class BrowsePageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$modContainer = @$('.mods')
+        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+        @$modContainer     = @$('.mods')
         super
 
     refresh: ->

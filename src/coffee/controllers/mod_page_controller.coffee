@@ -5,12 +5,13 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-{Duration}          = require '../constants'
+AdsenseController   = require './adsense_controller'
 Item                = require '../models/item'
 ItemGroupController = require './item_group_controller'
 Mod                 = require '../models/mod'
 ModPack             = require '../models/mod_pack'
 PageController      = require './page_controller'
+{Duration}          = require '../constants'
 {Text}              = require '../constants'
 {Url}               = require '../constants'
 
@@ -52,6 +53,8 @@ module.exports = class ModPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
+        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+
         @$name              = @$('.name')
         @$byline            = @$('.byline p')
         @$description       = @$('.description p')

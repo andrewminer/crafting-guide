@@ -5,7 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-PageController = require './page_controller'
+AdsenseController = require './adsense_controller'
+PageController    = require './page_controller'
 
 ########################################################################################################################
 
@@ -14,6 +15,12 @@ module.exports = class HomeController extends PageController
     constructor: (options={})->
         options.templateName = 'home_page'
         super options
+
+    # BaseController Overrides #####################################################################
+
+    onDidRender: ->
+        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+        super
 
     # Backbone.View Overrides ######################################################################
 

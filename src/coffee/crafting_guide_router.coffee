@@ -18,7 +18,7 @@ ModPack                 = require './models/mod_pack'
 ModPageController       = require './controllers/mod_page_controller'
 Storage                 = require './models/storage'
 UrlParams               = require './url_params'
-{AdsenseEnvs}           = require './constants'
+{ProductionEnvs}        = require './constants'
 {DefaultMods}           = require './constants'
 {Duration}              = require './constants'
 {Event}                 = require './constants'
@@ -180,7 +180,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             show()
 
     _resetGlobals: ->
-        if global.env in AdsenseEnvs
+        if global.env in ProductionEnvs
             for key, value of global
                 if key.indexOf('google') isnt -1
                     delete global[key]

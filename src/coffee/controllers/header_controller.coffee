@@ -5,7 +5,9 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
+BaseController   = require './base_controller'
+{Duration}       = require '../constants'
+{ProductionEnvs} = require '../constants'
 
 ########################################################################################################################
 
@@ -38,6 +40,10 @@ module.exports = class HeaderController extends BaseController
         zIndex = @$navLinks.length + 100
         for $navLink in @$navLinks
             $navLink.css 'z-index', zIndex--
+
+        if global.env in ProductionEnvs
+            addThisUrl = '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54f3c9717b2e530d'
+            $('body').append "<script async src=\"#{addThisUrl}\"></script>"
 
     refresh: ->
         for $navLink in @$navLinks

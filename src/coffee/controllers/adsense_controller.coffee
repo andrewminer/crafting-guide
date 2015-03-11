@@ -6,7 +6,7 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
-{AdsenseEnvs}  = require '../constants'
+{ProductionEnvs}  = require '../constants'
 
 ########################################################################################################################
 
@@ -17,7 +17,7 @@ module.exports = class AdsenseController extends BaseController
         options.templateName = "adsense_#{options.model}"
         super options
 
-        @_adsEnabled = global.env in AdsenseEnvs
+        @_adsEnabled = global.env in ProductionEnvs
 
     # BaseController Overrides #####################################################################
 

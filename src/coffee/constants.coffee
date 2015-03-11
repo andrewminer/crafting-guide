@@ -5,8 +5,6 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-exports.AdsenseEnvs = [ 'production' ]
-
 # Minecraft must be first
 exports.DefaultMods =
     minecraft:             { defaultVersion: '1.7.10' }
@@ -45,6 +43,8 @@ Key.Return = 13
 exports.Opacity = Opacity = {}
 Opacity.hidden  = 1e-6
 Opacity.shown   = 1
+
+exports.ProductionEnvs = [ 'production' ]
 
 exports.RequiredMods = [ 'minecraft' ]
 

@@ -25,7 +25,7 @@ module.exports = class ModParserV1 extends CommandParserVersionBase
 
     _command_author: (authorParts...)->
         if @_rawData.author? then throw new Error 'duplicate declaration of "author"'
-        author = authorParts.join ''
+        author = authorParts.join ', '
         if author.length is 0 then throw new Error '"author" cannot be empty, but may be omitted'
 
         @_rawData.author = author

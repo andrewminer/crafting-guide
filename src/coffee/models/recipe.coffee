@@ -107,7 +107,7 @@ module.exports = class Recipe extends BaseModel
                 @_produces[stack.itemSlug.qualified] = true
                 @_produces[stack.itemSlug.item] = true
 
-        return @_produces[itemSlug.qualified]
+        return @_produces[itemSlug.qualified] or @_produces[itemSlug.item]
 
     requires: (itemSlug)->
         for stack in @input

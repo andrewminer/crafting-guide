@@ -153,7 +153,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
         createSlug = (name)=>
             item = @_rawData.items[name]
-            if item?
+            if item? and item.type isnt 'update'
                 slug = new ItemSlug modVersion.modSlug, _.slugify name
             else
                 slug = new ItemSlug _.slugify name
@@ -198,6 +198,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             pattern: recipeData.pattern
             tools:   toolStacks
 
+        logger.debug "adding recipe: #{recipe}"
         modVersion.addRecipe recipe
         return recipe
 

@@ -2485,6 +2485,10 @@ group: Liquids
             tools: Squeezer
 
     item: Liquid Glass
+        recipe:
+            input: Sand
+            pattern: ... .0. ...
+            tools: Thermionic Fabricator
 
     item: Milk
 
@@ -3892,7 +3896,7 @@ group: Tools
 
     item: Pipette
         recipe:
-            input: Glass, Wool
+            input: Glass Pane, Wool
             pattern: ..1 .0. 0..
             tools: Crafting Table
 

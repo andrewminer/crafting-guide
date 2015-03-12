@@ -4,11 +4,11 @@ global._        = require 'underscore'
 global.Backbone = require 'backbone'
 
 fs               = require 'fs'
-Logger           = require '../src/scripts/logger'
-ModVersion       = require '../src/scripts/models/mod_version'
-ModVersionParser = require '../src/scripts/models/mod_version_parser'
+Logger           = require '../src/coffee/logger'
+ModVersion       = require '../src/coffee/models/mod_version'
+ModVersionParser = require '../src/coffee/models/mod_version_parser'
 
-require '../src/scripts/underscore_mixins'
+require '../src/coffee/underscore_mixins'
 
 ########################################################################################################################
 

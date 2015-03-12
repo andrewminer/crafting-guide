@@ -248,6 +248,8 @@ group: Bee Produce
 
     item: Mossy Comb
 
+    item: Mysterious Comb
+
     item: Parched Comb
 
     item: Phosphor
@@ -273,6 +275,13 @@ group: Bee Produce
             input: Pulsating Propolis
             pattern: 0.0 .0. 0.0
             tools: Crafting Table
+
+    item: Pulsating Propolis
+        recipe:
+            extras: Honey Drop
+            input: Mysterious Comb
+            pattern: ... .0. ...
+            tools: Centrifuge
 
     item: Refractory Wax
 
@@ -792,15 +801,17 @@ group: Butterfly
 
     item: Peleides Blue Morpho (Serum)
 
+    item: Postman
+
     item: Postman (Caterpillar)
 
     item: Postman (Serum)
 
-    item: Postmanitem: Rhetenor Blue Morpho (Serum)
-
     item: Rhetenor Blue Morpho
 
     item: Rhetenor Blue Morpho (Caterpillar)
+
+    item: Rhetenor Blue Morpho (Serum)
 
     item: Speckled Wood
 
@@ -2712,16 +2723,12 @@ group: Minerals
 
     item: Bronze Ingot
         recipe:
-            input: Copper Ingot, Tin Ingot, furnace fuel
-            pattern: 10. 00. .2.
+            input: Copper Ingot, Tin Ingot
+            pattern: 10. 00. ...
         recipe:
             input: Block of Bronze
             pattern: ... .0. ...
             quantity: 9
-        recipe:
-            input: Bronze Nugget
-            pattern: 000 000 000
-            tools: Crafting Table
 
     item: Copper Ingot
         recipe:
@@ -4129,3 +4136,9 @@ group: Wood
     item: Willow Wood
 
     item: Zebrawood Wood
+
+update: Ender Pearl
+    recipe:
+        input: Pulsating Mesh
+        pattern: .0. 000 .0.
+        tools: Carpenter

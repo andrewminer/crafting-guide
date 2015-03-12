@@ -46,7 +46,7 @@ module.exports = class Storage
 
     _loadProperty: (key, model, property, defaultValue=null)->
         loadedValue = @load "#{key}:#{property}"
-        if value?
+        if loadedValue?
             value = JSON.parse loadedValue
         else
             value = defaultValue

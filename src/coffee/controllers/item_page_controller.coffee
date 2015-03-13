@@ -13,6 +13,7 @@ ItemGroupController  = require './item_group_controller'
 ItemPage             = require '../models/item_page'
 ItemSlug             = require '../models/item_slug'
 PageController       = require './page_controller'
+VideoController      = require './video_controller'
 {Duration}           = require '../constants'
 {Event}              = require '../constants'
 {Text}               = require '../constants'
@@ -68,10 +69,14 @@ module.exports = class ItemPageController extends PageController
         @$name                    = @$('h1.name')
         @$recipeContainer         = @$('.recipes .panel')
         @$recipesSection          = @$('.recipes')
+        @$recipesSectionTitle     = @$('.recipes h2')
         @$similarSection          = @$('.similar')
         @$titleImage              = @$('.titleImage img')
         @$usedAsToolToMakeSection = @$('.usedAsToolToMake')
         @$usedToMakeSection       = @$('.usedToMake')
+        @$videosContainer         = @$('.videos .panel')
+        @$videosSection           = @$('.videos')
+        @$videosSectionTitle      = @$('.videos h2')
         super
 
     refresh: ->
@@ -94,6 +99,7 @@ module.exports = class ItemPageController extends PageController
         @_refreshSimilarItems()
         @_refreshUsedAsToolToMake()
         @_refreshUsedToMake()
+        @_refreshVideos()
 
         super
 
@@ -130,6 +136,7 @@ module.exports = class ItemPageController extends PageController
         recipes = @model.findRecipes()
         if recipes?
             @$recipesSection.slideDown duration:Duration.normal
+            @$recipesSectionTitle.html if recipes.length is 1 then 'Recipe' else 'Recipes'
 
             for recipe in @model.findRecipes()
                 controller = @_recipeControllers[index]
@@ -178,6 +185,32 @@ module.exports = class ItemPageController extends PageController
             @$usedToMakeSection.slideDown duration:Duration.normal
         else
             @$usedToMakeSection.slideUp duration:Duration.normal
+
+    _refreshVideos: ->
+        @_videoControllers ?= []
+        index = 0
+
+        videos = @model?.item.videos or []
+        if videos? and videos.length > 0
+            @$videosSection.slideDown duration:Duration.normal
+            @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
+
+            for video in videos
+                controller = @_videoControllers[index]
+                if not controller?
+                    controller = new VideoController model:video
+                    @_videoControllers.push controller
+                    controller.render()
+                    @$videosContainer.append controller.$el
+                else
+                    controller.model = video
+                index++
+        else
+            @$videosSection.slideUp duration:Duration.normal
+
+        while @_videoControllers.length > index
+            controller = @_videoControllers.pop()
+            controller.$el.slideUp duration:Duration.normal, complete:-> controller.$el.remove()
 
     _resolveItemSlug: ->
         return if @model.item?

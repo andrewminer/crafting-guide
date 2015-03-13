@@ -24,6 +24,11 @@ button {
         background: white;
         color: $color-active-hover;
     }
+
+    &.large {
+        margin: 2em 0;
+        padding: 0.5em 0.5em;
+    }
 }
 
 h1 {

@@ -13,6 +13,16 @@ All rights reserved.
         display: inline-block;
     }
 
+    .sidebar {
+        .externalLink {
+            display: none;
+        }
+
+        button.large {
+            width: 100%;
+        }
+    }
+
     .mainBody {
         h1.name {
             font-family: $font-family-header;

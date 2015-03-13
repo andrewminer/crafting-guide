@@ -39,6 +39,13 @@ module.exports = class ItemPageController extends PageController
 
         @modPack.on Event.change, => @tryRefresh()
 
+    # Event Methods ################################################################################
+
+    craftingPlanButtonClicked: ->
+        display = @modPack.findItemDisplay @model.item.slug
+        router.navigate display.craftingUrl, trigger:true
+        return false
+
     # PageController Overrides #####################################################################
 
     getTitle: ->
@@ -63,10 +70,11 @@ module.exports = class ItemPageController extends PageController
 
         @$byline                  = @$('.byline')
         @$bylineLink              = @$('.byline a')
-        @$craftingPlanLink        = @$('a.craftingPlan')
+        @$craftingPlanButton      = @$('button.craftingPlan')
         @$descriptionPanel        = @$('.description .panel')
         @$descriptionSection      = @$('.description')
         @$name                    = @$('h1.name')
+        @$officialPageLink        = @$('a.officialPage')
         @$recipeContainer         = @$('.recipes .panel')
         @$recipesSection          = @$('.recipes')
         @$recipesSectionTitle     = @$('.recipes h2')
@@ -84,13 +92,19 @@ module.exports = class ItemPageController extends PageController
 
         if @model.item?
             display = @modPack.findItemDisplay @model.item.slug
-            @$craftingPlanLink.attr href:display.craftingUrl
-            @$craftingPlanLink.fadeIn duration:Duration.fast
+            @$craftingPlanButton.fadeIn duration:Duration.fast
             @imageLoader.load display.iconUrl, @$titleImage
             @$name.html display.itemName
 
+            if @model.item.officialUrl?
+                @$officialPageLink.attr 'href', @model.item.officialUrl
+                @$officialPageLink.fadeIn duration:Duration.normal
+            else
+                @$officialPageLink.fadeOut duration:Duration.normal
+
             @$el.slideDown duration:Duration.normal
         else
+            @$craftingPlanButton.fadeOut duration:Duration.fast
             @$el.slideUp duration:Duration.normal
 
         @_refreshByline()
@@ -107,8 +121,9 @@ module.exports = class ItemPageController extends PageController
 
     events: ->
         return _.extend super,
-            'click a.craftingPlan': 'routeLinkClick'
-            'click .byline a':      'routeLinkClick'
+            'click a.craftingPlan':      'routeLinkClick'
+            'click .byline a':           'routeLinkClick'
+            'click button.craftingPlan': 'craftingPlanButtonClicked'
 
     # Private Methods ##############################################################################
 

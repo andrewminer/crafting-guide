@@ -118,7 +118,6 @@ module.exports = class Recipe extends BaseModel
             for stack in @output
                 actuallyProduces = not @isPassThroughFor stack.itemSlug
                 @_produces[stack.itemSlug.qualified] = actuallyProduces
-                @_produces[stack.itemSlug.item] = actuallyProduces
 
         return @_produces[itemSlug.qualified] or @_produces[itemSlug.item]
 

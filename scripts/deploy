@@ -21,6 +21,7 @@ fi
 if [[ "$TARGET" == "new" ]]; then
     find "$ROOT" -name ".DS_Store" | xargs rm
     grunt clean dist
+    echo "Preparing to upload to S3..."
     s3cmd sync -r --delete-removed --add-header="cache-control:max-age=1800" "$ROOT/" "s3://new.$SITE/"
     grunt clean build
 elif [[ "$TARGET" == "promote" ]]; then

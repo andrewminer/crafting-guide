@@ -39,9 +39,11 @@ module.exports = class BaseController extends Backbone.View
         logger.verbose => "#{this} refreshing"
 
     routeLinkClick: (event)->
-        href = $(event.currentTarget).attr 'href'
+        event.preventDefault()
+        href = $(event.target).attr 'href'
+        href ?= $(event.currentTarget).attr 'href'
+        logger.info "Re-routing link to internal navigation: #{href}"
         router.navigate href, trigger:true
-        return false
 
     # Event Methods ################################################################################
 

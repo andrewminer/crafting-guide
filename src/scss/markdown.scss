@@ -7,16 +7,53 @@ All rights reserved.
 
 .markdown {
 
-    p {
+    h1 {
         font-family: $font-family-normal;
-        font-size: $font-size-normal;
-        line-height: $font-size-normal + 0.25em;
+        font-size: $font-size-large;
+        font-weight: bold;
+        margin: 1.5em 0 0.25em 0;
     }
 
     img {
-        position: relative; left: 50%;
-        @include transform(translateX(-50%));
-        margin: 2em 0;
-        text-align: center;
+        max-width: 100%;
+    }
+
+    p {
+        font-family: $font-family-normal;
+        font-size: $font-size-normal;
+        line-height: $font-size-normal + 0.15em;
+        margin-top: 1.33em;
+    }
+
+    table {
+        margin-top: 2em;
+        position: relative; width: 100%;
+
+        td {
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+        }
+
+        td[align="center"] {
+            text-align: center;
+        }
+    }
+
+    ul {
+        margin: 2em 2em 0 2em;
+
+        li {
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+            line-height: $font-size-normal + 0.15em;
+            list-style: disc;
+            margin: 0.66em 0 0 2em;
+        }
+    }
+
+    & > * {
+        &:first-child {
+            margin-top: 0;
+        }
     }
 }

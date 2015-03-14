@@ -22,7 +22,9 @@ module.exports = class ItemPage extends BaseModel
 
     compileDescription: ->
         return null unless @item?.description?
-        return markdown.parse @item.description
+        description = markdown.parse @item.description, 'Maruku'
+        logger.debug "Description: \"#{description}\""
+        return description
 
     findComponentInItems: ->
         return @_findRecipesMatching (recipe)=> recipe.requires @item.slug

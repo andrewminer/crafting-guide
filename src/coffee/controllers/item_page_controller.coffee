@@ -123,6 +123,7 @@ module.exports = class ItemPageController extends PageController
         return _.extend super,
             'click a.craftingPlan':      'routeLinkClick'
             'click .byline a':           'routeLinkClick'
+            'click .markdown':           'routeLinkClick'
             'click button.craftingPlan': 'craftingPlanButtonClicked'
 
     # Private Methods ##############################################################################

@@ -100,3 +100,15 @@ Another big release for Crafting Guide!  This time, I've been working on the nav
 see a small navigation bar at the top of each page which both tells you where you are as well as letting you jump to
 another location.  This make the whole item/mod-browsing part of the site much more visible, and simplifies the crafting
 page a bit.  There's even a real home page with a change log!
+
+########################################################################################################################
+
+It's been a while, but I just posted some new stuff for Crafting Guide. First, a volunteer took on the rather daunting
+task of adding Forestry support!  It's all there in all its glorious plethora of species. Major kudos to Sheldon Griffin
+for making it happen.
+
+Second, I've just finished the coding to majorly improve the item pages. Now, its possible to add a markdown description
+of the item (including images) as well as videos for each item. Of course, actually filling in the content is a whole
+different kettle of fish.  The Buildcraft guys have generously given me permission to copy in their content, so I'm
+going to be busy doing that for a while. However, you can see the finished product for the
+[url=http://crafting-guide.com/browse/buildcraft/advanced_crafting_table/]Advanced Crafting Table[/url].  More to come!

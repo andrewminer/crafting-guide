@@ -2,7 +2,7 @@ schema: 1
 
 officialUrl: http://www.mod-buildcraft.com/wiki/doku.php?id=advanced_crafting_table
 
-video: -Z-Kl3IRjxE, CovertJaguar's Intro Video
+video: -Z-Kl3IRjxE, Intro Video by CovertJaguar
 
 description:<<-END
 The advanced crafting table is an improved version of the basic automatic crafting table. It contains an inventory
@@ -10,6 +10,11 @@ for storing the input and an inventory for storing the outputs of the crafting p
 easy and seamless to create large automatic crafting systems. The advanced crafting table requires 500 MJ to craft
 any recipe.
 
-![GUI](./gui.png)
+|                   |
+|:-----------------:|
+| ![GUI](gui.png) |
+
+Check out the [Auto Workbench](/browse/buildcraft/auto_workbench/) for a simpler automated crafting solution which
+requires no power.
 
 END

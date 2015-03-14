@@ -99,13 +99,26 @@ module.exports = class Recipe extends BaseModel
 
         return 0
 
+    isPassThroughFor: (itemSlug)->
+        amountCreated = 0
+        for stack in @output
+            if stack.itemSlug.matches itemSlug
+                amountCreated += stack.quantity
+
+        for stack in @input
+            if stack.itemSlug.matches itemSlug
+                amountCreated -= stack.quantity
+
+        return amountCreated <= 0
+
     produces: (itemSlug)->
         if not @_produces?
             @_produces = {}
 
             for stack in @output
-                @_produces[stack.itemSlug.qualified] = true
-                @_produces[stack.itemSlug.item] = true
+                actuallyProduces = not @isPassThroughFor stack.itemSlug
+                @_produces[stack.itemSlug.qualified] = actuallyProduces
+                @_produces[stack.itemSlug.item] = actuallyProduces
 
         return @_produces[itemSlug.qualified] or @_produces[itemSlug.item]
 

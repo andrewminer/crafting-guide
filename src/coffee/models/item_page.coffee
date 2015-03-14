@@ -23,7 +23,6 @@ module.exports = class ItemPage extends BaseModel
     compileDescription: ->
         return null unless @item?.description?
         description = markdown.parse @item.description, 'Maruku'
-        logger.debug "Description: \"#{description}\""
         return description
 
     findComponentInItems: ->

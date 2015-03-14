@@ -198,7 +198,6 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             pattern: recipeData.pattern
             tools:   toolStacks
 
-        logger.debug "adding recipe: #{recipe}"
         modVersion.addRecipe recipe
         return recipe
 

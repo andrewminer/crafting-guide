@@ -206,7 +206,7 @@ module.exports = class ItemPageController extends PageController
         @_videoControllers ?= []
         index = 0
 
-        videos = @model?.item.videos or []
+        videos = @model?.item?.videos or []
         if videos? and videos.length > 0
             @$videosSection.slideDown duration:Duration.normal
             @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
@@ -231,7 +231,7 @@ module.exports = class ItemPageController extends PageController
     _resolveItemSlug: ->
         return if @model.item?
 
-        item = @modPack.findItem @_itemSlug, includeDisabled:false
+        item = @modPack.findItem @_itemSlug, includeDisabled:true
         if item?
             if not ItemSlug.equal item.slug, @_itemSlug
                 router.navigate Url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true

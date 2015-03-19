@@ -92,8 +92,6 @@ module.exports = class ModPack extends BaseModel
 
             mod.findRecipes itemSlug, result, options
 
-        result.sort (a, b)-> Recipe.compareFor a, b, itemSlug
-
         return if result.length > 0 then result else null
 
     # Property Methods #############################################################################

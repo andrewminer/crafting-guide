@@ -349,7 +349,7 @@ group: Decoration
 
     item: Reinforced Obsidian
         recipe:
-            input: Dark Steel, Dark Steel Bars, Obsidian
+            input: Dark Steel, Dark Iron Bars, Obsidian
             pattern: 010 121 010
             tools: Crafting Table
 

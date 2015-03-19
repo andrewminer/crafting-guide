@@ -18,7 +18,7 @@ ROOT = './dist/'
 
 app = express()
 
-app.get '*/$', (request, response)->
+serveIndex = (request, response)->
     response.set 'Content-Type', 'text/html'
     filePath = "#{request.path}index.html".replace /^\//, ''
     fs.stat "#{ROOT}#{filePath}", (err, stats)->
@@ -28,6 +28,9 @@ app.get '*/$', (request, response)->
         else
             response.sendFile '/app.html', root:ROOT
             console.log ">>> app.html (for #{request.path})"
+
+app.get '*/$', serveIndex
+app.get '/craft/*', serveIndex
 
 app.get '*', (request, response)->
     extension = path.extname(request.path)

@@ -458,8 +458,8 @@ group: Silicon
 
     item: Iron AND Gate
         recipe:
-            input: Iron Chipset, Red Pipe Wire
-            pattern: 0.. 1.. ...
+            input: Iron Chipset, Red Pipe Wire, Blue Pipe Wire
+            pattern: 0.. 12. ...
             tools: Assembly Table, Laser
 
     item: Iron Chipset
@@ -470,8 +470,8 @@ group: Silicon
 
     item: Iron OR Gate
         recipe:
-            input: Iron Chipset, Red Pipe Wire
-            pattern: 0.. 1.. ...
+            input: Iron Chipset, Red Pipe Wire, Blue Pipe Wire
+            pattern: 0.. 12. ...
             tools: Assembly Table, Laser
 
     item: Laser

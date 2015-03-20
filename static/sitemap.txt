@@ -12,6 +12,7 @@ http://crafting-guide.com/browse/industrial_craft_2/
 http://crafting-guide.com/browse/minecraft/
 http://crafting-guide.com/browse/railcraft/
 http://crafting-guide.com/browse/thermal_expansion/
+http://crafting-guide.com/browse/buildcraft/tutorials/gates_wires_and_chips/
 http://crafting-guide.com/browse/applied_energistics_2/128_spatial_component/
 http://crafting-guide.com/browse/applied_energistics_2/128_spatial_storage_cell/
 http://crafting-guide.com/browse/applied_energistics_2/16_spatial_component/

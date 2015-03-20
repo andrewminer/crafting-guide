@@ -8,6 +8,8 @@ All rights reserved.
 AdsenseController         = require './adsense_controller'
 BaseController            = require './base_controller'
 MarkdownSectionController = require './markdown_section_controller'
+VideoController           = require './video_controller'
+{Duration}                = require '../constants'
 {Event}                   = require '../constants'
 {Url}                     = require '../constants'
 
@@ -37,13 +39,16 @@ module.exports = class TutorialPageController extends BaseController
     onDidRender: ->
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
-        @$byline            = @$('.byline')
-        @$bylineLink        = @$('.byline a')
-        @$name              = @$('.name')
-        @$officialLink      = @$('a.officialPage')
-        @$sectionsContainer = @$('.sections')
-        @$title             = @$('h1.name')
-        @$titleImage        = @$('.titleImage img')
+        @$byline             = @$('.byline')
+        @$bylineLink         = @$('.byline a')
+        @$name               = @$('.name')
+        @$officialLink       = @$('a.officialPage')
+        @$sectionsContainer  = @$('.sections')
+        @$title              = @$('h1.name')
+        @$titleImage         = @$('.titleImage img')
+        @$videosSection      = @$('.videos')
+        @$videosSectionTitle = @$('.videos h2')
+        @$videosSectionPanel = @$('.videos .panel')
         super
 
     refresh: ->
@@ -56,6 +61,7 @@ module.exports = class TutorialPageController extends BaseController
         @_refreshOfficialUrl()
         @_refreshSections()
         @_refreshTitle()
+        @_refreshVideos()
         super
 
     # Private Methods ##############################################################################
@@ -105,6 +111,32 @@ module.exports = class TutorialPageController extends BaseController
         while @_sectionControllers.length > index
             controller = @_sectionController.pop()
             controller.$el.fadeOut duration:Duration.normal, complete:-> @remove()
+
+    _refreshVideos: ->
+        @_videoControllers ?= []
+        index = 0
+
+        videos = @model?.videos or []
+        if videos? and videos.length > 0
+            @$videosSection.slideDown duration:Duration.normal
+            @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
+
+            for video in videos
+                controller = @_videoControllers[index]
+                if not controller?
+                    controller = new VideoController model:video
+                    @_videoControllers.push controller
+                    controller.render()
+                    @$videosSectionPanel.append controller.$el
+                else
+                    controller.model = video
+                index++
+        else
+            @$videosSection.slideUp duration:Duration.normal
+
+        while @_videoControllers.length > index
+            controller = @_videoControllers.pop()
+            controller.$el.slideUp duration:Duration.normal, complete:-> controller.$el.remove()
 
     _resolveTutorial: ->
         return if @model?

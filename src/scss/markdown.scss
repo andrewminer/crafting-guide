@@ -39,6 +39,19 @@ All rights reserved.
         }
     }
 
+    ol {
+        margin: 2em 2em 0 2em;
+
+        li {
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+            line-height: $font-size-normal + 0.15em;
+            list-style: decimal;
+            margin: 0.66em 0 0 2em;
+        }
+    }
+
+
     ul {
         margin: 2em 2em 0 2em;
 

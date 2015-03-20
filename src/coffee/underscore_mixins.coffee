@@ -1,11 +1,14 @@
 ###
-Crafting Guide - underscore.coffee
+Crafting Guide - underscore_mixins.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
 _.mixin
+
+    parseMarkdown: (text)->
+        return markdown.parse text, 'Maruku'
 
     slugify: (text)->
         return null unless text?

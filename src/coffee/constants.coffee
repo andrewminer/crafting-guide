@@ -68,6 +68,9 @@ Url.mod            = _.template "/browse/<%= modSlug %>/"
 Url.modData        = _.template "/data/<%= modSlug %>/mod.cg"
 Url.modIcon        = _.template "/browse/<%= modSlug %>/icon.png"
 Url.modVersionData = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
+Url.tutorial       = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
+Url.tutorialData   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>.cg"
+Url.tutorialIcon   = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
 
 exports.UrlParam        = UrlParam = {}
 UrlParam.quantity       = 'count'

@@ -48,6 +48,12 @@ h1 {
         font-family: $font-family-header;
         font-size: $font-size-xx-large;
     }
+
+    &.name {
+        font-family: $font-family-header;
+        font-size: $font-size-x-large;
+        margin: 0;
+    }
 }
 
 h2 {

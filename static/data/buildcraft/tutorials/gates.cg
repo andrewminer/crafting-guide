@@ -1,0 +1,7 @@
+schema: 1
+
+section:
+    title: Gates
+    content: <<-END
+        This is the gate tutorial.  It's short.
+    END

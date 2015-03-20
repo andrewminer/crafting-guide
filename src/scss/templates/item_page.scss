@@ -24,22 +24,6 @@ All rights reserved.
     }
 
     .mainBody {
-        h1.name {
-            font-family: $font-family-header;
-            font-size: $font-size-x-large;
-            margin: 0;
-        }
-
-        .byline {
-            display: none;
-            margin: 0.25em 0 2em 0;
-
-            p {
-                font-family: $font-family-normal;
-                font-size: $font-size-normal;
-                font-style: italic;
-            }
-        }
 
         .recipes {
             display: none;

@@ -5,6 +5,16 @@ Copyright (C) 2015 by Redwood Labs
 All rights reserved.
 */
 
+.byline {
+    margin: 0.25em 0 2em 0;
+
+    p {
+        font-family: $font-family-normal;
+        font-size: $font-size-normal;
+        font-style: italic;
+    }
+}
+
 .centered {
     text-align: center;
 }
@@ -21,6 +31,20 @@ All rights reserved.
 .error { background: $color-error !important; }
 
 .error-new { background: $color-error-new !important; }
+
+.hidden {
+    max-height: 0;
+    opacity: 0;
+}
+
+.mainBody {
+    position: relative; width: 81.25%;
+
+    display: inline-block;
+    padding: 1em;
+    padding-top: 2em;
+    vertical-align: top;
+}
 
 .sidebar {
     position: relative; width: 18.75%;
@@ -51,15 +75,6 @@ All rights reserved.
             text-align: center;
         }
     }
-}
-
-.mainBody {
-    position: relative; width: 81.25%;
-
-    display: inline-block;
-    padding: 1em;
-    padding-top: 2em;
-    vertical-align: top;
 }
 
 .section {

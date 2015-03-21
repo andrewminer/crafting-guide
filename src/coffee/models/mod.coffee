@@ -52,9 +52,8 @@ module.exports = class Mod extends BaseModel
         if thisRequired isnt thatRequired
             return -1 if thisRequired
             return +1 if thatRequired
-        else
-            if this.name isnt that.name
-                return if this.name < that.name then -1 else +1
+        else if this.slug isnt that.slug
+            return if this.slug < that.slug then -1 else +1
 
         return 0
 

@@ -6,9 +6,8 @@ All rights reserved.
 ###
 
 BaseController        = require './base_controller'
-{Duration}            = require '../constants'
-Mod                   = require '../models/mod'
 ModSelectorController = require './mod_selector_controller'
+{Duration}            = require '../constants'
 
 ########################################################################################################################
 
@@ -19,8 +18,7 @@ module.exports = class ModPackController extends BaseController
         options.templateName  = 'mod_pack'
         super options
 
-        @_controllers = []
-        @storage      = options.storage
+        @storage = options.storage
 
     # Event Methods ################################################################################
 
@@ -31,42 +29,17 @@ module.exports = class ModPackController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$mods = @$('.mods')
+        @$mods    = @$('.mods')
         @$toolbar = @$('.toolbar')
         super
 
     refresh: ->
-        if not @model?
-            @_controllers = []
-            @$('table tr').remove()
-            return
-
-        index = 0
-        mods = @model.getMods()
-        while index < Math.min @_controllers.length, mods.length
-            controller = @_controllers[index]
-            controller.model = mods[index]
-            index++
-
-        while @_controllers.length < mods.length
-            controller = new ModSelectorController model:mods[index], storage:@storage
-            controller.render()
-            @_controllers.push controller
-            controller.$el.hide duration:0
-
-            @$mods.append controller.$el
-            controller.$el.slideDown duration:Duration.normal
-            index++
-
-        while @_controllers.length > mods.length
-            controller = @_controllers.pop()
-            controller.$el.slideUp duration:Duration.normal, complete:-> controller.$el.remove()
-
         if global.feedbackController?
             @$toolbar.show duration:0
         else
             @$toolbar.hide duration:0
 
+        @_refreshMods()
         super
 
     # Backbone.View Overrides ######################################################################
@@ -74,3 +47,26 @@ module.exports = class ModPackController extends BaseController
     events: ->
         return _.extend super,
             'click button[name="suggestMod"]': 'onSuggestModClicked'
+
+    # Private Methods ##############################################################################
+
+    _refreshMods: ->
+        @_modControllers ?= []
+        index = 0
+
+        if @model?
+            @model.eachMod (mod)=>
+                controller = @_modControllers[index]
+                if not controller?
+                    controller = new ModSelectorController model:mod, storage:@storage
+                    controller.render()
+                    @$mods.append controller.$el
+                    @_modControllers.push controller
+                else
+                    controller.model = mod
+
+                index += 1
+
+        while @_modControllers.length > index
+            controller = @_modControllers.pop()
+            controller.$el.fadeOut duration:Duration.normal, complete:-> @remove()

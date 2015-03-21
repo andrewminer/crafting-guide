@@ -6,18 +6,12 @@ All rights reserved.
 */
 
 .view__item_page {
-    display: none;
-
     & > div {
         vertical-align: top;
         display: inline-block;
     }
 
     .sidebar {
-        .externalLink {
-            display: none;
-        }
-
         button.large {
             width: 100%;
         }
@@ -26,7 +20,6 @@ All rights reserved.
     .mainBody {
 
         .recipes {
-            display: none;
 
             .view__full_recipe {
                 width: 100%;
@@ -36,14 +29,6 @@ All rights reserved.
                     margin-top: 0;
                 }
             }
-        }
-
-        .similar {
-            display: none;
-        }
-
-        .usedToMake {
-            display: none;
         }
     }
 

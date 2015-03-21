@@ -25,6 +25,7 @@ module.exports = class StackController extends BaseController
         options.editable     ?= false
         options.onChange     ?= -> # do nothing
         options.onRemove     ?= (stack)-> # do nothing
+        options.tagName       = 'tr'
         options.templateName  = 'stack'
         super options
 
@@ -95,6 +96,8 @@ module.exports = class StackController extends BaseController
         super
 
     refresh: ->
+        if not @model? then throw new Error "must have a model to render"
+
         display = @modPack.findItemDisplay @model.itemSlug
 
         @_imageLoader.load display.iconUrl, @$image

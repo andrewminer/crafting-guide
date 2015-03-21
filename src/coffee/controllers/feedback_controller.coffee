@@ -49,9 +49,9 @@ module.exports = class FeedbackController extends BaseController
         @model.send(message)
             .then =>
                 @onToggle()
-                @$error.slideUp duration:Duration.normal
+                @$error.addClass 'hidden'
             .catch (error)=>
-                @$error.slideDown duration:Duration.normal
+                @$error.removeClass 'hidden'
             .finally =>
                 @$sendButton.removeAttr 'disabled'
 

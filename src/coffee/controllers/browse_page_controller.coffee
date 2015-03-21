@@ -54,7 +54,6 @@ module.exports = class BrowsePageController extends PageController
 
         while @_controllers.length > controllerIndex
             controller = @_controllers.pop()
-            controller.$el.addClass 'removing'
-            controller.$el.one Event.transitionEnd -> controller.$el.remove()
+            controller.hide -> controller.$el.remove()
 
         super

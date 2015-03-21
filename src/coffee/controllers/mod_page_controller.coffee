@@ -34,9 +34,6 @@ module.exports = class ModPageController extends PageController
         @_effectiveModVersion = null
         @_groupControllers    = []
 
-        Object.defineProperties this,
-            effectiveModVersion: {get:@_getEffectiveModVersion}
-
     # Event Methods ################################################################################
 
     onVersionChanged: ->
@@ -45,6 +42,21 @@ module.exports = class ModPageController extends PageController
         @_effectiveModVersion = modVersion
         if modVersion? then modVersion.fetch()
         @refresh()
+
+    # Property Methods #############################################################################
+
+    getEffectiveModVersion: ->
+        return @_effectiveModVersion if @_effectiveModVersion?
+        return null unless @model?
+
+        modVersion = @model.activeModVersion
+        modVersion ?= @model.getModVersion Mod.Version.Latest
+        modVersion.fetch() if modVersion?
+
+        return modVersion
+
+    Object.defineProperties @prototype,
+        effectiveModVersion: {get:@prototype.getEffectiveModVersion}
 
     # PageController Overrides #####################################################################
 
@@ -56,34 +68,35 @@ module.exports = class ModPageController extends PageController
     onDidRender: ->
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
-        @$name               = @$('.name')
-        @$byline             = @$('.byline p')
-        @$description        = @$('.description p')
-        @$documentationLink  = @$('.documentation')
-        @$downloadLink       = @$('.download')
-        @$homePageLink       = @$('.homePage')
-        @$groupContainer     = @$('.itemGroups')
-        @$titleImage         = @$('.titleImage img')
-        @$tutorialsSection   = @$('.tutorials')
-        @$tutorialsContainer = @$('.tutorials .panel')
-        @$versionSelector    = @$('select.version')
+        @$name                = @$('.name')
+        @$byline              = @$('.byline p')
+        @$description         = @$('.description p')
+        @$documentationLink   = @$('.documentation')
+        @$downloadLink        = @$('.download')
+        @$homePageLink        = @$('.homePage')
+        @$groupContainer      = @$('.itemGroups')
+        @$titleImage          = @$('.titleImage img')
+        @$titleImageContainer = @$('.titleImage')
+        @$tutorialsSection    = @$('.tutorials')
+        @$tutorialsContainer  = @$('.tutorials .panel')
+        @$versionSelector     = @$('select.version')
 
         super
 
     refresh: ->
-        if @model?
-            @$name.html @model.name
+        if @model?.isLoaded and @effectiveModVersion?.isLoaded
             @$byline.html "by #{@model.author}"
-            @$titleImage.attr 'src', Url.modIcon modSlug:@model.slug
             @$description.html @model.description
+            @$name.html @model.name
+            @$titleImage.attr 'src', Url.modIcon modSlug:@model.slug
 
-            @$el.slideDown duration:Duration.normal
+            @show()
         else
-            @$el.slideUp duration:Duration.normal
+            @hide()
 
-        @_refreshLink @$homePageLink, @model.homePageUrl
-        @_refreshLink @$documentationLink, @model.documentationUrl
-        @_refreshLink @$downloadLink, @model.downloadUrl
+        @_refreshLink @$homePageLink, @model?.homePageUrl
+        @_refreshLink @$documentationLink, @model?.documentationUrl
+        @_refreshLink @$downloadLink, @model?.downloadUrl
 
         @_refreshItemGroups()
         @_refreshTutorials()
@@ -97,33 +110,25 @@ module.exports = class ModPageController extends PageController
 
     # Private Methods ##############################################################################
 
-    _getEffectiveModVersion: ->
-        return @_effectiveModVersion if @_effectiveModVersion?
-        return null unless @model?
-
-        modVersion = @model.activeModVersion
-        modVersion ?= @model.getModVersion Mod.Version.Latest
-        modVersion.fetch() if modVersion?
-
-        return modVersion
-
     _refreshItemGroups: ->
+        @_groupControllers ?= []
         groupIndex = 0
         modVersion = @effectiveModVersion
+
         if modVersion?
             modVersion.eachGroup (group)=>
                 controller = @_groupControllers[groupIndex]
                 items = modVersion.allItemsInGroup group
                 if not controller?
-                    title = if group is Item.Group.Other then 'Items' else group
                     controller = new ItemGroupController
                         imageLoader: @imageLoader
                         model:       items
                         modPack:     @modPack
-                        title:       title
-                    controller.render()
+                        title:       if group is Item.Group.Other then 'Items' else group
+
+                    @_groupControllers.push controller
                     @$groupContainer.append controller.$el
-                    @_groupControllers[groupIndex] = controller
+                    controller.render()
                 else
                     controller.modVersion = modVersion
                     controller.model      = items
@@ -132,32 +137,28 @@ module.exports = class ModPageController extends PageController
 
         while @_groupControllers.length > groupIndex + 1
             controller = @_groupControllers.pop()
-            controller.$el.slideUp duration:Duration.normal, complete:-> @remove()
+            controller.hide -> controller.$el.remove()
 
     _refreshLink: ($link, url)->
         if url?
-            $link.slideDown duration:Duration.normal
             $link.attr 'href', url
+            $link.removeClass 'hidden'
         else
-            $link.slideUp duration:Duration.normal
+            $link.addClass 'hidden'
 
     _refreshTutorials: ->
         @_tutorialControllers ?= []
-        tutorials = @model.tutorials
+        index                  = 0
+        tutorials              = @model.tutorials
 
-        if tutorials.length is 0
-            @$tutorialsSection.addClass 'hidden'
-        else
-            @$tutorialsSection.removeClass 'hidden'
-
-            index = 0
+        if tutorials.length > 0
             for tutorial in tutorials
                 controller = @_tutorialControllers[index]
                 if not controller?
                     controller = new TutorialController model:tutorial
-                    controller.render()
-                    @$tutorialsContainer.append controller.$el
                     @_tutorialControllers.push controller
+                    @$tutorialsContainer.append controller.$el
+                    controller.render()
                 else
                     controller.model = model
 
@@ -165,11 +166,17 @@ module.exports = class ModPageController extends PageController
 
             while @_tutorialControllers.length > index
                 controller = @_tutorialControllers.pop()
-                controller.$el.slideUp duration:Duration.normal, complete:-> @remove()
+                controller.hide -> controller.$el.remove()
+
+            @show @$tutorialsSection
+        else
+            @hide @tutorialsSection
 
     _refreshVersions: ->
         @$versionSelector.empty()
         return unless @model?
+
+        @$versionSelector.removeClass 'hiding'
 
         effectiveModVersion = @effectiveModVersion
         versionCount = 0

@@ -120,12 +120,12 @@ module.exports = class InventoryController extends BaseController
 
     events: ->
         return _.extend super,
-            'blur input[name="name"]':      'onNameFieldBlur'
-            'click button[name="add"]':     'onAddButtonClicked'
-            'click button[name="clear"]':   'onClearButtonClicked'
-            'focus input[name="name"]':     'onNameFieldFocused'
-            'input input[name="name"]':     'onNameFieldChanged'
-            'keyup input[name="name"]':     'onNameFieldKeyUp'
+            'blur input[name="name"]':    'onNameFieldBlur'
+            'click button[name="add"]':   'onAddButtonClicked'
+            'click button[name="clear"]': 'onClearButtonClicked'
+            'focus input[name="name"]':   'onNameFieldFocused'
+            'input input[name="name"]':   'onNameFieldChanged'
+            'keyup input[name="name"]':   'onNameFieldKeyUp'
 
     # Private Methods ##############################################################################
 
@@ -164,18 +164,16 @@ module.exports = class InventoryController extends BaseController
                     modPack:     @modPack
                     onChange:    @onChange
                     onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
-                controller.render()
-                controller.$el.hide()
-                controller.$el.insertBefore $lastRow
-                controller.$el.slideDown duration:Duration.fast
+
                 @_stackControllers.push controller
+                controller.$el.insertBefore $lastRow
+                controller.render()
             else
                 controller.model = stack
             index += 1
 
         while @_stackControllers.length > index
-            controller = @_stackControllers.pop()
-            controller.$el.fadeOut duration:Duration.fast, complete:-> @remove()
+            @_stackControllers.pop().remove()
 
     _removeStack: (stack)->
         @model.remove stack.itemSlug, stack.quantity

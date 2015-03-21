@@ -8,7 +8,7 @@
 .view__item_page
     .sidebar
         .titleImage: a: img
-        a.officialPage.externalLink(target="new"): p Offical Documentation
+        a.officialPage.externalLink.hideable.hidden(target="new"): p Offical Documentation
 
         button.large.craftingPlan See Crafting Plan
 
@@ -16,22 +16,22 @@
 
     .mainBody
         h1.name
-        .byline: p from <a></a>
+        .byline.hideable.hidden: p from <a></a>
 
-        .recipes.section
+        .recipes.section.hideable.hidden
             h2 Recipes
             .panel
 
-        .description.section
+        .description.section.hideable.hidden
             h2 Description
             .panel.markdown
 
-        .videos.section
+        .videos.section.hideable.hidden
             h2 Videos
             .panel
 
-        .usedToMake: .view__item_group
+        .view__item_group.usedToMake
 
-        .usedAsToolToMake: .view__item_group
+        .view__item_group.usedAsToolToMake
 
-        .similar: .view__item_group
+        .view__item_group.similar

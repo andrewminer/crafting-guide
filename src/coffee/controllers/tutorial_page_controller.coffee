@@ -53,64 +53,55 @@ module.exports = class TutorialPageController extends BaseController
 
     refresh: ->
         if @model? and @model.isLoaded
-            @$el.removeClass 'hidden'
-        else
-            @$el.addClass 'hidden'
+            @_refreshByline()
+            @_refreshOfficialUrl()
+            @_refreshSections()
+            @_refreshTitle()
+            @_refreshVideos()
 
-        @_refreshByline()
-        @_refreshOfficialUrl()
-        @_refreshSections()
-        @_refreshTitle()
-        @_refreshVideos()
+            @show()
+        else
+            @hide()
+
         super
 
     # Private Methods ##############################################################################
 
     _refreshByline: ->
-        if @model?
-            @$byline.removeClass 'hidden'
-            @$bylineLink.html @modPack.getMod(@modSlug).name
-            @$bylineLink.attr 'href', Url.mod modSlug:@modSlug
-        else
-            @$byline.addClass 'hidden'
+        @$bylineLink.html @modPack.getMod(@modSlug).name
+        @$bylineLink.attr 'href', Url.mod modSlug:@modSlug
 
     _refreshOfficialUrl: ->
-        if @model?.officialUrl?
+        if @model.officialUrl?
             @$officialLink.attr 'href', @model.officialUrl
-            @$officialLink.removeClass 'hidden'
+            @show @$officialLink
         else
-            @$officialLink.addClass 'hidden'
+            @hide @$officialLink
 
     _refreshTitle: ->
-        if @model?
-            @$title.html @model.name
-            @$titleImage.attr 'src', Url.tutorialIcon modSlug:@modSlug, tutorialSlug:@tutorialSlug
-        else
-            @$title.empty()
-            @$titleImage.removeAttr 'src'
+        @$title.html @model.name
+        @$titleImage.attr 'src', Url.tutorialIcon modSlug:@modSlug, tutorialSlug:@tutorialSlug
 
     _refreshSections: ->
         @_sectionControllers ?= []
         index = 0
 
-        if @model?
-            for section in @model.sections
-                controller = @_sectionControllers[index]
-                if not controller?
-                    controller = new MarkdownSectionController title:section.title, model:section.content
-                    controller.render()
-                    @$sectionsContainer.append controller.$el
-                    @_sectionControllers.push controller
-                else
-                    controller.title = section.title
-                    controller.model = section.model
-                    controller.refresh()
+        for section in @model.sections
+            controller = @_sectionControllers[index]
+            if not controller?
+                controller = new MarkdownSectionController title:section.title, model:section.content
+                @_sectionControllers.push controller
+                @$sectionsContainer.append controller.$el
+                controller.render()
+            else
+                controller.title = section.title
+                controller.model = section.model
+                controller.refresh()
 
-                index += 1
+            index += 1
 
         while @_sectionControllers.length > index
-            controller = @_sectionController.pop()
-            controller.$el.fadeOut duration:Duration.normal, complete:-> @remove()
+            @_sectionController.pop().remove()
 
     _refreshVideos: ->
         @_videoControllers ?= []
@@ -118,7 +109,6 @@ module.exports = class TutorialPageController extends BaseController
 
         videos = @model?.videos or []
         if videos? and videos.length > 0
-            @$videosSection.slideDown duration:Duration.normal
             @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
 
             for video in videos
@@ -126,17 +116,19 @@ module.exports = class TutorialPageController extends BaseController
                 if not controller?
                     controller = new VideoController model:video
                     @_videoControllers.push controller
-                    controller.render()
                     @$videosSectionPanel.append controller.$el
+                    controller.render()
                 else
                     controller.model = video
-                index++
+
+                index += 1
+
+            @show @$videosSection
         else
-            @$videosSection.slideUp duration:Duration.normal
+            @hide @$videosSection
 
         while @_videoControllers.length > index
-            controller = @_videoControllers.pop()
-            controller.$el.slideUp duration:Duration.normal, complete:-> controller.$el.remove()
+            @_videoControllers.pop().remove()
 
     _resolveTutorial: ->
         return if @model?

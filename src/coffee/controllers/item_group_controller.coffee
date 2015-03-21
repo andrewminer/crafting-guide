@@ -6,10 +6,10 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
-{Duration}     = require '../constants'
-{Event}        = require '../constants'
 Item           = require '../models/item'
 ItemController = require './item_controller'
+{Duration}     = require '../constants'
+{Event}        = require '../constants'
 
 ########################################################################################################################
 
@@ -18,18 +18,14 @@ module.exports = class ItemGroupController extends BaseController
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
+        options.model        ?= []
         options.title        ?= ''
         options.templateName  = 'item_group'
         super options
 
-        @_delayStep       = 20
         @_imageLoader     = options.imageLoader
-        @_itemControllers = []
         @_modPack         = options.modPack
         @_title           = options.title
-
-        Object.defineProperties this,
-            title: {get:@getTitle, set:@setTitle}
 
     # Property Methods #############################################################################
 
@@ -40,6 +36,9 @@ module.exports = class ItemGroupController extends BaseController
         @_title = title
         @tryRefresh()
 
+    Object.defineProperties @prototype,
+        title: {get:@prototype.getTitle, set:@prototype.setTitle}
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
@@ -47,37 +46,37 @@ module.exports = class ItemGroupController extends BaseController
         @$items = @$('.panel')
         super
 
+    onWillChangeModel: (oldModel, newModel)->
+        newModel ?= []
+        return super oldModel, newModel
+
     refresh: ->
-        @$title.html @_title
-        @_refreshItems()
+        if @model.length > 0
+            @$title.html @_title
+            @_refreshItems()
+            @show()
+        else
+            @hide()
+
         super
 
     # Private Methods ##############################################################################
 
-    _createItemController: (item, delay)->
-        controller = new ItemController imageLoader:@_imageLoader, model:item, modPack:@_modPack
-        @_itemControllers.push controller
-
-        attachController = =>
-            controller.render()
-            @$items.append controller.$el
-
-        _.delay attachController, delay
-
     _refreshItems: ->
+        @_itemControllers ?= []
         controllerIndex = 0
         delay = 0
 
-        if @model?
-            for item in @model
-                controller = @_itemControllers[controllerIndex]
-                if not controller?
-                    @_createItemController item, delay
-                    delay += @_delayStep
-                else
-                    controller.model = item
-                controllerIndex += 1
+        for item in @model
+            controller = @_itemControllers[controllerIndex]
+            if not controller?
+                controller = new ItemController imageLoader:@_imageLoader, model:item, modPack:@_modPack
+                @_itemControllers.push controller
+                @$items.append controller.$el
+                controller.render()
+            else
+                controller.model = item
+            controllerIndex += 1
 
         while @_itemControllers.length > controllerIndex
-            controller = @_itemControllers.pop()
-            controller.$el.slideUp duration:Duration.normal, complete:-> @remove()
+            @_itemControllers.pop().remove()

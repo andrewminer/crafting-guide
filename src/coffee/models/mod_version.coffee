@@ -87,6 +87,11 @@ module.exports = class ModVersion extends BaseModel
 
     # Group Methods ################################################################################
 
+    getAllGroups: ->
+        result = []
+        @eachGroup (group)-> result.push group
+        return result
+
     eachGroup: (callback)->
         groupNames = _.keys @_groups
         groupNames.sort (a, b)->

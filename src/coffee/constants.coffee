@@ -20,10 +20,10 @@ exports.DefaultMods =
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }
 
 exports.Duration = Duration = {}
-Duration.snap    = 200
-Duration.fast    = Duration.snap * 2
-Duration.normal  = Duration.fast * 2
-Duration.slow    = Duration.normal * 2
+Duration.snap    = 100
+Duration.fast    = 200
+Duration.normal  = 400
+Duration.slow    = 1200
 
 exports.Event        = Event = {}
 Event.add            = 'add'            # collection, item...
@@ -38,7 +38,18 @@ Event.request        = 'request'        # model
 Event.route          = 'route'
 Event.sort           = 'sort'
 Event.sync           = 'sync'           # model, response
-Event.transitionEnd  = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'
+Event.transitionEnd  = (->
+    transitions =
+      'transition':       'transitionend',
+      'OTransition':      'oTransitionEnd',
+      'MSTransition':     'msTransitionEnd',
+      'MozTransition':    'transitionend',
+      'WebkitTransition': 'webkitTransitionEnd'
+
+    el = document.createElement 'fakeelement'
+    for styleName, eventName of transitions
+        return eventName if el.style[styleName]?
+)()
 
 exports.Key = Key = {}
 Key.Return = 13

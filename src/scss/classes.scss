@@ -32,9 +32,18 @@ All rights reserved.
 
 .error-new { background: $color-error-new !important; }
 
-.hidden {
-    max-height: 0;
+.hideable {
+    opacity: 1;
+    transition: opacity $animate-normal;
+}
+
+.hiding {
     opacity: 0;
+}
+
+.hidden {
+    opacity: 0;
+    display: none;
 }
 
 .mainBody {
@@ -67,7 +76,6 @@ All rights reserved.
     .externalLink {
         position: relative; width: 80%;
         margin: 0.5em 10%;
-        display: none;
 
         p {
             font-family: $font-family-normal;
@@ -104,8 +112,6 @@ All rights reserved.
 }
 
 .videos {
-    display: none;
-
     .panel {
         text-align: center;
     }

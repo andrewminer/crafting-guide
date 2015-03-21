@@ -5,7 +5,8 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-views = require '../views'
+views   = require '../views'
+{Event} = require '../constants'
 
 ########################################################################################################################
 
@@ -31,12 +32,30 @@ module.exports = class BaseController extends Backbone.View
         options.parent = this
 
         child = new Controller options
-        child.render()
+        child.render options
         @_children.push child
         return child
 
+    hide: (args...)->
+        {$el, callback} = @_resolveShowHideArgs args
+
+        $el.addClass 'hideable' unless $el.hasClass 'hideable'
+
+        if $el.hasClass('hiding') or $el.hasClass('hidden')
+            _.defer => callback this
+        else
+            $el.one Event.transitionEnd, =>
+                $el.addClass 'hidden'
+                $el.removeClass 'hiding'
+                callback this
+
+            $el.addClass 'hiding'
+
     refresh: ->
         logger.verbose => "#{this} refreshing"
+
+    remove: ->
+        @hide -> @$el.remove()
 
     routeLinkClick: (event)->
         event.preventDefault()
@@ -44,6 +63,23 @@ module.exports = class BaseController extends Backbone.View
         href ?= $(event.currentTarget).attr 'href'
         logger.info "Re-routing link to internal navigation: #{href}"
         router.navigate href, trigger:true
+
+    show: (args...)->
+        {$el, callback} = @_resolveShowHideArgs args
+
+        $el.addClass 'hideable' unless $el.hasClass 'hideable'
+
+        if $el.hasClass('hiding') or $el.hasClass('hidden')
+            $el.one Event.transitionEnd, =>
+                callback this
+            $el.removeClass 'hiding'
+            $el.removeClass 'hidden'
+        else
+            _.defer => callback this
+
+    unrender: ->
+        @undelegateEvents()
+        @$el.empty()
 
     # Event Methods ################################################################################
 
@@ -68,7 +104,7 @@ module.exports = class BaseController extends Backbone.View
         if newModel?.on?
             @listenTo newModel, 'sync', (e)=> @onDidModelSync e
             @listenTo newModel, 'change', (e)=> @onDidModelChange e
-        return true
+        return newModel
 
     # Property Methods #############################################################################
 
@@ -77,8 +113,8 @@ module.exports = class BaseController extends Backbone.View
 
     setModel: (newModel)->
         return if @model is newModel
-        return unless @onWillChangeModel @_model, newModel
 
+        newModel = @onWillChangeModel @_model, newModel
         @_model = newModel
         @tryRefresh()
 
@@ -88,23 +124,27 @@ module.exports = class BaseController extends Backbone.View
         return {}
 
     render: (options={})->
+        options.force ?= false
+        options.show ?= true
         return this unless not @_rendered or options.force
-
-        data = (@model?.toHash? and @model.toHash()) or @model or {}
 
         if not @_template?
             logger.error => "Default render called for #{@constructor.name} without a template"
             return this
 
+        data = (@model?.toHash? and @model.toHash()) or @model or {}
         logger.verbose => "#{this} rendering with data: #{data}"
-        @onWillRender()
-        $oldEl = @$el
-        $newEl = Backbone.$(@_template(data))
-        if $oldEl
-            $oldEl.replaceWith $newEl
-            $newEl.addClass $oldEl.attr 'class'
+        $renderedEl = $($(@_template(data))[0])
 
-        @setElement $newEl
+        @onWillRender()
+        @hide()
+
+        @unrender()
+        @$el.append $renderedEl.children()
+        @$el.addClass $renderedEl.attr 'class'
+        @delegateEvents()
+        @show() if options.show
+
         @_rendered = true
         @onDidRender()
 
@@ -120,6 +160,19 @@ module.exports = class BaseController extends Backbone.View
     _loadTemplate: (templateName)->
         if templateName?
             @_template = views[templateName]
+
+    _resolveShowHideArgs: (args)->
+        if args.length is 0
+            return $el:@$el, callback:->
+        else if args.length is 1
+            if _.isFunction args[0]
+                return $el:@$el, callback:args[0]
+            else
+                return $el:args[0], callback:->
+        else if args.length is 2
+            return $el:args[0], callback:args[1]
+        else
+            throw new Error "expected to get 0, 1, or 2 args"
 
     _tryRefresh: ->
         return unless @_rendered

@@ -163,27 +163,27 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @headerController.model = page
 
         showDuration = Duration.normal
-        show = =>
+        switchToNextController = (event)=>
+            logger.debug "show called: #{event}"
             @_resetGlobals()
+            @_controller.unrender() if @_controller?
 
             @_page       = page
             @_controller = controller
 
+            $pageContent = $('.page')
+            $pageContent.attr 'class', 'page hideable hidden'
+
+            window.scrollTo 0, 0
+
             controller.onWillShow()
+            controller.$el = $pageContent
             controller.render()
 
-            $pageContent = $('.page')
-            controller.$el.addClass 'page'
-            $pageContent.replaceWith controller.$el
-
-            controller.$el.slideDown showDuration, ->
-                controller.onDidShow()
-
         if @_controller?
-            showDuration = showDuration / 2
-            @_controller.$el.slideUp showDuration, show
+            @_controller.hide -> switchToNextController()
         else
-            show()
+            switchToNextController()
 
     _resetGlobals: ->
         if global.env in ProductionEnvs

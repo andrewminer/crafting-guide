@@ -13,6 +13,7 @@ BaseController = require './base_controller'
 module.exports = class ModController extends BaseController
 
     constructor: (options={})->
+        if not options.model? then throw new Error 'options.model is required'
         options.templateName = 'mod'
         super options
 
@@ -26,15 +27,10 @@ module.exports = class ModController extends BaseController
         super
 
     refresh: ->
-        if @model?
-            @$el.removeClass 'empty'
-
-            @$link.attr 'href', Url.mod modSlug:@model.slug
-            @$logo.attr 'src', Url.modIcon modSlug:@model.slug
-            @$name.html @model.name
-            @$description.html @model.description
-        else
-            @$el.addClass 'empty'
+        @$link.attr 'href', Url.mod modSlug:@model.slug
+        @$logo.attr 'src', Url.modIcon modSlug:@model.slug
+        @$name.html @model.name
+        @$description.html @model.description
 
     # Backbone.View Overrides ######################################################################
 

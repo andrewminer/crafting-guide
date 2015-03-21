@@ -18,7 +18,7 @@ group: Liquids
 
     item: 200mB Energized Glowstone
         recipe:
-            input: 1000mB Destabilized Redstone
+            input: 1000mB Energized Glowstone
             pattern: ... .0. ...
             quantity: 5
             tools: Fluid Transposer

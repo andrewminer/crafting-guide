@@ -106,7 +106,6 @@ module.exports = class ModPack extends BaseModel
         @trigger Event.add + ':mod', mod, this
 
         @_mods.sort (a, b)-> a.compareTo b
-        logger.debug "mods: #{(m.slug for m in @_mods)}"
         @trigger Event.sort + ':mod', this
         @trigger Event.change, this
 

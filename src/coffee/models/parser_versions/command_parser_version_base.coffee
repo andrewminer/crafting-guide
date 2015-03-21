@@ -125,6 +125,7 @@ module.exports = class CommandParserVersionBase
 
         shortestIndent = Number.MAX_VALUE
         for hereDocLine in hereDocLines
+            continue if hereDocLine.trim().length is 0
             shortestIndent = Math.min hereDocLine.match(/( *).*/)[1].length, shortestIndent
 
         for i in [0...hereDocLines.length]

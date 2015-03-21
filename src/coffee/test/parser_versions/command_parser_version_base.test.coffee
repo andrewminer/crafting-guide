@@ -40,9 +40,9 @@ describe 'command_parser_version_base.coffee', ->
             expect(result[1]).to.be.null
 
         it 'trims smallest leading whitespace', ->
-            parser._lines = ['command: <<-END', '  alpha', '    bravo', '  charlie', 'END', 'command1: arg2']
+            parser._lines = ['command: <<-END', '  alpha', '    bravo', '', '  charlie', 'END', 'command1: arg2']
             parser._lineNumber = 1
 
             result = parser._parseHereDoc parser._lines[0]
             result[0].should.equal 'command: '
-            result[1].should.equal 'alpha\n  bravo\ncharlie'
+            result[1].should.equal 'alpha\n  bravo\n\ncharlie'

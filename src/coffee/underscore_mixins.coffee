@@ -1,5 +1,5 @@
 ###
-Crafting Guide - underscore.coffee
+Crafting Guide - underscore_mixins.coffee
 
 Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
@@ -7,12 +7,15 @@ All rights reserved.
 
 _.mixin
 
+    parseMarkdown: (text)->
+        return markdown.parse text, 'Maruku'
+
     slugify: (text)->
         return null unless text?
 
         result = text.toLowerCase()
         result = result.replace /[^a-zA-Z0-9_]/g, '_'
-        result = result.replace /__+/, '_'
+        result = result.replace /__+/g, '_'
         result = result.replace /^_/, ''
         result = result.replace /_$/, ''
         return result

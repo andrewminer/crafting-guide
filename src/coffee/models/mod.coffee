@@ -16,6 +16,7 @@ module.exports = class Mod extends BaseModel
 
     constructor: (attributes={}, options={})->
         if not attributes.slug? then throw new Error 'attributes.slug is required'
+
         attributes.author           ?= ''
         attributes.description      ?= ''
         attributes.documentationUrl ?= null
@@ -23,11 +24,13 @@ module.exports = class Mod extends BaseModel
         attributes.homePageUrl      ?= null
         attributes.modPack          ?= null
         attributes.name             ?= ''
+
         super attributes, options
 
         @_activeModVersion = null
         @_activeVersion    = null
         @_modVersions      = []
+        @_tutorials        = []
 
         Object.defineProperties this,
             'activeModVersion': { get:-> @_activeModVersion                    }
@@ -107,6 +110,31 @@ module.exports = class Mod extends BaseModel
 
     # Property Methods #############################################################################
 
+    getActiveVersion: ->
+        return @_activeVersion
+
+    setActiveVersion: (version)->
+        return if version is @_activeVersion
+
+        version ?= Mod.Version.None
+        if version is Mod.Version.Latest then version = _.last(@_modVersions).version
+
+        if version is Mod.Version.None
+            @_activeVersion = version
+            @_activateModVersion null
+
+            @trigger Event.change + ':activeVersion', this, @_activeVersion
+            @trigger Event.change, this
+        else
+            for modVersion in @_modVersions
+                if version is modVersion.version
+                    @_activateModVersion modVersion
+                    break
+
+            @_activeVersion = version
+            @trigger Event.change + ':activeVersion', this, @_activeVersion
+            @trigger Event.change, this
+
     addModVersion: (modVersion)->
         return unless modVersion?
         return if @_modVersions.indexOf(modVersion) isnt -1
@@ -136,30 +164,22 @@ module.exports = class Mod extends BaseModel
 
         return null
 
-    getActiveVersion: ->
-        return @_activeVersion
+    addTutorial: (tutorial)->
+        return unless tutorial?
+        if @getTutorial(tutorial.slug)? then throw new Error "duplicate tutorial: #{tutorial.name}"
+        @_tutorials.push tutorial
+        tutorial.modSlug = @slug
 
-    setActiveVersion: (version)->
-        return if version is @_activeVersion
+    getAllTutorials: ->
+        return @_tutorials[..]
 
-        version ?= Mod.Version.None
-        if version is Mod.Version.Latest then version = _.last(@_modVersions).version
+    getTutorial: (tutorialSlug)->
+        for tutorial in @_tutorials
+            return tutorial if tutorial.slug is tutorialSlug
+        return null
 
-        if version is Mod.Version.None
-            @_activeVersion = version
-            @_activateModVersion null
-
-            @trigger Event.change + ':activeVersion', this, @_activeVersion
-            @trigger Event.change, this
-        else
-            for modVersion in @_modVersions
-                if version is modVersion.version
-                    @_activateModVersion modVersion
-                    break
-
-            @_activeVersion = version
-            @trigger Event.change + ':activeVersion', this, @_activeVersion
-            @trigger Event.change, this
+    Object.defineProperties @prototype,
+        tutorials: { get:@prototype.getAllTutorials }
 
     # Backbone.View Overrides ######################################################################
 

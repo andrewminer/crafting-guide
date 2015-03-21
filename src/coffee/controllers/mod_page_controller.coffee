@@ -11,6 +11,7 @@ ItemGroupController = require './item_group_controller'
 Mod                 = require '../models/mod'
 ModPack             = require '../models/mod_pack'
 PageController      = require './page_controller'
+TutorialController  = require './tutorial_controller'
 {Duration}          = require '../constants'
 {Text}              = require '../constants'
 {Url}               = require '../constants'
@@ -55,15 +56,17 @@ module.exports = class ModPageController extends PageController
     onDidRender: ->
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
-        @$name              = @$('.name')
-        @$byline            = @$('.byline p')
-        @$description       = @$('.description p')
-        @$documentationLink = @$('.documentation')
-        @$downloadLink      = @$('.download')
-        @$homePageLink      = @$('.homePage')
-        @$groupContainer    = @$('.itemGroups')
-        @$titleImage        = @$('.titleImage img')
-        @$versionSelector   = @$('select.version')
+        @$name               = @$('.name')
+        @$byline             = @$('.byline p')
+        @$description        = @$('.description p')
+        @$documentationLink  = @$('.documentation')
+        @$downloadLink       = @$('.download')
+        @$homePageLink       = @$('.homePage')
+        @$groupContainer     = @$('.itemGroups')
+        @$titleImage         = @$('.titleImage img')
+        @$tutorialsSection   = @$('.tutorials')
+        @$tutorialsContainer = @$('.tutorials .panel')
+        @$versionSelector    = @$('select.version')
 
         super
 
@@ -83,6 +86,7 @@ module.exports = class ModPageController extends PageController
         @_refreshLink @$downloadLink, @model.downloadUrl
 
         @_refreshItemGroups()
+        @_refreshTutorials()
         @_refreshVersions()
         super
 
@@ -128,7 +132,7 @@ module.exports = class ModPageController extends PageController
 
         while @_groupControllers.length > groupIndex + 1
             controller = @_groupControllers.pop()
-            controller.$el.slideUp duration:Duration.normal, -> @remove()
+            controller.$el.slideUp duration:Duration.normal, complete:-> @remove()
 
     _refreshLink: ($link, url)->
         if url?
@@ -136,6 +140,32 @@ module.exports = class ModPageController extends PageController
             $link.attr 'href', url
         else
             $link.slideUp duration:Duration.normal
+
+    _refreshTutorials: ->
+        @_tutorialControllers ?= []
+        tutorials = @model.tutorials
+
+        if tutorials.length is 0
+            @$tutorialsSection.addClass 'hidden'
+        else
+            @$tutorialsSection.removeClass 'hidden'
+
+            index = 0
+            for tutorial in tutorials
+                controller = @_tutorialControllers[index]
+                if not controller?
+                    controller = new TutorialController model:tutorial
+                    controller.render()
+                    @$tutorialsContainer.append controller.$el
+                    @_tutorialControllers.push controller
+                else
+                    controller.model = model
+
+                index += 1
+
+            while @_tutorialControllers.length > index
+                controller = @_tutorialControllers.pop()
+                controller.$el.slideUp duration:Duration.normal, complete:-> @remove()
 
     _refreshVersions: ->
         @$versionSelector.empty()

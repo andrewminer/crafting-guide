@@ -16,6 +16,7 @@ ItemSlug                = require './models/item_slug'
 Mod                     = require './models/mod'
 ModPack                 = require './models/mod_pack'
 ModPageController       = require './controllers/mod_page_controller'
+TutorialPageController  = require './controllers/tutorial_page_controller'
 Storage                 = require './models/storage'
 UrlParams               = require './url_params'
 {ProductionEnvs}        = require './constants'
@@ -64,13 +65,14 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_recordPageView()
 
     routes:
-        '(/)':                          'route__home'
-        'browse(/)':                    'route__browse'
-        'browse/:modSlug(/)':           'route__browseMod'
-        'browse/:modSlug/:itemSlug(/)': 'route__browseModItem'
-        'configure(/)':                 'route__configure'
-        'craft(/)':                     'route__craft'
-        'craft/:text':                  'route__craft'
+        '(/)':                                        'route__home'
+        'browse(/)':                                  'route__browse'
+        'browse/:modSlug(/)':                         'route__browseMod'
+        'browse/:modSlug/:itemSlug(/)':               'route__browseModItem'
+        'browse/:modSlug/tutorials/:tutorialSlug(/)': 'route__browseTutorial'
+        'configure(/)':                               'route__configure'
+        'craft(/)':                                   'route__craft'
+        'craft/:text':                                'route__craft'
 
         'item/:itemSlug':         'deprecated__item'
         'crafting/(:text)':       'deprecated__crafting'
@@ -99,6 +101,10 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         slug = new ItemSlug modSlug, itemSlug
         controller = new ItemPageController _.extend {itemSlug:slug}, @_defaultOptions
         @_setPage 'browseModItem', controller
+
+    route__browseTutorial: (modSlug, tutorialSlug)->
+        controller = new TutorialPageController _.extend {modSlug:modSlug, tutorialSlug:tutorialSlug}, @_defaultOptions
+        @_setPage 'browseTutorial', controller
 
     route__configure: ->
         @_setPage 'configure', new ConfigurePageController _.extend {}, @_defaultOptions

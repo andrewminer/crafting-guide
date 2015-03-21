@@ -8,6 +8,7 @@ All rights reserved.
 CommandParserVersionBase = require './command_parser_version_base'
 Mod                      = require '../mod'
 ModVersion               = require '../mod_version'
+Tutorial                 = require '../tutorial'
 
 ########################################################################################################################
 
@@ -47,16 +48,22 @@ module.exports = class ModParserV1 extends CommandParserVersionBase
         if downloadUrl.length is 0 then throw new Error 'downloadUrl cannot be empty (omit it instead)'
         @_rawData.downloadUrl = downloadUrl
 
-    _command_name: (name)->
-        if @_rawData.name? then throw new Error 'duplicate declaration of "name"'
-        if name.length is 0 then throw new Error '"name" cannot be empty'
-        @_rawData.name = name
-
     _command_homePageUrl: (homePageUrl='')->
         if @_rawData.homePageUrl? then throw new Error 'duplicate declaration of "homePageUrl"'
         if homePageUrl.length is 0 then throw new Error 'homePageUrl cannot be empty'
 
         @_rawData.homePageUrl = homePageUrl
+
+    _command_name: (name)->
+        if @_rawData.name? then throw new Error 'duplicate declaration of "name"'
+        if name.length is 0 then throw new Error '"name" cannot be empty'
+        @_rawData.name = name
+
+    _command_tutorial: (nameParts...)->
+        name = nameParts.join(', ').trim()
+        if name.length is 0 then throw new Error '"name" cannot be empty'
+        @_rawData.tutorialNames ?= []
+        @_rawData.tutorialNames.push name
 
     _command_version: (version='')->
         if version.length is 0 then throw new Error 'version cannot be empty'
@@ -77,6 +84,10 @@ module.exports = class ModParserV1 extends CommandParserVersionBase
         model.downloadUrl      = rawData.downloadUrl      if rawData.downloadUrl?
         model.name             = rawData.name
         model.homePageUrl      = rawData.homePageUrl
+
+        if rawData.tutorialNames?
+            for tutorialName in rawData.tutorialNames
+                model.addTutorial new Tutorial name:tutorialName
 
         for version in rawData.versions
             model.addModVersion new ModVersion modSlug:model.slug, version:version

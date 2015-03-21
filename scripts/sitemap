@@ -16,6 +16,7 @@ fs               = require 'fs'
 
 modSlugs = {}
 itemSlugs = {}
+tutorialSlugs = []
 
 base = 'http://crafting-guide.com'
 
@@ -41,8 +42,14 @@ for modSlug, modData of DefaultMods
         modVersion.eachItem (item)->
             itemSlugs[item.slug] = item.slug
 
+    for tutorial in mod.tutorials
+        tutorialSlugs.push mod:mod.slug, tutorial:tutorial.slug
+
 for modSlug in _.values(modSlugs).sort()
     urls.push base + "/browse/#{modSlug}/"
+
+for tutorialSlug in tutorialSlugs
+    urls.push base + "/browse/#{tutorialSlug.mod}/tutorials/#{tutorialSlug.tutorial}/"
 
 for key in _.keys(itemSlugs).sort()
     itemSlug = itemSlugs[key]

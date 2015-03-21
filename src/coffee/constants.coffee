@@ -16,6 +16,7 @@ exports.DefaultMods =
     ic2_classic:           { defaultVersion: 'none' }
     industrial_craft_2:    { defaultVersion: '2.2.663' }
     railcraft:             { defaultVersion: '9.5.0' }
+    thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }
 
 exports.Duration = Duration = {}

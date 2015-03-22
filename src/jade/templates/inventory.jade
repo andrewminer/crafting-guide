@@ -12,10 +12,10 @@
     .panel
         .scrollbox
             table
-                tr.edit
+                tr.edit.hideable.hidden
                     td.quantity
                     td.icon
                     td.name(width="*"): input(name="name")
                     td.action: button(name="add") add
-        .toolbar
+        .toolbar.hideable.hidden
             button(name="clear") clear

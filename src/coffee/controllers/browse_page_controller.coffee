@@ -53,7 +53,6 @@ module.exports = class BrowsePageController extends PageController
             controllerIndex += 1
 
         while @_controllers.length > controllerIndex
-            controller = @_controllers.pop()
-            controller.hide -> controller.$el.remove()
+            @_controllers.pop().remove()
 
         super

@@ -136,8 +136,7 @@ module.exports = class ModPageController extends PageController
                 groupIndex++
 
         while @_groupControllers.length > groupIndex + 1
-            controller = @_groupControllers.pop()
-            controller.hide -> controller.$el.remove()
+            @_groupControllers.pop().remove()
 
     _refreshLink: ($link, url)->
         if url?
@@ -165,8 +164,7 @@ module.exports = class ModPageController extends PageController
                 index += 1
 
             while @_tutorialControllers.length > index
-                controller = @_tutorialControllers.pop()
-                controller.hide -> controller.$el.remove()
+                @_tutorialControllers.pop().remove()
 
             @show @$tutorialsSection
         else

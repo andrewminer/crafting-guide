@@ -41,9 +41,11 @@ module.exports = class BaseController extends Backbone.View
 
         $el.addClass 'hideable' unless $el.hasClass 'hideable'
 
+        logger.verbose => "#{this} is hiding #{$el.selector}"
         if $el.hasClass('hiding') or $el.hasClass('hidden')
             _.defer => callback this
         else
+            $el.off Event.transitionEnd
             $el.one Event.transitionEnd, =>
                 $el.addClass 'hidden'
                 $el.removeClass 'hiding'
@@ -55,7 +57,8 @@ module.exports = class BaseController extends Backbone.View
         logger.verbose => "#{this} refreshing"
 
     remove: ->
-        @hide -> @$el.remove()
+        logger.verbose => "#{this} is removing its element from the DOM"
+        @hide => @$el.remove()
 
     routeLinkClick: (event)->
         event.preventDefault()
@@ -69,9 +72,10 @@ module.exports = class BaseController extends Backbone.View
 
         $el.addClass 'hideable' unless $el.hasClass 'hideable'
 
+        logger.verbose => "#{this} is showing #{$el.selector}"
         if $el.hasClass('hiding') or $el.hasClass('hidden')
-            $el.one Event.transitionEnd, =>
-                callback this
+            $el.off Event.transitionEnd
+            $el.one Event.transitionEnd, => callback this
             $el.removeClass 'hiding'
             $el.removeClass 'hidden'
         else

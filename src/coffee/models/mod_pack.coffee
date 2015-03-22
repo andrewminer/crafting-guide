@@ -102,7 +102,7 @@ module.exports = class ModPack extends BaseModel
 
         mod.modPack = this
         @_mods.push mod
-        @listenTo mod, Event.change, => @trigger Event.change, this
+        @listenTo mod, Event.change, (modVersion)=> @_onModVersionLoaded modVersion
         @trigger Event.add + ':mod', mod, this
 
         @_mods.sort (a, b)-> a.compareTo b
@@ -127,3 +127,13 @@ module.exports = class ModPack extends BaseModel
 
     toString: ->
         return "ModPack (#{@cid}) {modVersions:«#{@_mods.length} items»}"
+
+    # Private Methods ##############################################################################
+
+    _onModVersionLoaded: (modVersion)->
+        stillLoading = false
+        @eachMod (mod)->
+            mod.eachModVersion (modVersion)->
+                stillLoading = stillLoading or modVersion.isLoading
+
+        @trigger Event.change, this if not stillLoading

@@ -35,7 +35,7 @@ module.exports = class InventoryTableController extends BaseController
 
         @_stackControllers = []
 
-        @listenTo @modPack, 'change', => @refresh()
+        @listenTo @modPack, 'change', => @tryRefresh()
 
     # Event Methods ################################################################################
 

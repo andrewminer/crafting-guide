@@ -7,10 +7,10 @@
 
 .view__inventory_table
     table
-        tr.edit
+        tr.edit.hideable.hidden
             td.quantity: input(name="quantity")
             td.icon: img(src="/images/unknown.png")
             td.name(width="*"): input(name="name")
             td.action: button(name="add") add
-    .toolbar
+    .toolbar.hideable.hidden
         button(name="clear") clear

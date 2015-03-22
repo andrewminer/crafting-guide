@@ -13,8 +13,9 @@ BaseController = require './base_controller'
 module.exports = class AdsenseController extends BaseController
 
     constructor: (options={})->
-        options.model ?= 'skyscraper_sidebar'
-        options.templateName = "adsense_#{options.model}"
+        options.model        ?= 'skyscraper_sidebar'
+        options.tagName       = 'ins'
+        options.templateName  = "adsense_#{options.model}"
         super options
 
         @_adsEnabled = global.env in ProductionEnvs

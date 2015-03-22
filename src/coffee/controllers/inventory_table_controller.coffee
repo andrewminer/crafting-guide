@@ -118,13 +118,16 @@ module.exports = class InventoryTableController extends BaseController
         super
 
     refresh: ->
-        @$editPanel.css display:(if @editable then 'table-row' else 'none')
-        @$toolbar.css display:(if @editable then 'block' else 'none')
-        @$scrollbox.css bottom:(if @editable then @$toolbar.height() else '0')
+        if @editable
+            @show @$editPanel
+            @show @$toolbar, =>
+                @$scrollbox.css bottom:@$toolbar.height()
+        else
+            @hide @$editPanel
+            @hide @$toolbar
+            @$scrollbox.css bottom:0
 
         if _.isEmpty(@$quantityField.val()) then @$quantityField.val '1'
-
-        @$table.find('tr:not(:last-child)').remove()
 
         @_refreshNameAutocomplete()
         @_refreshButtonState()

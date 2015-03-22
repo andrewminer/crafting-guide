@@ -170,24 +170,26 @@ module.exports = class ModPageController extends PageController
 
             @show @$tutorialsSection
         else
-            @hide @tutorialsSection
+            @hide @$tutorialsSection
 
     _refreshVersions: ->
         @$versionSelector.empty()
-        return unless @model?
 
-        @$versionSelector.removeClass 'hiding'
+        if @model?
+            effectiveModVersion = @effectiveModVersion
+            versionCount = 0
+            @model.eachModVersion (modVersion)=>
+                option = $("<option value=\"#{modVersion.version}\">#{modVersion.version}</option>")
+                if modVersion is effectiveModVersion
+                    option.attr 'selected', 'selected'
+                @$versionSelector.append option
+                versionCount++
 
-        effectiveModVersion = @effectiveModVersion
-        versionCount = 0
-        @model.eachModVersion (modVersion)=>
-            option = $("<option value=\"#{modVersion.version}\">#{modVersion.version}</option>")
-            if modVersion is effectiveModVersion
-                option.attr 'selected', 'selected'
-            @$versionSelector.append option
-            versionCount++
+            if versionCount <= 1
+                @$versionSelector.attr 'disabled', 'disabled'
+            else
+                @$versionSelector.removeAttr 'disabled'
 
-        if versionCount <= 1
-            @$versionSelector.attr 'disabled', 'disabled'
+            @show @$versionSelector
         else
-            @$versionSelector.removeAttr 'disabled'
+            @hide @$versionSelector

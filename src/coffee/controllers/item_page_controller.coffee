@@ -43,7 +43,6 @@ module.exports = class ItemPageController extends PageController
 
     craftingPlanButtonClicked: ->
         display = @modPack.findItemDisplay @model.item.slug
-        logger.debug "button clicked, going to: #{display.craftingUrl}"
         router.navigate display.craftingUrl, trigger:true
         return false
 

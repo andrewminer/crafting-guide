@@ -164,9 +164,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
         showDuration = Duration.normal
         switchToNextController = (event)=>
-            logger.debug "show called: #{event}"
-            @_resetGlobals()
             @_controller.unrender() if @_controller?
+            @_resetGlobals()
 
             @_page       = page
             @_controller = controller

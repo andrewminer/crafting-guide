@@ -2,7 +2,7 @@ schema: 1
 
 name:             Buildcraft
 author:           SpaceToad
-description:      A technical mod which adds power generation, mining, and building systems
+description:      A technical mod which adds power generation, mining, building and item/fluid/power transport systems
 homePageUrl:      http://www.mod-buildcraft.com
 documentationUrl: http://www.mod-buildcraft.com/wiki/doku.php
 downloadUrl:      http://www.mod-buildcraft.com/download/

@@ -15,6 +15,7 @@ exports.DefaultMods =
     forestry:              { defaultVersion: '3.4.0.7' }
     ic2_classic:           { defaultVersion: 'none' }
     industrial_craft_2:    { defaultVersion: '2.2.663' }
+    jabba:                 { defaultVersion: '1.2.1a' }
     railcraft:             { defaultVersion: '9.5.0' }
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }
@@ -39,6 +40,7 @@ Event.route          = 'route'
 Event.sort           = 'sort'
 Event.sync           = 'sync'           # model, response
 Event.transitionEnd  = (->
+    return unless document?
     transitions =
       'transition':       'transitionend',
       'OTransition':      'oTransitionEnd',

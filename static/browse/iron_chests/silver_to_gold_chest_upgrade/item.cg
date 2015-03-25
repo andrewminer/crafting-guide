@@ -1,0 +1,6 @@
+schema: 1
+
+description: <<-END
+The Silver to Gold Chest Upgrade will convert a [Silver Chest] into a [Gold Chest] by right-clicking the silver chest
+with the upgrade in your hand.
+END

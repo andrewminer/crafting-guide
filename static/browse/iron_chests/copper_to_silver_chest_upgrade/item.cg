@@ -1,0 +1,6 @@
+schema: 1
+
+description: <<-END
+The Copper to Silver Chest Upgrade will convert a [Copper Chest] into a [Silver Chest] by right-clicking the copper
+chest with the upgrade in your hand.
+END

@@ -5,8 +5,9 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
-{ProductionEnvs}  = require '../constants'
+BaseController   = require './base_controller'
+{Adsense}        = require '../constants'
+{ProductionEnvs} = require '../constants'
 
 ########################################################################################################################
 
@@ -25,6 +26,9 @@ module.exports = class AdsenseController extends BaseController
     render: ->
         if @_adsEnabled
             super
+
+            @$el.attr 'data-ad-client', Adsense.clientId
+            @$el.attr 'data-ad-slot', Adsense.slotId
         else
             @$el.addClass 'placeholder'
             @_rendered = true

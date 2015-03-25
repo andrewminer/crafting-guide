@@ -146,6 +146,7 @@ module.exports = class BaseController extends Backbone.View
         @unrender()
         @$el.append $renderedEl.children()
         @$el.addClass $renderedEl.attr 'class'
+        @$el.data $renderedEl.data()
         @delegateEvents()
         @show() if options.show
 

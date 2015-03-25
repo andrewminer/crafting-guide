@@ -5,6 +5,10 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+exports.Adsense  = Adsense = {}
+Adsense.clientId = 'ca-pub-6593013914878730'
+Adsense.slotId   = '7613920409'
+
 # Minecraft must be first
 exports.DefaultMods =
     minecraft:             { defaultVersion: '1.7.10' }

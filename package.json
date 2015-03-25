@@ -4,14 +4,13 @@
   "description": "crafting-guide ==============",
   "main": "site/scripts/main.js",
   "scripts": {
-    "test": "test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/andrewminer/crafting-guide.git"
   },
   "author": "Andrew Miner",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/andrewminer/crafting-guide/issues"
   },

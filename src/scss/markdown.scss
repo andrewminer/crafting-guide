@@ -42,10 +42,22 @@ All rights reserved.
         td {
             font-family: $font-family-normal;
             font-size: $font-size-normal;
+            padding: 0.1em 0.5em;
+            vertical-align: middle;
+        }
+
+        th {
+            font-family: $font-family-normal;
+            font-size: $font-size-normal;
+            font-weight: bold;
+            vertical-align: middle;
         }
 
         td[align="center"] {
             text-align: center;
+        }
+        td[align="right"] {
+            text-align: right;
         }
     }
 

@@ -89,7 +89,7 @@ module.exports = class TutorialPageController extends BaseController
         for section in @model.sections
             controller = @_sectionControllers[index]
             if not controller?
-                controller = new MarkdownSectionController title:section.title, model:section.content
+                controller = new MarkdownSectionController title:section.title, model:section.content, modPack:@modPack
                 @_sectionControllers.push controller
                 @$sectionsContainer.append controller.$el
                 controller.render()

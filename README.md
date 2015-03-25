@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/andrewminer/crafting-guide.svg?style=svg)](https://circleci.com/gh/andrewminer/crafting-guide)
+[![Circle CI](https://circleci.com/gh/andrewminer/crafting-guide.svg?style=svg)](https://circleci.com/gh/andrewminer/crafting-guide) 
 
 # Crafting Guide
 

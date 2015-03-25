@@ -32,9 +32,10 @@ switch window.location.hostname
         global.env = 'production'
         logger.level = Logger.INFO
 
-global.router = new CraftingGuideRouter
-global.util   = require 'util'
-global.views  = views
+global.router   = new CraftingGuideRouter
+global.util     = require 'util'
+global.views    = views
+global.markdown = global.markdown.markdown
 
 global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()

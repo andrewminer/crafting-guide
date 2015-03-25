@@ -7,6 +7,16 @@ All rights reserved.
 
 .markdown {
 
+    a {
+        color: $color-link-subtle;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-link;
+            text-decoration: underline;
+        }
+    }
+
     h1 {
         font-family: $font-family-normal;
         font-size: $font-size-large;

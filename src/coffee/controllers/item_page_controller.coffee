@@ -113,7 +113,7 @@ module.exports = class ItemPageController extends PageController
         return _.extend super,
             'click a.craftingPlan': 'routeLinkClick'
             'click .byline a':      'routeLinkClick'
-            'click .markdown':      'routeLinkClick'
+            'click .markdown a':    'routeLinkClick'
             'click button':         'craftingPlanButtonClicked'
 
     # Private Methods ##############################################################################
@@ -132,9 +132,9 @@ module.exports = class ItemPageController extends PageController
         description = @model.compileDescription()
         if description?
             @$descriptionPanel.html description
-            @show @$descriptionPanel
+            @show @$descriptionSection
         else
-            @hide @$descriptionPanel
+            @hide @$descriptionSection
 
     _refreshRecipes: ->
         @_recipeControllers ?= []

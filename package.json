@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/andrewminer/crafting-guide",
   "devDependencies": {
+    "chai": "^1.10.0",
+    "coffee-script": "^1.9.1",
     "coffeeify": "^1.0.0",
     "express": "^4.10.6",
     "grunt": "^0.4.5",
@@ -28,8 +30,12 @@
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-exorcise": "^0.2.0",
+    "grunt-mocha-test": "^0.12.7",
     "grunt-rename": "^0.1.4",
     "grunt-rsync": "^0.6.2",
+    "mocha": "^2.2.1",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0",
     "underscore": "^1.7.0"
   },
   "dependencies": {

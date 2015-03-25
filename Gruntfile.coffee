@@ -5,6 +5,8 @@
 # All rights reserved.
 ###
 
+fs = require 'fs'
+
 ########################################################################################################################
 
 module.exports = (grunt)->
@@ -22,15 +24,6 @@ module.exports = (grunt)->
                         extensions: ['.coffee']
                 files:
                     './dist/js/main.js': ['./src/coffee/main.coffee']
-
-            test:
-                options:
-                    transform: ['coffeeify']
-                    browserifyOptions:
-                        debug: true
-                        extensions: ['.coffee']
-                files:
-                    './dist/js/test.js': ['./src/coffee/test/test.coffee']
 
             markdown:
                 options:
@@ -74,9 +67,6 @@ module.exports = (grunt)->
             main:
                 files:
                     './dist/js/main.js.map': ['./dist/js/main.js']
-            test:
-                files:
-                    './dist/js/test.js.map': ['./dist/js/test.js']
 
         jade:
             pages:
@@ -102,6 +92,18 @@ module.exports = (grunt)->
                         return f
                 files:
                     './src/coffee/views.js': ['./src/jade/templates/**/*.jade']
+
+        mochaTest:
+            options:
+                bail:     true
+                color:    true
+                reporter: 'list'
+                require: [
+                    'coffee-script/register'
+                    './test/test_helper.coffee'
+                ]
+                verbose: true
+            src: './test/**/*.test.coffee'
 
         rsync:
             static:
@@ -151,14 +153,18 @@ module.exports = (grunt)->
             sass:
                 files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']
-            tests:
-                files: ['./src/**/*.coffee', './test/**/*.coffee']
-                tasks: ['browserify:test']
 
     grunt.registerTask 'default', 'build'
 
     grunt.registerTask 'build', [ 'rsync:non_html', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'dist', ['clean', 'build', 'rsync:static', 'sass:dist', 'uglify']
+    grunt.registerTask 'dist', ['test', 'clean', 'build', 'rsync:static', 'sass:dist', 'uglify']
 
     grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']
+
+    grunt.registerTask 'link-deps', ->
+        grunt.file.mkdir './node_modules'
+        fs.unlinkSync './node_modules/crafting-guide-common'
+        fs.symlinkSync '../../crafting-guide-common/', './node_modules/crafting-guide-common'
+
+    grunt.registerTask 'test', ['mochaTest']

@@ -5,7 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-Mod = require '../models/mod'
+Mod = require '../src/coffee/models/mod'
 
 ########################################################################################################################
 

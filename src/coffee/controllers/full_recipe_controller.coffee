@@ -7,11 +7,11 @@ All rights reserved.
 
 BaseController           = require './base_controller'
 CraftingGridController   = require './crafting_grid_controller'
-{Duration}               = require '../constants'
 ImageLoader              = require './image_loader'
 Inventory                = require '../models/inventory'
 InventoryTableController = require './inventory_table_controller'
-StringBuilder            = require '../models/string_builder'
+{Duration}               = require '../constants'
+{StringBuilder}          = require 'crafting-guide-common'
 
 ########################################################################################################################
 

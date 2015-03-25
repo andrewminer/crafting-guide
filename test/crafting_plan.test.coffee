@@ -5,11 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-CraftingPlan = require '../models/crafting_plan'
-ItemSlug     = require '../models/item_slug'
-Mod          = require '../models/mod'
-ModPack      = require '../models/mod_pack'
-ModVersion   = require '../models/mod_version'
+CraftingPlan = require '../src/coffee/models/crafting_plan'
+ItemSlug     = require '../src/coffee/models/item_slug'
+Mod          = require '../src/coffee/models/mod'
+ModPack      = require '../src/coffee/models/mod_pack'
+ModVersion   = require '../src/coffee/models/mod_version'
 
 ########################################################################################################################
 

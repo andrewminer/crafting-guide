@@ -8,10 +8,10 @@ All rights reserved.
 require './underscore_mixins'
 require './polyfill'
 
-views               = require './views'
-FeedbackController  = require './controllers/feedback_controller'
-Logger              = require './logger'
 CraftingGuideRouter = require './crafting_guide_router'
+FeedbackController  = require './controllers/feedback_controller'
+views               = require './views'
+{Logger}            = require 'crafting-guide-common'
 
 ########################################################################################################################
 

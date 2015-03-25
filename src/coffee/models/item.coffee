@@ -5,12 +5,12 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel      = require './base_model'
-{Event}        = require '../constants'
-ItemSlug       = require './item_slug'
-Recipe         = require './recipe'
-StringBuilder  = require './string_builder'
-{Url}          = require '../constants'
+BaseModel       = require './base_model'
+ItemSlug        = require './item_slug'
+Recipe          = require './recipe'
+{Event}         = require '../constants'
+{StringBuilder} = require 'crafting-guide-common'
+{Url}           = require '../constants'
 
 ########################################################################################################################
 

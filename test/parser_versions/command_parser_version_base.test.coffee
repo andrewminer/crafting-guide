@@ -5,7 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-CommandParserVersionBase = require '../../models/parser_versions/command_parser_version_base'
+CommandParserVersionBase = require '../../src/coffee/models/parser_versions/command_parser_version_base'
 
 ########################################################################################################################
 

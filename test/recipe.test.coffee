@@ -5,10 +5,10 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-Item     = require '../models/item'
-ItemSlug = require '../models/item_slug'
-Recipe   = require '../models/recipe'
-Stack    = require '../models/stack'
+Item     = require '../src/coffee/models/item'
+ItemSlug = require '../src/coffee/models/item_slug'
+Recipe   = require '../src/coffee/models/recipe'
+Stack    = require '../src/coffee/models/stack'
 
 ########################################################################################################################
 

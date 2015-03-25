@@ -51,13 +51,10 @@ module.exports = class MarkdownSectionController extends BaseController
         refs = tree[1].references
 
         findLinkRefs = (node)=>
-            logger.debug "inspecting a #{node[0]}"
             if node[0] is 'link_ref'
                 name = node[2]
-                logger.debug "found a link_ref for #{name}"
                 item = @modPack.findItemByName node[2]
                 if item?
-                    logger.debug "found related item: #{item}"
                     node[0] = 'link'
                     node[1].href = Url.item itemSlug:item.slug.item, modSlug:item.slug.mod
                     delete node[1].ref

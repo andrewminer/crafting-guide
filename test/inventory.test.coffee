@@ -5,11 +5,11 @@
 # All rights reserved.
 ###
 
-{Event}       = require '../constants'
+{Event}       = require '../src/coffee/constants'
 EventRecorder = require './event_recorder'
-Inventory     = require '../models/inventory'
-Item          = require '../models/item'
-ItemSlug      = require '../models/item_slug'
+Inventory     = require '../src/coffee/models/inventory'
+Item          = require '../src/coffee/models/item'
+ItemSlug      = require '../src/coffee/models/item_slug'
 
 ########################################################################################################################
 

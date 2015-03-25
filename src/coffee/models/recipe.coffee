@@ -5,10 +5,10 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel     = require './base_model'
-{Event}       = require '../constants'
-Stack         = require './stack'
-StringBuilder = require './string_builder'
+BaseModel       = require './base_model'
+Stack           = require './stack'
+{Event}         = require '../constants'
+{StringBuilder} = require 'crafting-guide-common'
 
 ########################################################################################################################
 
@@ -119,7 +119,8 @@ module.exports = class Recipe extends BaseModel
                 actuallyProduces = not @isPassThroughFor stack.itemSlug
                 @_produces[stack.itemSlug.qualified] = actuallyProduces
 
-        return @_produces[itemSlug.qualified] or @_produces[itemSlug.item]
+        result = @_produces[itemSlug.qualified] or @_produces[itemSlug.item]
+        return result
 
     requires: (itemSlug)->
         for stack in @input

@@ -5,9 +5,9 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-Item       = require '../models/item'
-ItemSlug   = require '../models/item_slug'
-ModVersion = require '../models/mod_version'
+Item       = require '../src/coffee/models/item'
+ItemSlug   = require '../src/coffee/models/item_slug'
+ModVersion = require '../src/coffee/models/mod_version'
 
 ########################################################################################################################
 
@@ -92,5 +92,5 @@ describe 'mod_version.coffee', ->
             """
 
         it 'finds all recipes which list item as output', ->
-            recipes = modVersion.findRecipes ItemSlug.slugify('Bucket')
+            recipes = modVersion.findRecipes ItemSlug.slugify('test__bucket')
             (r.output[0].itemSlug.item for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']

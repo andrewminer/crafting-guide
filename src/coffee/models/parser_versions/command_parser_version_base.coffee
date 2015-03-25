@@ -5,7 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-StringBuilder = require '../../models/string_builder'
+{StringBuilder} = require 'crafting-guide-common'
 
 ########################################################################################################################
 

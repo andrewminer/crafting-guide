@@ -5,7 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-ItemSlug = require '../models/item_slug'
+ItemSlug = require '../src/coffee/models/item_slug'
 
 ########################################################################################################################
 

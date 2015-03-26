@@ -31,7 +31,7 @@ group: Agriculture
             pattern: ... .0. ...
         recipe:
             input: Coffee Beans
-            pattern: ... .0. ...
+            pattern: ... .0. .0.
             quantity: 3
             tools: Macerator
 

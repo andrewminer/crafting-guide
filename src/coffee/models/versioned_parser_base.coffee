@@ -12,6 +12,7 @@ module.exports = class VersionedParserBase
     constructor: (options={})->
         @_parsers       = @_createParsers options
         @_currentSchema = _.chain(@_parsers).keys().last().value()
+        @errors         = []
 
     # Class Members ################################################################################
 
@@ -27,6 +28,7 @@ module.exports = class VersionedParserBase
         if not parser? then throw new Error "schema version #{schema} is not supported"
 
         parser.parse text
+        @errors = parser.errors
 
         return @_model
 

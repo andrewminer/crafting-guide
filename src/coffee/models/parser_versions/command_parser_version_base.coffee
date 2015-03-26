@@ -17,6 +17,7 @@ module.exports = class CommandParserVersionBase
 
         @_model         = options.model
         @_showAllErrors = options.showAllErrors
+        @errors         = []
 
     # Class Methods ################################################################################
 
@@ -38,6 +39,7 @@ module.exports = class CommandParserVersionBase
     parse: (text)->
         @_rawData    = {}
         @_lineNumber = 1
+        @errors      = []
 
         @_lines = text.split '\n'
         @_lineNumber = 0
@@ -105,6 +107,7 @@ module.exports = class CommandParserVersionBase
         catch e
             e.message = "line #{@_lineNumber}: #{e.message}"
             if not @_showAllErrors then throw e
+            @errors.push e
             logger.error -> e.message
 
     _parseHereDoc: (line)->

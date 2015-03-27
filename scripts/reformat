@@ -3,10 +3,10 @@
 global._        = require 'underscore'
 global.Backbone = require 'backbone'
 
-fs               = require 'fs'
-Logger           = require '../src/coffee/logger'
 ModVersion       = require '../src/coffee/models/mod_version'
 ModVersionParser = require '../src/coffee/models/mod_version_parser'
+fs               = require 'fs'
+{Logger}         = require 'crafting-guide-common'
 
 require '../src/coffee/underscore_mixins'
 

@@ -43,7 +43,6 @@ module.exports = (grunt)->
 
         clean:
             dist: ['./dist']
-            deps: ['./node_modules/crafting-guide-common']
 
         copy:
             jquery_ui_images:
@@ -159,13 +158,13 @@ module.exports = (grunt)->
 
     grunt.registerTask 'build', [ 'rsync:non_html', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
 
-    grunt.registerTask 'dist', ['test', 'clean:dist', 'build', 'rsync:static', 'sass:dist', 'uglify']
+    grunt.registerTask 'dist', ['test', 'clean', 'build', 'rsync:static', 'sass:dist', 'uglify']
 
-    grunt.registerTask 'clean-watch', ['clean:dist', 'build', 'watch']
+    grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']
 
     grunt.registerTask 'use-local-deps', ->
         grunt.file.mkdir './node_modules'
-        grunt.file.delete './node_modules/crafting-guide-common'
+        grunt.file.delete './node_modules/crafting-guide-common', force:true
         fs.symlinkSync '../../crafting-guide-common/', './node_modules/crafting-guide-common'
 
     grunt.registerTask 'test', ['mochaTest']

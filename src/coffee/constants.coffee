@@ -21,6 +21,7 @@ exports.DefaultMods =
     industrial_craft_2:    { defaultVersion: '2.2.663' }
     iron_chests:           { defaultVersion: '6.0.62.742' }
     jabba:                 { defaultVersion: '1.2.1a' }
+    mekanism:              { defaultVersion: '7.1.1.127' }
     railcraft:             { defaultVersion: '9.5.0' }
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }

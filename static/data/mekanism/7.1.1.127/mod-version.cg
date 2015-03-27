@@ -293,7 +293,7 @@ item: Bronze Helmet
 
 item: Bronze Hoe
     recipe:
-        input: Bronze Ingot
+        input: Bronze Ingot, Stick
         pattern: 00. .1. .1.
         tools: Crafting Table
 

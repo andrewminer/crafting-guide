@@ -98,7 +98,7 @@ module.exports = (grunt)->
             options:
                 bail:     true
                 color:    true
-                reporter: 'list'
+                reporter: 'dot'
                 require: [
                     'coffee-script/register'
                     './test/test_helper.coffee'

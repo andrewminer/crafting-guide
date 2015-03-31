@@ -8,10 +8,11 @@ All rights reserved.
 require './underscore_mixins'
 require './polyfill'
 
-CraftingGuideRouter = require './crafting_guide_router'
-FeedbackController  = require './controllers/feedback_controller'
-views               = require './views'
-{Logger}            = require 'crafting-guide-common'
+CraftingGuideRouter   = require './crafting_guide_router'
+FeedbackController    = require './controllers/feedback_controller'
+views                 = require './views'
+{CraftingGuideClient} = require 'crafting-guide-common'
+{Logger}              = require 'crafting-guide-common'
 
 ########################################################################################################################
 
@@ -22,17 +23,22 @@ if typeof(global) is 'undefined'
 global.logger = new Logger
 
 switch window.location.hostname
-    when 'localhost'
-        global.env = 'development'
+    when 'local.crafting-guide.com'
+        global.env   = 'development'
         logger.level = Logger.DEBUG
+        apiBaseUrl   = 'http://localhost:8001'
     when 'new.crafting-guide.com'
-        global.env = 'staging'
+        global.env   = 'staging'
         logger.level = Logger.VERBOSE
+        apiBaseUrl   = 'https://crafting-guide-production.herokuapp.com'
     when 'crafting-guide.com'
-        global.env = 'production'
+        global.env   = 'production'
         logger.level = Logger.INFO
+        apiBaseUrl   = 'https://crafting-guide-production.herokuapp.com'
+    else
+        throw new Error "cannot determine the environment of: #{window.location.hostname}"
 
-global.router   = new CraftingGuideRouter
+global.router   = new CraftingGuideRouter client:new CraftingGuideClient baseUrl:apiBaseUrl
 global.util     = require 'util'
 global.views    = views
 global.markdown = global.markdown.markdown

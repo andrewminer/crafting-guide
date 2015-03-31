@@ -61,6 +61,16 @@ Event.transitionEnd  = (->
 exports.Key = Key = {}
 Key.Return = 13
 
+exports.Login = Login = {}
+Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +
+    "?client_id=ea419abd2ab96c708815&scope=public_repo&state=<%= state %>" +
+
+exports.ModelState  = ModelState = {}
+ModelState.unloaded = 'unloaded'
+ModelState.loading  = 'loading'
+ModelState.loaded   = 'loaded'
+ModelState.failed   = 'failed'
+
 exports.Opacity = Opacity = {}
 Opacity.hidden  = 1e-6
 Opacity.shown   = 1
@@ -68,12 +78,6 @@ Opacity.shown   = 1
 exports.ProductionEnvs = [ 'staging', 'production' ]
 
 exports.RequiredMods = [ 'minecraft' ]
-
-exports.ModelState  = ModelState = {}
-ModelState.unloaded = 'unloaded'
-ModelState.loading  = 'loading'
-ModelState.loaded   = 'loaded'
-ModelState.failed   = 'failed'
 
 exports.Text = Text = {}
 Text.title = 'The Ultimate Minecraft Crafting Guide'

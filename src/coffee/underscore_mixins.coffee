@@ -31,3 +31,5 @@ _.mixin
             parts = [ null, parts[0] ]
 
         return parts
+
+_.mixin require('crafting-guide-common').stringMixins

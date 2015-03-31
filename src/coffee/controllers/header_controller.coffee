@@ -64,3 +64,4 @@ module.exports = class HeaderController extends BaseController
         return _.extend super,
             'click a.logo':    'onLogoClicked'
             'click .navBar a': 'onNavItemClicked'
+            'click .login a':  'routeLinkClick'

@@ -13,6 +13,7 @@ HomePageController      = require './controllers/home_page_controller'
 ImageLoader             = require './controllers/image_loader'
 ItemPageController      = require './controllers/item_page_controller'
 ItemSlug                = require './models/item_slug'
+LoginPageController     = require './controllers/login_page_controller'
 Mod                     = require './models/mod'
 ModPack                 = require './models/mod_pack'
 ModPageController       = require './controllers/mod_page_controller'
@@ -36,10 +37,11 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_lastReported    = null
         super options
 
+        @client          = options.client
         @imageLoader     = new ImageLoader defaultUrl:'/images/unknown.png'
         @modPack         = new ModPack
         @storage         = new Storage storage:window.localStorage
-        @_defaultOptions = imageLoader:@imageLoader, modPack:@modPack, storage:@storage
+        @_defaultOptions = client:@client, imageLoader:@imageLoader, modPack:@modPack, storage:@storage
 
         @headerController = new HeaderController el:'.view__header'
         @headerController.render()
@@ -73,6 +75,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         'configure(/)':                               'route__configure'
         'craft(/)':                                   'route__craft'
         'craft/:text':                                'route__craft'
+        'login(/)':                                   'route__login'
 
         'item/:itemSlug':         'deprecated__item'
         'crafting/(:text)':       'deprecated__crafting'
@@ -113,6 +116,10 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         controller = new CraftPageController _.extend {}, @_defaultOptions
         controller.model.params = inventoryText:text
         @_setPage 'craft', controller
+
+    route__login: ->
+        controller = new LoginPageController _.extend {}, @_defaultOptions
+        @_setPage 'login', controller
 
     # Deprecated Route Methods #####################################################################
 

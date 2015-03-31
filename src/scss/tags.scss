@@ -29,6 +29,11 @@ button {
         margin: 2em 0;
         padding: 0.5em 0.5em;
     }
+
+    &.huge {
+        font-size: $font-size-large;
+        padding: 0.5em 3em;
+    }
 }
 
 h1 {

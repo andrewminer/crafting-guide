@@ -20,6 +20,7 @@ ModPageController       = require './controllers/mod_page_controller'
 TutorialPageController  = require './controllers/tutorial_page_controller'
 Storage                 = require './models/storage'
 UrlParams               = require './url_params'
+User                    = require './models/user'
 {ProductionEnvs}        = require './constants'
 {DefaultMods}           = require './constants'
 {Duration}              = require './constants'
@@ -35,16 +36,20 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_page            = null
         @_pageControllers = {}
         @_lastReported    = null
+        @_user            = null
         super options
 
-        @client          = options.client
-        @imageLoader     = new ImageLoader defaultUrl:'/images/unknown.png'
-        @modPack         = new ModPack
-        @storage         = new Storage storage:window.localStorage
-        @_defaultOptions = client:@client, imageLoader:@imageLoader, modPack:@modPack, storage:@storage
+        @client      = options.client
+        @imageLoader = new ImageLoader defaultUrl:'/images/unknown.png'
+        @modPack     = new ModPack
+        @storage     = new Storage storage:window.localStorage
 
-        @headerController = new HeaderController el:'.view__header'
+        @_defaultOptions = client:@client, imageLoader:@imageLoader, modPack:@modPack, storage:@storage, user:@_user
+        @on Event.change + ':user', => @_defaultOptions.user = @_user
+
+        @headerController = new HeaderController _.extend {el:'.view__header'}, @_defaultOptions
         @headerController.render()
+        @on Event.change + ':user', => @headerController.user = @user
 
     # Public Methods ###############################################################################
 
@@ -59,6 +64,38 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             mod.fetch()
 
             @modPack.addMod mod
+
+    loadCurrentUser: ->
+        @client.fetchCurrentUser()
+            .then (response)=>
+                userData = response.json?.data?.user
+                @user = new User userData if userData?
+            .catch (error)=>
+                if error.response.statusCode isnt 401
+                    logger.error "Failed to get current user: #{error}"
+                else
+                    logger.info "User is not logged in"
+            .done()
+
+    # Property Methods #############################################################################
+
+    getUser: ->
+        return @_user
+
+    setUser: (newUser)->
+        oldUser = @_user
+        return if newUser is oldUser
+
+        @_user = newUser
+        logger.info -> "User changed to: #{newUser}"
+
+        @trigger Event.change + ':user', this, oldUser, newUser
+        @trigger Event.change, this
+
+        if @_controller? then @_controller.user = newUser
+
+    Object.defineProperties @prototype,
+        user: {get:@prototype.getUser, set:@prototype.setUser}
 
     # Backbone.Router Overrides ####################################################################
 
@@ -118,7 +155,8 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
         @_setPage 'craft', controller
 
     route__login: ->
-        controller = new LoginPageController _.extend {}, @_defaultOptions
+        params = new UrlParams code:{type:'string'}, state:{type:'string'}
+        controller = new LoginPageController _.extend {params:params}, @_defaultOptions
         @_setPage 'login', controller
 
     # Deprecated Route Methods #####################################################################
@@ -182,6 +220,7 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
 
             window.scrollTo 0, 0
 
+            controller.user = @user
             controller.onWillShow()
             controller.$el = $pageContent
             controller.render()

@@ -63,7 +63,11 @@ Key.Return = 13
 
 exports.Login = Login = {}
 Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +
-    "?client_id=ea419abd2ab96c708815&scope=public_repo&state=<%= state %>" +
+    "?client_id=<%= clientId %>&scope=public_repo&state=<%= state %>"
+Login.clientIds =
+    'local':      'a2a1c5f1bb2d7bd14ebb'
+    'staging':    '26e1e9a4a702cabe334f'
+    'production': 'ea419abd2ab96c708815'
 
 exports.ModelState  = ModelState = {}
 ModelState.unloaded = 'unloaded'
@@ -87,10 +91,12 @@ Url.crafting       = _.template "/craft/<%= inventoryText %>"
 Url.item           = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
 Url.itemData       = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/item.cg"
 Url.itemIcon       = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/icon.png"
+Url.login          = _.template "/login"
 Url.mod            = _.template "/browse/<%= modSlug %>/"
 Url.modData        = _.template "/data/<%= modSlug %>/mod.cg"
 Url.modIcon        = _.template "/browse/<%= modSlug %>/icon.png"
 Url.modVersionData = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
+Url.root           = _.template "/"
 Url.tutorial       = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
 Url.tutorialData   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>.cg"
 Url.tutorialIcon   = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"

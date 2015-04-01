@@ -66,6 +66,13 @@ All rights reserved.
                 font-size: $font-size-normal;
                 font-weight: bold;
             }
+
+            .name {
+                color: $color-text-light;
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                margin-right: 2em;
+            }
         }
     }
 

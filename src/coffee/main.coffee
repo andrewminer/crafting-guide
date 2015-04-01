@@ -24,9 +24,9 @@ global.logger = new Logger
 
 switch window.location.hostname
     when 'local.crafting-guide.com'
-        global.env   = 'development'
+        global.env   = 'local'
         logger.level = Logger.DEBUG
-        apiBaseUrl   = 'http://localhost:8001'
+        apiBaseUrl   = 'http://local.crafting-guide.com:8001'
     when 'new.crafting-guide.com'
         global.env   = 'staging'
         logger.level = Logger.VERBOSE
@@ -38,7 +38,14 @@ switch window.location.hostname
     else
         throw new Error "cannot determine the environment of: #{window.location.hostname}"
 
-global.router   = new CraftingGuideRouter client:new CraftingGuideClient baseUrl:apiBaseUrl
+client = _.extend new CraftingGuideClient(baseUrl:apiBaseUrl), Backbone.Events
+client.onStatusChanged = (c, oldStatus, newStatus)->
+    logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
+    client.trigger 'change:status', client, oldStatus, newStatus
+    client.trigger 'change', client
+client.checkStatus()
+
+global.router   = new CraftingGuideRouter client:client
 global.util     = require 'util'
 global.views    = views
 global.markdown = global.markdown.markdown
@@ -46,6 +53,7 @@ global.markdown = global.markdown.markdown
 global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()
 
+global.router.loadCurrentUser()
 global.router.loadDefaultModPack()
 
 logger.info -> "CraftingGuide is ready"

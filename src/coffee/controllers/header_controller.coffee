@@ -7,16 +7,35 @@ All rights reserved.
 
 BaseController   = require './base_controller'
 {Duration}       = require '../constants'
+{Event}          = require '../constants'
 {ProductionEnvs} = require '../constants'
+{Url}            = require '../constants'
 
 ########################################################################################################################
 
 module.exports = class HeaderController extends BaseController
 
     constructor: (options={})->
+        if not options.client? then throw new Error 'options.client is required'
         super options
 
+        @client = options.client
+        @_user  = options.user
+
     # Event Methods ################################################################################
+
+    onLoginLinkClicked: (event)->
+        event.preventDefault()
+
+        if @user?
+            @client.logout()
+                .then ->
+                    router.user = null
+                .catch (error)->
+                    logger.error -> "Failed to log out: #{error}"
+                .done()
+        else
+            router.navigate Url.login(), trigger:true
 
     onLogoClicked: ->
         router.navigate '/', trigger:true
@@ -28,6 +47,18 @@ module.exports = class HeaderController extends BaseController
         router.navigate $(event.currentTarget).attr('href'), trigger:true
         return false
 
+    # Property Methods #############################################################################
+
+    getUser: ->
+        return @_user
+
+    setUser: (user)->
+        @_user = user
+        @tryRefresh()
+
+    Object.defineProperties @prototype,
+        user: {get:@prototype.getUser, set:@prototype.setUser}
+
     # BaseController Overrides #####################################################################
 
     render: ->
@@ -36,6 +67,8 @@ module.exports = class HeaderController extends BaseController
         @_rendered = true
 
         @$navLinks = ($(el) for el in @$('.navBar a'))
+        @$loginName = @$('.login .name')
+        @$loginLink = @$('.login a')
 
         zIndex = @$navLinks.length + 100
         for $navLink in @$navLinks
@@ -46,6 +79,13 @@ module.exports = class HeaderController extends BaseController
             $('body').append "<script async src=\"#{addThisUrl}\"></script>"
 
     refresh: ->
+        if @user?
+            @$loginName.html "Hello #{router.user.login}!"
+            @$loginLink.html "Logout"
+        else
+            @$loginName.html ''
+            @$loginLink.html 'Login'
+
         for $navLink in @$navLinks
             linkPage = $navLink.data('page')
             if @model is linkPage
@@ -64,3 +104,4 @@ module.exports = class HeaderController extends BaseController
         return _.extend super,
             'click a.logo':    'onLogoClicked'
             'click .navBar a': 'onNavItemClicked'
+            'click .login a':  'onLoginLinkClicked'

@@ -55,6 +55,25 @@ All rights reserved.
     .divider {
         background: $color-brick-dark url('/images/stone_brick.png');
         position: absolute; bottom: 5em; height: 3.2em; width: 100%;
+
+        .login {
+            position: absolute; top: 50%; right: 2em;
+            @include transform(translateY(-50%));
+
+            a {
+                color: $color-text-light;
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                font-weight: bold;
+            }
+
+            .name {
+                color: $color-text-light;
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                margin-right: 2em;
+            }
+        }
     }
 
     .navBar {

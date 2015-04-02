@@ -14,14 +14,12 @@ module.exports = class BaseController extends Backbone.View
 
     constructor: (options={})->
         @tryRefresh = _.debounce @_tryRefresh, 100
-        Object.defineProperty this, 'model', get:@getModel, set:@setModel
 
         @_model    = null
         @_rendered = false
         @_parent   = options.parent
         @_children = []
 
-        Object.defineProperty this, 'rendered', get:-> return @_rendered
         @_loadTemplate options.templateName
         super options
 
@@ -121,6 +119,21 @@ module.exports = class BaseController extends Backbone.View
         newModel = @onWillChangeModel @_model, newModel
         @_model = newModel
         @tryRefresh()
+
+    isRendered: ->
+        return @_rendered
+
+    getUser: ->
+        return @_user
+
+    setUser: (user)->
+        @_user = user
+        @tryRefresh()
+
+    Object.defineProperties @prototype,
+        model:    {get:@prototype.getModel,  set:@prototype.setModel}
+        rendered: {get:@prototype.isRendered }
+        user:     {get:@prototype.user,      set:@prototype.setUser}
 
     # Backbone.View Overrides ######################################################################
 

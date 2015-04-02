@@ -31,6 +31,7 @@ serveIndex = (request, response)->
 
 app.get '*/$', serveIndex
 app.get '/craft/*', serveIndex
+app.get '/login', serveIndex
 
 app.get '*', (request, response)->
     extension = path.extname(request.path)
@@ -49,5 +50,5 @@ app.get '*', (request, response)->
     response.set 'Content-Type', contentType
     response.sendFile request.path, root:ROOT
 
-server = app.listen 8000, ->
+server = app.listen 8000, '127.0.0.1', ->
     console.log "listening at: #{server.address().address}:#{server.address().port}"

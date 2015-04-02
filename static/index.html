@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
   </head>
   <body>
-    <div class="view__feedback" style="left: -250px; "><input name="name" placeholder="name (optional)"><input name="email" placeholder="email (optional)"><label name="comment">Comment:</label><textarea name="comment"></textarea><button name="send" disabled="disabled">send</button><div class="error"><p>Sending failed. Please try again later.</p></div><div class="label"><img src="/images/paper.png"><p>Feedback</p></div></div>
+    <div class="view__feedback hideable" style="left: -250px; "><input name="name" placeholder="name (optional)"><input name="email" placeholder="email (optional)"><label name="comment">Comment:</label><textarea name="comment"></textarea><button name="send" disabled="disabled">send</button><div class="error hideable hidden"><p>Sending failed. Please try again later.</p></div><div class="label"><img src="/images/paper.png"><p>Feedback</p></div></div>
     <div class="view__screen"></div>
     <div class="content">
       <div class="view__header">
@@ -25,16 +25,22 @@
             <p>Craft</p>
             <div class="dot" style="opacity: 0; "></div></a></div>
       </div>
-      <div class="view__home_page page" style=""><div class="sidebar"><div class="view__adsense placeholder sidebar_skyscraper"></div><div class="titleImage"><a href="/browse/minecraft/"><img src="/browse/minecraft/icon.png"></a></div><div class="titleImage"><a href="/browse/buildcraft/"><img src="/browse/buildcraft/icon.png"></a></div><div class="titleImage"><a href="/browse/industrial_craft_2/"><img src="/browse/industrial_craft_2/icon.png"></a></div><div class="titleImage"><a href="/browse/applied_energistics_2/"><img src="/browse/applied_energistics_2/icon.png"></a></div><div class="titleImage"><a href="/browse/thermal_expansion/"><img src="/browse/thermal_expansion/icon.png"></a></div><div class="titleImage"><a href="/browse/enderio/"><img src="/browse/enderio/icon.png"></a></div><div class="titleImage"><a href="/browse/railcraft/"><img src="/browse/railcraft/icon.png"></a></div></div><div class="mainBody"><div class="section"><h2>Welcome!</h2><div class="panel"><div class="entry"><p class="intro">Crafting Guide is the ultimate resource for Minecraft. Whether you're punching trees or building
+      <div class="page hideable view__home_page"><div class="sidebar"><ins class="view__adsense placeholder sidebar_skyscraper"></ins><div class="titleImage"><a href="/browse/minecraft/"><img src="/browse/minecraft/icon.png"></a></div><div class="titleImage"><a href="/browse/buildcraft/"><img src="/browse/buildcraft/icon.png"></a></div><div class="titleImage"><a href="/browse/industrial_craft_2/"><img src="/browse/industrial_craft_2/icon.png"></a></div><div class="titleImage"><a href="/browse/applied_energistics_2/"><img src="/browse/applied_energistics_2/icon.png"></a></div><div class="titleImage"><a href="/browse/thermal_expansion/"><img src="/browse/thermal_expansion/icon.png"></a></div><div class="titleImage"><a href="/browse/enderio/"><img src="/browse/enderio/icon.png"></a></div><div class="titleImage"><a href="/browse/railcraft/"><img src="/browse/railcraft/icon.png"></a></div></div><div class="mainBody"><div class="section"><h2>Welcome!</h2><div class="panel"><div class="entry"><p class="intro">Crafting Guide is the ultimate resource for Minecraft. Whether you're punching trees or building
 reactors, you'll find Crafting Guide indispensable.</p><ul><li class="intro">Can't remember the recipe for a <a href="/browse/buildcraft/quarry">BuildCraft Quarry</a>?</li><li class="intro">Curious to see all the blocks added by <a href="/browse/railcraft">Railcraft</a>?</li><li class="intro">Want step-by-step directions for making a full <a href="/craft/quantumsuit_bodyarmor:quantumsuit_boots:quantumsuit_helmet:quantumsuit_leggings">IC2 QuantumSuit</a>?</li></ul><p class="intro">No problem. Crafting Guide can do it all.</p><p><a class="section-link" href="/configure">Configure</a><a> which mods you're using, and the entire
 site will update itself to your mod pack.</a></p><p><a class="section-link" href="/browse">Browse</a><a> through your own customized item catalog to
 see full recipe lists, related items, recipes added by each tool, and even which items can be
 made from the item you're looking at.</a></p><p><a class="section-link" href="/craft">Craft</a><a> any number of items from your mod pack to see a
 full list of raw ingredients, and recipe-by-recipe instructions on how to make everything on
 your list. No item is too complex, and no build is too big.
-</a></p></div></div></div><div class="section"><h2><a>What's new?</a></h2><div class="panel"><h3><a>2015-03-20</a></h3><div class="entry"><p><a>Recently, I've been working on allowing mod authors to add more detail to the item pages here on
+</a></p></div></div></div><div class="section"><h2><a>What's new?</a></h2><div class="panel"><h3><a>2015-03-24</a></h3><div class="entry"><p><a>I've just added support for ProfMobius' excellent JABBA (Just Another Better Barrel Attempt).
+Thanks for the anonymous suggestion via the </a><a href="/configure">Configure</a> page!  If
+Crafting Guide is missing a mod you use, feel free to head over there to suggest it.</p><p>I've also added support for <a href="/browse/iron_chests">Iron Chests</a>, and with them, I've
+taken advantage of some of the new features of the site to add descriptions for each item.
+</p></div><h3>2015-03-21</h3><div class="entry"><p>I spent some time today cleaning up the various animations throughout the site, and working on
+page rendering performance. Things should generally feel a lot smoother now.
+</p></div><h3>2015-03-20</h3><div class="entry"><p>Recently, I've been working on allowing mod authors to add more detail to the item pages here on
 Crafting Guide. To that end, there are a couple of new features to announce. First, item detail
-pages can now show text and pictures to describe the item (check out the </a><a href="/browse/buildcraft/assembly_table">Assembly Table</a> for an example).  Second, mods can
+pages can now show text and pictures to describe the item (check out the <a href="/browse/buildcraft/assembly_table">Assembly Table</a> for an example).  Second, mods can
 now include tutorial pages containing similar text and pictures to describe tricky concepts,
 complex builds, or anything else their mod has to offer (see <a href="/browse/buildcraft/tutorials/gates_wires_and_chips">Gates, Wires, and Chips</a> for an
 example). Finally, both item pages and tutorial pages can display a list of YouTube videos. Only
@@ -64,12 +70,7 @@ those huge builds!
 </p></div><h3>2015-02-22</h3><div class="entry"><p>Woo hoo! Or, should I say: Choo choo! I just added support for RailCraft! I also pushed up lots
 of performance improvements (55% faster at computing crafting plans)! Hopefully, you won't
 really notice anything except that entering new items and computing really complicated crafting
-plans don't take so long.
-</p></div><h3>2015-02-19</h3><div class="entry"><p>I just made some major updates to the crafting algorithm. Without getting into details, I'll say
-that there are a few things you should notice:</p><ol><li>it will favor recipes which produce more of an item versus those which produce fewer (e.g.,
-IC2 plates get made with the Block Cutter instead of the Forge Hammer)</li><li>metal ingots will frequently (but not always) get crafted using 2x recipes instead of
-smelting ore directly in a furnace</li><li>recipes for vanilla items added by mods are now available (e.g., smelting Iron Dust into Iron
-ingots)</li></ol></div></div></div></div></div>
+plans don't take so long.</p></div></div></div></div></div>
       <div class="view__footer">
         <div class="divider top"></div>
         <div class="left">
@@ -108,8 +109,8 @@ ingots)</li></ol></div></div></div></div></div>
           <div class="action">
             <iframe src="http://ghbtns.com/github-btn.html?user=andrewminer&amp;repo=crafting-guide&amp;type=fork&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="32"></iframe>
           </div>
-        </div><a href="/test.html" rel="nofollow">
-          <div class="divider bottom"></div></a>
+        </div>
+        <div class="divider bottom"></div>
       </div>
     </div>
     <script src="/js/underscore.js"></script>

@@ -35,7 +35,7 @@ cat > $SCRIPT <<END
 url      = require('system').args[1]
 page     = require('webpage').create()
 path     = "#{url}".replace(/http:\/\/[^/]*/, '').replace(/^\//, '')
-localUrl = "http://localhost:8000/#{path}"
+localUrl = "http://local.crafting-guide.com:8000/#{path}"
 
 page.open localUrl, (status)->
     if status isnt 'success'

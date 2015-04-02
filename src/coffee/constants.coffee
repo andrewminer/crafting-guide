@@ -14,7 +14,7 @@ exports.DefaultMods =
     minecraft:             { defaultVersion: '1.7.10' }
     applied_energistics_2: { defaultVersion: 'rv1-stable-1' }
     big_reactors:          { defaultVersion: '0.4.2A2' }
-    buildcraft:            { defaultVersion: '6.2.6' }
+    buildcraft:            { defaultVersion: '6.4.6' }
     enderio:               { defaultVersion: '2.2.7.325' }
     forestry:              { defaultVersion: '3.4.0.7' }
     ic2_classic:           { defaultVersion: 'none' }

@@ -32,14 +32,11 @@ module.exports = class Mod extends BaseModel
         @_modVersions      = []
         @_tutorials        = []
 
-        Object.defineProperties this,
-            'activeModVersion': { get:-> @_activeModVersion                    }
-            'activeVersion':    { get:@getActiveVersion, set:@setActiveVersion }
-            'enabled':          { get:-> @_activeModVersion?                   }
+        @once Event.sync, => @_verifyActiveModVersion()
 
     # Class Methods ##################################################################################
 
-    @Version =
+    @Version: Version =
         None: 'none'
         Latest: 'latest'
 
@@ -134,6 +131,12 @@ module.exports = class Mod extends BaseModel
             @trigger Event.change + ':activeVersion', this, @_activeVersion
             @trigger Event.change, this
 
+    getActiveModVersion: ->
+        return @_activeModVersion
+
+    isEnabled: ->
+        return @activeModVersion?
+
     addModVersion: (modVersion)->
         return unless modVersion?
         return if @_modVersions.indexOf(modVersion) isnt -1
@@ -178,7 +181,10 @@ module.exports = class Mod extends BaseModel
         return null
 
     Object.defineProperties @prototype,
-        tutorials: { get:@prototype.getAllTutorials }
+        activeModVersion: { get:@prototype.getActiveModVersion }
+        activeVersion:    { get:@prototype.getActiveVersion,   set:@prototype.setActiveVersion }
+        enabled:          { get:@prototype.isEnabled }
+        tutorials:        { get:@prototype.getAllTutorials }
 
     # Backbone.View Overrides ######################################################################
 
@@ -203,3 +209,8 @@ module.exports = class Mod extends BaseModel
 
         if @_activeModVersion?
             @listenTo @_activeModVersion, 'all', -> @trigger.apply this, arguments
+
+    _verifyActiveModVersion: ->
+        if (@_activeVersion isnt Version.None) and (not @_activeModVersion?)
+            logger.warning => "#{@slug} no longer has a version #{@_activeVersion}, using latest instead"
+            @activeVersion = Version.Latest

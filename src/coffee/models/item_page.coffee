@@ -76,8 +76,9 @@ module.exports = class ItemPage extends BaseModel
         @modPack.eachMod (mod)=>
             mod.eachRecipe (recipe)=>
                 if callback(recipe)
-                    outputItem = @modPack.findItem recipe.itemSlug, includeDisabled:true
-                    result[outputItem.slug] = outputItem
+                    for outputStack in recipe.output
+                        outputItem = @modPack.findItem outputStack.itemSlug, includeDisabled:true
+                        result[outputItem.slug] = outputItem
 
         result = _.values result
         return null unless result.length > 0

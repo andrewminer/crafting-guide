@@ -21,33 +21,6 @@ module.exports = class ItemPage extends BaseModel
 
     # Property Methods #############################################################################
 
-    compileDescription: ->
-        return null unless @item?.description?
-
-        tree = markdown.parse @item.description, 'Maruku'
-        refs = tree[1].references
-
-        findLinkRefs = (node)=>
-            if node[0] is 'link_ref'
-                name = node[2]
-                item = @modPack.findItemByName node[2]
-                if item?
-                    node[0] = 'link'
-                    node[1].href = Url.item itemSlug:item.slug.item, modSlug:item.slug.mod
-                    delete node[1].ref
-            else
-                for index in [1...node.length]
-                    if _.isArray node[index]
-                        for child in node[index]
-                            logger.indent()
-                            findLinkRefs child
-                            logger.outdent()
-
-        findLinkRefs tree
-
-        html = markdown.renderJsonML markdown.toHTMLTree tree
-        return html
-
     findComponentInItems: ->
         return @_findRecipesMatching (recipe)=> recipe.requires @item.slug
 

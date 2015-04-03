@@ -5,19 +5,20 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-AdsenseController    = require './adsense_controller'
-FullRecipeController = require './full_recipe_controller'
-ImageLoader          = require './image_loader'
-Item                 = require '../models/item'
-ItemGroupController  = require './item_group_controller'
-ItemPage             = require '../models/item_page'
-ItemSlug             = require '../models/item_slug'
-PageController       = require './page_controller'
-VideoController      = require './video_controller'
-{Duration}           = require '../constants'
-{Event}              = require '../constants'
-{Text}               = require '../constants'
-{Url}                = require '../constants'
+AdsenseController         = require './adsense_controller'
+FullRecipeController      = require './full_recipe_controller'
+ImageLoader               = require './image_loader'
+Item                      = require '../models/item'
+ItemGroupController       = require './item_group_controller'
+ItemPage                  = require '../models/item_page'
+ItemSlug                  = require '../models/item_slug'
+MarkdownSectionController = require './markdown_section_controller'
+PageController            = require './page_controller'
+VideoController           = require './video_controller'
+{Duration}                = require '../constants'
+{Event}                   = require '../constants'
+{Text}                    = require '../constants'
+{Url}                     = require '../constants'
 
 ########################################################################################################################
 
@@ -57,13 +58,13 @@ module.exports = class ItemPageController extends PageController
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
         options                      = imageLoader:@imageLoader, modPack:@modPack, show:false
+        @_descriptionController      = @addChild MarkdownSectionController, '.section.description', options
         @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options
         @_usedAsToolToMakeController = @addChild ItemGroupController, '.view__item_group.usedAsToolToMake', options
         @_usedToMakeController       = @addChild ItemGroupController, '.view__item_group.usedToMake', options
 
         @$byline                  = @$('.byline')
         @$bylineLink              = @$('.byline a')
-        @$descriptionPanel        = @$('.description .panel')
         @$descriptionSection      = @$('.description')
         @$name                    = @$('h1.name')
         @$officialPageLink        = @$('a.officialPage')
@@ -129,9 +130,8 @@ module.exports = class ItemPageController extends PageController
             @hide @$byline
 
     _refreshDescription: ->
-        description = @model.compileDescription()
-        if description?
-            @$descriptionPanel.html description
+        if @model.item?.description?.length > 0
+            @_descriptionController.model = @model.item.description
             @show @$descriptionSection
         else
             @hide @$descriptionSection

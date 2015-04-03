@@ -1,0 +1,36 @@
+schema: 1
+
+description: <<-END
+The Auto Workbench is very similar to a regular Crafting Table with several important improvements which make it ideal
+for automated workflows.
+
+Start by opening the interface and laying out input items just like with a regular crafting table.
+
+|              |
+|:------------:|
+| ![](gui.png) |
+
+At this point, you'll notice that it does *not* actually craft anything, but it does show you want item *would* be
+crafted. Now, add enough ingredients to complete the recipe three times. Once you do, the workbench will automatically
+start works and drop the output item in the far-right inventory slot.  If you pick up that item, it will automatically
+start working on the next one.
+
+To see the full potential of the Auto Workbench, you must use transport pipes to transfer input items into the
+workbench. These will be divided evenly between all the appropriate places in the crafting grid, and once enough items
+have arrived, the next item will be produced. If these items are piped out, production will be completely automated.
+
+For example, here's a setup which converts sticks into wood gears:
+
+|                  |
+|:----------------:|
+| ![](example.png) |
+| *[see the crafting plan](/craft/2.chest:auto_workbench:2.basic_gate_autarchic_pulsar:2.wooden_transport_pipe)* |
+
+1. a chest full of sticks
+2. a Basic Gate (Autarchic Pulsar) on a Wooden Pipe which extracts the items
+3. an Auto Workbench configured to produce gears (as seen above)
+4. a second pipe and gate which extracts items from the Auto Workbench
+
+See also: [Basic Gate (Autarchic Pulsar)], [Wooden Transport Pipe]
+
+END

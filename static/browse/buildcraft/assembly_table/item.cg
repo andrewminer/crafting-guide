@@ -1,0 +1,49 @@
+schema: 1
+
+description: <<-END
+The Assembly Table is used to make various chipsets, gates, wires, and other electronic parts.  Right-clicking opens the
+interface:
+
+|              |
+|:------------:|
+| ![](gui.png) |
+
+
+You can place the input items on the left, and the available output items appear on the right.  All assembly table
+recipes are shapeless, and there may even be extra input items present.
+
+Output items are chosen by clicking one or more items on the right. If powered, the assembly table will immediately
+begin creating the selected item. The item currently being created will be selected in bright red while the future items
+to be created will be selected in dark red.
+
+As the assembly table works, the power meter in the center will gradually fill up. Once it reaches the top, the item is
+finished and will pop off the assembly table. If there's an inventory or pipe nearby, the finished item will be placed
+into it; otherwise, the item will fly off into the room.
+
+# Providing Power
+
+Powering an assembly table requires the use of one or more lasers placed anywhere within a few blocks. These must be
+connected (via kinesis pipes) to some source of power. A single assembly table can receive as much power as you can give
+it, so the more lasers you have within range, the faster it will work. Here's an example of a simple
+setup:
+
+|                  |
+|:----------------:|
+| ![](example.png) |
+| *[see the crafting  plan](/craft/redstone_torch:assembly_table:combustion_engine:emerald_kinesis_pipe:4.golden_kinesis_pipe:3.laser)* |
+
+1. a combustion Engine filled with fuel produces power (60 RF/t) when activated by a redstone torch
+2. an emerald kinesis pipe draws power out of the engine and transmits it along some gold kinesis pipes
+3. a set of three lasers each transmit 20 RF/t
+4. assembly table which uses the 60 RF/t to build its current assignment
+
+See also: [Laser]
+
+# Similar Machines
+
+There are a number of other machines which also require laser power, so it is wise to set up your lasers so that they
+can reach all of them. If multiple machines each have a job ready to work, the lasers will split their time (and
+thus the output power) between each of them.
+
+See also: [Advanced Crafting Table], [Charging Table], [Integration Table]
+END

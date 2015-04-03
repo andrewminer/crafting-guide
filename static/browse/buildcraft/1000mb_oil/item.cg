@@ -1,0 +1,13 @@
+schema: 1
+
+description: <<-END
+Oil is a naturally-occuring liquid added by BuildCraft. While it can be burned in a [Combustion Engine] to produce
+30RF/t, it is much more adventageous to convert it to [1000mB Fuel] using a [Refinery] as fuel both produces more power
+per tick and burns longer.
+
+While not particularly common, Oil can be found in large spouts in ocean, desert, and swamp biomes. The spouts come in
+different sizes, with the larger above-ground portion indicating larger oil deposits below ground. Each spout can
+produce hundreds or even thousands of buckets of oil. The best way to remove oil is to use a [Pump] to extract it, and convert it directly into fuel.
+
+See also: [Combustion Engine]
+END

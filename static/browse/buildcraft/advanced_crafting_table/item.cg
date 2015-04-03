@@ -1,0 +1,8 @@
+schema: 1
+
+description: <<-END
+The Advanced Crafting Table is a step up from the [Auto Workbench], which is, itself, a step up from a [Crafting Table].
+The advanced crafting table works very similarly to an auto-workbench in that you set up a recipe, pipe ingredients in,
+and then pipe out the output items. It is different in that it has a substantial inventory for both input and output
+items, and that it is powered by lasers (and therefore can be driven quite a bit faster).
+END

@@ -378,13 +378,6 @@ group: Transfer
       pattern: .0. 121 343
       tools: Crafting Table
 
-  item: Transfer Pipe
-    recipe:
-      input: Stone Slab, Glass, Redstone
-      pattern: 000 121 000
-      quantity: 8
-      tools: Crafting Table
-
   item: Retrieval Node (Items)
     recipe:
       input: Ender Pearl, Transfer Node (Items), Emerald
@@ -396,6 +389,58 @@ group: Transfer
       input: Ender Pearl, Transfer Node (Items), Diamond
       pattern: .0. 121 .0.
       tools: QED (Quantum Entanglement Diviner)
+
+  item: Transfer Pipe
+    recipe:
+      input: Stone Slab, Glass, Redstone
+      pattern: 000 121 000
+      quantity: 8
+      tools: Crafting Table
+
+  item: Crossover Pipe
+    recipe:
+      input: Transfer Pipe, Redstone
+      pattern: .0. 010 .0.
+      tools: Crafting Table
+
+  item: Energy Extraction Pipe
+    recipe:
+      input: Gold Ingot, Energy Pipe
+      pattern: 0.0 010 .1.
+      tools: Crafting Table
+
+  item: Energy Pipe
+    recipe:
+      input: Stone Slab, Redstone
+      pattern: 000 111 000
+      quantity: 8
+      tools: Crafting Table
+
+  item: Filter Pipe
+    recipe:
+      input: Ink Sac, Transfer Pipe
+      pattern: 010 111 010
+      tools: Crafting Table
+
+  item: Mod Sorting Pipe
+    recipe:
+      input: Redstone, Sorting Pipe
+      pattern: 010 ... ...
+      tools: Crafting Table
+
+  item: Rationing Pipe
+    recipe:
+      input: Stone Slab, Glass, Lapis Lazuli
+      pattern: 000 121 000
+      quantity: 2
+      tools: Crafting Table
+
+  item: Sorting Pipe
+    recipe:
+      input: Stone Slab, Glass, Gold Ingot
+      pattern: 000 121 000
+      quantity: 2
+      tools: Crafting Table
 
 group: Blocks
   item: Angel Block
@@ -744,12 +789,6 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: Crossover Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Cursed Earth
     recipe:
       input: Stone
@@ -774,18 +813,6 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: Energy Extraction Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Energy Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Filing Cabinet (Advanced)
     recipe:
       input: Stone
@@ -793,12 +820,6 @@ group: Uncategorized
       tools: Crafting Table
 
   item: Filing Cabinet
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Filter Pipe
     recipe:
       input: Stone
       pattern: 0.. ... ...
@@ -864,12 +885,6 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: Mod Sorting Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Peaceful Table
     recipe:
       input: Stone
@@ -900,19 +915,7 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: Rationing Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Redstone Clock
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Sorting Pipe
     recipe:
       input: Stone
       pattern: 0.. ... ...

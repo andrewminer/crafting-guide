@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The stable black hole has not been fully implemented yet. It will act like a type of trash can, where you throw items in it and it deletes them. It will probably be made in the matter condenser.
+END

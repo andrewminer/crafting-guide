@@ -598,104 +598,114 @@ group: Ender Blocks
 group: Upgrades
   item: Ender Quarry Fortune I Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Iron Pickaxe, Redstone, Ender Quarry Upgrade Base
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Fortune II Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Golden Pickaxe, Redstone, Ender Quarry Fortune I Upgrade
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Fortune III Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Diamond Pickaxe, Redstone, Ender Quarry Fortune II Upgrade
+      pattern: 0.0 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Pump Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Bucket, Redstone, Ender Quarry Upgrade Base
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Silk Touch Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Golden Pickaxe, Redstone, Ender Quarry Upgrade Base
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Speed I Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Diamond Pickaxe, Speed Upgrade, Ender Quarry Upgrade Base
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Speed II Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Diamond Pickaxe, Speed Upgrade, Ender Quarry Speed I Upgrade
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Speed III Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Diamond Pickaxe, Stack Upgrade, Ender Quarry Speed II Upgrade
+      pattern: 0.0 121 ...
       tools: Crafting Table
 
   item: Ender Quarry Upgrade Base
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
+      input: Ender-infused Obsidian, Burnt Quartz
+      pattern: .0. 010 .0.
+      tools: QED (Quantum Entanglement Diviner)
 
   item: Ender Quarry World Hole Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Creative Upgrade
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Pseudo Round Robin Upgrade
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Trash Can, Block of Quartz, Ender Quarry Upgrade Base
+      pattern: .0. 121 ...
       tools: Crafting Table
 
   item: Speed Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Block of Redstone, Gold Nugget, Gold Ingot
+      pattern: 010 121 020
+      quantity: 4
       tools: Crafting Table
 
   item: Stack Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Gold Ingot, Gold Nugget, Diamond, Speed Upgrade
+      pattern: 010 232 020
       tools: Crafting Table
 
   item: World Interaction Upgrade
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Ender Receiver
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Lapis Lazuli, Iron Ingot, Iron Pickaxe
+      pattern: 010 121 010
       tools: Crafting Table
 
   item: Ender Transmitter
     recipe:
-      input: Stone
-      pattern: 0.. ... ...
+      input: Ender Pearl, Redstone Torch, Nether Quartz
+      pattern: 010 202 010
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Ender Receiver
+    recipe:
+      input: Ender Pearl, Redstone, Nether Quartz
+      pattern: 010 202 020
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Breadth-First Search Upgrade
+    recipe:
+      input: Speed Upgrade, Block of Redstone, Gold Ingot
+      pattern: 011 020 211
+      quantity: 3
+      tools: Crafting Table
+
+  item: Depth-First Search Upgrade
+    recipe:
+      input: Speed Upgrade, Block of Redstone
+      pattern: 000 111 000
+      quantity: 3
+      tools: Crafting Table
+
+  item: Pseudo Round Robin Upgrade
+    recipe:
+      input: Block of Redstone, Gold Nugget, Gold Ingot
+      pattern: 010 021 010
+      quantity: 3
       tools: Crafting Table
 
 group: Uncategorized
@@ -765,12 +775,6 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: Breadth-First Search Upgrade
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Burnt Quartz
     recipe:
       input: Block of Quartz, furnace fuel
@@ -790,16 +794,6 @@ group: Uncategorized
       tools: Crafting Table
 
   item: Cursed Earth
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Depth-First Search Upgrade
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
 
   item: Diamond Spike
     recipe:

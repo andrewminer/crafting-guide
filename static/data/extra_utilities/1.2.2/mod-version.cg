@@ -358,11 +358,21 @@ group: Transfer
 
   item: Transfer Node (Items)
     recipe:
+      input: Transfer Pipe, Redstone, Ender Pearl, Stone, Chest
+      pattern: .0. 121 343
+      quantity: 4
+      tools: Crafting Table
+    recipe:
       input: Transfer Pipe, Redstone, Block of Redstone, Stone, Chest
       pattern: .0. 121 343
       tools: Crafting Table
 
   item: Transfer Node (Liquids)
+    recipe:
+      input: Transfer Pipe, Lapis Lazuli, Ender Pearl, Iron Ingot, Bucket
+      pattern: .0. 121 343
+      quantity: 4
+      tools: Crafting Table
     recipe:
       input: Transfer Pipe, Lapis Lazuli, Block of Redstone, Iron Ingot, Bucket
       pattern: .0. 121 343

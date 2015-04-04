@@ -1,7 +1,7 @@
 schema: 1
 
 description: <<-END
-The Ender Chest is a storage block from EnderStorage which predates the vanilla Ender Chest.
+The Ender Chest is a storage block from EnderStorage which predates the vanilla [Ender Chest].
 
 Each chest has three wool pads on top that can be manipulated by right-clicking them with a dye.
 
@@ -11,3 +11,5 @@ With the 16 different colored dyes of Minecraft, there are **4,096 possible 3-co
 
 An [Ender Pouch] can be used to access the inventory of an Ender Chest from the player's hotbar wherever they are.
 END
+
+video: rU9X2N1vMps, Mod Spotlight by Direwolf20

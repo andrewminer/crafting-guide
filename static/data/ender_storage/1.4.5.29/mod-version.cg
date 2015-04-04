@@ -1,7 +1,7 @@
 schema: 1
 
 group: Storage
-  item: Ender Chest
+  item: Ender Chest (Ender Storage)
     recipe:
       input: Blaze Rod, Wool, Obsidian, Chest, Ender Pearl
       pattern: 010 232 040

@@ -1,7 +1,7 @@
 schema: 1
 
 description: <<-END
-The Ender Tank offers stationary storage for up to 16 buckets of a single liquid. Like the [Ender Chest](/browse/ender_storage/ender_chest), it has three wool pads on top which can be manipulated by right-clicking each one with a dye.
+The Ender Tank offers stationary storage for up to 16 buckets of a single liquid. Like the [Ender Chest](/browse/ender_storage/ender_chest_ender_storage), it has three wool pads on top which can be manipulated by right-clicking each one with a dye.
 
 Tanks with matching colors will share liquids between them, even across dimensions. Additionally, right-clicking the dial with a diamond will set that tank to a 'private' network for that player, change the dial to a diamond color, and show your username in the tooltip.
 
@@ -13,3 +13,5 @@ If you don't have diamonds to spare, the best thing to do would be to pick an ob
 
 With three pads there are **4096 different possible combinations** of the 16 dyes, making it very unlikely - but still possible - for someone to randomly guess the right colors.
 END
+
+video: rU9X2N1vMps, Mod Spotlight by Direwolf20

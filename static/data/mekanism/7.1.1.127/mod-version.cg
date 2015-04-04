@@ -2134,13 +2134,13 @@ group: Minerals
 
     item: Osmium Dust
         recipe:
-            input: Dirty Osmium Dust
-            pattern: ... .0. ...
-            tools: Enrichment Chamber
-        recipe:
             input: Osmium Ore
             pattern: ... .0. ...
             quantity: 2
+            tools: Enrichment Chamber
+        recipe:
+            input: Dirty Osmium Dust
+            pattern: ... .0. ...
             tools: Enrichment Chamber
         recipe:
             input: Osmium Ingot
@@ -2325,13 +2325,13 @@ group: Minerals
 
     item: Tin Dust
         recipe:
-            input: Dirty Tin Dust
-            pattern: ... .0. ...
-            tools: Enrichment Chamber
-        recipe:
             input: Tin Ore
             pattern: ... .0. ...
             quantity: 2
+            tools: Enrichment Chamber
+        recipe:
+            input: Dirty Tin Dust
+            pattern: ... .0. ...
             tools: Enrichment Chamber
         recipe:
             input: Tin Ingot

@@ -1,0 +1,13 @@
+schema: 1
+
+description: <<-END
+The Ender Chest is a storage block from EnderStorage which predates the vanilla Ender Chest.
+
+Each chest has three wool pads on top that can be manipulated by right-clicking them with a dye.
+
+All Ender Chests with the same 3-color code will access a shared inventory, no matter what dimension they are placed in. For example, a red-orange-yellow Ender Chest shares its inventory with all other red-orange-yellow Ender Chests, but cannot be accessed at a red-yellow-orange Ender Chest.
+
+With the 16 different colored dyes of Minecraft, there are **4,096 possible 3-color codes**.
+
+An [Ender Pouch] can be used to access the inventory of an Ender Chest from the player's hotbar wherever they are.
+END

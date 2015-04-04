@@ -1,0 +1,11 @@
+schema: 1
+
+description: <<-END
+The Ender Pouch is a craftable item offering remote access to any [Ender Chest](/browse/ender_storage/ender_chest) via right-clicking while holding the pouch.
+
+The Ender Pouch may be initially crafted with the desired color of [wool](/browse/minecraft/wool); shift-right clicking on an Ender Chest with an Ender Pouch will synchronize the color code of the pouch to match the color code of the chest, replacing the previous color code of the pouch.
+
+When the ender-pouch's GUI is open, it is still possible to move it in your inventory, including moving it into the ender-pouch. Unlike bag-like things from other mods, it is then possible to retrieve it and its contents, by using an ender-chest or another ender-pouch with the same code.
+
+As with the Ender Chest, the Ender Pouch allows unrestricted access to the contents of the pouch/chest to any player in an SMP environment with the same colour code on their pouch / chest, unless it has been synchronized with a diamond-locked ender chest. This can make it useful for sharing resources with friends, but also allows other players to take your resources without consent.
+END

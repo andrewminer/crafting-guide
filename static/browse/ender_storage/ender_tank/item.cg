@@ -1,0 +1,15 @@
+schema: 1
+
+description: <<-END
+The Ender Tank offers stationary storage for up to 16 buckets of a single liquid. Like the [Ender Chest](/browse/ender_storage/ender_chest), it has three wool pads on top which can be manipulated by right-clicking each one with a dye.
+
+Tanks with matching colors will share liquids between them, even across dimensions. Additionally, right-clicking the dial with a diamond will set that tank to a 'private' network for that player, change the dial to a diamond color, and show your username in the tooltip.
+
+A private Ender Tank will not share any liquids with any public tank, or any private tank from another user, even if the colored pads match.
+
+Note that while using an Ender Tank with no diamond without additional security plugins or mods, there is nothing stopping someone else on a server from copying your tank's colors and taking your liquid.
+
+If you don't have diamonds to spare, the best thing to do would be to pick an obscure combination of colors and hide it out of sight, so nobody can see the colors.
+
+With three pads there are **4096 different possible combinations** of the 16 dyes, making it very unlikely - but still possible - for someone to randomly guess the right colors.
+END

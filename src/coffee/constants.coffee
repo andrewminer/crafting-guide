@@ -26,6 +26,7 @@ exports.DefaultMods =
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }
     ender_storage:         { defaultVersion: '1.4.5.29' }
+    extra_utilities:       { defaultVersion: '1.2.2' }
 
 exports.Duration = Duration = {}
 Duration.snap    = 100

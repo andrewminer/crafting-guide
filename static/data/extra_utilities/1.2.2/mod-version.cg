@@ -1,0 +1,940 @@
+schema: 1
+
+group: Materials
+  item: Unstable Ingot Block
+    recipe:
+      input: Unstable Ingot
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Unstable Ingot
+    recipe:
+      input: Iron Ingot, Division Sigil (Activated), Diamond
+      pattern: 0.. 1.. 2..
+      tools: Crafting Table
+      extras: Division Sigil (Activated)
+
+  item: Semi-stable Nugget
+    recipe:
+      input: Gold Nugget, Division Sigil (Activated), Diamond
+      pattern: 0.. 1.. 2..
+      tools: Crafting Table
+      extras: Division Sigil (Activated)
+
+  item: Bedrockium Ingot
+    recipe:
+      input: Triple Compressed Cobblestone, Quadruple Compressed Cobblestone, Block of Diamond
+      pattern: 010 121 010
+      tools: Crafting Table
+
+  item: Block of Bedrockium
+    recipe:
+      input: Bedrockium Ingot
+      pattern: 000 000 000
+      tools: Crafting Table
+
+group: Generators
+  item: Culinary Generator
+    recipe:
+      input: Iron Ingot, Survivalist Generator, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: Culinary Generator (x8)
+    recipe:
+      input: Culinary Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Culinary Generator (x64)
+    recipe:
+      input: Culinary Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Ender Generator
+    recipe:
+      input: Ender Pearl, Block of Iron, Redstone, Furnace, Eye of Ender
+      pattern: 000 414 232
+      tools: Crafting Table
+
+  item: Ender Generator (x8)
+    recipe:
+      input: Ender Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Ender Generator (x64)
+    recipe:
+      input: Ender Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Furnace Generator
+    recipe:
+      input: Iron Ingot, Block of Iron, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: Furnace Generator (x8)
+    recipe:
+      input: Furnace Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Furnace Generator (x64)
+    recipe:
+      input: Furnace Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Heated Redstone Generator
+    recipe:
+      input: Block of Redstone, Lava Generator, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: Heated Redstone Generator (x8)
+    recipe:
+      input: Heated Redstone Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Heated Redstone Generator (x64)
+    recipe:
+      input: Heated Redstone Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: High-temperature Furnace Generator
+    recipe:
+      input: Iron Ingot, Furnace Generator, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: High-temperature Furnace Generator (x8)
+    recipe:
+      input: High-temperature Furnace Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: High-temperature Furnace Generator (x64)
+    recipe:
+      input: High-temperature Furnace Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Lava Generator
+    recipe:
+      input: Gold Ingot, Block of Iron, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: Lava Generator (x8)
+    recipe:
+      input: Lava Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Lava Generator (x64)
+    recipe:
+      input: Lava Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Nether Star Generator
+    recipe:
+      input: Wither Skeleton Skull, Nether Star, Unstable Ingot Block, Redstone, Furnace
+      pattern: 010 020 343
+      tools: Crafting Table
+
+  item: Nether Star Generator (x8)
+    recipe:
+      input: Nether Star Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Nether Star Generator (x64)
+    recipe:
+      input: Nether Star Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Pink Generator
+    recipe:
+      input: Pink Wool, Survivalist Generator, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: Pink Generator (x8)
+    recipe:
+      input: Pink Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Pink Generator (x64)
+    recipe:
+      input: Pink Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Potions Generator
+    recipe:
+      input: Obsidian, Enchantment Table, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: Potions Generator (x8)
+    recipe:
+      input: Potions Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Potions Generator (x64)
+    recipe:
+      input: Potions Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Solar Generator
+    recipe:
+      input: Lapis Lazuli, Nether Quartz, Block of Diamond, Redstone, Furnace
+      pattern: 010 121 343
+      tools: Crafting Table
+
+  item: Solar Generator (x8)
+    recipe:
+      input: Solar Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Solar Generator (x64)
+    recipe:
+      input: Solar Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Survivalist Generator
+    recipe:
+      input: Cobblestone, Iron Ingot, Piston, Redstone, Furnace
+      pattern: 000 121 343
+      tools: Crafting Table
+
+  item: Survivalist Generator (x8)
+    recipe:
+      input: Survivalist Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Survivalist Generator (x64)
+    recipe:
+      input: Survivalist Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: TNT Generator
+    recipe:
+      input: TNT, Block of Iron, Redstone, Furnace
+      pattern: 000 010 232
+      tools: Crafting Table
+
+  item: TNT Generator (x8)
+    recipe:
+      input: TNT Generator, Transfer Node (Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: TNT Generator (x64)
+    recipe:
+      input: TNT Generator (x8), Transfer Node (Hyper Energy)
+      pattern: 000 010 000
+      tools: Crafting Table
+
+group: Items
+  item: Ender-Lily Seeds
+
+  item: Division Sigil (Activated)
+
+  item: Division Sigil
+
+  item: Super Builder's Wand
+
+  item: Builder's Wand
+    recipe:
+      input: Obsidian, Unstable Ingot
+      pattern: .1. 0.. ...
+      tools: Crafting Table
+
+  item: Destruction Pickaxe
+    recipe:
+      input: Obsidian, Unstable Ingot
+      pattern: 111 .0. .0.
+      tools: Crafting Table
+
+  item: Erosion Shovel
+    recipe:
+      input: Obsidian, Unstable Ingot
+      pattern: 1.. 0.. 0..
+      tools: Crafting Table
+
+  item: Etheric Sword
+    recipe:
+      input: Obsidian, Unstable Ingot
+      pattern: 1.. 1.. 0..
+      tools: Crafting Table
+
+  item: Healing Axe
+    recipe:
+      input: Obsidian, Unstable Ingot
+      pattern: 11. 10. .0.
+      tools: Crafting Table
+
+  item: Reversing Hoe
+    recipe:
+      input: Obsidian, Unstable Ingot
+      pattern: 11. .0. .0.
+      tools: Crafting Table
+
+  item: Precision Shears
+    recipe:
+      input: Angel Block, Unstable Ingot
+      pattern: 01. 10. ...
+      tools: Crafting Table
+
+  item: Watering Can
+    recipe:
+      input: Iron Ingot, Bone Meal, Bowl
+      pattern: 01. 020 .0.
+      tools: Crafting Table
+
+  item: Watering Can (Reinforced)
+    recipe:
+      input: Bedrockium Ingot, Soul fragment, Bowl
+      pattern: 01. 020 .0.
+      tools: Crafting Table
+
+  item: Paintbrush
+    recipe:
+      input: String, Stick
+      pattern: 0.. .1. ..1
+      tools: Crafting Table
+
+  item: Portable Scanner
+    recipe:
+      input: Iron Ingot, Eye of Ender, Redstone
+      pattern: 000 120 000
+      tools: Crafting Table
+
+  item: Sonar Goggles
+    recipe:
+      input: Unstable Ingot, Eye of Ender
+      pattern: 000 101 000
+      tools: Crafting Table
+
+  item: Golden Bag of Holding
+    recipe:
+      input: Wool, Diamond, Gold Ingot, Chest, Block of Gold
+      pattern: 010 232 040
+      tools: Crafting Table
+
+  item: Golden Lasso
+    recipe:
+      input: Gold Nugget, String, Eye of Ender
+      pattern: 010 121 010
+      tools: Crafting Table
+
+group: Transfer
+  item: Transfer Node (Energy)
+    recipe:
+      input: Gold Ingot, Transfer Node (Items), Breadth-First Search Upgrade
+      pattern: 010 020 010
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Transfer Node (Hyper Energy)
+    recipe:
+      input: Transfer Node (Energy), Bedrockium Ingot
+      pattern: .0. 010 .0.
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Transfer Node (Items)
+    recipe:
+      input: Transfer Pipe, Redstone, Block of Redstone, Stone, Chest
+      pattern: .0. 121 343
+      tools: Crafting Table
+
+  item: Transfer Node (Liquids)
+    recipe:
+      input: Transfer Pipe, Lapis Lazuli, Block of Redstone, Iron Ingot, Bucket
+      pattern: .0. 121 343
+      tools: Crafting Table
+
+  item: Transfer Pipe
+    recipe:
+      input: Stone Slab, Glass, Redstone
+      pattern: 000 121 000
+      quantity: 8
+      tools: Crafting Table
+
+  item: Retrieval Node (Items)
+    recipe:
+      input: Ender Pearl, Transfer Node (Items), Emerald
+      pattern: .0. 121 .0.
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Retrieval Node (Liquids)
+    recipe:
+      input: Ender Pearl, Transfer Node (Items), Diamond
+      pattern: .0. 121 .0.
+      tools: QED (Quantum Entanglement Diviner)
+
+group: Blocks
+  item: Angel Block
+    recipe:
+      input: Gold Ingot, Feather, Obsidian
+      pattern: .0. 121 ...
+      tools: Crafting Table
+
+  item: Magical Wood
+    recipe:
+      input: Gold Ingot, Enchanted Book, Bookshelf
+      pattern: 010 121 010
+      tools: Crafting Table
+
+  item: Compressed Cobblestone
+    recipe:
+      input: Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Compressed Dirt
+    recipe:
+      input: Dirt
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Compressed Gravel
+    recipe:
+      input: Gravel
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Compressed Sand
+    recipe:
+      input: Sand
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Double Compressed Cobblestone
+    recipe:
+      input: Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Double Compressed Dirt
+    recipe:
+      input: Compressed Dirt
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Double Compressed Gravel
+    recipe:
+      input: Compressed Gravel
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Double Compressed Sand
+    recipe:
+      input: Compressed Sand
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Octuple Compressed Cobblestone
+    recipe:
+      input: Septuple Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Quadruple Compressed Cobblestone
+    recipe:
+      input: Triple Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Quadruple Compressed Dirt
+    recipe:
+      input: Triple Compressed Dirt
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Quintuple Compressed Cobblestone
+    recipe:
+      input: Quadruple Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Septuple Compressed Cobblestone
+    recipe:
+      input: Sextuple Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Sextuple Compressed Cobblestone
+    recipe:
+      input: Quintuple Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Triple Compressed Cobblestone
+    recipe:
+      input: Double Compressed Cobblestone
+      pattern: 000 000 000
+      tools: Crafting Table
+
+  item: Triple Compressed Dirt
+    recipe:
+      input: Double Compressed Dirt
+      pattern: 000 000 000
+      tools: Crafting Table
+
+group: Ender Blocks
+  item: Ender Core
+    recipe:
+      input: Magical Wood, Ender-infused Obsidian, Eye of Ender
+      pattern: 010 121 010
+      tools: Crafting Table
+
+  item: Ender Quarry
+    recipe:
+      input: Ender-infused Obsidian, Oak Sapling, Ender Core, Diamond-Etched Computational Matrix, Ender-Thermic Pump, Diamond Pickaxe
+      pattern: 010 232 454
+      tools: Crafting Table
+
+  item: Ender-Flux Crystal
+    recipe:
+      input: Eye of Ender, Ender-infused Obsidian
+      pattern: .0. .1. 111
+      tools: Crafting Table
+
+  item: Ender-Marker
+    recipe:
+      input: Ender Pearl, Ender-infused Obsidian
+      pattern: 0.. 1.. 1..
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Ender-Thermic Pump
+    recipe:
+      input: Ender-infused Obsidian, Diamond, Lava Bucket, Eye of Ender, Water Bucket, Iron Pickaxe
+      pattern: 010 234 050
+      tools: Crafting Table
+
+  item: Ender-infused Obsidian
+    recipe:
+      input: Obsidian, Ender Pearl
+      pattern: .0. 010 .0.
+      quantity: 4
+      tools: Crafting Table
+
+  item: Diamond-Etched Computational Matrix
+    recipe:
+      input: Burnt Quartz, Diamond, Ender-infused Obsidian
+      pattern: 010 121 010
+      tools: Crafting Table
+
+group: Upgrades
+  item: Ender Quarry Fortune I Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Fortune II Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Fortune III Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Pump Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Silk Touch Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Speed I Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Speed II Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Speed III Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry Upgrade Base
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Quarry World Hole Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Creative Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Pseudo Round Robin Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Speed Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Stack Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: World Interaction Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Receiver
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Ender Transmitter
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+group: Uncategorized
+  item: Angel Ring
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Angel Ring_2
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Angel Ring_3
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Angel Ring_4
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Angel Ring_5
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Bedrockium Drum
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Blackout Curtains
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Block Update Detector (Advanced)
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Block Update Detector
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Border Stone (Alternate)
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Border Stone
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Breadth-First Search Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Burnt Quartz
+    recipe:
+      input: Block of Quartz, furnace fuel
+      pattern: .0. ... .1.
+      tools: Furnace
+
+  item: Chandelier
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Conveyor Belt
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Crossover Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Cursed Earth
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Depth-First Search Upgrade
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Diamond Spike
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Drum
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Energy Extraction Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Energy Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Filing Cabinet (Advanced)
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Filing Cabinet
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Filter Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Frosted Stone
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Golden Spike
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Gravel Bricks
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Gravel Road
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Heating Coil
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Hyper-Rationing Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Iron Spike
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Item Filter
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Kikoku
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Magnum Torch
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Mod Sorting Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Peaceful Table
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Portal to the 'Deep Dark'
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Pseudo-Inversion Sigil
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: QED (Quantum Entanglement Diviner)
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Rain Muffler
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Rationing Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Redstone Clock
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Sorting Pipe
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Soul fragment
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Sound Muffler
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Trading Post
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Trash Can
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+
+  item: Wooden Spike
+    recipe:
+      input: Stone
+      pattern: 0.. ... ...
+      tools: Crafting Table
+

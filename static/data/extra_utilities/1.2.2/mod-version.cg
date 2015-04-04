@@ -259,6 +259,8 @@ group: Items
 
   item: Super Builder's Wand
 
+  item: Soul fragment
+
   item: Builder's Wand
     recipe:
       input: Obsidian, Unstable Ingot
@@ -552,6 +554,12 @@ group: Blocks
       tools: Crafting Table
 
 group: Ender Blocks
+  item: QED (Quantum Entanglement Diviner)
+    recipe:
+      input: Eye of Ender, Crafting Table, Ender-infused Obsidian, Diamond-Etched Computational Matrix
+      pattern: 010 232 222
+      tools: Crafting Table
+
   item: Ender Core
     recipe:
       input: Magical Wood, Ender-infused Obsidian, Eye of Ender
@@ -897,12 +905,6 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: QED (Quantum Entanglement Diviner)
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Rain Muffler
     recipe:
       input: Stone
@@ -910,12 +912,6 @@ group: Uncategorized
       tools: Crafting Table
 
   item: Redstone Clock
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Soul fragment
     recipe:
       input: Stone
       pattern: 0.. ... ...

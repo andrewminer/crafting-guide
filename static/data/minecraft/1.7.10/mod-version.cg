@@ -3,6 +3,7 @@ schema: 1
 group: Agriculture
 
     item: Apple
+        gatherable: yes
 
     item: Baked Potato
         recipe:
@@ -29,6 +30,7 @@ group: Agriculture
             tools: Crafting Table
 
     item: Cactus
+        gatherable: yes
 
     item: Cake
         recipe:
@@ -38,8 +40,10 @@ group: Agriculture
             tools: Crafting Table
 
     item: Carrot
+        gatherable: yes
 
     item: Cocoa Beans
+        gatherable: yes
 
     item: Cookie
         recipe:
@@ -79,12 +83,16 @@ group: Agriculture
             pattern: .2. .1. .0.
 
     item: Nether Wart
+        gatherable: yes
 
     item: Poisonous Potato
+        gatherable: yes
 
     item: Potato
+        gatherable: yes
 
     item: Pumpkin
+        gatherable: yes
 
     item: Pumpkin Pie
         recipe:
@@ -98,6 +106,7 @@ group: Agriculture
             quantity: 4
 
     item: Seeds
+        gatherable: yes
 
     item: Sugar
         recipe:
@@ -105,6 +114,7 @@ group: Agriculture
             pattern: ... .0. ...
 
     item: Sugar Canes
+        gatherable: yes
 
     item: Wheat
         gatherable: yes
@@ -536,6 +546,7 @@ group: Earth Materials
     item: Chiseled Stone Bricks
 
     item: Cobblestone
+        gatherable: yes
 
     item: Cobblestone Slab
         recipe:
@@ -553,14 +564,18 @@ group: Earth Materials
     item: Cracked Stone Bricks
 
     item: Dirt
+        gatherable: yes
 
     item: End Stone
+        gatherable: yes
 
     item: Flint
+        gatherable: yes
 
     item: Grass Block
 
     item: Gravel
+        gatherable: yes
 
     item: Moss Stone
 
@@ -607,8 +622,10 @@ group: Earth Materials
             tools: Crafting Table
 
     item: Netherrack
+        gatherable: yes
 
     item: Obsidian
+        gatherable: yes
 
     item: Pillar Quartz Block
         recipe:
@@ -633,8 +650,10 @@ group: Earth Materials
             tools: Crafting Table
 
     item: Red Sand
+        gatherable: yes
 
     item: Sand
+        gatherable: yes
 
     item: Sandstone Slab
         recipe:
@@ -657,6 +676,7 @@ group: Earth Materials
             quantity: 4
 
     item: Soul Sand
+        gatherable: yes
 
     item: Stone
         recipe:
@@ -1085,6 +1105,7 @@ group: Glass
 group: Husbandry
 
     item: Clownfish
+        gatherable: yes
 
     item: Cooked Chicken
         recipe:
@@ -1111,8 +1132,10 @@ group: Husbandry
             tools: Furnace
 
     item: Egg
+        gatherable: yes
 
     item: Feather
+        gatherable: yes
 
     item: Hay Bale
         recipe:
@@ -1128,6 +1151,7 @@ group: Husbandry
             tools: Crafting Table
 
     item: Leather
+        gatherable: yes
 
     item: Milk
         recipe:
@@ -1136,14 +1160,19 @@ group: Husbandry
             tools: Cow
 
     item: Raw Beef
+        gatherable: yes
 
     item: Raw Chicken
+        gatherable: yes
 
     item: Raw Fish
+        gatherable: yes
 
     item: Raw Porkchop
+        gatherable: yes
 
     item: Raw Salmon
+        gatherable: yes
 
     item: Steak
         recipe:
@@ -1239,8 +1268,10 @@ group: Liquids
     item: Fire
 
     item: Lava
+        gatherable: yes
 
     item: Water
+        gatherable: yes
 
 group: Minerals
 
@@ -1296,6 +1327,7 @@ group: Minerals
             quantity: 9
 
     item: Coal Ore
+        gatherable: yes
 
     item: Diamond
         gatherable: yes
@@ -1305,6 +1337,7 @@ group: Minerals
             quantity: 9
 
     item: Diamond Ore
+        gatherable: yes
 
     item: Emerald
         gatherable: yes
@@ -1318,6 +1351,7 @@ group: Minerals
             tools: Furnace
 
     item: Emerald Ore
+        gatherable: yes
 
     item: Glowstone
         recipe:
@@ -1347,6 +1381,7 @@ group: Minerals
             quantity: 9
 
     item: Gold Ore
+        gatherable: yes
 
     item: Ice
         gatherable: yes
@@ -1362,6 +1397,7 @@ group: Minerals
             quantity: 9
 
     item: Iron Ore
+        gatherable: yes
 
     item: Lapis Lazuli
         gatherable: yes
@@ -1377,6 +1413,7 @@ group: Minerals
             tools: Crafting Table
 
     item: Lapis Lazuli Ore
+        gatherable: yes
 
     item: Nether Quartz
         gatherable: yes
@@ -1386,8 +1423,10 @@ group: Minerals
             tools: Furnace
 
     item: Nether Quartz Ore
+        gatherable: yes
 
     item: Packed Ice
+        gatherable: yes
 
     item: Redstone
         gatherable: yes
@@ -1401,6 +1440,7 @@ group: Minerals
             quantity: 9
 
     item: Redstone Ore
+        gatherable: yes
 
     item: Sandstone
         recipe:
@@ -1425,87 +1465,125 @@ group: Minerals
 group: Mob Drops
 
     item: Blaze Rod
+        gatherable: yes
 
     item: Bone
+        gatherable: yes
 
     item: Cobweb
 
     item: Creeper Head
+        gatherable: yes
 
     item: Dragon Egg
+        gatherable: yes
 
     item: Ender Pearl
+        gatherable: yes
 
     item: Ghast Tear
+        gatherable: yes
 
     item: Gunpowder
+        gatherable: yes
 
     item: Head
+        gatherable: yes
 
     item: Ink Sac
+        gatherable: yes
 
     item: Nether Star
+        gatherable: yes
 
     item: Rotten Flesh
+        gatherable: yes
 
     item: Skeleton Skull
+        gatherable: yes
 
     item: Slimeball
+        gatherable: yes
 
     item: Spider Eye
+        gatherable: yes
 
     item: String
         gatherable: yes
 
     item: Wither Skeleton Skull
+        gatherable: yes
 
     item: Zombie Head
+        gatherable: yes
 
 group: Plants
 
     item: Allium
+        gatherable: yes
 
     item: Azure Bluet
+        gatherable: yes
 
     item: Blue Orchid
+        gatherable: yes
 
     item: Dandelion
+        gatherable: yes
 
     item: Dead Bush
+        gatherable: yes
 
     item: Double Tallgrass
+        gatherable: yes
 
     item: Fern
+        gatherable: yes
 
     item: Grass
+        gatherable: yes
 
     item: Large Fern
+        gatherable: yes
 
     item: Lilac
+        gatherable: yes
 
     item: Lily Pad
+        gatherable: yes
 
     item: Orange Tulip
+        gatherable: yes
 
     item: Oxeye Daisy
+        gatherable: yes
 
     item: Peony
+        gatherable: yes
 
     item: Pink Tulip
+        gatherable: yes
 
     item: Poppy
+        gatherable: yes
 
     item: Red Tulip
+        gatherable: yes
 
     item: Rose Bush
+        gatherable: yes
 
     item: Sponge
+        gatherable: yes
 
     item: Sunflower
+        gatherable: yes
 
     item: Vines
+        gatherable: yes
 
     item: White Tulip
+        gatherable: yes
 
 group: Potions: Brewing
 
@@ -1578,6 +1656,7 @@ group: Potions: Brewing
             tools: Brewing Stand
 
     item: Pufferfish
+        gatherable: yes
 
     item: Water Bottle
         recipe:
@@ -2342,6 +2421,7 @@ group: Tools
             pattern: ... .1. .0.
 
     item: Music Disc
+        gatherable: yes
 
     item: Name Tag
 
@@ -2660,10 +2740,13 @@ group: Transportation
 group: Wood
 
     item: Acacia Leaves
+        gatherable: yes
 
     item: Acacia Sapling
+        gatherable: yes
 
     item: Acacia Wood
+        gatherable: yes
 
     item: Acacia Wood Planks
         recipe:
@@ -2686,10 +2769,13 @@ group: Wood
             tools: Crafting Table
 
     item: Birch Leaves
+        gatherable: yes
 
     item: Birch Sapling
+        gatherable: yes
 
     item: Birch Wood
+        gatherable: yes
 
     item: Birch Wood Planks
         recipe:
@@ -2712,10 +2798,13 @@ group: Wood
             tools: Crafting Table
 
     item: Dark Oak Leaves
+        gatherable: yes
 
     item: Dark Oak Sapling
+        gatherable: yes
 
     item: Dark Oak Wood
+        gatherable: yes
 
     item: Dark Oak Wood Planks
         recipe:
@@ -2738,10 +2827,13 @@ group: Wood
             tools: Crafting Table
 
     item: Jungle Leaves
+        gatherable: yes
 
     item: Jungle Sapling
+        gatherable: yes
 
     item: Jungle Wood
+        gatherable: yes
 
     item: Jungle Wood Planks
         recipe:
@@ -2764,10 +2856,13 @@ group: Wood
             tools: Crafting Table
 
     item: Oak Leaves
+        gatherable: yes
 
     item: Oak Sapling
+        gatherable: yes
 
     item: Oak Wood
+        gatherable: yes
 
     item: Oak Wood Planks
         recipe:
@@ -2789,10 +2884,13 @@ group: Wood
             quantity: 4
 
     item: Spruce Leaves
+        gatherable: yes
 
     item: Spruce Sapling
+        gatherable: yes
 
     item: Spruce Wood
+        gatherable: yes
 
     item: Spruce Wood Planks
         recipe:

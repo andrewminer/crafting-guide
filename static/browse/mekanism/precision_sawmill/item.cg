@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The Precision Sawmill provides an alternate means of converting logs into planks and planks into sticks. Using the precision sawmill will yield an extra 50% of the expected output for both recipes and each has a chance of producing [Sawdust], which is handy for making [Cardboard Box]es.
+END

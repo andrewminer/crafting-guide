@@ -1,0 +1,25 @@
+schema: 1
+
+description: <<-END
+The Salination Controller is the main interface to a Salination Plant, a multi-block structure for producing [Brine]. At a minimum, it must be composed of three layers:
+
+|                 |
+|:---------------:|
+| ![](top.png)    |
+| ![](middle.png) |
+| ![](bottom.png) |
+
+The top layer of the structure is the most complex. Each corner must contain an [Advanced Solar Generator]. The center must be left hollow, and the remaining edges must be made of [Salination Block]s with a single controller somewhere in the ring.
+
+The structure must contain at least one middle layer (though any larger number is permitted). The overall structure must contain at least two [Salination Valve]s in a middle layer somewhere (one for input of [Water], and one for output of [Brine]), but otherwise, the middle layers must be hollow rings of 12 salination blocks each.
+
+The bottom layer consists of 16 [Salination Block]s.
+
+Here's the [Crafting Plan](/craft/4.advanced_solar_generator:33.salination_block:salination_controller:2.salination_valve) for the smallest possible salination plant.
+
+# Usage
+
+The Salination plant relies on solar power to convert water into brine. All that's needed is a pump to keep the tank filled, and a steady source of sunshine to power it. Of course, the sun doesn't shine all the time, so you will naturally have less productive periods overnight.
+
+The taller your salination plant is, the higher temperature it will be able to achive and maintain, and thus the more efficient it will be at producing brine.
+END

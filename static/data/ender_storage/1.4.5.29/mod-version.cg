@@ -1,0 +1,21 @@
+schema: 1
+
+group: Storage
+  item: Ender Chest
+    recipe:
+      input: Blaze Rod, Wool, Obsidian, Chest, Ender Pearl
+      pattern: 010 232 040
+      tools: Crafting Table
+
+  item: Ender Pouch
+    recipe:
+      input: Blaze Powder, Leather, Ender Pearl, Wool
+      pattern: 010 121 030
+      tools: Crafting Table
+
+  item: Ender Tank
+    recipe:
+      input: Blaze Rod, Wool, Obsidian, Cauldron, Ender Pearl
+      pattern: 010 232 040
+      tools: Crafting Table
+

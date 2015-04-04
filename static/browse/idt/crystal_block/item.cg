@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The crystal block is a way of storing a lot of [crystal gem]s in one place. It takes 9 crystal gems to make, and the block is slightly see trhough like [ice]. When pushed by a piston, it pops into an item.
+END

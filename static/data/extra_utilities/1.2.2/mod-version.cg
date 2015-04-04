@@ -553,6 +553,34 @@ group: Blocks
       pattern: 000 000 000
       tools: Crafting Table
 
+  item: Iron Spike
+    recipe:
+      input: Iron Sword, Iron Ingot, Block of Iron
+      pattern: .0. 010 121
+      quantity: 4
+      tools: Crafting Table
+
+  item: Diamond Spike
+    recipe:
+      input: Diamond Sword, Golden Spike, Block of Diamond
+      pattern: .0. 010 121
+      quantity: 4
+      tools: Crafting Table
+
+  item: Golden Spike
+    recipe:
+      input: Golden Sword, Magical Wood, Block of Gold
+      pattern: .0. 010 121
+      quantity: 4
+      tools: Crafting Table
+
+  item: Wooden Spike
+    recipe:
+      input: Wooden Sword, Oak Wood Planks, Oak Wood
+      pattern: .0. 010 121
+      quantity: 4
+      tools: Crafting Table
+
 group: Ender Blocks
   item: QED (Quantum Entanglement Diviner)
     recipe:
@@ -803,12 +831,6 @@ group: Uncategorized
 
   item: Cursed Earth
 
-  item: Diamond Spike
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Drum
     recipe:
       input: Stone
@@ -833,12 +855,6 @@ group: Uncategorized
       pattern: 0.. ... ...
       tools: Crafting Table
 
-  item: Golden Spike
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Gravel Bricks
     recipe:
       input: Stone
@@ -858,12 +874,6 @@ group: Uncategorized
       tools: Crafting Table
 
   item: Hyper-Rationing Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Iron Spike
     recipe:
       input: Stone
       pattern: 0.. ... ...
@@ -930,12 +940,6 @@ group: Uncategorized
       tools: Crafting Table
 
   item: Trash Can
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Wooden Spike
     recipe:
       input: Stone
       pattern: 0.. ... ...

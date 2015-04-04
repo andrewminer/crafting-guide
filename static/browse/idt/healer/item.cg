@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+When right clicked, it heals the player 1/2 heart. It made from essences and red dye. The crazy texture has meaning. In one corner it has a brown diagonal, representing earth/dirt. Another corner has a orange diagonal representing fire. Another corner has a blue diagonal representing water, and the last corner has nothing, you can see through it, representing air. These are the 4 basic "elements". There also a green squiggle line going though between the diagonals, which represents life itself. The red plus represents first aid/health.
+END

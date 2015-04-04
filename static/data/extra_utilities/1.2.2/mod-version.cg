@@ -444,6 +444,19 @@ group: Transfer
       quantity: 2
       tools: Crafting Table
 
+  item: Hyper-Rationing Pipe
+    recipe:
+      input: Button, Glass, Lapis Lazuli
+      pattern: 000 121 000
+      quantity: 2
+      tools: Crafting Table
+
+  item: Item Filter
+    recipe:
+      input: Redstone, Stick, String
+      pattern: 010 121 010
+      tools: Crafting Table
+
 group: Blocks
   item: Angel Block
     recipe:
@@ -868,18 +881,6 @@ group: Uncategorized
       tools: Crafting Table
 
   item: Heating Coil
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Hyper-Rationing Pipe
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Item Filter
     recipe:
       input: Stone
       pattern: 0.. ... ...

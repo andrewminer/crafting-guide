@@ -5,6 +5,7 @@ http://crafting-guide.com/craft/
 http://crafting-guide.com/browse/applied_energistics_2/
 http://crafting-guide.com/browse/big_reactors/
 http://crafting-guide.com/browse/buildcraft/
+http://crafting-guide.com/browse/ender_storage/
 http://crafting-guide.com/browse/enderio/
 http://crafting-guide.com/browse/forestry/
 http://crafting-guide.com/browse/ic2_classic/
@@ -423,6 +424,9 @@ http://crafting-guide.com/browse/buildcraft/wooden_transport_pipe/
 http://crafting-guide.com/browse/buildcraft/wrench/
 http://crafting-guide.com/browse/buildcraft/yellow_pipe_wire/
 http://crafting-guide.com/browse/buildcraft/zone_planner/
+http://crafting-guide.com/browse/ender_storage/ender_chest_ender_storage/
+http://crafting-guide.com/browse/ender_storage/ender_pouch/
+http://crafting-guide.com/browse/ender_storage/ender_tank/
 http://crafting-guide.com/browse/enderio/advanced_item_filter/
 http://crafting-guide.com/browse/enderio/advanced_photovoltaic_cell/
 http://crafting-guide.com/browse/enderio/alloy_smelter/

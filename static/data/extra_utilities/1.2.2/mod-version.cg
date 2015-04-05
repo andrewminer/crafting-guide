@@ -487,19 +487,7 @@ group: Transfer
       pattern: 010 121 010
       tools: Crafting Table
 
-group: Blocks
-  item: Angel Block
-    recipe:
-      input: Gold Ingot, Feather, Obsidian
-      pattern: .0. 121 ...
-      tools: Crafting Table
-
-  item: Magical Wood
-    recipe:
-      input: Gold Ingot, Enchanted Book, Bookshelf
-      pattern: 010 121 010
-      tools: Crafting Table
-
+group: Compressed blocks
   item: Compressed Cobblestone
     recipe:
       input: Cobblestone
@@ -594,6 +582,19 @@ group: Blocks
     recipe:
       input: Double Compressed Dirt
       pattern: 000 000 000
+      tools: Crafting Table
+
+group: Blocks
+  item: Angel Block
+    recipe:
+      input: Gold Ingot, Feather, Obsidian
+      pattern: .0. 121 ...
+      tools: Crafting Table
+
+  item: Magical Wood
+    recipe:
+      input: Gold Ingot, Enchanted Book, Bookshelf
+      pattern: 010 121 010
       tools: Crafting Table
 
   item: Iron Spike

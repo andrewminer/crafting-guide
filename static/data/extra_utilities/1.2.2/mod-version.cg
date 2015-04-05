@@ -440,7 +440,7 @@ group: Items
 
   item: Magnum Torch
     recipe:
-      input: Potion of Regeneration, Chandelier, Potion of Healing, Oak Wood
+      input: Potion of Regeneration II (0:22), Chandelier, Potion of Healing II, Oak Wood
       pattern: 012 131 131
       tools: QED (Quantum Entanglement Diviner)
 

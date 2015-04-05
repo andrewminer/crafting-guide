@@ -375,6 +375,89 @@ group: Items
       pattern: 010 121 313
       tools: Crafting Table
 
+  item: Bedrockium Drum
+    recipe:
+      input: Bedrockium Ingot, Weighted Pressure Plate (Light), Cauldron
+      pattern: 010 020 010
+      tools: Crafting Table
+
+  item: Blackout Curtains
+    recipe:
+      input: Wool
+      pattern: 00. 00. 00.
+      tools: Crafting Table
+
+  item: Block Update Detector
+    recipe:
+      input: Stone, Redstone, Sticky Piston, Redstone Torch
+      pattern: 010 020 030
+      tools: Crafting Table
+
+  item: Block Update Detector (Advanced)
+    recipe:
+      input: Stone, Block of Redstone, Block Update Detector
+      pattern: 010 121 010
+      tools: Crafting Table
+
+  item: Chandelier
+    recipe:
+      input: Gold Ingot, Diamond, Torch
+      pattern: 010 222 .2.
+      tools: Crafting Table
+
+  item: Conveyor Belt
+    recipe:
+      input: Rail, Iron Ingot, Redstone
+      pattern: 000 121 000
+      quantity: 8
+      tools: Crafting Table
+
+  item: Drum
+    recipe:
+      input: Iron Ingot, Weighted Pressure Plate (Heavy), Cauldron
+      pattern: 010 020 010
+      tools: Crafting Table
+
+  item: Filing Cabinet
+    recipe:
+      input: Iron Ingot, Chest
+      pattern: 010 010 010
+      tools: Crafting Table
+
+  item: Filing Cabinet (Advanced)
+    recipe:
+      input: Magical Wood, Filing Cabinet
+      pattern: 010 010 010
+      tools: Crafting Table
+
+  item: Heating Coil
+    recipe:
+      input: Weighted Pressure Plate (Heavy), Redstone
+      pattern: 000 0.0 010
+      tools: Crafting Table
+
+  item: Kikoku
+
+  item: Magnum Torch
+    recipe:
+      input: Potion of Regeneration, Chandelier, Potion of Healing, Oak Wood
+      pattern: 012 131 131
+      tools: QED (Quantum Entanglement Diviner)
+
+  item: Portal to the 'Deep Dark'
+    recipe:
+      input: Quadruple Compressed Cobblestone, Unstable Ingot, Quintuple Compressed Cobblestone
+      pattern: 010 121 010
+      tools: Crafting Table
+
+  item: Pseudo-Inversion Sigil
+
+  item: Trash Can
+    recipe:
+      input: Stone, Cobblestone, Chest
+      pattern: 000 121 111
+      tools: Crafting Table
+
 group: Transfer
   item: Transfer Node (Energy)
     recipe:
@@ -625,6 +708,44 @@ group: Blocks
       quantity: 4
       tools: Crafting Table
 
+  item: Redstone Clock
+    recipe:
+      input: Redstone, Stone, Redstone Torch
+      pattern: 010 121 010
+      tools: Crafting Table
+
+  item: Burnt Quartz
+    recipe:
+      input: Block of Quartz, furnace fuel
+      pattern: .0. ... .1.
+      tools: Furnace
+
+  item: Cursed Earth
+
+  item: Rain Muffler
+    recipe:
+      input: Wool, Water bucket
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Sound Muffler
+    recipe:
+      input: Wool, Note Block
+      pattern: 000 010 000
+      tools: Crafting Table
+
+  item: Trading Post
+    recipe:
+      input: Oak Wood Planks, Block of Emerald, Jukebox
+      pattern: 010 020 000
+      tools: Crafting Table
+
+  item: Peaceful Table
+    recipe:
+      input: Emerald, Oak Wood Planks, Ender Pearl
+      pattern: 010 121 010
+      tools: Crafting Table
+
 group: Ender Blocks
   item: QED (Quantum Entanglement Diviner)
     recipe:
@@ -786,164 +907,5 @@ group: Upgrades
       input: Block of Redstone, Gold Nugget, Gold Ingot
       pattern: 010 021 010
       quantity: 3
-      tools: Crafting Table
-
-group: Uncategorized
-  item: Bedrockium Drum
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Blackout Curtains
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Block Update Detector (Advanced)
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Block Update Detector
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Border Stone (Alternate)
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Border Stone
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Burnt Quartz
-    recipe:
-      input: Block of Quartz, furnace fuel
-      pattern: .0. ... .1.
-      tools: Furnace
-
-  item: Chandelier
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Conveyor Belt
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Cursed Earth
-
-  item: Drum
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Filing Cabinet (Advanced)
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Filing Cabinet
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Frosted Stone
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Gravel Bricks
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Gravel Road
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Heating Coil
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Kikoku
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Magnum Torch
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Peaceful Table
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Portal to the 'Deep Dark'
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Pseudo-Inversion Sigil
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Rain Muffler
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Redstone Clock
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Sound Muffler
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Trading Post
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Trash Can
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
       tools: Crafting Table
 

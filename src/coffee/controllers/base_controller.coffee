@@ -63,10 +63,11 @@ module.exports = class BaseController extends Backbone.View
         href = $(event.target).attr 'href'
         href ?= $(event.currentTarget).attr 'href'
         logger.info "Re-routing link to internal navigation: #{href}"
+
         if href? and href.match /^http/
             window.location.href = href
-
-        router.navigate href, trigger:true
+        else
+            router.navigate href, trigger:true
 
     show: (args...)->
         {$el, callback} = @_resolveShowHideArgs args

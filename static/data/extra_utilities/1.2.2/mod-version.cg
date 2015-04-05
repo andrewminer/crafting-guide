@@ -345,6 +345,36 @@ group: Items
       pattern: 010 121 010
       tools: Crafting Table
 
+  item: Angel Ring (Invisible)
+    recipe:
+      input: Glass, Gold Ingot, Nether Star, Unstable Ingot
+      pattern: 010 121 313
+      tools: Crafting Table
+
+  item: Angel Ring (Feathery)
+    recipe:
+      input: Feather, Gold Ingot, Nether Star, Unstable Ingot
+      pattern: 010 121 313
+      tools: Crafting Table
+
+  item: Angel Ring (Fairy)
+    recipe:
+      input: Purple Dye, Gold Ingot, Nether Star, Unstable Ingot, Pink Dye
+      pattern: 014 121 313
+      tools: Crafting Table
+
+  item: Angel Ring (Dragon)
+    recipe:
+      input: Leather, Gold Ingot, Nether Star, Unstable Ingot
+      pattern: 010 121 313
+      tools: Crafting Table
+
+  item: Angel Ring (Golden)
+    recipe:
+      input: Gold Nugget, Gold Ingot, Nether Star, Unstable Ingot
+      pattern: 010 121 313
+      tools: Crafting Table
+
 group: Transfer
   item: Transfer Node (Energy)
     recipe:
@@ -758,36 +788,6 @@ group: Upgrades
       tools: Crafting Table
 
 group: Uncategorized
-  item: Angel Ring
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Angel Ring_2
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Angel Ring_3
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Angel Ring_4
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
-  item: Angel Ring_5
-    recipe:
-      input: Stone
-      pattern: 0.. ... ...
-      tools: Crafting Table
-
   item: Bedrockium Drum
     recipe:
       input: Stone

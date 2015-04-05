@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Explosion is slightly bigger than normal [TNT]. Can destroy [iron door]s and I think [cement].
+END

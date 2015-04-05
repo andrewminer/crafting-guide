@@ -45,6 +45,7 @@ module.exports = class BrowsePageController extends PageController
             controller = @_controllers[controllerIndex]
             if not controller?
                 controller = new ModController model:mod
+                @_controllers.push controller
                 controller.render()
                 @$modContainer.append controller.$el
             else

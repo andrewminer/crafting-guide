@@ -68,5 +68,4 @@ module.exports = class ModPackController extends BaseController
                 index += 1
 
         while @_modControllers.length > index
-            controller = @_modControllers.pop()
-            controller.$el.fadeOut duration:Duration.normal, complete:-> @remove()
+            @_modControllers.pop().remove()

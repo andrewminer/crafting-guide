@@ -35,20 +35,6 @@ describe 'item_slug.coffee', ->
 
     describe 'ItemSlug.compare', ->
 
-        it 'sorts qualified slugs first', ->
-            a = new ItemSlug 'alpha'
-            b = new ItemSlug 'bravo', 'charlie'
-
-            ItemSlug.compare(a, b).should.equal +1
-            ItemSlug.compare(b, a).should.equal -1
-
-        it 'sorts by mod when both are qualified', ->
-            a = new ItemSlug 'alpha', 'bravo'
-            b = new ItemSlug 'charlie', 'delta'
-
-            ItemSlug.compare(a, b).should.equal -1
-            ItemSlug.compare(b, a).should.equal +1
-
         it 'sorts by item when both are qualified in the same mod', ->
             a = new ItemSlug 'alpha', 'bravo'
             b = new ItemSlug 'charlie', 'bravo'

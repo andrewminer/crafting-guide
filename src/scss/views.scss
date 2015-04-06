@@ -132,6 +132,10 @@ All rights reserved.
                 transition: color $animate-normal;
             }
         }
+
+        .view__item_selector {
+            position: absolute; top: 0; right: 0; height: 3em; width: 35em;
+        }
     }
 }
 

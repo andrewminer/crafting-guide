@@ -130,6 +130,11 @@ All rights reserved.
     }
 }
 
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
 .two-thirds-content {
     position: relative; width: 66%;
     margin: 5em 16.5%;

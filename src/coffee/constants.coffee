@@ -36,6 +36,7 @@ Duration.slow    = 1200
 exports.Event        = Event = {}
 Event.add            = 'add'            # collection, item...
 Event.change         = 'change'         # model
+Event.click          = 'click'          # event
 Event.load           = {}
 Event.load.started   = 'load:started'   # controller, url
 Event.load.succeeded = 'load:succeeded' # controller, book
@@ -60,8 +61,12 @@ Event.transitionEnd  = (->
         return eventName if el.style[styleName]?
 )()
 
-exports.Key = Key = {}
-Key.Return = 13
+exports.Key   = Key = {}
+Key.Enter     = 13
+Key.Return    = 13
+Key.Escape    = 27
+Key.UpArrow   = 38
+Key.DownArrow = 40
 
 exports.Login = Login = {}
 Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +

@@ -129,9 +129,9 @@ describe 'inventory.coffee', ->
             inventory.each (stack)-> slugs.push stack.itemSlug.qualified
             slugs.should.eql [
                 'minecraft__boat'
+                'buildcraft__stone_gear'
                 'minecraft__string'
                 'minecraft__wool'
-                'buildcraft__stone_gear'
             ]
 
         it 'ignores qualified slugs', ->
@@ -143,9 +143,9 @@ describe 'inventory.coffee', ->
             inventory.each (stack)-> slugs.push stack.itemSlug.qualified
             slugs.should.eql [
                 'minecraft__boat'
+                'buildcraft__stone_gear'
                 'minecraft__string'
                 'minecraft__wool'
-                'buildcraft__stone_gear'
             ]
 
     describe 'parse', ->

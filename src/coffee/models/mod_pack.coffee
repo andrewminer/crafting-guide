@@ -53,22 +53,23 @@ module.exports = class ModPack extends BaseModel
     findItemDisplay: (itemSlug)->
         if not itemSlug? then throw new Error 'itemSlug is required'
 
-        result = {}
+        result = {slug:itemSlug}
         item = @findItem itemSlug, includeDisabled:true
         if item?
+            result.itemName   = item.name
+            result.itemSlug   = item.slug.item
             result.modSlug    = item.slug.mod
             result.modVersion = item.modVersion.version
-            result.itemSlug   = item.slug.item
-            result.itemName   = item.name
         else
+            result.itemName   = @findName itemSlug, includeDisabled:true
+            result.itemSlug   = itemSlug.item
             result.modSlug    = @_mods[0].slug
             result.modVersion = @_mods[0].activeVersion
-            result.itemSlug   = itemSlug.item
-            result.itemName   = @findName itemSlug, includeDisabled:true
 
         result.craftingUrl = Url.crafting inventoryText:itemSlug.item
         result.iconUrl     = Url.itemIcon result
         result.itemUrl     = Url.item result
+        result.modName    = @getMod(result.modSlug).name
         return result
 
     findName: (slug, options={})->

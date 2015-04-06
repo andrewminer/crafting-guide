@@ -184,7 +184,7 @@ describe 'mod_version_parser_v1.coffee', ->
             it 'registers slugs for each output name', ->
                 modVersion = parser.parse baseText + 'extras:Delta, Echo'
                 (s.qualified for s in modVersion._slugs).should.eql [
-                    'test__bravo', 'test__delta', 'charlie', 'echo'
+                    'test__bravo', 'charlie', 'test__delta', 'echo'
                 ]
 
             it 'does not allow a duplicate "extras" declaration', ->

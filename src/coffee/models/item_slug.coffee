@@ -25,20 +25,10 @@ module.exports = class ItemSlug
     # Class Methods ################################################################################
 
     @compare: (a, b)->
-        aIsRequired = a.mod in RequiredMods
-        bIsRequired = b.mod in RequiredMods
-
-        if aIsRequired isnt bIsRequired
-            return -1 if aIsRequired
-            return +1 if bIsRequired
-        else if a.isQualified isnt b.isQualified
-            return -1 if a.isQualified
-            return +1 if b.isQualified
-        else if a.mod isnt b.mod
-            return if a.mod < b.mod then -1 else +1
-        else if a.item isnt b.item
+        if a.item isnt b.item
             return if a.item < b.item then -1 else +1
-
+        if a.mod isnt b.mod
+            return if a.mod < b.mod then -1 else +1
         return 0
 
     @equal: (a, b)->

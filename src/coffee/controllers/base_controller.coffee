@@ -13,12 +13,14 @@ views   = require '../views'
 module.exports = class BaseController extends Backbone.View
 
     constructor: (options={})->
+        options.useAnimations ?= true
         @tryRefresh = _.debounce @_tryRefresh, 100
 
-        @_model    = null
-        @_rendered = false
-        @_parent   = options.parent
-        @_children = []
+        @_model         = null
+        @_rendered      = false
+        @_parent        = options.parent
+        @_children      = []
+        @_useAnimations = options.useAnimations
 
         @_loadTemplate options.templateName
         super options
@@ -55,8 +57,12 @@ module.exports = class BaseController extends Backbone.View
         logger.verbose => "#{this} refreshing"
 
     remove: ->
-        logger.verbose => "#{this} is removing its element from the DOM"
-        @hide => @$el.remove()
+        if @_useAnimations
+            @hide =>
+                logger.verbose => "#{this} is removing its element from the DOM"
+                @$el.remove()
+        else
+            @$el.remove()
 
     routeLinkClick: (event)->
         event.preventDefault()
@@ -158,14 +164,14 @@ module.exports = class BaseController extends Backbone.View
         $renderedEl = $($(@_template(data))[0])
 
         @onWillRender()
-        @hide()
+        @hide() if @_useAnimations
 
         @unrender()
         @$el.append $renderedEl.children()
         @$el.addClass $renderedEl.attr 'class'
         @$el.data $renderedEl.data()
         @delegateEvents()
-        @show() if options.show
+        @show() if options.show and @_useAnimations
 
         @_rendered = true
         @onDidRender()

@@ -31,6 +31,18 @@ All rights reserved.
         border-top: 1px solid $color-gray-light;
     }
 
+    .view__item_selector {
+        height: 2.5em; width: 80%;
+        background: $color-gray-faint;
+        margin: 0 auto;
+
+        transition: background $animate-normal;
+
+        &:hover {
+            background: $color-background-panel;
+        }
+    }
+
     button[name="clear"] {
         position: absolute; bottom: 0.5em; right: 0.5em;
     }

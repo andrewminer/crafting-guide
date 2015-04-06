@@ -5,13 +5,14 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController  = require './base_controller'
-{Duration}      = require '../constants'
-{Event}         = require '../constants'
-{Key}           = require '../constants'
-ImageLoader     = require './image_loader'
-NameFinder      = require '../models/name_finder'
-StackController = require './stack_controller'
+BaseController         = require './base_controller'
+ImageLoader            = require './image_loader'
+ItemSelectorController = require './item_selector_controller'
+NameFinder             = require '../models/name_finder'
+StackController        = require './stack_controller'
+{Duration}             = require '../constants'
+{Event}                = require '../constants'
+{Key}                  = require '../constants'
 
 ########################################################################################################################
 
@@ -26,13 +27,13 @@ module.exports = class InventoryController extends BaseController
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        @editable    = options.editable    ?= true
-        @icon        = options.icon        ?= '/images/chest_front.png'
-        @imageLoader = options.imageLoader
-        @modPack     = options.modPack
-        @nameFinder  = options.nameFinder  ?= new NameFinder options.modPack
-        @onChange    = options.onChange    ?= -> # do nothing
-        @title       = options.title       ?= 'Inventory'
+        @editable     = options.editable     ?= true
+        @icon         = options.icon         ?= '/images/chest_front.png'
+        @imageLoader  = options.imageLoader
+        @isAcceptable = options.isAcceptable ?= null
+        @modPack      = options.modPack
+        @onChange     = options.onChange     ?= -> # do nothing
+        @title        = options.title        ?= 'Inventory'
 
         options.templateName  = 'inventory'
         super options
@@ -43,59 +44,25 @@ module.exports = class InventoryController extends BaseController
 
     # Event Methods ################################################################################
 
-    onAddButtonClicked: ->
-        if @$nameField.val().trim().length is 0
-            @$nameField.focus()
-            return
-
-        item = @modPack.findItemByName @$nameField.val()
-        return unless item?
-
-        @model.add item.slug, 1
-        @$nameField.val ''
-
-        @$scrollbox.scrollTop @$scrollbox.prop 'scrollHeight'
-        @$nameField.autocomplete 'close'
-
-        @onChange()
-
     onClearButtonClicked: ->
         @model.clear()
         @onChange()
 
-    onItemSelected: ->
-        func = =>
-            @onNameFieldChanged()
-            @onAddButtonClicked()
-            @$nameField.blur()
-
-        setTimeout func, 10 # needed to allow the autocomplete to finish
-        return true
-
-    onNameFieldBlur: ->
-        item = @modPack.findItemByName @$nameField.val()
-        @$nameField.val if item? then item.name else ''
-        @onNameFieldChanged()
-
-    onNameFieldChanged: ->
-        @_refreshButtonState()
-
-    onNameFieldFocused: ->
-        @$nameField.val ''
-        @$nameField.autocomplete 'search'
-
-    onNameFieldKeyUp: (event)->
-        if event.which is Key.Return
-            @onAddButtonClicked()
+    onItemChosen: (itemSlug)->
+        @model.add itemSlug, 1
+        @onChange()
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$addButton     = @$('button[name="add"]')
+        @selector = @addChild ItemSelectorController, '.view__item_selector',
+            isAcceptable: @isAcceptable
+            modPack:      @modPack,
+            onChoseItem:  (itemSlug)=> @onItemChosen(itemSlug)
+
         @$clearButton   = @$('button[name="clear"]')
         @$icon          = @$('.icon')
         @$editPanel     = @$('.edit')
-        @$nameField     = @$('input[name="name"]')
         @$scrollbox     = @$('.scrollbox')
         @$table         = @$('table')
         @$toolbar       = @$('.toolbar')
@@ -118,7 +85,6 @@ module.exports = class InventoryController extends BaseController
         @$title.html @title
 
         @_refreshStacks()
-        @_refreshNameAutocomplete()
         @_refreshButtonState()
 
         super
@@ -127,34 +93,12 @@ module.exports = class InventoryController extends BaseController
 
     events: ->
         return _.extend super,
-            'blur input[name="name"]':    'onNameFieldBlur'
-            'click button[name="add"]':   'onAddButtonClicked'
             'click button[name="clear"]': 'onClearButtonClicked'
-            'focus input[name="name"]':   'onNameFieldFocused'
-            'input input[name="name"]':   'onNameFieldChanged'
-            'keyup input[name="name"]':   'onNameFieldKeyUp'
 
     # Private Methods ##############################################################################
 
     _refreshButtonState: ->
         if @model.isEmpty then @$clearButton.attr('disabled', 'disabled') else @$clearButton.removeAttr('disabled')
-
-        noText        = @$nameField.val().trim().length is 0
-        itemValid     = @modPack.findItemByName(@$nameField.val())?
-        disable       = not (itemValid or noText)
-        if disable then @$addButton.attr('disabled', 'disabled') else @$addButton.removeAttr('disabled')
-
-    _refreshNameAutocomplete: ->
-        onChanged = => @onNameFieldChanged()
-        onSelected = => @onItemSelected()
-
-        @$nameField.autocomplete
-            source:    (request, callback)=> callback @nameFinder.search request.term
-            delay:     0
-            minLength: 0
-            change:    onChanged
-            close:     onChanged
-            select:    onSelected
 
     _refreshStacks: ->
         @_stackControllers ?= []

@@ -31,6 +31,7 @@ module.exports = class CraftPageController extends PageController
         super options
 
         @imageLoader = options.imageLoader
+        @modPack     = options.modPack
         @storage     = options.storage
 
     # Event Methods ################################################################################
@@ -53,13 +54,14 @@ module.exports = class CraftPageController extends PageController
 
     onDidRender: ->
         @wantController = @addChild InventoryController, '.want',
-            editable:    true
-            icon:        '/images/fishing_rod.png'
-            imageLoader: @imageLoader
-            model:       @model.plan.want
-            modPack:     @model.modPack
-            onChange:    => @_updateLocation()
-            title:       'Items you want'
+            editable:     true
+            icon:         '/images/fishing_rod.png'
+            imageLoader:  @imageLoader
+            isAcceptable: (item)-> item.isCraftable
+            model:        @model.plan.want
+            modPack:      @model.modPack
+            onChange:     => @_updateLocation()
+            title:        'Items you want'
 
         @haveController = @addChild InventoryController, '.have',
             editable:    true,
@@ -67,7 +69,6 @@ module.exports = class CraftPageController extends PageController
             model:       @model.plan.have
             modPack:     @model.modPack
             onChange:    => @_saveHaveInventory()
-            nameFinder:  new NameFinder @model.modPack, includeGatherable:true
             title:       'Items you have'
 
         @needController = @addChild InventoryController, '.need',

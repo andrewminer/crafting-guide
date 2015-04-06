@@ -18,7 +18,8 @@ module.exports = class ItemSelectorController extends BaseController
 
     constructor: (options)->
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.model        ?= new ItemSelector {}, modPack:options.modPack
+        options.isAcceptable ?= null
+        options.model        ?= new ItemSelector {}, modPack:options.modPack, isAcceptable:options.isAcceptable
         options.onChoseItem  ?= (item)-> # do nothing
         options.templateName  = 'item_selector'
         super options
@@ -66,6 +67,7 @@ module.exports = class ItemSelectorController extends BaseController
         @$popup.on Event.click, (event)=> @onPopupClicked(event)
         @$popup.removeClass 'hiding'
 
+        @$hintField.off 'keyup input'
         @$hintField.on 'keyup', (event)=> @onHintKeyPress(event)
         @$hintField.on 'input', (event)=> @onHintChanged(event)
 
@@ -111,6 +113,11 @@ module.exports = class ItemSelectorController extends BaseController
         @_refreshResults()
         super
 
+    render: ->
+        $buttonContent = @$el.html()
+        super
+        @$el.html $buttonContent
+
     # Backbone.View Overrides ######################################################################
 
     events: ->
@@ -134,6 +141,7 @@ module.exports = class ItemSelectorController extends BaseController
         @$popup.one Event.transitionEnd, =>
             @$screen.css 'display', 'none'
             @$popup.detach()
+            @model.hint = ''
 
     _refreshResults: ->
         index = 0

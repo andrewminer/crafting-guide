@@ -14,9 +14,10 @@ module.exports = class ItemSelector extends BaseModel
 
     constructor: (attributes={}, options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
-
+        options.isAcceptable ?= (itemSlug)-> return true # accept everything by default
         super attributes, options
 
+        @_isAcceptable  = options.isAcceptable
         @_maxResults    = 100
         @_minHintLength = 3
         @_modPack       = options.modPack
@@ -46,7 +47,7 @@ module.exports = class ItemSelector extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _isMatch: (name)->
+    _isMatch: (name, itemSlug)->
         hintIndex  = 0
         hintLetter = @_hint[hintIndex]
         name       = name.toLowerCase()
@@ -54,7 +55,10 @@ module.exports = class ItemSelector extends BaseModel
         for nameIndex in [0...name.length] by 1
             if name.charAt(nameIndex) is hintLetter
                 hintIndex += 1
-                return true if hintIndex is @_hint.length
+                if hintIndex is @_hint.length
+                    item = @_modPack.findItem itemSlug
+                    return false unless item?
+                    return @_isAcceptable item
                 hintLetter = @_hint[hintIndex]
 
         return false
@@ -68,11 +72,12 @@ module.exports = class ItemSelector extends BaseModel
         if @_hint.length >= @_minHintLength
             @_modPack.eachMod (mod)=>
                 return if count >= @_maxResults
+                return unless mod.enabled
 
                 mod.eachName (name, itemSlug)=>
                     return if count >= @_maxResults
 
-                    if @_isMatch name
+                    if @_isMatch name, itemSlug
                         if itemSlug.isQualified
                             newResults[itemSlug] = itemSlug
                             count += 1

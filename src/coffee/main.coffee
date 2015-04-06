@@ -43,7 +43,9 @@ client.onStatusChanged = (c, oldStatus, newStatus)->
     logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
     client.trigger 'change:status', client, oldStatus, newStatus
     client.trigger 'change', client
-client.checkStatus()
+
+# Disabled until required by some feature -- andrewminer 2015-04-06
+# client.checkStatus()
 
 global.router   = new CraftingGuideRouter client:client
 global.util     = require 'util'
@@ -53,7 +55,9 @@ global.markdown = global.markdown.markdown
 global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()
 
-global.router.loadCurrentUser()
+# Disabled until required by some feature. -- andrewminer 2015-04-06
+# global.router.loadCurrentUser()
+
 global.router.loadDefaultModPack()
 
 logger.info -> "CraftingGuide is ready"

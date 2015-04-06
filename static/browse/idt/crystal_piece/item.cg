@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Yes, the texture for this is only 5 pixels.
+END

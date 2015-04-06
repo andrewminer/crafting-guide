@@ -1,0 +1,10 @@
+schema: 1
+
+name:             Extra Utilities
+author:           RWTema
+description:      Just a bunch of fairly useful things
+homePageUrl:      http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1443963-extra-utilities-v1-1-0k
+documentationUrl: http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1443963-extra-utilities-v1-1-0k
+downloadUrl:      http://minecraft.curseforge.com/mc-mods/225561-extra-utilities/files
+
+version: 1.2.2

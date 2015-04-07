@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+A tank. That's empty. That is all.
+END

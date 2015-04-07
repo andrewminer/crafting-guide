@@ -588,6 +588,8 @@ group: General Items
 	item: Corn Seeds
 	
 	item: Soybeans
+	
+	item: Corn
 			
 	item: Popcorn
 		recipe:

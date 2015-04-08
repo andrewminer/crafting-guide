@@ -294,20 +294,62 @@ group: Decoration
 
     item: Enlightened Clear Glass
         recipe:
-            input: Glowstone Dust, Sand
-            pattern: .0. 010 .0.
+            input: 4 Glowstone Dust, 4 Sand
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: Glowstone, 4 Sand
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: Glowstone, Quite Clear Glass
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: 4 Glowstone Dust, Quite Clear Glass
+            pattern: .0. 1.. ...
             tools: Alloy Smelter
 
     item: Enlightened Fused Quartz
         recipe:
-            input: Glowstone Dust, Nether Quartz
-            pattern: 111 1.0 000
+            input: 4 Glowstone Dust, 4 Nether Quartz
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: Glowstone, 4 Nether Quartz
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: 4 Glowstone Dust, Block of Quartz
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: Glowstone, Block of Quartz
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: Glowstone, Fused Quartz
+            pattern: .0. 1.. ...
+            tools: Alloy Smelter
+        recipe:
+            input: 4 Glowstone Dust, Fused Quartz
+            pattern: .0. 1.. ...
             tools: Alloy Smelter
 
     item: Fused Quartz
         recipe:
-            input: Nether Quartz
-            pattern: 00. 00. ...
+            input: 4 Nether Quartz
+            pattern: .0. ... ...
+            tools: Alloy Smelter
+        recipe:
+            input: 4 Nether Quartz
+            pattern: .0. 0.. ...
+            quantity: 2
+            tools: Alloy Smelter
+        recipe:
+            input: 4 Nether Quartz
+            pattern: .0. 0.0 ...
+            quantity: 3
             tools: Alloy Smelter
 
     item: Fused Quartz Frame
@@ -739,8 +781,8 @@ group: Materials
     item: Silicon
         recipe:
             extras: Flint
-            input: Flint, Sand
-            pattern: .1. .1. .0.
+            input: Flint, 2 Sand
+            pattern: .1. ... .0.
             tools: SAG Mill
 
     item: Soularium

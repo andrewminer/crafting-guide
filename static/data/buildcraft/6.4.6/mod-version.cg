@@ -857,8 +857,8 @@ group: Pipe Decorations
 
     item: Facade: Stone
         recipe:
-            input: Cobblestone Structure Pipe, Stone
-            pattern: ... .1. 000
+            input: 3 Cobblestone Structure Pipe, Stone
+            pattern: ... 01. ...
             quantity: 6
             tools: Assembly Table
         recipe:
@@ -868,8 +868,8 @@ group: Pipe Decorations
 
     item: Facade: Stone (Hollow)
         recipe:
-            input: Cobblestone Structure Pipe, Stone
-            pattern: ... .1. 000
+            input: 3 Cobblestone Structure Pipe, Stone
+            pattern: ... 01. ...
             quantity: 6
             tools: Assembly Table
         recipe:

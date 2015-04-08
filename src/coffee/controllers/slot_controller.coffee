@@ -36,7 +36,6 @@ module.exports = class SlotController extends BaseController
             @$link.attr 'href', display.itemUrl
 
             @imageLoader.load display.iconUrl, @$image
-            @show @$image
 
             if @model.quantity > 1
                 @$quantity.html @model.quantity
@@ -46,8 +45,7 @@ module.exports = class SlotController extends BaseController
             @$link.removeAttr 'href'
             @$quantity.html ''
 
-            @$image.removeAttr 'src'
-            @hide @$image
+            @$image.attr 'src', '/images/empty.png'
 
         super
 

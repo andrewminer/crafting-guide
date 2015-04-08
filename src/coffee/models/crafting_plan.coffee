@@ -177,7 +177,7 @@ module.exports = class CraftingPlan extends BaseModel
             step.multiplier = Math.ceil(@need.quantityOf(step.itemSlug) / recipe.output[0].quantity)
 
             if @includingTools
-                for stack in recipe.tools
+                recipe.eachToolStack (stack)=>
                     itemSlug  = @_qualifyItemSlug stack.itemSlug
                     available = @result.quantityOf(itemSlug) + @need.quantityOf(itemSlug)
                     needed    = Math.max 0, stack.quantity - available
@@ -185,7 +185,7 @@ module.exports = class CraftingPlan extends BaseModel
                     @need.add itemSlug, needed
                     @result.add itemSlug, needed
 
-            for stack in recipe.input
+            recipe.eachInputStack (stack)=>
                 itemSlug  = @_qualifyItemSlug stack.itemSlug
                 needed    = step.multiplier * stack.quantity
                 consumed  = Math.min needed, @result.quantityOf itemSlug
@@ -194,7 +194,7 @@ module.exports = class CraftingPlan extends BaseModel
                 @result.remove itemSlug, consumed
                 @need.add itemSlug, remaining
 
-            for stack in recipe.output
+            recipe.eachOutputStack (stack)=>
                 itemSlug  = @_qualifyItemSlug stack.itemSlug
                 created   = stack.quantity * step.multiplier
                 consumed  = Math.min created, @need.quantityOf itemSlug

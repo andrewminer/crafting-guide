@@ -6,9 +6,10 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
+ImageLoader    = require './image_loader'
+SlotController = require './slot_controller'
 {Duration}     = require '../constants'
 {Event}        = require '../constants'
-ImageLoader    = require './image_loader'
 
 ########################################################################################################################
 
@@ -17,58 +18,29 @@ module.exports = class CraftingGridController extends BaseController
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
+        # options.model should be a recipe
         options.templateName = 'crafting_grid'
         super options
 
-        @_imageLoader = options.imageLoader
-        @_modPack     = options.modPack
-        @_slotCount   = 9
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
 
-        @_modPack.on Event.change, => @tryRefresh()
+        @modPack.on Event.change, => @tryRefresh()
 
     # BaseController Methods #######################################################################
 
     onDidRender: ->
-        @slots = []
-        for el in @$('td')
-            $el = $(el)
-            @slots.push a:$el.find('a'), img:$el.find('img')
+        @slotControllers = []
+        for el in @$('.view__slot')
+            controller = new SlotController el:el, imageLoader:@imageLoader, modPack:@modPack
+            controller.render()
+            @slotControllers.push controller
         super
 
     refresh: ->
-        for index in [0...@slots.length]
-            slot = @slots[index]
-
-            slot.a.addClass 'empty'
-            slot.a.removeAttr 'href'
-            slot.img.attr 'src', '/images/empty.png'
-            slot.img.removeAttr 'alt'
-
-            display = @_getItemDisplayAt index
-            if display?
-                slot.a.removeClass 'empty'
-                slot.a.attr 'href', display.itemUrl
-                slot.a.attr 'title', display.itemName
-                @_imageLoader.load display.iconUrl, slot.img
-                slot.img.attr 'alt', display.itemName
+        for i in [0...@slotControllers.length]
+            controller = @slotControllers[i]
+            controller.model = @model?.getStackAtSlot(i)
 
         @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
         super
-
-    # Backbone.View Overrides ######################################################################
-
-    events: ->
-        return _.extend super,
-            'click td a': 'routeLinkClick'
-
-    # Private Methods ##############################################################################
-
-    _getItemDisplayAt: (slot)->
-        if slot >= @_slotCount then throw new Error "slot (#{slot}) must be less than #{@_slotCount}"
-        return null unless @model?
-
-        itemSlug = @model.getItemSlugAt slot
-        return null unless itemSlug?
-
-        itemDisplay = @_modPack.findItemDisplay itemSlug
-        return itemDisplay

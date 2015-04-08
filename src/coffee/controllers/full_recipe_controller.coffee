@@ -30,8 +30,8 @@ module.exports = class FullRecipeController extends BaseController
 
     onDidRender: ->
         @gridController = @addChild CraftingGridController, '.view__crafting_grid',
-            modPack:     @modPack
             imageLoader: @imageLoader
+            modPack:     @modPack
 
         @inputController = @addChild InventoryTableController, '.input .view__inventory_table',
             editable:    false
@@ -72,7 +72,7 @@ module.exports = class FullRecipeController extends BaseController
         inputs.clear()
 
         if @model?
-            for stack in @model.input
+            @model.eachInputStack (stack)->
                 inputs.add stack.itemSlug, stack.quantity
 
 

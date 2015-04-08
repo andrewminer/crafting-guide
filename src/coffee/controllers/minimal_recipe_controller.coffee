@@ -8,6 +8,7 @@ All rights reserved.
 BaseController         = require './base_controller'
 CraftingGridController = require './crafting_grid_controller'
 ImageLoader            = require './image_loader'
+SlotController         = require './slot_controller'
 {Duration}             = require '../constants'
 {StringBuilder}        = require 'crafting-guide-common'
 
@@ -31,6 +32,10 @@ module.exports = class MinimalRecipeController extends BaseController
             modPack:     @modPack
             imageLoader: @imageLoader
 
+        @outputSlotController = @addChild SlotController, '.output.view__slot',
+            imageLoader: @imageLoader
+            modPack:     @modPack
+
         @$outputImg      = @$('.output img')
         @$outputLink     = @$('.output a')
         @$outputQuantity = @$('.quantity')
@@ -39,25 +44,8 @@ module.exports = class MinimalRecipeController extends BaseController
 
     refresh: ->
         @gridController.model = @model
-
-        @$outputImg.attr 'src', '/images/empty.png'
-        @$outputImg.removeAttr 'alt'
-        @$outputLink.removeAttr 'href'
-        @$outputQuantity.html ''
-
-        if @model?
-            outputStack = @model.output[0]
-            if outputStack?
-                display = @modPack.findItemDisplay outputStack.itemSlug
-                @$outputLink.attr 'href', display.itemUrl
-                @$outputLink.attr 'title', display.itemName
-                @$outputImg.attr 'alt', display.itemName
-                @$outputQuantity.html outputStack.quantity if outputStack.quantity > 1
-
-                @imageLoader.load display.iconUrl, @$outputImg
-
+        @outputSlotController.model = @model?.output?[0]
         @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
-
         @_refreshTools()
         super
 

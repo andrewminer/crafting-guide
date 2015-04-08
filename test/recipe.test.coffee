@@ -47,7 +47,7 @@ describe 'recipe.coffee', ->
             recipe = new Recipe input:input, pattern:pattern, output:[new Stack itemSlug:ItemSlug.slugify('gold_gear')]
             recipe.itemSlug.qualified.should.equal 'gold_gear'
 
-    describe 'getItemSlugAt', ->
+    describe 'getStackAtSlot', ->
 
         beforeEach ->
             input = [
@@ -57,13 +57,17 @@ describe 'recipe.coffee', ->
             recipe = new Recipe itemSlug:'gold_gear', input:input, pattern:'.1. 101 .1.'
 
         it 'returns the proper item for an early slot', ->
-            recipe.getItemSlugAt(1).qualified.should.equal 'gold_ingot'
+            stack = recipe.getStackAtSlot(1)
+            stack.itemSlug.qualified.should.equal 'gold_ingot'
+            stack.quantity.should.equal 4
 
         it 'returns the proper item for a late slot', ->
-            recipe.getItemSlugAt(4).qualified.should.equal 'iron_gear'
+            stack = recipe.getStackAtSlot(4)
+            stack.itemSlug.qualified.should.equal 'iron_gear'
+            stack.quantity.should.equal 1
 
         it 'returns null for an invalid slot', ->
-            expect(recipe.getItemSlugAt(12)).to.be.null
+            expect(recipe.getStackAtSlot(12)).to.be.null
 
     describe '_parsePattern', ->
 

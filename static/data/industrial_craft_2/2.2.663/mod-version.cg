@@ -92,8 +92,8 @@ group: Agriculture
 
     item: (Filled) Tin Can
         recipe:
-            input: Steak, Tin Can
-            pattern: 101 111 111
+            input: Steak, 8 Tin Can
+            pattern: .0. ... .1.
             quantity: 8
             tools: Canning Machine
         recipe:

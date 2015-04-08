@@ -69,10 +69,10 @@ describe 'mod_version_parser_v1.coffee', ->
         describe 'input', ->
 
             it 'adds "input" when present', ->
-                logger.doAtLevel 'DEBUG', ->
-                    modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern: ... 010 ...'
-                    slugs = (s.itemSlug.item for s in modVersion.findRecipes(ItemSlug.slugify('test__charlie'))[0].input)
-                    slugs.should.eql ['alpha', 'bravo']
+                modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern: ... 010 ...'
+                charlieSlug = ItemSlug.slugify('test__charlie')
+                slugs = (s.itemSlug.item for s in modVersion.findRecipes(charlieSlug)[0].input)
+                slugs.should.eql ['alpha', 'bravo']
 
             it 'requires an "input" declaration', ->
                 func = -> parser.parse baseText + 'recipe:; pattern: ... .0. ...'
@@ -89,6 +89,14 @@ describe 'mod_version_parser_v1.coffee', ->
             it 'registers slugs for each input name', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Delta, Echo, Foxtrot; pattern:...012...'
                 (s.item for s in modVersion._slugs).should.eql ['charlie', 'delta', 'echo', 'foxtrot']
+
+            it 'allows a quantity for each input', ->
+                modVersion = parser.parse baseText + 'recipe:; input: 12 Delta, 3 Echo; pattern:... 0.1 ...'
+                recipe = _.values(modVersion._recipes)[0]
+                recipe.input[0].quantity.should.equal 12
+                recipe.input[0].itemSlug.qualified.should.equal 'delta'
+                recipe.input[1].quantity.should.equal 3
+                recipe.input[1].itemSlug.qualified.should.equal 'echo'
 
         describe 'pattern', ->
 
@@ -114,18 +122,11 @@ describe 'mod_version_parser_v1.coffee', ->
 
             it 'requires pattern to only refer to existing items', ->
                 func = -> parser.parse baseText + 'recipe:; input:Alpha; pattern:... 010 ...'
-                expect(func).to.throw Error, 'there is no input 1 in this recipe'
+                expect(func).to.throw Error, 'there is no item 1 in this recipe'
 
             it 'requires all items to appear in the pattern', ->
                 func = -> parser.parse baseText + 'recipe:; input:Alpha, Bravo; pattern: 000 0.0 000'
-                expect(func).to.throw Error, 'Bravo is an input'
-
-            it 'computes the input stack sizes from the pattern', ->
-                modVersion = parser.parse baseText + 'recipe:; input:Alpha, Bravo, Delta; pattern:111 .0. 2.2'
-                recipe = modVersion.findRecipes(ItemSlug.slugify('test__charlie'))[0]
-                recipe.input[0].quantity.should.equal 1
-                recipe.input[1].quantity.should.equal 3
-                recipe.input[2].quantity.should.equal 2
+                expect(func).to.throw Error, 'Bravo is listed'
 
             it 'does not allow "pattern" before "recipe"', ->
                 func = -> parser.parse baseText + 'pattern:... .0. ...; recipe:; inputs:Alpha'
@@ -226,9 +227,14 @@ describe 'mod_version_parser_v1.coffee', ->
 
                     item: Baked Potato
                         recipe:
-                            input: Potato, furnace fuel
-                            pattern: .0. ... .1.
+                            input: furnace fuel, Potato
+                            pattern: .1. ... .0.
                             tools: Furnace
+
+                    item: (filled) Canned Food
+                        recipe:
+                            input: 4 (Empty) Tin Can, Apple
+                            pattern: .1. .0. ...
 
                 group: Functional Blocks
 
@@ -240,8 +246,8 @@ describe 'mod_version_parser_v1.coffee', ->
 
                 update: Iron Ingot
                     recipe:
-                        input: Iron Dust, furnace fuel
-                        pattern: .0. ... .1.
+                        input: furnace fuel, Iron Dust
+                        pattern: .1. ... .0.
                         tools: Furnace
             """
 

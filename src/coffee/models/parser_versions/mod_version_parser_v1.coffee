@@ -37,15 +37,10 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
     _command_extras: (extraTerms...)->
         if not @_recipeData? then throw new Error 'cannot declare "extras" before "recipe"'
-        if @_recipeData.extras? then throw new Error 'duplicate declaration of "extras"'
+        if @_recipeData.output.length isnt 1 then throw new Error 'duplicate declaration of "extras"'
 
-        @_recipeData.extras = []
         for term in extraTerms
-            match = ModVersionParserV1.STACK.exec term
-            if match?
-                @_recipeData.extras.push quantity:parseInt(match[1]), name:match[2]
-            else
-                @_recipeData.extras.push quantity:1, name:term
+            @_recipeData.output.push @_parseStack term
 
     _command_gatherable: (gatherable)->
         if not @_itemData? then throw new Error 'cannot declare "gatherable" before "item"'
@@ -69,12 +64,10 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
     _command_input: (inputNames...)->
         if not @_recipeData? then throw new Error 'cannot declare "input" before "recipe"'
-        if @_recipeData.input? then throw new Error 'duplicate declaration of "input"'
+        if @_recipeData.input.length isnt 0 then throw new Error 'duplicate declaration of "input"'
 
-        @_recipeData.input = []
         for name in inputNames
-            if name.length is 0 then throw new Error 'input names cannot be empty'
-            @_recipeData.input.push name
+            @_recipeData.input.push @_parseStack name
 
     _command_pattern: (pattern='')->
         if not @_recipeData? then throw new Error 'cannot declare "pattern" before "recipe"'
@@ -90,23 +83,23 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if @_recipeData.quantity? then throw new Error 'duplicate declaration of "quantity"'
         if not ModVersionParserV1.INTEGER.test(quantity) then throw new Error 'quantity must be an integer'
 
-        @_recipeData.quantity = parseInt quantity
+        @_recipeData.quantity = quantity
+        @_recipeData.output[0].quantity = parseInt quantity
 
     _command_recipe: ->
         if not @_itemData? then throw new Error 'cannot delcare "recipe" before "item"'
 
-        @_recipeData = line:@_lineNumber
+        @_recipeData = line:@_lineNumber, input:[], output:[{quantity:1, name:@_itemData.name}], tools:[]
         @_itemData.recipes ?= []
         @_itemData.recipes.push @_recipeData
 
     _command_tools: (toolNames...)->
         if not @_recipeData? then throw new Error 'cannot declare "tools" before "recipe"'
-        if @_recipeData.tools? then throw new Error 'duplicate declaration of "tools"'
+        if @_recipeData.tools.length isnt 0 then throw new Error 'duplicate declaration of "tools"'
 
-        @_recipeData.tools = []
         for name in toolNames
             if name.length is 0 then throw new Error 'tool names cannot be empty'
-            @_recipeData.tools.push name
+            @_recipeData.tools.push name:name, quantity:1
 
     _command_update: (name='')->
         if not name.length > 0 then throw new 'the item name cannot be empty'
@@ -116,6 +109,15 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
         @_rawData.items ?= {}
         @_rawData.items[name] = @_itemData
+
+    # Parsing Helpers ##############################################################################
+
+    _parseStack: (stackText)->
+        match = ModVersionParserV1.STACK.exec stackText
+        if match?
+            return quantity:parseInt(match[1]), name:match[2]
+        else
+            return quantity:1, name:stackText
 
     # Object Creation Methods ######################################################################
 
@@ -148,9 +150,19 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
     _buildRecipe: (modVersion, itemData, recipeData)->
         @_lineNumber = recipeData.line
-        if not recipeData.input? then throw new Error 'the "input" declaration is required'
+        if recipeData.input.length is 0 then throw new Error 'the "input" declaration is required'
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
+        recipe = new Recipe
+            input:   @_buildStackList modVersion, recipeData.input, recipeData.pattern
+            output:  @_buildStackList modVersion, recipeData.output
+            pattern: recipeData.pattern
+            tools:   @_buildStackList modVersion, recipeData.tools
+
+        modVersion.addRecipe recipe
+        return recipe
+
+    _buildStackList: (modVersion, data, pattern=null)->
         createSlug = (name)=>
             item = @_rawData.items[name]
             if item? and item.type isnt 'update'
@@ -160,46 +172,26 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             modVersion.registerName slug, name
             return slug
 
-        recipeData.quantity   ?= 1
-        recipeData.extras     ?= []
-        recipeData.tools      ?= []
+        stacks = []
+        for stackData in data
+            itemSlug = createSlug stackData.name
+            stacks.push new Stack itemSlug:itemSlug, quantity:stackData.quantity
 
-        inputStacks = []
-        for name in recipeData.input
-            inputSlug = createSlug name
-            inputStacks.push new Stack itemSlug:inputSlug, quantity:0
+        if pattern?
+            expectedIndexes = _.reduce [0...stacks.length], ((obj, i)-> obj[i] = true; return obj), {}
+            for c in pattern
+                continue if c is '.'
+                continue if c is ' '
+                delete expectedIndexes[c]
+                if not stacks[parseInt(c)]? then throw new Error "there is no item #{c} in this recipe"
 
-        for c in recipeData.pattern
-            continue if c is '.'
-            continue if c is ' '
-            stack = inputStacks[parseInt(c)]
-            if not stack? then throw new Error "there is no input #{c} in this recipe"
-            stack.quantity += 1
+            unusedNames = _.map(_.keys(expectedIndexes), ((i)-> data[parseInt(i)].name))
+            if unusedNames.length > 1
+                throw new Error "#{unusedNames.join(', ')} are listed for this recipe, but do not appear in the pattern"
+            else if unusedNames.length is 1
+                throw new Error "#{unusedNames[0]} is listed for this recipe, but does not appear in the pattern"
 
-        for i in [0...inputStacks.length]
-            stack = inputStacks[i]
-            if stack.quantity is 0
-                name = modVersion.findName stack.itemSlug
-                throw new Error "#{name} is an input for this recipe, but it is not in the pattern"
-
-        outputStacks = [ new Stack itemSlug:itemData.slug, quantity:recipeData.quantity ]
-        for extraData in recipeData.extras
-            outputSlug = createSlug extraData.name
-            outputStacks.push new Stack itemSlug:outputSlug, quantity:extraData.quantity
-
-        toolStacks = []
-        for name in recipeData.tools
-            toolSlug = createSlug name
-            toolStacks.push new Stack itemSlug:toolSlug, quantity:1
-
-        recipe = new Recipe
-            input:   inputStacks
-            output:  outputStacks
-            pattern: recipeData.pattern
-            tools:   toolStacks
-
-        modVersion.addRecipe recipe
-        return recipe
+        return stacks
 
     # Un-parsing Methods ###########################################################################
 
@@ -249,13 +241,22 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             .outdent()
 
     _unparseRecipe: (builder, recipe)->
-        inputNames = (builder.context.findName(stack.itemSlug) for stack in recipe.input)
-        inputNames.sort()
+        inputStacks = recipe.input[..]
+        inputStacks.sort (a, b)-> Stack.compare a, b
+        inputNames = []
+        for stack in inputStacks
+            name = builder.context.findName stack.itemSlug
+            if stack.quantity > 1
+                inputNames.push "#{stack.quantity} #{name}"
+            else
+                inputNames.push name
 
         patternMap = {'.', '.'}
         for i in [0...recipe.input.length]
             stack = recipe.input[i]
-            patternMap["#{i}"] = "#{inputNames.indexOf builder.context.findName(stack.itemSlug)}"
+            name = builder.context.findName(stack.itemSlug)
+            name = "#{stack.quantity} #{name}" if stack.quantity > 1
+            patternMap["#{i}"] = "#{inputNames.indexOf name}"
 
         pattern = recipe.pattern or recipe.defaultPattern
         newPattern = []

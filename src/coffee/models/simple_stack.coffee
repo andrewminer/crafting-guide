@@ -5,6 +5,8 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+ItemSlug = require './item_slug'
+
 ########################################################################################################################
 
 module.exports = class Stack
@@ -15,6 +17,15 @@ module.exports = class Stack
 
         @itemSlug = attributes.itemSlug
         @quantity = attributes.quantity
+
+    # Class Methods ################################################################################
+
+    @compare: (a, b)->
+        if a? and not b? then return -1
+        if not a? and b? then return +1
+        if a.quantity isnt b.quantity
+            return if a.quantity > b.quantity then -1 else +1
+        return ItemSlug.compare a.itemSlug, b.itemSlug
 
     # Object Overrides #############################################################################
 

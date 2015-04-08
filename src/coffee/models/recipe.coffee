@@ -69,13 +69,27 @@ module.exports = class Recipe extends BaseModel
 
     # Public Methods ###############################################################################
 
+    eachInputStack: (callback)->
+        for i in [0...@pattern.length]
+            stack = @getStackAtSlot(i)
+            continue unless stack?
+            callback stack
+
+    eachOutputStack: (callback)->
+        for stack in @output
+            callback stack
+
+    eachToolStack: (callback)->
+        for stack in @tools
+            callback stack
+
     getInputCount: ->
         result = 0
         for stack in @input
             result += stack.quantity
         return result
 
-    getItemSlugAt: (patternSlot)->
+    getStackAtSlot: (patternSlot)->
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
         patternDigit = @pattern[trueIndex[patternSlot]]
         return null unless patternDigit?
@@ -84,7 +98,7 @@ module.exports = class Recipe extends BaseModel
         stack = @input[parseInt(patternDigit)]
         return null unless stack?
 
-        return stack.itemSlug
+        return stack
 
     getOutputCount: ->
         result = 0
@@ -93,11 +107,12 @@ module.exports = class Recipe extends BaseModel
         return result
 
     getQuantityProducedOf: (itemSlug)->
+        total = 0
         for stack in @output
             if stack.itemSlug.matches itemSlug
-                return stack.quantity
+                total += stack.quantity
 
-        return 0
+        return total
 
     isPassThroughFor: (itemSlug)->
         amountCreated = 0

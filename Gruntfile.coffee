@@ -6,6 +6,7 @@
 ###
 
 fs = require 'fs'
+util = require 'util'
 
 ########################################################################################################################
 
@@ -103,7 +104,7 @@ module.exports = (grunt)->
                     './test/test_helper.coffee'
                 ]
                 verbose: true
-            src: './test/**/*.test.coffee'
+            src: ['./test/**/*.test.coffee']
 
         rsync:
             static:
@@ -168,3 +169,12 @@ module.exports = (grunt)->
         fs.symlinkSync '../../crafting-guide-common/', './node_modules/crafting-guide-common'
 
     grunt.registerTask 'test', ['mochaTest']
+
+    args = process.argv[..]
+    while args.length > 0
+        switch args[0]
+            when '--grep'
+                args.shift()
+                grunt.config.merge mochaTest:options:grep:args[0]
+
+        args.shift()

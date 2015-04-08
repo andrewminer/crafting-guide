@@ -153,12 +153,27 @@ module.exports = class Recipe extends BaseModel
     getSlug: ->
         if not @_slug?
             builder = new StringBuilder
-            builder
-                .loop(@input, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
-                .onlyIf @tools.length > 0, (b)=>
-                    b.push(' + ').loop(@tools, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
-                .push(' => ')
-                .loop(@output, delimiter:',', onEach:(b, stack)-> b.push stack.itemSlug.qualified)
+            delimiterNeeded = false
+            @eachInputStack (stack)->
+                if delimiterNeeded then builder.push ','
+                delimiterNeeded = true
+
+                if stack.quantity > 1 then builder.push stack.quantity, ' '
+                builder.push stack.itemSlug.qualified
+
+            builder.push '>'
+            @eachToolStack (stack)->
+                builder.push stack.itemSlug.qualified
+            builder.push '>'
+
+            delimiterNeeded = false
+            @eachOutputStack (stack)->
+                if delimiterNeeded then builder.push ','
+                delimiterNeeded = true
+
+                if stack.quantity > 1 then builder.push stack.quantity, ' '
+                builder.push stack.itemSlug.qualified
+
             @_slug = builder.toString()
 
         return @_slug

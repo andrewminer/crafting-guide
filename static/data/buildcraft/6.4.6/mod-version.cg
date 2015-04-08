@@ -345,25 +345,25 @@ group: Fluid Pipes
 
 group: Fluids
 
-    item: 1000mB Fuel
+    item: Fuel
         recipe:
-            input: 1000mB Oil
+            input: 1000 Oil
             pattern: ... .0. ...
+            quantity: 1000
             tools: Refinery
 
-    item: 1000mB Oil
+    item: Oil
         gatherable: yes
 
     item: Fuel Bucket
         recipe:
-            input: 1000mB Fuel, Bucket
+            input: 1000 Fuel, Bucket
             pattern: ... .0. .1.
 
     item: Oil Bucket
         recipe:
-            input: 1000mB Oil, Bucket
+            input: 1000 Oil, Bucket
             pattern: ... .0. .1.
-            tools: Crafting Table
 
 group: Gates
 

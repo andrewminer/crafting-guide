@@ -158,8 +158,8 @@ group: Decoration
 
     item: Dimmed Glowstone Illuminator
         recipe:
-            input: 1000mB Primal Mana, Illuminator Frame
-            pattern: ... .0. .1.
+            input: 1000 Primal Mana, Illuminator Frame
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Dimmed Lumium Lamp
@@ -176,8 +176,8 @@ group: Decoration
 
     item: Glowstone Illuminator
         recipe:
-            input: 1000mB Energized Glowstone, Illuminator Frame
-            pattern: ... .0. .1.
+            input: 1000 Energized Glowstone, Illuminator Frame
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Lumium Lamp
@@ -286,88 +286,71 @@ group: Energy
 
 group: Fluids
 
-    item: 1000mB Blazing Pyrotheum
-        recipe:
-            input: 500mB Blazing Pyrotheum, Pyrotheum Dust
-            pattern: ... 101 111
-            tools: Magma Crucible
-
-    item: 1000mB Destabilized Redstone
-        recipe:
-            input: 500mB Destabilized Redstone, Redstone
-            pattern: ... 101 111
-            tools: Magma Crucible
-
-    item: 1000mB Energized Glowstone
+    item: Energized Glowstone
         recipe:
             input: Glowstone Dust
-            pattern: 00. 00. ...
+            pattern: ... .0. ...
+            quantity: 250
             tools: Magma Crucible
         recipe:
             input: Glowstone
             pattern: ... .0. ...
+            quantity: 1000
             tools: Magma Crucible
 
-    item: 1000mB Gelid Cryotheum
-        recipe:
-            input: 500mB Gelid Cryotheum, Cryotheum Dust
-            pattern: ... 101 111
-            tools: Magma Crucible
+    item: Primal Mana
 
-    item: 1000mB Liquifacted Coal
-        recipe:
-            input: 500mB Liquifacted Coal, Pulverized Coal
-            pattern: ... 101 111
-            tools: Magma Crucible
-
-    item: 1000mB Primal Mana
-
-    item: 1000mB Resonant Ender
+    item: Resonant Ender
         recipe:
             input: Ender Pearl
-            pattern: ... 00. 00.
+            pattern: ... .0. ...
+            quantity: 250
             tools: Magma Crucible
 
-    item: 500mB Blazing Pyrotheum
+    item: Blazing Pyrotheum
         recipe:
             input: Pyrotheum Dust
-            pattern: ... 0.0 000
+            pattern: ... .0. ...
+            quantity: 100
             tools: Magma Crucible
 
-    item: 500mB Destabilized Redstone
+    item: Destabilized Redstone
         recipe:
             input: Redstone
-            pattern: ... 0.0 000
+            pattern: ... .0. ...
+            quantity: 100
             tools: Magma Crucible
 
-    item: 500mB Gelid Cryotheum
+    item: Gelid Cryotheum
         recipe:
             input: Cryotheum Dust
-            pattern: ... 0.0 000
+            pattern: ... .0. ...
+            quantity: 100
             tools: Magma Crucible
 
-    item: 500mB Liquifacted Coal
+    item: Liquifacted Coal
         recipe:
             input: Pulverized Coal
-            pattern: ... 0.0 000
+            pattern: ... .0. ...
+            quantity: 100
             tools: Magma Crucible
 
     item: Blazing Pyrotheum Bucket
         recipe:
-            input: 1000mB Blazing Pyrotheum, Bucket
-            pattern: ... .0. .1.
+            input: 1000 Blazing Pyrotheum, Bucket
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Destabilized Redstone Bucket
         recipe:
-            input: 1000mB Destabilized Redstone, Bucket
-            pattern: ... .0. .1.
+            input: 1000 Destabilized Redstone, Bucket
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Energized Glowstone Bucket
         recipe:
-            input: 1000mB Energized Glowstone, Bucket
-            pattern: ... .0. .1.
+            input: 1000 Energized Glowstone, Bucket
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
         recipe:
             input: Bucket, Glowstone Dust
@@ -380,8 +363,8 @@ group: Fluids
 
     item: Gelid Cryotheum Bucket
         recipe:
-            input: 1000mB Gelid Cryotheum, Bucket
-            pattern: ... .0. .1.
+            input: 1000 Gelid Cryotheum, Bucket
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Hardened Portable Tank
@@ -396,8 +379,8 @@ group: Fluids
 
     item: Liquifacted Coal Bucket
         recipe:
-            input: 1000mB Liquifacted Coal, Bucket
-            pattern: ... .0. .1.
+            input: 1000 Liquifacted Coal, Bucket
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Portable Tank
@@ -408,8 +391,8 @@ group: Fluids
 
     item: Primal Mana Bucket
         recipe:
-            input: 1000mB Primal Mana, Bucket
-            pattern: ... .0. .1.
+            input: 1000 Primal Mana, Bucket
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Reinforced Portable Tank
@@ -418,17 +401,11 @@ group: Fluids
             pattern: .0. 010 .0.
             tools: Crafting Table
 
-    item: Resonant Ender
-        recipe:
-            input: Ender Pearl
-            pattern: ... .0. ...
-            tools: Magma Crucible
-
     item: Resonant Ender Bucket
         recipe:
-            input: Bucket, Ender Pearl
-            pattern: 11. 11. 0..
-            tools: Magma Crucible
+            input: Bucket, 1000 Resonant Ender
+            pattern: ... 0.1 ...
+            tools: Fluid Transposer
 
     item: Resonant Portable Tank
         recipe:
@@ -452,8 +429,8 @@ group: Functional Blocks
 
     item: Impluse Plate
         recipe:
-            input: 1000mB Energized Glowstone, Plate
-            pattern: ... .0. .1.
+            input: 1000 Energized Glowstone, Plate
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Machinist’s Workbench
@@ -468,8 +445,8 @@ group: Functional Blocks
 
     item: Redstone Plate
         recipe:
-            input: 1000mB Destabilized Redstone, Plate
-            pattern: ... .1. .0.
+            input: 1000 Destabilized Redstone, Plate
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Reinforced Strongbox
@@ -492,8 +469,8 @@ group: Functional Blocks
 
     item: Translocation Plate
         recipe:
-            input: 1000mB Resonant Ender, Plate
-            pattern: ... .0. .1.
+            input: 1000 Resonant Ender, Plate
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
 group: Machine Parts
@@ -613,8 +590,8 @@ group: Machine Parts
 
     item: Redstone Energy Cell Frame (Full)
         recipe:
-            input: 1000mB Destabilized Redstone, Redstone Energy Cell Frame (Empty)
-            pattern: 1.. 00. 00.
+            input: 4000 Destabilized Redstone, Redstone Energy Cell Frame (Empty)
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Redstone Reception Coil
@@ -666,8 +643,8 @@ group: Machine Parts
 
     item: Tesseract Frame (Full)
         recipe:
-            input: 1000mB Resonant Ender, Tesseract Frame (Empty)
-            pattern: ... .0. .1.
+            input: 1000 Resonant Ender, Tesseract Frame (Empty)
+            pattern: ... 1.0 ...
             tools: Fluid Transposer
 
     item: Tin Gear
@@ -1159,8 +1136,8 @@ group: Minerals
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Copper, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Copper, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1212,17 +1189,17 @@ group: Minerals
             tools: Redstone Furnace
         recipe:
             input: Gold Ingot, Silver Ingot
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Pulverized Gold, Pulverized Silver
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Electrum Blend, Sand
-            pattern: ... 100 ...
+            input: 2 Electrum Blend, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1259,8 +1236,8 @@ group: Minerals
 
     item: Enderium Ingot
         recipe:
-            input: Enderium Blend, Pyrotheum Dust
-            pattern: ... 100 ...
+            input: 2 Enderium Blend, Pyrotheum Dust
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1304,7 +1281,7 @@ group: Minerals
         recipe:
             extras: Shiny Ingot
             input: Cinnabar, Ferrous Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
@@ -1313,17 +1290,17 @@ group: Minerals
             quantity: 3
         recipe:
             input: Ferrous Ore, Sand
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Ferrous Ore, Pyrotheum Dust
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Ferrous Metal, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Ferrous Metal, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1348,13 +1325,13 @@ group: Minerals
 
     item: Hardened Glass
         recipe:
-            input: Lead Ingot, Pulverized Obsidian
-            pattern: 101 111 111
+            input: Lead Ingot, 8 Pulverized Obsidian
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Lead, Pulverized Obsidian
-            pattern: 101 111 111
+            input: Pulverized Lead, 8 Pulverized Obsidian
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
 
@@ -1380,18 +1357,18 @@ group: Minerals
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
-            input: Pulverized Ferrous Metal, Pulverized Iron
-            pattern: ... 110 ...
+            input: Pulverized Ferrous Metal, 2 Pulverized Iron
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
-            input: Ferrous Ingot, Iron Ingot
-            pattern: ... 110 ...
+            input: Ferrous Ingot, 2 Iron Ingot
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
-            input: Invar Blend, Sand
-            pattern: ... 100 ...
+            input: 2 Invar Blend, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1447,7 +1424,7 @@ group: Minerals
         recipe:
             extras: Silver Ingot
             input: Cinnabar, Lead Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
@@ -1456,17 +1433,17 @@ group: Minerals
             quantity: 3
         recipe:
             input: Lead Ore, Sand
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Lead Ore, Pyrotheum Dust
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Lead, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Lead, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1533,8 +1510,8 @@ group: Minerals
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
-            input: Lumium Blend, Sand
-            pattern: ... 100 ...
+            input: 2 Lumium Blend, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1579,32 +1556,32 @@ group: Minerals
             tools: Redstone Furnace
         recipe:
             input: Cinnabar, Mana Infused Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
             input: Mana Infused Ore, Rich Slag
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
             input: Mana Infused Ore, Sand
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Mana Infused Ore, Pyrotheum Dust
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Mana Infused Metal, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Mana Infused Metal, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Mana Infused Metal, Pyrotheum Dust
-            pattern: ... 100 ...
+            input: 2 Pulverized Mana Infused Metal, Pyrotheum Dust
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
 
@@ -1784,27 +1761,27 @@ group: Minerals
             pattern: .1. ... .0.
         recipe:
             input: Rich Slag, Shiny Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
             input: Cinnabar, Shiny Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
             input: Sand, Shiny Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Pyrotheum Dust, Shiny Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Shiny Metal, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Shiny Metal, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1854,7 +1831,7 @@ group: Minerals
             tools: Redstone Furnace
         recipe:
             input: Sand, Signalum Blend
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1898,7 +1875,7 @@ group: Minerals
         recipe:
             extras: Lead Ingot
             input: Cinnabar, Silver Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
@@ -1907,17 +1884,17 @@ group: Minerals
             quantity: 3
         recipe:
             input: Sand, Silver Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Pyrotheum Dust, Silver Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Silver, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Silver, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
@@ -1972,27 +1949,27 @@ group: Minerals
         recipe:
             extras: Iron Ingot
             input: Cinnabar, Tin Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
             input: Rich Slag, Tin Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
             input: Sand, Tin Ore
-            pattern: ... 01. ...
+            pattern: ... 0.1 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
-            input: Pulverized Tin, Sand
-            pattern: ... 100 ...
+            input: 2 Pulverized Tin, Sand
+            pattern: ... 1.0 ...
             quantity: 2
             tools: Induction Smelter
         recipe:
             input: Pyrotheum Dust, Tin Ore
-            pattern: ... 10. ...
+            pattern: ... 1.0 ...
             tools: Induction Smelter
         recipe:
             input: Tin Nugget
@@ -2039,18 +2016,18 @@ group: Minerals
             tools: Redstone Furnace
         recipe:
             extras: Slag
-            input: Sand, Tinker’s Alloy Blend
-            pattern: ... 011 ...
+            input: Sand, 1 Tinker’s Alloy Blend
+            pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
         recipe:
-            input: Pulverized Copper, Pulverized Tin
-            pattern: 000 .1. ...
+            input: 3 Pulverized Copper, Pulverized Tin
+            pattern: ... 0.1 ...
             quantity: 4
             tools: Induction Smelter
         recipe:
-            input: Copper Ingot, Tin Ingot
-            pattern: 000 .1. ...
+            input: 3 Copper Ingot, Tin Ingot
+            pattern: ... 0.1 ...
             quantity: 4
             tools: Induction Smelter
         recipe:

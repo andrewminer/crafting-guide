@@ -251,6 +251,7 @@ group: Generators
       tools: Crafting Table
 
 group: Items
+
   item: Ender-Lily Seeds
 
   item: Division Sigil (Activated)

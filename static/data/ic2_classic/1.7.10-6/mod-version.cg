@@ -358,8 +358,8 @@ item: Cropnalyzer
 
 item: Dense Copper Plate
     recipe:
-        input: Copper Ingot
-        pattern: 000 0.0 000
+        input: 8 Copper Ingot
+        pattern: ... .0. ...
         tools: Compressor
 
 item: Depleted Isotope Cell
@@ -507,18 +507,18 @@ item: Fertilizer
 
 item: (filled) Fuel Can
     recipe:
-        input: (empty) Fuel Can, Coalfuel Cell
-        pattern: 111 111 .0.
+        input: (empty) Fuel Can, 6 Coalfuel Cell
+        pattern: .1. ... .0.
         tools: Canning Machine
     recipe:
-        input: (empty) Fuel Can, Biofuel Cell
-        pattern: 111 111 .0.
+        input: (empty) Fuel Can, 6 Biofuel Cell
+        pattern: .1. ... .0.
         tools: Canning Machine
 
 item: (Filled) Tin Can
     recipe:
-        input: Bread, Tin Can
-        pattern: ... .0. 111
+        input: Bread, 3 Tin Can
+        pattern: .0. ... .1.
         quantity: 3
         tools: Canning Machine
 
@@ -1320,8 +1320,8 @@ item: Wrench
 
 update: Nether Brick
     recipe:
-        input: Netherrack
-        pattern: .0. .0. .0.
+        input: 3 Netherrack
+        pattern: ... .0. ...
         tools: Compressor
 
 update: Blaze Powder

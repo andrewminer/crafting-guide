@@ -1,39 +1,16 @@
 schema: 1
 
-group: Liquids
-
-    item: 50mB Destabilized Redstone
-        recipe:
-            input: 1000mB Destabilized Redstone
-            pattern: ... .0. ...
-            quantity: 20
-            tools: Fluid Transposer
-
-    item: 200mB Destabilized Redstone
-        recipe:
-            input: 1000mB Destabilized Redstone
-            pattern: ... .0. ...
-            quantity: 5
-            tools: Fluid Transposer
-
-    item: 200mB Energized Glowstone
-        recipe:
-            input: 1000mB Energized Glowstone
-            pattern: ... .0. ...
-            quantity: 5
-            tools: Fluid Transposer
-
 group: Combination Ducts
 
     item: Fluctuating Itemduct
         recipe:
-            input: 50mB Destabilized Redstone, Itemduct
+            input: 50 Destabilized Redstone, Itemduct
             pattern: ... .1. .0.
             tools: Crafting Table
 
     item: Fluctuating Itemduct (Opaque)
         recipe:
-            input: 50mB Destabilized Redstone, Itemduct (Opaque)
+            input: 50 Destabilized Redstone, Itemduct (Opaque)
             pattern: ... .1. .0.
             tools: Crafting Table
 
@@ -157,7 +134,7 @@ group: Flux Ducts
 
     item: Cryo-Stabilized Fluxduct
         recipe:
-            input: 500mB Gelid Cryotheum, Cryo-Stabilized Fluxduct (Empty)
+            input: 500 Gelid Cryotheum, Cryo-Stabilized Fluxduct (Empty)
             pattern: ... .1. .0.
             tools: Fluid Transposer
 
@@ -187,7 +164,7 @@ group: Flux Ducts
 
     item: Redstone Energy Fluxduct
         recipe:
-            input: 200mB Destabilized Redstone, Redstone Energy Fluxduct (Empty)
+            input: 200 Destabilized Redstone, Redstone Energy Fluxduct (Empty)
             pattern: ... .1. .0.
             tools: Fluid Transposer
 
@@ -200,7 +177,7 @@ group: Flux Ducts
 
     item: Resonant Fluxduct
         recipe:
-            input: 200mB Destabilized Redstone, Resonant Fluxduct (Empty)
+            input: 200 Destabilized Redstone, Resonant Fluxduct (Empty)
             pattern: ... .1. .0.
             tools: Crafting Table
         recipe:
@@ -258,7 +235,7 @@ group: Item Ducts
 
     item: Impulse Itemduct
         recipe:
-            input: 200mB Energized Glowstone, Itemduct
+            input: 200 Energized Glowstone, Itemduct
             pattern: ... .1. .0.
             tools: Fluid Transposer
         recipe:
@@ -269,7 +246,7 @@ group: Item Ducts
 
     item: Impulse Itemduct (Opaque)
         recipe:
-            input: 200mB Energized Glowstone, Itemduct (Opaque)
+            input: 200 Energized Glowstone, Itemduct (Opaque)
             pattern: ... .1. .0.
             tools: Fluid Transposer
         recipe:

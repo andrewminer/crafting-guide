@@ -1376,11 +1376,26 @@ group: Machine Parts
 
     item: Atomic Alloy
         recipe:
+            input: Compressed Obsidian, 10 Reinforced Alloy
+            pattern: ... 0.1 ...
+            quantity: 10
+            tools: Metallurgic Infuser
+        recipe:
             input: Refined Obsidian Dust, Reinforced Alloy
             pattern: ... 0.1 ...
             tools: Metallurgic Infuser
 
     item: Basic Control Circuit
+        recipe:
+            input: 10 Osmium Ingot, Compressed Redstone
+            pattern: ... 1.0 ...
+            quantity: 10
+            tools: Metallurgic Infuser
+        recipe:
+            input: 9 Osmium Ingot, Block of Redstone
+            pattern: ... 1.0 ...
+            quantity: 9
+            tools: Metallurgic Infuser
         recipe:
             input: Osmium Ingot, Redstone
             pattern: ... 1.0 ...
@@ -1874,13 +1889,32 @@ group: Minerals
 
     item: Enriched Alloy
         recipe:
+            input: 10 Iron Ingot, Compressed Redstone
+            pattern: ... 1.0 ...
+            quantity: 10
+            tools: Metallurgic Infuser
+        recipe:
+            input: 9 Iron Ingot, Block of Redstone
+            pattern: ... 1.0 ...
+            quantity: 9
+            tools: Metallurgic Infuser
+        recipe:
             input: Iron Ingot, Redstone
             pattern: ... 1.0 ...
             tools: Metallurgic Infuser
 
     item: Enriched Iron
         recipe:
+            input: Compressed Carbon, 10 Iron Ingot
+            pattern: ... 0.1 ...
+            quantity: 10
+            tools: Metallurgic Infuser
+        recipe:
             input: Charcoal, Iron Ingot
+            pattern: ... 0.1 ...
+            tools: Metallurgic Infuser
+        recipe:
+            input: Coal, Iron Ingot
             pattern: ... 0.1 ...
             tools: Metallurgic Infuser
 
@@ -2202,6 +2236,11 @@ group: Minerals
 
     item: Refined Obsidian Dust
         recipe:
+            input: Compressed Diamond, 10 Dirty Obsidian Dust
+            pattern: ... 0.1 ...
+            quantity: 10
+            tools: Metallurgic Infuser
+        recipe:
             input: Diamond Dust, Dirty Obsidian Dust
             pattern: ... 0.1 ...
             tools: Metallurgic Infuser
@@ -2211,6 +2250,11 @@ group: Minerals
             tools: Crusher
 
     item: Reinforced Alloy
+        recipe:
+            input: Compressed Diamond, 10 Enriched Alloy
+            pattern: ... 0.1 ...
+            quantity: 10
+            tools: Metallurgic Infuser
         recipe:
             input: Diamond Dust, Enriched Alloy
             pattern: ... 0.1 ...
@@ -2271,7 +2315,16 @@ group: Minerals
 
     item: Steel Dust
         recipe:
+            input: Compressed Carbon, 10 Enriched Iron
+            pattern: ... 0.1 ...
+            quantity: 10
+            tools: Metallurgic Infuser
+        recipe:
             input: Charcoal, Enriched Iron
+            pattern: ... 0.1 ...
+            tools: Metallurgic Infuser
+        recipe:
+            input: Coal, Enriched Iron
             pattern: ... 0.1 ...
             tools: Metallurgic Infuser
         recipe:

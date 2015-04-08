@@ -179,6 +179,7 @@ group: Bee Housing
             tools: Carpenter
 
     item: Proven Frame
+        gatherable: yes
 
     item: Scented Paneling
         recipe:
@@ -2745,6 +2746,7 @@ group: Minerals
             quantity: 9
 
     item: Copper Ore
+        gatherable: yes
 
     item: Tin Ingot
         recipe:
@@ -2757,6 +2759,7 @@ group: Minerals
             quantity: 9
 
     item: Tin Ore
+        gatherable: yes
 
 group: Organic Matter
 

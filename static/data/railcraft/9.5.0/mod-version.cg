@@ -1886,21 +1886,16 @@ group: Engines
 
 group: Fluids
 
-    item: 1000mB Creosote Oil
-        recipe:
-            input: 500mB Creosote Oil
-            pattern: ... 00. ...
-
-    item: 500mB Creosote Oil
+    item: Creosote Oil
 
     item: Creosote Bottle
         recipe:
-            input: 1000mB Creosote Oil, Glass Bottle
+            input: 1000 Creosote Oil, Glass Bottle
             pattern: .0. .1. ...
 
     item: Creosote Bucket
         recipe:
-            input: 1000mB Creosote Oil, Bucket
+            input: 1000 Creosote Oil, Bucket
             pattern: .0. .1. ...
 
     item: Creosote Can
@@ -1909,7 +1904,7 @@ group: Fluids
 
     item: Creosote Cell
         recipe:
-            input: 1000mB Creosote Oil, Empty Cell
+            input: 1000 Creosote Oil, Empty Cell
             pattern: .0. .1. ...
 
     item: Iron Tank Gauge
@@ -2207,7 +2202,7 @@ group: Machines
         recipe:
             input: Dispenser, Emerald, Glass Pane, Steel Plate
             pattern: 323 101 323
-            tools: Crafting Recipe
+            tools: Crafting Table
 
     item: Train Dispenser
         recipe:
@@ -2261,7 +2256,7 @@ group: Minerals
 
     item: Coal Coke
         recipe:
-            extras: 500mB Creosote Oil
+            extras: 500 Creosote Oil
             input: Coal
             pattern: ... .0. ...
             tools: Coke Oven
@@ -2322,7 +2317,7 @@ group: Minerals
             input: Poor Iron Ore, furnace fuel
             pattern: .0. ... .1.
             quantity: 2
-            tools: Furance
+            tools: Furnace
 
     item: Lead Ingot
         recipe:
@@ -2347,7 +2342,7 @@ group: Minerals
             input: Poor Lead Ore, furnace fuel
             pattern: .0. ... .1.
             quantity: 2
-            tools: Furance
+            tools: Furnace
 
     item: Obsidian Dust
         recipe:
@@ -2398,8 +2393,8 @@ group: Minerals
             pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
-            input: Charcoal, Iron Ingot
-            pattern: .1. .0. 000
+            input: 4 Charcoal, Iron Ingot
+            pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
             input: Steel Nugget

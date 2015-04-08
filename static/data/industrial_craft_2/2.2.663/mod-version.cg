@@ -92,96 +92,101 @@ group: Agriculture
 
     item: (Filled) Tin Can
         recipe:
+            input: Cake, 12 Tin Can
+            pattern: .0. ... .1.
+            quantity: 12
+            tools: Canning Machine
+        recipe:
             input: Steak, 8 Tin Can
             pattern: .0. ... .1.
             quantity: 8
             tools: Canning Machine
         recipe:
-            input: Cooked Porkchop, Tin Can
-            pattern: 101 111 111
+            input: Cooked Porkchop, 8 Tin Can
+            pattern: .0. ... .1.
             quantity: 8
             tools: Canning Machine
         recipe:
-            input: Baked Potato, Tin Can
-            pattern: .0. 111 111
+            input: Baked Potato, 6 Tin Can
+            pattern: .0. ... .1.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Cooked Chicken, Tin Can
-            pattern: .0. 111 111
+            input: Cooked Chicken, 6 Tin Can
+            pattern: .0. ... .1.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Pumpkin Pie, Tin Can
-            pattern: .0. 111 111
+            input: Pumpkin Pie, 6 Tin Can
+            pattern: .0. ... .1.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Mushroom Stew, Tin Can
-            pattern: .0. 111 111
+            input: Mushroom Stew, 6 Tin Can
+            pattern: .0. ... .1.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Bread, Tin Can
-            pattern: ... 101 111
+            input: Bread, 5 Tin Can
+            pattern: .0. ... .1.
             quantity: 5
             tools: Canning Machine
         recipe:
-            input: Cooked Fish, Tin Can
-            pattern: ... 101 111
+            input: Cooked Fish, 5 Tin Can
+            pattern: .0. ... .1.
             quantity: 5
             tools: Canning Machine
         recipe:
-            input: Carrot, Tin Can
-            pattern: ... .01 111
+            input: Carrot, 4 Tin Can
+            pattern: .0. ... .1.
             quantity: 4
             tools: Canning Machine
         recipe:
-            input: Apple, Tin Can
-            pattern: ... .01 111
+            input: Apple, 4 Tin Can
+            pattern: .0. ... .1.
             quantity: 4
             tools: Canning Machine
         recipe:
-            input: Raw Beef, Tin Can
-            pattern: ... .0. 111
+            input: Raw Beef, 3 Tin Can
+            pattern: .0. ... .1.
             quantity: 3
             tools: Canning Machine
         recipe:
-            input: Raw Porkchop, Tin Can
-            pattern: ... .0. 111
+            input: Raw Porkchop, 3 Tin Can
+            pattern: .0. ... .1.
             quantity: 3
             tools: Canning Machine
         recipe:
-            input: Melon, Tin Can
-            pattern: ... .0. 1.1
+            input: Melon, 2 Tin Can
+            pattern: .0. ... .1.
             quantity: 2
             tools: Canning Machine
         recipe:
-            input: Cookie, Tin Can
-            pattern: ... .0. 1.1
+            input: Cookie, 2 Tin Can
+            pattern: .0. ... .1.
             quantity: 2
             tools: Canning Machine
         recipe:
-            input: Raw Chicken, Tin Can
-            pattern: ... .0. 1.1
+            input: Raw Chicken, 2 Tin Can
+            pattern: .0. ... .1.
             quantity: 2
             tools: Canning Machine
         recipe:
-            input: Raw Fish, Tin Can
-            pattern: ... .0. 1.1
+            input: Raw Fish, 2 Tin Can
+            pattern: .0. ... .1.
             quantity: 2
             tools: Canning Machine
         recipe:
             input: Potato, Tin Can
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Canning Machine
         recipe:
-            input: Poisonous Potato, Tin Can
-            pattern: .0. .0. .1.
+            input: 2 Poisonous Potato, Tin Can
+            pattern: .0. ... .1.
             tools: Canning Machine
         recipe:
-            input: Rotten Flesh, Tin Can
-            pattern: .0. .0. .1.
+            input: 2 Rotten Flesh, Tin Can
+            pattern: .0. ... .1.
             tools: Canning Machine
 
     item: Grin Powder
@@ -519,8 +524,8 @@ group: Energy: Storage
 
     item: Energy Crystal
         recipe:
-            input: Energium Dust
-            pattern: 000 000 000
+            input: 9 Energium Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: MFE
@@ -822,56 +827,56 @@ group: Machine Parts
 
     item: Dense Bronze Plate
         recipe:
-            input: Bronze Plate
-            pattern: 000 000 000
+            input: 9 Bronze Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Copper Plate
         recipe:
-            input: Copper Plate
-            pattern: 000 000 000
+            input: 9 Copper Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Gold Plate
         recipe:
-            input: Gold Plate
-            pattern: 000 000 000
+            input: 9 Gold Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Iron Plate
         recipe:
-            input: Iron Plate
-            pattern: 000 000 000
+            input: 9 Iron Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Lapis Lazuli Plate
         recipe:
-            input: Lapis Lazuli Plate
-            pattern: 000 000 000
+            input: 9 Lapis Lazuli Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Lead Plate
         recipe:
-            input: Lead Plate
-            pattern: 000 000 000
+            input: 9 Lead Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Obsidian Plate
         recipe:
-            input: Obsidian Plate
-            pattern: 000 000 000
+            input: 9 Obsidian Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Refined Iron Plate
         recipe:
-            input: Refined Iron Plate
-            pattern: 000 000 000
+            input: 9 Refined Iron Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Dense Tin Plate
         recipe:
-            input: Tin Plate
-            pattern: 000 000 000
+            input: 9 Tin Plate
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Ejector Upgrade
@@ -1096,8 +1101,8 @@ group: Machine Parts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Refined Iron Ingot
-            pattern: 000 000 000
+            input: 9 Refined Iron Ingot
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Refined Iron Item Casing
@@ -1558,8 +1563,8 @@ group: Minerals
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Bronze Ingot
-            pattern: 000 000 000
+            input: 9 Bronze Ingot
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Bronze Ingot
@@ -1616,8 +1621,8 @@ group: Minerals
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Copper Ingot
-            pattern: 000 000 000
+            input: 9 Copper Ingot
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Copper Ingot
@@ -1734,8 +1739,8 @@ group: Minerals
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Lead Ingot
-            pattern: 000 000 000
+            input: 9 Lead Ingot
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Lead Ingot
@@ -1825,28 +1830,28 @@ group: Minerals
     item: Refined Iron Ingot
         recipe:
             extras: Slag, 6 Empty Cell
-            input: Compressed Air Cell, Iron Ore
-            pattern: .1. 000 000
+            input: 6 Compressed Air Cell, Iron Ore
+            pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
             extras: Slag, 6 Empty Cell
-            input: Compressed Air Cell, Iron Dust
-            pattern: .1. 000 000
+            input: 6 Compressed Air Cell, Iron Dust
+            pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
             extras: Slag, 6 Empty Cell
-            input: Compressed Air Cell, Iron Ingot
-            pattern: .1. 000 000
+            input: 6 Compressed Air Cell, Iron Ingot
+            pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
             extras: Slag, 6 Empty Cell
-            input: Compressed Air Cell, Crushed Iron Ore
-            pattern: .1. 000 000
+            input: 6 Compressed Air Cell, Crushed Iron Ore
+            pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
             extras: Slag, 6 Empty Cell
-            input: Compressed Air Cell, Purified Crushed Iron Ore
-            pattern: .1. 000 000
+            input: 6 Compressed Air Cell, Purified Crushed Iron Ore
+            pattern: .1. ... .0.
             tools: Blast Furnace
         recipe:
             input: Refined Iron Block
@@ -1863,8 +1868,8 @@ group: Minerals
 
     item: Silicon Dioxide
         recipe:
-            input: Clay Dust
-            pattern: 00. 00. ...
+            input: 4 Clay Dust
+            pattern: ... .0. ...
             tools: Thermal Centrifuge
 
     item: Silver Ingot
@@ -1917,8 +1922,8 @@ group: Minerals
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tin Ingot
-            pattern: 000 000 000
+            input: 9 Tin Ingot
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Tin Ingot
@@ -1957,8 +1962,8 @@ group: Minerals
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Uranium 235
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Uranium 235
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Uranium 238
@@ -2033,8 +2038,8 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Bronze Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Bronze Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Clay Dust
@@ -2085,8 +2090,8 @@ group: Minerals: Dusts
             pattern: ... .0. ...
             tools: Macerator
         recipe:
-            input: Tiny Pile of Copper Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Copper Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Crushed Copper Ore
@@ -2172,8 +2177,8 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Gold Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Gold Dust
+            pattern: ... .0. ...
             tools: Compressor
         recipe:
             input: Gold Ingot
@@ -2203,8 +2208,8 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Iron Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Iron Dust
+            pattern: ... .0. ...
             tools: Compressor
         recipe:
             input: Iron Ingot
@@ -2270,8 +2275,8 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Lapis Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Lapis Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Lead Dust
@@ -2294,8 +2299,8 @@ group: Minerals: Dusts
             pattern: ... .0. ...
             tools: Macerator
         recipe:
-            input: Tiny Pile of Lead Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Lead Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Lithium Dust
@@ -2304,8 +2309,8 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Lithium Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Lithium Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Obsidian Dust
@@ -2318,57 +2323,57 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Obsidian Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Obsidian Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Purified Crushed Copper Ore
         recipe:
             extras: 2 Tiny Pile of Copper Dust, Stone Dust
             input: Crushed Copper Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Gold Ore
         recipe:
             extras: 2 Tiny Pile of Gold Dust, Stone Dust
             input: Crushed Gold Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Iron Ore
         recipe:
             extras: 2 Tiny Pile of Iron Dust, Stone Dust
             input: Crushed Iron Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Lead Ore
         recipe:
             extras: 3 Tiny Pile of Sulfur Dust, Stone Dust
             input: Crushed Lead Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Silver Ore
         recipe:
             extras: 2 Tiny Pile of Silver Dust, Stone Dust
             input: Crushed Silver Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Tin Ore
         recipe:
             extras: 2 Tiny Pile of Tin Dust, Stone Dust
             input: Crushed Tin Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Uranium Ore
         recipe:
             extras: 2 Tiny Pile of Lead Dust, Stone Dust
             input: Crushed Uranium Ore, Water
-            pattern: ... .0. .1.
+            pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Silver Dust
@@ -2392,8 +2397,8 @@ group: Minerals: Dusts
             quantity: 9
             tools: Macerator
         recipe:
-            input: Tiny Pile of Silver Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Silver Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Stone Dust
@@ -2412,8 +2417,8 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Sulfur Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Sulfur Dust
+            pattern: ... .0. ...
             tools: Compressor
 
     item: Tin Dust
@@ -2432,16 +2437,16 @@ group: Minerals: Dusts
             pattern: 000 000 000
             tools: Crafting Table
         recipe:
-            input: Tiny Pile of Tin Dust
-            pattern: 000 000 000
+            input: 9 Tiny Pile of Tin Dust
+            pattern: ... .0. ...
             tools: Compressor
         recipe:
             input: Tin Ingot
             pattern: ... .0. ...
             tools: Macerator
         recipe:
-            input: Tin Can
-            pattern: ... 00. ...
+            input: 2 Tin Can
+            pattern: ... .0. ...
             tools: Macerator
 
     item: Tiny Pile of Bronze Dust
@@ -2488,8 +2493,8 @@ group: Minerals: Dusts
 
     item: Tiny Pile of Lithium Dust
         recipe:
-            input: Nether Quartz, Water
-            pattern: .0. .0. .1.
+            input: 2 Nether Quartz
+            pattern: ... .0. ...
             tools: Thermal Centrifuge
 
     item: Tiny Pile of Obsidian Dust
@@ -2564,6 +2569,7 @@ group: Nuclear Reactor
         recipe:
             input: Gold Plate, Heat Exchanger
             pattern: .0. 010 .0.
+            tools: Crafting Table
 
     item: Component Heat Vent
         recipe:

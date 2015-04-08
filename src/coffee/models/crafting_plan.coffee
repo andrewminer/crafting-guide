@@ -173,8 +173,9 @@ module.exports = class CraftingPlan extends BaseModel
         for i in [@steps.length-1..0] by -1
             step   = @steps[i]
             recipe = step.recipe
+            outputQuantity = recipe.getQuantityProducedOf step.itemSlug
 
-            step.multiplier = Math.ceil(@need.quantityOf(step.itemSlug) / recipe.output[0].quantity)
+            step.multiplier = Math.ceil(@need.quantityOf(step.itemSlug) / outputQuantity)
 
             if @includingTools
                 recipe.eachToolStack (stack)=>

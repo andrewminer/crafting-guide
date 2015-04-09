@@ -22,6 +22,7 @@ exports.DefaultMods =
     iron_chests:           { defaultVersion: '6.0.62.742' }
     jabba:                 { defaultVersion: '1.2.1a' }
     mekanism:              { defaultVersion: '7.1.1.127' }
+    modular_powersuits:    { defaultVersion: '0.11.0.176' }
     railcraft:             { defaultVersion: '9.5.0' }
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }

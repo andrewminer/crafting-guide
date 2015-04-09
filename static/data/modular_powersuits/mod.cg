@@ -1,0 +1,10 @@
+schema: 1
+
+name:             Modular PowerSuits
+author:           MachineMuse
+description:      An expandable suit of powered armor while nearly infinite expansions, options, and customizations.
+homePageUrl:      http://machinemuse.net/index.php
+documentationUrl: http://machinemuse.net/recipes.php
+downloadUrl:      http://build.technicpack.net/job/ModularPowersuits/
+
+version: vanilla-0.11.0.176

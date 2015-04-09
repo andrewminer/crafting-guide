@@ -1,0 +1,134 @@
+schema: 1
+
+group: Armor
+
+    item: Power Armor Boots
+        recipe:
+            input: Iron Ingot, Wiring
+            pattern: ... 1.1 0.0
+            tools: Crafting Table
+
+    item: Power Armor Chestplate
+        recipe:
+            input: Iron Ingot, Wiring
+            pattern: 0.0 101 000
+            tools: Crafting Table
+
+    item: Power Armor Helmet
+        recipe:
+            input: Iron Ingot, Wiring
+            pattern: 000 1.1 ...
+            tools: Crafting Table
+
+    item: Power Armor Leggings
+        recipe:
+            input: Iron Ingot, Wiring
+            pattern: 000 1.1 0.0
+            tools: Crafting Table
+
+    item: Power Armor Tinker Table
+        recipe:
+            input: Emerald, Iron Ingot, Lapis Lazuli
+            pattern: 121 202 121
+            tools: Crafting Table
+
+    item: Power Fist
+        recipe:
+            input: Iron Ingot, Electrum Ingot, Wiring
+            pattern: .0. 010 .2.
+            tools: Crafting Table
+
+group: Parts
+
+    item: Advanced Plating
+        recipe:
+            input: Diamond, Invar Gear
+            pattern: 00. 10. 00.
+            tools: Crafting Table
+
+    item: Artificial Muscle
+
+    item: Basic Plating
+        recipe:
+            input: Iron Ingot, Tin Gear
+            pattern: 00. 10. 00.
+            tools: Crafting Table
+
+    item: Carbon Myofiber
+
+    item: Control Circuit
+        recipe:
+            input: Electrum Ingot, Glowstone Dust, Wiring, Redstone
+            pattern: 012 321 231
+            tools: Crafting Table
+
+    item: Force Field Emitter
+        recipe:
+            input: Ender Pearl, Solenoid
+            pattern: 101 010 101
+            tools: Crafting Table
+
+    item: Glider Wing
+        recipe:
+            input: Iron Ingot
+            pattern: .00 00. 0..
+            tools: Crafting Table
+
+    item: Hologram Emitter
+        recipe:
+            input: Rose Red, Cactus Green, Lapis Lazuli, Glass, Wiring, Redstone Reception Coil
+            pattern: 012 .3. 454
+            tools: Crafting Table
+
+    item: HV Capacitor
+        recipe:
+            input: Ender Pearl, Glowstone Dust, Paper, Wiring
+            pattern: 021 3.3 ...
+            tools: Crafting Table
+
+    item: Ion Thruster
+        recipe:
+            input: Force Field Emitter, Invar Ingot, Glowstone Dust, Wiring
+            pattern: .01 12. 301
+            tools: Crafting Table
+
+    item: Lux Capacitor
+
+    item: LV Capacitor
+        recipe:
+            input: Silver Ingot, Paper, Gold Ingot, Wiring
+            pattern: 012 3.3
+            tools: Crafting Table
+
+    item: MV Capacitor
+        recipe:
+            input: Gold Nugget, Lapis Lazuli, Paper, Wiring
+            pattern: 021 3.3 ...
+            tools: Crafting Table
+
+    item: Myofiber Gel
+
+    item: Parachute
+        recipe:
+            input: String, Pneumatic Servo
+            pattern: ... 0.0 .1.
+            tools: Crafting Table
+
+    item: Servo Motor
+        recipe:
+            input: Solenoid, Wiring, Pneumatic Servo
+            pattern: .0. 121 .0.
+            tools: Crafting Table
+
+    item: Solenoid
+        recipe:
+            input: Iron Ingot, Wiring
+            pattern: 101 101 101
+            tools: Crafting Table
+
+    item: Wiring
+        recipe:
+            input: Copper Ingot, Silver Ingot
+            pattern: 000 111 000
+            quantity: 8
+            tools: Crafting Table

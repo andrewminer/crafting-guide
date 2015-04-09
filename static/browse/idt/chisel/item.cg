@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+This tool is to get chiselled blocks. Right click [stone] with this to get [stone bricks]. Click [stone bricks] to get the nice chiselled kind. Click [cement] to get [cement bricks]. Shift and right click a trapdoor to get a secret trapdoor.
+END

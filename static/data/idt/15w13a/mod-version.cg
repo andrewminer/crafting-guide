@@ -16,7 +16,7 @@ group: General Blocks
 		recipe:
 			input: Cobblestone, Lava Bucket
 			pattern: 01. ... ...
-			exrtas: Bucket
+			extras: Bucket
 			
 	item: Lava Obsidian
 		recipe:
@@ -308,6 +308,12 @@ group: Ingots and Bars
 	item: Titanium Ingot
 		recipe:
 			input: Steel Ingot, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Zimphnode Bar
+		recipe:
+			input: Zimphnode, furnace fuel
 			pattern: .0. ... .1.
 			tools: Furnace
 			

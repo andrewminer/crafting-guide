@@ -1,0 +1,6 @@
+schema: 1
+
+description: <<-END
+The Solar Panel I is the first generation of solar panels and provides the lowest capabilities, but at the least
+expense. It generates 2 RF/t, storing up to 50 kRF. It can output this power at 16 RF/t.
+END

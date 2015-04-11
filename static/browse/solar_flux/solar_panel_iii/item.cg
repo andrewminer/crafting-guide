@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The Solar Panel III is the third tier of solar panels: a step up from the [Solar Panel II], and a stepping stone towards [Solar Panel IV]. It generates 64 RF/t, storing up to 850 kRF. It can output this power at 512 RF/t.
+END

@@ -1,0 +1,9 @@
+schema: 1
+
+name:             Solar Flux
+author:           Nauktis
+description:      Adds RF-compatible solar panels in five different tiers.
+homePageUrl:      http://minecraft.curseforge.com/mc-mods/223548-solar-flux
+downloadUrl:      http://minecraft.curseforge.com/mc-mods/223548-solar-flux
+
+version: 0.5b

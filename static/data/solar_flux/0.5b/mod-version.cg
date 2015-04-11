@@ -1,0 +1,117 @@
+schema: 1
+
+group: Parts
+
+    item: Core I
+        recipe:
+            input: thermal_expansion__copper_ingot, Mirror, Redstone
+            pattern: .1. 020 .1.
+            quantity: 1
+            tools: Crafting Table
+
+    item: Core II
+        recipe:
+            input: Iron Ingot, Core I, Block of Redstone
+            pattern: 010 121 010
+            quantity: 1
+            tools: Crafting Table
+
+    item: Core III
+        recipe:
+            input: Mirror, Core II, Block of Redstone, thermal_expansion__tin_ingot
+            pattern: 010 121 313
+            quantity: 1
+            tools: Crafting Table
+
+    item: Core IV
+        recipe:
+            input: Mirror, Core III, Block of Gold, thermal_expansion__silver_ingot
+            pattern: 010 121 313
+            quantity: 1
+            tools: Crafting Table
+
+    item: Core V
+        recipe:
+            input: Mirror, Core IV, Block of Diamond, Gold Ingot
+            pattern: 010 121 313
+            quantity: 1
+            tools: Crafting Table
+
+    item: Mirror
+        recipe:
+            input: Glass, Iron Ingot
+            pattern: 000 .1. ...
+            quantity: 2
+            tools: Crafting Table
+
+    item: Photovoltaic Cell I
+        recipe:
+            input: Glass, Lapis Lazuli, Mirror
+            pattern: 000 111 222
+            quantity: 1
+            tools: Crafting Table
+
+    item: Photovoltaic Cell II
+        recipe:
+            input: Clay, Lapis Lazuli, Mirror, Photovoltaic Cell I
+            pattern: 010 101 232
+            quantity: 1
+            tools: Crafting Table
+
+    item: Photovoltaic Cell III
+        recipe:
+            input: Glass, Glowstone Dust, Obsidian, Photovoltaic Cell II
+            pattern: 000 111 232
+            quantity: 1
+            tools: Crafting Table
+
+    item: Photovoltaic Cell IV
+        recipe:
+            input: Blaze Rod, Glowstone Dust, Block of Diamond, Block of Quartz, Photovoltaic Cell III
+            pattern: 000 121 343
+            quantity: 1
+            tools: Crafting Table
+
+group: Solar Panels
+
+    item: Solar Panel I
+        recipe:
+            input: Mirror, Oak Wood Planks, Redstone
+            pattern: 000 121 111
+            quantity: 1
+            tools: Crafting Table
+
+    item: Solar Panel II
+        recipe:
+            input: Solar Panel I, Core I
+            pattern: 000 010 000
+            quantity: 1
+            tools: Crafting Table
+
+    item: Solar Panel III
+        recipe:
+            input: Photovoltaic Cell I, Solar Panel II, Core II, thermal_expansion__copper_block
+            pattern: 000 121 131
+            quantity: 1
+            tools: Crafting Table
+
+    item: Solar Panel IV
+        recipe:
+            input: Photovoltaic Cell II, Solar Panel III, Core III, Block of Iron
+            pattern: 000 121 131
+            quantity: 1
+            tools: Crafting Table
+
+    item: Solar Panel V
+        recipe:
+            input: Photovoltaic Cell III, Solar Panel IV, Core IV, Block of Gold
+            pattern: 000 121 131
+            quantity: 1
+            tools: Crafting Table
+
+    item: Solar Panel VI
+        recipe:
+            input: Photovoltaic Cell IV, Solar Panel V, Core V, Block of Diamond
+            pattern: 000 121 131
+            quantity: 1
+            tools: Crafting Table

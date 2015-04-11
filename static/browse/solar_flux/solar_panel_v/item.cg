@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The Solar Panel V is the fifth tier of solar panels: a step up from the [Solar Panel III], and a stepping stone towards the top-level [Solar Panel VI]. It generates 1024 RF/t, storing up to 16 MRF. It can output this power at 8192 RF/t.
+END

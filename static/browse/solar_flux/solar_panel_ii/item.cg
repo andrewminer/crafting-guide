@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The Solar Panel II is the second tier of solar panels: a step up from the [Solar Panel I], and a stepping stone towards [Solar Panel III]. It generates 16 RF/t, storing up to 250 kRF. It can output this power at 128 RF/t.
+END

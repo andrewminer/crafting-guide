@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The Solar Panel IV is the fourth tier of solar panels: a step up from the [Solar Panel III], and a stepping stone towards [Solar Panel V]. It generates 256 RF/t, storing up to 4 MRF. It can output this power at 2048 RF/t.
+END

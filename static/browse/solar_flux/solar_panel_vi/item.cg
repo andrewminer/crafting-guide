@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+The Solar Panel VI is the sixth and final tier of solar panels. While prodigously expensive, it is equally prodigous in its abilities. It generates 4096 RF/t, storing up to 60 MRF. It can output this power at 32,768 RF/t.
+END

@@ -1,0 +1,10 @@
+schema: 1
+
+name:             Simply Jetpacks
+author:           Tonius
+description:      Adds multiple tiers of RF-powered Jetpacks and accessories
+homePageUrl:      http://minecraft.curseforge.com/mc-mods/79325-simply-jetpacks
+documentationUrl: https://github.com/Tonius/SimplyJetpacks/wiki
+downloadUrl:      http://minecraft.curseforge.com/mc-mods/79325-simply-jetpacks
+
+version: 1.4.1

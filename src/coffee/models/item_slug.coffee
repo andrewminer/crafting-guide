@@ -15,7 +15,9 @@ module.exports = class ItemSlug
         @_item = @_mod = null
 
         if arguments.length is 1
-            @item = arguments[0]
+            parts = _.decomposeSlug arguments[0]
+            @_mod = _.slugify parts[0]
+            @item = _.slugify parts[1]
         else if arguments.length is 2
             @_mod = arguments[0]
             @item = arguments[1]

@@ -1099,11 +1099,7 @@ group: Minerals
 
     item: Copper Ingot
         recipe:
-            input: Copper Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Copper Ore
+            input: Pulverized Copper
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
@@ -1111,9 +1107,13 @@ group: Minerals
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Pulverized Copper
+            input: Copper Ore
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Copper Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             extras: Gold Ingot
             input: Cinnabar, Copper Ore
@@ -1180,13 +1180,13 @@ group: Minerals
 
     item: Electrum Ingot
         recipe:
-            input: Electrum Blend, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
             input: Electrum Blend
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Electrum Blend, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: Gold Ingot, Silver Ingot
             pattern: ... 0.1 ...
@@ -1263,21 +1263,21 @@ group: Minerals
 
     item: Ferrous Ingot
         recipe:
-            input: Pulverized Ferrous Metal, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
             input: Pulverized Ferrous Metal
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
-            input: Ferrous Ore, furnace fuel
+            input: Pulverized Ferrous Metal, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
             input: Ferrous Ore
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Ferrous Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             extras: Shiny Ingot
             input: Cinnabar, Ferrous Ore
@@ -1349,13 +1349,13 @@ group: Minerals
 
     item: Invar Ingot
         recipe:
-            input: Invar Blend, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
             input: Invar Blend
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Invar Blend, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: Pulverized Ferrous Metal, 2 Pulverized Iron
             pattern: ... 0.1 ...
@@ -1406,11 +1406,7 @@ group: Minerals
 
     item: Lead Ingot
         recipe:
-            input: Lead Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Lead Ore
+            input: Pulverized Lead
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
@@ -1418,9 +1414,13 @@ group: Minerals
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Pulverized Lead
+            input: Lead Ore
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Lead Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             extras: Silver Ingot
             input: Cinnabar, Lead Ore
@@ -1502,13 +1502,13 @@ group: Minerals
 
     item: Lumium Ingot
         recipe:
-            input: Lumium Blend, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
             input: Lumium Blend
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Lumium Blend, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: 2 Lumium Blend, Sand
             pattern: ... 1.0 ...
@@ -1539,21 +1539,21 @@ group: Minerals
 
     item: Mana Infused Ingot
         recipe:
-            input: Pulverized Mana Infused Metal, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Mana Infused Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
             input: Pulverized Mana Infused Metal
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
+            input: Pulverized Mana Infused Metal, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
             input: Mana Infused Ore
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Mana Infused Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: Cinnabar, Mana Infused Ore
             pattern: ... 0.1 ...
@@ -1603,13 +1603,13 @@ group: Minerals
 
     item: Pulverized Coal
         recipe:
+            input: Coal
+            pattern: ... .0. ...
+            tools: Pulverizer
+        recipe:
             input: Coal Ore
             pattern: ... .0. ...
             quantity: 3
-            tools: Pulverizer
-        recipe:
-            input: Coal
-            pattern: ... .0. ...
             tools: Pulverizer
 
     item: Pulverized Copper
@@ -1741,11 +1741,15 @@ group: Minerals
 
     item: Shiny Ingot
         recipe:
-            input: Shiny Ore, furnace fuel
+            input: Pulverized Shiny Metal
+            pattern: ... .0. ...
+            tools: Redstone Furnace
+        recipe:
+            input: Pulverized Shiny Metal, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Pulverized Shiny Metal, furnace fuel
+            input: Shiny Ore, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
@@ -1753,19 +1757,15 @@ group: Minerals
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
-            input: Pulverized Shiny Metal
-            pattern: ... .0. ...
-            tools: Redstone Furnace
+            input: Cinnabar, Shiny Ore
+            pattern: ... 0.1 ...
+            quantity: 3
+            tools: Induction Smelter
         recipe:
             input: Pyrotheum Dust, Shiny Ore
             pattern: .1. ... .0.
         recipe:
             input: Rich Slag, Shiny Ore
-            pattern: ... 0.1 ...
-            quantity: 3
-            tools: Induction Smelter
-        recipe:
-            input: Cinnabar, Shiny Ore
             pattern: ... 0.1 ...
             quantity: 3
             tools: Induction Smelter
@@ -1822,13 +1822,13 @@ group: Minerals
 
     item: Signalum Ingot
         recipe:
-            input: Signalum Blend, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
             input: Signalum Blend
             pattern: ... .0. ...
             tools: Redstone Furnace
+        recipe:
+            input: Signalum Blend, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: Sand, Signalum Blend
             pattern: ... 0.1 ...
@@ -1857,11 +1857,7 @@ group: Minerals
 
     item: Silver Ingot
         recipe:
-            input: Silver Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Silver Ore
+            input: Pulverized Silver
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
@@ -1869,15 +1865,13 @@ group: Minerals
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Pulverized Silver
+            input: Silver Ore
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
-            extras: Lead Ingot
-            input: Cinnabar, Silver Ore
-            pattern: ... 0.1 ...
-            quantity: 3
-            tools: Induction Smelter
+            input: Silver Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: Rich Slag, Silver Ore
             pattern: ... 01. ...
@@ -1900,6 +1894,12 @@ group: Minerals
         recipe:
             input: Pyrotheum Dust, Silver Ore
             pattern: ... 10. ...
+        recipe:
+            extras: Lead Ingot
+            input: Cinnabar, Silver Ore
+            pattern: ... 0.1 ...
+            quantity: 3
+            tools: Induction Smelter
         recipe:
             input: Silver Nugget
             pattern: 000 000 000
@@ -1931,11 +1931,7 @@ group: Minerals
 
     item: Tin Ingot
         recipe:
-            input: Tin Ore, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Tin Ore
+            input: Pulverized Tin
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
@@ -1943,15 +1939,13 @@ group: Minerals
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Pulverized Tin
+            input: Tin Ore
             pattern: ... .0. ...
             tools: Redstone Furnace
         recipe:
-            extras: Iron Ingot
-            input: Cinnabar, Tin Ore
-            pattern: ... 0.1 ...
-            quantity: 3
-            tools: Induction Smelter
+            input: Tin Ore, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
         recipe:
             input: Rich Slag, Tin Ore
             pattern: ... 0.1 ...
@@ -1970,6 +1964,12 @@ group: Minerals
         recipe:
             input: Pyrotheum Dust, Tin Ore
             pattern: ... 1.0 ...
+            tools: Induction Smelter
+        recipe:
+            extras: Iron Ingot
+            input: Cinnabar, Tin Ore
+            pattern: ... 0.1 ...
+            quantity: 3
             tools: Induction Smelter
         recipe:
             input: Tin Nugget
@@ -2007,20 +2007,6 @@ group: Minerals
 
     item: Tinker’s Alloy Ingot
         recipe:
-            input: Tinker’s Alloy Blend, furnace fuel
-            pattern: .0. ... .1.
-            tools: Furnace
-        recipe:
-            input: Tinker’s Alloy Blend
-            pattern: ... .0. ...
-            tools: Redstone Furnace
-        recipe:
-            extras: Slag
-            input: Sand, 1 Tinker’s Alloy Blend
-            pattern: ... 0.1 ...
-            quantity: 3
-            tools: Induction Smelter
-        recipe:
             input: 3 Pulverized Copper, Pulverized Tin
             pattern: ... 0.1 ...
             quantity: 4
@@ -2029,6 +2015,20 @@ group: Minerals
             input: 3 Copper Ingot, Tin Ingot
             pattern: ... 0.1 ...
             quantity: 4
+            tools: Induction Smelter
+        recipe:
+            input: Tinker’s Alloy Blend
+            pattern: ... .0. ...
+            tools: Redstone Furnace
+        recipe:
+            input: Tinker’s Alloy Blend, furnace fuel
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            extras: Slag
+            input: Sand, 1 Tinker’s Alloy Blend
+            pattern: ... 0.1 ...
+            quantity: 3
             tools: Induction Smelter
         recipe:
             input: Tinker’s Alloy Block

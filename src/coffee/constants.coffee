@@ -24,6 +24,7 @@ exports.DefaultMods =
     mekanism:              { defaultVersion: '7.1.1.127' }
     modular_powersuits:    { defaultVersion: '0.11.0.176' }
     railcraft:             { defaultVersion: '9.5.0' }
+    simply_jetpacks:       { defaultVersion: '1.4.1' }
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }
     ender_storage:         { defaultVersion: '1.4.5.29' }

@@ -1,0 +1,290 @@
+schema: 1
+
+item: Leather Strap
+    recipe:
+        input: Iron Ingot, Leather
+        pattern: 101 101 ...
+        tools: Crafting Table
+
+item: Mysterious Potato
+
+item: Particle Customizer (Default)
+    recipe:
+        input: Pulverized Coal, Torch
+        pattern: .1. 101 .1.
+        tools: Crafting Table
+
+item: Particle Customizer (None)
+    recipe:
+        input: Glass, Pulverized Coal
+        pattern: .0. 010 .0.
+        tools: Crafting Table
+
+item: Particle Customizer (Rainbow Smoke)
+    recipe:
+        input: Lapis Lazuli, Lime Dye, Pulverized Coal, Rose Red
+        pattern: .3. .2. 1.0
+        tools: Crafting Table
+
+item: Particle Customizer (Smoke Only)
+    recipe:
+        input: Pulverized Coal
+        pattern: .0. 000 .0.
+        tools: Crafting Table
+
+group: Tier 0 Items
+
+    item: Tuberous Jetpack
+        recipe:
+            input: Gold Nugget, Potato, Redstone, String
+            pattern: 3.3 010 2.2
+            tools: Crafting Table
+        recipe:
+            input: Gold Nugget, Poisonous Potato, Redstone, String
+            pattern: 3.3 010 2.2
+            tools: Crafting Table
+
+group: Tier 1 Items
+
+    item: Iron Armor Plating
+        recipe:
+            input: Iron Ingot, thermal_expansion__tin_ingot
+            pattern: 101 000 101
+            tools: Crafting Table
+
+    item: Leadstone Flux Pack
+        recipe:
+            input: thermal_expansion__lead_ingot, Leadstone Energy Cell, Leather Strap
+            pattern: 010 020 ...
+            tools: Crafting Table
+
+    item: Leadstone Jetpack
+        recipe:
+            input: thermal_expansion__lead_ingot, Leadstone Flux Capacitor, Leadstone Thruster, Leather Strap
+            pattern: 010 030 2.2
+            tools: Crafting Table
+
+    item: Leadstone Jetpack (Armored)
+        recipe:
+            input: Iron Armor Plating, Leadstone Jetpack
+            pattern: .0. .1. ...
+
+    item: Leadstone Thruster
+        recipe:
+            input: thermal_expansion__copper_gear, Glass, thermal_expansion__lead_ingot, Pneumatic Servo, Redstone Reception Coil, Steam Dynamo
+            pattern: 242 101 535
+            tools: Crafting Table
+
+group: Tier 2 Items
+
+    item: Hardened Flux Pack
+        recipe:
+            input: Invar Ingot, Leadstone Flux Pack
+            pattern: .0. 010 .0.
+            tools: Crafting Table
+        recipe:
+            input: Hardened Flux Pack (Armored)
+            pattern: ... .0. ...
+
+    item: Hardened Flux Pack (Armored)
+        recipe:
+            input: Hardened Flux Pack, Iron Armor Plating
+            pattern: .1. .0. ...
+
+    item: Hardened Jetpack
+        recipe:
+            input: Hardened Flux Capacitor, Hardened Thruster, Invar Ingot, Leadstone Jetpack
+            pattern: 202 232 1.1
+            tools: Crafting Table
+        recipe:
+            input: Hardened Jetpack (Armored)
+            pattern: ... .0. ...
+
+    item: Hardened Jetpack (Armored)
+        recipe:
+            input: Hardened Jetpack, Tinker's Alloy Armor Plating
+            pattern: .1. .0. ...
+            tools: Crafting Table
+
+    item: Hardened Thruster
+        recipe:
+            input: Block of Redstone, Invar Ingot, Pneumatic Servo, Reactant Dynamo, Redstone Reception Coil, Tinker's Alloy Gear
+            pattern: 141 050 323
+            tools: Crafting Table
+
+    item: Tinker's Alloy Armor Plating
+        recipe:
+            input: 10 Tinker's Alloy Ingot, Iron Armor Plating
+            pattern: ... 0.1 ...
+            tools: Crafting Table
+
+group: Tier 3 Items
+
+    item: Invar Armor Plating
+        recipe:
+            input: 10 Invar Ingot, Tinker's Alloy Armor Plating
+            pattern: ... 0.1 ...
+            tools: Induction Smelter
+
+    item: Redstone Flux Pack
+        recipe:
+            input: Electrum Ingot, Hardened Flux Pack, thermal_expansion__lead_ingot, Redstone Conductance Coil, Redstone Energy Cell Frame (Full)
+            pattern: .4. 010 232
+            tools: Crafting Table
+        recipe:
+            input: Redstone Flux Pack (Armored)
+            pattern: ... .0. ...
+
+    item: Redstone Flux Pack (Armored)
+        recipe:
+            input: Redstone Flux Pack, Tinker's Alloy Armor Plating
+            pattern: .1. .0. ...
+            tools: Crafting Table
+
+    item: Reinforced Jetpack
+        recipe:
+            input: Electrum Ingot, Hardened Jetpack, Redstone Flux Capacitor, Reinforced Thruster
+            pattern: 020 010 3.3
+            tools: Crafting Table
+        recipe:
+            input: Reinforced Jetpack (Armored)
+            pattern: ... .0. ...
+
+    item: Reinforced Jetpack (Armored)
+        recipe:
+            input: Invar Armor Plating, Reinforced Jetpack
+            pattern: .0. .1. ...
+            tools: Crafting Table
+
+    item: Reinforced Thruster
+        recipe:
+            input: Electrum Ingot, Invar Gear, Magmatic Dynamo, Pneumatic Servo, Redstone Reception Coil, Signalum Ingot
+            pattern: 040 515 232
+            tools: Crafting Table
+
+group: Tier 4 Items
+
+    item: Enderium Armor Plating
+        recipe:
+            input: 10 Enderium Ingot, Invar Armor Plating
+            pattern: ... 0.1 ...
+            tools: Induction Smelter
+
+    item: Resonant Flux Pack
+        recipe:
+            input: Enderium Ingot, Redstone Flux Pack
+            pattern: .0. 010 .0.
+            tools: Crafting Table
+        recipe:
+            input: Resonant Flux Pack (Armored)
+            pattern: ... .0. ...
+
+    item: Resonant Flux Pack (Armored)
+        recipe:
+            input: Invar Armor Plating, Resonant Flux Pack
+            pattern: .0. .1. ...
+            tools: Crafting Table
+
+    item: Resonant Jetpack
+        recipe:
+            input: Enderium Ingot, Reinforced Jetpack, Resonant Flux Capacitor, Resonant Thruster
+            pattern: 020 010 3.3
+            tools: Crafting Table
+        recipe:
+            input: Resonant Jetpack (Armored)
+            pattern: ... .0. ...
+
+    item: Resonant Jetpack (Armored)
+        recipe:
+            input: Enderium Armor Plating, Resonant Jetpack
+            pattern: .0. .1. ...
+            tools: Crafting Table
+
+    item: Resonant Thruster
+        recipe:
+            input: Electrum Gear, Enderium Ingot, Enervation Dynamo, Lumium Ingot, Pneumatic Servo, Redstone Reception Coil
+            pattern: 151 303 242
+            tools: Crafting Table
+
+group: Tier 5 Items
+
+    item: Cryotheum Coolant Unit
+        recipe:
+            input: 4000 Gelid Cryotheum, Cryotheum Coolant Unit (Empty)
+            pattern: ... 1.0 ...
+            tools: Fluid Transposer
+
+    item: Cryotheum Coolant Unit (Empty)
+        recipe:
+            input: Fluxed Electrum Ingot, Hardened Glass, thermal_expansion__tin_ingot
+            pattern: 020 212 020
+            tools: Crafting Table
+
+    item: Flux Crystal
+        recipe:
+            input: 200 Destabilized Redstone, Diamond
+            pattern: ... 1.0 ...
+            tools: Fluid Transposer
+
+    item: Flux-Infused Chestplate Assembly
+        recipe:
+            input: Fluxed Armor Plating
+            pattern: 0.0 000 000
+            tools: Crafting Table
+
+    item: Flux-Infused JetPlate
+        recipe:
+            input: Cryotheum Coolant Unit, Flux-Infused Chestplate Assembly, Fluxed Armor Plating, Fluxed Thruster, Resonant Flux Pack, Resonant Jetpack
+            pattern: 212 050 343
+            tools: Crafting Table
+
+    item: Fluxed Armor Plating
+        recipe:
+            input: Flux Crystal, Fluxed Electrum Ingot, Fluxed Electrum Nugget
+            pattern: 222 010 222
+            tools: Crafting Table
+
+    item: Fluxed Electrum Blend
+        recipe:
+            input: 200 Destabilized Redstone, Electrum Blend
+            pattern: ... 1.0 ...
+            tools: Fluid Transposer
+        recipe:
+            input: Fluxed Electrum Ingot
+            pattern: ... .0. ...
+            tools: Pulverizer
+
+    item: Fluxed Electrum Ingot
+        recipe:
+            input: 2 Fluxed Electrum Blend, Pyrotheum Dust
+            pattern: ... 1.0 ...
+            quantity: 2
+            tools: Induction Smelter
+        recipe:
+            input: Fluxed Electrum Nugget
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Fluxed Electrum Nugget
+        recipe:
+            input: Fluxed Electrum Ingot
+            pattern: ... .0. ...
+            quantity: 9
+
+    item: Fluxed Thruster
+        recipe:
+            input: Fluxed Armor Plating, Fluxed Electrum Ingot, Glowstone Elevation Unit, Resonant Thruster
+            pattern: 101 232 ...
+            tools: Crafting Table
+
+    item: Glowstone Elevation Unit
+        recipe:
+            input: Fluxed Electrum Ingot, Illuminator Frame, Lumium Ingot
+            pattern: 020 212 020
+            tools: Crafting Table
+
+    item: Glowstone Elevation Unit (Empty)
+        recipe:
+            input: 4000 Energized Glowstone, Glowstone Elevation Unit (Empty)
+            pattern: ... 1.0 ...
+            tools: Fluid Transposer

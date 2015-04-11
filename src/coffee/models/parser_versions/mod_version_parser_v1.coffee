@@ -168,7 +168,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             if item? and item.type isnt 'update'
                 slug = new ItemSlug modVersion.modSlug, _.slugify name
             else
-                slug = new ItemSlug _.slugify name
+                slug = new ItemSlug name
             modVersion.registerName slug, name
             return slug
 

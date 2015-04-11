@@ -23,7 +23,7 @@ if typeof(global) is 'undefined'
 global.logger = new Logger
 
 switch window.location.hostname
-    when 'local.crafting-guide.com'
+    when 'local.crafting-guide.com', 'localhost'
         global.env   = 'local'
         logger.level = Logger.DEBUG
         apiBaseUrl   = 'http://local.crafting-guide.com:8001'

@@ -92,88 +92,88 @@ group: Agriculture
 
     item: (Filled) Tin Can
         recipe:
-            input: Cake, 12 Tin Can
-            pattern: .0. ... .1.
+            input: 12 Tin Can, Cake
+            pattern: .1. ... .0.
             quantity: 12
             tools: Canning Machine
         recipe:
-            input: Steak, 8 Tin Can
-            pattern: .0. ... .1.
+            input: 8 Tin Can, Steak
+            pattern: .1. ... .0.
             quantity: 8
             tools: Canning Machine
         recipe:
-            input: Cooked Porkchop, 8 Tin Can
-            pattern: .0. ... .1.
+            input: 8 Tin Can, Cooked Porkchop
+            pattern: .1. ... .0.
             quantity: 8
             tools: Canning Machine
         recipe:
-            input: Baked Potato, 6 Tin Can
-            pattern: .0. ... .1.
+            input: 6 Tin Can, Baked Potato
+            pattern: .1. ... .0.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Cooked Chicken, 6 Tin Can
-            pattern: .0. ... .1.
+            input: 6 Tin Can, Cooked Chicken
+            pattern: .1. ... .0.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Pumpkin Pie, 6 Tin Can
-            pattern: .0. ... .1.
+            input: 6 Tin Can, Pumpkin Pie
+            pattern: .1. ... .0.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Mushroom Stew, 6 Tin Can
-            pattern: .0. ... .1.
+            input: 6 Tin Can, Mushroom Stew
+            pattern: .1. ... .0.
             quantity: 6
             tools: Canning Machine
         recipe:
-            input: Bread, 5 Tin Can
-            pattern: .0. ... .1.
+            input: 5 Tin Can, Bread
+            pattern: .1. ... .0.
             quantity: 5
             tools: Canning Machine
         recipe:
-            input: Cooked Fish, 5 Tin Can
-            pattern: .0. ... .1.
+            input: 5 Tin Can, Cooked Fish
+            pattern: .1. ... .0.
             quantity: 5
             tools: Canning Machine
         recipe:
-            input: Carrot, 4 Tin Can
-            pattern: .0. ... .1.
+            input: 4 Tin Can, Carrot
+            pattern: .1. ... .0.
             quantity: 4
             tools: Canning Machine
         recipe:
-            input: Apple, 4 Tin Can
-            pattern: .0. ... .1.
+            input: 4 Tin Can, Apple
+            pattern: .1. ... .0.
             quantity: 4
             tools: Canning Machine
         recipe:
-            input: Raw Beef, 3 Tin Can
-            pattern: .0. ... .1.
+            input: 3 Tin Can, Raw Beef
+            pattern: .1. ... .0.
             quantity: 3
             tools: Canning Machine
         recipe:
-            input: Raw Porkchop, 3 Tin Can
-            pattern: .0. ... .1.
+            input: 3 Tin Can, Raw Porkchop
+            pattern: .1. ... .0.
             quantity: 3
             tools: Canning Machine
         recipe:
-            input: Melon, 2 Tin Can
-            pattern: .0. ... .1.
+            input: 2 Tin Can, Melon
+            pattern: .1. ... .0.
             quantity: 2
             tools: Canning Machine
         recipe:
-            input: Cookie, 2 Tin Can
-            pattern: .0. ... .1.
+            input: 2 Tin Can, Cookie
+            pattern: .1. ... .0.
             quantity: 2
             tools: Canning Machine
         recipe:
-            input: Raw Chicken, 2 Tin Can
-            pattern: .0. ... .1.
+            input: 2 Tin Can, Raw Chicken
+            pattern: .1. ... .0.
             quantity: 2
             tools: Canning Machine
         recipe:
-            input: Raw Fish, 2 Tin Can
-            pattern: .0. ... .1.
+            input: 2 Tin Can, Raw Fish
+            pattern: .1. ... .0.
             quantity: 2
             tools: Canning Machine
         recipe:
@@ -1125,8 +1125,8 @@ group: Machine Parts
 
     item: Rubber
         recipe:
-            input: Sticky Resin, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Sticky Resin
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Sticky Resin
@@ -1639,8 +1639,8 @@ group: Minerals
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Purified Crushed Copper Ore, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Purified Crushed Copper Ore
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Copper Block
@@ -1745,20 +1745,20 @@ group: Minerals
 
     item: Lead Ingot
         recipe:
-            input: Lead Ore, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Lead Ore
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
-            input: Lead Dust, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Lead Dust
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Crushed Lead Ore, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Purified Crushed Lead Ore, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Purified Crushed Lead Ore
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Lead Block
@@ -1874,12 +1874,12 @@ group: Minerals
 
     item: Silver Ingot
         recipe:
-            input: Silver Dust, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Silver Dust
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
-            input: Purified Crushed Silver Ore, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Purified Crushed Silver Ore
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Crushed Silver Ore, furnace fuel
@@ -1928,20 +1928,20 @@ group: Minerals
 
     item: Tin Ingot
         recipe:
-            input: Tin Ore, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Tin Ore
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
-            input: Tin Dust, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Tin Dust
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Crushed Tin Ore, furnace fuel
             pattern: .0. ... .1.
             tools: Furnace
         recipe:
-            input: Purified Crushed Tin Ore, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Purified Crushed Tin Ore
+            pattern: .1. ... .0.
             tools: Furnace
         recipe:
             input: Tin Block
@@ -2066,8 +2066,8 @@ group: Minerals: Dusts
             quantity: 5
             tools: Thermal Centrifuge
         recipe:
-            input: Hydrated Coal Dust, furnace fuel
-            pattern: .0. ... .1.
+            input: furnace fuel, Hydrated Coal Dust
+            pattern: .1. ... .0.
             tools: Furnace
 
     item: Copper Dust
@@ -2681,8 +2681,8 @@ group: Nuclear Reactor
 
     item: LZH-Condensator
         recipe:
-            input: Lapis Lazuli Block, RSH-Condensator, Reactor Heat Exchanger, Reactor Heat Vent, Redstone
-            pattern: 434 101 424
+            input: Lapis Lazuli Block, Reactor Heat Exchanger, Reactor Heat Vent, Redstone, RSH-Condensator
+            pattern: 323 404 313
             tools: Crafting Table
 
     item: MOX Nuclear Fuel
@@ -2775,7 +2775,7 @@ group: Nuclear Reactor
     item: Reactor Pressure Vessel
         recipe:
             input: Lead Plate, Stone
-            pattern: 101 010 101
+            pattern: 010 101 010
             quantity: 4
             tools: Crafting Table
 
@@ -3189,12 +3189,12 @@ update: Gold Ingot
         pattern: .0. ... .1.
         tools: Furnace
     recipe:
-        input: Purified Crushed Gold Ore, furnace fuel
-        pattern: .0. ... .1.
+        input: furnace fuel, Purified Crushed Gold Ore
+        pattern: .1. ... .0.
         tools: Furnace
     recipe:
-        input: Gold Dust, furnace fuel
-        pattern: .0. ... .1.
+        input: furnace fuel, Gold Dust
+        pattern: .1. ... .0.
         tools: Furnace
     recipe:
         input: Crushed Gold Ore
@@ -3215,12 +3215,12 @@ update: Iron Ingot
         pattern: .0. ... .1.
         tools: Furnace
     recipe:
-        input: Purified Crushed Iron Ore, furnace fuel
-        pattern: .0. ... .1.
+        input: furnace fuel, Purified Crushed Iron Ore
+        pattern: .1. ... .0.
         tools: Furnace
     recipe:
-        input: Iron Dust, furnace fuel
-        pattern: .0. ... .1.
+        input: furnace fuel, Iron Dust
+        pattern: .1. ... .0.
         tools: Furnace
     recipe:
         input: Crushed Iron Ore

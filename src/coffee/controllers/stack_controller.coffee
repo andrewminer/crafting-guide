@@ -40,6 +40,8 @@ module.exports = class StackController extends BaseController
     # Event Methods ################################################################################
 
     onQuantityFieldBlur: ->
+        return unless @editable
+
         quantityText = @$quantityField.val().trim()
         if quantityText.length is 0
             quantity = @_priorValue
@@ -61,6 +63,8 @@ module.exports = class StackController extends BaseController
             @onChange()
 
     onQuantityFieldChanged: ->
+        return unless @editable
+
         quantityText = @$quantityField.val().trim()
         if not quantityText.match /^[0-9]*$/
             @$quantityField.addClass 'error', 0
@@ -78,6 +82,8 @@ module.exports = class StackController extends BaseController
             @$quantityField.blur()
 
     onQuantityKeyUp: (event)->
+        return unless @editable
+
         if event.which is Key.Return
             @$quantityField.blur()
 

@@ -7,38 +7,36 @@ All rights reserved.
 
 .view__stack {
     font-family: $font-family-normal;
+    display: table-row;
 
-    td {
-        padding: 0.2em 0;
+    & > div {
+        display: table-cell;
+        vertical-align: middle;
     }
 
-    td.quantity {
-        position: relative;
-        width: 5em;
-
-        input {
-            position: absolute; top: 50%; height: $font-size-small; width: 100%;
-            @include transform(translateY(-50%));
-
-            border-radius: 0.75em;
+    .quantity {
+        .bubble {
+            border: 0.1em solid $color-gray-light;
+            border-radius: 1.5em;
             background: $color-ice;
-            color: $color-background-panel;
-            font-family: $font-family-normal;
-            font-size: $font-size-normal;
-            font-weight: bold;
-            text-align: center;
 
-            &.editable {
-                &:focus {
-                    background: $color-background-panel;
-                    color: $color-text;
-                    font-family: $font-family-input;
-                    font-weight: normal;
-                    outline: none;
-                }
+            input {
+                width: 3em;
+                background: none;
+                border: none;
+                color: $color-background-panel;
+                font-family: $font-family-normal;
+                font-size: $font-size-normal;
+                font-weight: bold;
+                line-height: $font-size-normal;
+                outline: none;
+                text-align: center;
+            }
 
-                &:hover {
-                    background: $color-background-panel;
+            &.editable:hover, &.editing {
+                background: $color-background-panel;
+
+                input {
                     color: $color-text;
                     font-family: $font-family-input;
                     font-weight: normal;
@@ -47,10 +45,7 @@ All rights reserved.
         }
     }
 
-    td.icon {
-        width: 4.6em;
-        padding: 0.2em 0.5em;
-
+    .icon {
         img {
             width: 100%; height: auto;
             max-height: 4.8em;
@@ -58,37 +53,99 @@ All rights reserved.
         }
     }
 
-    td.name a {
-        color: $color-text;
-        display: inline;
-        font-size: $font-size-normal;
-        text-decoration: none;
+    .name {
+        a {
+            color: $color-text;
+            font-size: $font-size-normal;
+            text-decoration: none;
 
-        &:hover {
-            color: $color-active-hover;
-            text-decoration: underline;
+            &:hover {
+                color: $color-active-hover;
+                text-decoration: underline;
+            }
         }
     }
 
-    td.action {
+    .action {
         text-align: right;
-    }
 
-    button.remove {
-        opacity: 0;
-        position: relative; width: 1.8em; height: 1.8em;
-        background: url('/images/remove.png') no-repeat center;
-        border: 0;
-        outline: none;
+        button {
+            position: relative; width: 3.0em; height: 3.0em;
+            display: inline-block;
 
-        &:hover {
-            background: url('/images/remove-hover.png') no-repeat center;
-        }
-    }
+            border: 0;
+            font-size: $font-size-small;
+            margin: 0;
+            outline: none;
+            padding: 0;
 
-    &:hover {
-        button.remove {
-            opacity: 1;
+            &.check {
+                background: url('/images/check.png') no-repeat center;
+
+                &:active {
+                    background: url('/images/check_active.png') no-repeat center;
+                }
+
+                &:disabled {
+                    background: url('/images/check_disabled.png') no-repeat center !important;
+                    cursor: inherit;
+                }
+
+                &:hover {
+                    background: url('/images/check_hover.png') no-repeat center;
+                }
+            }
+
+            &.down {
+                background: url('/images/down.png') no-repeat center;
+
+                &:active {
+                    background: url('/images/down_active.png') no-repeat center;
+                }
+
+                &:disabled {
+                    background: url('/images/down_disabled.png') no-repeat center !important;
+                    cursor: inherit;
+                }
+
+                &:hover {
+                    background: url('/images/down_hover.png') no-repeat center;
+                }
+            }
+
+            &.remove {
+                background: url('/images/remove.png') no-repeat center;
+
+                &:active {
+                    background: url('/images/remove_active.png') no-repeat center;
+                }
+
+                &:disabled {
+                    background: url('/images/remove_disabled.png') no-repeat center !important;
+                    cursor: inherit;
+                }
+
+                &:hover {
+                    background: url('/images/remove_hover.png') no-repeat center;
+                }
+            }
+
+            &.up {
+                background: url('/images/up.png') no-repeat center;
+
+                &:active {
+                    background: url('/images/up_active.png') no-repeat center;
+                }
+
+                &:disabled {
+                    background: url('/images/up_disabled.png') no-repeat center !important;
+                    cursor: inherit;
+                }
+
+                &:hover {
+                    background: url('/images/up_hover.png') no-repeat center;
+                }
+            }
         }
     }
 }

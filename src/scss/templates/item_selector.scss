@@ -6,29 +6,41 @@ All rights reserved.
 */
 
 .view__item_selector {
-    background: $color-background-panel;
+    position: relative; min-height: $font-size-normal * 2; min-width: 20em;
+
     border: 0.1em solid $color-gray-medium;
     border-radius: 1.5em;
     cursor: pointer;
     padding: 0 0.75em;
 
-    p {
-        position: relative; top: 50%; width: 100%;
-        @include transform(translateY(-50%));
+    &.search {
+        background: $color-background-panel;
 
-        &.placeholder {
+        p {
             color: $color-gray-medium;
             font-family: $font-family-input;
-            font-size: $font-size-normal;
+        }
+    }
+
+    &.button {
+        background: $color-gray-faint;
+
+        &:hover {
+            background: $color-background-panel;
         }
 
-        &.button-label {
+        p {
             color: $color-active;
             font-family: $font-family-normal;
-            font-size: $font-size-normal;
             font-weight: bold;
             text-align: center;
         }
+    }
+
+    p {
+        position: absolute; top: 50%; width: 100%;
+        @include transform(translateY(-50%));
+        font-size: $font-size-normal;
     }
 }
 

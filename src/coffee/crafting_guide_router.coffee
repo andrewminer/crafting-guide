@@ -224,9 +224,11 @@ module.exports = class CraftingGuideRouter extends Backbone.Router
             controller.onWillShow()
             controller.$el = $pageContent
             controller.render()
+            controller.show()
 
         if @_controller?
-            @_controller.hide -> switchToNextController()
+            @_controller.once Event.animate.hide.finish, switchToNextController
+            @_controller.hide()
         else
             switchToNextController()
 

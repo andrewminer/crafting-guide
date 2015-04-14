@@ -65,7 +65,6 @@ module.exports = class ItemGroupController extends BaseController
     _refreshItems: ->
         @_itemControllers ?= []
         controllerIndex = 0
-        delay = 0
 
         for item in @model
             controller = @_itemControllers[controllerIndex]

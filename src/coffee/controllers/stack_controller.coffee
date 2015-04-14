@@ -6,13 +6,20 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
+ImageLoader    = require './image_loader'
 {Duration}     = require '../constants'
 {Event}        = require '../constants'
-ImageLoader    = require './image_loader'
 {Key}          = require '../constants'
 
 ########################################################################################################################
 
+###
+Events:
+    change(this)
+    change:quantity(this, oldQuantity, newQuantity)
+    button:first(this, type)
+    button:second(this, type)
+###
 module.exports = class StackController extends BaseController
 
     @MAX_QUANTITY = 9999
@@ -22,60 +29,67 @@ module.exports = class StackController extends BaseController
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        options.editable     ?= false
-        options.onChange     ?= -> # do nothing
-        options.onRemove     ?= (stack)-> # do nothing
-        options.tagName       = 'tr'
         options.templateName  = 'stack'
         super options
 
-        @editable     = options.editable
-        @modPack      = options.modPack
-        @onChange     = options.onChange
-        @onRemove     = options.onRemove
-        @_imageLoader = options.imageLoader
+        @editable           = options.editable           ?= false
+        @firstButtonType    = options.firstButtonType    ?= null
+        @imageLoader        = options.imageLoader
+        @modPack            = options.modPack
+        @secondButtonType   = options.secondButtonType   ?= null
+        @shouldEnableButton = options.shouldEnableButton ?= (model, button)-> true
 
         @modPack.on Event.change, => @tryRefresh()
 
     # Event Methods ################################################################################
 
+    onFirstButtonClicked: (event)->
+        @trigger Event.button.first, this, @firstButtonType
+        return false
+
     onQuantityFieldBlur: ->
         return unless @editable
 
+        @$bubble.removeClass 'editing'
+
+        oldQuantity = @_priorValue
         quantityText = @$quantityField.val().trim()
         if quantityText.length is 0
-            quantity = @_priorValue
+            newQuantity = oldQuantity
         else if not quantityText.match /^[0-9]*$/
-            quantity = 1
+            newQuantity = 1
         else
-            quantity = parseInt quantityText, 10
-            if _.isNaN quantity then quantity = 1
+            newQuantity = parseInt quantityText, 10
+            if _.isNaN newQuantity then newQuantity = 1
 
-            quantity = Math.min quantity, StackController.MAX_QUANTITY
-            quantity = Math.max 1, quantity
+            newQuantity = Math.min newQuantity, StackController.MAX_QUANTITY
+            newQuantity = Math.max 1, newQuantity
 
-        if quantity?
-            @$quantityField.val "#{quantity}"
-            @$quantityField.removeClass 'error', Duration.snap
-            @$quantityField.removeClass 'error-new', Duration.snap
+        if newQuantity? and newQuantity isnt oldQuantity
+            @$quantityField.val "#{newQuantity}"
+            @$bubble.removeClass 'error', Duration.snap
+            @$bubble.removeClass 'error-new', Duration.snap
 
-            @model.quantity = quantity
-            @onChange()
+            @model.quantity = newQuantity
+            @trigger Event.change + ':quantity', this, oldQuantity, newQuantity
+            @trigger Event.change, this
 
     onQuantityFieldChanged: ->
         return unless @editable
 
         quantityText = @$quantityField.val().trim()
         if not quantityText.match /^[0-9]*$/
-            @$quantityField.addClass 'error', 0
-            @$quantityField.addClass 'error-new', 0
-            @$quantityField.removeClass 'error-new', Duration.fast
+            @$bubble.addClass 'error', 0
+            @$bubble.addClass 'error-new', 0
+            @$bubble.removeClass 'error-new', Duration.fast
         else
-            @$quantityField.removeClass 'error', Duration.snap
-            @$quantityField.removeClass 'error-new', Duration.snap
+            @$bubble.removeClass 'error', Duration.snap
+            @$bubble.removeClass 'error-new', Duration.snap
 
     onQuantityFieldFocused: ->
+
         if @editable
+            @$bubble.addClass 'editing'
             @_priorValue = @model.quantity
             @$quantityField.val ''
         else
@@ -87,18 +101,20 @@ module.exports = class StackController extends BaseController
         if event.which is Key.Return
             @$quantityField.blur()
 
-    onRemoveClicked: ->
-        @onRemove @model
-        @onChange()
+    onSecondButtonClicked: (event)->
+        event.preventDefault()
+        @trigger Event.button.second, this, @secondButtonType
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
         @$action        = @$('.action')
+        @$bubble        = @$('.bubble')
+        @$firstButton   = @$('button.first')
         @$image         = @$('.icon img')
         @$nameLink      = @$('.name a')
         @$quantityField = @$('.quantity input')
-        @$removeButton  = @$('button.remove')
+        @$secondButton  = @$('button.second')
         super
 
     refresh: ->
@@ -106,19 +122,23 @@ module.exports = class StackController extends BaseController
 
         display = @modPack.findItemDisplay @model.itemSlug
 
-        @_imageLoader.load display.iconUrl, @$image
+        @imageLoader.load display.iconUrl, @$image
         @$nameLink.html display.itemName
         @$nameLink.attr 'href', display.itemUrl
         @$quantityField.val @model.quantity
 
+        @_updateButtonType @$firstButton, @firstButtonType
+        @_updateButtonType @$secondButton, @secondButtonType
+
+        @$firstButton.prop('disabled', not @shouldEnableButton(@model, 1)) if @firstButtonType?
+        @$secondButton.prop('disabled', not @shouldEnableButton(@model, 2)) if @secondButtonType?
+
         if @editable
             @$quantityField.removeAttr 'readonly'
-            @$quantityField.addClass 'editable'
+            @$bubble.addClass 'editable'
         else
             @$quantityField.attr 'readonly', 'readonly'
-            @$quantityField.removeClass 'editable'
-
-        @$action.css display:(if @editable then 'table-cell' else 'none')
+            @$bubble.removeClass 'editable'
 
         super
 
@@ -127,8 +147,21 @@ module.exports = class StackController extends BaseController
     events: ->
         return _.extend super,
             'blur .quantity input':  'onQuantityFieldBlur'
-            'click button.remove':   'onRemoveClicked'
             'click .name a':         'routeLinkClick'
+            'click button.first':    'onFirstButtonClicked'
+            'click button.second':   'onSecondButtonClicked'
             'focus .quantity input': 'onQuantityFieldFocused'
             'input .quantity input': 'onQuantityFieldChanged'
             'keyup .quantity input': 'onQuantityKeyUp'
+
+    # Private Methods ##############################################################################
+
+    _updateButtonType: ($button, type)->
+        for currentType in ['check', 'down', 'remove', 'up']
+            $button.removeClass currentType
+
+        if type?
+            $button.css 'display', null
+            $button.addClass type
+        else
+            $button.css 'display', 'none'

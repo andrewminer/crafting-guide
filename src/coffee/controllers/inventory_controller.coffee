@@ -16,6 +16,14 @@ StackController        = require './stack_controller'
 
 ########################################################################################################################
 
+###
+Events:
+    clear(this)
+    change(this)
+    add(this, itemSlug)
+    button:first(this, itemSlug)
+    button:second(this, itemSlug)
+###
 module.exports = class InventoryController extends BaseController
 
     @MAX_QUANTITY = 9999
@@ -27,13 +35,16 @@ module.exports = class InventoryController extends BaseController
         if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
-        @editable     = options.editable     ?= true
-        @icon         = options.icon         ?= '/images/chest_front.png'
-        @imageLoader  = options.imageLoader
-        @isAcceptable = options.isAcceptable ?= null
-        @modPack      = options.modPack
-        @onChange     = options.onChange     ?= -> # do nothing
-        @title        = options.title        ?= 'Inventory'
+        @imageLoader = options.imageLoader
+        @modPack     = options.modPack
+
+        @editable           = options.editable           ?= true
+        @icon               = options.icon               ?= '/images/chest_front.png'
+        @firstButtonType    = options.firstButtonType    ?= null
+        @isAcceptable       = options.isAcceptable       ?= null
+        @secondButtonType   = options.secondButtonType   ?= null
+        @shouldEnableButton = options.shouldEnableButton ?= (model, button)-> true
+        @title              = options.title              ?= 'Inventory'
 
         options.templateName  = 'inventory'
         super options
@@ -46,11 +57,19 @@ module.exports = class InventoryController extends BaseController
 
     onClearButtonClicked: ->
         @model.clear()
-        @onChange()
+        @trigger Event.clear, this
+        @trigger Event.change, this
+
+    onFirstButtonClicked: (stackController)->
+        @trigger Event.button.first, this, stackController?.model?.itemSlug
 
     onItemChosen: (itemSlug)->
         @model.add itemSlug, 1
-        @onChange()
+        @trigger Event.add, this, itemSlug
+        @trigger Event.change, this
+
+    onSecondButtonClicked: (stackController)->
+        @trigger Event.button.second, this, stackController?.model?.itemSlug
 
     # BaseController Overrides #####################################################################
 
@@ -60,32 +79,23 @@ module.exports = class InventoryController extends BaseController
             modPack:      @modPack,
             onChoseItem:  (itemSlug)=> @onItemChosen(itemSlug)
 
-        @$clearButton   = @$('button[name="clear"]')
+        @$clearButton   = @$('button.clear')
         @$icon          = @$('.icon')
-        @$editPanel     = @$('.edit')
-        @$scrollbox     = @$('.scrollbox')
-        @$table         = @$('table')
-        @$toolbar       = @$('.toolbar')
+        @$itemContainer = @$('.item_container')
         @$title         = @$('h2 p')
         super
 
     refresh: ->
         if @editable
-            @show @$editPanel
-            @show @$toolbar, =>
-                @$scrollbox.css bottom:@$toolbar.height()
+            @selector.show()
         else
-            if not @$editPanel? then throw new Error "no edit panel"
-            if not @$toolbar? then throw new Error "no toolbar"
-            @hide @$editPanel
-            @hide @$toolbar
-            @$scrollbox.css bottom:0
+            @selector.hide()
 
         @$icon.attr 'src', @icon
         @$title.html @title
+        @$clearButton.disabled = @model.isEmpty
 
         @_refreshStacks()
-        @_refreshButtonState()
 
         super
 
@@ -93,38 +103,37 @@ module.exports = class InventoryController extends BaseController
 
     events: ->
         return _.extend super,
-            'click button[name="clear"]': 'onClearButtonClicked'
+            'click button.clear': 'onClearButtonClicked'
+            'click button.first': 'onFirstButtonClicked'
+            'click button.second': 'onSecondButtonClicked'
 
     # Private Methods ##############################################################################
-
-    _refreshButtonState: ->
-        if @model.isEmpty then @$clearButton.attr('disabled', 'disabled') else @$clearButton.removeAttr('disabled')
 
     _refreshStacks: ->
         @_stackControllers ?= []
         index = 0
 
-        $lastRow = @$table.find 'tr:last-child'
         @model.each (stack)=>
             controller = @_stackControllers[index]
             if not controller?
                 controller = new StackController
-                    editable:    @editable
-                    imageLoader: @imageLoader
-                    model:       stack
-                    modPack:     @modPack
-                    onChange:    @onChange
-                    onRemove:    if not @editable then null else (stack)=> @_removeStack(stack)
+                    editable:           @editable
+                    firstButtonType:    @firstButtonType
+                    imageLoader:        @imageLoader
+                    model:              stack
+                    modPack:            @modPack
+                    secondButtonType:   @secondButtonType
+                    shouldEnableButton: @shouldEnableButton
+                controller.on Event.change, => @trigger Event.change, this
+                controller.on Event.button.first, (c)=> @onFirstButtonClicked(c)
+                controller.on Event.button.second, (c)=> @onSecondButtonClicked(c)
+                controller.render()
 
                 @_stackControllers.push controller
-                controller.$el.insertBefore $lastRow
-                controller.render()
+                @$itemContainer.append controller.$el
             else
                 controller.model = stack
             index += 1
 
         while @_stackControllers.length > index
             @_stackControllers.pop().remove()
-
-    _removeStack: (stack)->
-        @model.remove stack.itemSlug, stack.quantity

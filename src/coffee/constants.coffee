@@ -37,32 +37,45 @@ Duration.fast    = 200
 Duration.normal  = 400
 Duration.slow    = 1200
 
-exports.Event        = Event = {}
-Event.add            = 'add'            # collection, item...
-Event.change         = 'change'         # model
-Event.click          = 'click'          # event
-Event.load           = {}
-Event.load.started   = 'load:started'   # controller, url
-Event.load.succeeded = 'load:succeeded' # controller, book
-Event.load.failed    = 'load:failed'    # controller, error message
-Event.load.finished  = 'load:finished'  # controller
-Event.remove         = 'remove'         # collection, item...
-Event.request        = 'request'        # model
-Event.route          = 'route'
-Event.sort           = 'sort'
-Event.sync           = 'sync'           # model, response
-Event.transitionEnd  = (->
+exports.Event             = Event = {}
+Event.add                 = 'add'                 # collection, item...
+Event.animate             = {}
+Event.animate.hide        = {}
+Event.animate.hide.start  = 'animate:hide:start'  # controller, selector
+Event.animate.hide.finish = 'animate:hide:finish' # controller, selector
+Event.animate.show        = {}
+Event.animate.show.start  = 'animate:show:start'  # controller, selector
+Event.animate.show.finish = 'animate:show:finish' # controller, selector
+Event.button              = {}
+Event.button.complete     = 'button:complete'     # controller
+Event.button.first        = 'button:first'        # controller, buttonType
+Event.button.second       = 'button:second'       # controller, buttonType
+Event.change              = 'change'              # model
+Event.click               = 'click'               # event
+Event.load                = {}
+Event.load.started        = 'load:started'        # controller, url
+Event.load.succeeded      = 'load:succeeded'      # controller, book
+Event.load.failed         = 'load:failed'         # controller, error message
+Event.load.finished       = 'load:finished'       # controller
+Event.remove              = 'remove'              # collection, item...
+Event.request             = 'request'             # model
+Event.route               = 'route'
+Event.sort                = 'sort'
+Event.sync                = 'sync'                # model, response
+Event.transitionEnd       = (->
     return unless document?
     transitions =
-      'transition':       'transitionend',
-      'OTransition':      'oTransitionEnd',
-      'MSTransition':     'msTransitionEnd',
-      'MozTransition':    'transitionend',
       'WebkitTransition': 'webkitTransitionEnd'
+      'MozTransition':    'transitionend'
+      'MSTransition':     'msTransitionEnd'
+      'OTransition':      'oTransitionEnd'
+      'transition':       'transitionend'
 
     el = document.createElement 'fakeelement'
     for styleName, eventName of transitions
         return eventName if el.style[styleName]?
+
+    throw new Error 'cannot determine transitionEnd event'
 )()
 
 exports.Key   = Key = {}

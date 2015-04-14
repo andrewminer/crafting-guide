@@ -159,7 +159,7 @@ module.exports = class ModPageController extends PageController
                     @$tutorialsContainer.append controller.$el
                     controller.render()
                 else
-                    controller.model = model
+                    controller.model = tutorial
 
                 index += 1
 

@@ -20,9 +20,6 @@ module.exports = class Inventory extends BaseModel
         attributes.modPack ?= null
         @clear()
 
-        Object.defineProperties this,
-            isEmpty: { get:-> @_itemSlugs.length is 0 }
-
     # Class Methods ################################################################################
 
     @Delimiters =
@@ -161,6 +158,14 @@ module.exports = class Inventory extends BaseModel
 
         return parts.join Inventory.Delimiters.Stack
 
+    # Property Methods #############################################################################
+
+    getIsEmpty: ->
+        return @_itemSlugs.length is 0
+
+    Object.defineProperties @prototype,
+        isEmpty: { get:@prototype.getIsEmpty }
+
     # Object Overrides #############################################################################
 
     toString: ->
@@ -185,7 +190,7 @@ module.exports = class Inventory extends BaseModel
         stack = @_stacks[itemSlug]
         if not stack?
             stack = new Stack itemSlug:itemSlug, quantity:quantity
-            @listenTo stack, Event.change, => @trigger Event.change, stack
+            @listenTo stack, Event.change, => @trigger Event.change, this
             @_stacks[itemSlug] = stack
             @_itemSlugs.push itemSlug
             @_sort()

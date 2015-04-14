@@ -101,12 +101,20 @@ All rights reserved.
         font-family: $font-family-header;
         font-size: $font-size-large;
         margin-bottom: 0.5em;
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     h3 {
         font-family: $font-family-header;
         font-size: $font-size-normal;
         margin: 2em 0 0 0.5em;
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     .entry {
@@ -117,6 +125,10 @@ All rights reserved.
     .panel {
         background: white;
         padding: 1em;
+    }
+
+    &:first-child {
+        margin-top: 0;
     }
 }
 

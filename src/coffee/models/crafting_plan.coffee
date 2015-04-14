@@ -6,9 +6,10 @@ All rights reserved.
 ###
 
 BaseModel = require './base_model'
-{Event}   = require '../constants'
 Inventory = require './inventory'
 ItemSlug  = require './item_slug'
+Step      = require './step'
+{Event}   = require '../constants'
 
 ########################################################################################################################
 
@@ -26,7 +27,7 @@ module.exports = class CraftingPlan extends BaseModel
 
         recraft = _.debounce (=> @craft()), 100
         for inventory in [@have, @want]
-            inventory.on 'change', recraft
+            inventory.on Event.change, recraft
 
         @on Event.change + ':includingTools', recraft
 
@@ -140,7 +141,7 @@ module.exports = class CraftingPlan extends BaseModel
                         @_findSteps inputStack.itemSlug, parentSteps
 
                     logger.verbose -> "adding step for: #{recipe.slug}"
-                    @steps[recipe.slug] = recipe:recipe, itemSlug:item.slug
+                    @steps[recipe.slug] = new Step outputItemSlug:item.slug, recipe:recipe
                     foundValidRecipe = true
                     break
                 catch error
@@ -166,16 +167,26 @@ module.exports = class CraftingPlan extends BaseModel
         return itemSlug
 
     _removeExtraSteps: ->
-        result = (step for step in @steps when step.multiplier > 0)
+        result = []
+
+        number = 1
+        for step in @steps
+            if step.multiplier > 0
+                result.push step
+                step.number = number
+                number += 1
+
         @steps = result
 
     _resolveNeeds: ->
         for i in [@steps.length-1..0] by -1
             step   = @steps[i]
-            recipe = step.recipe
-            outputQuantity = recipe.getQuantityProducedOf step.itemSlug
+            step.number = i + 1
 
-            step.multiplier = Math.ceil(@need.quantityOf(step.itemSlug) / outputQuantity)
+            recipe = step.recipe
+            outputQuantity = recipe.getQuantityProducedOf step.outputItemSlug
+
+            step.multiplier = Math.ceil(@need.quantityOf(step.outputItemSlug) / outputQuantity)
 
             if @includingTools
                 recipe.eachToolStack (stack)=>

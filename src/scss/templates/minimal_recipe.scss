@@ -44,13 +44,6 @@ All rights reserved.
             @include transform(translate(-50%, -50%));
         }
 
-        .multiplier {
-            position: absolute; bottom: -2.0em; left: 0; right: 0; height: 1.5em;
-            font-family: $font-family-header;
-            font-size: $font-size-large;
-            text-align: center;
-        }
-
         .quantity {
             position: absolute; right: 0.1em; bottom: 0;
             color: white;
@@ -58,5 +51,13 @@ All rights reserved.
             font-size: $font-size-large;
             text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
         }
+    }
+
+    .multiplier {
+        position: absolute; top: 50%; right: 0; width: 2.7em;
+        @include transform(translateY(-50%) translateY(2.5em));
+        font-family: $font-family-header;
+        font-size: $font-size-large;
+        text-align: center;
     }
 }

@@ -6,92 +6,72 @@ All rights reserved.
 */
 
 .view__inventory {
-    min-height: 14em;
-    width: 100%;
 
-    .edit td {
-        padding-top: 1em;
-    }
+    .item_container {
+        position: relative; width: 100%;
 
-    .panel {
-        position: absolute; top: 3.6em; right: 2em; bottom: 0; left: 2em;
-        background: $color-background-panel;
-        text-align: right;
-    }
+        .view__stack > div {
+            height: 4.2em;
+            padding: 0 1em 0.5em 0;
+            vertical-align: middle;
 
-    .scrollbox {
-        position: absolute; top: 0em; right: 0em; bottom: 3em; left: 0em;
-        padding: 0.5em 1em;
-        overflow: auto;
-    }
-
-    .toolbar {
-        position: absolute; right: 0; bottom: 0; left: 0; height: 3.5em;
-        background: $color-background-toolbar;
-        border-top: 1px solid $color-gray-light;
-    }
-
-    .view__item_selector {
-        height: 2.5em; width: 80%;
-        background: $color-gray-faint;
-        margin: 0 auto;
-
-        transition: background $animate-normal;
-
-        &:hover {
-            background: $color-background-panel;
+            &:last-child {
+                padding: 0 0 0.5em 0;
+            }
         }
-    }
 
-    button[name="clear"] {
-        position: absolute; bottom: 0.5em; right: 0.5em;
-    }
-
-    input {
-        border: 1px solid $color-gray-light;
-    }
-
-    button:disabled {
-        background: white;
-        color: $color-gray-light;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    td {
-        height: 2.4em;
-        vertical-align: middle;
-    }
-
-    td.icon {
-        width: 4.8em;
-        padding: 0 1em;
-
-        img {
-            width: 100%; height: auto;
-            max-height: 4.8em;
+        .icon {
+            img {
+                height: 3.6em; width: 3.6em;
+            }
         }
-    }
 
-    td.name {
-        text-align: left;
-        padding-right: 1em;
-
-        input {
+        .name {
             width: 100%;
-            border: 0;
-            border-bottom: 1px dashed $color-gray-light;
-            outline: 0;
+        }
 
-            &:focus {
-                border: 1px solid $color-gray-light;
+        .action {
+            white-space: nowrap;
+
+            button:first-child {
+                margin-right: 0.5em;
             }
         }
     }
 
-    td.action {
-        width: 4em;
+    .view__item_selector {
+        position: relative; width: 80%;
+        margin: 1em auto;
+    }
+
+    &.large {
+        .item_container {
+            .view__stack > div {
+                height: 5em;
+            }
+
+            .quantity {
+                .bubble {
+                    border-radius: 3em;
+
+                    input {
+                        font-size: $font-size-large;
+                    }
+                }
+            }
+
+            .icon {
+                img {
+                    height: 4.8em; width: 4.8em;
+                }
+            }
+
+            .name {
+                a {
+                    font-size: $font-size-large;
+                    font-weight: bold;
+                }
+            }
+        }
     }
 }

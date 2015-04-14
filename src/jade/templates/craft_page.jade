@@ -6,8 +6,50 @@
 //-
 
 .view__craft_page
-    .view__inventory.want
-    .view__inventory.have
-    .view__inventory.need
+    .sidebar
+        ins.view__adsense
 
-    .view__crafting_table
+    .mainBody
+
+        .want.section
+            h2 Items to Make
+            .panel
+                .view__inventory.large.editable
+
+        //- .tools.section.hideable.hidden
+        //-     h2 Tools
+        //-     .panel
+        //-         .inUse
+        //-             h3 In Use
+        //-             .view__inventory.large
+        //-
+        //-         .options
+        //-             h3 More Options
+        //-             .view__inventory.large
+
+        .ingredients.section.hideable.hidden
+            h2 Ingredients
+            .panel
+                .have
+                    h3 Already In Inventory
+                    .view__inventory.large
+
+                .need
+                    h3 Need to Gather
+                    .view__inventory.large
+
+        .steps.section.hideable.hidden
+            h2 Steps
+            .panel
+
+        .instructions.section
+            h2 Instructions
+            .panel
+                p.
+                    Welcome to the Craft page.  Here you can get detailed instructions for making any item in your
+                    current mod pack (use the <a href="/configure">Configure</a> page to change it). Making a crafting
+                    plan is very simple:
+                ol
+                    li Click the "add an item..." button to choose items to craft
+                    li Use the <img src="/images/up.png"> button to mark any items you already possess
+                    li Use the <img src="/images/check.png"> button to complete any step if you already have that item

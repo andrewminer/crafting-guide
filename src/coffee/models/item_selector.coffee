@@ -14,7 +14,7 @@ module.exports = class ItemSelector extends BaseModel
 
     constructor: (attributes={}, options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.isAcceptable ?= (itemSlug)-> return true # accept everything by default
+        options.isAcceptable ?= (item)-> return true # accept everything by default
         super attributes, options
 
         @_isAcceptable  = options.isAcceptable

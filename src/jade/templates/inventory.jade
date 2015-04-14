@@ -6,13 +6,6 @@
 //-
 
 .view__inventory
-    h2
-        img.icon
-        p
-    .panel
-        .scrollbox
-            table
-                tr.edit.hideable.hidden
-                    td.name(colspan="4", width="*"): .view__item_selector: p.button-label add an item...
-        .toolbar.hideable.hidden
-            button(name="clear") clear
+    .item_container
+    .empty_placeholder.hideable.hidden Empty
+    .view__item_selector.hideable.hidden.button: p add an item...

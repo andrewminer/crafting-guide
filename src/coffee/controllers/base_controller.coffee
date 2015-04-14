@@ -5,22 +5,22 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-views   = require '../views'
-{Event} = require '../constants'
+views      = require '../views'
+{Duration} = require '../constants'
+{Event}    = require '../constants'
 
 ########################################################################################################################
 
 module.exports = class BaseController extends Backbone.View
 
     constructor: (options={})->
-        options.useAnimations ?= true
         @tryRefresh = _.debounce @_tryRefresh, 100
 
-        @_model         = null
-        @_rendered      = false
-        @_parent        = options.parent
         @_children      = []
-        @_useAnimations = options.useAnimations
+        @_model         = null
+        @_parent        = options.parent
+        @_rendered      = false
+        @_useAnimations = options.useAnimations ?= true
 
         @_loadTemplate options.templateName
         super options
@@ -36,33 +36,39 @@ module.exports = class BaseController extends Backbone.View
         @_children.push child
         return child
 
-    hide: (args...)->
-        {$el, callback} = @_resolveShowHideArgs args
+    hide: ($el)->
+        $el ?= @$el
 
-        $el.addClass 'hideable' unless $el.hasClass 'hideable'
+        if not $el.hasClass 'hideable'
+            $el.addClass 'hideable'
+            _.defer => @hide $el
+            return
 
-        logger.verbose => "#{this} is hiding #{$el.selector}"
-        if $el.hasClass('hiding') or $el.hasClass('hidden')
-            _.defer => callback this
-        else
-            $el.off Event.transitionEnd
-            $el.one Event.transitionEnd, =>
+        if not ($el.hasClass('hiding') or $el.hasClass('hidden'))
+            logger.verbose => "#{this} is hiding \"#{$el.selector}\""
+            @_onAnimationComplete $el, Duration.normal, =>
                 $el.addClass 'hidden'
                 $el.removeClass 'hiding'
-                callback this
+                logger.verbose => "#{this} is finished hiding #{$el.selector}"
+                @trigger Event.animate.hide.finish, this, $el
 
             $el.addClass 'hiding'
+            @trigger Event.animate.hide.start, this, $el
 
     refresh: ->
         logger.verbose => "#{this} refreshing"
 
     remove: ->
         if @_useAnimations
-            @hide =>
+            logger.verbose => "#{this} is hiding element before removing it"
+            @once Event.animate.hide.finish, =>
                 logger.verbose => "#{this} is removing its element from the DOM"
                 @$el.remove()
+                @off()
+            @hide()
         else
             @$el.remove()
+            @off()
 
     routeLinkClick: (event)->
         event.preventDefault()
@@ -75,19 +81,22 @@ module.exports = class BaseController extends Backbone.View
         else
             router.navigate href, trigger:true
 
-    show: (args...)->
-        {$el, callback} = @_resolveShowHideArgs args
+    show: ($el)->
+        $el ?= @$el
+        $el.addClass 'hideable'
 
-        $el.addClass 'hideable' unless $el.hasClass 'hideable'
+        if $el.hasClass('hidden') or $el.hasClass('hiding')
+            logger.verbose => "#{this} is showing \"#{$el.selector}\""
 
-        logger.verbose => "#{this} is showing #{$el.selector}"
-        if $el.hasClass('hiding') or $el.hasClass('hidden')
-            $el.off Event.transitionEnd
-            $el.one Event.transitionEnd, => callback this
-            $el.removeClass 'hiding'
+            @_onAnimationComplete $el, Duration.normal, =>
+                logger.verbose => "#{this} is finished showing #{$el.selector}"
+                @trigger Event.animate.show.finish, this, $el
+
+            $el.addClass 'hiding'
             $el.removeClass 'hidden'
-        else
-            _.defer => callback this
+            _.defer =>
+                $el.removeClass 'hiding'
+                @trigger Event.animate.show.start, this, $el
 
     unrender: ->
         @undelegateEvents()
@@ -164,14 +173,12 @@ module.exports = class BaseController extends Backbone.View
         $renderedEl = $($(@_template(data))[0])
 
         @onWillRender()
-        @hide() if @_useAnimations
-
         @unrender()
+
         @$el.append $renderedEl.children()
         @$el.addClass $renderedEl.attr 'class'
         @$el.data $renderedEl.data()
         @delegateEvents()
-        @show() if options.show and @_useAnimations
 
         @_rendered = true
         @onDidRender()
@@ -189,19 +196,20 @@ module.exports = class BaseController extends Backbone.View
         if templateName?
             @_template = views[templateName]
 
-    _resolveShowHideArgs: (args)->
-        if args.length is 0
-            return $el:@$el, callback:->
-        else if args.length is 1
-            if _.isFunction args[0]
-                return $el:@$el, callback:args[0]
-            else
-                return $el:args[0], callback:->
-        else if args.length is 2
-            return $el:args[0], callback:args[1]
-        else
-            throw new Error "expected to get 0, 1, or 2 args"
-
     _tryRefresh: ->
         return unless @_rendered
         @refresh()
+
+    _onAnimationComplete: ($el, maxDuration, callback)->
+        $el         ?= @$el
+        maxDuration ?= Duration.slow
+        callback    ?= -> # do nothing
+
+        $el.off Event.transitionEnd
+        $el.one Event.transitionEnd, callback
+
+        # One would very much like this not to be necessary, but because of the way CSS transitions work, they are
+        # frequently not triggered. Rather than try to avoid the multitude of corner cases where this can happen, this
+        # simply sets a timer to ensure the event does eventually trigger. Since we're only listening for the first
+        # event, if the transition end event *did* happen, then this is a no-op. -- Andrew 2015-04-18
+        setTimeout (-> $el.trigger Event.transitionEnd), maxDuration

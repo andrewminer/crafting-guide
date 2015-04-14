@@ -24,6 +24,7 @@ module.exports = class MinimalRecipeController extends BaseController
 
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
+        @multiplier  = options.multiplier ?= null
 
     # BaseController Overrides #####################################################################
 
@@ -36,6 +37,7 @@ module.exports = class MinimalRecipeController extends BaseController
             imageLoader: @imageLoader
             modPack:     @modPack
 
+        @$multiplier     = @$('.multiplier')
         @$outputImg      = @$('.output img')
         @$outputLink     = @$('.output a')
         @$outputQuantity = @$('.quantity')
@@ -46,6 +48,8 @@ module.exports = class MinimalRecipeController extends BaseController
         @gridController.model = @model
         @outputSlotController.model = @model?.output?[0]
         @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
+
+        @_refreshMultiplier()
         @_refreshTools()
         super
 
@@ -56,6 +60,12 @@ module.exports = class MinimalRecipeController extends BaseController
             'click a': 'routeLinkClick'
 
     # Private Methods ##############################################################################
+
+    _refreshMultiplier: ->
+        if @multiplier? and @multiplier > 1
+            @$multiplier.html "x#{@multiplier}"
+        else
+            @$multiplier.html ''
 
     _refreshTools: ->
         @$toolContainer.empty()

@@ -641,7 +641,7 @@ group: Gears
 
     item: Gold Gear
         recipe:
-            input: Gold Ingot, Stone Gear
+            input: Gold Ingot, Iron Gear
             pattern: .0. 010 .0.
             tools: Crafting Table
 

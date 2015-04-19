@@ -415,19 +415,19 @@ group: General Items
 			
 	item: Steel Saw Blade
 		recipe:
-			input: Steel Ingot, Stick
+			input: Steel Ingot, Iron Saw Blade
 			pattern: .0. 010 .0.
 			tools: Crafting Table
 			
 	item: Titanium Saw Blade
 		recipe:
-			input: Titanium Ingot, Stick
+			input: Titanium Ingot, Steel Saw Blade
 			pattern: .0. 010 .0.
 			tools: Crafting Table
 			
 	item: Diamond Saw Blade
 		recipe:
-			input: Diamond Ingot, Stick
+			input: Diamond Ingot, Titanium Saw Blade
 			pattern: .0. 010 .0.
 			tools: Crafting Table
 			

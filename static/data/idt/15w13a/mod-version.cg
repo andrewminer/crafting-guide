@@ -344,49 +344,49 @@ group: Armor
 			
 	item: Titanium Helmet
 		recipe:
-			input: Steel Ingot
+			input: Titanium Ingot
 			pattern: 000 0.0 ...
 			tools: Crafting Table
 			
 	item: Titanium Chestplate
 		recipe:
-			input: Steel Ingot
+			input: Titanium Ingot
 			pattern: 0.0 000 000
 			tools: Crafting Table
 			
 	item: Titanium Leggings
 		recipe:
-			input: Steel Ingot
+			input: Titanium Ingot
 			pattern: 000 0.0 0.0
 			tools: Crafting Table
 			
 	item: Titanium Boots
 		recipe:
-			input: Steel Ingot
+			input: Titanium Ingot
 			pattern: ... 0.0 0.0
 			tools: Crafting Table
 			
 	item: Zimphnode Helmet
 		recipe:
-			input: Steel Ingot
+			input: Zimphnode Bar
 			pattern: 000 0.0 ...
 			tools: Crafting Table
 			
 	item: Zimphnode Chestplate
 		recipe:
-			input: Steel Ingot
+			input: Zimphnode Bar
 			pattern: 0.0 000 000
 			tools: Crafting Table
 			
 	item: Zimphnode Leggings
 		recipe:
-			input: Steel Ingot
+			input: Zimphnode Bar
 			pattern: 000 0.0 0.0
 			tools: Crafting Table
 			
 	item: Zimphnode Boots
 		recipe:
-			input: Steel Ingot
+			input: Zimphnode Bar
 			pattern: ... 0.0 0.0
 			tools: Crafting Table
 			

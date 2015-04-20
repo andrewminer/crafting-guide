@@ -5,13 +5,13 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController           = require './base_controller'
-CraftingGridController   = require './crafting_grid_controller'
-ImageLoader              = require './image_loader'
-Inventory                = require '../models/inventory'
-InventoryTableController = require './inventory_table_controller'
-{Duration}               = require '../constants'
-{StringBuilder}          = require 'crafting-guide-common'
+BaseController         = require './base_controller'
+CraftingGridController = require './crafting_grid_controller'
+ImageLoader            = require './image_loader'
+Inventory              = require '../models/inventory'
+InventoryController    = require './inventory_controller'
+{Duration}             = require '../constants'
+{StringBuilder}        = require 'crafting-guide-common'
 
 ########################################################################################################################
 
@@ -33,13 +33,13 @@ module.exports = class FullRecipeController extends BaseController
             imageLoader: @imageLoader
             modPack:     @modPack
 
-        @inputController = @addChild InventoryTableController, '.input .view__inventory_table',
+        @inputController = @addChild InventoryController, '.input .view__inventory',
             editable:    false
             imageLoader: @imageLoader
             model:       new Inventory
             modPack:     @modPack
 
-        @outputController = @addChild InventoryTableController, '.output .view__inventory_table',
+        @outputController = @addChild InventoryController, '.output .view__inventory',
             editable:    false
             imageLoader: @imageLoader
             model:       new Inventory

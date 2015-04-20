@@ -7,6 +7,15 @@ All rights reserved.
 
 .view__inventory {
 
+    .empty_placeholder {
+        color: $color-gray-light;
+        font-family: $font-family-normal;
+        font-size: $font-size-large;
+        margin: 2em 0;
+        text-align: center;
+        width: 100%;
+    }
+
     .item_container {
         position: relative; width: 100%;
 

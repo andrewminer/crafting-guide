@@ -79,10 +79,11 @@ module.exports = class InventoryController extends BaseController
             modPack:      @modPack,
             onChoseItem:  (itemSlug)=> @onItemChosen(itemSlug)
 
-        @$clearButton   = @$('button.clear')
-        @$icon          = @$('.icon')
-        @$itemContainer = @$('.item_container')
-        @$title         = @$('h2 p')
+        @$clearButton      = @$('button.clear')
+        @$emptyPlaceholder = @$('.empty_placeholder')
+        @$icon             = @$('.icon')
+        @$itemContainer    = @$('.item_container')
+        @$title            = @$('h2 p')
         super
 
     refresh: ->
@@ -96,6 +97,11 @@ module.exports = class InventoryController extends BaseController
         @$clearButton.disabled = @model.isEmpty
 
         @_refreshStacks()
+
+        if @model.isEmpty
+            @show @$emptyPlaceholder
+        else
+            @hide @$emptyPlaceholder
 
         super
 

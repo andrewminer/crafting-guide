@@ -149,7 +149,7 @@ module.exports = class Inventory extends BaseModel
             if @modPack?
                 item = @modPack.findItem ItemSlug.slugify slugText
                 if item? and item.slug.qualified isnt stack.itemSlug.qualified
-                    slugText = item.slug.qualified
+                    slugText = stack.itemSlug.qualified
 
             if stack.quantity is 1
                 parts.push slugText

@@ -308,7 +308,7 @@ group: Fluid Pipes
 
     item: Golden Fluid Pipe
         recipe:
-            input: Gold Ingot, Pipe Sealant
+            input: Golden Transport Pipe, Pipe Sealant
             pattern: ... 01. ...
             tools: Crafting Table
 

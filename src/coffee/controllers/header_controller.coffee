@@ -78,8 +78,8 @@ module.exports = class HeaderController extends BaseController
             $navLink.css 'z-index', zIndex--
 
         if global.env in ProductionEnvs
-            addThisUrl = '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54f3c9717b2e530d'
-            $('body').append "<script async src=\"#{addThisUrl}\"></script>"
+            addThisUrl = 'http://s7.addthis.com/js/300/addthis_widget.js?pubid=ra-54f3c9717b2e530d'
+            $('body').append "<script async=\"async\" src=\"#{addThisUrl}\"></script>"
 
         @_itemSelector = @addChild ItemSelectorController, '.view__item_selector.search',
             modPack:     @modPack

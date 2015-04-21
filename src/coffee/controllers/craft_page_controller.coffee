@@ -43,7 +43,7 @@ module.exports = class CraftPageController extends PageController
     onMoveNeedToHave: (itemSlug)->
         quantity = @model.plan.need.quantityOf itemSlug
         @model.plan.have.add itemSlug, quantity
-        @_saveHaveInventory()
+        @onHaveInventoryChanged()
 
     onRemoveFromHaveInventory: (itemSlug)->
         @model.plan.have.remove itemSlug

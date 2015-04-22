@@ -1,0 +1,7 @@
+schema: 1
+
+description: <<-END
+The Pumpkin Cart is a seasonal item whose recipe is only vaild during the month of October.  When placed on a track and
+lit with a [Priming Track], it will yield a mild explosion and potentially release a hostile mob...
+
+END

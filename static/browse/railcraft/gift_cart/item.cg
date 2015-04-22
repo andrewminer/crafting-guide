@@ -1,0 +1,13 @@
+schema: 1
+
+description: <<-END
+The Gift Cart is a seasonal item whose recipe is only vaild during the month of December.  When placed on a track and
+lit with a [Priming Track], it will yield a mild explosion and release two small gifts:
+
+* Potions
+* Tools & Weapons
+* Food
+* Armor
+* and others...
+
+END

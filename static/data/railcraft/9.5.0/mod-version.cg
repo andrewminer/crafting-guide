@@ -51,6 +51,10 @@ group: Carts
             pattern: .1. .0. ...
 
     item: Gift Cart
+        recipe:
+            input: Gunpowder, Oak Wood Slab, Emerald
+            pattern: 000 121 111
+            tools: Crafting Table
 
     item: Personal Anchor Cart
         recipe:
@@ -58,6 +62,10 @@ group: Carts
             pattern: .1. .0. ...
 
     item: Pumpkin Cart
+        recipe:
+            input: Gunpowder, Oak Wood Slab, Pumpkin
+            pattern: 000 121 111
+            tools: Crafting Table
 
     item: Tank Cart
         recipe:
@@ -1952,6 +1960,11 @@ group: Fluids
             quantity: 8
 
     item: Water Tank Siding
+        recipe:
+            input: Oak Wood Planks, Iron Ingot, Slimeball
+            pattern: 000 121 000
+            quantity: 6
+            tools: Crafting Table
 
 group: Functional Blocks
 
@@ -2844,19 +2857,19 @@ group: Track Parts
 
     item: Standard Rail
         recipe:
-            input: Rail
-            pattern: 0.0 000 000
-            tools: Crafting Table
+            input: Steel Ingot
+            pattern: 0.0 0.0 0.0
+            quantity: 16
+            tools: Rolling Machine
         recipe:
             input: Iron Ingot
             pattern: 0.0 0.0 0.0
             quantity: 8
             tools: Rolling Machine
         recipe:
-            input: Steel Ingot
-            pattern: 0.0 0.0 0.0
-            quantity: 16
-            tools: Rolling Machine
+            input: Rail
+            pattern: 0.0 000 000
+            tools: Crafting Table
 
     item: Stone Railbed
         recipe:
@@ -3094,14 +3107,14 @@ group: Tracks: Standard
 
     item: Gated One-Way Track
         recipe:
-            input: Advanced Rail, Gate, Standard Rail, Wooden Railbed
+            input: Advanced Rail, Fence Gate, Standard Rail, Wooden Railbed
             pattern: 212 030 212
             quantity: 8
             tools: Crafting Table
 
     item: Gated Track
         recipe:
-            input: Gate, Standard Rail, Wooden Railbed
+            input: Fence Gate, Standard Rail, Wooden Railbed
             pattern: 101 121 101
             quantity: 8
             tools: Crafting Table

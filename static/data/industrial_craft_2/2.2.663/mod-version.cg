@@ -3,19 +3,81 @@ schema: 1
 group: Agriculture
 
     item: Bio Chaff
+        recipe:
+            input: 8 Wheat
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 16 Seeds
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 8 Potato
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 8 Carrot
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 8 Cactus
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 8 Sugar Canes
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 8 Pumpkin
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 16 Pumpkin Seeds
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 8 Melon
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: 16 Melon Seeds
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: Oak Leaves
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: Oak Sapling
+            pattern: ... .0. ...
+            tools: Macerator
+        recipe:
+            input: Plantball
+            pattern: ... .0. ...
+            tools: Macerator
 
     item: Biogas
+        recipe:
+            input: 10 Biomass
+            pattern: ... .0. ...
+            quantity: 200
+            tools: Fermenter
 
     item: Biogas Cell
         recipe:
-            input: Biogas, Empty Cell
+            input: 1000 Biogas, Empty Cell
             pattern: ... .0. .1.
 
     item: Biomass
+        recipe:
+            input: 1000 Water, Bio Chaff
+            pattern: ... 0.1 ...
+            quantity: 1000
+            tools: Fluid/Solid Canning Machine
 
     item: Biomass Cell
         recipe:
-            input: Biomass, Empty Cell
+            input: 1000 Biomass, Empty Cell
             pattern: ... .0. .1.
 
     item: Coffee
@@ -1667,13 +1729,14 @@ group: Minerals
 
     item: Distilled Water
         recipe:
-            input: Water
+            input: 1000 Water
             pattern: ... .0. ...
+            quantity: 1000
             tools: Solar Distiller
 
     item: Distilled Water Cell
         recipe:
-            input: Distilled Water, Empty Cell
+            input: 1000 Distilled Water, Empty Cell
             pattern: ... .0. .1.
 
     item: Electrolyzed Water Cell
@@ -1730,7 +1793,7 @@ group: Minerals
 
     item: Lava Cell
         recipe:
-            input: Empty Cell, Lava
+            input: Empty Cell, 1000 Lava
             pattern: ... .1. .0.
 
     item: Lead Block
@@ -1791,10 +1854,15 @@ group: Minerals
             tools: Crafting Table
 
     item: Pahoehoe Lava
+        recipe:
+            input: 1000 Lava
+            pattern: ... .0. ...
+            quantity: 1000
+            tools: Liquid Heat Exchanger
 
     item: Pahoehoe Lava Cell
         recipe:
-            input: Empty Cell, Pahoehoe Lava
+            input: Empty Cell, 1000 Pahoehoe Lava
             pattern: ... .1. .0.
 
     item: Plutonium
@@ -1901,10 +1969,15 @@ group: Minerals
     item: Slag
 
     item: Steam
+        recipe:
+            input: Water
+            pattern: ... .0. ...
+            quantity: 100
+            tools: Steam Generator
 
     item: Steam Cell
         recipe:
-            input: Empty Cell, Steam
+            input: Empty Cell, 1000 Steam
             pattern: ... .1. .0.
 
     item: Sticky Resin
@@ -1913,7 +1986,7 @@ group: Minerals
 
     item: Superheated Steam Cell
         recipe:
-            input: Empty Cell, Superheated Steam
+            input: Empty Cell, 1000 Superheated Steam
             pattern: ... .1. .0.
 
     item: Tin Block
@@ -1968,13 +2041,13 @@ group: Minerals
 
     item: Uranium 238
         recipe:
-            extras: 2 Tiny Pile of Uranium
+            extras: 2 Tiny Pile of Uranium 235
             input: Purified Crushed Uranium Ore
             pattern: ... .0. ...
             quantity: 5
             tools: Thermal Centrifuge
         recipe:
-            extras: Tiny Pile of Uranium, Stone Dust
+            extras: Tiny Pile of Uranium 235, Stone Dust
             input: Crushed Uranium Ore
             pattern: ... .0. ...
             quantity: 4
@@ -2014,12 +2087,12 @@ group: Minerals
 
     item: UuMatter Cell
         recipe:
-            input: Empty Cell, UU-Matter
+            input: Empty Cell, 1000 UU-Matter
             pattern: ... .1. .0.
 
     item: Water Cell
         recipe:
-            input: Empty Cell, Water
+            input: Empty Cell, 1000 Water
             pattern: ... .1. .0.
 
 group: Minerals: Dusts
@@ -2330,49 +2403,49 @@ group: Minerals: Dusts
     item: Purified Crushed Copper Ore
         recipe:
             extras: 2 Tiny Pile of Copper Dust, Stone Dust
-            input: Crushed Copper Ore, Water
+            input: Crushed Copper Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Gold Ore
         recipe:
             extras: 2 Tiny Pile of Gold Dust, Stone Dust
-            input: Crushed Gold Ore, Water
+            input: Crushed Gold Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Iron Ore
         recipe:
             extras: 2 Tiny Pile of Iron Dust, Stone Dust
-            input: Crushed Iron Ore, Water
+            input: Crushed Iron Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Lead Ore
         recipe:
             extras: 3 Tiny Pile of Sulfur Dust, Stone Dust
-            input: Crushed Lead Ore, Water
+            input: Crushed Lead Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Silver Ore
         recipe:
             extras: 2 Tiny Pile of Silver Dust, Stone Dust
-            input: Crushed Silver Ore, Water
+            input: Crushed Silver Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Tin Ore
         recipe:
             extras: 2 Tiny Pile of Tin Dust, Stone Dust
-            input: Crushed Tin Ore, Water
+            input: Crushed Tin Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
     item: Purified Crushed Uranium Ore
         recipe:
             extras: 2 Tiny Pile of Lead Dust, Stone Dust
-            input: Crushed Uranium Ore, Water
+            input: Crushed Uranium Ore, 1000 Water
             pattern: .0. ... .1.
             tools: Ore Washing Plant
 
@@ -2529,6 +2602,23 @@ group: Minerals: Dusts
 
 group: Nuclear Reactor
 
+    item: IC2 Coolant
+        recipe:
+            input: 1000 Distilled Water, 1 Lapis Lazuli Dust
+            pattern: ... 0.1 ...
+            quantity: 1000
+            tools: Fluid/Solid Canning Machine
+        recipe:
+            input: 1000 Water, 8 Lapis Lazuli Dust
+            pattern: ... 0.1 ...
+            quantity: 1000
+            tools: Fluid/Solid Canning Machine
+        recipe:
+            input: 1000 IC2 Hot Coolant
+            pattern: ... .0. ...
+            quantity: 1000
+            tools: Liquid Heat Exchanger
+
     item: 10k Coolant Cell
         recipe:
             input: Coolant Cell, Tin Plate
@@ -2590,8 +2680,8 @@ group: Nuclear Reactor
 
     item: Coolant Cell
         recipe:
-            input: Distilled Water, Empty Cell, Lapis Lazuli Dust
-            pattern: .0. .2. .1.
+            input: 1000 IC2 Coolant, Empty Cell
+            pattern: ... 0.1 ...
             tools: Fluid/Solid Canning Machine
 
     item: Dual Fuel Rod (Depleted MOX)
@@ -2668,7 +2758,7 @@ group: Nuclear Reactor
 
     item: Hot Coolant Cell
         recipe:
-            input: Empty Cell, IC2 Hot Coolant
+            input: Empty Cell, 1000 IC2 Hot Coolant
             pattern: ... .1. .0.
 
     item: IC2 Hot Coolant

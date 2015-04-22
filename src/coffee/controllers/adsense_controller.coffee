@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController   = require './base_controller'
 {Adsense}        = require '../constants'
+{Duration}       = require '../constants'
 {ProductionEnvs} = require '../constants'
 
 ########################################################################################################################
@@ -14,32 +15,64 @@ BaseController   = require './base_controller'
 module.exports = class AdsenseController extends BaseController
 
     constructor: (options={})->
-        options.model        ?= 'skyscraper_sidebar'
-        options.tagName       = 'ins'
-        options.templateName  = "adsense_#{options.model}"
+        options.templateName = "adsense_sidebar_skyscraper"
         super options
 
-        @_adsEnabled = global.env in ProductionEnvs
+        @_adsEnabled  = global.env in ProductionEnvs
+        @_adHeight    = 630
+        @_adCount     = 0
+        @_waiting     = false
+
+    # Public Methods ###############################################################################
+
+    fillAdPositions: ->
+        if @_adCount > 0
+            return unless @_adCount < Adsense.slotIds.length
+            return unless @$sidebar? and @$mainBody?
+            return unless @$sidebar.height() + @_adHeight < @$mainBody.height()
+
+        $adContainer = $('<div class="sidebar_skyscraper"></div>')
+        @$el.append $adContainer
+
+        if @_adsEnabled
+            $ad = $('<ins class="adsbygoogle"></ins>')
+            $ad.attr 'data-ad-client', Adsense.clientId
+            $ad.attr 'data-ad-slot', Adsense.slotIds[@_adCount]
+            $ad.css 'height':'600px', 'width':'160px'
+            $adContainer.append $ad
+            @_loadAds()
+
+        @_adCount += 1
+        _.defer => @fillAdPositions()
 
     # BaseController Overrides #####################################################################
 
-    render: ->
-        if @_adsEnabled
-            super
-
-            @$el.attr 'data-ad-client', Adsense.clientId
-            @$el.attr 'data-ad-slot', Adsense.slotId
-        else
-            @$el.addClass 'placeholder'
-            @_rendered = true
-
-        @$el.addClass @model
+    onDidRender: ->
+        @$mainBody = $('.mainBody')
+        @$sidebar = $('.sidebar')
+        super
 
     refresh: ->
+        @_waitForPageReadiness()
+        super
+
+    # Private Methods #############################################################################
+
+    _loadAds: ->
         return unless @_adsEnabled
 
+        logger.info "Loading #{@_adCount} Google AdSense ads"
         try
             global.adsbygoogle ||= []
             global.adsbygoogle.push {}
         catch e
             logger.warning "Could not load Adsense ad: #{e}"
+
+    _waitForPageReadiness: ->
+        return if @_waiting
+
+        if @$mainBody.height() < @_adHeight / 2
+            @_waiting = true
+            _.delay (=> @_waiting = false; @_waitForPageReadiness()), Duration.normal
+        else
+            @fillAdPositions()

@@ -19,7 +19,7 @@ module.exports = class HomeController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+        @adsenseController = @addChild AdsenseController, '.view__adsense'
         super
 
     # Backbone.View Overrides ######################################################################

@@ -31,11 +31,13 @@ module.exports = class BrowsePageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+        @adsenseController = @addChild AdsenseController, '.view__adsense'
         @$modContainer     = @$('.mods')
         super
 
     refresh: ->
+        @adsenseController.fillAdPositions()
+
         @_controllers ?= []
         controllerIndex = 0
 

@@ -30,6 +30,10 @@ module.exports = class ConfigurePageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+        @adsenseController = @addChild AdsenseController, '.view__adsense'
         @modPackController = @addChild ModPackController, '.view__mod_pack', model:@modPack, storage:@storage
+        super
+
+    refresh: ->
+        @adsenseController.fillAdPositions()
         super

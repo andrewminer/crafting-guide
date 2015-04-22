@@ -66,7 +66,7 @@ module.exports = class ModPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
+        @adsenseController = @addChild AdsenseController, '.view__adsense'
 
         @$name                = @$('.name')
         @$byline              = @$('.byline p')
@@ -84,6 +84,8 @@ module.exports = class ModPageController extends PageController
         super
 
     refresh: ->
+        @adsenseController.fillAdPositions()
+
         if @model?.isLoaded and @effectiveModVersion?.isLoaded
             @$byline.html "by #{@model.author}"
             @$description.html @model.description

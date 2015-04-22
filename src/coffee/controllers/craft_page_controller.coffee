@@ -133,6 +133,7 @@ module.exports = class CraftPageController extends PageController
     refresh: ->
         @_refreshSectionVisibility()
         @_refreshSteps()
+        @adsenseController.fillAdPositions()
         super
 
     # Backbone.View Overrides ########################################################################

@@ -7,7 +7,7 @@ All rights reserved.
 
 exports.Adsense  = Adsense = {}
 Adsense.clientId = 'ca-pub-6593013914878730'
-Adsense.slotId   = '7613920409'
+Adsense.slotIds  = ['7613920409', '9574673605', '3388539204']
 
 # Minecraft must be first
 exports.DefaultMods =

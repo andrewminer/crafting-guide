@@ -82,7 +82,7 @@ describe 'mod_pack.coffee', ->
 
         it 'returns all data for a regular Minecraft item', ->
             display = modPack.findItemDisplay ItemSlug.slugify 'bed'
-            display.iconUrl.should.equal '/browse/minecraft/bed/icon.png'
+            display.iconUrl.should.equal '/data/minecraft/items/bed/icon.png'
             display.itemUrl.should.equal '/browse/minecraft/bed/'
             display.itemName.should.equal 'Bed'
             display.modSlug.should.equal 'minecraft'
@@ -90,14 +90,14 @@ describe 'mod_pack.coffee', ->
         it 'returns all data for an item in an enabled mod', ->
             buildcraft.activeVersion = '6.2.6'
             display = modPack.findItemDisplay ItemSlug.slugify 'stone_gear'
-            display.iconUrl.should.equal '/browse/buildcraft/stone_gear/icon.png'
+            display.iconUrl.should.equal '/data/buildcraft/items/stone_gear/icon.png'
             display.itemUrl.should.equal '/browse/buildcraft/stone_gear/'
             display.itemName.should.equal 'Stone Gear'
             display.modSlug.should.equal 'buildcraft'
 
         it 'assumes an unfound item is from Minecraft', ->
             display = modPack.findItemDisplay ItemSlug.slugify 'iron_chestplate'
-            display.iconUrl.should.equal '/browse/minecraft/iron_chestplate/icon.png'
+            display.iconUrl.should.equal '/data/minecraft/items/iron_chestplate/icon.png'
             display.itemUrl.should.equal '/browse/minecraft/iron_chestplate/'
             display.itemName.should.equal 'Iron Chestplate'
             display.modSlug.should.equal 'minecraft'

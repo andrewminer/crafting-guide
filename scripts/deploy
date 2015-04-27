@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export AWS_CONFIG_FILE="$HOME/Documents/CraftingGuide/aws.config"
+export AWS_CONFIG_FILE="aws.config"
 
 ROOT="./dist"
 SITE="crafting-guide.com"
@@ -19,7 +19,7 @@ if [[ "$TARGET" == "" ]]; then
 fi
 
 if [[ "$TARGET" == "new" ]]; then
-    find "$ROOT" -name ".DS_Store" 2>/dev/null | xargs rm &>/dev/null
+    find . -name ".DS_Store" 2>/dev/null | xargs rm &>/dev/null
     if grunt dist; then
         echo "Preparing to upload to S3..."
         s3cmd sync -r --add-header="cache-control:max-age=1800" "$ROOT/" "s3://new.$SITE/"

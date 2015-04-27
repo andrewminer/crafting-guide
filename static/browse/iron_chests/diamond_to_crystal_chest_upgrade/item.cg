@@ -1,6 +1,0 @@
-schema: 1
-
-description: <<-END
-The Diamond to Crystal Chest Upgrade will convert a [Diamond Chest] into a [Crystal Chest] by right-clicking the diamond
-chest with the upgrade in your hand.
-END

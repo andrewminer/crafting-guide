@@ -12,7 +12,20 @@ path    = require 'path'
 
 ########################################################################################################################
 
-ROOT = './dist/'
+ROOT      = './dist/'
+DATA_ROOT = '../crafting-guide-data'
+
+CONTENT_TYPE = {
+    '.cg':   'text/plain'
+    '.css':  'text/css'
+    '.html': 'text/html'
+    '.js':   'text/javascript'
+    '.json': 'application/json'
+    '.map':  'application/json'
+    '.png':  'image/png'
+    '.ttf':  'application/octet-stream'
+    '.scss': 'text/css'
+}
 
 ########################################################################################################################
 
@@ -29,25 +42,20 @@ serveIndex = (request, response)->
             response.sendFile '/app.html', root:ROOT
             console.log ">>> app.html (for #{request.path})"
 
-app.get '*/$', serveIndex
+serveData = (request, response)->
+    console.log ">>> #{request.path}"
+    response.set 'Content-Type', CONTENT_TYPE[path.extname request.path]
+    response.sendFile request.path, root:DATA_ROOT
+
+app.get '/data/*', serveData
+
 app.get '/craft/*', serveIndex
 app.get '/login', serveIndex
+app.get '*/$', serveIndex
 
 app.get '*', (request, response)->
-    extension = path.extname(request.path)
-    contentType = {
-        '.css':  'text/css'
-        '.html': 'text/html'
-        '.js':   'text/javascript'
-        '.json': 'application/json'
-        '.map':  'application/json'
-        '.png':  'image/png'
-        '.ttf':  'application/octet-stream'
-        '.scss': 'text/css'
-    }[extension]
     console.log ">>> #{request.path}"
-
-    response.set 'Content-Type', contentType
+    response.set 'Content-Type', CONTENT_TYPE[path.extname request.path]
     response.sendFile request.path, root:ROOT
 
 server = app.listen 8000, '127.0.0.1', ->

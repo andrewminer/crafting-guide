@@ -1,6 +1,0 @@
-schema: 1
-
-description: <<-END
-The Iron to Gold Chest Upgrade will convert an [Iron Chest] into a [Gold Chest] by right-clicking the iron chest
-with the upgrade in your hand.
-END

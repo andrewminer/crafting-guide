@@ -42,5 +42,4 @@ module.exports = class CraftingGridController extends BaseController
             controller = @slotControllers[i]
             controller.model = @model?.getStackAtSlot(i)
 
-        @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
         super

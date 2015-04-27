@@ -1,6 +1,8 @@
 .DS_Store
 .sass-cache
+aws.config
 build
+deploy
 dist
 node_modules
 src/coffee/views.js

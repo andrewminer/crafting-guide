@@ -47,7 +47,6 @@ module.exports = class MinimalRecipeController extends BaseController
     refresh: ->
         @gridController.model = @model
         @outputSlotController.model = @model?.output?[0]
-        @$el.tooltip show:{delay:Duration.snap, duration:Duration.fast}
 
         @_refreshMultiplier()
         @_refreshTools()

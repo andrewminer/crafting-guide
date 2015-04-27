@@ -5,7 +5,7 @@
 # All rights reserved.
 ###
 
-fs = require 'fs'
+fs   = require 'fs'
 util = require 'util'
 
 ########################################################################################################################
@@ -18,13 +18,9 @@ module.exports = (grunt)->
         browserify:
             main:
                 options:
-                    ignore: ['jade']
-                    transform: ['coffeeify']
-                    browserifyOptions:
-                        debug: true
-                        extensions: ['.coffee']
+                    ignore: ['http', 'jade', 'underscore', 'when']
                 files:
-                    './dist/js/main.js': ['./src/coffee/main.coffee']
+                    './dist/js/main.js': ['./build/main.js']
 
             markdown:
                 options:
@@ -43,31 +39,35 @@ module.exports = (grunt)->
                     './dist/js/when.js': ['./node_modules/when/when.js']
 
         clean:
+            build: ['./build']
             dist: ['./dist']
 
+        coffee:
+            files:
+                expand: true
+                cwd:    './src/coffee'
+                src:    '**/*.coffee'
+                dest:   './build'
+                ext:    '.js'
+                extDot: 'last'
+
         copy:
-            jquery_ui_images:
-                files: [expand:true, cwd:'./lib/jquery-ui/images', src:['*.png'], dest:'./dist/css/images']
             scripts:
                 files:
                     './dist/js/backbone.js':   ['./node_modules/backbone/backbone.js']
                     './dist/js/chai.js':       ['./node_modules/chai/chai.js']
                     './dist/js/jade.js':       ['./node_modules/jade/runtime.js']
                     './dist/js/jquery.js':     ['./node_modules/jquery/dist/jquery.js']
-                    './dist/js/jquery-ui.js':  ['./lib/jquery-ui/jquery-ui.js']
                     './dist/js/mocha.js':      ['./node_modules/mocha/mocha.js']
                     './dist/js/underscore.js': ['./node_modules/underscore/underscore.js']
             styles:
                 files: [expand:true, cwd:'./src/css', src:'**/*.scss', dest:'./dist/src/css']
             style_extras:
                 files:
-                    './dist/css/jquery-ui.css': ['./lib/jquery-ui/jquery-ui.min.css']
                     './dist/css/mocha.css': ['./node_modules/mocha/mocha.css']
-
-        exorcise:
-            main:
+            views:
                 files:
-                    './dist/js/main.js.map': ['./dist/js/main.js']
+                    './build/views.js': ['./src/coffee/views.js']
 
         jade:
             pages:
@@ -112,12 +112,6 @@ module.exports = (grunt)->
                     src: './static/'
                     dest: './dist/'
                     recursive: true
-            non_html:
-                options:
-                    src: './static/'
-                    dest: './dist/'
-                    exclude: ['*.html']
-                    recursive: true
 
         sass:
             build:
@@ -143,23 +137,23 @@ module.exports = (grunt)->
 
         watch:
             static:
-                files: ['./static/**/*.cg', './static/**/*.txt']
+                files: ['./static/**/*']
                 tasks: ['rsync:static']
             coffee:
                 files: ['./src/**/*.coffee']
-                tasks: ['browserify:main']
+                tasks: ['coffee', 'browserify:main']
             jade:
                 files: ['./src/**/*.jade']
-                tasks: ['jade:pages', 'jade:templates', 'browserify:main']
+                tasks: ['jade:pages', 'jade:templates', 'copy:views', 'browserify:main']
             sass:
                 files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', [ 'rsync:non_html', 'copy', 'sass:build', 'jade', 'browserify', 'exorcise' ]
+    grunt.registerTask 'build', [ 'rsync', 'sass:build', 'jade', 'coffee', 'copy', 'browserify' ]
 
-    grunt.registerTask 'dist', ['test', 'clean', 'build', 'rsync:static', 'sass:dist', 'uglify']
+    grunt.registerTask 'dist', ['test', 'clean', 'build', 'sass:dist', 'uglify']
 
     grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']
 

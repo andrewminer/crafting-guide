@@ -1,6 +1,0 @@
-schema: 1
-
-description: <<-END
-The Diamond to Obsidian Chest Upgrade will convert a [Diamond Chest] into an [Obsidian Chest] by right-clicking the
-diamond chest with the upgrade in your hand.
-END

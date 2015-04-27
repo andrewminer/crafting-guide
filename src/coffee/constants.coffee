@@ -113,17 +113,17 @@ Text.title = 'The Ultimate Minecraft Crafting Guide'
 exports.Url        = Url = {}
 Url.crafting       = _.template "/craft/<%= inventoryText %>"
 Url.item           = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
-Url.itemData       = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/item.cg"
-Url.itemIcon       = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/icon.png"
+Url.itemData       = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
+Url.itemIcon       = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/icon.png"
 Url.login          = _.template "/login"
 Url.mod            = _.template "/browse/<%= modSlug %>/"
 Url.modData        = _.template "/data/<%= modSlug %>/mod.cg"
-Url.modIcon        = _.template "/browse/<%= modSlug %>/icon.png"
-Url.modVersionData = _.template "/data/<%= modSlug %>/<%= modVersion %>/mod-version.cg"
+Url.modIcon        = _.template "/data/<%= modSlug %>/icon.png"
+Url.modVersionData = _.template "/data/<%= modSlug %>/versions/<%= modVersion %>/mod-version.cg"
 Url.root           = _.template "/"
 Url.tutorial       = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
-Url.tutorialData   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>.cg"
-Url.tutorialIcon   = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
+Url.tutorialData   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/tutorial.cg"
+Url.tutorialIcon   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
 
 exports.UrlParam        = UrlParam = {}
 UrlParam.quantity       = 'count'

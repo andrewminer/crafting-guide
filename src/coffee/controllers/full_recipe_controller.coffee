@@ -51,8 +51,6 @@ module.exports = class FullRecipeController extends BaseController
     refresh: ->
         @gridController.model = @model
 
-        @$el.tooltip show:{delay:Duration.normal, duration:Duration.normal}
-
         @_refreshInputs()
         @_refreshOutputs()
         @_refreshTools()

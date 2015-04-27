@@ -1,6 +1,6 @@
 {
   "name": "crafting-guide",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Source code for http://crafting-guide.com",
   "main": "./build/index.js",
   "scripts": {

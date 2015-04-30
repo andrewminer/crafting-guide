@@ -1,3 +1,6 @@
+dependencies:
+    pre:
+        - gem install sass --version ">= 3.4"
 deployment:
     staging:
         branch: master

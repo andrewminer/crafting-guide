@@ -2,7 +2,7 @@
   "name": "crafting-guide",
   "version": "1.0.3",
   "description": "Source code for http://crafting-guide.com",
-  "main": "./build/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "prepublish": "grunt prepublish",
     "test": "grunt test"

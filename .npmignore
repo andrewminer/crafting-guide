@@ -2,7 +2,6 @@
 .DS_Store
 aws.config
 design
-dist
 marketing
 node_modules
 scripts

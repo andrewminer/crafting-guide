@@ -36,6 +36,10 @@ module.exports = (grunt)->
                     transform: ['coffeeify']
                 files: './dist/js/main.js': ['./src/coffee/main.coffee']
             prod:
+                options:
+                    browserifyOptions:
+                        extensions: ['.coffee']
+                    transform: ['coffeeify']
                 files: './dist/js/main.js': ['./src/coffee/main.coffee']
 
         coffee:

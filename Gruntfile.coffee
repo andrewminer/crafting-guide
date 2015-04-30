@@ -46,7 +46,7 @@ module.exports = (grunt)->
             dev:
                 options:
                     sourceMap: true
-                files: [expand:true, cwd:'./src/coffee', src:'**/*.coffee', dest:'./dist']
+                files: [expand:true, cwd:'./src/coffee', src:'**/*.coffee', dest:'./dist', ext:'.js']
 
         clean:
             dist: ['./dist']

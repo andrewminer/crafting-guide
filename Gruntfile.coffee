@@ -38,6 +38,12 @@ module.exports = (grunt)->
             prod:
                 files: './dist/js/main.js': ['./src/coffee/main.coffee']
 
+        coffee:
+            dev:
+                options:
+                    sourceMap: true
+                files: [expand:true, cwd:'./src/coffee', src:'**/*.coffee', dest:'./dist']
+
         clean:
             dist: ['./dist']
 
@@ -134,15 +140,13 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', 'build'
 
-    grunt.registerTask 'build', [
-        'rsync', 'sass:build', 'jade', 'copy', 'browserify:dev', 'exorcise'
-    ]
-
-    grunt.registerTask 'dist', [
-        'clean', 'rsync', 'sass:dist', 'jade', 'copy', 'browserify:prod', 'uglify', 'test'
-    ]
+    grunt.registerTask 'build', ['rsync', 'sass:build', 'jade', 'copy', 'browserify:dev', 'exorcise']
 
     grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']
+
+    grunt.registerTask 'dist', ['rsync', 'sass:dist', 'jade', 'copy', 'browserify:prod', 'uglify']
+
+    grunt.registerTask 'prepublish', ['clean', 'coffee']
 
     grunt.registerTask 'use-local-deps', ->
         grunt.file.mkdir './node_modules'

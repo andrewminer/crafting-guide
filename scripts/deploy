@@ -35,6 +35,11 @@ if [[ ! -e "$S3CMD_CFG" ]]; then
     cat $AWS_CONFIG_FILE | grep "aws_secret_access_key" | sed "s/aws_secret_access_key/secret_key/" >> "$S3CMD_CFG"
 fi
 
-echo "Preparing to upload to S3..."
-s3cmd sync -r --add-header="cache-control:max-age=1800" $SOURCE_DIR $TARGET_DIR
-echo "S3 Upload Complete"
+if grunt clean dist; then
+    echo "Preparing to upload to S3..."
+    s3cmd sync -r --add-header="cache-control:max-age=1800" $SOURCE_DIR $TARGET_DIR
+    echo "S3 Upload Complete"
+else
+    echo "ERROR: Building distribution failed. Aborting deployment!"
+    exit 1
+fi

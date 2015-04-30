@@ -5,11 +5,13 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-require './underscore_mixins'
 require './polyfill'
 
+$                     = require 'jquery'
 CraftingGuideRouter   = require './crafting_guide_router'
 FeedbackController    = require './controllers/feedback_controller'
+_                     = require './underscore_mixins'
+backbone              = require 'backbone'
 views                 = require './views'
 {CraftingGuideClient} = require 'crafting-guide-common'
 {Logger}              = require 'crafting-guide-common'
@@ -38,27 +40,21 @@ switch window.location.hostname
     else
         throw new Error "cannot determine the environment of: #{window.location.hostname}"
 
-client = _.extend new CraftingGuideClient(baseUrl:apiBaseUrl), Backbone.Events
+client = _.extend new CraftingGuideClient(baseUrl:apiBaseUrl), backbone.Events
 client.onStatusChanged = (c, oldStatus, newStatus)->
     logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
     client.trigger 'change:status', client, oldStatus, newStatus
     client.trigger 'change', client
 
-# Disabled until required by some feature -- andrewminer 2015-04-06
-# client.checkStatus()
-
-global.router   = new CraftingGuideRouter client:client
-global.util     = require 'util'
-global.views    = views
-global.markdown = global.markdown.markdown
+backbone.$ = $
 
 global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()
 
-# Disabled until required by some feature. -- andrewminer 2015-04-06
-# global.router.loadCurrentUser()
-
+global.router = new CraftingGuideRouter client:client
+global.router.loadCurrentUser()
 global.router.loadDefaultModPack()
 
+backbone.history.start pushState:true
+client.checkStatus()
 logger.info -> "CraftingGuide is ready"
-Backbone.history.start pushState:true

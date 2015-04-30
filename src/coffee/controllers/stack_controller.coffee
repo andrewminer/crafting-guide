@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController = require './base_controller'
 ImageLoader    = require './image_loader'
+_              = require 'underscore'
 {Duration}     = require '../constants'
 {Event}        = require '../constants'
 {Key}          = require '../constants'

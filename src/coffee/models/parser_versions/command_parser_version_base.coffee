@@ -5,6 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+_               = require 'underscore'
 {StringBuilder} = require 'crafting-guide-common'
 
 ########################################################################################################################

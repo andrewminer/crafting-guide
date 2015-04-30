@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseController = require './base_controller'
+_              = require 'underscore'
 {Event}        = require '../constants'
 
 ########################################################################################################################

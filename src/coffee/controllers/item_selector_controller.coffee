@@ -5,9 +5,11 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+$                             = require 'jquery'
 BaseController                = require './base_controller'
 ItemSelector                  = require '../models/item_selector'
 ItemSelectorElementController = require './item_selector_element_controller'
+_                             = require 'underscore'
 {Duration}                    = require '../constants'
 {Event}                       = require '../constants'
 {Key}                         = require '../constants'

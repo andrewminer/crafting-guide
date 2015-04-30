@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseModel      = require './base_model'
 TutorialParser = require './tutorial_parser'
+_              = require 'underscore'
 {Url}          = require '../constants'
 
 ########################################################################################################################

@@ -5,6 +5,7 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+$                       = require 'jquery'
 BrowsePageController    = require './controllers/browse_page_controller'
 ConfigurePageController = require './controllers/configure_page_controller'
 CraftPageController     = require './controllers/craft_page_controller'
@@ -17,20 +18,22 @@ LoginPageController     = require './controllers/login_page_controller'
 Mod                     = require './models/mod'
 ModPack                 = require './models/mod_pack'
 ModPageController       = require './controllers/mod_page_controller'
-TutorialPageController  = require './controllers/tutorial_page_controller'
 Storage                 = require './models/storage'
+TutorialPageController  = require './controllers/tutorial_page_controller'
 UrlParams               = require './url_params'
 User                    = require './models/user'
-{ProductionEnvs}        = require './constants'
+_                       = require 'underscore'
+backbone                = require 'backbone'
 {DefaultMods}           = require './constants'
 {Duration}              = require './constants'
 {Event}                 = require './constants'
 {Opacity}               = require './constants'
+{ProductionEnvs}        = require './constants'
 {Url}                   = require './constants'
 
 ########################################################################################################################
 
-module.exports = class CraftingGuideRouter extends Backbone.Router
+module.exports = class CraftingGuideRouter extends backbone.Router
 
     constructor: (options={})->
         @_page            = null

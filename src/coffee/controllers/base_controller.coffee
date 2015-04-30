@@ -5,13 +5,16 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+$          = require 'jquery'
+_          = require 'underscore'
+backbone   = require 'backbone'
 views      = require '../views'
 {Duration} = require '../constants'
 {Event}    = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class BaseController extends Backbone.View
+module.exports = class BaseController extends backbone.View
 
     constructor: (options={})->
         @tryRefresh = _.debounce @_tryRefresh, 100

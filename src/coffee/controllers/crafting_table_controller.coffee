@@ -5,11 +5,12 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController   = require './base_controller'
-{Duration}       = require '../constants'
-{Event}          = require '../constants'
-ImageLoader      = require './image_loader'
+BaseController          = require './base_controller'
+ImageLoader             = require './image_loader'
 MinimalRecipeController = require './minimal_recipe_controller'
+_                       = require 'underscore'
+{Duration}              = require '../constants'
+{Event}                 = require '../constants'
 
 ########################################################################################################################
 

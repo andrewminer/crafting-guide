@@ -5,9 +5,11 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+$              = require 'jquery'
 BaseController = require './base_controller'
-{Event}        = require '../constants'
 Mod            = require '../models/mod'
+_              = require 'underscore'
+{Event}        = require '../constants'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'
 

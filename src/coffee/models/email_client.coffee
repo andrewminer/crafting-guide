@@ -5,6 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+require 'underscore'
+
 ########################################################################################################################
 
 module.exports = class EmailClient

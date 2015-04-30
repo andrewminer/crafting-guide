@@ -7,6 +7,7 @@ All rights reserved.
 
 AdsenseController = require './adsense_controller'
 PageController    = require './page_controller'
+_                 = require 'underscore'
 
 ########################################################################################################################
 

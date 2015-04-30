@@ -8,6 +8,7 @@ All rights reserved.
 BaseController          = require './base_controller'
 InventoryController     = require './inventory_controller'
 MinimalRecipeController = require './minimal_recipe_controller'
+_                       = require 'underscore'
 {Event}                 = require '../constants'
 
 ########################################################################################################################

@@ -5,13 +5,15 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+_ = require 'underscore'
+
 exports.Adsense  = Adsense = {}
 Adsense.clientId = 'ca-pub-6593013914878730'
 Adsense.slotIds  = ['7613920409', '9574673605', '3388539204']
 
-# Minecraft must be first
 exports.DefaultMods =
-    minecraft:             { defaultVersion: '1.7.10' }
+    minecraft:             { defaultVersion: '1.7.10' } # Minecraft must be first
+
     applied_energistics_2: { defaultVersion: 'rv1-stable-1' }
     big_reactors:          { defaultVersion: '0.4.2A2' }
     buildcraft:            { defaultVersion: '6.4.6' }
@@ -110,20 +112,23 @@ exports.RequiredMods = [ 'minecraft' ]
 exports.Text = Text = {}
 Text.title = 'The Ultimate Minecraft Crafting Guide'
 
-exports.Url        = Url = {}
-Url.crafting       = _.template "/craft/<%= inventoryText %>"
-Url.item           = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
-Url.itemData       = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
-Url.itemIcon       = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/icon.png"
-Url.login          = _.template "/login"
-Url.mod            = _.template "/browse/<%= modSlug %>/"
-Url.modData        = _.template "/data/<%= modSlug %>/mod.cg"
-Url.modIcon        = _.template "/data/<%= modSlug %>/icon.png"
-Url.modVersionData = _.template "/data/<%= modSlug %>/versions/<%= modVersion %>/mod-version.cg"
-Url.root           = _.template "/"
-Url.tutorial       = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
-Url.tutorialData   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/tutorial.cg"
-Url.tutorialIcon   = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
+exports.Url          = Url = {}
+Url.crafting         = _.template "/craft/<%= inventoryText %>"
+Url.item             = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
+Url.itemData         = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
+Url.itemImageDir     = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>"
+Url.itemIcon         = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/icon.png"
+Url.login            = _.template "/login"
+Url.mod              = _.template "/browse/<%= modSlug %>/"
+Url.modData          = _.template "/data/<%= modSlug %>/mod.cg"
+Url.modIcon          = _.template "/data/<%= modSlug %>/icon.png"
+Url.modVersionData   = _.template "/data/<%= modSlug %>/versions/<%= modVersion %>/mod-version.cg"
+Url.root             = _.template "/"
+Url.tutorial         = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
+Url.tutorialData     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/tutorial.cg"
+Url.tutorialIcon     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
+Url.tutorialIcon     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
+Url.tutorialImageDir = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>"
 
 exports.UrlParam        = UrlParam = {}
 UrlParam.quantity       = 'count'

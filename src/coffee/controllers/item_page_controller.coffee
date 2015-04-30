@@ -15,6 +15,7 @@ ItemSlug                  = require '../models/item_slug'
 MarkdownSectionController = require './markdown_section_controller'
 PageController            = require './page_controller'
 VideoController           = require './video_controller'
+_                         = require 'underscore'
 {Duration}                = require '../constants'
 {Event}                   = require '../constants'
 {Text}                    = require '../constants'
@@ -87,6 +88,8 @@ module.exports = class ItemPageController extends PageController
             display = @modPack.findItemDisplay @model.item.slug
             @imageLoader.load display.iconUrl, @$titleImage
             @$name.html display.itemName
+
+            @_descriptionController.imageBase = Url.itemImageDir display
 
             if @model.item.officialUrl?
                 @$officialPageLink.attr 'href', @model.item.officialUrl

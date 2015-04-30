@@ -9,6 +9,7 @@ BaseModel = require './base_model'
 Inventory = require './inventory'
 ItemSlug  = require './item_slug'
 Step      = require './step'
+_         = require 'underscore'
 {Event}   = require '../constants'
 
 ########################################################################################################################

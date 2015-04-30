@@ -6,10 +6,11 @@ All rights reserved.
 ###
 
 BaseModel      = require './base_model'
-{Event}        = require '../constants'
 Item           = require './item'
 ItemSlug       = require './item_slug'
 Recipe         = require './recipe'
+_              = require 'underscore'
+{Event}        = require '../constants'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'
 

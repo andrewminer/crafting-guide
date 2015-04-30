@@ -11,6 +11,7 @@ ItemSlug                 = require '../item_slug'
 ModVersion               = require '../mod_version'
 Recipe                   = require '../recipe'
 Stack                    = require '../simple_stack'
+_                        = require 'underscore'
 {StringBuilder}          = require 'crafting-guide-common'
 
 ########################################################################################################################

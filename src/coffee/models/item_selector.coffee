@@ -6,7 +6,8 @@ All rights reserved.
 ###
 
 BaseModel = require './base_model'
-ItemSlug = require './item_slug'
+ItemSlug  = require './item_slug'
+_         = require 'underscore'
 
 ########################################################################################################################
 

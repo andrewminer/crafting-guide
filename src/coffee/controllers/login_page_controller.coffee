@@ -7,6 +7,7 @@ All rights reserved.
 
 PageController        = require './page_controller'
 User                  = require '../models/user'
+_                     = require 'underscore'
 {CraftingGuideClient} = require 'crafting-guide-common'
 {Event}               = require '../constants'
 {Login}               = require '../constants'

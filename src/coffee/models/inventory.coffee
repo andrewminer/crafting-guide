@@ -6,10 +6,11 @@ All rights reserved.
 ###
 
 BaseModel      = require './base_model'
-{Event}        = require '../constants'
 ItemSlug       = require './item_slug'
-{RequiredMods} = require '../constants'
 Stack          = require './stack'
+_              = require 'underscore'
+{Event}        = require '../constants'
+{RequiredMods} = require '../constants'
 
 ########################################################################################################################
 

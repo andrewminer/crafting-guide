@@ -98,6 +98,7 @@ module.exports = class TutorialPageController extends BaseController
                 controller.model = section.model
                 controller.refresh()
 
+            controller.imageBase = Url.tutorialImageDir modSlug:@modSlug, tutorialSlug:@tutorialSlug
             index += 1
 
         while @_sectionControllers.length > index

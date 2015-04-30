@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseModel    = require './base_model'
 CraftingPlan = require './crafting_plan'
+_            = require 'underscore'
 {Event}      = require '../constants'
 {Url}        = require '../constants'
 

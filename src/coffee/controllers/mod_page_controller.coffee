@@ -5,6 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+$                   = require 'jquery'
 AdsenseController   = require './adsense_controller'
 Item                = require '../models/item'
 ItemGroupController = require './item_group_controller'

@@ -9,6 +9,7 @@ BaseController         = require './base_controller'
 CraftingGridController = require './crafting_grid_controller'
 ImageLoader            = require './image_loader'
 SlotController         = require './slot_controller'
+_                      = require 'underscore'
 {Duration}             = require '../constants'
 {StringBuilder}        = require 'crafting-guide-common'
 

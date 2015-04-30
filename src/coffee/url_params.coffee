@@ -5,6 +5,7 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+_   = require 'underscore'
 url = require 'url'
 
 ########################################################################################################################

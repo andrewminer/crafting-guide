@@ -5,8 +5,14 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-_.mixin
+_              = require 'underscore'
+{stringMixins} = require 'crafting-guide-common'
 
+########################################################################################################################
+
+module.exports = _
+
+_.mixin
     parseMarkdown: (text)->
         return markdown.parse text, 'Maruku'
 
@@ -32,4 +38,4 @@ _.mixin
 
         return parts
 
-_.mixin require('crafting-guide-common').stringMixins
+_.mixin stringMixins

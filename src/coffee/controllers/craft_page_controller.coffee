@@ -10,6 +10,7 @@ CraftPage           = require '../models/craft_page'
 InventoryController = require './inventory_controller'
 PageController      = require './page_controller'
 StepController      = require './step_controller'
+_                   = require 'underscore'
 {Event}             = require '../constants'
 {Url}               = require '../constants'
 
@@ -30,7 +31,7 @@ module.exports = class CraftPageController extends PageController
         @modPack     = options.modPack
         @storage     = options.storage
 
-        @model.plan.on Event.change, => @refresh()
+        @model.plan.on Event.change, => @tryRefresh()
 
     # Event Methods ################################################################################
 

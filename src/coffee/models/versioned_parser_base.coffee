@@ -5,6 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+_ = require 'underscore'
+
 ########################################################################################################################
 
 module.exports = class VersionedParserBase

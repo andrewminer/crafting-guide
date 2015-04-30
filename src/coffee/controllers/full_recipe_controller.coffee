@@ -10,6 +10,7 @@ CraftingGridController = require './crafting_grid_controller'
 ImageLoader            = require './image_loader'
 Inventory              = require '../models/inventory'
 InventoryController    = require './inventory_controller'
+_                      = require 'underscore'
 {Duration}             = require '../constants'
 {StringBuilder}        = require 'crafting-guide-common'
 

@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseModel      = require './base_model'
+_              = require 'underscore'
 {Event}        = require '../constants'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'

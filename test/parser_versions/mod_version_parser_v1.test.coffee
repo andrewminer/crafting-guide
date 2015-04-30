@@ -9,6 +9,7 @@ CommandParserVersionBase = require '../../src/coffee/models/parser_versions/comm
 ItemSlug                 = require '../../src/coffee/models/item_slug'
 ModVersion               = require '../../src/coffee/models/mod_version'
 ModVersionParserV1       = require '../../src/coffee/models/parser_versions/mod_version_parser_v1'
+_                        = require 'underscore'
 {Logger}                 = require 'crafting-guide-common'
 
 ########################################################################################################################

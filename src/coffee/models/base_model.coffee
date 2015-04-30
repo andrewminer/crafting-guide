@@ -5,12 +5,15 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+$            = require 'jquery'
+backbone     = require 'backbone'
+w            = require 'when'
 {Event}      = require '../constants'
 {ModelState} = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class BaseModel extends Backbone.Model
+module.exports = class BaseModel extends backbone.Model
 
     constructor: (attributes={}, options={})->
         options.logEvents ?= true
@@ -70,7 +73,7 @@ module.exports = class BaseModel extends Backbone.Model
                 success:  (text, status, xhr)=> resolve @onLoadSucceeded text, status, xhr
                 error:    (xhr, status, error)=> reject @onLoadFailed error, status, xhr
 
-        @loading.catch -> # do nothing. prevents unhandled promise warnings
+        @loading.catch (e)-> # do nothing
         return @loading
 
     parse: (text)->

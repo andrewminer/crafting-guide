@@ -5,7 +5,12 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-_.mixin require './underscore_mixins'
+_      = require 'underscore'
+mixins = require './underscore_mixins'
+
+########################################################################################################################
+
+_.mixin mixins
 
 module.exports =
     Mod:              require './models/mod'

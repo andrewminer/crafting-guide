@@ -57,8 +57,6 @@ All rights reserved.
         position: absolute; bottom: 5em; height: 3.2em; width: 100%;
 
         .login {
-            display: none; // Temporarily disable until there's a feature which needs it
-
             position: absolute; top: 50%; right: 2em;
             @include transform(translateY(-50%));
 

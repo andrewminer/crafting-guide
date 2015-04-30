@@ -5,9 +5,11 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+$              = require 'jquery'
 BaseController = require './base_controller'
-{Duration}     = require '../constants'
 EmailClient    = require '../models/email_client'
+_              = require 'underscore'
+{Duration}     = require '../constants'
 {Key}          = require '../constants'
 
 ########################################################################################################################

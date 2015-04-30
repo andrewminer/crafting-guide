@@ -7,6 +7,7 @@ All rights reserved.
 
 BaseController        = require './base_controller'
 ModSelectorController = require './mod_selector_controller'
+_                     = require 'underscore'
 {Duration}            = require '../constants'
 
 ########################################################################################################################

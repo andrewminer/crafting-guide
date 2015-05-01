@@ -137,7 +137,7 @@ module.exports = (grunt)->
                 tasks: ['browserify:dev', 'exorcise']
             jade:
                 files: ['./src/**/*.jade']
-                tasks: ['jade:pages', 'jade:templates', 'copy:views', 'browserify:dev', 'exorcise']
+                tasks: ['jade:pages', 'jade:templates', 'browserify:dev', 'exorcise']
             sass:
                 files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']

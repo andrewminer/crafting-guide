@@ -1,18 +1,18 @@
 #!/usr/bin/env coffee
 
-{Logger} = require 'crafting-guide-common'
-
-global._        = require 'underscore'
-global.Backbone = require 'backbone'
-global.logger   = new Logger level:Logger.FATAL
-
-require '../src/coffee/underscore_mixins'
-
-{DefaultMods}    = require '../src/coffee/constants'
 Mod              = require '../src/coffee/models/mod'
 ModParser        = require '../src/coffee/models/mod_parser'
 ModVersionParser = require '../src/coffee/models/mod_version_parser'
+_                = require 'underscore'
 fs               = require 'fs'
+{DefaultMods}    = require '../src/coffee/constants'
+{Logger}         = require 'crafting-guide-common'
+
+require '../src/coffee/underscore_mixins'
+
+########################################################################################################################
+
+global.logger = new Logger level:Logger.FATAL
 
 modSlugs = {}
 itemSlugs = {}
@@ -32,10 +32,10 @@ for modSlug, modData of DefaultMods
 
     mod = new Mod slug:modSlug
     modParser = new ModParser model:mod
-    modParser.parse fs.readFileSync "./static/data/#{modSlug}/mod.cg", 'utf-8'
+    modParser.parse fs.readFileSync "../crafting-guide-data/data/#{modSlug}/mod.cg", 'utf-8'
 
     mod.eachModVersion (modVersion)->
-        modVersionDataFile = "./static/data/#{modSlug}/#{modVersion.version}/mod-version.cg"
+        modVersionDataFile = "../crafting-guide-data/data/#{modSlug}/versions/#{modVersion.version}/mod-version.cg"
         modVersionParser = new ModVersionParser model:modVersion
         modVersionParser.parse fs.readFileSync modVersionDataFile, 'utf-8'
 

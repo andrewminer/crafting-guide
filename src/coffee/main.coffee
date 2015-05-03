@@ -12,6 +12,7 @@ CraftingGuideRouter   = require './crafting_guide_router'
 FeedbackController    = require './controllers/feedback_controller'
 _                     = require './underscore_mixins'
 backbone              = require 'backbone'
+marked                = require 'marked'
 views                 = require './views'
 {CraftingGuideClient} = require 'crafting-guide-common'
 {Logger}              = require 'crafting-guide-common'
@@ -47,6 +48,9 @@ client.onStatusChanged = (c, oldStatus, newStatus)->
     client.trigger 'change', client
 
 backbone.$ = $
+
+marked.setOptions
+    sanitize: true
 
 global.feedbackController = new FeedbackController el:'.view__feedback'
 feedbackController.render()

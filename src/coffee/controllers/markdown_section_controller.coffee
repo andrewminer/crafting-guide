@@ -5,10 +5,10 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController = require './base_controller'
-_              = require 'underscore'
-{markdown}     = require 'markdown'
-{Url}          = require '../constants'
+BaseController  = require './base_controller'
+convertMarkdown = require 'marked'
+_               = require 'underscore'
+{Url}           = require '../constants'
 
 ########################################################################################################################
 
@@ -31,13 +31,18 @@ module.exports = class MarkdownSectionController extends BaseController
     onDidRender: ->
         @$title         = @$('h2')
         @$markdownPanel = @$('.markdown')
+
         super
 
     refresh: ->
         @$title.html @title
 
-        @$markdownPanel.empty()
-        @$markdownPanel.html @_parseMarkdown()
+        text = @model
+        text = @_convertWikiLinks text
+        text = @_convertImageLinks text
+
+        @$markdownPanel.html convertMarkdown text
+
         super
 
     # Backbone.View Overrides ######################################################################
@@ -48,33 +53,18 @@ module.exports = class MarkdownSectionController extends BaseController
 
     # Private Methods ##############################################################################
 
-    _parseMarkdown: ->
-        return '' unless @model
+    _
 
-        tree = markdown.parse @model, 'Maruku'
+    _convertImageLinks: (text)->
+        text.replace /\!\[([^\]]*)\]\(([^\)]*)\)/g, (match, altText, fileName)=>
+            return "![#{altText}](#{@imageBase}/#{fileName})"
 
-        findLinkRefs = (node)=>
-            logger.verbose -> "inspecting a #{node[0]}"
-            if node[0] is 'link_ref'
-                logger.verbose -> "looking for item named: #{node[2]}"
-                item = @modPack.findItemByName node[2]
-                if item?
-                    logger.verbose -> "found item #{item.slug}, updating link"
-                    node[0] = 'link'
-                    node[1].href = Url.item itemSlug:item.slug.item, modSlug:item.slug.mod
-                    delete node[1].ref
-            else if node[0] is 'img'
-                node[1].href = "#{@imageBase}/#{node[1].href}"
-            else
-                for index in [1...node.length]
-                    if _.isArray node[index]
-                            logger.indent()
-                            findLinkRefs node[index]
-                            logger.outdent()
+    _convertWikiLinks: (text)->
+        text.replace /\[\[([^\]]*)\]\]/g, (match, name)=>
+            result = match
+            item = @modPack.findItemByName name
+            if item?
+                display = @modPack.findItemDisplay item.slug
+                result = "[#{name}](#{display.itemUrl})"
 
-        logger.verbose "replacing wiki-style links"
-        findLinkRefs tree
-        logger.verbose "finished"
-
-        html = markdown.renderJsonML markdown.toHTMLTree tree
-        return html
+            return result

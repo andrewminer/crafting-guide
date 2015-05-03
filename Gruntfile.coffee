@@ -11,10 +11,9 @@ util = require 'util'
 ########################################################################################################################
 
 LIBRARY_ALIAS_MAPPING = [
-    './node_modules/jquery/dist/jquery.js:jquery'
     './node_modules/backbone/backbone.js:backbone'
     './node_modules/jade/runtime.js:jade'
-    './node_modules/markdown/lib/index.js:markdown'
+    './node_modules/jquery/dist/jquery.js:jquery'
     './node_modules/underscore/underscore.js:underscore'
     './node_modules/when/when.js:when'
 ]
@@ -54,9 +53,6 @@ module.exports = (grunt)->
         copy:
             styles:
                 files: [expand:true, cwd:'./src/css', src:'**/*.scss', dest:'./dist/src/css']
-            style_extras:
-                files:
-                    './dist/css/mocha.css': ['./node_modules/mocha/mocha.css']
 
         exorcise:
             dev:
@@ -133,7 +129,7 @@ module.exports = (grunt)->
                 files: ['./static/**/*']
                 tasks: ['rsync:static']
             coffee:
-                files: ['./src/**/*.coffee']
+                files: ['./src/**/*.coffee', './src/**/*.js']
                 tasks: ['browserify:dev', 'exorcise']
             jade:
                 files: ['./src/**/*.jade']

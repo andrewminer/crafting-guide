@@ -53,8 +53,6 @@ module.exports = class MarkdownSectionController extends BaseController
 
     # Private Methods ##############################################################################
 
-    _
-
     _convertImageLinks: (text)->
         text.replace /\!\[([^\]]*)\]\(([^\)]*)\)/g, (match, altText, fileName)=>
             return "![#{altText}](#{@imageBase}/#{fileName})"

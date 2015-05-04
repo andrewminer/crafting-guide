@@ -36,13 +36,12 @@ All rights reserved.
     }
 
     table {
-        margin-top: 2em;
-        position: relative; width: 100%;
+        margin: 2em auto 0 auto;
 
         td {
             font-family: $font-family-normal;
             font-size: $font-size-normal;
-            padding: 0.1em 0.5em;
+            padding: 0.1em 1em;
             vertical-align: middle;
         }
 
@@ -50,6 +49,7 @@ All rights reserved.
             font-family: $font-family-normal;
             font-size: $font-size-normal;
             font-weight: bold;
+            padding: 0.1em 1em;
             vertical-align: middle;
             text-align: center;
         }

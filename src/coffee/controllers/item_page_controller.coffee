@@ -58,7 +58,7 @@ module.exports = class ItemPageController extends PageController
     onDidRender: ->
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
-        options                      = imageLoader:@imageLoader, modPack:@modPack, show:false
+        options                      = editable:true, imageLoader:@imageLoader, modPack:@modPack, show:false
         @_descriptionController      = @addChild MarkdownSectionController, '.section.description', options
         @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options
         @_usedAsToolToMakeController = @addChild ItemGroupController, '.view__item_group.usedAsToolToMake', options
@@ -111,14 +111,18 @@ module.exports = class ItemPageController extends PageController
 
         super
 
+    setUser: (user)->
+        super user
+        @_descriptionController.user = user if @_descriptionController?
+
     # Backbone.View Overrides ######################################################################
 
     events: ->
         return _.extend super,
-            'click a.craftingPlan': 'routeLinkClick'
-            'click .byline a':      'routeLinkClick'
-            'click .markdown a':    'routeLinkClick'
-            'click button':         'craftingPlanButtonClicked'
+            'click a.craftingPlan':      'routeLinkClick'
+            'click .byline a':           'routeLinkClick'
+            'click .markdown a':         'routeLinkClick'
+            'click button.craftingPlan': 'craftingPlanButtonClicked'
 
     # Private Methods ##############################################################################
 

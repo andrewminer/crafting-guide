@@ -7,4 +7,16 @@
 
 .view__markdown_section.section
     h2
-    .panel.markdown
+    .panel
+        .markdown.hideable
+        .editor.hideable.hidden
+            textarea
+            .sizer
+        .images.hideable.hidden
+        .buttons.hideable.hidden
+            .error.hideable.hidden: p
+            button.return.hideable.hidden return
+            button.cancel.hideable.hidden cancel
+            button.preview.hideable.hidden preview
+            button.save.hideable.hidden save
+            button.edit.hideable edit

@@ -153,9 +153,9 @@ module.exports = class BaseController extends backbone.View
         @tryRefresh()
 
     Object.defineProperties @prototype,
-        model:    {get:@prototype.getModel,  set:@prototype.setModel}
+        model:    {get:@prototype.getModel, set:@prototype.setModel}
         rendered: {get:@prototype.isRendered }
-        user:     {get:@prototype.user,      set:@prototype.setUser}
+        user:     {get:@prototype.getUser, set:@prototype.setUser}
 
     # Backbone.View Overrides ######################################################################
 

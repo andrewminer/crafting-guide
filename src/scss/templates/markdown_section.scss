@@ -6,7 +6,62 @@ All rights reserved.
 */
 
 .view__markdown_section {
+
     .editor {
         width: 100%;
+
+        position: relative;
+        min-height: 10em;
+
+        textarea, .sizer {
+            width: 100%;
+            border: 1px solid $color-gray-light;
+            font-family: $font-family-input;
+            font-size: $font-size-normal;
+        }
+
+        textarea {
+            position: absolute; height: 100%; width: 100%;
+
+            background: $color-gray-faint;
+            resize: none;
+            z-index: $layer-normal;
+
+            &:focus {
+                background: $color-background-panel;
+                border: 1px solid $color-gray-medium;
+            }
+        }
+
+        .sizer {
+            padding-bottom: 1.5em;
+            visibility: hidden;
+            z-index: $layer-normal - 1;
+        }
+    }
+
+    .buttons {
+        position: relative; width: 100%;
+
+        text-align: right;
+
+        button {
+            margin: 0.66em 0 0 0.66em;
+            min-width: 6.66em;
+            padding: 0.25em 0.5em;
+        }
+
+        .error {
+
+            height: 100%;
+
+            background: none;
+            display: inline-block;
+
+            p {
+                color: $color-error-new;
+                font-weight: bold;
+            }
+        }
     }
 }

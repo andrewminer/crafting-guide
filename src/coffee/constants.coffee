@@ -66,7 +66,7 @@ Event.route               = 'route'
 Event.sort                = 'sort'
 Event.sync                = 'sync'                # model, response
 Event.transitionEnd       = (->
-    return unless document?
+    return 'transitionend' unless document?
     transitions =
       'WebkitTransition': 'webkitTransitionEnd'
       'MozTransition':    'transitionend'
@@ -87,6 +87,10 @@ Key.Return    = 13
 Key.Escape    = 27
 Key.UpArrow   = 38
 Key.DownArrow = 40
+
+exports.GitHub = GitHub = {}
+GitHub.file = {}
+GitHub.file.itemDescription = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
 
 exports.Login = Login = {}
 Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +

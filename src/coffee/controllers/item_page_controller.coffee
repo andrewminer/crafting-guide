@@ -16,8 +16,10 @@ MarkdownSectionController = require './markdown_section_controller'
 PageController            = require './page_controller'
 VideoController           = require './video_controller'
 _                         = require 'underscore'
+w                         = require 'when'
 {Duration}                = require '../constants'
 {Event}                   = require '../constants'
+{GitHub}                  = require '../constants'
 {Text}                    = require '../constants'
 {Url}                     = require '../constants'
 
@@ -26,6 +28,7 @@ _                         = require 'underscore'
 module.exports = class ItemPageController extends PageController
 
     constructor: (options={})->
+        if not options.client? then throw new Error 'options.client is required'
         if not options.itemSlug? then throw new Error 'options.itemSlug is required'
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
@@ -35,9 +38,12 @@ module.exports = class ItemPageController extends PageController
 
         super options
 
+        @client      = options.client
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
-        @_itemSlug   = options.itemSlug
+
+        @_editingFile = null
+        @_itemSlug    = options.itemSlug
 
         @modPack.on Event.change, => @tryRefresh()
 
@@ -58,11 +64,16 @@ module.exports = class ItemPageController extends PageController
     onDidRender: ->
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
-        options                      = editable:true, imageLoader:@imageLoader, modPack:@modPack, show:false
-        @_descriptionController      = @addChild MarkdownSectionController, '.section.description', options
+        options                      = imageLoader:@imageLoader, modPack:@modPack, show:false
         @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options
         @_usedAsToolToMakeController = @addChild ItemGroupController, '.view__item_group.usedAsToolToMake', options
         @_usedToMakeController       = @addChild ItemGroupController, '.view__item_group.usedToMake', options
+
+        @_descriptionController = @addChild MarkdownSectionController, '.section.description',
+            editable: true
+            modPack: @modPack
+            beginEditing: => @_beginEditingDescription()
+            endEditing: => @_endEditingDescription()
 
         @$byline                  = @$('.byline')
         @$bylineLink              = @$('.byline a')
@@ -125,6 +136,23 @@ module.exports = class ItemPageController extends PageController
             'click button.craftingPlan': 'craftingPlanButtonClicked'
 
     # Private Methods ##############################################################################
+
+    _beginEditingDescription: ->
+        if not global.router.user?
+            global.router.login()
+            return w.reject new Error 'must be logged in to edit'
+
+        if not @model.item?
+            return w.reject new Error 'must have an item'
+
+        @client.fetchFile file:GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
+            .then (fileRecord)=>
+                @_editingFile = fileRecord
+                @model.item.parse fileRecord.content
+                @_descriptionController.model = @model.item.description
+
+    _endEditingDescription: ->
+        return w(true).delay(1000)
 
     _refreshByline: ->
         mod = @model.item?.modVersion?.mod

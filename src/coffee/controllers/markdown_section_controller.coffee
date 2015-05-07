@@ -10,94 +10,118 @@ convertMarkdown = require 'marked'
 _               = require 'underscore'
 {Event}         = require '../constants'
 {Url}           = require '../constants'
+w               = require 'when'
 
 ########################################################################################################################
 
 module.exports = class MarkdownSectionController extends BaseController
 
     @State = State =
-        viewing:    'viewing'
-        editing:    'editing'
-        previewing: 'previewing'
-        error:      'error'
+        appologizing: 'applogizing'
+        confirming:   'confirming'
+        editing:      'editing'
+        previewing:   'previewing'
+        viewing:      'viewing'
+        waiting:      'waiting'
 
     constructor: (options={})->
+        @_state = State.waiting
+
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.editable     ?= false
-        options.imageBase    ?= ''
-        options.model        ?= ''
-        options.title        ?= 'Description'
-        options.templateName  = 'markdown_section'
+        options.model               ?= null
+        options.templateName         = 'markdown_section'
         super options
 
-        @imageBase = options.imageBase
-        @modPack   = options.modPack
-        @title     = options.title
+        @confirmactionMessage = options.confirmationMessage
+        @confirmDuration      = options.confirmationDuration ?= 5000
+        @imageBase            = options.imageBase            ?= ''
+        @modPack              = options.modPack
+        @title                = options.title                ?= 'Description'
 
-        @_editable = options.editable
-        @_state = State.viewing
+        # @_beginEditing must be a function returning a promise which resolves when all actions necessary prior to an
+        # editing session have been completed (e.g., loading the latest content from a remote server). The promise must
+        # reject if an error occured which should prevent editing.
+        @_beginEditing = options.beginEditing
+
+        # @_endEditing must be a function returning a promise which resolves when the model of this controller has been
+        # saved however is appropriate. The promise must reject if saving failed for some reason.
+        @_endEditing = options.endEditing
 
     # Event Methods ################################################################################
 
     onCancelClicked: (event)->
         event.preventDefault()
-        @_state = State.viewing
-        @_updateStateVisibility()
+        @model = @_originalModel
+        @state = State.viewing
 
     onEditClicked: (event)->
         event.preventDefault()
+        return unless @editable
 
-        if global.router.user?
-            @_state = State.editing
-            @_updateStateVisibility()
-        else
-            global.router.login()
+        @_originalModel = "#{@model}"
+        @state = State.waiting
+        @_beginEditing()
+            .then =>
+                @state = State.editing
+            .catch (e)=>
+                logger.warning "cannot begin editing: #{e.stack}"
+                @state = State.appologizing
+                w(true).delay(@confirmDuration).then => @state = State.viewing
 
     onPreviewClicked: (event)->
         event.preventDefault()
-        @_state = State.preview
-        @_updateStateVisibility()
+        @state = State.previewing
 
     onReturnClicked: (event)->
         event.preventDefault()
-        @_state = State.editing
-        @_updateStateVisibility()
+        @state = State.editing
 
     onSaveClicked: (event)->
-        # TODO: implement logic to actually save changes
-        @onCancelClicked event
+        event.preventDefault()
+
+        nextState = State.viewing
+        @state = State.waiting
+        @_endEditing()
+            .then =>
+                @state = State.confirming
+            .catch (e)=>
+                logger.error "failed to end editing: #{e}"
+                @state = State.appologizing
+                nextState = State.editing
+            .delay @confirmDuration
+            .then =>
+                @state = nextState
 
     onTextChanged: (event)->
         event.preventDefault()
-        @_updatePreview()
-        @_updateSizer()
+        @model = @$textarea.val()
 
     # Property Methods #############################################################################
 
     isEditable: ->
-        return @_editable
+        return _.isFunction(@_beginEditing) and _.isFunction(@_endEditing)
 
-    setEditable: (editable)->
-        return if @_editable is editable
-        @_editable = editable
-        @tryRefresh()
+    getState: ->
+        return @_state
+
+    setState: (newState)->
+        oldState = @_state
+        return if oldState is newState
+        @_state = newState
+
+        logger.verbose => "MarkdownSectionController.#{@cid} changed state from #{oldState} to #{newState}"
+        @trigger Event.change + ':state', this, oldState, newState
+        @_updateStateVisibility()
 
     Object.defineProperties @prototype,
-        editable: {get:@prototype.isEditable, set:@prototype.setEditable}
+        editable: {get:@prototype.isEditable}
+        state:    {get:@prototype.getState, set:@prototype.setState}
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$buttonPanel   = @$('.buttons')
-        @$cancelButton  = @$('button.cancel')
-        @$editButton    = @$('button.edit')
-        @$editorPanel   = @$('.editor')
-        @$errorPanel    = @$('.error')
         @$errorText     = @$('.error p')
         @$markdownPanel = @$('.markdown')
-        @$previewButton = @$('button.preview')
-        @$returnButton  = @$('button.return')
-        @$saveButton    = @$('button.save')
         @$sizer         = @$('.sizer')
         @$textarea      = @$('textarea')
         @$title         = @$('h2')
@@ -107,16 +131,22 @@ module.exports = class MarkdownSectionController extends BaseController
     refresh: ->
         @$title.html @title
 
-        @$textarea.val @model
-
-        if @editable
-            @show @$buttonPanel
-        else
-            @hide @$buttonPanel
-
         @_updateSizer()
         @_updatePreview()
+        @_updateStateVisibility()
         super
+
+    onWillChangeModel: (oldModel, newModel)->
+        result = super oldModel, newModel
+
+        if @state is State.waiting and newModel?
+            @state = State.viewing
+        else if not newModel?
+            @state = State.waiting
+
+        @$textarea.val newModel
+
+        return result
 
     # Backbone.View Overrides ######################################################################
 
@@ -147,35 +177,66 @@ module.exports = class MarkdownSectionController extends BaseController
             return result
 
     _updateSizer: ->
-        text = @$textarea.val()
-        text = text.replace /\n/g, '<br>'
+        text = @model
+        if @model?
+            text = text.replace /\n/g, '<br>'
+
         @$sizer.html text
 
     _updatePreview: ->
-        text = @$textarea.val()
-        text = @_convertWikiLinks text
-        text = @_convertImageLinks text
+        text = @model
+        if @model?
+            text = @_convertWikiLinks text
+            text = @_convertImageLinks text
+            text = convertMarkdown text
 
-        @$markdownPanel.html convertMarkdown text
+        @$markdownPanel.html text
 
     _updateStateVisibility: ->
-        toHide = []
-        toShow = []
+        return if @_lastUpdatedState is @state
+        @_lastUpdatedState = @state
+
+        elements =
+            appologizingPanel: @$('.appologizing')
+            buttonPanel:       @$('.buttons')
+            cancelButton:      @$('button.cancel')
+            confirmingPanel:   @$('.confirming')
+            editButton:        @$('button.edit')
+            editorPanel:       @$('.editor')
+            errorPanel:        @$('.error')
+            markdownPanel:     @$markdownPanel
+            previewButton:     @$('button.preview')
+            returnButton:      @$('button.return')
+            saveButton:        @$('button.save')
+            waitingPanel:      @$('.waiting')
+
+        visible = {}
         errorText = ''
 
-        if @_state is State.viewing
-            toHide = [@$cancelButton, @$editorPanel, @$errorPanel, @$previewButton, @$returnButton, @$saveButton]
-            toShow = [@$editButton, @$markdownPanel]
-        else if @_state is State.editing
-            toHide = [@$editButton, @$errorPanel, @$markdownPanel, @$previewButton, @$returnButton]
-            toShow = [@$cancelButton, @$editorPanel, @$previewButton, @$saveButton]
-        else if @_state is State.preview
-            toHide    = [@$cancelButton, @$editButton, @$editorPanel, @$previewButton, @$saveButton]
-            toShow    = [@$errorPanel, @$markdownPanel, @$returnButton]
+        if @state is State.appologizing
+            visible = appologizingPanel:true
+        else if @state is State.confirming
+            visible = confirmingPanel:true
+        else if @state is State.editing
+            visible = buttonPanel:true, cancelButton:true, editorPanel:true, previewButton:true, saveButton:true
+        else if @state is State.previewing
+            visible = buttonPanel:true, errorPanel:true, markdownPanel:true, returnButton:true
             errorText = "remember: your changes aren't saved yet!"
-        # else if @_state is State.error
-            # TODO: Implement change to error state
+        else if @state is State.viewing
+            visible = markdownPanel:true
+            if @editable then _.extend visible, {buttonPanel:true, editButton:true}
+        else # assume any unknown state is the same as "waiting"
+            visible = waitingPanel:true
 
-        @hide $el for $el in toHide
-        @once Event.animate.hide.finish, => @show $el for $el in toShow
+        toHide = ($el for name, $el of elements when not visible[name])
+        toShow = ($el for name, $el of elements when visible[name])
+
+        if toHide.length > 0
+            @hide $el for $el in toHide
+            if toShow.length > 0
+                @once Event.animate.hide.finish, =>
+                    @show $el for $el in toShow
+        else if toShow.length > 0
+            @show $el for $el in toShow
+
         @$errorText.html errorText

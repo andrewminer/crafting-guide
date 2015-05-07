@@ -7,6 +7,51 @@ All rights reserved.
 
 .view__markdown_section {
 
+    .appologizing, .confirming {
+        width: 100%;
+
+        p {
+            width: 100%;
+
+            margin: 1em auto;
+            text-align: center;
+
+            &:first-child {
+                font-size: $font-size-x-large;
+                margin-top: 2em;
+            }
+
+            &:last-child {
+                margin-bottom: 4em;
+            }
+        }
+    }
+
+    .buttons {
+        position: relative; width: 100%;
+
+        text-align: right;
+
+        button {
+            margin: 0.66em 0 0 0.66em;
+            min-width: 6.66em;
+            padding: 0.25em 0.5em;
+        }
+
+        .error {
+
+            height: 100%;
+
+            background: none;
+            display: inline-block;
+
+            p {
+                color: $color-error-new;
+                font-weight: bold;
+            }
+        }
+    }
+
     .editor {
         width: 100%;
 
@@ -40,28 +85,12 @@ All rights reserved.
         }
     }
 
-    .buttons {
-        position: relative; width: 100%;
+    .waiting {
+        position: relative; min-height: 20em; width: 100%;
 
-        text-align: right;
-
-        button {
-            margin: 0.66em 0 0 0.66em;
-            min-width: 6.66em;
-            padding: 0.25em 0.5em;
-        }
-
-        .error {
-
-            height: 100%;
-
-            background: none;
-            display: inline-block;
-
-            p {
-                color: $color-error-new;
-                font-weight: bold;
-            }
+        img {
+            position: absolute; top: 50%; left: 50%;
+            @include transform(translate(-50%, -50%));
         }
     }
 }

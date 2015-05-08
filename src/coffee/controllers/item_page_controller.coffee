@@ -145,14 +145,26 @@ module.exports = class ItemPageController extends PageController
         if not @model.item?
             return w.reject new Error 'must have an item'
 
-        @client.fetchFile file:GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
-            .then (fileRecord)=>
-                @_editingFile = fileRecord
-                @model.item.parse fileRecord.content
+        @client.fetchFile path:GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
+            .then (response)=>
+                @_editingFile = response.json.data
+                @model.item.parse @_editingFile.content
                 @_descriptionController.model = @model.item.description
 
     _endEditingDescription: ->
-        return w(true).delay(1000)
+        oldDescription = @model.item.description
+        @model.item.description = @_descriptionController.model
+
+        args =
+            content: @model.item.unparse()
+            message: "User-submitted text for #{@model.item.name}"
+            path:    GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
+            sha:     @_editingFile.sha
+
+        @client.updateFile args
+            .catch (e)=>
+                @model.item.description = oldDescription
+                throw e
 
     _refreshByline: ->
         mod = @model.item?.modVersion?.mod

@@ -79,7 +79,6 @@ module.exports = class MarkdownSectionController extends BaseController
     onSaveClicked: (event)->
         event.preventDefault()
 
-        nextState = State.viewing
         @state = State.waiting
         @_endEditing()
             .then =>
@@ -87,10 +86,9 @@ module.exports = class MarkdownSectionController extends BaseController
             .catch (e)=>
                 logger.error "failed to end editing: #{e}"
                 @state = State.appologizing
-                nextState = State.editing
             .delay @confirmDuration
             .then =>
-                @state = nextState
+                @state = State.viewing
 
     onTextChanged: (event)->
         event.preventDefault()

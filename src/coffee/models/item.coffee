@@ -45,6 +45,11 @@ module.exports = class Item extends BaseModel
             return if this.name < that.name then -1 else +1
         return 0
 
+    unparse: ->
+        ItemParser = require './item_parser' # to avoid require cycles
+        @_parser ?= new ItemParser model:this
+        return @_parser.unparse()
+
     # Property Methods #############################################################################
 
     getIsCraftable: ->

@@ -17,17 +17,23 @@ module.exports = class ItemParserV1 extends CommandParserVersionBase
         @_buildItem rawData, model
 
     _unparseModel: (builder, model)->
+        builder.line 'schema: ', 1
+        builder.line()
+
         @_unparseItem builder, model
 
     # Command Methods ##############################################################################
 
     _command_description: (textParts...)->
-        @_rawData.description ?= ''
+        if not @_rawData.description?
+            @_rawData.description = ''
+        else
+            @_rawData.description += '\n'
         @_rawData.description += textParts.join ', '
 
     _command_officialUrl: (officialUrl)->
         if @_rawData.officialUrl? then throw new Error 'duplicate declaration of "officialUrl"'
-        if officialUrl.length is 0 then throw new Error 'officialUrl cannot be empty'
+        if not officialUrl? or (officialUrl.length is 0) then throw new Error 'officialUrl cannot be empty'
         @_rawData.officialUrl = officialUrl
 
     _command_video: (youTubeId, nameParts...)->
@@ -41,6 +47,26 @@ module.exports = class ItemParserV1 extends CommandParserVersionBase
     # Object Building Methods ######################################################################
 
     _buildItem: (rawData, model)->
-        model.description = rawData.description if rawData.description
-        model.officialUrl = rawData.officialUrl if rawData.officialUrl
-        model.videos      = rawData.videos      if rawData.videos
+        model.description = rawData.description if rawData.description?
+        model.officialUrl = rawData.officialUrl if rawData.officialUrl?
+        model.videos      = rawData.videos      if rawData.videos?
+
+    # Un-parsing Methods ###########################################################################
+
+    _unparseItem: (builder, model)->
+        if model.officialUrl?
+            builder.line 'officialUrl: ', model.officialUrl
+            builder.line()
+
+        if model.description?
+            if model.description.indexOf('\n') isnt -1
+                builder.line 'description: <<-END'
+                builder.line model.description
+                builder.line 'END'
+            else
+                builder.line 'description: ', model.description
+        builder.line()
+
+        for video in model.videos
+            builder.line 'video: ', video.youTubeId, ', ', video.name
+        builder.line()

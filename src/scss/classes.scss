@@ -32,9 +32,9 @@ All rights reserved.
     width: 100%;
 }
 
-.error { background: $color-error !important; }
+.error { background: $color-error; }
 
-.error-new { background: $color-error-new !important; }
+.error-new { background: $color-error-new; }
 
 .float-right {
     float: right;

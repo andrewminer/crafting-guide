@@ -36,9 +36,10 @@ backbone                = require 'backbone'
 module.exports = class CraftingGuideRouter extends backbone.Router
 
     constructor: (options={})->
+        @_lastReported    = null
         @_page            = null
         @_pageControllers = {}
-        @_lastReported    = null
+        @_postLoginUrl    = Url.root
         @_user            = null
         super options
 
@@ -79,6 +80,16 @@ module.exports = class CraftingGuideRouter extends backbone.Router
                 else
                     logger.info "User is not logged in"
             .done()
+
+    login: ->
+        @storage.store 'post-login-url', window.location.pathname
+        @navigate Url.login(), trigger:true
+
+    resumeAfterLogin: ->
+        url = @storage.load 'post-login-url'
+        url ?= Url.root()
+        @navigate url, trigger:true
+        @storage.store 'post-login-url', null
 
     # Property Methods #############################################################################
 

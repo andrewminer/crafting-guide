@@ -77,7 +77,7 @@ module.exports = class LoginPageController extends PageController
                     attributes = response.json.data.user
                     if attributes?
                         router.user = new User attributes
-                        router.navigate Url.root(), trigger:true
+                        router.resumeAfterLogin()
                 .catch (error)->
                     logger.error "Failed to get access token: #{error}"
                     @_accessTokenLookupFailed = true
@@ -120,9 +120,9 @@ module.exports = class LoginPageController extends PageController
         @client.completeGitHubLogin code:code
             .then (response)=>
                 router.user = new User response.json.user
-            .catch (error)->
+            .catch (error)=>
                 @_accessTokenLookupFailed = true
-                @refresh
+                @refresh()
             .done()
 
     _redirectToGitHub: ->

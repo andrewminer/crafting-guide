@@ -133,16 +133,17 @@ module.exports = (grunt)->
                 tasks: ['browserify:dev', 'exorcise']
             jade:
                 files: ['./src/**/*.jade']
-                tasks: ['jade:pages', 'jade:templates', 'browserify:dev', 'exorcise']
+                tasks: ['jade:pages', 'jade:templates']
             sass:
                 files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']
+            test:
+                files: ['./src/**/*.coffee', './src/**/*.js', './test/**/*.coffee']
+                tasks: ['test']
 
     grunt.registerTask 'default', 'build'
 
     grunt.registerTask 'build', ['rsync', 'sass:build', 'jade', 'copy', 'browserify:dev', 'exorcise']
-
-    grunt.registerTask 'clean-watch', ['clean', 'build', 'watch']
 
     grunt.registerTask 'dist', ['rsync', 'sass:dist', 'jade', 'copy', 'browserify:prod', 'uglify']
 
@@ -154,6 +155,10 @@ module.exports = (grunt)->
         fs.symlinkSync '../../crafting-guide-common/', './node_modules/crafting-guide-common'
 
     grunt.registerTask 'test', ['mochaTest']
+
+    grunt.registerTask 'watch-dev', ['clean', 'build', 'watch']
+
+    grunt.registerTask 'watch-test', ['clean', 'build', 'watch:test']
 
     args = process.argv[..]
     while args.length > 0

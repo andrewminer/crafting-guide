@@ -7,4 +7,24 @@
 
 .view__markdown_section.section
     h2
-    .panel.markdown
+    .panel
+        .waiting.hideable: img(src='/images/wait.gif')
+        .markdown.hideable.hidden
+        .editor.hideable.hidden
+            textarea
+            .sizer
+        .creating.hideable.hidden
+            p Please help by adding a description!
+        .buttons.hideable.hidden
+            .error.hideable.hidden: p
+            button.return.hideable.hidden return
+            button.cancel.hideable.hidden cancel
+            button.preview.hideable.hidden preview
+            button.save.hideable.hidden save
+            button.edit.hideable edit
+        .confirming.hideable.hidden
+            p Thanks for your help!
+            p Your changes will appear on the site in a few minutes.
+        .appologizing.hideable.hidden
+            p Sorry, but something went wrong.
+            p Please try again after a few moments.

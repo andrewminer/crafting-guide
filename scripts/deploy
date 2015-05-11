@@ -24,8 +24,10 @@ fi
 
 if [[ "$TARGET" == "staging" ]]; then
     TARGET_DIR="s3://new.$SITE/"
+    BUILD_CMD="build"
 elif [[ "$TARGET" == "production" ]]; then
     TARGET_DIR="s3://$SITE/"
+    BUILD_CMD="dist"
 fi
 
 S3CMD_CFG="$HOME/.s3cfg"
@@ -35,7 +37,7 @@ if [[ ! -e "$S3CMD_CFG" ]]; then
     cat $AWS_CONFIG_FILE | grep "aws_secret_access_key" | sed "s/aws_secret_access_key/secret_key/" >> "$S3CMD_CFG"
 fi
 
-if grunt clean dist; then
+if grunt clean $BUILD_CMD; then
     echo "Preparing to upload to S3..."
     s3cmd sync -r --add-header="cache-control:max-age=1800" $SOURCE_DIR $TARGET_DIR
     echo "S3 Upload Complete"

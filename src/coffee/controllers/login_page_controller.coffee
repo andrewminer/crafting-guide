@@ -73,12 +73,12 @@ module.exports = class LoginPageController extends PageController
 
         if (not @user?) and (@params?.state is @loginSecurityToken)
             @client.completeGitHubLogin code:@params.code
-                .then (response)->
+                .then (response)=>
                     attributes = response.json.data.user
                     if attributes?
                         router.user = new User attributes
                         router.resumeAfterLogin()
-                .catch (error)->
+                .catch (error)=>
                     logger.error "Failed to get access token: #{error}"
                     @_accessTokenLookupFailed = true
                     @refresh()

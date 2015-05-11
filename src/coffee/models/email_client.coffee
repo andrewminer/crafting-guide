@@ -5,7 +5,10 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-require 'underscore'
+$    = require 'jquery'
+_    = require 'underscore'
+util = require 'util'
+w    = require 'when'
 
 ########################################################################################################################
 

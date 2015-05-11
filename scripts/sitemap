@@ -22,9 +22,10 @@ base = 'http://crafting-guide.com'
 
 urls = [
     "#{base}/"
-    "#{base}/configure/"
     "#{base}/browse/"
+    "#{base}/configure/"
     "#{base}/craft/"
+    "#{base}/login/"
 ]
 
 for modSlug, modData of DefaultMods

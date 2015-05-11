@@ -1,7 +1,8 @@
 http://crafting-guide.com/
-http://crafting-guide.com/configure/
 http://crafting-guide.com/browse/
+http://crafting-guide.com/configure/
 http://crafting-guide.com/craft/
+http://crafting-guide.com/login/
 http://crafting-guide.com/browse/applied_energistics_2/
 http://crafting-guide.com/browse/big_reactors/
 http://crafting-guide.com/browse/buildcraft/

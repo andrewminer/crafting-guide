@@ -118,15 +118,15 @@ module.exports = class CraftingGuideRouter extends backbone.Router
         @_recordPageView()
 
     routes:
-        '(/)':                                        'route__home'
-        'browse(/)':                                  'route__browse'
-        'browse/:modSlug(/)':                         'route__browseMod'
-        'browse/:modSlug/:itemSlug(/)':               'route__browseModItem'
-        'browse/:modSlug/tutorials/:tutorialSlug(/)': 'route__browseTutorial'
-        'configure(/)':                               'route__configure'
-        'craft(/)':                                   'route__craft'
-        'craft/:text':                                'route__craft'
-        'login(/)':                                   'route__login'
+        '(/(index.html))':                                        'route__home'
+        'browse(/(index.html))':                                  'route__browse'
+        'browse/:modSlug(/(index.html))':                         'route__browseMod'
+        'browse/:modSlug/:itemSlug(/(index.html))':               'route__browseModItem'
+        'browse/:modSlug/tutorials/:tutorialSlug(/(index.html))': 'route__browseTutorial'
+        'configure(/(index.html))':                               'route__configure'
+        'craft(/(index.html)':                                    'route__craft'
+        'craft/:text':                                            'route__craft'
+        'login(/(index.html))':                                   'route__login'
 
         'item/:itemSlug':         'deprecated__item'
         'crafting/(:text)':       'deprecated__crafting'

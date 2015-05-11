@@ -124,7 +124,7 @@ module.exports = class CraftingGuideRouter extends backbone.Router
         'browse/:modSlug/:itemSlug(/(index.html))':               'route__browseModItem'
         'browse/:modSlug/tutorials/:tutorialSlug(/(index.html))': 'route__browseTutorial'
         'configure(/(index.html))':                               'route__configure'
-        'craft(/(index.html)':                                    'route__craft'
+        'craft(/(index.html))':                                   'route__craft'
         'craft/:text':                                            'route__craft'
         'login(/(index.html))':                                   'route__login'
 

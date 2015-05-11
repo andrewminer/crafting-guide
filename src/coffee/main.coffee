@@ -33,7 +33,7 @@ switch window.location.hostname
     when 'new.crafting-guide.com'
         global.env   = 'staging'
         logger.level = Logger.VERBOSE
-        apiBaseUrl   = 'https://crafting-guide-production.herokuapp.com'
+        apiBaseUrl   = 'https://crafting-guide-staging.herokuapp.com'
     when 'crafting-guide.com'
         global.env   = 'production'
         logger.level = Logger.INFO

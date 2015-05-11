@@ -97,7 +97,7 @@ Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +
     "?client_id=<%= clientId %>&scope=public_repo&state=<%= state %>"
 Login.clientIds =
     'local':      'a2a1c5f1bb2d7bd14ebb'
-    'staging':    '26e1e9a4a702cabe334f'
+    'staging':    '655a38cde23040283361'
     'production': 'ea419abd2ab96c708815'
 
 exports.ModelState  = ModelState = {}

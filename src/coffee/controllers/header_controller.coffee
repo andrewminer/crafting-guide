@@ -40,7 +40,7 @@ module.exports = class HeaderController extends BaseController
                     logger.error -> "Failed to log out: #{error}"
                 .done()
         else
-            router.navigate Url.login(), trigger:true
+            router.login()
 
     onLogoClicked: ->
         router.navigate '/', trigger:true

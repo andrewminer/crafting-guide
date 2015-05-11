@@ -87,7 +87,7 @@ module.exports = class CraftingGuideRouter extends backbone.Router
 
     resumeAfterLogin: ->
         url = @storage.load 'post-login-url'
-        url ?= Url.root()
+        url = if (not url? or url is 'null') then Url.root() else url
         @navigate url, trigger:true
         @storage.store 'post-login-url', null
 
@@ -118,15 +118,41 @@ module.exports = class CraftingGuideRouter extends backbone.Router
         @_recordPageView()
 
     routes:
-        '(/(index.html))':                                        'route__home'
-        'browse(/(index.html))':                                  'route__browse'
-        'browse/:modSlug(/(index.html))':                         'route__browseMod'
-        'browse/:modSlug/:itemSlug(/(index.html))':               'route__browseModItem'
-        'browse/:modSlug/tutorials/:tutorialSlug(/(index.html))': 'route__browseTutorial'
-        'configure(/(index.html))':                               'route__configure'
-        'craft(/(index.html))':                                   'route__craft'
+        '':                                                       'route__home'
+        '/':                                                      'route__home'
+        '/index.html':                                            'route__home'
+
+        'browse':                                                 'route__browse'
+        'browse/':                                                'route__browse'
+        'browse/index.html':                                      'route__browse'
+
+        'browse/:modSlug':                                        'route__browseMod'
+        'browse/:modSlug/':                                       'route__browseMod'
+        'browse/:modSlug/index.html':                             'route__browseMod'
+
+        'browse/:modSlug/:itemSlug':                              'route__browseModItem'
+        'browse/:modSlug/:itemSlug/':                             'route__browseModItem'
+        'browse/:modSlug/:itemSlug/index.html':                   'route__browseModItem'
+
+        'browse/:modSlug/tutorials/:tutorialSlug':                'route__browseTutorial'
+        'browse/:modSlug/tutorials/:tutorialSlug/':               'route__browseTutorial'
+        'browse/:modSlug/tutorials/:tutorialSlug/index.html':     'route__browseTutorial'
+
+        'configure':                                              'route__configure'
+        'configure/':                                             'route__configure'
+        'configure/index.html':                                   'route__configure'
+
+        'craft':                                                  'route__craft'
+        'craft/':                                                 'route__craft'
+        'craft/index.html':                                       'route__craft'
+
         'craft/:text':                                            'route__craft'
-        'login(/(index.html))':                                   'route__login'
+        'craft/:text/':                                           'route__craft'
+        'craft/:text/index.html':                                 'route__craft'
+
+        'login':                                                  'route__login'
+        'login/':                                                 'route__login'
+        'login/index.html':                                       'route__login'
 
         'item/:itemSlug':         'deprecated__item'
         'crafting/(:text)':       'deprecated__crafting'

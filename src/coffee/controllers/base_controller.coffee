@@ -49,14 +49,17 @@ module.exports = class BaseController extends backbone.View
 
         if not ($el.hasClass('hiding') or $el.hasClass('hidden'))
             logger.verbose => "#{this} is hiding \"#{$el.selector}\""
-            @_onAnimationComplete $el, Duration.normal, =>
-                $el.addClass 'hidden'
-                $el.removeClass 'hiding'
-                logger.verbose => "#{this} is finished hiding #{$el.selector}"
-                @trigger Event.animate.hide.finish, this, $el
-
             $el.addClass 'hiding'
             @trigger Event.animate.hide.start, this, $el
+            @_onAnimationComplete $el, Duration.normal, => @hide $el
+            return
+
+        if $el.hasClass('hiding') and not $el.hasClass('hidden')
+            $el.removeClass 'hiding'
+            $el.addClass 'hidden'
+            logger.verbose => "#{this} is finished hiding #{$el.selector}"
+
+        @trigger Event.animate.hide.finish, this, $el
 
     refresh: ->
         logger.verbose => "#{this} refreshing"
@@ -86,20 +89,27 @@ module.exports = class BaseController extends backbone.View
 
     show: ($el)->
         $el ?= @$el
-        $el.addClass 'hideable'
 
-        if $el.hasClass('hidden') or $el.hasClass('hiding')
+        if not $el.hasClass 'hideable'
+            $el.addClass 'hideable'
+            _.defer => @show $el
+            return
+
+        if $el.hasClass 'hidden'
             logger.verbose => "#{this} is showing \"#{$el.selector}\""
-
-            @_onAnimationComplete $el, Duration.normal, =>
-                logger.verbose => "#{this} is finished showing #{$el.selector}"
-                @trigger Event.animate.show.finish, this, $el
-
-            $el.addClass 'hiding'
             $el.removeClass 'hidden'
-            _.defer =>
-                $el.removeClass 'hiding'
-                @trigger Event.animate.show.start, this, $el
+            $el.addClass 'hiding'
+            @trigger Event.animate.show.start, this, $el
+            _.defer => @show $el
+            return
+
+        if $el.hasClass 'hiding'
+            $el.removeClass 'hiding'
+            @_onAnimationComplete $el, Duration.normal, => @show $el
+            return
+
+        logger.verbose => "#{this} is finished showing #{$el.selector}"
+        @trigger Event.animate.show.finish, this, $el
 
     unrender: ->
         @undelegateEvents()

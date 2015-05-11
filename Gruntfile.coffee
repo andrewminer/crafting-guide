@@ -133,7 +133,7 @@ module.exports = (grunt)->
                 tasks: ['browserify:dev', 'exorcise']
             jade:
                 files: ['./src/**/*.jade']
-                tasks: ['jade:pages', 'jade:templates', 'browserify:dev', 'exorcise']
+                tasks: ['jade:pages', 'jade:templates']
             sass:
                 files: ['./src/**/*.scss']
                 tasks: ['sass', 'copy:styles']
@@ -156,7 +156,7 @@ module.exports = (grunt)->
 
     grunt.registerTask 'test', ['mochaTest']
 
-    grunt.registerTask 'watch-dev', ['clean', 'build', 'watch:static', 'watch:coffee', 'watch:jade', 'watch:sass']
+    grunt.registerTask 'watch-dev', ['clean', 'build', 'watch']
 
     grunt.registerTask 'watch-test', ['clean', 'build', 'watch:test']
 

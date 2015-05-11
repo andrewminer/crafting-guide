@@ -19,18 +19,21 @@ module.exports = class MarkdownSectionController extends BaseController
     @State = State =
         appologizing: 'applogizing'
         confirming:   'confirming'
+        creating:     'creating'
         editing:      'editing'
         previewing:   'previewing'
         viewing:      'viewing'
         waiting:      'waiting'
 
     constructor: (options={})->
-        @_state = State.waiting
-
         if not options.modPack? then throw new Error 'options.modPack is required'
-        options.model               ?= null
-        options.templateName         = 'markdown_section'
+        options.model        ?= null
+        options.templateName  = 'markdown_section'
+        @_state = State.waiting
         super options
+
+        @on Event.animate.hide.finish, => @_updateStateVisibility()
+        @on Event.animate.show.finish, => @_updateStateVisibility()
 
         @confirmactionMessage = options.confirmationMessage
         @confirmDuration      = options.confirmationDuration ?= 5000
@@ -52,13 +55,13 @@ module.exports = class MarkdownSectionController extends BaseController
     onCancelClicked: (event)->
         event.preventDefault()
         @model = @_originalModel
-        @state = State.viewing
+        @_resetToDefaultState()
 
     onEditClicked: (event)->
         event.preventDefault()
         return unless @editable
 
-        @_originalModel = "#{@model}"
+        @_originalModel = @model
         @state = State.waiting
         @_beginEditing()
             .then =>
@@ -66,7 +69,7 @@ module.exports = class MarkdownSectionController extends BaseController
             .catch (e)=>
                 logger.warning "cannot begin editing: #{e.stack}"
                 @state = State.appologizing
-                w(true).delay(@confirmDuration).then => @state = State.viewing
+                w(true).delay(@confirmDuration).then => @_resetToDefaultState()
 
     onPreviewClicked: (event)->
         event.preventDefault()
@@ -124,6 +127,8 @@ module.exports = class MarkdownSectionController extends BaseController
         @$textarea      = @$('textarea')
         @$title         = @$('h2')
 
+        @_resetToDefaultState()
+
         super
 
     refresh: ->
@@ -131,17 +136,10 @@ module.exports = class MarkdownSectionController extends BaseController
 
         @_updateSizer()
         @_updatePreview()
-        @_updateStateVisibility()
         super
 
     onWillChangeModel: (oldModel, newModel)->
         result = super oldModel, newModel
-
-        if @state is State.waiting and newModel?
-            @state = State.viewing
-        else if not newModel?
-            @state = State.waiting
-
         @$textarea.val newModel
 
         return result
@@ -190,6 +188,16 @@ module.exports = class MarkdownSectionController extends BaseController
 
         @$markdownPanel.html text
 
+    _resetToDefaultState: ->
+        if @model?
+            @state = State.viewing
+        else
+            if @editable?
+                @state = State.creating
+            else
+                @state = State.waiting
+
+
     _updateStateVisibility: ->
         return if @_lastUpdatedState is @state
         @_lastUpdatedState = @state
@@ -199,6 +207,7 @@ module.exports = class MarkdownSectionController extends BaseController
             buttonPanel:       @$('.buttons')
             cancelButton:      @$('button.cancel')
             confirmingPanel:   @$('.confirming')
+            creatingPanel:     @$('.creating')
             editButton:        @$('button.edit')
             editorPanel:       @$('.editor')
             errorPanel:        @$('.error')
@@ -215,6 +224,8 @@ module.exports = class MarkdownSectionController extends BaseController
             visible = appologizingPanel:true
         else if @state is State.confirming
             visible = confirmingPanel:true
+        else if @state is State.creating
+            visible = buttonPanel:true, creatingPanel:true, editButton:true
         else if @state is State.editing
             visible = buttonPanel:true, cancelButton:true, editorPanel:true, previewButton:true, saveButton:true
         else if @state is State.previewing

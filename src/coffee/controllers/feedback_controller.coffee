@@ -9,6 +9,7 @@ $              = require 'jquery'
 BaseController = require './base_controller'
 EmailClient    = require '../models/email_client'
 _              = require 'underscore'
+w              = require 'when'
 {Duration}     = require '../constants'
 {Key}          = require '../constants'
 

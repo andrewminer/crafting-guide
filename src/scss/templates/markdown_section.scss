@@ -52,6 +52,17 @@ All rights reserved.
         }
     }
 
+    .creating {
+        width: 100%;
+        text-align: center;
+
+        p {
+            color: $color-gray-light;
+            font-size: $font-size-x-large;
+            margin: 1em;
+        }
+    }
+
     .editor {
         width: 100%;
 

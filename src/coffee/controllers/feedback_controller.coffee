@@ -8,6 +8,7 @@ All rights reserved.
 $              = require 'jquery'
 BaseController = require './base_controller'
 EmailClient    = require '../models/email_client'
+w              = require 'when'
 _              = require 'underscore'
 {Duration}     = require '../constants'
 {Key}          = require '../constants'

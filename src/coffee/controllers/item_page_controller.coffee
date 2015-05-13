@@ -183,6 +183,7 @@ module.exports = class ItemPageController extends PageController
     _refreshDescription: ->
         if @model.item?.description?.length > 0
             @_descriptionController.model = @model.item.description
+            @_descriptionController.resetToDefaultState()
             @show @$descriptionSection
         else if @user?
             @show @$descriptionSection

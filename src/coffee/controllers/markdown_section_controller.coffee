@@ -50,12 +50,23 @@ module.exports = class MarkdownSectionController extends BaseController
         # saved however is appropriate. The promise must reject if saving failed for some reason.
         @_endEditing = options.endEditing
 
+    # Public Methods ###############################################################################
+
+    resetToDefaultState: ->
+        if @model?
+            @state = State.viewing
+        else
+            if @editable?
+                @state = State.creating
+            else
+                @state = State.waiting
+
     # Event Methods ################################################################################
 
     onCancelClicked: (event)->
         event.preventDefault()
         @model = @_originalModel
-        @_resetToDefaultState()
+        @resetToDefaultState()
 
     onEditClicked: (event)->
         event.preventDefault()
@@ -69,7 +80,7 @@ module.exports = class MarkdownSectionController extends BaseController
             .catch (e)=>
                 logger.warning "cannot begin editing: #{e.stack}"
                 @state = State.appologizing
-                w(true).delay(@confirmDuration).then => @_resetToDefaultState()
+                w(true).delay(@confirmDuration).then => @resetToDefaultState()
 
     onPreviewClicked: (event)->
         event.preventDefault()
@@ -82,7 +93,6 @@ module.exports = class MarkdownSectionController extends BaseController
     onSaveClicked: (event)->
         event.preventDefault()
 
-        @model = @$textarea.val()
         @state = State.waiting
         @_endEditing()
             .then =>
@@ -95,7 +105,8 @@ module.exports = class MarkdownSectionController extends BaseController
                 @state = State.viewing
 
     onTextChanged: (event)->
-        @tryRefresh()
+        event.preventDefault()
+        @model = @$textarea.val()
 
     # Property Methods #############################################################################
 
@@ -127,7 +138,7 @@ module.exports = class MarkdownSectionController extends BaseController
         @$textarea      = @$('textarea')
         @$title         = @$('h2')
 
-        @_resetToDefaultState()
+        @resetToDefaultState()
 
         super
 
@@ -139,7 +150,6 @@ module.exports = class MarkdownSectionController extends BaseController
         super
 
     onWillChangeModel: (oldModel, newModel)->
-        _.defer => @_resetToDefaultState()
         @$textarea.val newModel
         super oldModel, newModel
 
@@ -172,30 +182,20 @@ module.exports = class MarkdownSectionController extends BaseController
             return result
 
     _updateSizer: ->
-        text = @$textarea.val()
+        text = @model
         if @model?
             text = text.replace /\n/g, '<br>'
 
         @$sizer.html text
 
     _updatePreview: ->
-        text = @$textarea.val()
+        text = @model
         if @model?
             text = @_convertWikiLinks text
             text = @_convertImageLinks text
             text = convertMarkdown text
 
         @$markdownPanel.html text
-
-    _resetToDefaultState: ->
-        if @model?
-            @state = State.viewing
-        else
-            if @editable?
-                @state = State.creating
-            else
-                @state = State.waiting
-
 
     _updateStateVisibility: ->
         return if @_lastUpdatedState is @state

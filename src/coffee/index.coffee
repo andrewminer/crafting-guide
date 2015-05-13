@@ -13,6 +13,7 @@ mixins = require './underscore_mixins'
 _.mixin mixins
 
 module.exports =
+    constants:        require './constants'
     Mod:              require './models/mod'
     ModParser:        require './models/mod_parser'
     ModVersion:       require './models/mod_version'

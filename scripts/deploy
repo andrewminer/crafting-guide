@@ -1,5 +1,9 @@
 #!/bin/bash
 
+USAGE=<<END
+
+END
+
 if [[ -e "./aws.config" ]]; then
     export AWS_CONFIG_FILE="./aws.config"
 else

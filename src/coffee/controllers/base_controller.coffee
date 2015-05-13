@@ -41,25 +41,8 @@ module.exports = class BaseController extends backbone.View
 
     hide: ($el)->
         $el ?= @$el
-
-        if not $el.hasClass 'hideable'
-            $el.addClass 'hideable'
-            _.defer => @hide $el
-            return
-
-        if not ($el.hasClass('hiding') or $el.hasClass('hidden'))
-            logger.verbose => "#{this} is hiding \"#{$el.selector}\""
-            $el.addClass 'hiding'
-            @trigger Event.animate.hide.start, this, $el
-            @_onAnimationComplete $el, Duration.normal, => @hide $el
-            return
-
-        if $el.hasClass('hiding') and not $el.hasClass('hidden')
-            $el.removeClass 'hiding'
-            $el.addClass 'hidden'
-            logger.verbose => "#{this} is finished hiding #{$el.selector}"
-
-        @trigger Event.animate.hide.finish, this, $el
+        $el.data 'target-visibility', 'hidden'
+        _.delay (=> @_adjustTargetVisibility $el), Duration.snap
 
     refresh: ->
         logger.verbose => "#{this} refreshing"
@@ -89,27 +72,8 @@ module.exports = class BaseController extends backbone.View
 
     show: ($el)->
         $el ?= @$el
-
-        if not $el.hasClass 'hideable'
-            $el.addClass 'hideable'
-            _.defer => @show $el
-            return
-
-        if $el.hasClass 'hidden'
-            logger.verbose => "#{this} is showing \"#{$el.selector}\""
-            $el.removeClass 'hidden'
-            $el.addClass 'hiding'
-            @trigger Event.animate.show.start, this, $el
-            _.defer => @show $el
-            return
-
-        if $el.hasClass 'hiding'
-            $el.removeClass 'hiding'
-            @_onAnimationComplete $el, Duration.normal, => @show $el
-            return
-
-        logger.verbose => "#{this} is finished showing #{$el.selector}"
-        @trigger Event.animate.show.finish, this, $el
+        $el.data 'target-visibility', 'visible'
+        _.delay (=> @_adjustTargetVisibility $el), Duration.snap
 
     unrender: ->
         @undelegateEvents()
@@ -204,6 +168,67 @@ module.exports = class BaseController extends backbone.View
         return "#{@constructor.name}.#{@cid}"
 
     # Private Methods ##############################################################################
+
+    _adjustTargetVisibility: ($el)->
+        priorTarget = $el.data 'prior-target'
+
+        target  = $el.data 'target-visibility'
+        target ?= 'visible'
+        $el.data 'prior-target', target
+
+        return if priorTarget is target and $el.data 'animating'
+
+        current = 'visible'
+        current = 'hiding' if $el.hasClass 'hiding'
+        current = 'hidden' if $el.hasClass 'hidden'
+
+        prior = $el.data 'prior-visibility'
+        $el.data 'prior-visibility', current
+
+        if target is current and current isnt prior
+            $el.removeData 'prior-visibility'
+            $el.removeData 'prior-target'
+            if target is 'visible'
+                @trigger Event.animate.show.finish, this, $el
+                logger.verbose => "#{this} is finished showing #{$el.selector}"
+            else if target is 'hidden'
+                @trigger Event.animate.hide.finish, this, $el
+                logger.verbose => "#{this} is finished hiding #{$el.selector}"
+
+        return if current is target
+
+        if not $el.hasClass 'hideable'
+            $el.addClass 'hideable'
+            _.defer => @_adjustTargetVisibility $el
+
+        if target is 'hidden'
+            if current is 'visible'
+                logger.verbose => "#{this} is hiding \"#{$el.selector}\""
+                $el.addClass 'hiding'
+                @trigger Event.animate.hide.start, this, $el
+
+                $el.data 'animating', true
+                @_onAnimationComplete $el, Duration.normal, =>
+                    $el.removeData 'animating'
+                    @_adjustTargetVisibility $el
+            else if current is 'hiding'
+                $el.removeClass 'hiding'
+                $el.addClass 'hidden'
+                _.defer => @_adjustTargetVisibility $el
+        else if target is 'visible'
+            if current is 'hidden'
+                logger.verbose => "#{this} is showing \"#{$el.selector}\""
+                $el.removeClass 'hidden'
+                $el.addClass 'hiding'
+                @trigger Event.animate.show.start, this, $el
+                _.defer => @_adjustTargetVisibility $el
+            else if current is 'hiding'
+                $el.removeClass 'hiding'
+
+                $el.data 'animating', true
+                @_onAnimationComplete $el, Duration.normal, =>
+                    $el.removeData 'animating'
+                    @_adjustTargetVisibility $el
 
     _loadTemplate: (templateName)->
         if templateName?

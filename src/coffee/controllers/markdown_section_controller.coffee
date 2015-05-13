@@ -82,6 +82,7 @@ module.exports = class MarkdownSectionController extends BaseController
     onSaveClicked: (event)->
         event.preventDefault()
 
+        @model = @$textarea.val()
         @state = State.waiting
         @_endEditing()
             .then =>
@@ -94,8 +95,7 @@ module.exports = class MarkdownSectionController extends BaseController
                 @state = State.viewing
 
     onTextChanged: (event)->
-        event.preventDefault()
-        @model = @$textarea.val()
+        @tryRefresh()
 
     # Property Methods #############################################################################
 
@@ -139,10 +139,9 @@ module.exports = class MarkdownSectionController extends BaseController
         super
 
     onWillChangeModel: (oldModel, newModel)->
-        result = super oldModel, newModel
+        _.defer => @_resetToDefaultState()
         @$textarea.val newModel
-
-        return result
+        super oldModel, newModel
 
     # Backbone.View Overrides ######################################################################
 
@@ -173,14 +172,14 @@ module.exports = class MarkdownSectionController extends BaseController
             return result
 
     _updateSizer: ->
-        text = @model
+        text = @$textarea.val()
         if @model?
             text = text.replace /\n/g, '<br>'
 
         @$sizer.html text
 
     _updatePreview: ->
-        text = @model
+        text = @$textarea.val()
         if @model?
             text = @_convertWikiLinks text
             text = @_convertImageLinks text

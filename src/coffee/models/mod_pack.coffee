@@ -133,8 +133,13 @@ module.exports = class ModPack extends BaseModel
 
     _onModVersionLoaded: (modVersion)->
         stillLoading = false
+        foundLoaded = false
         @eachMod (mod)->
             mod.eachModVersion (modVersion)->
+                foundLoaded = foundLoaded or modVersion.isLoaded
                 stillLoading = stillLoading or modVersion.isLoading
 
-        @trigger Event.change, this if not stillLoading
+        return if not foundLoaded or stillLoading
+
+        @trigger Event.change, this
+        @trigger Event.sync, this

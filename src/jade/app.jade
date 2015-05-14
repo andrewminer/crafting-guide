@@ -22,7 +22,8 @@ html
 
             .content
                 include ./includes/_header.jade
-                .page.hideable
+                .page.hideable(style="max-height: 0")
+                .page-loading: img(src="/images/wait.gif")
                 include ./includes/_footer.jade
 
             block scripts

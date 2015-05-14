@@ -26,6 +26,10 @@ if typeof(global) is 'undefined'
 global.logger = new Logger
 
 switch window.location.hostname
+    when 'prerender.crafting-guide.com'
+        global.env   = 'prerender'
+        logger.level = Logger.FATAL
+        apiBaseUrl   = 'http://local.crafting-guide.com:8001'
     when 'local.crafting-guide.com', 'localhost'
         global.env   = 'local'
         logger.level = Logger.DEBUG
@@ -61,4 +65,5 @@ global.router.loadDefaultModPack()
 
 backbone.history.start pushState:true
 client.checkStatus()
+
 logger.info -> "CraftingGuide is ready"

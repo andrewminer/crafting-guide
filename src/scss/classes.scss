@@ -64,6 +64,20 @@ All rights reserved.
     vertical-align: top;
 }
 
+.page {
+    overflow: hidden;
+}
+
+.page-loading {
+    width: 100%;
+
+    text-align: center;
+
+    img {
+        margin: 5em auto;
+    }
+}
+
 .sidebar {
     position: relative; width: 18.75%; height: 100%;
 

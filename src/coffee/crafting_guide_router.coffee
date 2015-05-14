@@ -69,6 +69,11 @@ module.exports = class CraftingGuideRouter extends backbone.Router
 
             @modPack.addMod mod
 
+        if global.env isnt 'prerender'
+            @modPack.once Event.sync, ->
+                $('.page').css 'max-height', ''
+                $('.page-loading').remove()
+
     loadCurrentUser: ->
         @client.fetchCurrentUser()
             .then (response)=>

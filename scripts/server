@@ -40,7 +40,7 @@ serveIndex = (request, response)->
             console.log ">>> #{request.path} ==> #{PRERENDER_ROOT}#{filePath}"
             response.sendFile filePath, root:PRERENDER_ROOT
         else
-            console.log ">>> #{request.path} ==> #{ROOT}app.html"
+            console.log ">>> #{request.path} ==> #{ROOT}/app.html"
             response.sendFile '/app.html', root:ROOT
 
 serveData = (request, response)->

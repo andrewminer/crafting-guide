@@ -67,7 +67,7 @@ All rights reserved.
         width: 100%;
 
         position: relative;
-        min-height: 10em;
+        min-height: 11.5em;
 
         textarea, .sizer {
             width: 100%;
@@ -77,7 +77,7 @@ All rights reserved.
         }
 
         textarea {
-            position: absolute; height: 100%; width: 100%;
+            position: absolute; height: calc(100% - 1.5em); width: 100%;
 
             background: $color-gray-faint;
             resize: none;
@@ -86,6 +86,15 @@ All rights reserved.
             &:focus {
                 background: $color-background-panel;
                 border: 1px solid $color-gray-medium;
+            }
+        }
+
+        .instructions {
+            margin-bottom: 0.75em;
+
+            p {
+                color: $color-gray-medium;
+                font-size: $font-size-small;
             }
         }
 

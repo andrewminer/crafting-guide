@@ -247,4 +247,8 @@ module.exports = class MarkdownSectionController extends BaseController
         else if toShow.length > 0
             @show $el for $el in toShow
 
+        if @state is State.editing
+            @once Event.animate.show.finish, =>
+                @$textarea.focus()
+
         @$errorText.html errorText

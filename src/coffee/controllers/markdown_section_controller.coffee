@@ -226,9 +226,9 @@ module.exports = class MarkdownSectionController extends BaseController
         else if @state is State.creating
             visible = buttonPanel:true, creatingPanel:true, editButton:true
         else if @state is State.editing
-            visible = buttonPanel:true, cancelButton:true, editorPanel:true, previewButton:true, saveButton:true
+            visible = buttonPanel:true, cancelButton:true, editorPanel:true, previewButton:true
         else if @state is State.previewing
-            visible = buttonPanel:true, errorPanel:true, markdownPanel:true, returnButton:true
+            visible = buttonPanel:true, errorPanel:true, markdownPanel:true, returnButton:true, saveButton:true
             errorText = "remember: your changes aren't saved yet!"
         else if @state is State.viewing
             visible = markdownPanel:true

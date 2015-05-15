@@ -21,10 +21,12 @@ module.exports = class HeaderController extends BaseController
     constructor: (options={})->
         if not options.client? then throw new Error 'options.client is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
+        if not options.storage? then throw new Error 'options.storage is required'
         super options
 
         @client  = options.client
         @modPack = options.modPack
+        @storage = options.storage
         @_user   = options.user
 
     # Event Methods ################################################################################
@@ -34,7 +36,8 @@ module.exports = class HeaderController extends BaseController
 
         if @user?
             @client.logout()
-                .then ->
+                .then =>
+                    @storage.store 'loginSecurityToken', null
                     router.user = null
                 .catch (error)->
                     logger.error -> "Failed to log out: #{error}"

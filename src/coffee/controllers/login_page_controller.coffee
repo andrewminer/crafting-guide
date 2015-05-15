@@ -71,7 +71,7 @@ module.exports = class LoginPageController extends PageController
         @$readMoreLink    = @$('a.read-more')
         @$readMoreContent = @$('.read-more-content')
 
-        if (not @user?) and (@params?.state is @loginSecurityToken)
+        if (not @user?) and (@params?.state?) and (@params?.state is @loginSecurityToken)
             @client.completeGitHubLogin code:@params.code
                 .then (response)=>
                     attributes = response.json.data.user

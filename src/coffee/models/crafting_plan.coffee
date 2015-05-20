@@ -99,10 +99,26 @@ module.exports = class CraftingPlan extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _chooseRecipe: (item)->
+    _findRecipes: (item)->
         recipes = @modPack.findRecipes item.slug
         return null unless recipes? and recipes.length > 0
-        return recipes[0]
+
+        recipeOptions = []
+        for recipe in recipes
+            if recipe.tools.length is 0
+                recipeOptions.push recipe:recipe, missingTools:0
+            else
+                missingTools = []
+                for tool in recipe.tools
+                    if not @have.hasAtLeast tool.itemSlug
+                        missingTools.push tool
+                recipeOptions.push recipe:recipe, missingTools:missingTools.length
+
+        recipeOptions.sort (a, b)->
+            return 0 if a.missingTools is b.missingTools
+            return if a.missingTools < b.missingTools then -1 else +1
+
+        return (option.recipe for option in recipeOptions)
 
     _findSteps: (itemSlug, parentSteps={})->
         item = @modPack.findItem itemSlug
@@ -111,7 +127,7 @@ module.exports = class CraftingPlan extends BaseModel
 
         ignoreGatherable = @want.hasAtLeast itemSlug, 1
         if (not item.isGatherable) or ignoreGatherable
-            recipes = @modPack.findRecipes item.slug
+            recipes = @_findRecipes item
             recipes ?= []
 
             if parentSteps[item.slug]?

@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "prepublish": "grunt prepublish",
+    "start": "./scripts/server",
     "test": "grunt test"
   },
   "repository": {

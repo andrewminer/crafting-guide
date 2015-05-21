@@ -70,6 +70,21 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         for name in inputNames
             @_recipeData.input.push @_parseStack name
 
+    _command_onlyIf: (condition)->
+        words = condition.split ' '
+        if words.length < 2 then throw new Error 'condition must include a verb followed by a noun'
+
+        inverted = false
+        if words[0] is 'not'
+            inverted = true
+            words.shift()
+
+        verb = words[0]
+        noun = words[1..].join ' '
+
+        if not (verb in ['item', 'mod']) then throw new Error "unknown verb: #{verb}"
+        @_recipeData.condition = verb:verb, noun:noun, inverted:inverted
+
     _command_pattern: (pattern='')->
         if not @_recipeData? then throw new Error 'cannot declare "pattern" before "recipe"'
         if @_recipeData.pattern? then throw new Error 'duplicate declaration of "pattern"'
@@ -155,10 +170,11 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
         recipe = new Recipe
-            input:   @_buildStackList modVersion, recipeData.input, recipeData.pattern
-            output:  @_buildStackList modVersion, recipeData.output
-            pattern: recipeData.pattern
-            tools:   @_buildStackList modVersion, recipeData.tools
+            condition: recipeData.condition
+            input:     @_buildStackList modVersion, recipeData.input, recipeData.pattern
+            output:    @_buildStackList modVersion, recipeData.output
+            pattern:   recipeData.pattern
+            tools:     @_buildStackList modVersion, recipeData.tools
 
         modVersion.addRecipe recipe
         return recipe
@@ -274,6 +290,10 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         builder
             .line 'recipe:'
             .indent()
+                .onlyIf recipe.condition?, =>
+                    builder.push 'onlyIf: '
+                        .onlyIf recipe.condition.inverted, -> builder.push 'not '
+                        .line recipe.condition.verb, ' ', recipe.condition.noun
                 .onlyIf extraOutputs.length > 0, =>
                     builder
                         .push 'extras: '

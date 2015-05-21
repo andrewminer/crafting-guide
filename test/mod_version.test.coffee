@@ -87,6 +87,7 @@ describe 'mod_version.coffee', ->
                 item: Cake
                     recipe:; input: Milk, Sugar, Egg, Wheat; pattern: 000 121 333; extras: 3 Bucket
                     recipe:; input: Milk, Cocoa Beans, Egg, Wheat; pattern: 000 121 333; extras: 3 Bucket
+                    recipe:; input: Cake Slice; pattern: 000 000 000; onlyIf: item Cake Slice
                 item: Bucket
                     recipe:; input: Iron Ingot; pattern: ... 0.0 .0.
             """
@@ -94,3 +95,7 @@ describe 'mod_version.coffee', ->
         it 'finds all recipes which list item as output', ->
             recipes = modVersion.findRecipes ItemSlug.slugify('test__bucket')
             (r.output[0].itemSlug.item for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']
+
+        it 'skip recipes whose conditions are not met', ->
+            recipes = modVersion.findRecipes ItemSlug.slugify 'test__cake'
+            recipes.length.should.equal 2

@@ -28,6 +28,7 @@ module.exports = class Recipe extends BaseModel
 
         attributes.pattern = @_parsePattern attributes.pattern
 
+        attributes.condition  ?= null
         attributes.modVersion ?= null
         attributes.tools      ?= []
         options.logEvents     ?= false
@@ -113,6 +114,22 @@ module.exports = class Recipe extends BaseModel
                 total += stack.quantity
 
         return total
+
+    isConditionSatisfied: (modPack)->
+        return true unless @condition
+        modPack ?= @modVersion?.mod?.modPack
+
+        result = false
+        if @condition.verb is 'item'
+            if modPack?.findItemByName(@condition.noun)?
+                result = true
+        else if @condition.verb is 'mod'
+            modPack.eachMod (mod)->
+                if mod.name is @condition.noun
+                    result = true
+
+        if @condition.inverted then result = not result
+        return result
 
     isPassThroughFor: (itemSlug)->
         amountCreated = 0

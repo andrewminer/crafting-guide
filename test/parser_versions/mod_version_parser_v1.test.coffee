@@ -158,6 +158,40 @@ describe 'mod_version_parser_v1.coffee', ->
                 func = -> parser.parse 'item:Bravo; quantity:12; recipe:;'
                 expect(func).to.throw Error, 'cannot declare "quantity" before "recipe"'
 
+        describe 'onlyIf', ->
+
+            beforeEach ->
+                baseText = 'item: Charlie; recipe:; input:Alpha; pattern:...0.0...; '
+
+            it 'understands the "item" verb', ->
+                modVersion = parser.parse baseText + 'onlyIf: item Iron Ingot'
+                recipes = []
+                modVersion.eachRecipe (recipe)-> recipes.push recipe
+                recipe = recipes[0]
+                recipe.condition.should.eql verb:'item', noun:'Iron Ingot', inverted:false
+
+            it 'understands the "mod" verb', ->
+                modVersion = parser.parse baseText + 'onlyIf: mod BuildCraft'
+                recipes = []
+                modVersion.eachRecipe (recipe)-> recipes.push recipe
+                recipe = recipes[0]
+                recipe.condition.should.eql verb:'mod', noun:'BuildCraft', inverted:false
+
+            it 'understands inverting verbs', ->
+                modVersion = parser.parse baseText + 'onlyIf: not item Iron Ingot'
+                recipes = []
+                modVersion.eachRecipe (recipe)-> recipes.push recipe
+                recipe = recipes[0]
+                recipe.condition.should.eql verb:'item', noun:'Iron Ingot', inverted:true
+
+            it 'requires at least two words', ->
+                func = -> parser.parse baseText + 'onlyIf: item'
+                expect(func).to.throw Error, 'verb followed by a noun'
+
+            it 'only allows known verbs', ->
+                func = -> parser.parse baseText + 'onlyIf: foo Iron Ingot'
+                expect(func).to.throw Error, 'unknown verb'
+
         describe 'output', ->
 
             beforeEach ->
@@ -250,6 +284,11 @@ describe 'mod_version_parser_v1.coffee', ->
                         input: furnace fuel, Iron Dust
                         pattern: .1. ... .0.
                         tools: Furnace
+                    recipe:
+                        onlyIf: item Redstone Furnace
+                        input: Iron Ore
+                        pattern: ... .0. ...
+                        tools: Redstone Furnace
             """
 
         it 'can round-trip a data file', ->

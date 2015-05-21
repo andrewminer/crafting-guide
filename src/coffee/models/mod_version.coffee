@@ -144,6 +144,8 @@ module.exports = class ModVersion extends BaseModel
         otherRecipes = []
 
         for recipe in _.values @_recipes
+            continue unless recipe.isConditionSatisfied()
+
             if recipe.itemSlug.matches itemSlug
                 primaryRecipes.push recipe
             else if recipe.produces itemSlug

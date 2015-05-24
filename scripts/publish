@@ -4,3 +4,12 @@ git checkout production \
     && git rebase master \
     && git push \
     && git checkout master
+
+
+read VERSION_TYPE -p "Major, minor, patch? "
+if [[ "$VERSION_TYPE" == "" ]]; then
+    exit 1
+fi
+
+npm version "$VERSION_TYPE"
+npm publish

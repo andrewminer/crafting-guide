@@ -7,15 +7,15 @@ All rights reserved.
 
 require './polyfill'
 
-$                     = require 'jquery'
-CraftingGuideRouter   = require './crafting_guide_router'
-FeedbackController    = require './controllers/feedback_controller'
-_                     = require './underscore_mixins'
-backbone              = require 'backbone'
-marked                = require 'marked'
-views                 = require './views'
-{CraftingGuideClient} = require 'crafting-guide-common'
-{Logger}              = require 'crafting-guide-common'
+$                   = require 'jquery'
+CraftingGuideClient = require('crafting-guide-common').CraftingGuideClient
+CraftingGuideRouter = require './crafting_guide_router'
+FeedbackController  = require './controllers/feedback_controller'
+Logger              = require('crafting-guide-common').Logger
+_                   = require './underscore_mixins'
+backbone            = require 'backbone'
+marked              = require 'marked'
+views               = require './views'
 
 ########################################################################################################################
 

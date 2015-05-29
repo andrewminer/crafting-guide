@@ -17,3 +17,5 @@ fi
 
 npm version "$VERSION_TYPE" || die "Invalid version type: $VERSION_TYPE"
 npm publish
+
+grunt clean build

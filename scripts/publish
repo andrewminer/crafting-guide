@@ -1,15 +1,19 @@
 #!/bin/bash
 
+function die {
+    echo $*
+    exit 1
+}
+
 git checkout production \
     && git rebase master \
     && git push \
     && git checkout master
 
-
-read VERSION_TYPE -p "Major, minor, patch? "
+read -p "Major, minor, patch? " VERSION_TYPE
 if [[ "$VERSION_TYPE" == "" ]]; then
     exit 1
 fi
 
-npm version "$VERSION_TYPE"
+npm version "$VERSION_TYPE" || die "Invalid version type: $VERSION_TYPE"
 npm publish

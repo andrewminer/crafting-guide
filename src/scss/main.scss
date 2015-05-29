@@ -62,6 +62,11 @@ $color-brick-light:        #D9D9D9;
 $color-dirt:               #906647;
 $color-ice:                #8AA7E6;
 
+// Opacity Values //////////////////////////////////////////////////////////////////////////////////
+
+$opacity-hidden: 0.000001;
+$opacity-shown:  1.0;
+
 // Style Colors ////////////////////////////////////////////////////////////////////////////////////
 
 $color-active:             #5C8AE6;
@@ -69,6 +74,7 @@ $color-active-hover:       #2E6BE6;
 $color-background:         #AAC9FF;
 $color-background-panel:   #FFFFFF;
 $color-background-toolbar: rgba(255, 255, 255, 0.75);
+$color-checkmark:          #7EDD7B;
 $color-content:            rgba(230, 230, 230, 0.90);
 $color-error:              #F3C2C2;
 $color-error-new:          #CD0000;

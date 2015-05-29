@@ -28,7 +28,7 @@ module.exports = class StepController extends BaseController
 
     # Event Methods ################################################################################
 
-    onCompleteButtonClicked: (event)->
+    onCompleteClicked: (event)->
         event.preventDefault()
         @trigger Event.button.complete, this
 
@@ -46,8 +46,9 @@ module.exports = class StepController extends BaseController
             model:       @model.recipe
             modPack:     @modPack
 
-        @$header         = @$('h3')
-        @$completeButton = @$('button.complete')
+        @$header        = @$('h3')
+        @$completePanel = @$('.complete')
+        @$completeImage = @$('.complete img')
         super
 
     onWillChangeModel: (oldModel, newModel)->
@@ -63,9 +64,9 @@ module.exports = class StepController extends BaseController
         @recipeController.multiplier = @model.multiplier
 
         if @canComplete(this)
-            @$completeButton.removeProp 'disabled'
+            @$completePanel.addClass 'disabled'
         else
-            @$completeButton.prop 'disabled', true
+            @$completePanel.removeClass 'disabled'
 
         super
 
@@ -73,4 +74,4 @@ module.exports = class StepController extends BaseController
 
     events: ->
         return _.extend super,
-            'click button.complete': 'onCompleteButtonClicked'
+            'click .complete a': 'onCompleteClicked'

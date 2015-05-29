@@ -13,6 +13,17 @@ All rights reserved.
 
     &:first-child {
         border-top: 0;
+        padding-top: 0;
+
+        .complete {
+            top: 0;
+        }
+    }
+
+    &:hover {
+        .complete {
+            opacity: $opacity-shown;
+        }
     }
 
     .view__inventory {
@@ -23,25 +34,50 @@ All rights reserved.
         position: absolute; top: 2em; right: 4.8em;
     }
 
-    button.complete {
-        position: absolute; top: 1em; right: 0; height: 3em; width: 3em;
+    .complete {
+        position: absolute; top: 1em; right: 0;
+        cursor: pointer;
+        opacity: $opacity-hidden;
 
-        background: url("/images/check.png") no-repeat center;
-        border: 0;
-        font-size: $font-size-small;
-        outline: none;
+        transition: opacity $animate-fast;
 
-        &:active {
-            background: url('/images/check_active.png') no-repeat center;
+        a {
+            div {
+                height: 3em;
+
+                background: url('/images/check.png') no-repeat right;
+                background-size: 3em 3em;
+                padding-right: 4em;
+                text-align: right;
+
+                &:hover {
+                    background-image: url('/images/check_hover.png');
+
+                    p {
+                        font-weight: bold;
+                    }
+                }
+
+                p {
+                    position: relative; top: 50%;
+                    @include transform(translateY(-50%));
+                    color: $color-checkmark;
+                    font-size: $font-size-small;
+                }
+            }
         }
 
-        &:disabled {
-            background: url('/images/check_disabled.png') no-repeat center !important;
-            cursor: inherit;
+        &.active {
+            a {
+                background-image: url('/images/check_active.png');
+            }
         }
 
-        &:hover {
-            background: url('/images/check_hover.png') no-repeat center;
+        &.disabled {
+            a {
+                background-image: url('/images/check_disabled.png') !important;
+                cursor: inherit;
+            }
         }
     }
 }

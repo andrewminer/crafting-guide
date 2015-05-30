@@ -184,11 +184,6 @@ module.exports = class ItemPageController extends PageController
         if @model.item?.description?.length > 0
             @_descriptionController.model = @model.item.description
             @_descriptionController.resetToDefaultState()
-            @show @$descriptionSection
-        else if @user?
-            @show @$descriptionSection
-        else
-            @hide @$descriptionSection
 
     _refreshRecipes: ->
         @_recipeControllers ?= []

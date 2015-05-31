@@ -18,6 +18,10 @@ module.exports = class PageController extends BaseController
 
     # Public Methods ###############################################################################
 
+    getMetaDescription: ->
+        # subclasses should override this to return the page-specific text for the meta description tag
+        return null
+
     getTitle: ->
         # subclasses should override this to return the page-specific portion of the title
         return null
@@ -25,14 +29,25 @@ module.exports = class PageController extends BaseController
     # BaseController Overrides #####################################################################
 
     refresh: ->
+        @_refreshMetaDescription()
+        @_refreshTitle()
+        super
+
+    # Private Methods ##############################################################################
+
+    _refreshMetaDescription: ->
+        description = @getMetaDescription()
+        description ?= ''
+
+        if description.length > 0
+            $('meta[name="description"]').remove()
+            $('head').append "<meta name=\"description\" content=\"#{description}\">"
+
+    _refreshTitle: ->
         title = @getTitle()
         title = if title? then title.trim() else ''
 
         if title.length > 0
-            title += " | #{Text.title}"
+            $('title').html Text.titleWithText text:title
         else
-            title = Text.title
-
-        $('title').html title
-
-        super
+            $('title').html Text.title()

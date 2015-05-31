@@ -8,6 +8,7 @@ All rights reserved.
 AdsenseController = require './adsense_controller'
 PageController    = require './page_controller'
 _                 = require 'underscore'
+{Text}            = require '../constants'
 
 ########################################################################################################################
 
@@ -16,6 +17,11 @@ module.exports = class HomeController extends PageController
     constructor: (options={})->
         options.templateName = 'home_page'
         super options
+
+    # PageController Overrides #####################################################################
+
+    getMetaDescription: ->
+        return Text.homeDescription()
 
     # BaseController Overrides #####################################################################
 

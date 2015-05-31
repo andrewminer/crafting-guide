@@ -10,6 +10,7 @@ ModController     = require './mod_controller'
 PageController    = require './page_controller'
 {Duration}        = require '../constants'
 {Event}           = require '../constants'
+{Text}            = require '../constants'
 
 ########################################################################################################################
 
@@ -24,6 +25,9 @@ module.exports = class BrowsePageController extends PageController
         @modPack.on Event.change, => @tryRefresh()
 
     # PageController Overrides #####################################################################
+
+    getMetaDescription: ->
+        return Text.browseDescription()
 
     getTitle: ->
         return 'Browse'

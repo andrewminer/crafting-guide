@@ -12,6 +12,7 @@ PageController      = require './page_controller'
 StepController      = require './step_controller'
 _                   = require 'underscore'
 {Event}             = require '../constants'
+{Text}              = require '../constants'
 {Url}               = require '../constants'
 
 ########################################################################################################################
@@ -73,6 +74,9 @@ module.exports = class CraftPageController extends PageController
             @onHaveInventoryChanged()
 
     # PageController Overrides #####################################################################
+
+    getMetaDescription: ->
+        return Text.craftDescription()
 
     getTitle: ->
         return 'Craft'

@@ -56,8 +56,17 @@ module.exports = class ItemPageController extends PageController
 
     # PageController Overrides #####################################################################
 
+    getMetaDescription: ->
+        if @model.item?
+            display = @modPack.findItemDisplay @model.item.slug
+            return Text.itemDescription display
+        else
+            return null
+
     getTitle: ->
-        return @model.item?.name
+        return unless @model.item?
+        display = @modPack.findItemDisplay @model.item.slug
+        return "#{display.itemName} from #{display.modName}"
 
     # BaseController Overrides #####################################################################
 

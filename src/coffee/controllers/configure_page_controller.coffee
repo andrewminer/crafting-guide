@@ -8,6 +8,7 @@ All rights reserved.
 AdsenseController = require './adsense_controller'
 PageController    = require './page_controller'
 ModPackController = require './mod_pack_controller'
+{Text}            = require '../constants'
 
 ########################################################################################################################
 
@@ -23,6 +24,9 @@ module.exports = class ConfigurePageController extends PageController
         @storage = options.storage
 
     # PageController Overrides #####################################################################
+
+    getMetaDescription: ->
+        return Text.configDescription()
 
     getTitle: ->
         return "Configure"

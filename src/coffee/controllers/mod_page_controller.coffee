@@ -61,6 +61,10 @@ module.exports = class ModPageController extends PageController
 
     # PageController Overrides #####################################################################
 
+    getMetaDescription: ->
+        return unless @model?
+        return Text.modDescription modName:@model.name
+
     getTitle: ->
         return @model?.name
 

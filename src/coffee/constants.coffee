@@ -114,8 +114,15 @@ exports.ProductionEnvs = [ 'staging', 'production' ]
 
 exports.RequiredMods = [ 'minecraft' ]
 
-exports.Text = Text = {}
-Text.title = 'The Ultimate Minecraft Crafting Guide'
+exports.Text           = Text = {}
+Text.browseDescription = _.template 'Browse through complete item listings for over a dozen top mods and use the interactive crafting planner for step-by-step instructions'
+Text.configDescription = _.template 'Configure the interactive crafting planner for your exact modpack and get step-by-step instructions for any item in your world'
+Text.craftDescription  = _.template 'Build anything in your Minecraft mod pack with a full list of materials and step-by-step instructions using our interactive crafting planner'
+Text.homeDescription   = _.template 'Find everything you need to know about your Minecraft mod pack and use the interactive crafting planner for step-by-step instructions and full lists of materials'
+Text.itemDescription   = _.template 'Make <%= itemName %> and the rest of <%= modName %> easy and use the interactive crafting planner for step-by-step instructions'
+Text.modDescription    = _.template 'Make <%= modName %> easy with tutorials, videos, and a full item listing along with an interactive crafting planner for step-by-step instructions'
+Text.title             = _.template 'Minecraft Crafting Guide'
+Text.titleWithText     = _.template '<%= text %> | Minecraft Crafting Guide'
 
 exports.Url          = Url = {}
 Url.crafting         = _.template "/craft/<%= inventoryText %>"

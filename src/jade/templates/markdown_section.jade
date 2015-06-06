@@ -10,6 +10,8 @@
     .panel
         .waiting.hideable: img(src='/images/wait.gif')
         .markdown.hideable.hidden
+        .creating.hideable.hidden
+            p Please help by adding a description!
         .editor.hideable.hidden
             .instructions
                 p.
@@ -17,8 +19,7 @@
                     Flavored Markdown</a>. Use <tt>[[Item Name]]</tt> to link to another item.
             textarea
             .sizer
-        .creating.hideable.hidden
-            p Please help by adding a description!
+        .image_list
         .buttons.hideable.hidden
             .error.hideable.hidden: p
             button.return.hideable.hidden return

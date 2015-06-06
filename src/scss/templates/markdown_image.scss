@@ -1,0 +1,32 @@
+/*
+Crafting Guide - markdown_image.scss
+
+Copyright (C) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__markdown_image {
+    position: relative; min-width: 33em;
+
+    display: inline-block;
+    margin-right: 2em;
+    vertical-align: top;
+
+    img {
+        position: absolute; height: 10em; width: 10em;
+    }
+
+    .fileName {
+        height: 3em;
+
+        margin: 1em 0 6em 11em;
+
+        p {
+            font-weight: bold;
+        }
+    }
+
+    button {
+        position: absolute; left: 7.33em; bottom: 0.66em;
+    }
+}

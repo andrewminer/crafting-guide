@@ -5,12 +5,13 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseController  = require './base_controller'
-convertMarkdown = require 'marked'
-_               = require 'underscore'
-{Event}         = require '../constants'
-{Url}           = require '../constants'
-w               = require 'when'
+_                           = require 'underscore'
+BaseController              = require './base_controller'
+convertMarkdown             = require 'marked'
+{Event}                     = require '../constants'
+MarkdownImageListController = require './markdown_image_list_controller'
+{Url}                       = require '../constants'
+w                           = require 'when'
 
 ########################################################################################################################
 
@@ -132,6 +133,8 @@ module.exports = class MarkdownSectionController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
+        @_imageListController = @addChild MarkdownImageListController, '.image_list'
+
         @$errorText     = @$('.error p')
         @$markdownPanel = @$('.markdown')
         @$sizer         = @$('.sizer')
@@ -144,6 +147,7 @@ module.exports = class MarkdownSectionController extends BaseController
 
     refresh: ->
         @$title.html @title
+        @_imageListController.markdownText = @model
 
         @_updateSizer()
         @_updatePreview()
@@ -210,6 +214,7 @@ module.exports = class MarkdownSectionController extends BaseController
             editButton:        @$('button.edit')
             editorPanel:       @$('.editor')
             errorPanel:        @$('.error')
+            imageList:         @$('.image_list')
             markdownPanel:     @$markdownPanel
             previewButton:     @$('button.preview')
             returnButton:      @$('button.return')
@@ -226,7 +231,7 @@ module.exports = class MarkdownSectionController extends BaseController
         else if @state is State.creating
             visible = buttonPanel:true, creatingPanel:true, editButton:true
         else if @state is State.editing
-            visible = buttonPanel:true, cancelButton:true, editorPanel:true, previewButton:true
+            visible = buttonPanel:true, cancelButton:true, editorPanel:true, previewButton:true, imageList:true
         else if @state is State.previewing
             visible = buttonPanel:true, errorPanel:true, markdownPanel:true, returnButton:true, saveButton:true
             errorText = "remember: your changes aren't saved yet!"

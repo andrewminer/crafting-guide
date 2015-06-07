@@ -16,6 +16,7 @@ global.Backbone = require 'backbone'
 global.assert   = chai.assert
 global.expect   = chai.expect
 global.should   = chai.should()
+global.sinon    = require 'sinon'
 global.util     = require 'util'
 global.w        = require 'when'
 

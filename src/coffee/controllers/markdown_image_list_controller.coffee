@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseController          = require './base_controller'
+{Event}                 = require '../constants'
 MarkdownImageController = require './markdown_image_controller'
 MarkdownImageList       = require '../models/markdown_image_list'
 
@@ -14,11 +15,29 @@ MarkdownImageList       = require '../models/markdown_image_list'
 module.exports = class MarkdownImageListController extends BaseController
 
     constructor: (options={})->
-        options.model ?= new MarkdownImageList
+        options.model ?= new MarkdownImageList {}, {client:options.client}
         options.templateName = 'markdown_image_list'
         super options
 
+        @imageBase = ''
+
+    # Public Methods ###############################################################################
+
+    loadImages: ->
+        @model.loadImages()
+
     # Property Methods #############################################################################
+
+    getImageBase: ->
+        return @_imageBase
+
+    setImageBase: (newImageBase)->
+        oldImageBase = @_imageBase
+        return unless oldImageBase isnt newImageBase
+
+        @_imageBase = newImageBase
+        @trigger Event.change + ':imageBase', this, oldImageBase, newImageBase
+        @trigger Event.change, this
 
     getMarkdownText: ->
         return @model.markdownText
@@ -27,6 +46,7 @@ module.exports = class MarkdownImageListController extends BaseController
         @model.markdownText = markdownText
 
     Object.defineProperties @prototype,
+        imageBase:    {get:@prototype.getImageBase,    set:@prototype.setImageBase}
         markdownText: {get:@prototype.getMarkdownText, set:@prototype.setMarkdownText}
 
     # BaseController Overrides #####################################################################

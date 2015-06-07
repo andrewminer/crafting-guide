@@ -36,6 +36,7 @@ module.exports = class MarkdownSectionController extends BaseController
         @on Event.animate.hide.finish, => @_updateStateVisibility()
         @on Event.animate.show.finish, => @_updateStateVisibility()
 
+        @client               = options.client
         @confirmactionMessage = options.confirmationMessage
         @confirmDuration      = options.confirmationDuration ?= 5000
         @imageBase            = options.imageBase            ?= ''
@@ -52,6 +53,9 @@ module.exports = class MarkdownSectionController extends BaseController
         @_endEditing = options.endEditing
 
     # Public Methods ###############################################################################
+
+    loadImages: ->
+        @_imageListController.loadImages()
 
     resetToDefaultState: ->
         if @model?
@@ -114,6 +118,17 @@ module.exports = class MarkdownSectionController extends BaseController
     isEditable: ->
         return _.isFunction(@_beginEditing) and _.isFunction(@_endEditing)
 
+    getImageBase: ->
+        return @_imageBase
+
+    setImageBase: (newImageBase)->
+        oldImageBase = @_imageBase
+        return unless newImageBase isnt oldImageBase
+
+        @_imageBase = newImageBase
+        @trigger Event.change + ':imageBase', this, oldImageBase, newImageBase
+        @trigger Event.change, this
+
     getState: ->
         return @_state
 
@@ -127,13 +142,17 @@ module.exports = class MarkdownSectionController extends BaseController
         @_updateStateVisibility()
 
     Object.defineProperties @prototype,
-        editable: {get:@prototype.isEditable}
-        state:    {get:@prototype.getState, set:@prototype.setState}
+        editable:  {get:@prototype.isEditable}
+        imageBase: {get:@prototype.getImageBase, set:@prototype.setImageBase}
+        state:     {get:@prototype.getState,     set:@prototype.setState}
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_imageListController = @addChild MarkdownImageListController, '.image_list'
+        @_imageListController = @addChild MarkdownImageListController, '.image_list',
+            client: @client
+            imageBase: @imageBase
+        @on Event.change + ':imageBase', => @_imageListController.model.imageBase = @imageBase
 
         @$errorText     = @$('.error p')
         @$markdownPanel = @$('.markdown')

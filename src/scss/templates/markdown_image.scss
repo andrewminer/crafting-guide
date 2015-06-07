@@ -9,11 +9,21 @@ All rights reserved.
     position: relative; min-width: 33em;
 
     display: inline-block;
-    margin-right: 2em;
+    margin: 1em 2em 0 0;
     vertical-align: top;
 
-    img {
+    .thumbnail {
         position: absolute; height: 10em; width: 10em;
+
+        background: $color-gray-faint;
+        border: 0.1em solid $color-gray-light;
+        border-radius: 1em;
+
+        img {
+            position: absolute; top: 50%; left: 50%;
+            @include transform(translate(-50%, -50%));
+            max-width: 90%; max-height: 90%;
+        }
     }
 
     .fileName {

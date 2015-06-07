@@ -79,10 +79,11 @@ module.exports = class ItemPageController extends PageController
         @_usedToMakeController       = @addChild ItemGroupController, '.view__item_group.usedToMake', options
 
         @_descriptionController = @addChild MarkdownSectionController, '.section.description',
-            editable: true
-            modPack: @modPack
+            client:       @client
+            editable:     true
+            modPack:      @modPack
             beginEditing: => @_beginEditingDescription()
-            endEditing: => @_endEditingDescription()
+            endEditing:   => @_endEditingDescription()
 
         @$byline                  = @$('.byline')
         @$bylineLink              = @$('.byline a')
@@ -157,19 +158,22 @@ module.exports = class ItemPageController extends PageController
         @client.fetchFile path:GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
             .then (response)=>
                 @_editingFile = response.json.data
+                @_editingFile.content = new Buffer(@_editingFile.content, 'base64').toString('utf8')
+
                 if @_editingFile.content.length > 0
                     @model.item.parse @_editingFile.content
                 else
                     @model.item.description = ''
 
                 @_descriptionController.model = @model.item.description
+                @_descriptionController.loadImages()
 
     _endEditingDescription: ->
         oldDescription = @model.item.description
         @model.item.description = @_descriptionController.model
 
         args =
-            content: @model.item.unparse()
+            content: new Buffer(@model.item.unparse(), 'utf8').toString('base64')
             message: "User-submitted text for #{@model.item.name}"
             path:    GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
             sha:     @_editingFile.sha

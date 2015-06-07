@@ -5,6 +5,7 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+_              = require 'underscore'
 BaseController = require './base_controller'
 
 ########################################################################################################################
@@ -25,6 +26,8 @@ module.exports = class MarkdownImageController extends BaseController
         super
 
     refresh: ->
+        logger.debug "refreshing with model: #{@model.mimeType}, #{_.ellipsize(@model.encodedData)}"
+
         if @model.mimeType? and @model.encodedData?
             @$image.attr 'src', "data:#{@model.mimeType};base64,#{@model.encodedData}"
         else

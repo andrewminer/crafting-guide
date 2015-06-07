@@ -14,13 +14,26 @@ MarkdownImage = require './markdown_image'
 module.exports = class MarkdownImageList extends BaseModel
 
     constructor: (attributes={}, options={})->
+        attributes.imageBase    ?= ''
         attributes.markdownText ?= null
         super attributes, options
 
+        @client = options.client
         @_images = {}
+
+        @on Event.change + ':imageBase', =>
+            for fileName, image of @_images
+                image.path = @imageBase
 
         @on Event.change + ':markdownText', => @_analyzeMarkdownText()
         @_analyzeMarkdownText()
+
+    # Public Methods ###############################################################################
+
+    loadImages: ->
+        for fileName, image of @_images
+            if image.status is MarkdownImage.Status.unknown
+                image.fetch()
 
     # Property Methods #############################################################################
 
@@ -50,7 +63,7 @@ module.exports = class MarkdownImageList extends BaseModel
                 fileName = match[2]
                 image = @_images[fileName]
                 if not image?
-                    image = new MarkdownImage fileName:fileName
+                    image = new MarkdownImage {fileName:fileName, path:@imageBase}, {client:@client}
                     @trigger Event.add, this, image
                     changed = true
 

@@ -17,17 +17,38 @@ module.exports = class MarkdownImageController extends BaseController
         options.templateName = 'markdown_image'
         super
 
+    # Event Methods ################################################################################
+
+    onButtonClicked: ->
+        @$input.click()
+
+    onFileChanged: ->
+        file = @$input.prop('files')[0]
+        @_reader = new FileReader
+        @_reader.onload = =>
+            index = @_reader.result.indexOf ','
+            meta = @_reader.result.substring 0, index
+            encodedData = @_reader.result.substring index + 1
+
+            match    = meta.match /data:(.*);(.*)/
+            mimeType = match[1]
+            encoding = match[2]
+
+            logger.debug "uploaded #{encodedData.length} bytes as #{mimeType} in #{encoding}"
+
+        @_reader.readAsDataURL file
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
         @$image    = @$('img')
         @$fileName = @$('.fileName p')
         @$button   = @$('button')
+        @$input    = @$('input')
+
         super
 
     refresh: ->
-        logger.debug "refreshing with model: #{@model.mimeType}, #{_.ellipsize(@model.encodedData)}"
-
         if @model.mimeType? and @model.encodedData?
             @$image.attr 'src', "data:#{@model.mimeType};base64,#{@model.encodedData}"
         else
@@ -41,3 +62,10 @@ module.exports = class MarkdownImageController extends BaseController
             @$button.html 'Choose'
 
         super
+
+    # Backbone.View Overrides ######################################################################
+
+    events: ->
+        return _.extend super,
+            'click button': 'onButtonClicked'
+            'change input': 'onFileChanged'

@@ -39,4 +39,10 @@ All rights reserved.
     button {
         position: absolute; left: 7.33em; bottom: 0.66em;
     }
+
+    input {
+        position: absolute;
+        visibility: none;
+        z-index: -1;
+    }
 }

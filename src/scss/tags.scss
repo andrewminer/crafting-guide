@@ -18,10 +18,16 @@ button {
     cursor: pointer;
     font-size: $font-size-normal;
     font-weight: bold;
+    outline: none;
     padding: 0.1em 1em;
 
+    &:active {
+        background: $color-active;
+        color: $color-white;
+    }
+
     &:hover {
-        background: white;
+        background: $color-white;
         color: $color-active-hover;
     }
 

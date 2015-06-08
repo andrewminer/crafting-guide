@@ -7,6 +7,7 @@ All rights reserved.
 
 _              = require 'underscore'
 BaseController = require './base_controller'
+MarkdownImage  = require '../models/markdown_image'
 
 ########################################################################################################################
 
@@ -23,20 +24,35 @@ module.exports = class MarkdownImageController extends BaseController
         @$input.click()
 
     onFileChanged: ->
+        if @_reader? then @_reader.abort = true
+
         file = @$input.prop('files')[0]
-        @_reader = new FileReader
-        @_reader.onload = =>
-            index = @_reader.result.indexOf ','
-            meta = @_reader.result.substring 0, index
-            encodedData = @_reader.result.substring index + 1
+
+        reader = @_reader = new FileReader
+        reader.abort = false
+        reader.onload = =>
+            if reader.abort
+                logger.info "aborted reading #{file.name}"
+                return
+
+            @_reader = null
+
+            index       = reader.result.indexOf ','
+            meta        = reader.result.substring 0, index
+            encodedData = reader.result.substring index + 1
 
             match    = meta.match /data:(.*);(.*)/
             mimeType = match[1]
             encoding = match[2]
 
-            logger.debug "uploaded #{encodedData.length} bytes as #{mimeType} in #{encoding}"
+            @model.set
+                encodedData: encodedData
+                status:      MarkdownImage.Status.updateable
 
-        @_reader.readAsDataURL file
+            logger.info "loaded #{encodedData.length} bytes from #{file.name} as #{mimeType}"
+
+        logger.info "starting to read local file: #{file.name}"
+        reader.readAsDataURL file
 
     # BaseController Overrides #####################################################################
 

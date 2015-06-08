@@ -73,6 +73,9 @@ module.exports = class MarkdownSectionController extends BaseController
         @model = @_originalModel
         @resetToDefaultState()
 
+        @_imageListController.reset()
+        @_updatePreview()
+
     onEditClicked: (event)->
         event.preventDefault()
         return unless @editable
@@ -89,6 +92,7 @@ module.exports = class MarkdownSectionController extends BaseController
 
     onPreviewClicked: (event)->
         event.preventDefault()
+        @_updatePreview()
         @state = State.previewing
 
     onReturnClicked: (event)->
@@ -191,8 +195,8 @@ module.exports = class MarkdownSectionController extends BaseController
     # Private Methods ##############################################################################
 
     _convertImageLinks: (text)->
-        text.replace /\!\[([^\]]*)\]\(([^\)]*)\)/g, (match, altText, fileName)=>
-            return "![#{altText}](#{@imageBase}/#{fileName})"
+        text.replace /\<img src="([^"]*)"/g, (match, fileName)=>
+            return "<img src=\"#{@_imageListController.getImageUrlForFile(fileName)}\""
 
     _convertWikiLinks: (text)->
         text.replace /\[\[([^\]]*)\]\]/g, (match, name)=>
@@ -215,8 +219,8 @@ module.exports = class MarkdownSectionController extends BaseController
         text = @model
         if @model?
             text = @_convertWikiLinks text
-            text = @_convertImageLinks text
             text = convertMarkdown text
+            text = @_convertImageLinks text
 
         @$markdownPanel.html text
 

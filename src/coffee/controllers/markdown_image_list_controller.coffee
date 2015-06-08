@@ -23,8 +23,14 @@ module.exports = class MarkdownImageListController extends BaseController
 
     # Public Methods ###############################################################################
 
+    getImageUrlForFile: (fileName)->
+        @model.getImageUrlForFile fileName
+
     loadImages: ->
         @model.loadImages()
+
+    reset: ->
+        @model.reset()
 
     # Property Methods #############################################################################
 

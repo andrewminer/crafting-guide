@@ -26,7 +26,7 @@ module.exports = class MarkdownImage extends BaseModel
         'empty':      'empty'
         'creatable':  'creatable'
         'unchanged':  'unchanged'
-        'updateable': 'updatable'
+        'updateable': 'updateable'
     }
 
     constructor: (attributes={}, options={})->
@@ -46,6 +46,12 @@ module.exports = class MarkdownImage extends BaseModel
     getFullPath: ->
         return "#{@path}/#{@fileName}"
 
+    getImageUrl: ->
+        if @mimeType? and @encodedData?
+            return "data:#{@mimeType};base64,#{@encodedData}"
+        else
+            return @fullPath
+
     getMimeType: ->
         if not @_mimeType?
             for mimeType in MimeTypes
@@ -57,6 +63,7 @@ module.exports = class MarkdownImage extends BaseModel
 
     Object.defineProperties @prototype,
         fullPath: {get:@prototype.getFullPath}
+        imageUrl: {get:@prototype.getImageUrl}
         mimeType: {get:@prototype.getMimeType}
 
     # BaseModel Overrides ##########################################################################

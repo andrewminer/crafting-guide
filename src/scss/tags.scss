@@ -31,6 +31,12 @@ button {
         color: $color-active-hover;
     }
 
+    &:disabled {
+        background: $color-white !important;
+        color: $color-gray-light !important;
+        cursor: default !important;
+    }
+
     &.large {
         margin: 2em 0;
         padding: 0.5em 0.5em;

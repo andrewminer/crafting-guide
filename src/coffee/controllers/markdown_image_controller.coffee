@@ -89,6 +89,12 @@ module.exports = class MarkdownImageController extends BaseController
             @$loading.hide duration:Duration.normal
             @$loaded.show duration:Duration.normal, queue:true
 
+        if @model.status is MarkdownImage.Status.empty
+            @$errorMessage.html 'please choose an image'
+            @$errorContainer.show duration:Duration.normal
+        else
+            @$errorContainer.hide duration:Duration.normal
+
         super
 
     # Backbone.View Overrides ######################################################################

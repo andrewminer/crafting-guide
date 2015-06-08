@@ -166,7 +166,6 @@ module.exports = class ItemPageController extends PageController
                     @model.item.description = ''
 
                 @_descriptionController.model = @model.item.description
-                @_descriptionController.loadImages()
 
     _endEditingDescription: ->
         oldDescription = @model.item.description

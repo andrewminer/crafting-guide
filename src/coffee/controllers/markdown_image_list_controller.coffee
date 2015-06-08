@@ -20,14 +20,12 @@ module.exports = class MarkdownImageListController extends BaseController
         super options
 
         @imageBase = ''
+        @_valid = null
 
     # Public Methods ###############################################################################
 
     getImageUrlForFile: (fileName)->
         @model.getImageUrlForFile fileName
-
-    loadImages: ->
-        @model.loadImages()
 
     reset: ->
         @model.reset()
@@ -51,17 +49,27 @@ module.exports = class MarkdownImageListController extends BaseController
     setMarkdownText: (markdownText)->
         @model.markdownText = markdownText
 
+    getValid: ->
+        return @_valid
+
     Object.defineProperties @prototype,
         imageBase:    {get:@prototype.getImageBase,    set:@prototype.setImageBase}
         markdownText: {get:@prototype.getMarkdownText, set:@prototype.setMarkdownText}
+        valid:        {get:@prototype.getValid}
 
     # BaseController Overrides #####################################################################
+
+    onDidModelChange: ->
+        super
+        @_setValid @model.valid
 
     onDidRender: ->
         @$imageContainer = @$('.image_container')
         super
 
     refresh: ->
+        @model.loadImages()
+
         @_controllers ?= []
         index = 0
 
@@ -79,3 +87,14 @@ module.exports = class MarkdownImageListController extends BaseController
 
         while @_controllers.length > index
             @_controllers.pop().remove()
+
+    # Private Methods ##############################################################################
+
+    _setValid: (newValid)->
+        oldValid = @_valid
+        return if newValid is oldValid
+
+        @_valid = newValid
+        logger.debug "setting mic.valid to #{@_valid}"
+        @trigger Event.change + ':valid', this, oldValid, newValid
+        @trigger Event.change

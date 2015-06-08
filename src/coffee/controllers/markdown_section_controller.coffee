@@ -54,9 +54,6 @@ module.exports = class MarkdownSectionController extends BaseController
 
     # Public Methods ###############################################################################
 
-    loadImages: ->
-        @_imageListController.loadImages()
-
     resetToDefaultState: ->
         if @model?
             @state = State.viewing
@@ -157,9 +154,12 @@ module.exports = class MarkdownSectionController extends BaseController
             client: @client
             imageBase: @imageBase
         @on Event.change + ':imageBase', => @_imageListController.model.imageBase = @imageBase
+        @listenTo @_imageListController, Event.change + ':valid', => @tryRefresh()
 
         @$errorText     = @$('.error p')
         @$markdownPanel = @$('.markdown')
+        @$previewButton = @$('button.preview')
+        @$saveButton    = @$('button.save')
         @$sizer         = @$('.sizer')
         @$textarea      = @$('textarea')
         @$title         = @$('h2')
@@ -172,6 +172,7 @@ module.exports = class MarkdownSectionController extends BaseController
         @$title.html @title
         @_imageListController.markdownText = @model
 
+        @_updateButtonStates()
         @_updateSizer()
         @_updatePreview()
         super
@@ -208,6 +209,14 @@ module.exports = class MarkdownSectionController extends BaseController
 
             return result
 
+    _updateButtonStates: ->
+        for $button in [ @$previewButton, @$saveButton ]
+            logger.debug "updating buttons based upon valid state: #{@_imageListController.valid}"
+            if @_imageListController.valid
+                $button.prop 'disabled', false
+            else
+                $button.prop 'disabled', true
+
     _updateSizer: ->
         text = @model
         if @model?
@@ -239,9 +248,9 @@ module.exports = class MarkdownSectionController extends BaseController
             errorPanel:        @$('.error')
             imageList:         @$('.image_list')
             markdownPanel:     @$markdownPanel
-            previewButton:     @$('button.preview')
+            previewButton:     @$previewButton
             returnButton:      @$('button.return')
-            saveButton:        @$('button.save')
+            saveButton:        @$saveButton
             waitingPanel:      @$('.waiting')
 
         visible = {}

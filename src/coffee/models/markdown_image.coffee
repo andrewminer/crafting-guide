@@ -61,10 +61,14 @@ module.exports = class MarkdownImage extends BaseModel
 
         return @_mimeType
 
+    isValid: ->
+        return @status in [ Status.creatable, Status.unchanged, Status.updateable ]
+
     Object.defineProperties @prototype,
         fullPath: {get:@prototype.getFullPath}
         imageUrl: {get:@prototype.getImageUrl}
         mimeType: {get:@prototype.getMimeType}
+        valid:    {get:@prototype.isValid}
 
     # BaseModel Overrides ##########################################################################
 

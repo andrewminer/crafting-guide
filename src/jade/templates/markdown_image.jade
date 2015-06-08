@@ -8,8 +8,9 @@
 .view__markdown_image
     .loaded
         .thumbnail: img
-        .fileName: p
+        .dynamic
+            .fileName: p
+            .error: p
         button
         input(type="file", accept="image/gif,image/jpeg,image/png" multiple="false")
-    .error: p
     .loading: p checking for image...

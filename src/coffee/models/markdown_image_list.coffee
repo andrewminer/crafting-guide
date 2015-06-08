@@ -41,6 +41,9 @@ module.exports = class MarkdownImageList extends BaseModel
                 image.fetch()
 
     reset: ->
+        for fileName, image of @_images
+            @stopListening image
+
         @_images = {}
         @_analyzeMarkdownText()
 
@@ -54,13 +57,19 @@ module.exports = class MarkdownImageList extends BaseModel
 
         return result
 
+    isValid: ->
+        for fileName, image of @_images
+            return false unless image.valid
+        return true
+
     Object.defineProperties @prototype,
         all: {get:@prototype.getAll}
+        valid: {get:@prototype.isValid}
 
     # Private Methods ##############################################################################
 
     _analyzeMarkdownText: ->
-        regex = /\!\[([^\]]*)\]\(([^\)]*)\)/g
+        regex = /\!\[([^\]\n]*)\]\(([^\)\n]*)\)/g
         newImages = {}
         changed = false
 
@@ -73,6 +82,7 @@ module.exports = class MarkdownImageList extends BaseModel
                 image = @_images[fileName]
                 if not image?
                     image = new MarkdownImage {fileName:fileName, path:@imageBase}, {client:@client}
+                    @listenTo image, Event.change, => @trigger Event.change, this
                     @trigger Event.add, this, image
                     changed = true
 

@@ -9,7 +9,7 @@ All rights reserved.
     position: relative; min-width: 33em;
 
     display: inline-block;
-    margin: 1em 2em 0 0;
+    margin: 0 2em 1em 0;
     overflow: hidden;
     vertical-align: top;
 
@@ -27,13 +27,16 @@ All rights reserved.
         }
     }
 
-    .fileName {
-        height: 3em;
+    .dynamic {
+        min-height: 7.5em; min-width: 22em;
+        margin: 0 0 3.5em 11em;
 
-        margin: 1em 0 7em 11em;
+        .fileName {
+            min-height: 2em;
 
-        p {
-            font-weight: bold;
+            p {
+                font-weight: bold;
+            }
         }
     }
 

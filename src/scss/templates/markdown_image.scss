@@ -10,6 +10,7 @@ All rights reserved.
 
     display: inline-block;
     margin: 1em 2em 0 0;
+    overflow: hidden;
     vertical-align: top;
 
     .thumbnail {
@@ -29,7 +30,7 @@ All rights reserved.
     .fileName {
         height: 3em;
 
-        margin: 1em 0 6em 11em;
+        margin: 1em 0 7em 11em;
 
         p {
             font-weight: bold;
@@ -41,8 +42,17 @@ All rights reserved.
     }
 
     input {
-        position: absolute;
-        visibility: none;
-        z-index: -1;
+        position: absolute; top: -5em;
+    }
+
+    .loading {
+        height: 10em; width: 33em;
+
+        p {
+            position: absolute; top: 50%; left: 50%;
+            @include transform(translate(-50%, -50%));
+
+            color: $color-gray-light;
+        }
     }
 }

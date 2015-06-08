@@ -7,6 +7,7 @@ All rights reserved.
 
 _              = require 'underscore'
 BaseController = require './base_controller'
+{Duration}     = require '../constants'
 MarkdownImage  = require '../models/markdown_image'
 
 ########################################################################################################################
@@ -57,10 +58,14 @@ module.exports = class MarkdownImageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$image    = @$('img')
-        @$fileName = @$('.fileName p')
-        @$button   = @$('button')
-        @$input    = @$('input')
+        @$image          = @$('img')
+        @$fileName       = @$('.fileName p')
+        @$button         = @$('button')
+        @$input          = @$('input')
+        @$errorContainer = @$('.error')
+        @$errorMessage   = @$('.error p')
+        @$loaded         = @$('.loaded')
+        @$loading        = @$('.loading')
 
         super
 
@@ -76,6 +81,13 @@ module.exports = class MarkdownImageController extends BaseController
             @$button.html 'Update'
         else
             @$button.html 'Choose'
+
+        if @model.status is MarkdownImage.Status.checking
+            @$loaded.hide duration:Duration.normal
+            @$loading.show duration:Duration.normal, queue:true
+        else
+            @$loading.hide duration:Duration.normal
+            @$loaded.show duration:Duration.normal, queue:true
 
         super
 

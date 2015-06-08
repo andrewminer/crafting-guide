@@ -6,7 +6,10 @@
 //-
 
 .view__markdown_image
-    .thumbnail: img
-    .fileName: p
-    button
-    input(type="file", accept="image/gif,image/jpeg,image/png" multiple="false")
+    .loaded
+        .thumbnail: img
+        .fileName: p
+        button
+        input(type="file", accept="image/gif,image/jpeg,image/png" multiple="false")
+    .error: p
+    .loading: p checking for image...

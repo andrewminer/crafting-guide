@@ -46,10 +46,7 @@ module.exports = class MarkdownImageController extends BaseController
             mimeType = match[1]
             encoding = match[2]
 
-            @model.set
-                encodedData: encodedData
-                status:      MarkdownImage.Status.updateable
-
+            @model.encodedData = encodedData
             logger.info "loaded #{encodedData.length} bytes from #{file.name} as #{mimeType}"
 
         logger.info "starting to read local file: #{file.name}"

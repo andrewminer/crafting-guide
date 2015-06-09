@@ -23,9 +23,10 @@ if typeof(global) is 'undefined'
     window.global = window
     global = window.global
 
+global.hostName = window.location.hostname
 global.logger = new Logger
 
-switch window.location.hostname
+switch global.hostName
     when 'prerender.crafting-guide.com'
         global.env   = 'prerender'
         logger.level = Logger.FATAL

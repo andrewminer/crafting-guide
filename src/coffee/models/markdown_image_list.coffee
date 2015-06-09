@@ -30,12 +30,10 @@ module.exports = class MarkdownImageList extends BaseModel
 
     # Public Methods ###############################################################################
 
-    getImageUrlForFile: (fileName)->
-        result = @_images[fileName]?.imageUrl
-        result ?= "#{@imageBase}/#{fileName}"
-        return result
+    getFile: (fileName)->
+        return @_images[fileName]
 
-    loadImages: ->
+    fetchImages: ->
         for fileName, image of @_images
             if image.status is MarkdownImage.Status.unknown
                 image.fetch()

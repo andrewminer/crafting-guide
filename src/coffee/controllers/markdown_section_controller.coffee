@@ -104,7 +104,8 @@ module.exports = class MarkdownSectionController extends BaseController
             .then =>
                 @state = State.confirming
             .catch (e)=>
-                logger.error "failed to end editing: #{e}"
+                message = if e.stack? then e.stack else e
+                logger.error "failed to end editing: #{message}"
                 @state = State.appologizing
             .delay @confirmDuration
             .then =>
@@ -130,6 +131,9 @@ module.exports = class MarkdownSectionController extends BaseController
         @trigger Event.change + ':imageBase', this, oldImageBase, newImageBase
         @trigger Event.change, this
 
+    getImageFiles: ->
+        return @_imageListController.model.all
+
     getState: ->
         return @_state
 
@@ -143,9 +147,10 @@ module.exports = class MarkdownSectionController extends BaseController
         @_updateStateVisibility()
 
     Object.defineProperties @prototype,
-        editable:  {get:@prototype.isEditable}
-        imageBase: {get:@prototype.getImageBase, set:@prototype.setImageBase}
-        state:     {get:@prototype.getState,     set:@prototype.setState}
+        editable:   { get:@prototype.isEditable }
+        imageBase:  { get:@prototype.getImageBase, set:@prototype.setImageBase }
+        imageFiles: { get:@prototype.getImageFiles }
+        state:      { get:@prototype.getState,     set:@prototype.setState }
 
     # BaseController Overrides #####################################################################
 
@@ -211,7 +216,6 @@ module.exports = class MarkdownSectionController extends BaseController
 
     _updateButtonStates: ->
         for $button in [ @$previewButton, @$saveButton ]
-            logger.debug "updating buttons based upon valid state: #{@_imageListController.valid}"
             if @_imageListController.valid
                 $button.prop 'disabled', false
             else

@@ -88,9 +88,11 @@ Key.Escape    = 27
 Key.UpArrow   = 38
 Key.DownArrow = 40
 
-exports.GitHub = GitHub = {}
-GitHub.file = {}
-GitHub.file.itemDescription = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
+exports.GitHub                       = GitHub = {}
+GitHub.file                          = {}
+GitHub.file.itemDescription          = {}
+GitHub.file.itemDescription.fileName = _.template "item.cg"
+GitHub.file.itemDescription.path     = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>"
 
 exports.Login = Login = {}
 Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +

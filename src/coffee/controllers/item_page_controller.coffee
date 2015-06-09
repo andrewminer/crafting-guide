@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 AdsenseController         = require './adsense_controller'
+EditableFile              = require '../models/editable_file'
 FullRecipeController      = require './full_recipe_controller'
 ImageLoader               = require './image_loader'
 Item                      = require '../models/item'
@@ -42,7 +43,7 @@ module.exports = class ItemPageController extends PageController
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
 
-        @_editingFile = null
+        @_descriptionFile = null
         @_itemSlug    = options.itemSlug
 
         @modPack.on Event.change, => @tryRefresh()
@@ -155,13 +156,16 @@ module.exports = class ItemPageController extends PageController
         if not @model.item?
             return w.reject new Error 'must have an item'
 
-        @client.fetchFile path:GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
-            .then (response)=>
-                @_editingFile = response.json.data
-                @_editingFile.content = new Buffer(@_editingFile.content, 'base64').toString('utf8')
+        pathArgs = modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
+        attributes =
+            fileName: GitHub.file.itemDescription.fileName pathArgs
+            path:     GitHub.file.itemDescription.path pathArgs
 
-                if @_editingFile.content.length > 0
-                    @model.item.parse @_editingFile.content
+        @_descriptionFile = new EditableFile attributes, client:@client
+        @_descriptionFile.fetch()
+            .then =>
+                if @_descriptionFile.encodedData.length > 0
+                    @model.item.parse @_descriptionFile.getDecodedData 'utf8'
                 else
                     @model.item.description = ''
 
@@ -169,15 +173,18 @@ module.exports = class ItemPageController extends PageController
 
     _endEditingDescription: ->
         oldDescription = @model.item.description
+        promises = []
+
+        commitMessage = "User-submitted image for #{@model.item.name} from #{global.hostName}"
+        for imageFile in @_descriptionController.imageFiles
+            promises.push imageFile.save commitMessage
+
+        commitMessage = "User-submitted text for #{@model.item.name} from #{global.hostName}"
         @model.item.description = @_descriptionController.model
+        @_descriptionFile.setDecodedData @model.item.unparse()
+        promises.push @_descriptionFile.save commitMessage
 
-        args =
-            content: new Buffer(@model.item.unparse(), 'utf8').toString('base64')
-            message: "User-submitted text for #{@model.item.name}"
-            path:    GitHub.file.itemDescription modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
-            sha:     @_editingFile.sha
-
-        @client.updateFile args
+        w.all promises
             .catch (e)=>
                 @model.item.description = oldDescription
                 throw e

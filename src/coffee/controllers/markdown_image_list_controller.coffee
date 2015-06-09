@@ -25,7 +25,7 @@ module.exports = class MarkdownImageListController extends BaseController
     # Public Methods ###############################################################################
 
     getImageUrlForFile: (fileName)->
-        @model.getImageUrlForFile fileName
+        @model.getFile(fileName).imageUrl
 
     reset: ->
         @model.reset()
@@ -68,7 +68,7 @@ module.exports = class MarkdownImageListController extends BaseController
         super
 
     refresh: ->
-        @model.loadImages()
+        @model.fetchImages()
 
         @_controllers ?= []
         index = 0
@@ -95,6 +95,5 @@ module.exports = class MarkdownImageListController extends BaseController
         return if newValid is oldValid
 
         @_valid = newValid
-        logger.debug "setting mic.valid to #{@_valid}"
         @trigger Event.change + ':valid', this, oldValid, newValid
         @trigger Event.change

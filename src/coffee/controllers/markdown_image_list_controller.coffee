@@ -24,6 +24,9 @@ module.exports = class MarkdownImageListController extends BaseController
 
     # Public Methods ###############################################################################
 
+    fetchImages: ->
+        @model.fetchImages()
+
     getImageUrlForFile: (fileName)->
         @model.getFile(fileName).imageUrl
 
@@ -68,8 +71,6 @@ module.exports = class MarkdownImageListController extends BaseController
         super
 
     refresh: ->
-        @model.fetchImages()
-
         @_controllers ?= []
         index = 0
 

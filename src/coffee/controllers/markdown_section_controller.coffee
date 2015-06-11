@@ -144,7 +144,7 @@ module.exports = class MarkdownSectionController extends BaseController
 
         logger.verbose => "MarkdownSectionController.#{@cid} changed state from #{oldState} to #{newState}"
         @trigger Event.change + ':state', this, oldState, newState
-        @_updateStateVisibility()
+        @tryRefresh()
 
     Object.defineProperties @prototype,
         editable:   { get:@prototype.isEditable }
@@ -176,10 +176,13 @@ module.exports = class MarkdownSectionController extends BaseController
     refresh: ->
         @$title.html @title
         @_imageListController.markdownText = @model
+        @_imageListController.fetchImages() if @state is State.editing
 
         @_updateButtonStates()
         @_updateSizer()
         @_updatePreview()
+        @_updateStateVisibility()
+
         super
 
     onWillChangeModel: (oldModel, newModel)->

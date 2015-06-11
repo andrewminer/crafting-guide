@@ -8,11 +8,11 @@
 .view__markdown_section.section
     h2
     .panel
-        .waiting.hideable: img(src='/images/wait.gif')
-        .markdown.hideable.hidden
-        .creating.hideable.hidden
+        .waiting: img(src='/images/wait.gif')
+        .markdown
+        .creating
             p Please help by adding a description!
-        .editor.hideable.hidden
+        .editor
             .instructions
                 p.
                     Edit using <a href="https://help.github.com/articles/github-flavored-markdown/" target="new">GitHub
@@ -21,16 +21,16 @@
             textarea
             .sizer
         .image_list
-        .buttons.hideable.hidden
-            .error.hideable.hidden: p
-            button.return.hideable.hidden return
-            button.cancel.hideable.hidden cancel
-            button.preview.hideable.hidden preview
-            button.save.hideable.hidden save
-            button.edit.hideable edit
-        .confirming.hideable.hidden
+        .buttons
+            .error: p
+            button.return return
+            button.cancel cancel
+            button.preview preview
+            button.save save
+            button.edit edit
+        .confirming
             p Thanks for your help!
             p Your changes will appear on the site in a few minutes.
-        .appologizing.hideable.hidden
+        .appologizing
             p Sorry, but something went wrong.
             p Please try again after a few moments.

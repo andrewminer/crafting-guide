@@ -8,6 +8,7 @@ All rights reserved.
 _                           = require 'underscore'
 BaseController              = require './base_controller'
 convertMarkdown             = require 'marked'
+{Duration}                  = require '../constants'
 {Event}                     = require '../constants'
 MarkdownImageListController = require './markdown_image_list_controller'
 {Url}                       = require '../constants'
@@ -244,6 +245,8 @@ module.exports = class MarkdownSectionController extends BaseController
         return if @_lastUpdatedState is @state
         @_lastUpdatedState = @state
 
+        logger.verbose => "Updating markdown section visibility for state: #{@state}"
+
         elements =
             appologizingPanel: @$('.appologizing')
             buttonPanel:       @$('.buttons')
@@ -283,13 +286,13 @@ module.exports = class MarkdownSectionController extends BaseController
         toHide = ($el for name, $el of elements when not visible[name])
         toShow = ($el for name, $el of elements when visible[name])
 
+        $el.clearQueue() for name, $el of elements
+
         if toHide.length > 0
-            @hide $el for $el in toHide
-            if toShow.length > 0
-                @once Event.animate.hide.finish, =>
-                    @show $el for $el in toShow
-        else if toShow.length > 0
-            @show $el for $el in toShow
+            $el.fadeOut(duration:Duration.normal) for $el in toHide
+            $el.delay(Duration.normal) for $el in toShow
+
+        $el.fadeIn(duration:Duration.normal) for $el in toShow
 
         if @state is State.editing
             @once Event.animate.show.finish, =>

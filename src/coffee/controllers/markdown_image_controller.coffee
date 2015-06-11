@@ -35,6 +35,7 @@ module.exports = class MarkdownImageController extends BaseController
         if @_reader? then @_reader.abort = true
 
         file = @$input.prop('files')[0]
+        return unless file?
 
         if file.size > MAX_FILE_SIZE
             logger.warning "The choosen file, #{file.name}, is too large: #{file.size}"
@@ -123,20 +124,20 @@ module.exports = class MarkdownImageController extends BaseController
             @$button.html 'Choose'
 
         if @model.status is MarkdownImage.Status.checking
-            @$loaded.hide duration:Duration.normal
-            @$loading.show duration:Duration.normal, queue:true
+            @$loaded.fadeOut duration:Duration.normal
+            @$loading.fadeIn duration:Duration.normal, queue:true
         else
-            @$loading.hide duration:Duration.normal
-            @$loaded.show duration:Duration.normal, queue:true
+            @$loading.fadeOut duration:Duration.normal
+            @$loaded.fadeIn duration:Duration.normal, queue:true
 
         if @model.status is MarkdownImage.Status.empty
             @$errorMessage.html 'please choose an image'
-            @$errorContainer.show duration:Duration.normal
+            @$errorContainer.fadeIn duration:Duration.normal
         else if @errorMessage?
             @$errorMessage.html @errorMessage
-            @$errorContainer.show duration:Duration.normal
+            @$errorContainer.fadeIn duration:Duration.normal
         else
-            @$errorContainer.hide duration:Duration.normal
+            @$errorContainer.fadeOut duration:Duration.normal
 
         super
 

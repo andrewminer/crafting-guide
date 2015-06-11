@@ -28,6 +28,8 @@ w                         = require 'when'
 
 module.exports = class ItemPageController extends PageController
 
+    FILE_UPLOAD_DELAY = 250
+
     constructor: (options={})->
         if not options.client? then throw new Error 'options.client is required'
         if not options.itemSlug? then throw new Error 'options.itemSlug is required'
@@ -164,7 +166,7 @@ module.exports = class ItemPageController extends PageController
         @_descriptionFile = new EditableFile attributes, client:@client
         @_descriptionFile.fetch()
             .then =>
-                if @_descriptionFile.encodedData.length > 0
+                if @_descriptionFile.encodedData?.length > 0
                     @model.item.parse @_descriptionFile.getDecodedData 'utf8'
                 else
                     @model.item.description = ''
@@ -175,16 +177,27 @@ module.exports = class ItemPageController extends PageController
         oldDescription = @model.item.description
         promises = []
 
-        commitMessage = "User-submitted image for #{@model.item.name} from #{global.hostName}"
+        saveList = []
         for imageFile in @_descriptionController.imageFiles
-            promises.push imageFile.save commitMessage
+            saveList.push
+                file:    imageFile
+                message: "User-submitted image for #{@model.item.name} from #{global.hostName}"
 
-        commitMessage = "User-submitted text for #{@model.item.name} from #{global.hostName}"
         @model.item.description = @_descriptionController.model
         @_descriptionFile.setDecodedData @model.item.unparse()
-        promises.push @_descriptionFile.save commitMessage
+        saveList.push
+            file:    @_descriptionFile
+            message: "User-submitted text for #{@model.item.name} from #{global.hostName}"
 
-        w.all promises
+        saveNextFile = (fileList)->
+            return w(true) if fileList.length is 0
+            {file, message} = fileList.shift()
+            file.save message
+                .delay FILE_UPLOAD_DELAY
+                .then ->
+                    saveNextFile fileList
+
+        saveNextFile saveList
             .catch (e)=>
                 @model.item.description = oldDescription
                 throw e

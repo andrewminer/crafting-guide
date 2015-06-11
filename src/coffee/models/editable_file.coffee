@@ -110,7 +110,7 @@ module.exports = class EditableFile extends BaseModel
                 return this
 
     save: (commitMessage)->
-        return w(true) if @status is Status.unchanged
+        return w(true) if @status is Status.clean
         return w(true) unless @encodedData?
         if not @valid then return w.reject new Error "cannot save with an invalid status: #{@status}"
 
@@ -121,7 +121,11 @@ module.exports = class EditableFile extends BaseModel
 
     _updateStatusForNewData: ->
         switch @status
-            when Status.unknown  then @status = Status.dirty
-            when Status.checking then @status = Status.clean
-            when Status.empty    then @status = Status.dirty
-            when Status.clean    then @status = Status.dirty
+            when Status.unknown
+                @status = Status.dirty
+            when Status.checking
+                @status = Status.clean
+            when Status.empty
+                @status = Status.dirty
+            when Status.clean
+                @status = Status.dirty

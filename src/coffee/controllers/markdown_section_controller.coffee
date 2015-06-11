@@ -186,7 +186,7 @@ module.exports = class MarkdownSectionController extends BaseController
         super
 
     onWillChangeModel: (oldModel, newModel)->
-        @$textarea.val newModel
+        if @rendered then @$textarea.val newModel
         super oldModel, newModel
 
     # Backbone.View Overrides ######################################################################

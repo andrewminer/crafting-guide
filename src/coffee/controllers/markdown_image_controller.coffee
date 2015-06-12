@@ -130,11 +130,11 @@ module.exports = class MarkdownImageController extends BaseController
             @$loading.fadeOut duration:Duration.normal
             @$loaded.fadeIn duration:Duration.normal, queue:true
 
-        if @model.status is MarkdownImage.Status.empty
-            @$errorMessage.html 'please choose an image'
-            @$errorContainer.fadeIn duration:Duration.normal
-        else if @errorMessage?
+        if @errorMessage?
             @$errorMessage.html @errorMessage
+            @$errorContainer.fadeIn duration:Duration.normal
+        else if @model.status is MarkdownImage.Status.empty
+            @$errorMessage.html 'please choose an image'
             @$errorContainer.fadeIn duration:Duration.normal
         else
             @$errorContainer.fadeOut duration:Duration.normal

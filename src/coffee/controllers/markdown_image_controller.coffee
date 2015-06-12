@@ -40,6 +40,7 @@ module.exports = class MarkdownImageController extends BaseController
         if file.size > MAX_FILE_SIZE
             logger.warning "The choosen file, #{file.name}, is too large: #{file.size}"
             @errorMessage = "Choose a file less than #{MAX_FILE_SIZE / 1024}kB"
+            @_clearFile()
             return
 
         reader = @_reader = new FileReader
@@ -57,10 +58,13 @@ module.exports = class MarkdownImageController extends BaseController
                 if $image[0].naturalHeight > MAX_HEIGHT
                     logger.warning "The choosen file, #{file.name}, is too tall: #{$image[0].naturalHeight}"
                     @errorMessage = "Choose an image less than #{MAX_HEIGHT}px tall"
+                    @_clearFile()
                     return
+
                 if $image[0].naturalWidth > MAX_WIDTH
                     logger.warning "The choosen file, #{file.name}, is too wide: #{$image[0].naturalWidth}"
                     @errorMessage = "Choose an image less than #{MAX_WIDTH}px wide"
+                    @_clearFile()
                     return
 
                 index       = reader.result.indexOf ','
@@ -74,6 +78,7 @@ module.exports = class MarkdownImageController extends BaseController
                 @model.encodedData = encodedData
                 logger.info "loaded #{encodedData.length} bytes from #{file.name} as #{mimeType}"
                 @errorMessage = null
+                @_clearFile()
 
         logger.info "starting to read local file: #{file.name}"
         reader.readAsDataURL file
@@ -102,6 +107,7 @@ module.exports = class MarkdownImageController extends BaseController
         @$image          = @$('img')
         @$fileName       = @$('.fileName p')
         @$button         = @$('button')
+        @$form           = @$('form')
         @$input          = @$('input')
         @$errorContainer = @$('.error')
         @$errorMessage   = @$('.error p')
@@ -147,3 +153,8 @@ module.exports = class MarkdownImageController extends BaseController
         return _.extend super,
             'click button': 'onButtonClicked'
             'change input': 'onFileChanged'
+
+    # Private Methods ##############################################################################
+
+    _clearFile: ->
+        @$form[0].reset()

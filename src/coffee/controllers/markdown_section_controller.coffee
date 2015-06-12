@@ -88,6 +88,10 @@ module.exports = class MarkdownSectionController extends BaseController
                 @state = State.appologizing
                 w(true).delay(@confirmDuration).then => @resetToDefaultState()
 
+    onQuestionClicked: (event)->
+        event.preventDefault()
+        global.feedbackController.enterFeedback ''
+
     onPreviewClicked: (event)->
         event.preventDefault()
         @_updatePreview()
@@ -162,6 +166,9 @@ module.exports = class MarkdownSectionController extends BaseController
         @on Event.change + ':imageBase', => @_imageListController.model.imageBase = @imageBase
         @listenTo @_imageListController, Event.change + ':valid', => @tryRefresh()
 
+        if not global.feedbackController?
+            @$('.question').hide duration:0
+
         @$errorText     = @$('.error p')
         @$markdownPanel = @$('.markdown')
         @$previewButton = @$('button.preview')
@@ -200,6 +207,7 @@ module.exports = class MarkdownSectionController extends BaseController
             'click button.preview': 'onPreviewClicked'
             'click button.return':  'onReturnClicked'
             'click button.save':    'onSaveClicked'
+            'click .question a':    'onQuestionClicked'
             'input textarea':       'onTextChanged'
 
     # Private Methods ##############################################################################

@@ -50,6 +50,18 @@ All rights reserved.
                 font-weight: bold;
             }
         }
+
+        .question {
+            position: absolute; top: 50%; left: 1em;
+
+            a {
+                color: $color-gray-medium;
+                font-family: $font-family-normal;
+                font-size: $font-size-small;
+                font-style: italic;
+                text-decoration: underline;
+            }
+        }
     }
 
     .creating {

@@ -39,6 +39,7 @@ module.exports = class ModParserV1 extends CommandParserVersionBase
         @_rawData.description = description
 
     _command_documentationUrl: (documentationUrl)->
+        documentationUrl ?= ''
         if @_rawData.documentationUrl? then throw new Error 'duplicate declaration of "documentationUrl"'
         if documentationUrl.length is 0 then throw new Error 'documentationUrl cannot be empty (omit it instead)'
         @_rawData.documentationUrl = documentationUrl

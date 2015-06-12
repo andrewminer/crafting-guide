@@ -115,6 +115,14 @@ module.exports = class Recipe extends BaseModel
 
         return total
 
+    hasAllTools: (modPack)->
+        modPack ?= @modVersion?.mod?.modPack
+        return true unless modPack
+
+        for stack in @tools
+            return false unless modPack.findItem stack.itemSlug
+        return true
+
     isConditionSatisfied: (modPack)->
         return true unless @condition
         modPack ?= @modVersion?.mod?.modPack

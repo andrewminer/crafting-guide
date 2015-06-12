@@ -145,6 +145,7 @@ module.exports = class ModVersion extends BaseModel
 
         for recipe in _.values @_recipes
             continue unless recipe.isConditionSatisfied()
+            continue unless recipe.hasAllTools()
 
             if recipe.itemSlug.matches itemSlug
                 primaryRecipes.push recipe

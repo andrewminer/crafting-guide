@@ -25,7 +25,7 @@ module.exports = class MinimalRecipeController extends BaseController
 
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
-        @multiplier  = options.multiplier ?= null
+        @multiplier  = options.multiplier
 
     # BaseController Overrides #####################################################################
 
@@ -53,6 +53,25 @@ module.exports = class MinimalRecipeController extends BaseController
         @_refreshTools()
         super
 
+    # Property Methods #############################################################################
+
+    getMultiplier: ->
+        @_multiplier ?= 1
+        return @_multiplier
+
+    setMultiplier: (newMultiplier)->
+        oldMultiplier = @_multiplier
+        return if newMultiplier is oldMultiplier
+
+        @_multiplier = newMultiplier
+        @_refreshMultiplier()
+
+        @trigger Event.change + ':multiplier', this, oldMultiplier, newMultiplier
+        @trigger Event.change, this
+
+    Object.defineProperties @prototype,
+        multiplier: {get:@prototype.getMultiplier, set:@prototype.setMultiplier}
+
     # Backbone.View Methods ########################################################################
 
     events: ->
@@ -62,7 +81,7 @@ module.exports = class MinimalRecipeController extends BaseController
     # Private Methods ##############################################################################
 
     _refreshMultiplier: ->
-        if @multiplier? and @multiplier > 1
+        if @multiplier > 1
             @$multiplier.html "x#{@multiplier}"
         else
             @$multiplier.html ''

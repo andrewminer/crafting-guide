@@ -49,7 +49,6 @@ serveData = (request, response)->
     response.sendFile request.path, root:DATA_ROOT
 
 app.get '/data/*', serveData
-
 app.get '/craft/*', serveIndex
 app.get '/login', serveIndex
 app.get '*.html', serveIndex
@@ -62,3 +61,4 @@ app.get '*', (request, response)->
 
 server = app.listen 8000, '127.0.0.1', ->
     console.log "listening at: #{server.address().address}:#{server.address().port}"
+

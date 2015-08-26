@@ -170,7 +170,7 @@ module.exports = class Inventory extends BaseModel
     # Object Overrides #############################################################################
 
     toString: ->
-        result = [@constructor.name, " (", @cid, ") { items: ["]
+        result = [@constructor.name, " (", @cid, ") {items: ["]
 
         needsDelimiter = false
         @each (stack)->

@@ -78,7 +78,7 @@ builder = mod = modPack = modVersion = null
 
 ########################################################################################################################
 
-describe.only 'GraphBuilder.coffee', ->
+describe 'GraphBuilder.coffee', ->
 
     beforeEach ->
         modPack = new ModPack

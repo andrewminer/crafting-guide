@@ -29,14 +29,6 @@ module.exports = class CraftingNode
             queue.push child
         return queue
 
-    getNode: (path)->
-        return null unless _.isArray(path) and path.length > 0
-
-        child = @children[path[0]]
-        return null unless child?
-
-        return child.getPath path[1..]
-
     # Property Methods #############################################################################
 
     getChildren: ->
@@ -62,9 +54,6 @@ module.exports = class CraftingNode
             size += child.size
         return size
 
-    getNodeType: ->
-        return @_nodeType
-
     isValid: ->
         return @_valid if @_valid?
 
@@ -79,7 +68,6 @@ module.exports = class CraftingNode
         completeText: { get:@prototype.getCompleteText }
         depth:        { get:@prototype.getDepth        }
         size:         { get:@prototype.getSize         }
-
 
     # Virtual Methods ##############################################################################
 

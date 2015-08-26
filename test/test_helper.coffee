@@ -21,7 +21,7 @@ global.util     = require 'util'
 global.w        = require 'when'
 
 {Logger}      = require 'crafting-guide-common'
-global.logger = new Logger level:Logger.DEBUG
+global.logger = new Logger level:Logger.FATAL
 
 require '../src/coffee/polyfill'
 require '../src/coffee/underscore_mixins'

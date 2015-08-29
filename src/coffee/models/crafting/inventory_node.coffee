@@ -12,6 +12,9 @@ ItemNode     = require './item_node'
 
 module.exports = class InventoryNode extends CraftingNode
 
+    @::ENTER_METHOD = 'onEnterInventoryNode'
+    @::LEAVE_METHOD = 'onLeaveInventoryNode'
+
     constructor: (options={})->
         if not options.inventory? then throw new Error 'options.inventory is required'
         super options
@@ -38,10 +41,14 @@ module.exports = class InventoryNode extends CraftingNode
 
     # Object Overrides #############################################################################
 
-    toString: (indent='')->
+    toString: (options={})->
+        options.indent ?= ''
+        options.recursive ?= true
+
         completeText = if @complete then 'complete' else 'incomplete'
-        parts = ["#{indent}#{@completeText} InventoryNode for #{@inventory}"]
-        nextIndent = indent + '    '
-        for child in @children
-            parts.push child.toString nextIndent
+        parts = ["#{options.indent}#{@completeText} InventoryNode for #{@inventory}"]
+        nextIndent = options.indent + '    '
+        if options.recursive
+            for child in @children
+                parts.push child.toString indent:nextIndent
         return parts.join '\n'

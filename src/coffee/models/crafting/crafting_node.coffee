@@ -29,6 +29,24 @@ module.exports = class CraftingNode
             queue.push child
         return queue
 
+    acceptVisitor: (visitor)->
+        enter = visitor[@ENTER_METHOD]
+        if enter?
+            enter.call visitor, this
+        else
+            enter = visitor['onEnterOtherNode']
+            if enter? then enter.call visitor, this
+
+        for child in @_children
+            child.acceptVisitor visitor
+
+        leave = visitor[@LEAVE_METHOD]
+        if leave?
+            leave.call visitor, this
+        else
+            leave = visitor['onLeaveOtherNode']
+            if leave? then leave.call visitor, this
+
     # Property Methods #############################################################################
 
     getChildren: ->

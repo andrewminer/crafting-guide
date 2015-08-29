@@ -12,6 +12,9 @@ CraftingNode = require './crafting_node'
 
 module.exports = class RecipeNode extends CraftingNode
 
+    @::ENTER_METHOD = 'onEnterRecipeNode'
+    @::LEAVE_METHOD = 'onLeaveRecipeNode'
+
     constructor: (options={})->
         if not options.recipe? then throw new Error 'options.recipe is required'
         super options
@@ -52,10 +55,14 @@ module.exports = class RecipeNode extends CraftingNode
 
     # Object Overrides ############################################################################
 
-    toString: (indent)->
+    toString: (options={})->
+        options.indent ?= ''
+        options.recursive ?= true
+
         completeText = if @complete then 'complete' else 'incomplete'
-        parts = ["#{indent}#{@completeText} RecipeNode for #{@recipe.slug}"]
-        nextIndent = indent + '    '
-        for child in @children
-            parts.push child.toString nextIndent
+        parts = ["#{options.indent}#{@completeText} RecipeNode for #{@recipe.slug}"]
+        nextIndent = options.indent + '    '
+        if options.recursive
+            for child in @children
+                parts.push child.toString indent:nextIndent
         return parts.join '\n'

@@ -5,18 +5,29 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+_ = require 'underscore'
+
 ########################################################################################################################
 
 module.exports = class CraftingNode
+
+    @::TYPES =
+        INVENTORY: 0
+        ITEM: 1
+        RECIPE: 2
+
+    @::TYPE = null
 
     constructor: (options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
 
         @modPack = options.modPack
 
-        @_children = []
-        @_complete = null
-        @_valid    = null
+        @_children  = []
+        @_complete  = null
+        @_id        = _.uniqueId 'node_'
+        @_rotations = 0
+        @_valid     = null
 
     # Public Methods ###############################################################################
 
@@ -25,8 +36,9 @@ module.exports = class CraftingNode
 
         for child in @_createChildren()
             child.parent = this
-            @_children.push child
-            queue.push child
+            if child.valid
+                @_children.push child
+                queue.push child
         return queue
 
     acceptVisitor: (visitor)->
@@ -47,6 +59,10 @@ module.exports = class CraftingNode
             leave = visitor['onLeaveOtherNode']
             if leave? then leave.call visitor, this
 
+    rotateChildren: ->
+        @_children.push @_children.shift()
+        @_rotations += 1
+
     # Property Methods #############################################################################
 
     getChildren: ->
@@ -65,6 +81,12 @@ module.exports = class CraftingNode
         for child in @children
             maxDepth = Math.max maxDepth, child.getDepth() + 1
         return maxDepth
+
+    getId: ->
+        return @_id
+
+    getRotations: ->
+        return @_rotations
 
     getSize: ->
         size = 1
@@ -85,7 +107,10 @@ module.exports = class CraftingNode
         complete:     { get:@prototype.isComplete      }
         completeText: { get:@prototype.getCompleteText }
         depth:        { get:@prototype.getDepth        }
+        id:           { get:@prototype.getId           }
+        rotations:    { get:@prototype.getRotations    }
         size:         { get:@prototype.getSize         }
+        valid:        { get:@prototype.isValid         }
 
     # Virtual Methods ##############################################################################
 

@@ -31,6 +31,27 @@ MOD_VERSION_FILE =
 
     item: Cobblestone
 
+    item: Copper Block
+        recipe:
+            input: Copper Ingot
+            pattern: 000 000 000
+            tools: Crafting Table
+
+    item: Copper Ingot
+        recipe:
+            input: Copper Ore, Coal
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Copper Ore, Charcoal
+            pattern: .0. ... .1.
+            tools: Furnace
+        recipe:
+            input: Copper Block
+            pattern: ... .0. ...
+
+    item: Copper Ore
+
     item: Furnace
         recipe:
             input: Cobblestone

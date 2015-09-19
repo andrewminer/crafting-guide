@@ -14,6 +14,7 @@ module.exports = class InventoryNode extends CraftingNode
 
     @::ENTER_METHOD = 'onEnterInventoryNode'
     @::LEAVE_METHOD = 'onLeaveInventoryNode'
+    @::TYPE = CraftingNode::TYPES.INVENTORY
 
     constructor: (options={})->
         if not options.inventory? then throw new Error 'options.inventory is required'
@@ -38,6 +39,7 @@ module.exports = class InventoryNode extends CraftingNode
     _checkValidity: ->
         for child in @children
             return false unless child.isValid
+        return true
 
     # Object Overrides #############################################################################
 

@@ -14,6 +14,7 @@ module.exports = class ItemNode extends CraftingNode
 
     @::ENTER_METHOD = 'onEnterItemNode'
     @::LEAVE_METHOD = 'onLeaveItemNode'
+    @::TYPE = CraftingNode::TYPES.ITEM
 
     constructor: (options={})->
         if not options.item? then throw new Error 'options.item is required'
@@ -58,8 +59,10 @@ module.exports = class ItemNode extends CraftingNode
         return false
 
     _checkValidity: ->
+        return true unless @children.length > 0
         for child in @children
             return true if child.isValid
+        return false
 
     # Object Overrides #############################################################################
 

@@ -5,8 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-fixtures     = require './fixtures'
-ItemSlug     = require '../../src/coffee/models/item_slug'
+fixtures = require './fixtures'
+ItemSlug = require '../../src/coffee/models/item_slug'
 
 ########################################################################################################################
 
@@ -61,9 +61,11 @@ describe 'GraphBuilder.coffee', ->
             it 'an item with multiple inputs', ->
                 runSingleItemTreeBuildingTest 'test__lever', 8, 9
 
-            it 'can make a tree for an item with multiple recipes', ->
+            it 'an item with multiple recipes', ->
                 runSingleItemTreeBuildingTest 'test__iron_ingot', 6, 11
 
-            it 'can make a tree for an item with multiple inputs and multiple recipes', ->
+            it 'an item with multiple inputs and multiple recipes', ->
                 runSingleItemTreeBuildingTest 'test__iron_sword', 8, 18
-                logger.debug builder.toString()
+
+            it 'an item with one recursive recipe', ->
+                runSingleItemTreeBuildingTest 'test__copper_ingot', 10, 24

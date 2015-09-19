@@ -14,6 +14,7 @@ module.exports = class RecipeNode extends CraftingNode
 
     @::ENTER_METHOD = 'onEnterRecipeNode'
     @::LEAVE_METHOD = 'onLeaveRecipeNode'
+    @::TYPE = CraftingNode::TYPES.RECIPE
 
     constructor: (options={})->
         if not options.recipe? then throw new Error 'options.recipe is required'

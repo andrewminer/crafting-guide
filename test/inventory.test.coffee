@@ -189,9 +189,12 @@ describe 'inventory.coffee', ->
 
     describe 'remove', ->
 
-        it 'throws when the item is absent', ->
-            expect(-> inventory.remove('chicken')).to.throw Error,
-                'cannot remove chicken since it is not in this inventory'
+        it 'does nothing when the item is absent', ->
+            before = inventory.unparse()
+            inventory.remove 'foo'
+            after = inventory.unparse()
+
+            before.should.equal after
 
         it 'throws when the item has insufficient quantity', ->
             expect(-> inventory.remove('wool', 10)).to.throw Error,

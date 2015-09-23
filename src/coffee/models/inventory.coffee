@@ -30,6 +30,8 @@ module.exports = class Inventory extends BaseModel
     # Public Methods ###############################################################################
 
     add: (itemSlug, quantity=1)->
+        return this unless quantity > 0
+
         @_add itemSlug, quantity
         @trigger Event.add, this, itemSlug, quantity
         @trigger Event.change, this
@@ -102,12 +104,12 @@ module.exports = class Inventory extends BaseModel
         return stack.quantity
 
     remove: (itemSlug, quantity=null)->
-        return if quantity is 0
-
         stack = @_stacks[itemSlug]
-        if not stack? then throw new Error "cannot remove #{itemSlug} since it is not in this inventory"
+        return this unless stack?
 
         quantity ?= stack.quantity
+        return this unless quantity > 0
+
         if stack.quantity < quantity
             throw new Error "cannot remove #{quantity}: only #{stack.quantity} #{itemSlug} in this inventory"
 
@@ -115,7 +117,7 @@ module.exports = class Inventory extends BaseModel
         if stack.quantity is 0
             @stopListening stack
             delete @_stacks[itemSlug]
-            @_itemSlugs = _(@_itemSlugs).without itemSlug
+            @_itemSlugs = (s for s in @_itemSlugs when not ItemSlug.equal(s, itemSlug))
 
         @trigger Event.remove, this, itemSlug, quantity
         @trigger Event.change, this
@@ -164,8 +166,16 @@ module.exports = class Inventory extends BaseModel
     getIsEmpty: ->
         return @_itemSlugs.length is 0
 
+    getTotalQuantity: ->
+        total = 0
+        @each (stack)->
+            total += stack.quantity
+        return total
+
+
     Object.defineProperties @prototype,
-        isEmpty: { get:@prototype.getIsEmpty }
+        isEmpty:       { get:@prototype.getIsEmpty }
+        totalQuantity: { get:@prototype.getTotalQuantity }
 
     # Object Overrides #############################################################################
 
@@ -186,7 +196,7 @@ module.exports = class Inventory extends BaseModel
 
     _add: (itemSlug, quantity=1)->
         return unless itemSlug?
-        return if quantity is 0
+        return unless quantity > 0
 
         stack = @_stacks[itemSlug]
         if not stack?

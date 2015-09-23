@@ -6,13 +6,17 @@ All rights reserved.
 ###
 
 CraftingNode = require './crafting_node'
+CraftingPlan = require './crafting_plan'
+Inventory    = require '../inventory'
 
 ########################################################################################################################
 
 module.exports = class PlanBuilder
 
-    constructor: (rootNode)->
+    constructor: (rootNode, options={})->
         if not rootNode? then throw new Error 'rootNode is required'
+
+        @wanted = options.wanted
 
         @_choiceNodes = []
         @_complete    = false
@@ -26,9 +30,9 @@ module.exports = class PlanBuilder
     producePlans: (maxPlans=null)->
         maxPlans = if maxPlans then @plans.length + maxPlans else Number.MAX_VALUE
 
-        while @plans.length < maxPlans and not @complete
+        while @plans.length is 0 or (@plans.length < maxPlans and not @complete)
             plan = @_captureCurrentPlan()
-            @plans.push plan if plan.length > 0
+            @plans.push plan
             @_incrementChoiceNodes()
 
         return @_plans
@@ -41,15 +45,22 @@ module.exports = class PlanBuilder
     getPlans: ->
         return @_plans
 
+    getWanted: ->
+        return @_wanted
+
+    setWanted: (wanted)->
+        @_wanted = wanted or new Inventory
+
     Object.defineProperties @prototype,
         complete: { get:@prototype.isComplete }
-        plans: { get:@prototype.getPlans }
+        plans:    { get:@prototype.getPlans }
+        wanted:   { get:@prototype.getWanted, set:@prototype.setWanted }
 
     # Private Methods ##############################################################################
 
     _captureCurrentPlan: ->
         toVisit = [@_rootNode]
-        plan = []
+        steps = []
 
         while toVisit.length > 0
             node = toVisit.shift()
@@ -59,10 +70,12 @@ module.exports = class PlanBuilder
             else if node.TYPE is CraftingNode::TYPES.ITEM
                 toVisit.push node.children[0] if node.children.length > 0
             else if node.TYPE is CraftingNode::TYPES.RECIPE
-                plan.push node.recipe
+                steps.push node.recipe
                 toVisit.push(c) for c in node.children
 
-        return plan.reverse()
+        steps.reverse()
+        plan = new CraftingPlan steps, @_wanted
+        return plan
 
     _incrementChoiceNodes: ->
         index = @_choiceNodes.length - 1

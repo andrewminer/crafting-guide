@@ -10,6 +10,7 @@ ItemSlug     = require '../../src/coffee/models/item_slug'
 Mod          = require '../../src/coffee/models/mod'
 ModPack      = require '../../src/coffee/models/mod_pack'
 ModVersion   = require '../../src/coffee/models/mod_version'
+PlanBuilder  = require '../../src/coffee/models/crafting/plan_builder'
 
 ########################################################################################################################
 
@@ -21,6 +22,7 @@ MOD_VERSION_FILE =
         recipe:
             input: 8 Oak Wood, Coal
             pattern: .0. ... .1.
+            quantity: 8
 
     item: Crafting Table
         recipe:
@@ -100,6 +102,9 @@ MOD_VERSION_FILE =
 
 module.exports = fixtures =
 
+    makeGraphBuilder: ->
+        return new GraphBuilder modPack:fixtures.makeModPack()
+
     makeModPack: ->
         modPack = new ModPack
 
@@ -112,10 +117,18 @@ module.exports = fixtures =
 
         return modPack
 
-    makeGraphBuilder: ->
-        return new GraphBuilder modPack:fixtures.makeModPack()
+    makePlans: (stacks...)->
+        modPack = fixtures.makeModPack()
 
-    makeTree: (itemSlug)->
+        graphBuilder = fixtures.makeGraphBuilder()
+        for stack in stacks
+            graphBuilder.wanted.add ItemSlug.slugify(stack[1]), stack[0]
+        graphBuilder.expandGraph()
+
+        planBuilder = new PlanBuilder graphBuilder.rootNode, wanted:graphBuilder.wanted
+        return planBuilder.producePlans()
+
+    makeTree: (itemSlug, quantity=1)->
         builder = fixtures.makeGraphBuilder()
         builder.wanted.add ItemSlug.slugify itemSlug
         builder.expandGraph()

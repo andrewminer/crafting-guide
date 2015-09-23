@@ -19,7 +19,6 @@ module.exports = class GraphBuilder
         @_wanted = options.wanted ?= new Inventory
 
         @_wanted.on 'change', => @reset()
-
         @reset()
 
     # Public Methods ###############################################################################

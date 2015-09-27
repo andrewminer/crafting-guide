@@ -33,12 +33,12 @@ module.exports = class InventoryNode extends CraftingNode
 
     _checkCompleteness: ->
         for child in @children
-            return false unless child.isComplete
+            return false unless child.complete
         return true
 
     _checkValidity: ->
         for child in @children
-            return false unless child.isValid
+            return false unless child.valid
         return true
 
     # Object Overrides #############################################################################
@@ -47,8 +47,7 @@ module.exports = class InventoryNode extends CraftingNode
         options.indent ?= ''
         options.recursive ?= true
 
-        completeText = if @complete then 'complete' else 'incomplete'
-        parts = ["#{options.indent}#{@completeText} InventoryNode for #{@inventory}"]
+        parts = ["#{options.indent}#{@completeText} #{@validText} InventoryNode for #{@inventory}"]
         nextIndent = options.indent + '    '
         if options.recursive
             for child in @children

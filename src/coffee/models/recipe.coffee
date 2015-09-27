@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseModel       = require './base_model'
+ItemSlug        = require './item_slug'
 Stack           = require './stack'
 {Event}         = require '../constants'
 {StringBuilder} = require 'crafting-guide-common'
@@ -46,49 +47,14 @@ module.exports = class Recipe extends BaseModel
                 return -1 if aValue
                 return +1 if bValue
 
-            aValue = a.getQuantityProducedOf itemSlug
-            bValue = b.getQuantityProducedOf itemSlug
+            aValue = a.getQuantityProduced itemSlug
+            bValue = b.getQuantityProduced itemSlug
             if aValue isnt bValue
                 return if aValue > bValue then -1 else +1
-
-        aValue = a.getOutputCount()
-        bValue = b.getOutputCount()
-        if aValue isnt bValue
-            return if aValue > bValue then -1 else +1
-
-        aValue = a.tools.length
-        bValue = b.tools.length
-        if aValue isnt bValue
-            return if aValue < bValue then -1 else +1
-
-        aValue = a.getInputCount()
-        bValue = b.getInputCount()
-        if aValue isnt bValue
-            return if aValue < bValue then -1 else +1
 
         return 0
 
     # Public Methods ###############################################################################
-
-    eachInputStack: (callback)->
-        for i in [0...@pattern.length]
-            stack = @getStackAtSlot(i)
-            continue unless stack?
-            callback stack
-
-    eachOutputStack: (callback)->
-        for stack in @output
-            callback stack
-
-    eachToolStack: (callback)->
-        for stack in @tools
-            callback stack
-
-    getInputCount: ->
-        result = 0
-        for stack in @input
-            result += stack.quantity
-        return result
 
     getStackAtSlot: (patternSlot)->
         trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
@@ -101,18 +67,22 @@ module.exports = class Recipe extends BaseModel
 
         return stack
 
-    getOutputCount: ->
-        result = 0
-        for stack in @output
-            result += stack.quantity
-        return result
-
-    getQuantityProducedOf: (itemSlug)->
+    getQuantityProduced: (itemSlug)->
         total = 0
         for stack in @output
             if stack.itemSlug.matches itemSlug
                 total += stack.quantity
 
+        return total
+
+    getQuantityRequired: (itemSlug)->
+        total = 0
+        for i in [0...@pattern.length]
+            stack = @getStackAtSlot i
+            continue unless stack?
+
+            if ItemSlug.equal stack.itemSlug, itemSlug
+                total += stack.quantity
         return total
 
     hasAllTools: (modPack)->
@@ -179,7 +149,7 @@ module.exports = class Recipe extends BaseModel
         if not @_slug?
             builder = new StringBuilder
             delimiterNeeded = false
-            @eachInputStack (stack)->
+            for stack in @input
                 if delimiterNeeded then builder.push ','
                 delimiterNeeded = true
 
@@ -187,12 +157,12 @@ module.exports = class Recipe extends BaseModel
                 builder.push stack.itemSlug.qualified
 
             builder.push '>'
-            @eachToolStack (stack)->
+            for stack in @tools
                 builder.push stack.itemSlug.qualified
             builder.push '>'
 
             delimiterNeeded = false
-            @eachOutputStack (stack)->
+            for stack in @output
                 if delimiterNeeded then builder.push ','
                 delimiterNeeded = true
 
@@ -215,7 +185,9 @@ module.exports = class Recipe extends BaseModel
         needsDelimiter = false
         for stack in @input
             if needsDelimiter then result.push ', '
-            result.push stack.toString()
+            result.push @getQuantityRequired stack.itemSlug
+            result.push ' '
+            result.push stack.itemSlug
             needsDelimiter = true
         result.push ']'
 
@@ -223,7 +195,9 @@ module.exports = class Recipe extends BaseModel
         needsDelimiter = false
         for stack in @output
             if needsDelimiter then result.push ', '
-            result.push stack.toString()
+            result.push @getQuantityProduced stack.itemSlug
+            result.push ' '
+            result.push stack.itemSlug
             needsDelimiter = true
         result.push ']'
 

@@ -41,16 +41,19 @@ MOD_VERSION_FILE =
 
     item: Copper Ingot
         recipe:
-            input: Copper Ore, Coal
+            input: 8 Copper Ore, Coal
             pattern: .0. ... .1.
+            quantity: 8
             tools: Furnace
         recipe:
-            input: Copper Ore, Charcoal
+            input: 8 Copper Ore, Charcoal
             pattern: .0. ... .1.
+            quantity: 8
             tools: Furnace
         recipe:
             input: Copper Block
             pattern: ... .0. ...
+            quantity: 9
 
     item: Copper Ore
 
@@ -66,10 +69,12 @@ MOD_VERSION_FILE =
         recipe:
             input: 8 Iron Ore, Charcoal
             pattern: .0. ... .1.
+            quantity: 8
             tools: Furnace
         recipe:
             input: 8 Iron Ore, Coal
             pattern: .0. ... .1.
+            quantity: 8
             tools: Furnace
 
     item: Iron Sword

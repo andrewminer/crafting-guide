@@ -91,6 +91,11 @@ describe 'mod_version_parser_v1.coffee', ->
                 modVersion = parser.parse baseText + 'recipe:; input:Delta, Echo, Foxtrot; pattern:...012...'
                 (s.item for s in modVersion._slugs).should.eql ['charlie', 'delta', 'echo', 'foxtrot']
 
+            it 'correctly handles recipes which use the same input multiple times', ->
+                modVersion = parser.parse baseText + 'recipe:; input:Alpha; pattern:.0..0....'
+                recipe = _.values(modVersion._recipes)[0]
+                recipe.getQuantityRequired(ItemSlug.slugify('alpha')).should.equal 2
+
             it 'allows a quantity for each input', ->
                 modVersion = parser.parse baseText + 'recipe:; input: 12 Delta, 3 Echo; pattern:... 0.1 ...'
                 recipe = _.values(modVersion._recipes)[0]

@@ -44,26 +44,23 @@ module.exports = class GraphBuilder
 
     # Property Methods #############################################################################
 
-    isComplete: ->
-        return false unless @_rootNode?
-        return false unless @_queue?
-        return false unless @_queue.length is 0
-        return true
-
-    getRootNode: ->
-        return @_rootNode
-
-    getStepCount: ->
-        return @_stepCount
-
-    getWanted: ->
-        return @_wanted
-
     Object.defineProperties @prototype,
-        complete:  { get:@prototype.isComplete   }
-        rootNode:  { get:@prototype.getRootNode  }
-        stepCount: { get:@prototype.getStepCount }
-        wanted:    { get:@prototype.getWanted    }
+
+        complete:
+            get: ->
+                return false unless @_rootNode?
+                return false unless @_queue?
+                return false unless @_queue.length is 0
+                return true
+
+        rootNode:
+            get: -> @_rootNode
+
+        stepCount:
+            get: -> @_stepCount
+
+        wanted:
+            get: -> @_wanted
 
     # Object Overrides ############################################################################
 

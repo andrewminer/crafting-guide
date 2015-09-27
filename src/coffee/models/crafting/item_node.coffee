@@ -46,7 +46,10 @@ module.exports = class ItemNode extends CraftingNode
         return [] unless recipes.length > 0
 
         for recipe in recipes
-            result.push new RecipeNode modPack:@modPack, recipe:recipe
+            child = new RecipeNode modPack:@modPack, recipe:recipe
+            child.parent = this
+            if child.valid
+                result.push child
 
         return result
 
@@ -55,13 +58,13 @@ module.exports = class ItemNode extends CraftingNode
         return false unless @children?
 
         for child in @children
-            return true if child.isComplete
+            return true if child.complete
         return false
 
     _checkValidity: ->
         return true unless @children.length > 0
         for child in @children
-            return true if child.isValid
+            return true if child.valid
         return false
 
     # Object Overrides #############################################################################
@@ -70,8 +73,7 @@ module.exports = class ItemNode extends CraftingNode
         options.indent ?= ''
         options.recursive ?= true
 
-        completeText = if @complete then 'complete' else 'incomplete'
-        parts = ["#{options.indent}#{@completeText} ItemNode for #{@item.name}"]
+        parts = ["#{options.indent}#{@completeText} #{@validText} ItemNode for #{@item.name}"]
         nextIndent = options.indent + '    '
         if options.recursive
             for child in @children

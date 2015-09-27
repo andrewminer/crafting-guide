@@ -32,13 +32,13 @@ module.exports = class CraftingNode
     # Public Methods ###############################################################################
 
     expand: (queue=[])->
+        return unless @valid
         return queue if @children.length > 0
 
         for child in @_createChildren()
             child.parent = this
-            if child.valid
-                @_children.push child
-                queue.push child
+            @_children.push child
+            queue.push child
         return queue
 
     acceptVisitor: (visitor)->
@@ -65,52 +65,46 @@ module.exports = class CraftingNode
 
     # Property Methods #############################################################################
 
-    getChildren: ->
-        return @_children
-
-    isComplete: ->
-        if not @_complete?
-            @_complete = @_checkCompleteness()
-        return @_complete
-
-    getCompleteText: ->
-        return if @complete then "✓" else "✗"
-
-    getDepth: ->
-        maxDepth = 1
-        for child in @children
-            maxDepth = Math.max maxDepth, child.getDepth() + 1
-        return maxDepth
-
-    getId: ->
-        return @_id
-
-    getRotations: ->
-        return @_rotations
-
-    getSize: ->
-        size = 1
-        for child in @children
-            size += child.size
-        return size
-
-    isValid: ->
-        return @_valid if @_valid?
-
-        valid = @_checkValidity()
-        @_valid = false if not valid
-
-        return valid
-
     Object.defineProperties @prototype,
-        children:     { get:@prototype.getChildren     }
-        complete:     { get:@prototype.isComplete      }
-        completeText: { get:@prototype.getCompleteText }
-        depth:        { get:@prototype.getDepth        }
-        id:           { get:@prototype.getId           }
-        rotations:    { get:@prototype.getRotations    }
-        size:         { get:@prototype.getSize         }
-        valid:        { get:@prototype.isValid         }
+
+        children:
+            get: -> return @_children
+
+        complete:
+            get: ->
+                if not @_complete?
+                    @_complete = @_checkCompleteness()
+                return @_complete
+
+        completeText:
+            get: -> if @complete then "◼︎" else "◻︎"
+
+        depth:
+            get: ->
+                maxDepth = 1
+                for child in @children
+                    maxDepth = Math.max maxDepth, child.depth + 1
+                return maxDepth
+
+        id:
+            get: -> return @_id
+
+        rotations:
+            get: -> return @_rotations
+
+        size:
+            get: ->
+                size = 1
+                for child in @children
+                    size += child.size
+                return size
+
+        valid:
+            get: -> @_checkValidity()
+
+        validText:
+            get: -> if @valid then "✓" else "✗"
+
 
     # Virtual Methods ##############################################################################
 

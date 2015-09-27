@@ -39,12 +39,24 @@ module.exports = class CraftingPlan
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@constructor.name}{
-            wanted:#{@wanted},
-            required:#{@required},
-            steps:[#{(step.toString() for step in @steps).join(',')}],
-            produced:#{@produced}
-            }"
+        result = ["To Make:"]
+        @_wanted.each (stack)->
+            result.push "    #{stack}"
+
+        result.push "Start with:"
+        @_required.each (stack)->
+            result.push "    #{stack}"
+
+        result.push "Use these recipes:"
+        for step in @_steps
+            result.push "    #{step}"
+
+        result.push "To produce:"
+        @_produced.each (stack)->
+            result.push "    #{stack}"
+
+        return result.join '\n'
+
 
     # Private Methods ##############################################################################
 
@@ -52,35 +64,32 @@ module.exports = class CraftingPlan
         @_required.addInventory @_wanted
 
         for i in [@_steps.length-1..0] by -1
-            recipe = @_steps[i]
+            step = @_steps[i]
 
-            for stack in recipe.output
+            for stack in step.recipe.output
                 while @_required.quantityOf(stack.itemSlug) > 0
-                    @_executeRecipe recipe
+                    @_executeStep step
 
         @_produced.addInventory @_wanted
 
-    _executeRecipe: (recipe)->
-        #console.log "executing: #{recipe}"
+    _executeStep: (step)->
+        step.repeat += 1
+        recipe = step.recipe
+
         for stack in recipe.input
-            @_use stack
+            available = @_produced.quantityOf stack.itemSlug
+            required  = recipe.getQuantityRequired stack.itemSlug
+            consumed  = Math.min required, available
+            deficit   = required - consumed
+
+            @_produced.remove stack.itemSlug, consumed
+            @_required.add stack.itemSlug, deficit
+
         for stack in recipe.output
-            @_produce stack
+            deficit     = @_required.quantityOf stack.itemSlug
+            created     = recipe.getQuantityProduced stack.itemSlug
+            replenished = Math.min deficit, created
+            surplus     = created - replenished
 
-    _produce: (stack)->
-        deficit     = @_required.quantityOf stack.itemSlug
-        replenished = Math.min deficit, stack.quantity
-        surplus     = stack.quantity - replenished
-
-        #console.log "producing #{stack.itemSlug}, surplus: #{surplus}, replenished:#{replenished}"
-        @_produced.add stack.itemSlug, surplus
-        @_required.remove stack.itemSlug, replenished
-
-    _use: (stack)->
-        available = @_produced.quantityOf stack.itemSlug
-        consumed  = Math.min stack.quantity, available
-        deficit   = stack.quantity - consumed
-
-        #console.log "using #{stack.itemSlug}, consumed: #{consumed}, deficit:#{deficit}"
-        @_produced.remove stack.itemSlug, consumed
-        @_required.add stack.itemSlug, deficit
+            @_produced.add stack.itemSlug, surplus
+            @_required.remove stack.itemSlug, replenished

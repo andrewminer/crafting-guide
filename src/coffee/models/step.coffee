@@ -31,5 +31,5 @@ module.exports = class Step extends BaseModel
 
     _computeInventory: ->
         @inventory.clear()
-        @recipe.eachInputStack (stack)=>
+        for stack in @recipe.input
             @inventory.add stack.itemSlug, stack.quantity * @multiplier

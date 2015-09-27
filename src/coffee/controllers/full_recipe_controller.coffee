@@ -71,7 +71,7 @@ module.exports = class FullRecipeController extends BaseController
         inputs.clear()
 
         if @model?
-            @model.eachInputStack (stack)->
+            for stack in @model.input
                 inputs.add stack.itemSlug, stack.quantity
 
 

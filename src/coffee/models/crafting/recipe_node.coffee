@@ -34,14 +34,15 @@ module.exports = class RecipeNode extends CraftingNode
 
     _checkCompleteness: ->
         for child in @children
-            return false unless child.isComplete
+            return false unless child.complete
         return true
 
     _checkValidity: ->
-        for child in @children
-            return false unless child.isValid
-
         return false if @_isRepeatedRecipe()
+
+        for child in @children
+            return false unless child.valid
+
         return true
 
     # Private Methods ##############################################################################
@@ -60,8 +61,7 @@ module.exports = class RecipeNode extends CraftingNode
         options.indent ?= ''
         options.recursive ?= true
 
-        completeText = if @complete then 'complete' else 'incomplete'
-        parts = ["#{options.indent}#{@completeText} RecipeNode for #{@recipe.slug}"]
+        parts = ["#{options.indent}#{@completeText} #{@validText} RecipeNode for #{@recipe.slug}"]
         nextIndent = options.indent + '    '
         if options.recursive
             for child in @children

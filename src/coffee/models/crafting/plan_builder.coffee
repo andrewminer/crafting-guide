@@ -9,20 +9,23 @@ CraftingNode = require './crafting_node'
 CraftingPlan = require './crafting_plan'
 CraftingStep = require './crafting_step'
 Inventory    = require '../inventory'
+{Limits}     = require '../../constants'
 
 ########################################################################################################################
 
 module.exports = class PlanBuilder
 
-    constructor: (rootNode, options={})->
+    constructor: (rootNode, modPack, options={})->
         if not rootNode? then throw new Error 'rootNode is required'
 
-        @wanted = options.wanted
+        @want = options.want
 
-        @_choiceNodes = []
-        @_complete    = false
-        @_plans       = []
-        @_rootNode    = rootNode
+        @_choiceNodes  = []
+        @_complete     = false
+        @_maxPlanCount = Limits.maximumPlanCount
+        @_modPack      = modPack
+        @_plans        = []
+        @_rootNode     = rootNode
 
         @_isolateChoiceNodes()
 
@@ -30,6 +33,9 @@ module.exports = class PlanBuilder
 
     producePlans: (maxPlans=null)->
         maxPlans = if maxPlans then @plans.length + maxPlans else Number.MAX_VALUE
+
+        if @plans.length >= @_maxPlanCount
+            @_complete = true
 
         while not @complete and (@plans.length < maxPlans)
             plan = @_captureCurrentPlan()
@@ -47,12 +53,16 @@ module.exports = class PlanBuilder
         complete:
             get: -> @_complete
 
+        maxPlanCount:
+            get: -> @_maxPlanCount
+            set: (value)-> @_maxPlanCount = value
+
         plans:
             get: -> @_plans
 
-        wanted:
-            get: -> @_wanted
-            set: (wanted)-> @_wanted = wanted or new Inventory
+        want:
+            get: -> @_want
+            set: (want)-> @_want = want or new Inventory
 
     # Private Methods ##############################################################################
 
@@ -83,9 +93,9 @@ module.exports = class PlanBuilder
             continue if seenRecipes[recipeSlug]?
 
             seenRecipes[recipeSlug] = true
-            steps.push new CraftingStep node.recipe
+            steps.push new CraftingStep node.recipe, @_modPack
 
-        plan = new CraftingPlan steps, @_wanted
+        plan = new CraftingPlan steps, @_want, @_modPack
         return plan
 
     _incrementChoiceNodes: ->

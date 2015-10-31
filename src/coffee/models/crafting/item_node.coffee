@@ -17,7 +17,8 @@ module.exports = class ItemNode extends CraftingNode
     @::TYPE = CraftingNode::TYPES.ITEM
 
     constructor: (options={})->
-        if not options.item? then throw new Error 'options.item is required'
+        if not options.item?
+            throw new Error 'options.item is required'
         super options
 
         @item = options.item
@@ -32,7 +33,7 @@ module.exports = class ItemNode extends CraftingNode
 
     isGatherable: ->
         return true if @item.isGatherable
-        return true unless @getRecipes().length > 0
+        return true if @getRecipes().length is 0
         return false
 
     Object.defineProperties @prototype,
@@ -43,7 +44,7 @@ module.exports = class ItemNode extends CraftingNode
 
     _createChildren: (result=[])->
         recipes = @getRecipes()
-        return [] unless recipes.length > 0
+        return [] if @gatherable
 
         for recipe in recipes
             child = new RecipeNode modPack:@modPack, recipe:recipe
@@ -62,7 +63,9 @@ module.exports = class ItemNode extends CraftingNode
         return false
 
     _checkValidity: ->
+        return false if @_isRepeatedItem()
         return true unless @children.length > 0
+
         for child in @children
             return true if child.valid
         return false
@@ -79,3 +82,13 @@ module.exports = class ItemNode extends CraftingNode
             for child in @children
                 parts.push child.toString indent:nextIndent
         return parts.join '\n'
+
+    # Private Methods ##############################################################################
+
+    _isRepeatedItem: ->
+        nextParent = @parent
+        while nextParent?
+            return true if nextParent.item is @item
+            nextParent = nextParent.parent
+
+        return false

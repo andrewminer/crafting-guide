@@ -5,21 +5,19 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel      = require './base_model'
 ItemSlug       = require './item_slug'
-Stack          = require './stack'
+SimpleStack    = require './simple_stack'
 _              = require 'underscore'
-{Event}        = require '../constants'
-{RequiredMods} = require '../constants'
 
 ########################################################################################################################
 
-module.exports = class Inventory extends BaseModel
+module.exports = class SimpleInventory
 
     constructor: (attributes={}, options={})->
-        super attributes, options
-        attributes.modPack ?= null
         @clear()
+
+        if options.modPack?
+            @modPack = options.modPack
 
         if options.clone?
             @addInventory options.clone
@@ -36,21 +34,15 @@ module.exports = class Inventory extends BaseModel
         return this unless quantity > 0
 
         @_add itemSlug, quantity
-        @trigger Event.add, this, itemSlug, quantity
-        @trigger Event.change, this
         return this
 
     addInventory: (inventory)->
         inventory.each (stack)=> @_add stack.itemSlug, stack.quantity
-
-        @trigger Event.change, this
         return this
 
     clear: (options={})->
         @_stacks = {}
         @_itemSlugs = []
-
-        @trigger Event.change, this
 
     clone: ->
         inventory = new Inventory
@@ -97,8 +89,6 @@ module.exports = class Inventory extends BaseModel
         stack = @_stacks[itemSlug]
         delete @_stacks[itemSlug]
 
-        @trigger Event.remove, this, stack.itemSlug, stack.quantity
-        @trigger Event.change, this
         return stack
 
     quantityOf: (itemSlug)->
@@ -118,12 +108,9 @@ module.exports = class Inventory extends BaseModel
 
         stack.quantity -= quantity
         if stack.quantity is 0
-            @stopListening stack
             delete @_stacks[itemSlug]
             @_itemSlugs = (s for s in @_itemSlugs when not ItemSlug.equal(s, itemSlug))
 
-        @trigger Event.remove, this, itemSlug, quantity
-        @trigger Event.change, this
         return this
 
     # Parsing Methods ##############################################################################
@@ -160,9 +147,9 @@ module.exports = class Inventory extends BaseModel
             if stack.quantity is 1
                 parts.push slugText
             else
-                parts.push "#{stack.quantity}#{Inventory.Delimiters.Item}#{slugText}"
+                parts.push "#{stack.quantity}#{SimpleInventory.Delimiters.Item}#{slugText}"
 
-        return parts.join Inventory.Delimiters.Stack
+        return parts.join SimpleInventory.Delimiters.Stack
 
     # Property Methods #############################################################################
 
@@ -202,8 +189,7 @@ module.exports = class Inventory extends BaseModel
 
         stack = @_stacks[itemSlug]
         if not stack?
-            stack = new Stack itemSlug:itemSlug, quantity:quantity
-            @listenTo stack, Event.change, => @trigger Event.change, this
+            stack = new SimpleStack itemSlug:itemSlug, quantity:quantity
             @_stacks[itemSlug] = stack
             @_itemSlugs.push itemSlug
             @_sort()

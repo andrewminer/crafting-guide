@@ -97,5 +97,5 @@ describe 'mod_version.coffee', ->
             (r.output[0].itemSlug.item for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']
 
         it 'skip recipes whose conditions are not met', ->
-            recipes = modVersion.findRecipes ItemSlug.slugify 'test__cake'
+            recipes = modVersion.findRecipes ItemSlug.slugify('test__cake')
             recipes.length.should.equal 2

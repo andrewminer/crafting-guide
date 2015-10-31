@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 GraphBuilder = require '../../src/coffee/models/crafting/graph_builder'
+Inventory    = require '../../src/coffee/models/inventory'
 ItemSlug     = require '../../src/coffee/models/item_slug'
 Mod          = require '../../src/coffee/models/mod'
 ModPack      = require '../../src/coffee/models/mod_pack'
@@ -30,8 +31,10 @@ MOD_VERSION_FILE =
             pattern: .00 .00 ...
 
     item: Coal
+        gatherable: yes
 
     item: Cobblestone
+        gatherable: yes
 
     item: Copper Block
         recipe:
@@ -56,6 +59,7 @@ MOD_VERSION_FILE =
             quantity: 9
 
     item: Copper Ore
+        gatherable: yes
 
     item: Furnace
         recipe:
@@ -64,6 +68,7 @@ MOD_VERSION_FILE =
             tools: Crafting Table
 
     item: Iron Ore
+        gatherable: yes
 
     item: Iron Ingot
         recipe:
@@ -95,12 +100,22 @@ MOD_VERSION_FILE =
             quantity: 4
 
     item: Oak Wood
+        gatherable: yes
 
     item: Stick
         recipe:
             input: Oak Planks
             pattern: .0. .0. ...
             quantity: 4
+
+    item: String
+        gatherable: yes
+
+    item: Wool
+        gatherable: yes
+        recipe:
+            input: String
+            pattern: 00. 00. ...
     """
 
 ########################################################################################################################
@@ -108,7 +123,7 @@ MOD_VERSION_FILE =
 module.exports = fixtures =
 
     makeGraphBuilder: ->
-        return new GraphBuilder modPack:fixtures.makeModPack()
+        return new GraphBuilder modPack:fixtures.makeModPack(), want:new Inventory
 
     makeModPack: ->
         modPack = new ModPack
@@ -125,17 +140,21 @@ module.exports = fixtures =
     makePlans: (stacks...)->
         modPack = fixtures.makeModPack()
 
-        graphBuilder = fixtures.makeGraphBuilder()
+        want = new Inventory
         for stack in stacks
-            graphBuilder.wanted.add ItemSlug.slugify(stack[1]), stack[0]
+            want.add ItemSlug.slugify(stack[1]), stack[0]
+
+        graphBuilder = new GraphBuilder modPack:fixtures.makeModPack(), want:want
         graphBuilder.expandGraph()
 
-        planBuilder = new PlanBuilder graphBuilder.rootNode, wanted:graphBuilder.wanted
+        planBuilder = new PlanBuilder graphBuilder.rootNode, modPack, want:graphBuilder.want
         return planBuilder.producePlans()
 
     makeTree: (itemSlug, quantity=1)->
-        builder = fixtures.makeGraphBuilder()
-        builder.wanted.add ItemSlug.slugify itemSlug
+        want = new Inventory
+        want.add ItemSlug.slugify itemSlug
+
+        builder = new GraphBuilder modPack:fixtures.makeModPack(), want:want
         builder.expandGraph()
 
         return builder.rootNode

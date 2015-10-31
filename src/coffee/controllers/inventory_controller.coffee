@@ -33,7 +33,6 @@ module.exports = class InventoryController extends BaseController
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.model? then throw new Error 'options.model is required'
         if not options.modPack? then throw new Error 'options.modPack is required'
 
         @imageLoader = options.imageLoader
@@ -57,6 +56,8 @@ module.exports = class InventoryController extends BaseController
     # Event Methods ################################################################################
 
     onClearButtonClicked: ->
+        return unless @model?
+
         @model.clear()
         @trigger Event.clear, this
         @trigger Event.change, this
@@ -65,6 +66,8 @@ module.exports = class InventoryController extends BaseController
         @trigger Event.button.first, this, stackController?.model?.itemSlug
 
     onItemChosen: (itemSlug)->
+        return unless @model?
+
         @model.add itemSlug, 1
         @trigger Event.add, this, itemSlug
         @trigger Event.change, this
@@ -95,11 +98,12 @@ module.exports = class InventoryController extends BaseController
 
         @$icon.attr 'src', @icon
         @$title.html @title
-        @$clearButton.disabled = @model.isEmpty
 
         @_refreshStacks()
 
-        if @model.isEmpty
+        @$clearButton.disabled = @model?.isEmpty
+
+        if not @model or @model.isEmpty
             @show @$emptyPlaceholder
         else
             @hide @$emptyPlaceholder
@@ -120,27 +124,28 @@ module.exports = class InventoryController extends BaseController
         @_stackControllers ?= []
         index = 0
 
-        @model.each (stack)=>
-            controller = @_stackControllers[index]
-            if not controller?
-                controller = new StackController
-                    editable:           @editable
-                    firstButtonType:    @firstButtonType
-                    imageLoader:        @imageLoader
-                    model:              stack
-                    modPack:            @modPack
-                    secondButtonType:   @secondButtonType
-                    shouldEnableButton: @shouldEnableButton
-                controller.on Event.change, => @trigger Event.change, this
-                controller.on Event.button.first, (c)=> @onFirstButtonClicked(c)
-                controller.on Event.button.second, (c)=> @onSecondButtonClicked(c)
-                controller.render()
+        if @model?
+            @model.each (stack)=>
+                controller = @_stackControllers[index]
+                if not controller?
+                    controller = new StackController
+                        editable:           @editable
+                        firstButtonType:    @firstButtonType
+                        imageLoader:        @imageLoader
+                        model:              stack
+                        modPack:            @modPack
+                        secondButtonType:   @secondButtonType
+                        shouldEnableButton: @shouldEnableButton
+                    controller.on Event.change, => @trigger Event.change, this
+                    controller.on Event.button.first, (c)=> @onFirstButtonClicked(c)
+                    controller.on Event.button.second, (c)=> @onSecondButtonClicked(c)
+                    controller.render()
 
-                @_stackControllers.push controller
-                @$itemContainer.append controller.$el
-            else
-                controller.model = stack
-            index += 1
+                    @_stackControllers.push controller
+                    @$itemContainer.append controller.$el
+                else
+                    controller.model = stack
+                index += 1
 
         while @_stackControllers.length > index
             @_stackControllers.pop().remove()

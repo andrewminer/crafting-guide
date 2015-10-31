@@ -22,7 +22,7 @@ describe 'GraphBuilder.coffee', ->
     describe 'expand', ->
 
         it 'can work a few steps at a time', ->
-            builder.wanted.add ItemSlug.slugify 'test__iron_sword'
+            builder.want.add ItemSlug.slugify 'test__iron_sword'
             builder.expandGraph 9
 
             builder.rootNode.depth.should.equal 6
@@ -45,7 +45,7 @@ describe 'GraphBuilder.coffee', ->
         describe 'can build a tree for', ->
 
             runSingleItemTreeBuildingTest = (slug, depth, size)->
-                builder.wanted.add ItemSlug.slugify slug
+                builder.want.add ItemSlug.slugify slug
                 builder.expandGraph 100
 
                 builder.rootNode.depth.should.equal depth
@@ -68,4 +68,7 @@ describe 'GraphBuilder.coffee', ->
                 runSingleItemTreeBuildingTest 'test__iron_sword', 8, 18
 
             it 'an item with one recursive recipe', ->
-                runSingleItemTreeBuildingTest 'test__copper_ingot', 10, 24
+                runSingleItemTreeBuildingTest 'test__copper_ingot', 6, 15
+
+            it 'an item which gatherable and craftable', ->
+                runSingleItemTreeBuildingTest 'test__wool', 2, 2

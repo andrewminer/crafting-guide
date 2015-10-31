@@ -5,25 +5,55 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+SimpleInventory = require '../simple_inventory'
+
 ########################################################################################################################
 
 module.exports = class CraftingStep
 
-    constructor: (recipe, repeat=0)->
+    constructor: (recipe, modPack, multiplier=0)->
         if not recipe? then throw new Error 'recipe is required'
-        if repeat < 0 then throw new Error 'repeat must be at least 1'
+        if not modPack? then throw new Error 'modPack is required'
+        if multiplier < 0 then throw new Error 'multiplier must be at least 1'
 
-        @_recipe = recipe
-        @repeat = repeat
+        @number = null
+
+        @_inventory  = null
+        @_modPack    = modPack
+        @_multiplier = multiplier
+        @_recipe     = recipe
 
     # Property Methods #############################################################################
 
     Object.defineProperties @prototype,
 
+        inventory:
+            get: ->
+                if not @_inventory?
+                    @_refreshInventory()
+                return @_inventory
+
         recipe:
             get: -> @_recipe
+
+        multiplier:
+            get: -> @_multiplier
+            set: (newMultiplier)->
+                @_multiplier = newMultiplier
+                @_refreshInventory() if @_inventory?
+
+        slug:
+            get: -> "#{@multiplier}x #{@_recipe.slug}"
 
     # Object Overrides #############################################################################
 
     toString: ->
-        return "#{@repeat}x #{@recipe.slug}"
+        return @slug
+
+    # Private Methods ##############################################################################
+
+    _refreshInventory: ->
+        @_inventory = new SimpleInventory
+        for stack in @_recipe.input
+            qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
+            @_inventory.add qualifiedSlug, @multiplier * @_recipe.getQuantityRequired stack.itemSlug

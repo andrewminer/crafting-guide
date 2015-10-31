@@ -21,15 +21,16 @@ module.exports = class Item extends BaseModel
     constructor: (attributes={}, options={})->
         if not attributes.name? then throw new Error 'attributes.name is required'
 
-        attributes.description  ?= null
-        attributes.group        ?= Item.Group.Other
-        attributes.isGatherable ?= false
-        attributes.modVersion   ?= null
-        attributes.officialUrl  ?= null
-        attributes.slug         ?= ItemSlug.slugify attributes.name
-        attributes.videos       ?= []
+        attributes.description          ?= null
+        attributes.group                ?= Item.Group.Other
+        attributes.ignoreDuringCrafting ?= false
+        attributes.isGatherable         ?= false
+        attributes.modVersion           ?= null
+        attributes.officialUrl          ?= null
+        attributes.slug                 ?= ItemSlug.slugify attributes.name
+        attributes.videos               ?= []
 
-        options.logEvents       ?= false
+        options.logEvents ?= false
         super attributes, options
 
         @on Event.change + ':modVersion', =>

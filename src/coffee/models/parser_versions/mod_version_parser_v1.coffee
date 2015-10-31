@@ -63,6 +63,13 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
         @_recipeData = null
 
+    _command_ignoreDuringCrafting: (value)->
+        if not @_itemData? then throw new Error 'cannot declare "ignoreDuringCraft" before "item"'
+        if @_itemData.ignoreDuringCrafting? then throw new Error 'duplicate declaration of "ignoreDuringCraft"'
+        if not (value in ['yes', 'no']) then throw new Error 'ignoreDuringCraft must be either "yes" or "no"'
+
+        @_itemData.ignoreDuringCrafting = (value is 'yes')
+
     _command_input: (inputNames...)->
         if not @_recipeData? then throw new Error 'cannot declare "input" before "recipe"'
         if @_recipeData.input.length isnt 0 then throw new Error 'duplicate declaration of "input"'
@@ -148,11 +155,16 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
     _buildItem: (modVersion, itemData)->
         @_lineNumber = itemData.line
-        itemData.gatherable ?= false
-        itemData.recipes    ?= []
+        itemData.gatherable           ?= false
+        itemData.ignoreDuringCrafting ?= false
+        itemData.recipes              ?= []
 
         if itemData.type is 'new'
-            item = new Item name:itemData.name, isGatherable:itemData.gatherable, group:itemData.group
+            item = new Item
+                name: itemData.name,
+                ignoreDuringCrafting: itemData.ignoreDuringCrafting,
+                isGatherable: itemData.gatherable,
+                group: itemData.group
             modVersion.addItem item
             itemData.slug = item.slug
         else

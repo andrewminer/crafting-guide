@@ -5,11 +5,10 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel    = require './base_model'
-CraftingPlan = require './crafting_plan'
-_            = require 'underscore'
-{Event}      = require '../constants'
-{Url}        = require '../constants'
+_         = require 'underscore'
+BaseModel = require './base_model'
+{Event}   = require '../constants'
+{Url}     = require '../constants'
 
 ########################################################################################################################
 

@@ -20,24 +20,35 @@ module.exports = class ModPack extends BaseModel
         super attributes, options
 
         @_mods = []
+        @_cache = {}
+
+        @on Event.change, => @_cache = {}
 
     # Public Methods ###############################################################################
 
     findItem: (itemSlug, options={})->
         options.includeDisabled ?= false
 
+        key = "#{itemSlug}-#{options.includeDisabled}"
+        @_cache.itemBySlug ?= {}
+        item = @_cache.itemBySlug[key]
+        return item if item?
+
         if itemSlug.isQualified
             mod = @getMod itemSlug.mod
             if mod?
                 item = mod.findItem itemSlug, options
-                return item if item?
 
-        for mod in @_mods
-            continue unless mod.enabled or options.includeDisabled
-            item = mod.findItem itemSlug, options
-            return item if item?
+        if not item?
+            for mod in @_mods
+                continue unless mod.enabled or options.includeDisabled
+                item = mod.findItem itemSlug, options
+                break if item?
 
-        return null
+        if item?
+            @_cache.itemBySlug[key] = item
+
+        return item
 
     findItemByName: (name, options={})->
         options.enableAsNeeded ?= false
@@ -82,10 +93,16 @@ module.exports = class ModPack extends BaseModel
 
         return null
 
-    findRecipes: (itemSlug, result=[], options={})->
+    findRecipes: (itemSlug, options={})->
         options.alwaysFromOwningMod ?= false
         return null unless itemSlug?
 
+        key = "#{itemSlug}-#{options.alwaysFromOwningMod}"
+        @_cache.recipesBySlug ?= {}
+        result = @_cache.recipesBySlug[key]
+        return result if result?
+
+        result = []
         for mod in @_mods
             if not mod.enabled
                 owningMod = itemSlug.isQualified and (itemSlug.mod is mod.slug)
@@ -93,7 +110,15 @@ module.exports = class ModPack extends BaseModel
 
             mod.findRecipes itemSlug, result, options
 
+        @_cache.recipesBySlug[key] = result
         return if result.length > 0 then result else null
+
+    qualifySlug: (itemSlug)->
+        return itemSlug if itemSlug.isQualified
+
+        item = @findItem itemSlug
+        return item.slug if item?
+        return itemSlug
 
     # Property Methods #############################################################################
 

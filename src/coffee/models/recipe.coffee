@@ -35,7 +35,10 @@ module.exports = class Recipe extends BaseModel
         options.logEvents     ?= false
         super attributes, options
 
+        @_computeQuantities attributes.pattern
+
         @on Event.change + ':modVersion', => @_slug = null
+        @on Event.change + ':pattern', => @_patternCache = null
 
     # Class Methods ################################################################################
 
@@ -77,24 +80,22 @@ module.exports = class Recipe extends BaseModel
 
     getQuantityRequired: (itemSlug)->
         total = 0
-        for i in [0...@pattern.length]
-            stack = @getStackAtSlot i
-            continue unless stack?
-
+        for stack, index in @input
             if ItemSlug.equal stack.itemSlug, itemSlug
-                total += stack.quantity
+                total += @_quantities[index] * stack.quantity
+
         return total
 
     hasAllTools: (modPack)->
         modPack ?= @modVersion?.mod?.modPack
-        return true unless modPack
+        return true unless modPack?
 
         for stack in @tools
             return false unless modPack.findItem stack.itemSlug
         return true
 
     isConditionSatisfied: (modPack)->
-        return true unless @condition
+        return true unless @condition?
         modPack ?= @modVersion?.mod?.modPack
 
         result = false
@@ -145,36 +146,38 @@ module.exports = class Recipe extends BaseModel
 
     # Property Methods #############################################################################
 
-    getSlug: ->
-        if not @_slug?
-            builder = new StringBuilder
-            delimiterNeeded = false
-            for stack in @input
-                if delimiterNeeded then builder.push ','
-                delimiterNeeded = true
-
-                if stack.quantity > 1 then builder.push stack.quantity, ' '
-                builder.push stack.itemSlug.qualified
-
-            builder.push '>'
-            for stack in @tools
-                builder.push stack.itemSlug.qualified
-            builder.push '>'
-
-            delimiterNeeded = false
-            for stack in @output
-                if delimiterNeeded then builder.push ','
-                delimiterNeeded = true
-
-                if stack.quantity > 1 then builder.push stack.quantity, ' '
-                builder.push stack.itemSlug.qualified
-
-            @_slug = builder.toString()
-
-        return @_slug
-
     Object.defineProperties @prototype,
-        slug: {get:@prototype.getSlug}
+
+        slug:
+            get: ->
+                if not @_slug?
+                    builder = new StringBuilder
+                    delimiterNeeded = false
+                    for stack in @input
+                        if delimiterNeeded then builder.push ','
+                        delimiterNeeded = true
+
+                        if stack.quantity > 1 then builder.push stack.quantity, ' '
+                        builder.push stack.itemSlug.qualified
+
+                    builder.push '>'
+                    builder.push @pattern
+                    builder.push '>'
+                    for stack in @tools
+                        builder.push stack.itemSlug.qualified
+                    builder.push '>'
+
+                    delimiterNeeded = false
+                    for stack in @output
+                        if delimiterNeeded then builder.push ','
+                        delimiterNeeded = true
+
+                        if stack.quantity > 1 then builder.push stack.quantity, ' '
+                        builder.push stack.itemSlug.qualified
+
+                    @_slug = builder.toString()
+
+                return @_slug
 
     # Object Overrides #############################################################################
 
@@ -214,6 +217,22 @@ module.exports = class Recipe extends BaseModel
         return result.join ''
 
     # Private Methods ##############################################################################
+
+    _computeQuantities: (pattern)->
+        quantityMap = {}
+
+        for c in pattern.split ''
+            continue if c is '.'
+            continue if c is ' '
+
+            if quantityMap[c]?
+                quantityMap[c] += 1
+            else
+                quantityMap[c] = 1
+
+        @_quantities = []
+        for i in [0...@input.length]
+            @_quantities.push quantityMap["#{i}"]
 
     _parsePattern: (pattern)->
         return unless pattern?

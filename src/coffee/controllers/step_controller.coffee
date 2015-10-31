@@ -5,11 +5,11 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
+_                       = require 'underscore'
 BaseController          = require './base_controller'
+{Event}                 = require '../constants'
 InventoryController     = require './inventory_controller'
 MinimalRecipeController = require './minimal_recipe_controller'
-_                       = require 'underscore'
-{Event}                 = require '../constants'
 
 ########################################################################################################################
 
@@ -56,7 +56,7 @@ module.exports = class StepController extends BaseController
         return super
 
     refresh: ->
-        itemDisplay = @modPack.findItemDisplay @model.outputItemSlug
+        itemDisplay = @modPack.findItemDisplay @model.recipe.output[0].itemSlug
         @$header.html "#{@model.number}. #{itemDisplay.itemName}"
 
         @inventoryController.model   = @model.inventory

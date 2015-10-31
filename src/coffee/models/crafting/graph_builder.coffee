@@ -7,6 +7,7 @@ All rights reserved.
 
 Inventory     = require '../inventory'
 InventoryNode = require './inventory_node'
+{Limits}      = require '../../constants'
 
 ########################################################################################################################
 
@@ -14,12 +15,15 @@ module.exports = class GraphBuilder
 
     constructor: (options={})->
         if not options.modPack? then throw new Error 'options.modPack is required'
+        if not options.want? then throw new Error 'options.want is required'
 
-        @modPack = options.modPack
-        @_wanted = options.wanted ?= new Inventory
+        @_maximumGraphSize = Limits.maximumGraphSize
+        @_modPack          = options.modPack
+        @_stepCount        = 0
+        @_want             = options.want
 
-        @_wanted.on 'change', => @reset()
-        @reset()
+        @_rootNode = new InventoryNode modPack:@_modPack, inventory:@_want
+        @_queue    = [@_rootNode]
 
     # Public Methods ###############################################################################
 
@@ -38,9 +42,6 @@ module.exports = class GraphBuilder
             @_stepCount += 1
 
     reset: ->
-        @_rootNode = new InventoryNode modPack:@modPack, inventory:@wanted
-        @_queue = [@_rootNode]
-        @_stepCount = 0
 
     # Property Methods #############################################################################
 
@@ -48,6 +49,7 @@ module.exports = class GraphBuilder
 
         complete:
             get: ->
+                return true if @_stepCount > @_maximumGraphSize
                 return false unless @_rootNode?
                 return false unless @_queue?
                 return false unless @_queue.length is 0
@@ -59,8 +61,8 @@ module.exports = class GraphBuilder
         stepCount:
             get: -> @_stepCount
 
-        wanted:
-            get: -> @_wanted
+        want:
+            get: -> @_want
 
     # Object Overrides ############################################################################
 

@@ -25,6 +25,7 @@ module.exports = class CraftsmanWorkingController extends BaseController
     onDidRender: ->
         @$message = @$('.message p')
         @$count = @$('.count p')
+        @$waiting = @$('.waiting')
         super
 
     refresh: ->
@@ -36,6 +37,7 @@ module.exports = class CraftsmanWorkingController extends BaseController
     _refreshStatusText: ->
         return unless @$message? and @$count?
 
+        waitingVisible = true
         switch @model.stage
             when Craftsman::STAGE.WAITING
                 @$message.html 'Preparing crafting calculation...'
@@ -52,3 +54,9 @@ module.exports = class CraftsmanWorkingController extends BaseController
             when Craftsman::STAGE.COMPLETE
                 @$message.html 'All done!'
                 @$count.html ''
+            when Craftsman::STAGE.INVALID
+                @$message.html 'Couldn\'t make a crafting plan'
+                @$count.html ''
+                waitingVisible = false
+
+        if waitingVisible then @show @$waiting else @hide @$waiting

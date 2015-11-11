@@ -8,6 +8,7 @@ All rights reserved.
 _                          = require 'underscore'
 AdsenseController          = require './adsense_controller'
 CraftPage                  = require '../models/craft_page'
+Craftsman                  = require '../models/crafting/craftsman'
 CraftsmanWorkingController = require './craftsman_working_controller'
 {Event}                    = require '../constants'
 InventoryController        = require './inventory_controller'
@@ -144,21 +145,24 @@ module.exports = class CraftPageController extends PageController
     _refreshSectionVisibility: ->
         return unless @_rendered
 
+        toShow = []
+        toHide = []
+
         if @model.craftsman.want.isEmpty
-            for $el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
-                @hide $el
-            @show @$instructionsSection
-            @hide @$workingSection
+            toShow.push el for el in [@$instructionsSection]
+            toHide.push el for el in [@$toolsSection, @$ingredientsSection, @$stepsSection, @$workingSection]
+        else if @model.craftsman.stage is Craftsman::STAGE.INVALID
+            toShow.push el for el in [@$workingSection]
+            toHide.push el for el in [@$instructionsSection, @$toolsSection, @$ingredientsSection, @$stepsSection]
         else if not @model.craftsman.complete
-            for $el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
-                @hide $el
-            @hide @$instructionsSection
-            @show @$workingSection
+            toShow.push el for el in [@$workingSection]
+            toHide.push el for el in [@$instructionsSection, @$toolsSection, @$ingredientsSection, @$stepsSection]
         else
-            for $el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
-                @show $el
-            @hide @$instructionsSection
-            @hide @$workingSection
+            toShow.push el for el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
+            toHide.push el for el in [@$instructionsSection, @$workingSection]
+
+        @show $el for $el in toShow
+        @hide $el for $el in toHide
 
     _refreshSteps: ->
         steps = @model.craftsman.plan?.steps or []

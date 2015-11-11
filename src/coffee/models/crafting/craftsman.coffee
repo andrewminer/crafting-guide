@@ -30,6 +30,7 @@ module.exports = class Craftsman extends BaseModel
         PLANNING:  'computing plans'
         ANALYZING: 'analyzing plans'
         COMPLETE:  'complete'
+        INVALID:   'invalid'
 
     constructor: (modPack)->
         if not modPack? then throw new Error 'modPack is required'
@@ -41,7 +42,7 @@ module.exports = class Craftsman extends BaseModel
 
         @_modPack = modPack
 
-        reset = _.throttle (=> @reset()), 100
+        reset = _.debounce (=> @reset()), 100
 
         @_have = new Inventory modPack:@_modPack
         @_have.on Event.change, reset
@@ -71,6 +72,9 @@ module.exports = class Craftsman extends BaseModel
         else if not @_graphBuilder.complete
             @_graphBuilder.expandGraph @GRAPH_STEP_INCREMENT
             @stageCount = @_graphBuilder.stepCount
+        else if not @_graphBuilder.rootNode.valid
+            @stage = @STAGE.INVALID
+            @stageCount = 0
         else if not @_planBuilder?
             logger.debug => "Craftsman finished computing graph:\n#{@_graphBuilder.rootNode}"
 
@@ -92,7 +96,6 @@ module.exports = class Craftsman extends BaseModel
                 @_planEvaluator.findBestPlan PlanEvaluator::CRITERIA.FEWEST_STEPS
                 @_planEvaluator.findBestPlan PlanEvaluator::CRITERIA.LEAST_MATERIALS
             ]
-            @_plans[0].computeRequired()
             @stage = @STAGE.COMPLETE
             @stageCount = 0
 
@@ -118,7 +121,7 @@ module.exports = class Craftsman extends BaseModel
     Object.defineProperties @prototype,
 
         complete:
-            get: -> @_plans?
+            get: -> @stage in [@STAGE.COMPLETE, @STAGE.INVALID]
 
         have:
             get: -> @_have

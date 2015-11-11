@@ -72,8 +72,9 @@ module.exports = class BaseController extends backbone.View
 
     show: ($el)->
         $el ?= @$el
-        $el.data 'target-visibility', 'visible'
-        _.delay (=> @_adjustTargetVisibility $el), Duration.snap
+        if $el.hasClass('hiding') or $el.hasClass('hidden')
+            $el.data 'target-visibility', 'visible'
+            _.delay (=> @_adjustTargetVisibility $el), Duration.snap
 
     unrender: ->
         @undelegateEvents()

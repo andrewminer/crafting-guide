@@ -71,4 +71,7 @@ describe 'GraphBuilder.coffee', ->
                 runSingleItemTreeBuildingTest 'test__copper_ingot', 6, 15
 
             it 'an item which gatherable and craftable', ->
-                runSingleItemTreeBuildingTest 'test__wool', 2, 2
+                runSingleItemTreeBuildingTest 'test__wool', 4, 4
+
+            it 'an item which requires a gatherable and craftable item', ->
+                runSingleItemTreeBuildingTest 'test__bed', 6, 7

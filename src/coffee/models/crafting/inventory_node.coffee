@@ -28,7 +28,7 @@ module.exports = class InventoryNode extends CraftingNode
         @inventory.each (stack)=>
             item = @modPack.findItem stack.itemSlug
             if not item? then throw new Error "Could not find an item for slug: #{stack.itemSlug}"
-            result.push new ItemNode modPack:@modPack, item:item
+            result.push new ItemNode modPack:@modPack, item:item, ignoreGatherable:true
         return result
 
     _checkCompleteness: ->

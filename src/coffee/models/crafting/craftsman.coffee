@@ -18,11 +18,11 @@ w             = require 'when'
 
 module.exports = class Craftsman extends BaseModel
 
-    @::ANALYZE_STEP_INCREMENT = 100
+    @::ANALYZE_STEP_INCREMENT = 29
 
-    @::GRAPH_STEP_INCREMENT = 10
+    @::GRAPH_STEP_INCREMENT = 59
 
-    @::PLAN_STEP_INCREMENT = 50
+    @::PLAN_STEP_INCREMENT = 39
 
     @::STAGE =
         WAITING:   'waiting'
@@ -43,32 +43,29 @@ module.exports = class Craftsman extends BaseModel
 
         reset = _.throttle (=> @reset()), 100
 
-        @_have = new Inventory
+        @_have = new Inventory modPack:@_modPack
         @_have.on Event.change, reset
 
-        @_want = new Inventory
+        @_want = new Inventory modPack:@_modPack
         @_want.on Event.change, reset
 
         @on Event.change + ':paused', reset
         @on Event.change + ':stage', => logger.info "Craftsman has started #{@stage}..."
+        @on 'scheduleNextWork', => @_scheduleNextWork()
         @reset()
 
     # Public Methods ###############################################################################
 
     work: ->
         return if @_want.isEmpty
-        logger.verbose => "stage: #{@stage}(#{@stageCount}) working..."
 
         if not @_graphBuilder?
-            want = new Inventory {modPack:@_modPack}, clone:@_want
-            want.localize()
+            @_want.localize()
+            @_have.localize()
 
-            have = new Inventory {modPack:@_modPack}, clone:@_have
-            have.localize()
+            logger.info -> "Craftsman starting to build #{@_want} from #{@_have}"
 
-            logger.info -> "Craftsman starting to build #{want} from #{have}"
-
-            @_graphBuilder = new GraphBuilder modPack:@_modPack, want:want, have:have
+            @_graphBuilder = new GraphBuilder modPack:@_modPack, want:@_want, have:@_have
             @stage         = @STAGE.GRAPHING
             @stageCount    = 0
         else if not @_graphBuilder.complete
@@ -77,7 +74,7 @@ module.exports = class Craftsman extends BaseModel
         else if not @_planBuilder?
             logger.debug => "Craftsman finished computing graph:\n#{@_graphBuilder.rootNode}"
 
-            @_planBuilder = new PlanBuilder @_graphBuilder.rootNode, @_modPack, want:@_graphBuilder.want
+            @_planBuilder = new PlanBuilder @_graphBuilder.rootNode, @_modPack, have:@_have, want:@_want
             @stage        = @STAGE.PLANNING
             @stageCount   = 0
         else if not @_planBuilder.complete
@@ -96,11 +93,13 @@ module.exports = class Craftsman extends BaseModel
                 @_planEvaluator.findBestPlan PlanEvaluator::CRITERIA.LEAST_MATERIALS
             ]
             @_plans[0].computeRequired()
-            logger.info => "Craftsman has finished with plans: #{(p.toString() for p in @_plans).join('\n')}"
-            @trigger Event.change + ':complete', this
-            @trigger Event.change, this
+            @stage = @STAGE.COMPLETE
+            @stageCount = 0
 
-        @_scheduleNextWork()
+            logger.info => "Craftsman has finished with plans: #{(p.toString() for p in @_plans).join('\n')}"
+
+        @trigger Event.change, this
+        @trigger 'scheduleNextWork'
         return @complete
 
     reset: ->

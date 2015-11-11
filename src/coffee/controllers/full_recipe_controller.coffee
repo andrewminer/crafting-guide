@@ -72,7 +72,7 @@ module.exports = class FullRecipeController extends BaseController
 
         if @model?
             for stack in @model.input
-                inputs.add stack.itemSlug, stack.quantity
+                inputs.add stack.itemSlug, @model.getQuantityRequired stack.itemSlug
 
 
     _refreshOutputs: ->
@@ -81,7 +81,7 @@ module.exports = class FullRecipeController extends BaseController
 
         if @model?
             for stack in @model.output
-                outputs.add stack.itemSlug, stack.quantity
+                outputs.add stack.itemSlug, @model.getQuantityProduced stack.itemSlug
 
     _refreshTools: ->
         @$toolContainer.empty()

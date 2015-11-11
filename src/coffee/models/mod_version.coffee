@@ -139,6 +139,7 @@ module.exports = class ModVersion extends BaseModel
 
     findRecipes: (itemSlug, result=[], options={})->
         options.onlyPrimary ?= false
+        options.forCrafting ?= false
 
         primaryRecipes = []
         otherRecipes = []
@@ -146,6 +147,7 @@ module.exports = class ModVersion extends BaseModel
         for recipe in _.values @_recipes
             continue unless recipe.isConditionSatisfied()
             continue unless recipe.hasAllTools()
+            continue if options.forCrafting and recipe.ignoreDuringCrafting
 
             if recipe.itemSlug.matches itemSlug
                 primaryRecipes.push recipe

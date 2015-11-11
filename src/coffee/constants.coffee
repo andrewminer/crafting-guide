@@ -95,8 +95,8 @@ GitHub.file.itemDescription.fileName = _.template "item.cg"
 GitHub.file.itemDescription.path     = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>"
 
 exports.Limits = Limits = {}
-Limits.maximumGraphSize = 10000
-Limits.maximumPlanCount = 10000
+Limits.maximumGraphSize = 5000
+Limits.maximumPlanCount = 5000
 
 exports.Login = Login = {}
 Login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +

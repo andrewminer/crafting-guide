@@ -12,11 +12,13 @@ SimpleInventory = require '../simple_inventory'
 
 module.exports = class CraftingPlan
 
-    constructor: (steps, want, modPack)->
+    constructor: (modPack, want, have, steps)->
         if not modPack? then throw new Error 'modPack is required'
-        if not steps? then throw new Error 'steps is required'
         if not want? then throw new Error 'want is required'
+        if not have? then throw new Error 'have is required'
+        if not steps? then throw new Error 'steps is required'
 
+        @_have      = have
         @_made      = null
         @_modPack   = modPack
         @_need      = null
@@ -31,8 +33,10 @@ module.exports = class CraftingPlan
 
     computeRequired: ->
         @_need = new SimpleInventory modPack:@_modPack
-        @_made = new SimpleInventory modPack:@_modPack
         @_need.addInventory @_want
+
+        @_made = new SimpleInventory modPack:@_modPack
+        @_made.addInventory @_have
 
         for i in [@_steps.length-1..0] by -1
             step = @_steps[i]
@@ -47,6 +51,8 @@ module.exports = class CraftingPlan
                     @_executeStep step
 
         @_made.addInventory @_want
+        @_pruneEmptySteps()
+        @_numberSteps()
 
     hasRawScore: (name)->
         return @_rawScores[name]?
@@ -69,6 +75,8 @@ module.exports = class CraftingPlan
     # Property Methods #############################################################################
 
     Object.defineProperties @prototype,
+        have:
+            get: -> @_have
         length:
             get: -> @steps.length
         made:
@@ -85,6 +93,10 @@ module.exports = class CraftingPlan
     toString: ->
         result = ["To Make:"]
         @_want.each (stack)->
+            result.push "    #{stack}"
+
+        result.push "When you already have:"
+        @_have.each (stack)->
             result.push "    #{stack}"
 
         result.push "Start with:"
@@ -140,3 +152,12 @@ module.exports = class CraftingPlan
     _numberSteps: ->
         for step, i in @_steps
             step.number = i + 1
+
+    _pruneEmptySteps: ->
+        index = 0
+        while index < @_steps.length
+            step = @_steps[index]
+            if step.multiplier is 0
+                @_steps.splice index, 1
+            else
+                index++

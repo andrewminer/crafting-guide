@@ -35,6 +35,8 @@ module.exports = class ItemSlug
         return 0
 
     @equal: (a, b)->
+        return true if not a? and not b?
+        return false unless a? and b?
         return false unless a.mod is b.mod
         return false unless a.item is b.item
         return true
@@ -56,6 +58,7 @@ module.exports = class ItemSlug
         return ItemSlug.compare this, that
 
     matches: (slug, options={exact:false})->
+        return false unless slug?
         return false unless typeof(slug.matches) is 'function'
 
         if slug.isQualified and this.isQualified

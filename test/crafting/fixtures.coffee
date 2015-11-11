@@ -19,6 +19,11 @@ MOD_VERSION_FILE =
     """
     schema: 1
 
+    item: Bed
+        recipe:
+            input: Oak Planks, Wool
+            pattern: ... 000 111
+
     item: Charcoal
         recipe:
             input: 8 Oak Wood, Coal
@@ -140,14 +145,15 @@ module.exports = fixtures =
     makePlans: (stacks...)->
         modPack = fixtures.makeModPack()
 
+        have = new Inventory
         want = new Inventory
         for stack in stacks
             want.add ItemSlug.slugify(stack[1]), stack[0]
 
-        graphBuilder = new GraphBuilder modPack:fixtures.makeModPack(), want:want
+        graphBuilder = new GraphBuilder modPack:modPack, want:want
         graphBuilder.expandGraph()
 
-        planBuilder = new PlanBuilder graphBuilder.rootNode, modPack, want:graphBuilder.want
+        planBuilder = new PlanBuilder graphBuilder.rootNode, modPack, want:want, have:have
         return planBuilder.producePlans()
 
     makeTree: (itemSlug, quantity=1)->

@@ -1,0 +1,35 @@
+/*
+Crafting Table - crafting_table.scss
+
+Copyright (c) 2014-2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__craftsman_working .content {
+    align-items: center;
+    background: $color-white;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+
+    .waiting {
+        margin-bottom: 3em;
+    }
+
+    .message {
+        margin-bottom: 1em;
+
+        p {
+            font-family: $font-family-header;
+            font-size: $font-size-large;
+        }
+    }
+
+    .count {
+        p {
+            font-family: $font-family-header;
+            font-size: $font-size-normal;
+        }
+    }
+}

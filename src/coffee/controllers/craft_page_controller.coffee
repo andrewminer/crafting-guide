@@ -5,15 +5,16 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-AdsenseController   = require './adsense_controller'
-CraftPage           = require '../models/craft_page'
-InventoryController = require './inventory_controller'
-PageController      = require './page_controller'
-StepController      = require './step_controller'
-_                   = require 'underscore'
-{Event}             = require '../constants'
-{Text}              = require '../constants'
-{Url}               = require '../constants'
+_                          = require 'underscore'
+AdsenseController          = require './adsense_controller'
+CraftPage                  = require '../models/craft_page'
+CraftsmanWorkingController = require './craftsman_working_controller'
+{Event}                    = require '../constants'
+InventoryController        = require './inventory_controller'
+PageController             = require './page_controller'
+StepController             = require './step_controller'
+{Text}                     = require '../constants'
+{Url}                      = require '../constants'
 
 ########################################################################################################################
 
@@ -32,15 +33,13 @@ module.exports = class CraftPageController extends PageController
         @modPack     = options.modPack
         @storage     = options.storage
 
-        @model.craftsman.on Event.change, => @tryRefresh()
-
     # Event Methods ################################################################################
 
     onHaveInventoryChanged: ->
         @storage.store 'crafting-plan:have', @model.craftsman.have.unparse()
 
     onMoveNeedToHave: (itemSlug)->
-        quantity = @model.craftsman.need.quantityOf itemSlug
+        quantity = @needInventoryController.model.quantityOf itemSlug
         @model.craftsman.have.add itemSlug, quantity
         @onHaveInventoryChanged()
 
@@ -106,12 +105,16 @@ module.exports = class CraftPageController extends PageController
             firstButtonType: 'up'
         @needInventoryController.on Event.button.first, (c, s)=> @onMoveNeedToHave(s)
 
+        @workingSectionController = @addChild CraftsmanWorkingController, '.view__craftsman_working',
+            model: @model.craftsman
+
         @$instructionsSection = @$('.instructions.section')
         @$makeSection         = @$('.make.section')
         @$toolsSection        = @$('.tools.section')
         @$ingredientsSection  = @$('.ingredients.section')
         @$stepsSection        = @$('.steps.section')
         @$stepsContainer      = @$('.steps.section .panel')
+        @$workingSection      = @$('.view__craftsman_working')
 
         super
 
@@ -139,14 +142,23 @@ module.exports = class CraftPageController extends PageController
         return not @model.craftsman.want.hasAtLeast controller.model.outputItemSlug
 
     _refreshSectionVisibility: ->
+        return unless @_rendered
+
         if @model.craftsman.want.isEmpty
             for $el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
                 @hide $el
             @show @$instructionsSection
+            @hide @$workingSection
+        else if not @model.craftsman.complete
+            for $el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
+                @hide $el
+            @hide @$instructionsSection
+            @show @$workingSection
         else
             for $el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
                 @show $el
             @hide @$instructionsSection
+            @hide @$workingSection
 
     _refreshSteps: ->
         steps = @model.craftsman.plan?.steps or []

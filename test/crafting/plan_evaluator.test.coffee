@@ -52,9 +52,10 @@ describe 'plan_evaluator.coffee', ->
         beforeEach ->
             modPack   = fixtures.makeModPack()
             wanted    = new Inventory modPack:modPack
-            planA     = new CraftingPlan [], wanted, modPack
-            planB     = new CraftingPlan [], wanted, modPack
-            planC     = new CraftingPlan [], wanted, modPack
+            have      = new Inventory modPack:modPack
+            planA     = new CraftingPlan modPack, wanted, have, []
+            planB     = new CraftingPlan modPack, wanted, have, []
+            planC     = new CraftingPlan modPack, wanted, have, []
             plans     = [planA, planB, planC]
             evaluator = new PlanEvaluator plans
             criteria  = PlanEvaluator::CRITERIA.FEWEST_STEPS

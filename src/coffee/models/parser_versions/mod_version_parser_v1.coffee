@@ -64,11 +64,11 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         @_recipeData = null
 
     _command_ignoreDuringCrafting: (value)->
-        if not @_itemData? then throw new Error 'cannot declare "ignoreDuringCraft" before "item"'
-        if @_itemData.ignoreDuringCrafting? then throw new Error 'duplicate declaration of "ignoreDuringCraft"'
-        if not (value in ['yes', 'no']) then throw new Error 'ignoreDuringCraft must be either "yes" or "no"'
+        if not @_recipeData? then throw new Error 'cannot declare "ignoreDuringCrafting" before "recipe"'
+        if @_recipeData.ignoreDuringCrafting? then throw new Error 'duplicate declaration of "ignoreDuringCrafting"'
+        if not (value in ['yes', 'no']) then throw new Error 'ignoreDuringCrafting must be either "yes" or "no"'
 
-        @_itemData.ignoreDuringCrafting = (value is 'yes')
+        @_recipeData.ignoreDuringCrafting = (value is 'yes')
 
     _command_input: (inputNames...)->
         if not @_recipeData? then throw new Error 'cannot declare "input" before "recipe"'
@@ -182,11 +182,12 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
         if not recipeData.pattern? then throw new Error 'the "pattern" declaration is required'
 
         recipe = new Recipe
-            condition: recipeData.condition
-            input:     @_buildStackList modVersion, recipeData.input, recipeData.pattern
-            output:    @_buildStackList modVersion, recipeData.output
-            pattern:   recipeData.pattern
-            tools:     @_buildStackList modVersion, recipeData.tools
+            condition:            recipeData.condition
+            ignoreDuringCrafting: recipeData.ignoreDuringCrafting
+            input:                @_buildStackList modVersion, recipeData.input, recipeData.pattern
+            output:               @_buildStackList modVersion, recipeData.output
+            pattern:              recipeData.pattern
+            tools:                @_buildStackList modVersion, recipeData.tools
 
         modVersion.addRecipe recipe
         return recipe
@@ -311,6 +312,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
                         .push 'extras: '
                         .call => @_unparseStackList builder, extraOutputs
                         .line()
+                .onlyIf recipe.ignoreDuringCrafting, => builder.line 'ignoreDuringCrafting: yes'
                 .push 'input: '
                     .loop inputNames
                     .line()

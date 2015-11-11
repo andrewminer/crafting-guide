@@ -23,7 +23,8 @@ module.exports = class CraftPage extends BaseModel
 
         @modPack.on Event.change, => @_consumeParams()
         @on Event.change + ':params', => @_consumeParams()
-        @craftsman.on Event.change, => @trigger Event.change, this
+        @craftsman.on Event.change + ':stage', => @trigger Event.change, this
+        @craftsman.on Event.change + ':complete', => @trigger Event.change, this
 
     # Private Methods ##############################################################################
 

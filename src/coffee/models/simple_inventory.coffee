@@ -108,8 +108,10 @@ module.exports = class SimpleInventory
 
         stack.quantity -= quantity
         if stack.quantity is 0
-            delete @_stacks[itemSlug]
-            @_itemSlugs = (s for s in @_itemSlugs when not ItemSlug.equal(s, itemSlug))
+            for currentItemSlug, index in @_itemSlugs
+                if ItemSlug.equal itemSlug, currentItemSlug
+                    @_itemSlugs.splice index, 1
+                    break
 
         return this
 

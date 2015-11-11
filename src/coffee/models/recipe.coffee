@@ -29,10 +29,11 @@ module.exports = class Recipe extends BaseModel
 
         attributes.pattern = @_parsePattern attributes.pattern
 
-        attributes.condition  ?= null
-        attributes.modVersion ?= null
-        attributes.tools      ?= []
-        options.logEvents     ?= false
+        attributes.condition            ?= null
+        attributes.ignoreDuringCrafting ?= false
+        attributes.modVersion           ?= null
+        attributes.tools                ?= []
+        options.logEvents               ?= false
         super attributes, options
 
         @_computeQuantities attributes.pattern

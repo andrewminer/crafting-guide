@@ -6,7 +6,9 @@ All rights reserved.
 ###
 
 CraftingNode = require './crafting_node'
-# ItemNode     = require './item_node' # don't include here, causes a cycle
+Item         = require '../item'
+# ItemNode   = require './item_node' # don't include here, causes a cycle
+ItemSlug     = require '../item_slug'
 
 ########################################################################################################################
 
@@ -29,6 +31,9 @@ module.exports = class RecipeNode extends CraftingNode
 
         for stack in @recipe.input
             item = @modPack.findItem stack.itemSlug
+            if not item?
+                name = @modPack.findName stack.itemSlug
+                item = new Item name:name, slug:stack.itemSlug, gatherable:true
             result.push new ItemNode modPack:@modPack, item:item
         return result
 
@@ -39,6 +44,7 @@ module.exports = class RecipeNode extends CraftingNode
 
     _checkValidity: ->
         return false if @_isRepeatedRecipe()
+        return false if @_requiresToolBeingMade()
 
         for child in @children
             return false unless child.valid
@@ -52,6 +58,18 @@ module.exports = class RecipeNode extends CraftingNode
         while nextParent?
             return true if nextParent.recipe is @recipe
             nextParent = nextParent.parent
+
+        return false
+
+    _requiresToolBeingMade: ->
+        for toolStack in @recipe.tools
+            toolSlug = toolStack.itemSlug
+
+            nextParent = @parent
+            while nextParent?
+                if ItemSlug.equal toolSlug, nextParent.item?.slug
+                    return true
+                nextParent = nextParent.parent
 
         return false
 

@@ -17,22 +17,26 @@ module.exports = class ItemNode extends CraftingNode
     @::TYPE = CraftingNode::TYPES.ITEM
 
     constructor: (options={})->
-        if not options.item?
-            throw new Error 'options.item is required'
+        if not options.item? then throw new Error 'options.item is required'
         super options
 
         @item = options.item
+        @_ignoreGatherable = options.ignoreGatherable ?= false
         @_recipes = null
 
     # Property Methods #############################################################################
 
     getRecipes: ->
         if not @_recipes?
-            @_recipes = @modPack.findRecipes @item.slug
+            @_recipes = @modPack.findRecipes @item.slug, forCrafting:true, onlyPrimary:true
+            if not @_recipes
+                @_recipes = @modPack.findRecipes @item.slug, forCrafting:true
+
         return @_recipes or []
 
     isGatherable: ->
-        return true if @item.isGatherable
+        if not @_ignoreGatherable
+            return true if @item.isGatherable
         return true if @getRecipes().length is 0
         return false
 

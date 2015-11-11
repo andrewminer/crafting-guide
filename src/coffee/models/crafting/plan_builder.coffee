@@ -17,8 +17,10 @@ module.exports = class PlanBuilder
 
     constructor: (rootNode, modPack, options={})->
         if not rootNode? then throw new Error 'rootNode is required'
+        if not modPack? then throw new Error 'modPack is required'
 
         @want = options.want
+        @have = options.have
 
         @_choiceNodes  = []
         @_complete     = false
@@ -52,6 +54,10 @@ module.exports = class PlanBuilder
 
         complete:
             get: -> @_complete
+
+        have:
+            get: -> @_have
+            set: (have)-> @_have = have or new Inventory
 
         maxPlanCount:
             get: -> @_maxPlanCount
@@ -95,7 +101,7 @@ module.exports = class PlanBuilder
             seenRecipes[recipeSlug] = true
             steps.push new CraftingStep node.recipe, @_modPack
 
-        plan = new CraftingPlan steps, @_want, @_modPack
+        plan = new CraftingPlan @_modPack, @_want, @_have, steps
         return plan
 
     _incrementChoiceNodes: ->

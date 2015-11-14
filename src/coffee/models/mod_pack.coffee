@@ -8,6 +8,7 @@ All rights reserved.
 BaseModel            = require './base_model'
 {DefaultModVersions} = require '../constants'
 {Event}              = require '../constants'
+Inventory            = require './inventory'
 ModVersionParser     = require './mod_version_parser'
 Recipe               = require './recipe'
 {Url}                = require '../constants'
@@ -77,7 +78,10 @@ module.exports = class ModPack extends BaseModel
             result.modSlug    = @_mods[0].slug
             result.modVersion = @_mods[0].activeVersion
 
-        result.craftingUrl = Url.crafting inventoryText:itemSlug.item
+        craftingUrlInventory = new Inventory modPack:this
+        craftingUrlInventory.add itemSlug
+
+        result.craftingUrl = Url.crafting inventoryText:craftingUrlInventory.unparse()
         result.iconUrl     = Url.itemIcon result
         result.itemUrl     = Url.item result
         result.modName    = @getMod(result.modSlug).name

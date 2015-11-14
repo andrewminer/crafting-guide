@@ -109,12 +109,13 @@ module.exports = class CraftPageController extends PageController
         @workingSectionController = @addChild CraftsmanWorkingController, '.view__craftsman_working',
             model: @model.craftsman
 
+        @$haveSection         = @$('.have.section')
         @$instructionsSection = @$('.instructions.section')
         @$makeSection         = @$('.make.section')
-        @$toolsSection        = @$('.tools.section')
-        @$ingredientsSection  = @$('.ingredients.section')
-        @$stepsSection        = @$('.steps.section')
+        @$needSection         = @$('.need.section')
         @$stepsContainer      = @$('.steps.section .panel')
+        @$stepsSection        = @$('.steps.section')
+        @$toolsSection        = @$('.tools.section')
         @$workingSection      = @$('.view__craftsman_working')
 
         super
@@ -150,15 +151,15 @@ module.exports = class CraftPageController extends PageController
 
         if @model.craftsman.want.isEmpty
             toShow.push el for el in [@$instructionsSection]
-            toHide.push el for el in [@$toolsSection, @$ingredientsSection, @$stepsSection, @$workingSection]
+            toHide.push el for el in [@$toolsSection, @$needSection, @$stepsSection, @$workingSection]
         else if @model.craftsman.stage is Craftsman::STAGE.INVALID
             toShow.push el for el in [@$workingSection]
-            toHide.push el for el in [@$instructionsSection, @$toolsSection, @$ingredientsSection, @$stepsSection]
+            toHide.push el for el in [@$instructionsSection, @$toolsSection, @$needSection, @$stepsSection]
         else if not @model.craftsman.complete
             toShow.push el for el in [@$workingSection]
-            toHide.push el for el in [@$instructionsSection, @$toolsSection, @$ingredientsSection, @$stepsSection]
+            toHide.push el for el in [@$instructionsSection, @$toolsSection, @$needSection, @$stepsSection]
         else
-            toShow.push el for el in [@$toolsSection, @$ingredientsSection, @$stepsSection]
+            toShow.push el for el in [@$toolsSection, @$needSection, @$stepsSection]
             toHide.push el for el in [@$instructionsSection, @$workingSection]
 
         @show $el for $el in toShow

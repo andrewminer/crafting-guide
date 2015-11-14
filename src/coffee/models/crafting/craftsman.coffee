@@ -63,7 +63,6 @@ module.exports = class Craftsman extends BaseModel
         if not @_graphBuilder?
             @_want.localize()
             @_have.localize()
-
             logger.info -> "Craftsman starting to build #{@_want} from #{@_have}"
 
             @_graphBuilder = new GraphBuilder modPack:@_modPack, want:@_want, have:@_have
@@ -72,25 +71,29 @@ module.exports = class Craftsman extends BaseModel
         else if not @_graphBuilder.complete
             @_graphBuilder.expandGraph @GRAPH_STEP_INCREMENT
             @stageCount = @_graphBuilder.stepCount
+            logger.verbose => "Craftsman is expanding graph: #{@stageCount} nodes"
         else if not @_graphBuilder.rootNode.valid
             @stage = @STAGE.INVALID
             @stageCount = 0
+            logger.warn => "Craftsman could not complete a crafting plan."
         else if not @_planBuilder?
             logger.debug => "Craftsman finished computing graph:\n#{@_graphBuilder.rootNode}"
-
             @_planBuilder = new PlanBuilder @_graphBuilder.rootNode, @_modPack, have:@_have, want:@_want
             @stage        = @STAGE.PLANNING
             @stageCount   = 0
         else if not @_planBuilder.complete
             @_planBuilder.producePlans @PLAN_STEP_INCREMENT
             @stageCount = @_planBuilder.plans.length
+            logger.verbose => "Craftsman is producing plans: #{@_planBuilder.plans.length} plans"
         else if not @_planEvaluator?
+            logger.verbose => "Craftsman finished producing plans: #{@_planBuilder.plans.length} plans"
             @_planEvaluator = new PlanEvaluator @_planBuilder.plans
             @stage          = @STAGE.ANALYZING
             @stageCount     = 0
         else if not @_planEvaluator.complete
             @_planEvaluator.scorePlans @ANALYZE_STEP_INCREMENT
             @stageCount = @_planEvaluator.lastScored
+            logger.verbose => "Craftsman is rating plans: #{@stageCount} plans"
         else
             @_plans = [
                 @_planEvaluator.findBestPlan PlanEvaluator::CRITERIA.FEWEST_STEPS
@@ -99,7 +102,7 @@ module.exports = class Craftsman extends BaseModel
             @stage = @STAGE.COMPLETE
             @stageCount = 0
 
-            logger.info => "Craftsman has finished with plans: #{(p.toString() for p in @_plans).join('\n')}"
+            logger.info => "Craftsman has finished with plans: #{(p.toString() for p in @_plans).join('\n\n')}"
 
         @trigger Event.change, this
         @trigger 'scheduleNextWork'

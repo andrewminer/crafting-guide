@@ -100,16 +100,18 @@ module.exports = class CraftingPlan
             result.push "    #{stack}"
 
         result.push "Start with:"
-        @_need.each (stack)->
-            result.push "    #{stack}"
+        if @_need?
+            @_need.each (stack)->
+                result.push "    #{stack}"
 
         result.push "Use these recipes:"
         for step in @_steps
             result.push "    #{step}"
 
         result.push "To produce:"
-        @_made.each (stack)->
-            result.push "    #{stack}"
+        if @_made?
+            @_made.each (stack)->
+                result.push "    #{stack}"
 
         if _.keys(@_rawScores).length > 0
             result.push "Scores:"

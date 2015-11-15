@@ -17,7 +17,7 @@ module.exports = class PlanEvaluator
         if not plans? then throw new Error 'plans is required'
 
         @_plans = plans
-        @_lastScored = 0
+        @_lastScored = -1
         @_normalized = false
 
     # Public Methods ###############################################################################
@@ -41,7 +41,7 @@ module.exports = class PlanEvaluator
         return if @complete
 
         maxPlanIndex = Math.min @_lastScored + count, @_plans.length - 1
-        for i in [@_lastScored..maxPlanIndex]
+        for i in [(@_lastScored + 1)..maxPlanIndex]
             @_plans[i].computeRequired()
             @_scorePlan @_plans[i]
             @_lastScored = i

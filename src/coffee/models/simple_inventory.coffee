@@ -66,21 +66,32 @@ module.exports = class SimpleInventory
     localize: ->
         if not @modPack? then throw new Error 'localize requires @modPack'
 
+        changed = false
         newSlugs = []
+        newStacks = []
         for itemSlug in @_itemSlugs
             stack = @_stacks[itemSlug]
+            continue unless stack?
 
-            qualifiedSlug = @modPack.findItem(itemSlug)?.slug
+            qualifiedSlug = if itemSlug.isQualified then itemSlug else null
+            if not qualifiedSlug?
+                qualifiedSlug = @modPack.findItem(itemSlug)?.slug
+                changed = qualifiedSlug?
+
             if qualifiedSlug?
-                delete @_stacks[itemSlug]
                 newSlugs.push qualifiedSlug
-                @_stacks[qualifiedSlug] = stack
-                stack.itemSlug = qualifiedSlug
+                newStacks.push new Stack itemSlug:qualifiedSlug, quantity:stack.quantity
             else
                 newSlugs.push itemSlug
+                newStacks.push stack
 
-        @_itemSlugs = newSlugs
-        @_sort()
+        if changed
+            @_itemSlugs = newSlugs
+            @_stacks = {}
+            for stack in newStacks
+                @_stacks[stack.itemSlug] = stack
+
+            @_sort()
 
     pop: ->
         itemSlug = @_itemSlugs.pop()

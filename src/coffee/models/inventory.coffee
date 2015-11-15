@@ -90,7 +90,7 @@ module.exports = class Inventory extends BaseModel
 
             if qualifiedSlug?
                 newSlugs.push qualifiedSlug
-                newStacks.push new Stack itemSlug:qualifiedSlug, stack.quantity
+                newStacks.push new Stack itemSlug:qualifiedSlug, quantity:stack.quantity
             else
                 newSlugs.push itemSlug
                 newStacks.push stack

@@ -19,6 +19,7 @@ exports.DefaultMods =
     buildcraft:            { defaultVersion: '6.4.6' }
     enderio:               { defaultVersion: '2.2.7.325' }
     forestry:              { defaultVersion: '3.4.0.7' }
+    galacticraft:          { defaultVersion: '3.0.12.404' }
     ic2_classic:           { defaultVersion: 'none' }
     industrial_craft_2:    { defaultVersion: '2.2.663' }
     iron_chests:           { defaultVersion: '6.0.62.742' }

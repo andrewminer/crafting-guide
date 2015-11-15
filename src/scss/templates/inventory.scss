@@ -6,6 +6,15 @@ All rights reserved.
 */
 
 .view__inventory {
+    display: flex;
+    flex-direction: column;
+
+    &.large {
+        .item_container {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    }
 
     .empty_placeholder {
         color: $color-gray-light;
@@ -13,74 +22,26 @@ All rights reserved.
         font-size: $font-size-large;
         margin: 2em 0;
         text-align: center;
-        width: 100%;
     }
 
     .item_container {
-        position: relative; width: 100%;
-
-        .view__stack > div {
-            height: 4.2em;
-            padding: 0 1em 0.5em 0;
-            vertical-align: middle;
-
-            &:last-child {
-                padding: 0 0 0.5em 0;
-            }
-        }
-
-        .icon {
-            img {
-                height: 3.6em; width: 3.6em;
-            }
-        }
-
-        .name {
-            width: 100%;
-        }
-
-        .action {
-            white-space: nowrap;
-
-            button:first-child {
-                margin-right: 0.5em;
-            }
-        }
+        display: flex;
+        flex-direction: column;
     }
 
-    .view__item_selector {
-        position: relative; width: 80%;
-        margin: 1em auto;
-    }
+    .buttons {
+        display: flex;
+        flex-direction: row;
 
-    &.large {
-        .item_container {
-            .view__stack > div {
-                height: 5em;
-            }
+        margin: 1em 2em;
 
-            .quantity {
-                .bubble {
-                    border-radius: 3em;
+        .view__item_selector {
+            flex: 85%;
+            margin-right: 1em;
+        }
 
-                    input {
-                        font-size: $font-size-large;
-                    }
-                }
-            }
-
-            .icon {
-                img {
-                    height: 4.8em; width: 4.8em;
-                }
-            }
-
-            .name {
-                a {
-                    font-size: $font-size-large;
-                    font-weight: bold;
-                }
-            }
+        .button.clear {
+            flex: 15%;
         }
     }
 }

@@ -46,34 +46,6 @@ All rights reserved.
 
         .button {
             flex: 50%;
-
-            background: $color-gray-faint;
-            border: 0.1em solid $color-gray-medium;
-            border-radius: 1.5em;
-            cursor: pointer;
-            padding: 0.25em 0.75em;
-            margin: 0 1em;
-
-            &:hover {
-                background: $color-background-panel;
-            }
-
-            &.disabled {
-                background: $color-background-panel;
-                border: 0.1em solid $color-gray-light;
-                cursor: inherit;
-
-                p {
-                    color: $color-gray-light;
-                }
-            }
-
-            p {
-                color: $color-active;
-                font-family: $font-family-normal;
-                font-weight: bold;
-                text-align: center;
-            }
         }
     }
 }

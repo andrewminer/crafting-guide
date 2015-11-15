@@ -6,15 +6,15 @@ All rights reserved.
 */
 
 .view__stack {
-    font-family: $font-family-normal;
-    display: table-row;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
 
-    & > div {
-        display: table-cell;
-        vertical-align: middle;
-    }
+    font-family: $font-family-normal;
 
     .quantity {
+        flex: 0 0 auto;
+
         .bubble {
             border: 0.1em solid $color-gray-light;
             border-radius: 1.5em;
@@ -46,14 +46,19 @@ All rights reserved.
     }
 
     .icon {
+        flex: 0 0 auto;
+        margin: 0 0.5em;
+
         img {
             width: 100%; height: auto;
-            max-height: 4.8em;
+            max-width: 3.6em;
             @include pixel-image;
         }
     }
 
     .name {
+        flex: 1 0 auto;
+
         a {
             color: $color-text;
             font-size: $font-size-normal;
@@ -67,11 +72,12 @@ All rights reserved.
     }
 
     .action {
-        text-align: right;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
 
         button {
             position: relative; width: 3.0em; height: 3.0em;
-            display: inline-block;
 
             border: 0;
             font-size: $font-size-small;

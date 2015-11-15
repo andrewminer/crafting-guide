@@ -83,7 +83,7 @@ module.exports = class InventoryController extends BaseController
             modPack:      @modPack,
             onChoseItem:  (itemSlug)=> @onItemChosen(itemSlug)
 
-        @$clearButton      = @$('button.clear')
+        @$clearButton      = @$('.button.clear')
         @$emptyPlaceholder = @$('.empty_placeholder')
         @$icon             = @$('.icon')
         @$itemContainer    = @$('.item_container')
@@ -93,8 +93,10 @@ module.exports = class InventoryController extends BaseController
     refresh: ->
         if @editable
             @selector.show()
+            @show @$clearButton
         else
             @selector.hide()
+            @hide @$clearButton
 
         @$icon.attr 'src', @icon
         @$title.html @title
@@ -114,8 +116,8 @@ module.exports = class InventoryController extends BaseController
 
     events: ->
         return _.extend super,
-            'click button.clear': 'onClearButtonClicked'
-            'click button.first': 'onFirstButtonClicked'
+            'click .button.clear': 'onClearButtonClicked'
+            'click button.first':  'onFirstButtonClicked'
             'click button.second': 'onSecondButtonClicked'
 
     # Private Methods ##############################################################################

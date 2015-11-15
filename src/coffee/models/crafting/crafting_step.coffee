@@ -23,6 +23,17 @@ module.exports = class CraftingStep
         @_multiplier = multiplier
         @_recipe     = recipe
 
+    # Public Methods ###############################################################################
+
+    addToolsTo: (targetInventory)->
+        for stack in @_recipe.tools
+            targetInventory.add stack.itemSlug, stack.quantity
+
+    completeInto: (targetInventory)->
+        for stack in @_recipe.output
+            quantity = @_recipe.getQuantityProduced stack.itemSlug
+            targetInventory.add stack.itemSlug, quantity * @_multiplier
+
     # Property Methods #############################################################################
 
     Object.defineProperties @prototype,

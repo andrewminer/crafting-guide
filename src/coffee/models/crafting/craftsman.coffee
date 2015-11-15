@@ -43,9 +43,10 @@ module.exports = class Craftsman extends BaseModel
         @_modPack = modPack
 
         reset = _.debounce (=> @reset()), 100
+        reevaluatePlans = _.debounce (=> @reevaluatePlans()), 100
 
         @_have = new Inventory modPack:@_modPack
-        @_have.on Event.change, reset
+        @_have.on Event.change, reevaluatePlans
 
         @_want = new Inventory modPack:@_modPack
         @_want.on Event.change, reset
@@ -56,6 +57,25 @@ module.exports = class Craftsman extends BaseModel
         @reset()
 
     # Public Methods ###############################################################################
+
+    reevaluatePlans: ->
+        @_plans         = null
+        @_planEvaluator = null
+        @stage          = @STAGE.WAITING
+        @stageCount     = 0
+
+        @_scheduleNextWork()
+
+    reset: ->
+        @_graphBuilder  = null
+        @_planBuilder   = null
+        @_planEvaluator = null
+        @_plans         = null
+
+        @stage      = @STAGE.WAITING
+        @stageCount = 0
+
+        @_scheduleNextWork()
 
     work: ->
         return if @_want.isEmpty
@@ -107,17 +127,6 @@ module.exports = class Craftsman extends BaseModel
         @trigger Event.change, this
         @trigger 'scheduleNextWork'
         return @complete
-
-    reset: ->
-        @_graphBuilder  = null
-        @_planBuilder   = null
-        @_planEvaluator = null
-        @_plans         = null
-
-        @stage      = @STAGE.WAITING
-        @stageCount = 0
-
-        @_scheduleNextWork()
 
     # Property Methods #############################################################################
 

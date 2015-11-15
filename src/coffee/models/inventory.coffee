@@ -59,7 +59,9 @@ module.exports = class Inventory extends BaseModel
 
     each: (callback)->
         for itemSlug in @_itemSlugs
-            callback @_stacks[itemSlug]
+            stack = @_stacks[itemSlug]
+            continue unless stack?
+            callback stack
 
     getSlugs: ->
         return @_itemSlugs[..]

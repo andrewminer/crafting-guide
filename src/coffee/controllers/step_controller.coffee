@@ -22,15 +22,22 @@ module.exports = class StepController extends BaseController
         options.templateName = 'step'
         super options
 
+        @canAddTools = options.canAddTools or (controller)-> true
         @canComplete = options.canComplete or (controller)-> true
+        @onComplete  = options.onComplete or (controller)-> # do nothing
+        @onAddTools  = options.onAddTools or (controller)-> # do nothing
         @imageLoader = options.imageLoader
         @modPack     = options.modPack
 
     # Event Methods ################################################################################
 
-    onCompleteClicked: (event)->
-        event.preventDefault()
-        @trigger Event.button.complete, this
+    onCompleteButtonClicked: (event)->
+        return if @$completeButton.hasClass 'disabled'
+        @onComplete this
+
+    onToolButtonClicked: (event)->
+        return if @$toolButton.hasClass 'disabled'
+        @onAddTools this
 
     # BaseController Overrides #####################################################################
 
@@ -46,9 +53,10 @@ module.exports = class StepController extends BaseController
             model:       @model.recipe
             modPack:     @modPack
 
-        @$header        = @$('h3')
-        @$completePanel = @$('.complete')
-        @$completeImage = @$('.complete img')
+        @$completeButton  = @$('.button.complete')
+        @$header          = @$('h3')
+        @$toolButton      = @$('.button.tool')
+        @$toolButtonLabel = @$('.button.tool p')
         super
 
     onWillChangeModel: (oldModel, newModel)->
@@ -63,10 +71,8 @@ module.exports = class StepController extends BaseController
         @recipeController.model      = @model.recipe
         @recipeController.multiplier = @model.multiplier
 
-        if @canComplete(this)
-            @$completePanel.addClass 'disabled'
-        else
-            @$completePanel.removeClass 'disabled'
+        @_refreshCompleteButton()
+        @_refreshToolButton()
 
         super
 
@@ -74,4 +80,19 @@ module.exports = class StepController extends BaseController
 
     events: ->
         return _.extend super,
-            'click .complete a': 'onCompleteClicked'
+            'click .button.complete': 'onCompleteButtonClicked'
+            'click .button.tool':     'onToolButtonClicked'
+
+    # Private Methods ##############################################################################
+
+    _refreshToolButton: ->
+        if @canAddTools this
+            @$toolButton.removeClass 'disabled'
+        else
+            @$toolButton.addClass 'disabled'
+
+    _refreshCompleteButton: ->
+        if @canComplete this
+            @$completeButton.removeClass 'disabled'
+        else
+            @$completeButton.addClass 'disabled'

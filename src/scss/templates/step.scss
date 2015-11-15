@@ -6,77 +6,73 @@ All rights reserved.
 */
 
 .view__step {
-    position: relative; min-height: 24em;
-
+    display: flex;
+    flex-direction: column;
     border-top: 0.1em solid $color-gray-medium;
     padding: 1em 0;
 
     &:first-child {
         border-top: 0;
         padding-top: 0;
-
-        .complete {
-            top: 0;
-        }
     }
 
     &:hover {
-        .complete {
-            opacity: $opacity-shown;
+        .buttons {
+            opacity: 1.0;
         }
     }
 
-    .view__inventory {
-        margin: 1em 0 0 3em;
+    h3 {
+        margin-bottom: 1em;
     }
 
-    .view__minimal_recipe {
-        position: absolute; top: 2em; right: 4.8em;
+    .main_content {
+        display: flex;
+        margin: 0 3em 2em 3em;
+
+        .view__inventory {
+            flex: 60%;
+        }
+
+        .view__minimal_recipe {
+            flex: 40%;
+        }
     }
 
-    .complete {
-        position: absolute; top: 1em; right: 0;
-        cursor: pointer;
-        opacity: $opacity-hidden;
+    .buttons {
+        display: flex;
+        opacity: 0;
+        transition: opacity $animate-normal;
 
-        transition: opacity $animate-fast;
+        .button {
+            flex: 50%;
 
-        a {
-            div {
-                height: 3em;
+            background: $color-gray-faint;
+            border: 0.1em solid $color-gray-medium;
+            border-radius: 1.5em;
+            cursor: pointer;
+            padding: 0.25em 0.75em;
+            margin: 0 1em;
 
-                background: url('/images/check.png') no-repeat right;
-                background-size: 3em 3em;
-                padding-right: 4em;
-                text-align: right;
+            &:hover {
+                background: $color-background-panel;
+            }
 
-                &:hover {
-                    background-image: url('/images/check_hover.png');
-
-                    p {
-                        font-weight: bold;
-                    }
-                }
+            &.disabled {
+                background: $color-background-panel;
+                border: 0.1em solid $color-gray-light;
+                cursor: inherit;
 
                 p {
-                    position: relative; top: 50%;
-                    @include transform(translateY(-50%));
-                    color: $color-checkmark;
-                    font-size: $font-size-small;
+                    color: $color-gray-light;
                 }
             }
-        }
 
-        &.active {
-            a {
-                background-image: url('/images/check_active.png');
-            }
-        }
-
-        &.disabled {
-            a {
-                background-image: url('/images/check_disabled.png') !important;
-                cursor: inherit;
+            p {
+                color: $color-active;
+                font-family: $font-family-normal;
+                font-weight: bold;
+                text-align: center;
             }
         }
     }

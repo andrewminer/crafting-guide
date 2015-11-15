@@ -6,12 +6,12 @@ All rights reserved.
 ###
 
 $                             = require 'jquery'
-BaseController                = require './base_controller'
-ItemSelector                  = require '../models/item_selector'
-ItemSelectorElementController = require './item_selector_element_controller'
 _                             = require 'underscore'
+BaseController                = require './base_controller'
 {Duration}                    = require '../constants'
 {Event}                       = require '../constants'
+ItemSelector                  = require '../models/item_selector'
+ItemSelectorElementController = require './item_selector_element_controller'
 {Key}                         = require '../constants'
 
 ########################################################################################################################

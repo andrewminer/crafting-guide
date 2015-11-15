@@ -34,6 +34,9 @@ module.exports = class CraftPageController extends PageController
         @modPack     = options.modPack
         @storage     = options.storage
 
+        @model.craftsman.want.on Event.change, => @onWantInventoryChanged()
+        @model.craftsman.have.on Event.change, => @onHaveInventoryChanged()
+
     # Event Methods ################################################################################
 
     onHaveInventoryChanged: ->
@@ -42,30 +45,20 @@ module.exports = class CraftPageController extends PageController
     onMoveNeedToHave: (itemSlug)->
         quantity = @needInventoryController.model.quantityOf itemSlug
         @model.craftsman.have.add itemSlug, quantity
-        @onHaveInventoryChanged()
 
     onRemoveFromHaveInventory: (itemSlug)->
         @model.craftsman.have.remove itemSlug
-        @onHaveInventoryChanged()
 
     onRemoveFromWant: (itemSlug)->
         @model.craftsman.want.remove itemSlug
-        @onWantInventoryChange()
 
-    onStepComplete: (stepController)->
-        step = stepController.model
-        for stack in step.recipe.output
-            @model.craftsman.have.add stack.itemSlug, stack.quantity * step.multiplier
-        @onHaveInventoryChanged()
-
-    onWantInventoryChange: ->
+    onWantInventoryChanged: ->
         text = @model.craftsman.want.unparse()
         url = Url.crafting inventoryText:text
         router.navigate url
 
         if @model.craftsman.want.isEmpty
             @model.craftsman.have.clear()
-            @onHaveInventoryChanged()
 
     # PageController Overrides #####################################################################
 
@@ -87,7 +80,7 @@ module.exports = class CraftPageController extends PageController
             modPack:         @modPack
             firstButtonType: 'remove'
         @wantInventoryController.on Event.button.first, (c, s)=> @onRemoveFromWant(s)
-        @wantInventoryController.on Event.change, (c)=> @onWantInventoryChange()
+        @wantInventoryController.on Event.change, (c)=> @onWantInventoryChanged()
 
         @haveInventoryController = @addChild InventoryController, '.have .view__inventory',
             imageLoader:     @imageLoader
@@ -140,8 +133,31 @@ module.exports = class CraftPageController extends PageController
 
     # Private Methods ################################################################################
 
+    _addTools: (controller)->
+        controller.model.addToolsTo @model.craftsman.want
+
+    _completeStep: (controller)->
+        controller.model.completeInto @model.craftsman.have
+
+    _isAddingToolsPossible: (controller)->
+        tools = controller.model.recipe.tools
+        return false unless tools.length > 0
+
+        have = @model.craftsman.have
+        want = @model.craftsman.want
+
+        for stack in tools
+            return false if have.hasAtLeast stack.itemSlug
+            return false if want.hasAtLeast stack.itemSlug
+
+        return true
+
     _isStepCompletable: (controller)->
-        return not @model.craftsman.want.hasAtLeast controller.model.outputItemSlug
+        recipe = controller.model.recipe
+        for stack in recipe.output
+            return false if @model.craftsman.want.hasAtLeast stack.itemSlug
+
+        return true
 
     _refreshSectionVisibility: ->
         return unless @_rendered
@@ -174,11 +190,13 @@ module.exports = class CraftPageController extends PageController
             controller = @_stepControllers[index]
             if not controller?
                 controller = new StepController
-                    canComplete: (controller)=> @_isStepCompletable(controller)
+                    canAddTools: (controller)=> @_isAddingToolsPossible controller
+                    canComplete: (controller)=> @_isStepCompletable controller
+                    onComplete:  (controller)=> @_completeStep controller
+                    onAddTools:  (controller)=> @_addTools controller
                     imageLoader: @imageLoader
                     model:       step
                     modPack:     @modPack
-                controller.on Event.button.complete, (c)=> @onStepComplete(c)
                 controller.render()
 
                 @$stepsContainer.append controller.$el

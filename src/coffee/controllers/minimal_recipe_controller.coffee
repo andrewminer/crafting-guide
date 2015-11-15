@@ -55,22 +55,21 @@ module.exports = class MinimalRecipeController extends BaseController
 
     # Property Methods #############################################################################
 
-    getMultiplier: ->
-        @_multiplier ?= 1
-        return @_multiplier
-
-    setMultiplier: (newMultiplier)->
-        oldMultiplier = @_multiplier
-        return if newMultiplier is oldMultiplier
-
-        @_multiplier = newMultiplier
-        @_refreshMultiplier()
-
-        @trigger Event.change + ':multiplier', this, oldMultiplier, newMultiplier
-        @trigger Event.change, this
-
     Object.defineProperties @prototype,
-        multiplier: {get:@prototype.getMultiplier, set:@prototype.setMultiplier}
+        multiplier:
+            get: ->
+                @_multiplier ?= 1
+                return @_multiplier
+
+            set: (newMultiplier)->
+                oldMultiplier = @_multiplier
+                return if newMultiplier is oldMultiplier
+
+                @_multiplier = newMultiplier
+                @_refreshMultiplier()
+
+                @trigger Event.change + ':multiplier', this, oldMultiplier, newMultiplier
+                @trigger Event.change, this
 
     # Backbone.View Methods ########################################################################
 

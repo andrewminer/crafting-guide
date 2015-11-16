@@ -14,6 +14,7 @@ Adsense.slotIds  = ['7613920409', '9574673605', '3388539204']
 exports.DefaultMods =
     minecraft:             { defaultVersion: '1.7.10' } # Minecraft must be first
 
+    advanced_solar_panels: { defaultVersion: '3.5.1' }
     applied_energistics_2: { defaultVersion: 'rv1-stable-1' }
     big_reactors:          { defaultVersion: '0.4.2A2' }
     buildcraft:            { defaultVersion: '6.4.6' }

@@ -13,10 +13,7 @@ fi
 npm version "$VERSION_TYPE" || die "Invalid version type: $VERSION_TYPE"
 npm publish
 
-git add package.json \
-    && git commit -m "Update package version" \
-    && git push \
-    && git checkout production \
+git checkout production \
     && git rebase master \
     && git push \
     && git checkout master \

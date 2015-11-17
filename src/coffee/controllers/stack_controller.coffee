@@ -66,8 +66,8 @@ module.exports = class StackController extends BaseController
             newQuantity = Math.min newQuantity, StackController.MAX_QUANTITY
             newQuantity = Math.max 1, newQuantity
 
+        @$quantityField.val "#{newQuantity}"
         if newQuantity? and newQuantity isnt oldQuantity
-            @$quantityField.val "#{newQuantity}"
             @$bubble.removeClass 'error', Duration.snap
             @$bubble.removeClass 'error-new', Duration.snap
 

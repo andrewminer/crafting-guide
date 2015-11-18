@@ -20,6 +20,9 @@ exports.DefaultMods =
     buildcraft:            { defaultVersion: '6.4.6' }
     computercraft:         { defaultVersion: '1.74' }
     enderio:               { defaultVersion: '2.2.7.325' }
+    ender_storage:         { defaultVersion: '1.4.5.29' }
+    extra_cells:           { defaultVersion: '2.2.73b129' }
+    extra_utilities:       { defaultVersion: '1.2.2' }
     forestry:              { defaultVersion: '3.4.0.7' }
     galacticraft:          { defaultVersion: '3.0.12.404' }
     ic2_classic:           { defaultVersion: 'none' }
@@ -34,8 +37,6 @@ exports.DefaultMods =
     solar_flux:            { defaultVersion: '0.5b' }
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }
-    ender_storage:         { defaultVersion: '1.4.5.29' }
-    extra_utilities:       { defaultVersion: '1.2.2' }
 
 exports.Duration = Duration = {}
 Duration.snap    = 100

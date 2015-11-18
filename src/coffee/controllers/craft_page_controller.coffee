@@ -34,12 +34,10 @@ module.exports = class CraftPageController extends PageController
         @modPack     = options.modPack
         @storage     = options.storage
 
-        @model.craftsman.want.on Event.change, => @onWantInventoryChanged()
-        @model.craftsman.have.on Event.change, => @onHaveInventoryChanged()
-
     # Event Methods ################################################################################
 
     onHaveInventoryChanged: ->
+        logger.warning => "storing have: #{@model.craftsman.have.unparse()}"
         @storage.store 'crafting-plan:have', @model.craftsman.have.unparse()
 
     onMoveNeedToHave: (itemSlug)->
@@ -87,8 +85,8 @@ module.exports = class CraftPageController extends PageController
             model:           @model.craftsman.have
             modPack:         @modPack
             firstButtonType: 'down'
-        @haveInventoryController.on Event.button.first, (c, s)=>
-            @onRemoveFromHaveInventory(s)
+        @haveInventoryController.on Event.button.first, (controller, itemSlug)=>
+            @onRemoveFromHaveInventory itemSlug
         @haveInventoryController.on Event.change, (c)=> @onHaveInventoryChanged()
 
         @needInventoryController = @addChild InventoryController, '.need .view__inventory',

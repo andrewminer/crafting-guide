@@ -63,6 +63,42 @@ describe 'mod_version_parser_v1.coffee', ->
                 func = -> parser.parse 'gatherable: yes; item: Alpha Bravo; gatherable: yes'
                 expect(func).to.throw Error, '"gatherable" before "item"'
 
+    describe 'Multiblock', ->
+
+        it 'adds a "multiblock" when present', ->
+            modVersion = parser.parse 'item: Alpha; multiblock:; input:Bravo; layer: 0'
+            item = modVersion.findItemByName 'Alpha'
+            item.multiblock.height.should.equal 1
+
+        it 'requires "item" be declared before "multiblock"', ->
+            func = -> parser.parse "multiblock:"
+            expect(func).to.throw Error, '"multiblock" before "item"'
+
+        it 'prohibits multiple "multiblock" commands per item"', ->
+            func = -> parser.parse "item: Alpha; multiblock:; multiblock:"
+            expect(func).to.throw Error, 'duplicate'
+
+        it 'prohibits multiblocks with no inputs', ->
+            func = -> parser.parse "item: Alpha; multiblock:; layer: 000"
+            expect(func).to.throw Error, 'at least one "input"'
+
+        describe 'layer', ->
+
+            it 'allows multiple "layer" commands', ->
+                modVersion = parser.parse 'item: Alpha; multiblock:; input:Bravo, Charlie; layer: 01 10; layer: 10 01'
+                item = modVersion.findItemByName 'Alpha'
+                item.multiblock.depth.should.equal 2
+                item.multiblock.height.should.equal 2
+                item.multiblock.width.should.equal 2
+
+            it 'prohibits empty layers', ->
+                func = -> parser.parse 'item: Alpha; multiblock:; input: Bravo; layer:; layer: 00 00'
+                expect(func).to.throw Error, 'empty layer'
+
+            it 'prohibits multiblocks with no layers', ->
+                func = -> parser.parse "item: Alpha; multiblock:; input: Bravo"
+                expect(func).to.throw Error, 'at least one "layer"'
+
     describe 'Recipe', ->
 
         beforeEach -> baseText = 'item: Charlie; '

@@ -5,13 +5,14 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+_                        = require 'underscore'
 CommandParserVersionBase = require './command_parser_version_base'
 Item                     = require '../item'
 ItemSlug                 = require '../item_slug'
 ModVersion               = require '../mod_version'
+Multiblock               = require '../multiblock'
 Recipe                   = require '../recipe'
 Stack                    = require '../simple_stack'
-_                        = require 'underscore'
 {StringBuilder}          = require 'crafting-guide-common'
 
 ########################################################################################################################
@@ -70,12 +71,29 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
 
         @_recipeData.ignoreDuringCrafting = (value is 'yes')
 
-    _command_input: (inputNames...)->
-        if not @_recipeData? then throw new Error 'cannot declare "input" before "recipe"'
-        if @_recipeData.input.length isnt 0 then throw new Error 'duplicate declaration of "input"'
+    _command_input: (stackDescriptions...)->
+        activeData = if @_recipeData? then @_recipeData else @_multiblockData
 
-        for name in inputNames
-            @_recipeData.input.push @_parseStack name
+        if not activeData? then throw new Error 'cannot declare "input" before "recipe" or "multiblock"'
+        if activeData.input.length isnt 0 then throw new Error 'duplicate declaration of "input"'
+
+        for stackDescription in stackDescriptions
+            activeData.input.push @_parseStack stackDescription
+
+    _command_layer: (layerText)->
+        if not @_multiblockData? then throw new Error 'cannot declare "layer" before "multiblock"'
+        if not layerText? then throw new Error 'cannot have an empty layer'
+        if layerText.length is 0 then throw new Error 'cannot have an empty layer'
+
+        @_multiblockData.layers.push layerText
+
+    _command_multiblock: ->
+        if not @_itemData? then throw new Error 'cannot declare "multiblock" before "item"'
+        if @_itemData.multiblockData? then throw new Error 'duplicate declaration of "multiblock"'
+
+        @_recipeData = null
+        @_multiblockData = input:[], layers:[], line:@_lineNumber
+        @_itemData.multiblockData = @_multiblockData
 
     _command_onlyIf: (condition)->
         words = condition.split ' '
@@ -112,6 +130,7 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
     _command_recipe: ->
         if not @_itemData? then throw new Error 'cannot delcare "recipe" before "item"'
 
+        @_multiblockData = null
         @_recipeData = line:@_lineNumber, input:[], output:[{quantity:1, name:@_itemData.name}], tools:[]
         @_itemData.recipes ?= []
         @_itemData.recipes.push @_recipeData
@@ -171,10 +190,22 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             itemData.slug = ItemSlug.slugify itemData.name
             modVersion.registerName itemData.slug, itemData.name
 
+        if itemData.multiblockData
+            item.multiblock = @_handleErrors @_buildMultiblock, modVersion, item, itemData.multiblockData
+
         for recipeData in itemData.recipes
             @_handleErrors @_buildRecipe, modVersion, itemData, recipeData
 
         return item
+
+    _buildMultiblock: (modVersion, item, multiblockData)->
+        @_lineNumber = multiblockData.line
+        if multiblockData.layers.length is 0 then throw new Error '"multiblock" requires at least one "layer"'
+        if multiblockData.input.length is 0 then throw new Error '"multiblock" requires at least one "input"'
+
+        input = @_buildStackList modVersion, multiblockData.input
+        multiblock = new Multiblock input:input, layers:multiblockData.layers
+        return multiblock
 
     _buildRecipe: (modVersion, itemData, recipeData)->
         @_lineNumber = recipeData.line

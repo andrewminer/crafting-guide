@@ -5,24 +5,25 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-AdsenseController         = require './adsense_controller'
-EditableFile              = require '../models/editable_file'
-FullRecipeController      = require './full_recipe_controller'
-ImageLoader               = require './image_loader'
-Item                      = require '../models/item'
-ItemGroupController       = require './item_group_controller'
-ItemPage                  = require '../models/item_page'
-ItemSlug                  = require '../models/item_slug'
-MarkdownSectionController = require './markdown_section_controller'
-PageController            = require './page_controller'
-VideoController           = require './video_controller'
-_                         = require 'underscore'
-w                         = require 'when'
-{Duration}                = require '../constants'
-{Event}                   = require '../constants'
-{GitHub}                  = require '../constants'
-{Text}                    = require '../constants'
-{Url}                     = require '../constants'
+_                          = require 'underscore'
+AdsenseController          = require './adsense_controller'
+{Duration}                 = require '../constants'
+EditableFile               = require '../models/editable_file'
+{Event}                    = require '../constants'
+FullRecipeController       = require './full_recipe_controller'
+{GitHub}                   = require '../constants'
+ImageLoader                = require './image_loader'
+Item                       = require '../models/item'
+ItemGroupController        = require './item_group_controller'
+ItemPage                   = require '../models/item_page'
+ItemSlug                   = require '../models/item_slug'
+MarkdownSectionController  = require './markdown_section_controller'
+MultiblockViewerController = require './multiblock_viewer_controller'
+PageController             = require './page_controller'
+{Text}                     = require '../constants'
+{Url}                      = require '../constants'
+VideoController            = require './video_controller'
+w                          = require 'when'
 
 ########################################################################################################################
 
@@ -77,6 +78,7 @@ module.exports = class ItemPageController extends PageController
         @adsenseController = @addChild AdsenseController, '.view__adsense', model:'sidebar_skyscraper'
 
         options                      = imageLoader:@imageLoader, modPack:@modPack, show:false
+        @_multiblockController       = @addChild MultiblockViewerController, '.view__multiblock_viewer', options
         @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options
         @_usedAsToolToMakeController = @addChild ItemGroupController, '.view__item_group.usedAsToolToMake', options
         @_usedToMakeController       = @addChild ItemGroupController, '.view__item_group.usedToMake', options
@@ -91,6 +93,7 @@ module.exports = class ItemPageController extends PageController
         @$byline                  = @$('.byline')
         @$bylineLink              = @$('.byline a')
         @$descriptionSection      = @$('.description')
+        @$multiblockSection       = @$('.multiblock.section')
         @$name                    = @$('h1.name')
         @$officialPageLink        = @$('a.officialPage')
         @$recipeContainer         = @$('.recipes .panel')
@@ -127,6 +130,7 @@ module.exports = class ItemPageController extends PageController
 
         @_refreshByline()
         @_refreshDescription()
+        @_refreshMultiblock()
         @_refreshRecipes()
         @_refreshSimilarItems()
         @_refreshUsedAsToolToMake()
@@ -216,6 +220,13 @@ module.exports = class ItemPageController extends PageController
         if @model.item?.description?.length > 0
             @_descriptionController.model = @model.item.description
             @_descriptionController.resetToDefaultState()
+
+    _refreshMultiblock: ->
+        if @model.item?.multiblock?
+            @_multiblockController.model = @model.item.multiblock
+            @show @$multiblockSection
+        else
+            @hide @$multiblockSection
 
     _refreshRecipes: ->
         @_recipeControllers ?= []

@@ -5,6 +5,7 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
+_               = require '../underscore_mixins'
 BaseModel       = require './base_model'
 SimpleInventory = require './simple_inventory'
 
@@ -35,6 +36,9 @@ module.exports = class Multiblock extends BaseModel
 
         height:
             get: -> @_height
+
+        inventory:
+            get: -> @_inventory
 
         width:
             get: -> @_width

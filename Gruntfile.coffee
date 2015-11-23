@@ -76,7 +76,6 @@ module.exports = (grunt)->
                     node: true
                     processName: (f)->
                         f = f.replace './src/jade/templates/', ''
-                        f = f.replace '_view', ''
                         f = f.replace '.jade', ''
                         f = f.replace /\//g, '_'
                         return f

@@ -1,0 +1,26 @@
+/*
+Crafting Guide - mod.scss
+
+Copyright (C) 2015 by Redwood Labs
+All rights reserved.
+*/
+
+.view__multiblock_viewer {
+    display: flex;
+    flex-direction: column;
+
+    .view__multiblock_viewer {
+        flex: 0 1 100%;
+    }
+
+    .buttons {
+        display: flex;
+        flex: 0 0 auto;
+        margin: 1em 25% 0 25%;
+
+        .button {
+            flex: 50%;
+            margin: 1em;
+        }
+    }
+}

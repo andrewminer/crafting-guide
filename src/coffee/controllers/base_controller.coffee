@@ -107,30 +107,24 @@ module.exports = class BaseController extends backbone.View
 
     # Property Methods #############################################################################
 
-    getModel: ->
-        return @_model
-
-    setModel: (newModel)->
-        return if @model is newModel
-
-        newModel = @onWillChangeModel @_model, newModel
-        @_model = newModel
-        @tryRefresh()
-
-    isRendered: ->
-        return @_rendered
-
-    getUser: ->
-        return @_user
-
-    setUser: (user)->
-        @_user = user
-        @tryRefresh()
-
     Object.defineProperties @prototype,
-        model:    {get:@prototype.getModel, set:@prototype.setModel}
-        rendered: {get:@prototype.isRendered }
-        user:     {get:@prototype.getUser, set:@prototype.setUser}
+        model:
+            get: -> @_model
+            set: (newModel)->
+                return if @model is newModel
+
+                newModel = @onWillChangeModel @_model, newModel
+                @_model = newModel
+                @tryRefresh()
+
+        rendered:
+            get: -> @_rendered
+
+        user:
+            get: -> @_user
+            set: (newUser)->
+                @_user = newUser
+                @tryRefresh()
 
     # Backbone.View Overrides ######################################################################
 

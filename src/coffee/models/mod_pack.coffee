@@ -79,7 +79,10 @@ module.exports = class ModPack extends BaseModel
             result.modVersion = @_mods[0].activeVersion
 
         craftingUrlInventory = new Inventory modPack:this
-        craftingUrlInventory.add itemSlug
+        if item?.multiblock?
+            craftingUrlInventory.addInventory item.multiblock.inventory
+        else
+            craftingUrlInventory.add itemSlug
 
         result.craftingUrl = Url.crafting inventoryText:craftingUrlInventory.unparse()
         result.iconUrl     = Url.itemIcon result

@@ -5,9 +5,9 @@ Copyright (c) 2014-2015 by Redwood Labs
 All rights reserved.
 ###
 
-_               = require '../underscore_mixins'
-BaseModel       = require './base_model'
-SimpleInventory = require './simple_inventory'
+_         = require '../underscore_mixins'
+BaseModel = require './base_model'
+Inventory = require './inventory'
 
 ########################################################################################################################
 
@@ -28,6 +28,12 @@ module.exports = class Multiblock extends BaseModel
         return null if value is undefined
         return value
 
+    getLayerInventory: (y)->
+        @_layerInventories ?= []
+        result = @_layerInventories[y]
+        if not result? then result = @_layerInventories[y] = new Inventory
+        return result
+
     # Property Methods #############################################################################
 
     Object.defineProperties @prototype,
@@ -45,7 +51,7 @@ module.exports = class Multiblock extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _analyzeLayer: (layer, stackCacheLayer)->
+    _analyzeLayer: (layer, y, stackCacheLayer)->
         rows = layer.split ' '
         @_depth = Math.max @_depth, rows.length
 
@@ -53,21 +59,21 @@ module.exports = class Multiblock extends BaseModel
             @_width = Math.max @_width, row.length
             stackCacheRow = []
             stackCacheLayer.push stackCacheRow
-            @_analyzeRow row, stackCacheRow
+            @_analyzeRow row, stackCacheRow, @getLayerInventory(y)
 
     _analyzePattern: ->
         @_depth = @_height = @_width = 0
-        @_inventory = new SimpleInventory
+        @_inventory = new Inventory
         @_stackCache = []
 
-        for layer in @layers
+        for layer, y in @layers
             stackCacheLayer = []
             @_stackCache.push stackCacheLayer
-            @_analyzeLayer layer, stackCacheLayer
+            @_analyzeLayer layer, y, stackCacheLayer
 
         @_height = @layers.length
 
-    _analyzeRow: (row, stackCacheRow)->
+    _analyzeRow: (row, stackCacheRow, layerInventory)->
         for cell, x in row.split ''
             index = parseInt cell
             stack = null
@@ -75,5 +81,6 @@ module.exports = class Multiblock extends BaseModel
             if not _.isNaN index
                 stack = @input[index]
                 @_inventory.add stack.itemSlug, stack.quantity
+                layerInventory.add stack.itemSlug, stack.quantity
 
             stackCacheRow.push stack

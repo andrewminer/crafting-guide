@@ -53,7 +53,7 @@ All rights reserved.
     clear: both;
 }
 
-.content {
+body > .content {
     background: $color-content;
     box-shadow: 10px 10px 20px #666;
     margin: 2em auto;

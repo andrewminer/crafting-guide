@@ -7,6 +7,7 @@ All rights reserved.
 
 _                    = require '../underscore_mixins'
 BaseController       = require './base_controller'
+InventoryController  = require './inventory_controller'
 MultiblockController = require './multiblock_controller'
 
 ########################################################################################################################
@@ -21,42 +22,67 @@ module.exports = class MultiblockViewerController extends BaseController
 
         @_imageLoader = options.imageLoader
         @_modPack     = options.modPack
+        @_hoverTimer  = null
 
     # Event Methods ################################################################################
 
     onBackClicked: ->
-        return if @backButton.hasClass 'disabled'
+        return if @$backButton.hasClass 'disabled'
         @multiblockController.goBackLayer()
         @refresh()
 
     onNextClicked: ->
-        return if @nextButton.hasClass 'disabled'
+        return if @$nextButton.hasClass 'disabled'
         @multiblockController.goNextLayer()
         @refresh()
+
+    onBlockHovered: (itemDisplay)->
+        if itemDisplay?
+            @$captionText.html itemDisplay.itemName
+            @_imageLoader.load itemDisplay.iconUrl, @$captionIcon
+        else
+            @$captionText.html '&nbsp;'
+            @$captionIcon.attr 'src', '/images/empty.png'
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @multiblockController = @addChild MultiblockController, '.view__multiblock',
+        @completeInventoryController = @addChild InventoryController, '.view__inventory.complete',
+            editable:    false
             imageLoader: @_imageLoader
             modPack:     @_modPack
 
-        @backButton = @$('.button.back')
-        @nextButton = @$('.button.next')
+        @layerInventoryController = @addChild InventoryController, '.view__inventory.layer',
+            editable:    false
+            imageLoader: @_imageLoader
+            modPack:     @_modPack
+
+        @multiblockController = @addChild MultiblockController, '.view__multiblock',
+            imageLoader: @_imageLoader
+            modPack:     @_modPack
+            onHovering:  (itemDisplay)=> @onBlockHovered(itemDisplay)
+
+        @$backButton  = @$('.button.back')
+        @$nextButton  = @$('.button.next')
+        @$captionText = @$('.caption p')
+        @$captionIcon = @$('.caption img')
         super
 
     refresh: ->
-        @multiblockController.model = @model
+        if @model?
+            @completeInventoryController.model = @model.inventory
+            @layerInventoryController.model = @model.getLayerInventory @multiblockController.currentLayer
+            @multiblockController.model = @model
 
         if @multiblockController.hasBackLayer()
-            @backButton.removeClass 'disabled'
+            @$backButton.removeClass 'disabled'
         else
-            @backButton.addClass 'disabled'
+            @$backButton.addClass 'disabled'
 
         if @multiblockController.hasNextLayer()
-            @nextButton.removeClass 'disabled'
+            @$nextButton.removeClass 'disabled'
         else
-            @nextButton.addClass 'disabled'
+            @$nextButton.addClass 'disabled'
 
         super
 

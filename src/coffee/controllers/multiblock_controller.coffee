@@ -13,6 +13,8 @@ BaseController = require './base_controller'
 
 module.exports = class MultiblockController extends BaseController
 
+    @::HOVER_TIMEOUT = 5000 # ms
+
     @::IMAGE_SIZE = 48 # px
 
     @::X_LAYER_H_SHIFT = -24 # px
@@ -34,6 +36,7 @@ module.exports = class MultiblockController extends BaseController
         @_blockCache   = null
         @_imageLoader  = options.imageLoader
         @_modPack      = options.modPack
+        @_onHovering   = options.onHovering ?= (itemDisplay)-> # do nothing
 
     # Public Methods ###############################################################################
 
@@ -53,16 +56,24 @@ module.exports = class MultiblockController extends BaseController
         return false unless @model?
         return @_currentLayer < @model.height - 1
 
+    # Property Methods #############################################################################
+
+    Object.defineProperties @prototype,
+        currentLayer:
+            get: -> return @_currentLayer
+
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        # do nothing
+        @$outline = @$('.outline')
+        super
 
     refresh: ->
         @$el.css 'min-height':@_computeMinHeight(), 'min-width':@_computeMinWidth()
 
         @_refreshBlockCache()
         @_refreshAllBlocks()
+        super
 
     # Private Methods ##############################################################################
 
@@ -82,7 +93,7 @@ module.exports = class MultiblockController extends BaseController
             top = (pxHeight - @IMAGE_SIZE) + (x * @X_LAYER_V_SHIFT) + (z * @Z_LAYER_V_SHIFT) + (y * @Y_LAYER_V_SHIFT)
             opacity = 1.0
 
-        zindex = (@model.width - x) + (@model.depth - z) + ((@model.width * @model.depth) * y)
+        zindex = ((@model.width - x) + (@model.depth - z) + ((@model.width * @model.depth) * y)) * 2
 
         return left:left, top:top, 'z-index':zindex, opacity:opacity
 
@@ -100,6 +111,11 @@ module.exports = class MultiblockController extends BaseController
         leftPosition  = @_computePosition @model.width, 0, 0
         rightPosition = @_computePosition 0, 0, @model.depth
         return rightPosition.left - leftPosition.left
+
+    _endHovering: ->
+        @$outline.css opacity:0.0
+        @_hoverTimer = null
+        @_onHovering null
 
     _randomDropDelay: ->
         return Math.random() * @MAX_DROP_DELAY
@@ -134,6 +150,7 @@ module.exports = class MultiblockController extends BaseController
             if not $block?
                 $block = $("<img alt='#{itemDisplay.itemName}' class='block' />")
                 $block.css position, top:-@IMAGE_SIZE, opacity:0.0
+                @_registerHoverHandlers $block, y, itemDisplay
                 @_imageLoader.load itemDisplay.iconUrl, $block
                 @_blockCache[x][y][z] = $block
                 @$el.append $block
@@ -149,8 +166,23 @@ module.exports = class MultiblockController extends BaseController
 
     _refreshAllBlocks: ->
         return unless @model?
+        if @_endHovering? then @_endHovering()
 
         for x in [0...@model.width]
             for y in [0...@model.height]
                 for z in [0...@model.depth]
                     @_refreshBlock(x, y, z)
+
+    _registerHoverHandlers: ($el, y, itemDisplay)->
+        startHovering = =>
+            return unless y is @_currentLayer
+            zIndex = parseInt($el.css('z-index')) + 1
+            zIndex = if _.isNaN(zIndex) then 0 else zIndex
+
+            @$outline.css opacity:1.0, top:$el.css('top'), left:$el.css('left'), 'z-index':zIndex
+            @_onHovering itemDisplay
+
+            if @_hoverTimer? then clearTimeout @_hoverTimer
+            @_hoverTimer = setTimeout (=> @_endHovering()), @HOVER_TIMEOUT
+
+        $el.hover startHovering, (->)

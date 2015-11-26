@@ -312,6 +312,12 @@ describe 'mod_version_parser_v1.coffee', ->
                             input: 4 (Empty) Tin Can, Apple
                             pattern: .1. .0. ...
 
+                    item: Pyramid
+                        multiblock:
+                            input: Cobblestone
+                            layer: 000 000 000
+                            layer: ... .0. ...
+
                 group: Functional Blocks
 
                     item: Furnace

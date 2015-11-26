@@ -297,8 +297,23 @@ module.exports = class ModVersionParserV1 extends CommandParserVersionBase
             .line 'item: ', item.name
             .indent()
                 .onlyIf item.isGatherable, => builder.line 'gatherable: yes'
+                .onlyIf item.multiblock?, =>
+                    builder
+                        .indent()
+                        .call => @_unparseMultiblock builder, item.multiblock
+                        .outdent()
                 .onlyIf recipes.length > 0, =>
                     builder.loop recipes, delimiter:'', onEach:(b, r)=> @_unparseRecipe(b, r)
+            .outdent()
+
+    _unparseMultiblock: (builder, multiblock)->
+        builder
+            .line 'multiblock:'
+            .indent()
+            .push "input: "
+            .call => @_unparseStackList builder, multiblock.input
+            .push ";\n"
+            .loop(multiblock.layers, delimiter:'', onEach:(builder, layer)=> builder.line "layer: #{layer}")
             .outdent()
 
     _unparseRecipe: (builder, recipe)->

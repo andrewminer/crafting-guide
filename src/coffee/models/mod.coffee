@@ -5,8 +5,8 @@ Copyright (c) 2015 by Redwood Labs
 All rights reserved.
 ###
 
-BaseModel      = require './base_model'
 _              = require 'underscore'
+BaseModel      = require './base_model'
 {Event}        = require '../constants'
 {RequiredMods} = require '../constants'
 {Url}          = require '../constants'
@@ -55,19 +55,50 @@ module.exports = class Mod extends BaseModel
 
         return 0
 
-    # ModVersion Proxy Methods #####################################################################
+    # Property Methods #############################################################################
+
+    Object.defineProperties @prototype,
+
+        activeModVersion:
+            get: -> @_activeModVersion
+
+        activeVersion:
+            get: ->
+                return @_activeVersion
+
+            set: (version)->
+                return if version is @_activeVersion
+
+                version ?= Mod.Version.None
+                if version is Mod.Version.Latest then version = _.last(@_modVersions).version
+
+                if version is Mod.Version.None
+                    @_activeVersion = version
+                    @_activateModVersion null
+
+                    @trigger Event.change + ':activeVersion', this, @_activeVersion
+                    @trigger Event.change, this
+                else
+                    for modVersion in @_modVersions
+                        if version is modVersion.version
+                            @_activateModVersion modVersion
+                            break
+
+                    @_activeVersion = version
+                    @trigger Event.change + ':activeVersion', this, @_activeVersion
+                    @trigger Event.change, this
+
+        enabled:
+            get: -> @_activeModVersion?
+
+        tutorials:
+            get: -> @getAllTutorials()
+
+    # Item Methods #################################################################################
 
     eachItem: (callback)->
         effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
         effectiveModVersion.eachItem callback
-
-    eachName: (callback)->
-        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
-        effectiveModVersion.eachName callback
-
-    eachRecipe: (callback)->
-        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
-        effectiveModVersion.eachRecipe callback
 
     findItem: (slug, options={})->
         options.includeDisabled ?= false
@@ -91,52 +122,7 @@ module.exports = class Mod extends BaseModel
         return unless @_activeModVersion?
         @_activeModVersion.findItemByName name
 
-    findName: (itemSlug)->
-        return unless @_activeModVersion?
-        @_activeModVersion.findName itemSlug
-
-    findRecipes: (itemSlug, result=[], options={})->
-        options.alwaysFromOwningMod ?= false
-
-        if @_activeModVersion?
-            return @_activeModVersion.findRecipes itemSlug, result, options
-        else if options.alwaysFromOwningMod and itemSlug.mod is @slug
-            return @getModVersion(Mod.Version.Latest).findRecipes itemSlug, result, options
-
-        return null
-
-    # Property Methods #############################################################################
-
-    getActiveVersion: ->
-        return @_activeVersion
-
-    setActiveVersion: (version)->
-        return if version is @_activeVersion
-
-        version ?= Mod.Version.None
-        if version is Mod.Version.Latest then version = _.last(@_modVersions).version
-
-        if version is Mod.Version.None
-            @_activeVersion = version
-            @_activateModVersion null
-
-            @trigger Event.change + ':activeVersion', this, @_activeVersion
-            @trigger Event.change, this
-        else
-            for modVersion in @_modVersions
-                if version is modVersion.version
-                    @_activateModVersion modVersion
-                    break
-
-            @_activeVersion = version
-            @trigger Event.change + ':activeVersion', this, @_activeVersion
-            @trigger Event.change, this
-
-    getActiveModVersion: ->
-        return @_activeModVersion
-
-    isEnabled: ->
-        return @activeModVersion?
+    # ModVersion Methods ###########################################################################
 
     addModVersion: (modVersion)->
         return unless modVersion?
@@ -167,6 +153,34 @@ module.exports = class Mod extends BaseModel
 
         return null
 
+    # Name Methods #################################################################################
+
+    eachName: (callback)->
+        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
+        effectiveModVersion.eachName callback
+
+    findName: (itemSlug)->
+        return unless @_activeModVersion?
+        @_activeModVersion.findName itemSlug
+
+    # Recipe Methods ###############################################################################
+
+    eachRecipe: (callback)->
+        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
+        effectiveModVersion.eachRecipe callback
+
+    findRecipes: (itemSlug, result=[], options={})->
+        options.alwaysFromOwningMod ?= false
+
+        if @_activeModVersion?
+            return @_activeModVersion.findRecipes itemSlug, result, options
+        else if options.alwaysFromOwningMod and itemSlug.mod is @slug
+            return @getModVersion(Mod.Version.Latest).findRecipes itemSlug, result, options
+
+        return null
+
+    # Tutorial Methods #############################################################################
+
     addTutorial: (tutorial)->
         return unless tutorial?
         if @getTutorial(tutorial.slug)? then throw new Error "duplicate tutorial: #{tutorial.name}"
@@ -181,13 +195,7 @@ module.exports = class Mod extends BaseModel
             return tutorial if tutorial.slug is tutorialSlug
         return null
 
-    Object.defineProperties @prototype,
-        activeModVersion: { get:@prototype.getActiveModVersion }
-        activeVersion:    { get:@prototype.getActiveVersion,   set:@prototype.setActiveVersion }
-        enabled:          { get:@prototype.isEnabled }
-        tutorials:        { get:@prototype.getAllTutorials }
-
-    # Backbone.View Overrides ######################################################################
+    # Backbone.Model Overrides #####################################################################
 
     parse: (text)->
         ModParser = require './mod_parser' # to avoid require cycles

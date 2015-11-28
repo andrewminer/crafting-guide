@@ -27,6 +27,8 @@ module.exports = class ModPack extends BaseModel
 
     # Public Methods ###############################################################################
 
+    # Item Methods #################################################################################
+
     findItem: (itemSlug, options={})->
         options.includeDisabled ?= false
 
@@ -90,36 +92,6 @@ module.exports = class ModPack extends BaseModel
         result.modName    = @getMod(result.modSlug).name
         return result
 
-    findName: (slug, options={})->
-        options.includeDisabled ?= false
-
-        for mod in @_mods
-            continue unless mod.enabled or options.includeDisabled
-            name = mod.findName slug
-            return name if name
-
-        return null
-
-    findRecipes: (itemSlug, options={})->
-        options.alwaysFromOwningMod ?= false
-        return null unless itemSlug?
-
-        key = "#{itemSlug}-#{options.alwaysFromOwningMod}"
-        @_cache.recipesBySlug ?= {}
-        result = @_cache.recipesBySlug[key]
-        return result if result?
-
-        result = []
-        for mod in @_mods
-            if not mod.enabled
-                owningMod = itemSlug.isQualified and (itemSlug.mod is mod.slug)
-                continue unless owningMod and options.alwaysFromOwningMod
-
-            mod.findRecipes itemSlug, result, options
-
-        @_cache.recipesBySlug[key] = result
-        return if result.length > 0 then result else null
-
     qualifySlug: (itemSlug)->
         return itemSlug if itemSlug.isQualified
 
@@ -127,7 +99,7 @@ module.exports = class ModPack extends BaseModel
         return item.slug if item?
         return itemSlug
 
-    # Property Methods #############################################################################
+    # Mod Methods ##################################################################################
 
     addMod: (mod)->
         if not mod? then throw new Error 'mod is required'
@@ -155,6 +127,40 @@ module.exports = class ModPack extends BaseModel
 
     getAllMods: ->
         return @_mods[..]
+
+    # Name Methods #################################################################################
+
+    findName: (slug, options={})->
+        options.includeDisabled ?= false
+
+        for mod in @_mods
+            continue unless mod.enabled or options.includeDisabled
+            name = mod.findName slug
+            return name if name
+
+        return null
+
+    # Recipe Methods ###############################################################################
+
+    findRecipes: (itemSlug, options={})->
+        options.alwaysFromOwningMod ?= false
+        return null unless itemSlug?
+
+        key = "#{itemSlug}-#{options.alwaysFromOwningMod}"
+        @_cache.recipesBySlug ?= {}
+        result = @_cache.recipesBySlug[key]
+        return result if result?
+
+        result = []
+        for mod in @_mods
+            if not mod.enabled
+                owningMod = itemSlug.isQualified and (itemSlug.mod is mod.slug)
+                continue unless owningMod and options.alwaysFromOwningMod
+
+            mod.findRecipes itemSlug, result, options
+
+        @_cache.recipesBySlug[key] = result
+        return if result.length > 0 then result else null
 
     # Object Overrides #############################################################################
 

@@ -25,8 +25,6 @@ module.exports = class ModPack extends BaseModel
 
         @on Event.change, => @_cache = {}
 
-    # Public Methods ###############################################################################
-
     # Item Methods #################################################################################
 
     findItem: (itemSlug, options={})->
@@ -170,14 +168,12 @@ module.exports = class ModPack extends BaseModel
     # Private Methods ##############################################################################
 
     _onModVersionLoaded: (modVersion)->
-        stillLoading = false
-        foundLoaded = false
+        working = true
         @eachMod (mod)->
             mod.eachModVersion (modVersion)->
-                foundLoaded = foundLoaded or modVersion.isLoaded
-                stillLoading = stillLoading or modVersion.isLoading
+                working = working and (modVersion.isUnloaded or modVersion.isLoading)
 
-        return if not foundLoaded or stillLoading
+        return if working
 
         @trigger Event.change, this
         @trigger Event.sync, this

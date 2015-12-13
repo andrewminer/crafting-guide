@@ -34,6 +34,7 @@ exports.DefaultMods =
     modular_powersuits:    { defaultVersion: '0.11.0.176' }
     railcraft:             { defaultVersion: '9.5.0' }
     simply_jetpacks:       { defaultVersion: '1.4.1' }
+    storage_drawers:       { defaultVersion: '1.7.10-1.6.2' }
     solar_flux:            { defaultVersion: '0.5b' }
     thermal_dynamics:      { defaultVersion: '1.0.0RC7-98' }
     thermal_expansion:     { defaultVersion: '4.0.0B8-23' }

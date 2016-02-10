@@ -23,7 +23,9 @@ exports.DefaultMods =
     ender_storage:         { defaultVersion: '1.4.5.29' }
     extra_cells:           { defaultVersion: '2.2.73b129' }
     extra_utilities:       { defaultVersion: '1.2.2' }
+    forge_multipart:       { defaultVersion: '1.2.0.345' }
     forestry:              { defaultVersion: '3.4.0.7' }
+    hydraulicraft:         { defaultVersion: '2.1.242' }
     galacticraft:          { defaultVersion: '3.0.12.404' }
     ic2_classic:           { defaultVersion: 'none' }
     industrial_craft_2:    { defaultVersion: '2.2.663' }

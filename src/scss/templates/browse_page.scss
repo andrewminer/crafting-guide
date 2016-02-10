@@ -6,9 +6,17 @@ All rights reserved.
 */
 
 .view__browse_page {
+    .mods {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
 
-    .view__mod {
-        margin: 0 1em 1em 0;
-        width: 37em;
+        .view__mod {
+            flex: 1 1 100%;
+            flex-wrap: nowrap;
+
+            margin: 0 1em 1em 0;
+            max-width: calc(50% - 1em);
+        }
     }
 }

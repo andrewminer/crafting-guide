@@ -22,10 +22,10 @@ module.exports = class EmailClient
 
     send: (options={})->
         options.body        ?= "(no body)"
-        options.fromAddress ?= "wesbite@redwood-labs.com"
+        options.fromAddress ?= "info@crafting-guide.com"
         options.fromName    ?= "Crafting Guide Website"
         options.subject     ?= "(no subject)"
-        options.toAddress   ?= "crafting-guide@redwood-labs.com"
+        options.toAddress   ?= "info@crafting-guide.com"
         options.toName      ?= "Crafting Guide"
 
         body =

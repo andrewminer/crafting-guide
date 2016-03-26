@@ -32,6 +32,7 @@ exports.DefaultMods =
     industrial_craft_2:    { defaultVersion: '2.2.663' }
     iron_chests:           { defaultVersion: '6.0.62.742' }
     jabba:                 { defaultVersion: '1.2.1a' }
+    logistics_pipes:       { defaultVersion: '0.9.3.100' }
     mekanism:              { defaultVersion: '7.1.1.127' }
     minefactory_reloaded:  { defaultVersion: '2.8.0RC8-86' }
     modular_powersuits:    { defaultVersion: '0.11.0-300-thermal-expansion' }

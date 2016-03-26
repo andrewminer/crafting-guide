@@ -107,7 +107,7 @@ module.exports = class Recipe extends BaseModel
             if not modPack?
                 result = true
             else
-                modPack.eachMod (mod)->
+                modPack.eachMod (mod)=>
                     if mod.name is @condition.noun
                         result = true
 

@@ -1,0 +1,97 @@
+//
+// Crafting Guide - markdown.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.markdown {
+
+    a {
+        color: $color-link-normal;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-link-active;
+            text-decoration: underline;
+        }
+    }
+
+    h1 {
+        font-family: $font-family-text;
+        font-size: $font-size-large;
+        font-weight: bold;
+        margin: $size-margin-large 0 $size-margin-small 0;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    p {
+        font-family: $font-family-text;
+        font-size: $font-size-medium;
+        line-height: $font-size-medium * 1.25;
+        margin-top: $size-margin-medium;
+    }
+
+    table {
+        margin: 2em auto 0 auto;
+
+        td {
+            font-family: $font-family-text;
+            font-size: $font-size-medium;
+            padding: $size-margin-xxsmall $size-margin-medium;
+            vertical-align: middle;
+        }
+
+        th {
+            font-family: $font-family-text;
+            font-size: $font-size-medium;
+            font-weight: bold;
+            padding: $size-margin-xxsmall $size-margin-medium;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        td[align="center"] {
+            text-align: center;
+        }
+        td[align="right"] {
+            text-align: right;
+        }
+    }
+
+    ol {
+        margin: $size-margin-large;
+        margin-bottom: 0;
+
+        li {
+            font-family: $font-family-text;
+            font-size: $font-size-medium;
+            line-height: $font-size-medium * 1.25;
+            list-style: decimal;
+            margin: $size-margin-medium 0 0 $size-margin-large;
+        }
+    }
+
+
+    ul {
+        margin: $size-margin-large;
+        margin-bottom: 0;
+
+        li {
+            font-family: $font-family-text;
+            font-size: $font-size-medium;
+            line-height: $font-size-medium * 1.25;
+            list-style: disc;
+            margin: $size-margin-medium 0 0 $size-margin-large;
+        }
+    }
+
+    & > * {
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}

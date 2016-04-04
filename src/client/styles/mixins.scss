@@ -1,0 +1,82 @@
+//
+// Crafting Guide - mixins.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+@mixin blur($radius) {
+    -webkit-filter : blur($radius);
+    filter         : blur($radius);
+}
+
+@mixin grayscale {
+    -webkit-filter : grayscale(100%);
+    -moz-filter    : grayscale(100%);
+    -ms-filter     : grayscale(100%);
+    -o-filter      : grayscale(100%);
+    filter         : gray;
+}
+
+@mixin no-select {
+  -webkit-touch-callout : none; /* iOS Safari */
+  -webkit-user-select   : none; /* Chrome/Safari/Opera */
+  -moz-user-select      : none; /* Firefox */
+  -ms-user-select       : none; /* IE/Edge */
+  user-select           : none; /* non-prefixed version, currently not supported by any browser */
+}
+
+@mixin floating-panel {
+    background: $color-background-panel;
+    box-shadow: $size-margin-xxsmall $size-margin-xxsmall $size-margin-xsmall $color-shadow;
+}
+
+@mixin layout-link-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    p {
+        margin-bottom: $size-margin-small;
+
+        font-family: $font-family-text;
+        font-size: $font-size-large;
+    }
+
+    a {
+        margin-left: $size-margin-medium;
+
+        font-family: $font-family-text;
+        font-size: $font-size-medium;
+        text-decoration: underline;
+
+        &:not(:last-child) {
+            margin-bottom: $size-margin-medium;
+        }
+    }
+}
+
+@mixin pixel-image {
+    image-rendering        : -moz-crisp-edges; /* Firefox */
+    image-rendering        : -o-crisp-edges; /* Opera */
+    image-rendering        : -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+    image-rendering        : crisp-edges;
+    -ms-interpolation-mode : nearest-neighbor; /* IE (non-standard property) */
+}
+
+@mixin layout-body-with-sidebar {
+    display: flex;
+
+    & > .left {
+        flex: 0 0 $size-skyscraper-width + $size-margin-medium;
+        padding-right: $size-margin-medium;
+    }
+
+    & > .right {
+        flex: 1 1 auto;
+
+        section {
+            margin-bottom: $size-margin-large;
+        }
+    }
+}

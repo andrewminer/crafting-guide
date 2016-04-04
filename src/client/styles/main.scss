@@ -1,0 +1,23 @@
+//
+// Crafting Guide - main.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+// normalize all values
+@import './reset';
+
+// define variables
+@import './colors';
+@import './fonts';
+@import './layers';
+@import './mixins';
+@import './sizes';
+
+// define globals styles
+@import './classes';
+@import './tags';
+
+// define special styles for markdown translation
+@import './markdown';

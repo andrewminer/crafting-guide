@@ -1,0 +1,62 @@
+//
+// Crafting Guide - element.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__element {
+    display : flex;
+    align-items: center;
+
+    background: $color-white;
+    padding: $size-margin-xsmall $size-margin-medium;
+
+    & > * {
+        margin-right: $size-margin-medium;
+    }
+
+    & > :last-child {
+        margin-right: 0;
+    }
+
+    img {
+        flex : 0 0 auto;
+
+        height : $size-minecraft-block;
+        width  : $size-minecraft-block;
+    }
+
+    .name {
+        flex : 1 1 100%;
+
+        color       : $color-text;
+        font-family : $font-family-text;
+        font-size   : $font-size-large;
+    }
+
+    .modName {
+        flex : 0 0 auto;
+
+        color       : $color-text-secondary;
+        font-family : $font-family-text;
+        font-size   : $font-size-small;
+    }
+
+    &:nth-child(even) {
+        background : $color-gray-faint;
+    }
+
+    &.selected {
+        flex       : 0 0 auto;
+        background : $color-active-hover;
+
+        .name {
+            color : $color-text-light;
+        }
+
+        .modName {
+            color : $color-text-light;
+        }
+    }
+}

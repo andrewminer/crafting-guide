@@ -1,0 +1,25 @@
+//
+// Crafting Guide - adsense.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__adsense {
+    .skyscraper  {
+        height   : $size-skyscraper-height;
+        width    : $size-skyscraper-width;
+        position : relative;
+
+        border : 0.1em solid $color-gray-faint;
+        margin : $size-margin-large 0;
+
+        &:first-child {
+            margin-top : 0;
+        }
+
+        ins {
+            position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+        }
+    }
+}

@@ -1,0 +1,88 @@
+//
+// Crafting Guide - mod_tile.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__mod_tile {
+    min-width       : $size-minecraft-block * 9;
+
+    display         : flex;
+    justify-content : stretch;
+    align-items     : stretch;
+
+    a {
+        max-width: 100%;
+
+        @include floating-panel;
+        border          : $size-border-medium solid $color-background-panel;
+        color           : $color-text;
+        text-decoration : none;
+
+        display : flex;
+        padding : $size-margin-medium;
+
+        & > .left {
+            flex: 0 0 $size-minecraft-block * 4;
+            margin-right: $size-margin-medium;
+
+            img {
+                width: $size-minecraft-block * 4;
+                max-height: $size-minecraft-block * 4;
+            }
+        }
+
+        & > .right {
+            flex : 1 1 100%;
+
+            overflow : hidden;
+
+            .title {
+                margin-bottom : $size-margin-medium;
+
+                font-family : $font-family-header;
+                font-size   : $font-size-xlarge;
+            }
+
+            .description {
+                font-family : $font-family-text;
+                font-size   : $font-size-medium;
+                line-height : $font-size-medium * 1.5;
+            }
+        }
+
+        &:hover {
+            background: $color-blue-faint;
+            border-color: $color-link-normal;
+
+            & > .right {
+                .title {
+                    color: $color-link-normal;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        a {
+            & > .left {
+                img {
+                    @include grayscale;
+                    opacity: 0.25;
+                }
+            }
+
+            & > .right {
+                .title {
+                    color: $color-gray-light;
+                }
+
+                .description {
+                    color: $color-gray-light;
+                }
+            }
+        }
+    }
+}

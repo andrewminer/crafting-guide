@@ -1,0 +1,86 @@
+//
+// Crafting Guide - stack.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__stack {
+    // using table-row display type to allow the quantity to always line up, even when the length is different
+    display : table-row;
+    max-width: 100%;
+
+    & > * {
+        display        : table-cell;
+        vertical-align : middle;
+
+        &:not(:last-child) {
+            padding-bottom : $size-margin-xsmall;
+        }
+    }
+
+    .quantity {
+        padding-right : $size-margin-medium;
+        text-align    : right;
+
+        input {
+            width: 4em;
+
+            background  : none;
+            border      : none;
+            font-family : $font-family-text;
+            font-size   : $font-size-large;
+            text-align  : right;
+        }
+    }
+
+    .icon {
+        padding-right : $size-margin-small;
+
+        img {
+            height : $size-minecraft-block;
+            width  : $size-minecraft-block;
+        }
+    }
+
+    .name {
+        padding-right : $size-margin-large;
+        position: relative;
+        width: 100%;
+
+        a {
+            // use absolute positioning to pull the name out of the layout so that a long name won't cause the row to
+            // be too long. Instead, this element will truncate itself with an ellipsis.
+            position: absolute; top: 50%; width: 100%;
+            transform: translateY(-50%);
+
+            font-family   : $font-family-text;
+            font-size     : $font-size-medium;
+            line-height   : $size-minecraft-block;
+            overflow      : hidden;
+            text-overflow : ellipsis;
+            white-space   : nowrap;
+        }
+    }
+
+    .action {
+        padding-left : $size-margin-small;
+
+        .button {
+            width : $size-button-height;
+        }
+    }
+}
+
+// Editable ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.view__stack.editable {
+    .quantity {
+        input {
+            width : 3em;
+
+            border-bottom : 1px dashed $color-gray-dark;
+            font-family   : $font-family-input;
+        }
+    }
+}

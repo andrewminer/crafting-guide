@@ -1,0 +1,88 @@
+//
+// Crafting Guide - classes.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.blur {
+    @include blur(2px);
+}
+
+.button {
+    min-height : $size-button-height;
+    position   : relative;
+
+    background : $color-button-background url('/images/button-background-normal.png') repeat;
+    cursor     : pointer;
+    @include no-select;
+
+    .bezel {
+        position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+
+        border-top    : 3px solid $color-button-highlight;
+        border-left   : 3px solid $color-button-highlight;
+        border-bottom : 6px solid $color-button-shadow;
+        border-right  : 3px solid $color-button-shadow;
+
+        p {
+            position   : absolute;
+            min-height : 100%;
+            top        : 50%;
+            width      : 100%;
+            transform  : translateY(-8px);
+
+            color         : $color-white;
+            font-family   : $font-family-header;
+            font-size     : 20px;
+            overflow-x    : hidden;
+            text-align    : center;
+            text-overflow : ellipsis;
+            user-select   : none;
+            white-space   : nowrap;
+        }
+    }
+
+    &:hover {
+        background : url('/images/button-background-hover.png') repeat;
+    }
+
+    &:active {
+        background : url('/images/button-background-active.png') repeat;
+
+        .bezel {
+            border: 0;
+        }
+    }
+
+    &.disabled {
+        background : $color-gray-faint;
+        cursor     : default;
+
+        .bezel {
+            border: 2px solid $color-gray-light;
+
+            p {
+                color: $color-gray-light;
+            }
+        }
+    }
+}
+
+.page > .content {
+    min-height: $size-skyscraper-height;
+}
+
+.skyscraper {
+    height : $size-skyscraper-height - 2px;
+    width  : $size-skyscraper-width - 2px;
+
+    border : 1px solid $color-gray-medium;
+}
+
+.scrollDisabled {
+    position   : fixed;
+    margin-top : 0;
+    width      : 100%;
+    overflow-y : scroll;
+}

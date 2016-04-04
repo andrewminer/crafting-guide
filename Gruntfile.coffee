@@ -1,45 +1,36 @@
-###
-# Crafting Guide - Gruntfile.coffee
 #
-# Copyright (c) 2014 by Redwood Labs
+# Copyright © 2015 by Redwood Labs
 # All rights reserved.
-###
+#
 
-fs   = require 'fs'
-util = require 'util'
-
-########################################################################################################################
-
-LIBRARY_ALIAS_MAPPING = [
-    './node_modules/backbone/backbone.js:backbone'
-    './node_modules/jade/runtime.js:jade'
-    './node_modules/jquery/dist/jquery.js:jquery'
-    './node_modules/underscore/underscore.js:underscore'
-    './node_modules/when/when.js:when'
+EXTERNAL_LIBS = [
+    'backbone'
+    'jquery'
+    'marked'
+    'underscore'
+    'underscore.inflections'
+    'when'
+    './vendor/email.js:emailjs'
 ]
 
-LIBRARIES = (s.substring(0, s.indexOf(':')) for s in LIBRARY_ALIAS_MAPPING)
-ALIASES = (s.substring(s.indexOf(':') + 1) for s in LIBRARY_ALIAS_MAPPING)
+########################################################################################################################
 
 module.exports = (grunt)->
 
     grunt.loadTasks tasks for tasks in grunt.file.expand './node_modules/grunt-*/tasks'
 
     grunt.config.init
-        browserify:
-            dev:
+
+        compress:
+            static:
                 options:
-                    browserifyOptions:
-                        debug: true
-                        extensions: ['.coffee']
-                    transform: ['coffeeify']
-                files: './dist/js/main.js': ['./src/coffee/main.coffee']
-            prod:
-                options:
-                    browserifyOptions:
-                        extensions: ['.coffee']
-                    transform: ['coffeeify']
-                files: './dist/js/main.js': ['./src/coffee/main.coffee']
+                    mode: 'gzip'
+                files: [
+                    {expand: true, cwd:'./build/static', src:'**/*.css', dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.html', dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.js', dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.json', dest:'./dist/'}
+                ]
 
         coffee:
             dev:
@@ -47,16 +38,30 @@ module.exports = (grunt)->
                     sourceMap: true
                 files: [expand:true, cwd:'./src/coffee', src:'**/*.coffee', dest:'./dist', ext:'.js']
 
-        clean:
-            dist: ['./dist']
-
         copy:
-            styles:
-                files: [expand:true, cwd:'./src/css', src:'**/*.scss', dest:'./dist/src/css']
+            server_source:
+                files: [
+                    {expand:true, cwd:'./src/server', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
+                ]
+            common_source:
+                files: [
+                    {expand:true, cwd:'./src/common', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
+                ]
+            assets_build:
+                files: [
+                    {expand:true, cwd:'./assets/', src:'**/*', dest:'./build/static/'}
+                ]
+            assets_dist:
+                files: [
+                    {expand:true, cwd:'./assets/', src:'**/*.mp3', dest:'./dist/'}
+                    {expand:true, cwd:'./assets/', src:'**/*.png', dest:'./dist/'}
+                ]
 
-        exorcise:
-            dev:
-                files: './dist/js/main.js.map': ['./dist/js/main.js']
+        clean:
+            assets:    ['./build/static/data', './build/static/images']
+            build:     ['./build']
+            dist:      ['./dist']
+            templates: ['./src/client/site/templates.js']
 
         jade:
             pages:
@@ -64,23 +69,26 @@ module.exports = (grunt)->
                     pretty: true
                 files: [
                     expand: true
-                    cwd: './src/jade'
-                    src: '*.jade'
-                    dest: './dist'
-                    ext: '.html'
+                    cwd:  './src/client/site'
+                    src:  '**/index.jade'
+                    dest: './build/static'
+                    ext:  '.html'
                 ]
-
             templates:
                 options:
                     client: true
                     node: true
-                    processName: (f)->
-                        f = f.replace './src/jade/templates/', ''
-                        f = f.replace '.jade', ''
-                        f = f.replace /\//g, '_'
-                        return f
+                    processName: (path)->
+                        pathElements = path.split '\/'
+                        while true
+                            element = pathElements.shift()
+                            break if element is 'site'
+                        pathElements.pop()
+                        name = pathElements.join '/'
+                        name = name.replace '.jade', ''
+                        return name
                 files:
-                    './src/coffee/views.js': ['./src/jade/templates/**/*.jade']
+                    './src/client/site/templates.js': ['./src/client/site/**/!(index)*.jade']
 
         mochaTest:
             options:
@@ -89,28 +97,23 @@ module.exports = (grunt)->
                 reporter: 'dot'
                 require: [
                     'coffee-script/register'
-                    './test/test_helper.coffee'
+                    './src/test_helper.coffee'
                 ]
                 verbose: true
-            src: ['./test/**/*.test.coffee']
-
-        rsync:
-            static:
-                options:
-                    src: './static/'
-                    dest: './dist/'
-                    recursive: true
+            src: ['./src/**/*.test.coffee']
 
         sass:
-            build:
+            all:
                 files:
-                    './dist/css/main.css': ['./src/scss/main.scss']
-            dist:
-                options:
-                    sourcemap: 'none'
-                    style: 'compressed'
+                    './build/static/main.css': [ './build/imports.scss' ]
+
+        sass_globbing:
+            all:
                 files:
-                    './dist/css/main.css': ['./src/scss/main.scss']
+                    './build/imports.scss': [
+                        './src/client/styles/main.scss'
+                        './src/client/site/**/*.scss'
+                    ]
 
         uglify:
             scripts:
@@ -118,46 +121,114 @@ module.exports = (grunt)->
                     maxLineLen: 20
                 files: [
                     expand: true
-                    cwd: './dist/js'
+                    cwd: './build/static'
                     src: '**/*.js'
-                    dest: './dist/js'
+                    dest: './build/static'
                 ]
 
         watch:
-            static:
-                files: ['./static/**/*']
-                tasks: ['rsync:static']
-            coffee:
-                files: ['./src/**/*.coffee', './src/**/*.js']
-                tasks: ['browserify:dev', 'exorcise']
-            jade:
-                files: ['./src/**/*.jade']
-                tasks: ['jade:pages', 'jade:templates']
+            assets:
+                files: ['./assets/**/*']
+                tasks: ['copy:assets_build']
+            client_source:
+                files: ['./src/{client,common}/**/*.coffee']
+                tasks: ['browserify:internal']
+            server_source:
+                files: ['./src/{common,server}/**/*.coffee']
+                tasks: ['copy:server_source']
+            jade_pages:
+                files: ['./src/**/index.jade']
+                tasks: ['jade:pages']
+            jade_templates:
+                files: ['./src/**/!(index).jade']
+                tasks: ['jade:templates', 'browserify:internal']
             sass:
                 files: ['./src/**/*.scss']
-                tasks: ['sass', 'copy:styles']
+                tasks: ['sass']
             test:
                 files: ['./src/**/*.coffee', './src/**/*.js', './test/**/*.coffee']
                 tasks: ['test']
 
-    grunt.registerTask 'default', 'build'
+    # Compound Tasks ###################################################################################################
 
-    grunt.registerTask 'build', ['rsync', 'sass:build', 'jade', 'copy', 'browserify:dev', 'exorcise']
+    grunt.registerTask 'build', ['jade', 'copy', 'css', 'browserify:external', 'browserify:internal']
 
-    grunt.registerTask 'dist', ['rsync', 'sass:dist', 'jade', 'copy', 'browserify:prod', 'uglify']
+    grunt.registerTask 'css', ['sass_globbing', 'sass']
+
+    grunt.registerTask 'default', ['clean', 'start']
+
+    grunt.registerTask 'deploy:prod', ['build', 'uglify', 'compress', 'copy:assets_dist', 'script:deploy:prod']
 
     grunt.registerTask 'prepublish', ['clean', 'coffee']
+
+    grunt.registerTask 'start', ['build', 'script:start']
+
+    grunt.registerTask 'test', ['mochaTest']
+
+    # Code Tasks #######################################################################################################
+
+    grunt.registerTask 'browserify:external', "Bundle 3rd-party libraries used in the app", ->
+        grunt.file.mkdir './build/static'
+        done = this.async()
+
+        args = [].concat ("--require=#{lib}" for lib in EXTERNAL_LIBS), [
+            '--outfile=./build/static/external.js'
+        ]
+
+        options = cmd:'browserify', args:args
+        grunt.util.spawn options, (error)->
+            console.log error if error?
+            done()
+
+    grunt.registerTask 'browserify:internal', "Bundle source files needed in the browser", ->
+        grunt.file.mkdir './build/static'
+        done = this.async()
+
+        libs = []
+        for lib in EXTERNAL_LIBS
+            parts = lib.split ':'
+            libs.push parts[parts.length-1]
+
+        args = [].concat ("--external=#{lib}" for lib in libs), [
+            '--extension=.coffee'
+            '--outfile=./build/static/internal.js'
+            '--transform=coffeeify'
+            './src/client/client.coffee'
+        ]
+
+        options = cmd:'browserify', args:args
+        grunt.util.spawn options, (error)->
+            console.log error if error?
+            done()
 
     grunt.registerTask 'use-local-deps', ->
         grunt.file.mkdir './node_modules'
         grunt.file.delete './node_modules/crafting-guide-common', force:true
         fs.symlinkSync '../../crafting-guide-common/', './node_modules/crafting-guide-common'
 
-    grunt.registerTask 'test', ['mochaTest']
+    # Script Tasks #####################################################################################################
 
-    grunt.registerTask 'watch-dev', ['clean', 'build', 'watch']
+    grunt.registerTask 'script:deploy:prod', "deploy code by copying to the production branch", ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/deploy', args:['--production'], opts:{stdio:'inherit'}, -> done()
 
-    grunt.registerTask 'watch-test', ['clean', 'build', 'watch:test']
+    grunt.registerTask 'script:deploy:staging', "deploy code by copying to the staging branch", ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/deploy', args:['--staging'], opts:{stdio:'inherit'}, -> done()
+
+    grunt.registerTask 'publish', 'publishes this package to NPM', ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/publish', opts:{stdio:'inherit'}, -> done()
+
+    grunt.registerTask 'script:s3_upload', 'uploads all static content to S3', ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/s3_upload', opts:{stdio:'inherit'}, -> done()
+
+    grunt.registerTask 'script:start', "start the server at port 8080", ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/start', opts:{stdio:'inherit'}, -> done()
+
+    # Command-Line Argument Processing #################################################################################
 
     args = process.argv[..]
     while args.length > 0

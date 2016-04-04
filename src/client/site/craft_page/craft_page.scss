@@ -1,0 +1,52 @@
+//
+// Crafting Guide - craft_page.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__craft_page {
+    @include layout-body-with-sidebar;
+
+    .instructions {
+        .panel {
+            padding : $size-margin-large $size-margin-xlarge;
+
+            p {
+                margin-bottom : $size-margin-large;
+
+                font-family : $font-family-text;
+                font-size   : $font-size-large;
+                line-height : $font-size-large * 1.5;
+            }
+
+            .items {
+                display         : flex;
+                flex-wrap       : wrap;
+                justify-content : space-around;
+                margin-top      : $size-margin-medium;
+                margin-right    : -$size-margin-medium;
+
+                a {
+                    flex         : 0 0 auto;
+                    margin-top   : $size-margin-medium;
+                    margin-right : $size-margin-medium;
+
+                    background : $color-gray-faint;
+                    border     : 1px solid $color-gray-light;
+                    padding    : $size-margin-medium;
+
+                    img {
+                        height : $size-minecraft-block * 1.5;
+                        width  : $size-minecraft-block * 1.5;
+                    }
+
+                    &:hover {
+                        background: $color-gray-light;
+                        border-color: $color-gray-medium;
+                    }
+                }
+            }
+        }
+    }
+}

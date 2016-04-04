@@ -1,0 +1,30 @@
+//
+// Crafting Guide - slot.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__slot {
+    position : relative;
+    height   : ($size-minecraft-block * 1.5) + ($size-margin-xsmall * 2);
+    width    : ($size-minecraft-block * 1.5) + ($size-margin-xsmall * 2);
+
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    padding         : $size-margin-xsmall;
+
+    img {
+        height: $size-minecraft-block * 1.5;
+        width: $size-minecraft-block * 1.5;
+    }
+
+    .quantity {
+        position    : absolute; right: 2px; bottom: 0;
+        color       : white;
+        font-family : $font-family-header;
+        font-size   : $font-size-large;
+        text-shadow : -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+    }
+}

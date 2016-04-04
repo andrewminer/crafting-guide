@@ -1,0 +1,88 @@
+//
+// Crafting Guide - feedback.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__feedback {
+    min-height: $size-minecraft-block * 10;
+    z-index: $layer-dialog;
+
+    background: white;
+    box-shadow: $size-margin-xxsmall $size-margin-xxsmall $size-margin-xsmall $color-shadow;
+    opacity: 0;
+
+    display: flex;
+
+    .form-content {
+        flex: 1 1 100%;
+
+        border: $size-border-medium solid $color-black;
+        border-left: 0;
+        border-right: 0;
+
+        display: flex;
+        flex-direction: column;
+        padding: $size-margin-medium;
+
+        & > :not(:last-child) {
+            flex: 0 0 auto;
+            margin-bottom: $size-margin-medium;
+        }
+
+        input {
+            display: block;
+
+            font-family: $font-family-input;
+            font-size: $font-size-medium;
+        }
+
+        label {
+            margin-top: $size-margin-small;
+            margin-bottom: $size-margin-small !important;
+
+            font-family: $font-family-control;
+            font-size: $font-size-medium;
+        }
+
+        textarea {
+            height: $font-size-medium * 10;
+            flex: 1 1 100%;
+
+            border: $size-border-small solid $color-gray-light;
+            font-family: $font-family-input;
+            font-size: $font-size-medium;
+            resize: none;
+        }
+
+        .error {
+            color: $color-error;
+            font-family: $font-family-control;
+            font-size: $font-size-small;
+            text-align: center;
+        }
+    }
+
+    .tab {
+        $label-size: 25px;
+
+        flex: 0 0 auto;
+        width: $label-size + 2 * $size-margin-medium;
+
+        background: $color-gray-light;
+        border: $size-border-medium solid $color-black;
+        border-left: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            transform: rotate(-90deg);
+
+            font-family: $font-family-header;
+            font-size: $label-size;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+//
+// Crafting Guide - tutorial.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__tutorial {
+    display: flex;
+    flex-wrap: wrap;
+
+    a {
+        flex: 0 0 auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            height: $size-minecraft-block * 4;
+            margin-bottom: $size-margin-xsmall;
+            width: $size-minecraft-block * 4;
+        }
+
+        p {
+            font-family: $font-family-text;
+            font-size: $font-size-medium;
+        }
+    }
+}

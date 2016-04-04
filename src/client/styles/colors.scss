@@ -1,0 +1,51 @@
+//
+// Crafting Guide - colors.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+// Raw Colors //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$color-bedrock     : #0A0A0A;
+$color-black       : #000000;
+$color-blue-dark   : #484880;
+$color-blue-faint  : #EFEDFF;
+$color-blue-light  : #6256EF;
+$color-blue-medium : #5E5ABF;
+$color-brown-dark  : #3D1D09;
+$color-dirt        : #906647;
+$color-gray-dark   : #474747;
+$color-gray-faint  : #EFEFEF;
+$color-gray-light  : #D0D0D0;
+$color-gray-medium : #6C6C6C;
+$color-ice         : #AAC9FF;
+$color-planks      : #B7955E;
+$color-shadow      : #666666;
+$color-white       : #FFFFFF;
+
+// Semantic Colors /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$color-active       : #5C8AE6;
+$color-active-hover : #2E6BE6;
+
+$color-background-footer : $color-brown-dark;
+$color-background-page   : rgba(230, 230, 230, 0.75);
+$color-background-panel  : rgba(255, 255, 255, 0.90);
+$color-background-window : $color-ice;
+
+$color-button-background : #6F6F6F;
+$color-button-highlight  : rgba(255, 255, 255, 0.66);
+$color-button-shadow     : rgba(0, 0, 0, 0.33);
+
+$color-error : #DD444A;
+
+$color-link-normal  : $color-blue-medium;
+$color-link-active  : $color-blue-light;
+$color-link-visited : $color-blue-dark;
+
+$color-screen : rgba(255, 255, 255, 0.50);
+
+$color-text           : $color-black;
+$color-text-secondary : $color-gray-medium;
+$color-text-light     : $color-white;

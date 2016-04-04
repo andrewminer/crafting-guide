@@ -1,0 +1,29 @@
+//
+// Crafting Guide - sizes.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+
+$size-rem : 12px; // must be first
+
+$size-border-small  : 1px;
+$size-border-medium : 2px;
+$size-border-large  : 3px;
+
+$size-button-height : 40px;
+
+$size-margin-xxsmall : 2px;
+$size-margin-xsmall  : 4px;
+$size-margin-small   : 8px;
+$size-margin-medium  : 12px;
+$size-margin-large   : 24px;
+$size-margin-xlarge  : 48px;
+
+$size-minecraft-block : 32px;
+
+$size-page-width : $size-rem * 80;
+
+$size-skyscraper-height : 600px;
+$size-skyscraper-width  : 160px;

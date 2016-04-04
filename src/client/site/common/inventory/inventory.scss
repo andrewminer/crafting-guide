@@ -1,0 +1,93 @@
+//
+// Crafting Guide - inventory.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__inventory {
+    display        : flex;
+    flex-direction : column;
+
+    .empty_placeholder {
+        color       : $color-gray-light;
+        font-family : $font-family-text;
+        font-size   : $font-size-large;
+        margin      : $size-margin-large 0;
+        text-align  : center;
+    }
+
+    .item_container {
+        flex: 0 1 100%;
+
+        display: table;
+    }
+
+    .buttons {
+        display: none;
+    }
+}
+
+// Editable Variant ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.view__inventory.editable {
+    .buttons {
+        display        : flex;
+        flex-direction : row;
+
+        margin-top: $size-margin-large;
+
+        .item-selector {
+            flex         : 85%;
+            margin-right : $size-margin-medium;
+        }
+
+        .clear {
+            flex : 15%;
+        }
+    }
+}
+
+// Large variant ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.view__inventory.large {
+    .view__stack {
+        & > * {
+            &:not(:last-child) {
+                padding-bottom : $size-margin-small;
+            }
+        }
+
+        .quantity {
+            padding-right : $size-margin-medium;
+            input {
+                width: 3em;
+                font-size   : $font-size-xlarge;
+            }
+        }
+
+        .icon {
+            padding-right : $size-margin-medium;
+
+            img {
+                height : $size-minecraft-block * 1.5;
+                width  : $size-minecraft-block * 1.5;
+            }
+        }
+
+        .name {
+            a {
+                font-family : $font-family-text;
+                font-size   : $font-size-xlarge;
+            }
+        }
+
+        .action {
+            padding-left : $size-margin-small;
+
+            .button {
+                width : $size-button-height;
+            }
+        }
+    }
+}

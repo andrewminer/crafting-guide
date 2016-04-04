@@ -1,0 +1,69 @@
+//
+// Crafting Guide - index.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+html {
+    font-size : $size-rem;
+
+    body {
+        background : $color-background-window url('/images/ice.png');
+        width      : 100%;
+        z-index    : $layer-normal;
+
+        display         : flex;
+        justify-content : center;
+
+        .view__feedback {
+            position: fixed; top: 50%; left: 0; width: $size-minecraft-block * 10;
+            transform: translateY(-50%);
+        }
+
+        .view__screen {
+            position : fixed; top: 0; right: 0; bottom: 0; left: 0;
+            z-index  : $layer-screen;
+
+            background: $color-screen;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & > :not(:first-child) {
+                display: none;
+            }
+
+            & > *:first-child {
+                flex: 0 0 50%;
+
+                box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
+            }
+        }
+
+        .page {
+            margin    : $size-margin-large 0;
+            max-width : $size-page-width;
+            width     : 100%;
+
+            background : $color-background-page;
+            box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
+
+            display        : flex;
+            flex-direction : column;
+
+            > .content {
+                padding : $size-margin-medium;
+            }
+
+            > .content-loading {
+                margin : $size-margin-xlarge 0;
+
+                display         : flex;
+                align-items     : center;
+                justify-content : center;
+            }
+        }
+    }
+}

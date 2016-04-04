@@ -1,0 +1,56 @@
+//
+// Crafting Guide - step.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__step {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:first-child) {
+        border-top: 1px solid $color-gray-light;
+        margin-top: $size-margin-large;
+        padding-top: $size-margin-small;
+    }
+
+    &:hover {
+        & > .buttons {
+            opacity: 1.0;
+        }
+    }
+
+    h3 {
+        margin-bottom: 1em;
+    }
+
+    .main_content {
+        display: flex;
+
+        .view__inventory {
+            flex: 50%;
+            margin-left: $size-margin-large;
+        }
+
+        .view__recipe {
+            flex: 50%;
+        }
+    }
+
+    .buttons {
+        margin-top: $size-margin-large;
+
+        opacity: 0;
+
+        display: flex;
+
+        .button {
+            flex: 1 1 50%;
+
+            &:not(:first-child) {
+                margin-left: $size-margin-medium;
+            }
+        }
+    }
+}

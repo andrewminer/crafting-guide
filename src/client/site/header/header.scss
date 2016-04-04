@@ -1,0 +1,97 @@
+//
+// Crafting Guide - header.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__header {
+    background: $color-gray-light;
+
+    display        : flex;
+    flex-direction : column;
+
+    .top-row {
+        display     : flex;
+        align-items : center;
+
+        a {
+            flex         : 0 0 auto;
+            height       : $size-minecraft-block * 1.5;
+            width        : $size-minecraft-block * 1.5;
+            margin-right : $size-margin-medium;
+
+            img {
+                position : relative;
+                top      : -$size-minecraft-block * 0.5;
+                left     : -$size-minecraft-block * 0.5;
+                height   : $size-minecraft-block * 2.0;
+                width    : $size-minecraft-block * 2.0;
+            }
+        }
+
+        h1 {
+            flex: 1 1 auto;
+        }
+
+        .addthis_sharing_toolbox {
+            flex         : 0 0 auto;
+            min-height   : 37px;
+            min-width    : 144px;
+            margin-right : $size-margin-small;
+
+
+            &.placeholder {
+                border     : 1px solid orange;
+                text-align : center;
+
+                &:before {
+                    color       : orange;
+                    content     : "ADD THIS";
+                    font-family : $font-family-header;
+                    font-size   : $font-size-large;
+                    line-height : 37px;
+                }
+            }
+        }
+    }
+
+    .divider {
+        background : $color-planks url('/images/planks.png');
+
+        align-items       : center;
+        display           : flex;
+        flex-wrap         : wrap;
+        justify-content   : space-around;
+        padding           : $size-margin-medium $size-margin-medium;
+        padding-top       : 0;
+
+        .button {
+            flex      : 1 1 20%;
+            min-width : 4 * $size-minecraft-block;
+            max-width : 5 * $size-minecraft-block;
+            margin-top: $size-margin-medium;
+        }
+    }
+
+    .breadcrumbs {
+        background: $color-screen;
+        font-family: $font-family-control;
+        font-size: $font-size-medium;
+
+        padding: $size-margin-small $size-margin-medium;
+
+        &:before {
+            content: "⟩";
+            margin-right: $size-margin-medium;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        span {
+            margin: 0 $size-margin-medium;
+        }
+    }
+}

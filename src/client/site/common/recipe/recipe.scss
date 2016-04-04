@@ -1,0 +1,45 @@
+//
+// Crafting Guide - recipe.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__recipe {
+    display: flex;
+
+    .input {
+        flex: 1 1 50%;
+
+        align-items    : center;
+        display        : flex;
+        flex-direction : column;
+
+        .tool {
+            margin-top : $size-margin-small;
+
+            font-family : $font-family-text;
+            font-size   : $font-size-medium;
+        }
+    }
+
+    .output {
+        flex: 1 1 50%;
+        margin-left: $size-margin-medium;
+
+        display         : flex;
+        flex-direction  : column;
+        justify-content : center;
+        align-items     : center;
+
+        .view__slot {
+            border: $size-border-medium solid $color-gray-medium;
+        }
+
+        .multiplier {
+            font-family : $font-family-header;
+            font-size   : $font-size-large;
+            margin-top  : $size-margin-medium;
+        }
+    }
+}

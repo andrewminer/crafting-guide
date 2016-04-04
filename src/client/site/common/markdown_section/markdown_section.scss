@@ -1,0 +1,130 @@
+//
+// Crafting Guide - markdown_section.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__markdown_section {
+    display        : flex;
+    flex-direction : column;
+
+    .waiting {
+        display         : flex;
+        justify-content : center;
+
+        padding : $size-margin-xlarge;
+    }
+
+    .appologizing, .confirming, .creating {
+        display         : flex;
+        flex-direction  : column;
+        justify-content : center;
+        padding         : $size-margin-xlarge;
+
+        p {
+            color       : $color-gray-medium;
+            font-family : $font-family-text;
+            font-size   : $font-size-large;
+            text-align  : center;
+
+            &:not(:first-child) {
+                margin-top: $size-margin-medium;
+            }
+        }
+    }
+
+    .creating {
+        padding-bottom: $size-margin-large;
+
+        p {
+            color: $color-gray-light;
+            font-size: $font-size-xlarge;
+        }
+    }
+
+    .editor {
+        display        : flex;
+        flex-direction : column;
+
+        .instructions {
+            margin-bottom : $size-margin-medium;
+
+            color       : $color-gray-medium;
+            font-family : $font-family-text;
+            font-size   : $font-size-small;
+        }
+
+        .text {
+            display        : flex;
+            flex-direction : column;
+            position       : relative;
+
+            textarea, .sizer {
+                font-family : $font-family-input;
+                font-size   : $font-size-medium;
+                line-height : $font-size-medium;
+                overflow    : hidden;
+                padding     : $size-margin-small;
+                resize      : none;
+                white-space : pre-wrap;
+            }
+
+            textarea {
+                position : absolute; width: 100%; height: 100%;
+
+                background: none;
+                z-index: $layer-normal;
+            }
+
+            .sizer {
+                min-height: $size-minecraft-block * 4;
+                opacity: 0;
+                z-index: $layer-normal - 1;
+            }
+        }
+    }
+
+    .footer {
+        display     : flex;
+        align-items : flex-end;
+        margin-top  : $size-margin-large;
+
+        .question {
+            flex : 1 1 100%;
+
+            a {
+                color           : $color-gray-light;
+                font-family     : $font-family-text;
+                font-size       : $font-size-medium;
+                text-decoration : underline;
+            }
+        }
+
+        .error {
+            flex: 1 1 100%;
+            align-self: center;
+
+            p {
+                color       : $color-error;
+                font-family : $font-family-text;
+                font-size   : $font-size-medium;
+                font-style  : italic;
+                text-align  : center;
+            }
+        }
+
+        .buttons {
+            flex : 0 0 auto;
+
+            display        : flex;
+            flex-direction : row-reverse;
+            align-items    : center;
+
+            .button {
+                margin-left : $size-margin-medium;
+                width       : $size-minecraft-block * 5;
+            }
+        }
+    }
+}

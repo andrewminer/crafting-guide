@@ -5,19 +5,12 @@ function die {
     exit 1
 }
 
-read -p "Major, minor, patch? " VERSION_TYPE
-if [[ "$VERSION_TYPE" == "" ]]; then
-    exit 1
+VERSION_TYPE=""
+while [[ "$VERSION_TYPE" != "major" && "$VERSION_TYPE" != "minor" && "$VERSION_TYPE" != "patch" ]]; then
+    read -p "Major, minor, patch? " VERSION_TYPE
 fi
 
 npm version "$VERSION_TYPE" || die "Invalid version type: $VERSION_TYPE"
 npm publish
-
-git push \
-    && git checkout production \
-    && git rebase master \
-    && git push \
-    && git checkout master \
-    || die "Could not publish changes"
 
 grunt clean build

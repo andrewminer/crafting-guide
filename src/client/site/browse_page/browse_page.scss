@@ -1,0 +1,23 @@
+//
+// Crafting Guide - browse_page.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__browse_page {
+    @include layout-body-with-sidebar;
+
+    .right {
+        .tile_container {
+            display         : flex;
+            flex-wrap       : wrap;
+            justify-content : space-between;
+
+            .view__mod_tile {
+                max-width     : calc(50% - 12px); // $size-margin-large / 2
+                margin-bottom : $size-margin-large;
+            }
+        }
+    }
+}

@@ -1,0 +1,62 @@
+//
+// Crafting Guide - tutorial_page.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__tutorial_page {
+    @include layout-body-with-sidebar;
+
+    .about {
+        display: flex;
+        margin-bottom: $size-margin-large;
+
+        & > .left {
+            margin-right: $size-margin-large;
+
+            flex: 0 0 auto;
+
+            img {
+                height: $size-minecraft-block * 5;
+                width: $size-minecraft-block * 5;
+            }
+        }
+
+        & > .right {
+            flex: 1 1 100%;
+
+            .title {
+                font-family: $font-family-header;
+                font-size: $font-size-xxlarge;
+            }
+
+            .sourceMod {
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+            }
+
+            .officialLink {
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+            }
+        }
+    }
+
+    .tutorial-sections {
+    }
+
+    .video-container {
+        margin-right : -$size-margin-medium;
+        margin-top   : -$size-margin-medium;
+        display      : flex;
+        flex-wrap    : wrap;
+
+        & > * {
+            flex         : 1 1 100%;
+            margin-right : $size-margin-medium;
+            margin-top   : $size-margin-medium;
+            max-width    : calc(50% - 12px); // $size-margin-medium
+        }
+    }
+}

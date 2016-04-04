@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pushd './build/' &>/dev/null
+clear
+nodemon ./server.coffee $*
+echo ''
+popd &>/dev/null

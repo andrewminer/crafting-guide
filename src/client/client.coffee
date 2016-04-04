@@ -40,7 +40,7 @@ switch global.hostName
         global.env   = 'local'
         logger.level = Logger.DEBUG
         apiBaseUrl   = 'http://local.crafting-guide.com:8001'
-    when 'new.crafting-guide.com'
+    when 'staging.crafting-guide.com'
         global.env   = 'staging'
         logger.level = Logger.VERBOSE
         apiBaseUrl   = 'https://crafting-guide-staging.herokuapp.com'

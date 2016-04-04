@@ -17,7 +17,7 @@ while [[ "$1" != "" ]]; do
 done
 
 SOURCE_DIR="./dist/"
-SITE="new.crafting-guide.com"
+SITE="staging.crafting-guide.com"
 [[ "$ENVIRONMENT" == "production" ]] && SITE="crafting-guide.com"
 TARGET_DIR="s3://$SITE/"
 

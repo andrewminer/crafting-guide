@@ -6,8 +6,8 @@ deployment:
     staging:
         branch: staging
         commands:
-            - grunt deploy:staging
+            - grunt upload:staging
     production:
         branch: production
         commands:
-            - grunt deploy:prod
+            - grunt upload:prod

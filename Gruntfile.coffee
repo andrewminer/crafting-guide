@@ -151,27 +151,41 @@ module.exports = (grunt)->
 
     # Compound Tasks ###################################################################################################
 
-    grunt.registerTask 'build', ['jade', 'build:copy', 'css', 'browserify:external', 'browserify:internal']
+    grunt.registerTask 'build', 'build the project to be run from a local server',
+        ['jade', 'build:copy', 'css', 'browserify:external', 'browserify:internal']
 
-    grunt.registerTask 'build:copy', ['copy:assets_build', 'copy:common_source', 'copy:server_source']
+    grunt.registerTask 'build:copy', 'helper task for build',
+        ['copy:assets_build', 'copy:common_source', 'copy:server_source']
 
-    grunt.registerTask 'css', ['sass_globbing', 'sass']
+    grunt.registerTask 'build:css', 'helper task for build',
+        ['sass_globbing', 'sass']
 
-    grunt.registerTask 'default', ['clean', 'start']
+    grunt.registerTask 'default', 'rebuild the project from scratch and start a local HTTP server',
+        ['clean', 'start']
 
-    grunt.registerTask 'deploy:prod', ['script:deploy:prod']
+    grunt.registerTask 'deploy:prod', 'deploy the project to production via CircleCI',
+        ['script:deploy:prod']
 
-    grunt.registerTask 'deploy:staging', ['script:deploy:staging']
+    grunt.registerTask 'deploy:staging', 'deploy the project to staging via CircleCI',
+        ['script:deploy:staging']
 
-    grunt.registerTask 'dist', ['build', 'uglify', 'copy:build_to_dist', 'compress']
+    grunt.registerTask 'dist', 'build the project to be run from Amazon S3',
+        ['build', 'uglify', 'copy:build_to_dist', 'compress']
 
-    grunt.registerTask 'prepublish', ['clean', 'coffee']
+    grunt.registerTask 'prepublish', 'build the project to be published to NPM as shared code',
+        ['clean', 'coffee']
 
-    grunt.registerTask 'start', ['build', 'script:start']
+    grunt.registerTask 'start', 'build the project and start a local HTTP server',
+        ['build', 'script:start']
 
-    grunt.registerTask 'test', ['mochaTest']
+    grunt.registerTask 'test', 'run unit tests',
+        ['mochaTest']
 
-    grunt.registerTask 'upload', ['dist', 'script:s3_upload']
+    grunt.registerTask 'upload:prod', 'upload the project to the production Amazon S3 environment',
+        ['dist', 'script:s3_upload:prod']
+
+    grunt.registerTask 'upload:staging', 'upload the project the staging Amazon S3 environment',
+        ['dist', 'script:s3_upload:staging']
 
     # Code Tasks #######################################################################################################
 
@@ -228,11 +242,15 @@ module.exports = (grunt)->
       done = this.async()
       grunt.util.spawn cmd:'./scripts/publish', opts:{stdio:'inherit'}, -> done()
 
-    grunt.registerTask 'script:s3_upload', 'uploads all static content to S3', ->
+    grunt.registerTask 'script:s3_upload:prod', 'uploads all static content to S3', ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/s3_upload', opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/s3_upload', args:['--prod'], opts:{stdio:'inherit'}, -> done()
 
-    grunt.registerTask 'script:start', "start the server at port 8080", ->
+    grunt.registerTask 'script:s3_upload:staging', 'uploads all static content to S3', ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/s3_upload', args:['--staging'], opts:{stdio:'inherit'}, -> done()
+
+    grunt.registerTask 'script:start', "start a local HTTP server on port 8080", ->
       done = this.async()
       grunt.util.spawn cmd:'./scripts/start', opts:{stdio:'inherit'}, -> done()
 

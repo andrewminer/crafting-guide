@@ -152,7 +152,7 @@ module.exports = (grunt)->
     # Compound Tasks ###################################################################################################
 
     grunt.registerTask 'build', 'build the project to be run from a local server',
-        ['jade', 'build:copy', 'css', 'browserify:external', 'browserify:internal']
+        ['jade', 'build:copy', 'build:css', 'browserify:external', 'browserify:internal']
 
     grunt.registerTask 'build:copy', 'helper task for build',
         ['copy:assets_build', 'copy:common_source', 'copy:server_source']

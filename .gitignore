@@ -6,4 +6,4 @@ build
 deploy
 dist
 node_modules
-src/coffee/views.js
+templates.js

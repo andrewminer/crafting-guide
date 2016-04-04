@@ -13,6 +13,7 @@ while [[ "$1" != "" ]]; do
         "--production") ENVIRONMENT="production";;
         *) die "Please specify environment: --staging or --production";;
     esac
+    shift
 done
 
 SOURCE_DIR="./dist/"

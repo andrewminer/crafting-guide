@@ -1,12 +1,13 @@
 dependencies:
     pre:
         - gem install sass --version ">= 3.4"
+        - npm install -g grunt-cli
 deployment:
     staging:
-        branch: master
+        branch: staging
         commands:
-            - ./scripts/deploy --staging
+            - grunt deploy:staging
     production:
         branch: production
         commands:
-            - ./scripts/deploy --production
+            - grunt deploy:prod

@@ -159,9 +159,9 @@ module.exports = (grunt)->
 
     grunt.registerTask 'default', ['clean', 'start']
 
-    grunt.registerTask 'deploy:prod', ['dist', 'script:deploy:prod']
+    grunt.registerTask 'deploy:prod', ['script:deploy:prod']
 
-    grunt.registerTask 'deploy:staging', ['dist', 'script:deploy:staging']
+    grunt.registerTask 'deploy:staging', ['script:deploy:staging']
 
     grunt.registerTask 'dist', ['build', 'uglify', 'copy:build_to_dist', 'compress']
 
@@ -170,6 +170,8 @@ module.exports = (grunt)->
     grunt.registerTask 'start', ['build', 'script:start']
 
     grunt.registerTask 'test', ['mochaTest']
+
+    grunt.registerTask 'upload', ['dist', 'script:s3_upload']
 
     # Code Tasks #######################################################################################################
 

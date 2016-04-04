@@ -12,6 +12,7 @@ while [[ "$1" != "" ]]; do
         "--prod") ENVIRONMENT="prod";;
         *) die "Please specify environment: --staging or --prod";;
     esac
+    shift
 done
 
 git push \

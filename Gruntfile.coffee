@@ -159,6 +159,8 @@ module.exports = (grunt)->
 
     grunt.registerTask 'deploy:prod', ['build', 'uglify', 'compress', 'copy:assets_dist', 'script:deploy:prod']
 
+    grunt.registerTask 'deploy:staging', ['build', 'uglify', 'compress', 'copy:assets_dist', 'script:deploy:staging']
+
     grunt.registerTask 'prepublish', ['clean', 'coffee']
 
     grunt.registerTask 'start', ['build', 'script:start']

@@ -232,27 +232,27 @@ module.exports = (grunt)->
 
     grunt.registerTask 'script:deploy:prod', "deploy code by copying to the production branch", ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/deploy', args:['--production'], opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/deploy', args:['--production'], opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'script:deploy:staging', "deploy code by copying to the staging branch", ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/deploy', args:['--staging'], opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/deploy', args:['--staging'], opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'publish', 'publishes this package to NPM', ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/publish', opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/publish', opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'script:s3_upload:prod', 'uploads all static content to S3', ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/s3_upload', args:['--prod'], opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/s3_upload', args:['--prod'], opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'script:s3_upload:staging', 'uploads all static content to S3', ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/s3_upload', args:['--staging'], opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/s3_upload', args:['--staging'], opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'script:start', "start a local HTTP server on port 8080", ->
       done = this.async()
-      grunt.util.spawn cmd:'./scripts/start', opts:{stdio:'inherit'}, -> done()
+      grunt.util.spawn cmd:'./scripts/start', opts:{stdio:'inherit'}, (error)-> done(error)
 
     # Command-Line Argument Processing #################################################################################
 

@@ -30,6 +30,7 @@ module.exports = (grunt)->
                     {expand: true, cwd:'./build/static', src:'**/*.html', dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.js', dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.json', dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.ttf', dest:'./dist/'}
                 ]
 
         coffee:
@@ -39,22 +40,21 @@ module.exports = (grunt)->
                 files: [expand:true, cwd:'./src/coffee', src:'**/*.coffee', dest:'./dist', ext:'.js']
 
         copy:
-            server_source:
+            assets_build:
                 files: [
-                    {expand:true, cwd:'./src/server', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
+                    {expand:true, cwd:'./assets/', src:'**/*', dest:'./build/static/'}
+                ]
+            build_to_dist:
+                files: [
+                    {expand:true, cwd:'./build/static/', src:['**/*', '!**/*.map'], dest:'./dist/'}
                 ]
             common_source:
                 files: [
                     {expand:true, cwd:'./src/common', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
                 ]
-            assets_build:
+            server_source:
                 files: [
-                    {expand:true, cwd:'./assets/', src:'**/*', dest:'./build/static/'}
-                ]
-            assets_dist:
-                files: [
-                    {expand:true, cwd:'./assets/', src:'**/*.mp3', dest:'./dist/'}
-                    {expand:true, cwd:'./assets/', src:'**/*.png', dest:'./dist/'}
+                    {expand:true, cwd:'./src/server', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
                 ]
 
         clean:
@@ -123,7 +123,7 @@ module.exports = (grunt)->
                     expand: true
                     cwd: './build/static'
                     src: '**/*.js'
-                    dest: './build/static'
+                    dest: './dist'
                 ]
 
         watch:
@@ -151,15 +151,19 @@ module.exports = (grunt)->
 
     # Compound Tasks ###################################################################################################
 
-    grunt.registerTask 'build', ['jade', 'copy', 'css', 'browserify:external', 'browserify:internal']
+    grunt.registerTask 'build', ['jade', 'build:copy', 'css', 'browserify:external', 'browserify:internal']
+
+    grunt.registerTask 'build:copy', ['copy:assets_build', 'copy:common_source', 'copy:server_source']
 
     grunt.registerTask 'css', ['sass_globbing', 'sass']
 
     grunt.registerTask 'default', ['clean', 'start']
 
-    grunt.registerTask 'deploy:prod', ['build', 'uglify', 'compress', 'copy:assets_dist', 'script:deploy:prod']
+    grunt.registerTask 'deploy:prod', ['dist', 'script:deploy:prod']
 
-    grunt.registerTask 'deploy:staging', ['build', 'uglify', 'compress', 'copy:assets_dist', 'script:deploy:staging']
+    grunt.registerTask 'deploy:staging', ['dist', 'script:deploy:staging']
+
+    grunt.registerTask 'dist', ['build', 'uglify', 'copy:build_to_dist', 'compress']
 
     grunt.registerTask 'prepublish', ['clean', 'coffee']
 

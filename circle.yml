@@ -1,6 +1,8 @@
 dependencies:
     pre:
-        - gem install sass --version ">= 3.4"
+        - gem install sass --version "= 3.4"
+        - pip install s3cmd
+        - npm install -g browserify
         - npm install -g grunt-cli
 deployment:
     staging:

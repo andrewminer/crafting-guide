@@ -13,6 +13,16 @@ EXTERNAL_LIBS = [
     './vendor/email.js:emailjs'
 ]
 
+PUBLISHED_FILES = [
+    './index.coffee'
+    './common/constants.coffee'
+    './common/underscore.coffee'
+    './client/models/game/mod.coffee'
+    './client/models/parsing/mod_parser.coffee'
+    './client/models/game/mod_version.coffee'
+    './client/models/parsing/mod_version_parser.coffee'
+]
+
 ########################################################################################################################
 
 module.exports = (grunt)->
@@ -34,27 +44,27 @@ module.exports = (grunt)->
                 ]
 
         coffee:
-            dev:
-                options:
-                    sourceMap: true
-                files: [expand:true, cwd:'./src/coffee', src:'**/*.coffee', dest:'./dist', ext:'.js']
+            npm_package:
+                files: [
+                    {expand:true, cwd:'./src', src:PUBLISHED_FILES, dest:'./dist', ext:'.js'}
+                ]
 
         copy:
             assets_build:
                 files: [
-                    {expand:true, cwd:'./assets/', src:'**/*', dest:'./build/static/'}
+                    {expand:true, cwd:'./assets/', src:'**/*', dest:'./build/static'}
                 ]
             build_to_dist:
                 files: [
-                    {expand:true, cwd:'./build/static/', src:['**/*', '!**/*.map'], dest:'./dist/'}
+                    {expand:true, cwd:'./build/static/', src:['**/*', '!**/*.map'], dest:'./dist'}
                 ]
             common_source:
                 files: [
-                    {expand:true, cwd:'./src/common', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
+                    {expand:true, cwd:'./src/common', src:'**/*.coffee', dest:'./build', ext:'.coffee'}
                 ]
             server_source:
                 files: [
-                    {expand:true, cwd:'./src/server', src:'**/*.coffee', dest:'./build/', ext:'.coffee'}
+                    {expand:true, cwd:'./src/server', src:'**/*.coffee', dest:'./build', ext:'.coffee'}
                 ]
 
         clean:

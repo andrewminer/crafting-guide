@@ -17,6 +17,7 @@ PUBLISHED_FILES = [
     './index.coffee'
     './common/constants.coffee'
     './common/underscore.coffee'
+    './client/models/base_model.coffee'
     './client/models/game/mod.coffee'
     './client/models/parsing/mod_parser.coffee'
     './client/models/game/mod_version.coffee'

@@ -185,6 +185,9 @@ module.exports = (grunt)->
     grunt.registerTask 'prepublish', 'build the project to be published to NPM as shared code',
         ['clean', 'coffee']
 
+    grunt.registerTask 'publish', 'publish the project to NPM',
+        ['prepublish', 'script:publish', 'clean', 'build']
+
     grunt.registerTask 'start', 'build the project and start a local HTTP server',
         ['build', 'script:start']
 
@@ -248,7 +251,7 @@ module.exports = (grunt)->
       done = this.async()
       grunt.util.spawn cmd:'./scripts/deploy', args:['--staging'], opts:{stdio:'inherit'}, (error)-> done(error)
 
-    grunt.registerTask 'publish', 'publishes this package to NPM', ->
+    grunt.registerTask 'script:publish', 'publishes this package to NPM', ->
       done = this.async()
       grunt.util.spawn cmd:'./scripts/publish', opts:{stdio:'inherit'}, (error)-> done(error)
 

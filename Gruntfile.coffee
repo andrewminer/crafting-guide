@@ -14,14 +14,26 @@ EXTERNAL_LIBS = [
 ]
 
 PUBLISHED_FILES = [
-    './index.coffee'
+    './client/models/base_model.coffee'
+    './client/models/game/inventory.coffee'
+    './client/models/game/item.coffee'
+    './client/models/game/item_slug.coffee'
+    './client/models/game/mod.coffee'
+    './client/models/game/mod_version.coffee'
+    './client/models/game/multiblock.coffee'
+    './client/models/game/recipe.coffee'
+    './client/models/game/stack.coffee'
+    './client/models/game/simple_stack.coffee'
+    './client/models/parsing/command_parser_version_base.coffee'
+    './client/models/parsing/mod_parser.coffee'
+    './client/models/parsing/mod_parser_v1.coffee'
+    './client/models/parsing/mod_version_parser.coffee'
+    './client/models/parsing/mod_version_parser_v1.coffee'
+    './client/models/parsing/versioned_parser_base.coffee'
+    './client/models/site/tutorial.coffee'
     './common/constants.coffee'
     './common/underscore.coffee'
-    './client/models/base_model.coffee'
-    './client/models/game/mod.coffee'
-    './client/models/parsing/mod_parser.coffee'
-    './client/models/game/mod_version.coffee'
-    './client/models/parsing/mod_version_parser.coffee'
+    './index.coffee'
 ]
 
 ########################################################################################################################
@@ -46,6 +58,9 @@ module.exports = (grunt)->
 
         coffee:
             npm_package:
+                options: {
+                    bare: true
+                }
                 files: [
                     {expand:true, cwd:'./src', src:PUBLISHED_FILES, dest:'./dist', ext:'.js'}
                 ]

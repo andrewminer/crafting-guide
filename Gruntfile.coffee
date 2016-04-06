@@ -51,12 +51,12 @@ module.exports = (grunt)->
                 options:
                     mode: 'gzip'
                 files: [
-                    {expand: true, cwd:'./build/static', src:'**/*.css', dest:'./dist/'}
-                    {expand: true, cwd:'./build/static', src:'**/*.html', dest:'./dist/'}
-                    {expand: true, cwd:'./build/static', src:'**/*.js', dest:'./dist/'}
-                    {expand: true, cwd:'./build/static', src:'**/*.json', dest:'./dist/'}
-                    {expand: true, cwd:'./build/static', src:'**/*.ttf', dest:'./dist/'}
-                    {expand: true, cwd:'./build/static', src:'**/*.txt', dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.css',     dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.html',    dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.ugly.js', dest:'./dist/', ext: '.js'}
+                    {expand: true, cwd:'./build/static', src:'**/*.json',    dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.ttf',     dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.txt',     dest:'./dist/'}
                 ]
 
         coffee:
@@ -75,7 +75,7 @@ module.exports = (grunt)->
                 ]
             build_to_dist:
                 files: [
-                    {expand:true, cwd:'./build/static/', src:['**/*', '!**/*.map'], dest:'./dist'}
+                    {expand:true, cwd:'./build/static/', src:['**/*', '!**/*.map', '!**/*.js'], dest:'./dist'}
                 ]
             common_source:
                 files: [
@@ -150,9 +150,10 @@ module.exports = (grunt)->
                     maxLineLen: 20
                 files: [
                     expand: true
-                    cwd: './build/static'
-                    src: '**/*.js'
-                    dest: './dist'
+                    cwd:  './build/static'
+                    src:  '**/*.js'
+                    dest: './build/static'
+                    ext:  '.ugly.js'
                 ]
 
         watch:
@@ -202,7 +203,7 @@ module.exports = (grunt)->
         ['script:deploy:staging']
 
     grunt.registerTask 'dist', 'build the project to be run from Amazon S3',
-        ['build', 'uglify', 'copy:build_to_dist', 'compress']
+        ['build', 'copy:build_to_dist', 'uglify', 'compress']
 
     grunt.registerTask 'prepublish', 'build the project to be published to NPM as shared code',
         ['clean', 'coffee']

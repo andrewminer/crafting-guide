@@ -15,15 +15,15 @@ ENVIRONMENT=""
 while [[ "$1" != "" ]]; do
     case "$1" in
         "--staging") ENVIRONMENT="staging";;
-        "--production") ENVIRONMENT="production";;
-        *) die "Please specify environment: --staging or --production";;
+        "--prod") ENVIRONMENT="prod";;
+        *) die "Please specify environment: --staging or --prod";;
     esac
     shift
 done
 
 SOURCE_DIR="./dist/"
 SITE="staging.crafting-guide.com"
-[[ "$ENVIRONMENT" == "production" ]] && SITE="crafting-guide.com"
+[[ "$ENVIRONMENT" == "prod" ]] && SITE="crafting-guide.com"
 TARGET_DIR="s3://$SITE/"
 
 S3CMD_CFG="$HOME/.s3cfg"

@@ -11,4 +11,5 @@ while [[ "$VERSION_TYPE" != "major" && "$VERSION_TYPE" != "minor" && "$VERSION_T
 done
 
 npm version "$VERSION_TYPE" || die "Invalid version type: $VERSION_TYPE"
-npm publish
+npm publish || die "Could not publish to NPM"
+git push || die "Could not push updated version to GitHub"

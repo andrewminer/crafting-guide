@@ -192,6 +192,9 @@ module.exports = (grunt)->
     grunt.registerTask 'default', 'rebuild the project from scratch and start a local HTTP server',
         ['clean', 'start']
 
+    grunt.registerTask 'deploy', 'deploy to both staging and production via CircleCI',
+        ['deploy:staging', 'deploy:prod']
+
     grunt.registerTask 'deploy:prod', 'deploy the project to production via CircleCI',
         ['script:deploy:prod']
 

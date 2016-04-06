@@ -36,11 +36,12 @@ GZIP="--add-header=content-encoding:gzip"
 CMD="sync $SOURCE_DIR $TARGET_DIR -r -P $HEADERS --stop-on-error --exclude=*"
 
 echo "Preparing to upload to S3..."
-s3cmd $CMD       -m 'image/png'                     --include="*.png"  || exit 1
 s3cmd $CMD       -m 'image/gif'                     --include="*.gif"  || exit 1
+s3cmd $CMD       -m 'image/png'                     --include="*.png"  || exit 1
 s3cmd $CMD $GZIP -m 'application/json'              --include="*.json" || exit 1
 s3cmd $CMD $GZIP -m 'application/octet-stream'      --include="*.ttf"  || exit 1
 s3cmd $CMD $GZIP -m 'text/css; charset=utf8'        --include="*.css"  || exit 1
 s3cmd $CMD $GZIP -m 'text/html; charset=utf8'       --include="*.html" || exit 1
 s3cmd $CMD $GZIP -m 'text/javascript; charset=utf8' --include="*.js"   || exit 1
+s3cmd $CMD $GZIP -m 'text/plain'                    --include="*.txt"  || exit 1
 echo "S3 Upload Complete"

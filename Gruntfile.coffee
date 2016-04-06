@@ -56,6 +56,7 @@ module.exports = (grunt)->
                     {expand: true, cwd:'./build/static', src:'**/*.js', dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.json', dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.ttf', dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:'**/*.txt', dest:'./dist/'}
                 ]
 
         coffee:

@@ -18,6 +18,9 @@ module.exports = class NewsPageController extends PageController
 
     # PageController Overrides #####################################################################
 
+    getMetaDescription: ->
+        return c.text.newsDescription()
+
     getTitle: ->
         return "News"
 

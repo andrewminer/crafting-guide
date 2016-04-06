@@ -1,6 +1,7 @@
 *.log
 .DS_Store
 .sass-cache
+.tm_properties
 aws.config
 build
 deploy

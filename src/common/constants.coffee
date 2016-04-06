@@ -112,15 +112,16 @@ exports.requiredMods = [ 'minecraft' ]
 exports.server             = {}
 exports.server.defaultPort = 8080
 
-exports.text           = text = {}
-text.browseDescription = _.template 'Browse through complete item listings for over a dozen top mods and use the interactive crafting planner for step-by-step instructions'
-text.configDescription = _.template 'Configure the interactive crafting planner for your exact modpack and get step-by-step instructions for any item in your world'
-text.craftDescription  = _.template 'Build anything in your Minecraft mod pack with a full list of materials and step-by-step instructions using our interactive crafting planner'
-text.homeDescription   = _.template 'Find everything you need to know about your Minecraft mod pack and use the interactive crafting planner for step-by-step instructions and full lists of materials'
-text.itemDescription   = _.template 'Make <%= itemName %> and the rest of <%= modName %> easy and use the interactive crafting planner for step-by-step instructions'
-text.modDescription    = _.template 'Make <%= modName %> easy with tutorials, videos, and a full item listing along with an interactive crafting planner for step-by-step instructions'
-text.title             = _.template 'Minecraft Crafting Guide'
-text.titleWithText     = _.template '<%= text %> | Minecraft Crafting Guide'
+exports.text             = text = {}
+text.browseDescription   = _.template 'Browse through complete item listings for over a dozen top mods and use the interactive crafting planner for step-by-step instructions'
+text.configDescription   = _.template 'Configure the interactive crafting planner for your exact modpack and get step-by-step instructions for any item in your world'
+text.craftDescription    = _.template 'Build anything in your Minecraft mod pack with a full list of materials and step-by-step instructions using our interactive crafting planner'
+text.newsDescription     = _.template 'Find everything you need to know about your Minecraft mod pack and use the interactive crafting planner for step-by-step instructions and full lists of materials'
+text.itemDescription     = _.template 'Make <%= itemName %> and the rest of <%= modName %> easy and use the interactive crafting planner for step-by-step instructions'
+text.modDescription      = _.template 'Make <%= modName %> easy with tutorials, videos, and a full item listing along with an interactive crafting planner for step-by-step instructions'
+text.title               = _.template 'Minecraft Crafting Guide'
+text.titleWithText       = _.template '<%= text %> | Minecraft Crafting Guide'
+text.tutorialDescription = _.template 'Learn about <%= name %> in <%= mod %> and use the interactive crafting planner to get ready for your build!'
 
 exports.url          = url = {}
 url.crafting         = _.template "/craft/<%= inventoryText %>"

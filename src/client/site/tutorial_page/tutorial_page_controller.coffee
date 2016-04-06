@@ -34,6 +34,14 @@ module.exports = class TutorialPageController extends PageController
 
     # PageController Overrides #####################################################################
 
+    getMetaDescription: ->
+        return unless @_model?
+
+        mod = @_modPack.getMod @_model.modSlug
+        return unless mod?
+
+        return c.text.tutorialDescription name:@_model.name, mod:mod.name
+
     getTitle: ->
         return null unless @model?
         return @model.name

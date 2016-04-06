@@ -23,6 +23,9 @@ module.exports = class BrowsePageController extends PageController
 
     # PageController Overrides #####################################################################
 
+    getMetaDescription: ->
+        return c.text.browseDescription()
+
     getTitle: ->
         return "Browse"
 

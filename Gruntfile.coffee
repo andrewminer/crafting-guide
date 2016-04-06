@@ -1,5 +1,7 @@
 #
-# Copyright © 2015 by Redwood Labs
+# Crafting Guide - Gruntfile.coffee
+#
+# Copyright © 2014-2016 by Redwood Labs
 # All rights reserved.
 #
 

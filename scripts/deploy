@@ -9,7 +9,7 @@ ENVIRONMENT=""
 while [[ "$1" != "" ]]; do
     case "$1" in
         "--staging") ENVIRONMENT="staging";;
-        "--prod") ENVIRONMENT="prod";;
+        "--prod") ENVIRONMENT="production";;
         *) die "Please specify environment: --staging or --prod";;
     esac
     shift

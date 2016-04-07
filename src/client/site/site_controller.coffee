@@ -71,10 +71,9 @@ module.exports = class SiteController extends BaseController
         @router.navigate c.url.login(), trigger:true
 
     logout: ->
+        @storage.store 'loginSecurityToken', null
+        @user = null
         @client.logout()
-            .then =>
-                @storage.store 'loginSecurityToken', null
-                @user = null
             .catch (error)->
                 logger.error -> "Failed to log out: #{error}"
             .done()

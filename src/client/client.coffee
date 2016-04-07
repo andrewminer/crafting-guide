@@ -25,7 +25,7 @@ Backbone.$ = $
 global.logger = new Logger
 
 marked = require 'marked'
-marked.setOptions sanitize: true
+marked.setOptions sanitize:true
 
 ########################################################################################################################
 
@@ -58,23 +58,12 @@ storage = new Storage storage:global.localStorage
 ########################################################################################################################
 
 {CraftingGuideClient} = require 'crafting-guide-common'
-client = new CraftingGuideClient(
-    baseUrl: apiBaseUrl
+client = _(new CraftingGuideClient(baseUrl:apiBaseUrl)).extend Backbone.Events
+client.onStatusChanged = (client, oldStatus, newStatus)->
+    logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
+    client.trigger 'change:status', client, oldStatus, newStatus
+    client.trigger 'change', client
 
-    session: storage.load CraftingGuideClient.SESSION
-
-    onSessionChanged: (client, oldSession, newSession)->
-        logger.info "Updated server session data"
-        storage.store CraftingGuideClient.SESSION, session
-        client.trigger 'change:session', client, oldSession, newSession
-        client.trigger 'change', client
-
-    onStatusChanged: (client, oldStatus, newStatus)->
-        logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
-        client.trigger 'change:status', client, oldStatus, newStatus
-        client.trigger 'change', client
-)
-_(client).extend Backbone.Events
 client.checkStatus()
 
 ########################################################################################################################

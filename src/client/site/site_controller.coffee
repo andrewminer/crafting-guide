@@ -14,13 +14,14 @@ ImageLoader        = require './image_loader'
 Mod                = require '../models/game/mod'
 ModPack            = require '../models/game/mod_pack'
 Router             = require './router'
-Storage            = require './storage'
 
 ########################################################################################################################
 
 module.exports = class SiteController extends BaseController
 
     constructor: (options={})->
+        if not options.client? then throw new Error 'options.client is required'
+        if not options.storage? then throw new Error 'options.storage is required'
         options.el = 'html'
         super options
 
@@ -28,7 +29,7 @@ module.exports = class SiteController extends BaseController
         @imageLoader = new ImageLoader defaultUrl:'/images/unknown.png'
         @modPack     = new ModPack
         @router      = new Router this
-        @storage     = new Storage storage:global.localStorage
+        @storage     = options.storage
 
         @_currentPage           = null
         @_currentPageController = null

@@ -25,8 +25,7 @@ Backbone.$ = $
 global.logger = new Logger
 
 marked = require 'marked'
-marked.setOptions
-    sanitize: true
+marked.setOptions sanitize: true
 
 ########################################################################################################################
 
@@ -53,18 +52,35 @@ switch global.hostName
 
 ########################################################################################################################
 
+Storage = require './storage'
+storage = new Storage storage:global.localStorage
+
+########################################################################################################################
+
 {CraftingGuideClient} = require 'crafting-guide-common'
-client = _.extend new CraftingGuideClient(baseUrl:apiBaseUrl), Backbone.Events
-client.onStatusChanged = (c, oldStatus, newStatus)->
-    logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
-    client.trigger 'change:status', client, oldStatus, newStatus
-    client.trigger 'change', client
+client = new CraftingGuideClient(
+    baseUrl: apiBaseUrl
+
+    session: storage.load CraftingGuideClient.SESSION
+
+    onSessionChanged: (client, oldSession, newSession)->
+        logger.info "Updated server session data"
+        storage.store CraftingGuideClient.SESSION, session
+        client.trigger 'change:session', client, oldSession, newSession
+        client.trigger 'change', client
+
+    onStatusChanged: (client, oldStatus, newStatus)->
+        logger.info "Crafting Guide server status changed from #{oldStatus} to #{newStatus}"
+        client.trigger 'change:status', client, oldStatus, newStatus
+        client.trigger 'change', client
+)
+_(client).extend Backbone.Events
 client.checkStatus()
 
 ########################################################################################################################
 
 SiteController = require './site/site_controller'
-global.site = site = new SiteController client: client
+global.site = site = new SiteController client:client, storage:storage
 site.render()
 site.loadDefaultModPack()
 site.loadCurrentUser()

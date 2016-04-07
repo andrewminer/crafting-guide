@@ -5,6 +5,8 @@
 # All rights reserved.
 #
 
+fs = require 'fs'
+
 EXTERNAL_LIBS = [
     'backbone'
     'jquery'
@@ -223,6 +225,9 @@ module.exports = (grunt)->
     grunt.registerTask 'upload:staging', 'upload the project the staging Amazon S3 environment',
         ['dist', 'script:s3_upload:staging']
 
+    grunt.registerTask 'useLocalDeps', 'use local dependencies instead of NPM dependencies',
+        ['script:use_local_deps']
+
     # Code Tasks #######################################################################################################
 
     grunt.registerTask 'browserify:external', "Bundle 3rd-party libraries used in the app", ->
@@ -259,11 +264,6 @@ module.exports = (grunt)->
             console.log error if error?
             done()
 
-    grunt.registerTask 'use-local-deps', ->
-        grunt.file.mkdir './node_modules'
-        grunt.file.delete './node_modules/crafting-guide-common', force:true
-        fs.symlinkSync '../../crafting-guide-common/', './node_modules/crafting-guide-common'
-
     # Script Tasks #####################################################################################################
 
     grunt.registerTask 'script:deploy:prod', "deploy code by copying to the production branch", ->
@@ -289,6 +289,10 @@ module.exports = (grunt)->
     grunt.registerTask 'script:start', "start a local HTTP server on port 8080", ->
       done = this.async()
       grunt.util.spawn cmd:'./scripts/start', opts:{stdio:'inherit'}, (error)-> done(error)
+
+    grunt.registerTask 'script:use_local_deps', "use local dependencies instead of NPM dependencies", ->
+      done = this.async()
+      grunt.util.spawn cmd:'./scripts/use_local_deps', opts:{stdio:'inherit'}, (error)-> done(error)
 
     # Command-Line Argument Processing #################################################################################
 

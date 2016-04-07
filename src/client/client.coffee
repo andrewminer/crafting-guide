@@ -42,11 +42,11 @@ switch global.hostName
     when 'staging.crafting-guide.com'
         global.env   = 'staging'
         logger.level = Logger.VERBOSE
-        apiBaseUrl   = 'https://crafting-guide-staging.herokuapp.com'
+        apiBaseUrl   = 'https://api-staging.crafting-guide.com'
     when 'crafting-guide.com'
         global.env   = 'production'
         logger.level = Logger.INFO
-        apiBaseUrl   = 'https://crafting-guide-production.herokuapp.com'
+        apiBaseUrl   = 'https://api.crafting-guide.com'
     else
         throw new Error "cannot determine the environment of: #{window.location.hostname}"
 

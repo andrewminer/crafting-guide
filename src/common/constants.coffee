@@ -19,12 +19,13 @@ exports.defaultMods   = defaultMods = {}
 defaultMods.minecraft = { defaultVersion: '1.7.10' } # Minecraft must be first
 
 defaultMods.advanced_solar_panels = { defaultVersion: '3.5.1' }
+defaultMods.agricraft             = { defaultVersion: '1.4.6' }
 defaultMods.applied_energistics_2 = { defaultVersion: 'rv1-stable-1' }
 defaultMods.big_reactors          = { defaultVersion: '0.4.2A2' }
 defaultMods.buildcraft            = { defaultVersion: '6.4.6' }
 defaultMods.computercraft         = { defaultVersion: '1.74' }
-defaultMods.enderio               = { defaultVersion: '2.2.7.325' }
 defaultMods.ender_storage         = { defaultVersion: '1.4.5.29' }
+defaultMods.enderio               = { defaultVersion: '2.2.7.325' }
 defaultMods.extra_cells           = { defaultVersion: '2.2.73b129' }
 defaultMods.extra_utilities       = { defaultVersion: '1.2.2' }
 defaultMods.forestry              = { defaultVersion: '3.4.0.7' }
@@ -35,10 +36,12 @@ defaultMods.ic2_classic           = { defaultVersion: 'none' }
 defaultMods.industrial_craft_2    = { defaultVersion: '2.2.663' }
 defaultMods.iron_chests           = { defaultVersion: '6.0.62.742' }
 defaultMods.jabba                 = { defaultVersion: '1.2.1a' }
+defaultMods.logistics_pipes       = { defaultVersion: '0.9.3.100' }
 defaultMods.mekanism              = { defaultVersion: '7.1.1.127' }
 defaultMods.minefactory_reloaded  = { defaultVersion: '2.8.0RC8-86' }
 defaultMods.modular_powersuits    = { defaultVersion: '0.11.0-300-thermal-expansion' }
 defaultMods.opencomputers         = { defaultVersion: '1.5.22' }
+defaultMods.quantum_flux          = { defaultVersion: '1.3.4' }
 defaultMods.railcraft             = { defaultVersion: '9.5.0' }
 defaultMods.simply_jetpacks       = { defaultVersion: '1.4.1' }
 defaultMods.solar_flux            = { defaultVersion: '0.5b' }

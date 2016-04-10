@@ -103,7 +103,7 @@ module.exports = class Recipe extends BaseModel
             if modPack?.findItemByName(@condition.noun)?
                 result = true
         else if @condition.verb is 'mod'
-            modPack.eachMod (mod)->
+            modPack.eachMod (mod)=>
                 if mod.name is @condition.noun
                     result = true
 

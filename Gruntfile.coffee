@@ -179,7 +179,7 @@ module.exports = (grunt)->
                 tasks: ['sass']
             test:
                 files: ['./src/**/*.coffee', './src/**/*.js', './test/**/*.coffee']
-                tasks: ['test']
+                tasks: ['script:clear', 'test']
 
     # Compound Tasks ###################################################################################################
 
@@ -265,6 +265,10 @@ module.exports = (grunt)->
             done()
 
     # Script Tasks #####################################################################################################
+
+    grunt.registerTask 'script:clear', "clear the current terminal buffer", ->
+      done = this.async()
+      grunt.util.spawn cmd:'clear', opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'script:deploy:prod', "deploy code by copying to the production branch", ->
       done = this.async()

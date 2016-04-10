@@ -15,7 +15,7 @@
             justify-content : space-between;
 
             .view__mod_tile {
-                max-width     : calc(50% - 12px); // $size-margin-large / 2
+                width         : calc(50% - 12px); // $size-margin-large / 2
                 margin-bottom : $size-margin-large;
             }
         }

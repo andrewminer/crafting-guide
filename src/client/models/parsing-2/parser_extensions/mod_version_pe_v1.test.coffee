@@ -6,38 +6,36 @@
 #
 
 ModVersionParserExtensionV1 = require './mod_version_pe_v1'
-ParserState                 = require '../parser_state'
+ParserData                  = require '../parser_data'
 
 ########################################################################################################################
 
-parser = state = null
+parser = data = null
 
 ########################################################################################################################
 
 describe 'mod_version_pe_v1.coffee', ->
 
     beforeEach ->
-        state = new ParserState
-        parser = new ModVersionParserExtensionV1 state
+        data   = new ParserData
+        parser = new ModVersionParserExtensionV1 data
 
-        state.create {}, 'mod', 0
+        data.create {}, 'mod', 0
 
     describe 'group', ->
 
         it 'creates a new item group', ->
-            state.create {}, 'modVersion', 1
+            data.create {}, 'modVersion', 1
 
             parser.execute name:'group', argText:'alpha'
-                .then ->
-                    itemGroup = state.getCurrent('itemGroup')
-                    itemGroup.id.should.equal 'alpha'
-                    itemGroup.modVersion.id.should.equal 1
+            itemGroup = data.getCurrent('itemGroup')
+            itemGroup.id.should.equal 'alpha'
+            itemGroup.modVersion.id.should.equal 1
 
     describe 'version', ->
 
         it 'creates a new mod version', ->
             parser.execute name:'version', argText:'alpha'
-                .then ->
-                    modVersion = state.getCurrent 'modVersion'
-                    modVersion.id.should.equal 'alpha'
-                    modVersion.mod.id.should.equal 0
+            modVersion = data.getCurrent 'modVersion'
+            modVersion.id.should.equal 'alpha'
+            modVersion.mod.id.should.equal 0

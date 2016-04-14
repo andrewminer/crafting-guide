@@ -6,50 +6,46 @@
 #
 
 ModParserExtensionV1 = require './mod_pe_v1'
-ParserState          = require '../parser_state'
+ParserData          = require '../parser_data'
 
 ########################################################################################################################
 
-parser = state = null
+parser = data = null
 
 ########################################################################################################################
 
 describe 'mod_pe_v1.coffee', ->
 
     beforeEach ->
-        state = new ParserState
-        parser = new ModParserExtensionV1 state
+        data   = new ParserData
+        parser = new ModParserExtensionV1 data
 
-        state.create {}, 'mod', 0
+        data.create {}, 'mod', 0
 
     describe 'author', ->
 
         it 'assigns to the current mod', ->
             parser.execute name:'author', argText:'alpha'
-                .then ->
-                    state.getCurrent('mod').author.should.equal 'alpha'
-                    state.errors.should.eql []
+            data.getCurrent('mod').author.should.equal 'alpha'
+            data.errors.should.eql []
 
     describe 'downloadUrl', ->
 
         it 'assigns to the current mod', ->
             parser.execute name:'downloadUrl', argText:'alpha'
-                .then ->
-                    state.getCurrent('mod').downloadUrl.should.equal 'alpha'
-                    state.errors.should.eql []
+            data.getCurrent('mod').downloadUrl.should.equal 'alpha'
+            data.errors.should.eql []
 
     describe 'homePageUrl', ->
 
         it 'assigns to the current mod', ->
             parser.execute name:'homePageUrl', argText:'alpha'
-                .then ->
-                    state.getCurrent('mod').homePageUrl.should.equal 'alpha'
-                    state.errors.should.eql []
+            data.getCurrent('mod').homePageUrl.should.equal 'alpha'
+            data.errors.should.eql []
 
     describe 'mod', ->
 
         it 'creates a new mod', ->
             parser.execute name:'mod', argText:'alpha'
-                .then ->
-                    mod = state.getCurrent 'mod'
-                    mod.id.should.equal 'alpha'
+            mod = data.getCurrent 'mod'
+            mod.id.should.equal 'alpha'

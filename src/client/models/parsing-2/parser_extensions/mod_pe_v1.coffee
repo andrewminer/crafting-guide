@@ -11,12 +11,19 @@ ParserExtension = require '../parser_extension'
 
 module.exports = class ModParserExtensionV1 extends ParserExtension
 
+    constructor: (data)->
+        super data, 'mod',
+            author:      @_command_author
+            downloadUrl: @_command_downloadUrl
+            homePageUrl: @_command_homePageUrl
+            mod:         @_command_mod
+
     # Command Methods ##############################################################################
 
     _command_author: (command)->
         return if @missingCurrent command, 'mod'
 
-        mod = @state.getCurrent 'mod'
+        mod = @data.getCurrent 'mod'
         return if @duplicateField command, mod, 'author'
         return if @missingArgText command
 
@@ -25,7 +32,7 @@ module.exports = class ModParserExtensionV1 extends ParserExtension
     _command_downloadUrl: (command)->
         return if @missingCurrent command, 'mod'
 
-        mod = @state.getCurrent 'mod'
+        mod = @data.getCurrent 'mod'
         return if @duplicateField command, mod, 'downloadUrl'
         return if @missingArgText command
 
@@ -34,7 +41,7 @@ module.exports = class ModParserExtensionV1 extends ParserExtension
     _command_homePageUrl: (command)->
         return if @missingCurrent command, 'mod'
 
-        mod = @state.getCurrent 'mod'
+        mod = @data.getCurrent 'mod'
         return if @duplicateField command, mod, 'homePageUrl'
         return if @missingArgText command
 
@@ -44,4 +51,4 @@ module.exports = class ModParserExtensionV1 extends ParserExtension
         return if @missingArgText command
         return if @alreadyExists command, 'mod', command.argText
 
-        @state.create command, 'mod', command.argText
+        @data.create command, 'mod', command.argText

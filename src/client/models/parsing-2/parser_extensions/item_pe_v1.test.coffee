@@ -6,41 +6,39 @@
 #
 
 ItemParserExtensionV1 = require './item_pe_v1'
-ParserState           = require '../parser_state'
+ParserData            = require '../parser_data'
 
 ########################################################################################################################
 
-parser = state = null
+parser = data = null
 
 ########################################################################################################################
 
 describe 'item_pe_v1.coffee', ->
 
     beforeEach ->
-        state = new ParserState
-        parser = new ItemParserExtensionV1 state
+        data = new ParserData
+        parser = new ItemParserExtensionV1 data
 
-        state.create {}, 'modVersion', 0
+        data.create {}, 'modVersion', 0
 
     describe 'gatherable', ->
 
         it 'assigns to the current item', ->
-            state.create {}, 'item', 1
+            data.create {}, 'item', 1
 
             parser.execute name:'gatherable', argText:'yes'
-                .then ->
-                    state.getCurrent('item').gatherable.should.be.true
-                    state.errors.should.eql []
+            data.getCurrent('item').gatherable.should.be.true
+            data.errors.should.eql []
 
     describe 'item', ->
 
         it 'creates a new item', ->
-            state.create {}, 'itemGroup', 2
+            data.create {}, 'itemGroup', 2
 
             parser.execute name:'item', argText:'alpha'
-                .then ->
-                    item = state.getCurrent 'item'
-                    item.id.should.equal 'alpha'
-                    item.name.should.equal 'alpha'
-                    item.modVersion.id.should.equal 0
-                    item.group.id.should.equal 2
+            item = data.getCurrent 'item'
+            item.id.should.equal 'alpha'
+            item.name.should.equal 'alpha'
+            item.modVersion.id.should.equal 0
+            item.group.id.should.equal 2

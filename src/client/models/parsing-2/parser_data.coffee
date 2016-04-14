@@ -1,5 +1,5 @@
 #
-# Crafting Guide - parser_state.coffee
+# Crafting Guide - parser_data.coffee
 #
 # Copyright © 2014-2016 by Redwood Labs
 # All rights reserved.
@@ -7,10 +7,14 @@
 
 ########################################################################################################################
 
-module.exports = class ParserState
+module.exports = class ParserData
 
     constructor: ->
         @clear()
+
+        @_toAssemble = []
+        @_toBuild = []
+        @_toValidate = []
 
     # Public Methods ###############################################################################
 
@@ -24,26 +28,17 @@ module.exports = class ParserState
 
         typeData = @_findOrCreateType type
         itemData = @_current = typeData['current'] = typeData[id] = id:id, command:command, type:type
+
+        @_toAssemble.push itemData
+        @_toBuild.push itemData
+        @_toValidate.push itemData
+
         return itemData
 
     clear: ->
         @_current = null
         @_data = {}
         @_errors = []
-
-    each: (callback)->
-        for type, typeData of @_data
-            for id, itemData of typeData
-                continue if id is 'current'
-                continue if id is 'type'
-                callback itemData
-
-    eachOfType: (type, callback)->
-        typeData = @_findOrCreateType type
-        for id, itemData of typeData
-            continue if id is 'current'
-            continue if id is 'type'
-            callback itemData
 
     get: (type, id)->
         typeData = @_findOrCreateType type
@@ -57,13 +52,35 @@ module.exports = class ParserState
         current = typeData['current'] or null
         return current
 
+    popNextToAssemble: ->
+        return @_toAssemble.pop() or null
+
+    popNextToBuild: ->
+        return @_toBuild.pop() or null
+
+    popNextToValidate: ->
+        return @_toValidate.pop() or null
+
     # Property Methods #############################################################################
 
     getErrors: ->
         return @_errors[..]
 
+    getIsAssembled: ->
+        return @_toAssemble.length > 0
+
+    getIsBuilt: ->
+        return @_toBuild.length > 0
+
+    getIsValidated: ->
+        return @_toValidate.length > 0
+
     Object.defineProperties @prototype,
-        errors: { get:@::getErrors }
+        errors:      { get:@::getErrors      }
+        isAssembled: { get:@::getIsAssembled }
+        isBuilt:     { get:@::getIsBuilt     }
+        isValidated: { get:@::getIsValidated }
+
 
     # Private Methods ##############################################################################
 

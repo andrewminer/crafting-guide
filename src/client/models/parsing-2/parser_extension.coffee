@@ -9,55 +9,77 @@
 
 module.exports = class ParserExtension
 
-    constructor: (state)->
-        @state = state
+    constructor: (data, type, commandFunctions)->
+        @data = data
+
+        @_commandFunctions = commandFunctions or {}
+        @_type             = type or null
 
     # Public Methods ###############################################################################
 
-    accepts: (command)->
-        return @_findCommandMethod(command)?
+    canAssemble: (entry)->
+        return entry.type is @_type
 
-    execute: w.lift (command)->
-        if not @_state? then throw new Error '@state must be defined before executing commands'
+    canBuild: (entry)->
+        return entry.type is @_type
 
-        method = @_findCommandMethod command
-        method.call this, command
+    canExecute: (command)->
+        _.isFunction @_commandFunctions[command.name]
+
+    canValidate: (entry)->
+        return entry.type is @_type
+
+    execute: (command)->
+        if not @_data? then throw new Error '@data must be defined before executing commands'
+
+        func = @_commandFunctions[command.name]
+        if not func then throw new Error "#{@constructor.name} cannot handle command: #{command.name}"
+
+        func.call this, command
+        return this
 
     # Error Checking Helpers #######################################################################
 
     alreadyExists: (command, type, id)->
-        obj = @state.get(type, id)
+        obj = @data.get(type, id)
         if obj?
-            @state.addError command, "a #{type} called #{id} has already been declared"
+            @data.addError command, "a #{type} called #{id} has already been declared"
             return true
 
         return false
 
     duplicateField: (command, obj, field)->
         if obj[field]?
-            @state.addError command, "duplicate #{field}"
+            @data.addError command, "duplicate #{field}"
             return true
 
         return false
 
     missingCurrent: (command, type)->
-        obj = @state.getCurrent type
+        obj = @data.getCurrent type
         if not obj?
-            @state.addError command, "you must declare a #{type} before using #{command.name}"
+            @data.addError command, "you must declare a #{type} before using #{command.name}"
             return true
 
         return false
 
     missingArgs: (command)->
         if not command.args or command.args.length is 0
-            @state.addError command, "#{command.name} requires at least one item"
+            @data.addError command, "#{command.name} requires at least one item"
             return true
 
         return false
 
     missingArgText: (command)->
         if command.argText.length is 0
-            @state.addError command, "#{command.name} cannot be empty"
+            @data.addError command, "#{command.name} cannot be empty"
+            return true
+
+        return false
+
+    tooFewArguments: (command, minimum)->
+        if command.args.length < minimum
+            @data.addError command, "#{command.name} requires at least #{minimum} arguments"
             return true
 
         return false
@@ -71,7 +93,7 @@ module.exports = class ParserExtension
             when "yes" then return true
             when "no" then return false
 
-        @state.addError command, "#{command.name} requires \"yes\" or \"no\""
+        @data.addError command, "#{command.name} requires \"yes\" or \"no\""
         return null
 
     parseInt: (command, text)->
@@ -86,20 +108,43 @@ module.exports = class ParserExtension
 
     # Property Methods #############################################################################
 
-    getState: ->
-        return @_state
+    getData: ->
+        return @_data
 
-    setState: (state)->
-        if not state? then throw new Error 'state cannot be undefined'
-        @_state = state
+    setData: (data)->
+        if not data? then throw new Error 'data cannot be undefined'
+        @_data = data
 
     Object.defineProperties @prototype,
-        state: { get:@::getState, set:@::setState }
+        data: { get:@::getData, set:@::setData }
+
+    # Overridable Methods ##########################################################################
+
+    assmeble: (entry)->
+        throw new Error "#{@constructor.name} must override the `assemble` method"
+
+    build: (entry)->
+        throw new Error "#{@constructor.name} must override the `build` method"
+
+    validate: (entry)->
+        throw new Error "#{@constructor.name} must override the `validate` method"
 
     # Private Methods ##############################################################################
+
+    _findBuildMethod: (entry)->
+        methodName = "_build_#{entry.type}"
+        method = this[methodName]
+        return null unless _.isFunction method
+        return method
 
     _findCommandMethod: (command)->
         methodName = "_command_#{command.name}"
         method = this[methodName]
-        return null unless _.isFunction(method)
+        return null unless _.isFunction method
+        return method
+
+    _findValidateMethod: (command)->
+        methodName = "_validate_#{command.name}"
+        method = this[methodName]
+        return null unless _.isFunction method
         return method

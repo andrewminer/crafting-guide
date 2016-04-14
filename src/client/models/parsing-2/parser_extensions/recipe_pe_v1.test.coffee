@@ -6,109 +6,100 @@
 #
 
 RecipeParserExtensionV1 = require './recipe_pe_v1'
-ParserState             = require '../parser_state'
+ParserData             = require '../parser_data'
 
 ########################################################################################################################
 
-parser = state = null
+parser = data = null
 
 ########################################################################################################################
 
 describe 'recipe_pe_v1.coffee', ->
 
     beforeEach ->
-        state = new ParserState
-        parser = new RecipeParserExtensionV1 state
+        data = new ParserData
+        parser = new RecipeParserExtensionV1 data
 
-        state.create {}, 'item', 0
+        data.create {}, 'item', 0
 
     describe 'extras', ->
 
         it 'assigns to the current recipe', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'extras', args:['bravo']
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.extras.should.eql ['bravo']
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.extras.should.eql ['bravo']
+            data.errors.should.eql []
 
     describe 'input', ->
 
         it 'correctly reads a single item', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'input', args:['bravo']
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.input.should.eql [name:'bravo', quantity:1]
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.input.should.eql [name:'bravo', quantity:1]
+            data.errors.should.eql []
 
         it 'correctly reads multiple items', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'input', args:['bravo', 'charlie']
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.input.should.eql [{name:'bravo', quantity:1}, {name:'charlie', quantity:1}]
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.input.should.eql [{name:'bravo', quantity:1}, {name:'charlie', quantity:1}]
+            data.errors.should.eql []
 
         it 'correctly reads a stack', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'input', args:['10 bravo']
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.input.should.eql [name:'bravo', quantity:10]
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.input.should.eql [name:'bravo', quantity:10]
+            data.errors.should.eql []
 
     describe 'pattern', ->
 
         it 'assigns to the current recipe', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'pattern', argText:'00. 00. ...'
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.pattern.should.equal '00. 00. ...'
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.pattern.should.equal '00. 00. ...'
+            data.errors.should.eql []
 
         it 'rejects an invalid pattern', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'pattern', argText:'alpha'
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    expect(recipe.pattern).to.be.undefined
-                    (e.message for e in state.errors).should.eql ['invalid pattern: "alpha"']
+            recipe = data.getCurrent 'recipe'
+            expect(recipe.pattern).to.be.undefined
+            (e.message for e in data.errors).should.eql ['invalid pattern: "alpha"']
 
     describe 'recipe', ->
 
         it 'creates a new recipe', ->
             parser.execute name:'recipe'
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.item.id.should.equal 0
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.item.id.should.equal 0
+            data.errors.should.eql []
 
     describe 'quantity', ->
 
         it 'assigns to the current recipe', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'quantity', argText:'42'
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.quantity.should.equal 42
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.quantity.should.equal 42
+            data.errors.should.eql []
 
     describe 'tools', ->
 
         it 'assigns to the current recipe', ->
-            state.create {}, 'recipe'
+            data.create {}, 'recipe'
 
             parser.execute name:'tools', args:['bravo']
-                .then ->
-                    recipe = state.getCurrent 'recipe'
-                    recipe.tools.should.eql [name:'bravo', quantity:1]
-                    state.errors.should.eql []
+            recipe = data.getCurrent 'recipe'
+            recipe.tools.should.eql [name:'bravo', quantity:1]
+            data.errors.should.eql []

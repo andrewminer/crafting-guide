@@ -11,6 +11,17 @@ ParserExtension = require '../parser_extension'
 
 module.exports = class RecipeParserExtensionV1 extends ParserExtension
 
+    constructor: (data)->
+        super data, 'recipe',
+            extras:   @_command_extras
+            input:    @_command_input
+            pattern:  @_command_pattern
+            recipe:   @_command_recipe
+            quantity: @_command_quantity
+            tools:    @_command_tools
+
+    # Class Methods ################################################################################
+
     @::PATTERN = /[0-9. ]+/
 
     @::STACK = /^([0-9]+) +(.+)$/
@@ -20,7 +31,7 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
     invalidPattern: (command)->
         match = command.argText.match @PATTERN
         if not match?
-            @state.addError command, "invalid pattern: \"#{command.argText}\""
+            @data.addError command, "invalid pattern: \"#{command.argText}\""
             return true
 
         return false
@@ -31,7 +42,7 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
         return if @missingCurrent command, 'recipe'
         return if @missingArgs command
 
-        recipe = @state.getCurrent 'recipe'
+        recipe = @data.getCurrent 'recipe'
         return if @duplicateField command, 'extras', recipe
 
         recipe.extras = command.args
@@ -40,7 +51,7 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
         return if @missingCurrent command, 'recipe'
         return if @missingArgs command
 
-        recipe = @state.getCurrent 'recipe'
+        recipe = @data.getCurrent 'recipe'
         return if @duplicateField command, 'input', recipe
 
         recipe.input = (@_parseStack(arg) for arg in command.args)
@@ -50,7 +61,7 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
         return if @missingArgText command
         return if @invalidPattern command
 
-        recipe = @state.getCurrent 'recipe'
+        recipe = @data.getCurrent 'recipe'
         return if @duplicateField command, 'pattern', recipe
 
         recipe.pattern = command.argText
@@ -58,8 +69,8 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
     _command_recipe: (command)->
         return if @missingCurrent command, 'item'
 
-        recipe = @state.create command, 'recipe'
-        recipe.item = @state.getCurrent 'item'
+        recipe = @data.create command, 'recipe'
+        recipe.item = @data.getCurrent 'item'
 
     _command_quantity: (command)->
         return if @missingCurrent command, 'recipe'
@@ -68,7 +79,7 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
         value = @parseInt command, command.argText
         return unless value?
 
-        recipe = @state.getCurrent 'recipe'
+        recipe = @data.getCurrent 'recipe'
         return if @duplicateField command, 'quantity', recipe
 
         recipe.quantity = value
@@ -77,7 +88,7 @@ module.exports = class RecipeParserExtensionV1 extends ParserExtension
         return if @missingCurrent command, 'recipe'
         return if @missingArgs command
 
-        recipe = @state.getCurrent 'recipe'
+        recipe = @data.getCurrent 'recipe'
         return if @duplicateField command, 'tools', recipe
 
         recipe.tools = (@_parseStack(arg) for arg in command.args)

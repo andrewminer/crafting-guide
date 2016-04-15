@@ -42,6 +42,7 @@ defaultMods.minefactory_reloaded  = { defaultVersion: '2.8.0RC8-86' }
 defaultMods.modular_powersuits    = { defaultVersion: '0.11.0-300-thermal-expansion' }
 defaultMods.opencomputers         = { defaultVersion: '1.5.22' }
 defaultMods.quantum_flux          = { defaultVersion: '1.3.4' }
+defaultMods.project_red           = { defaultVersion: '4.5.16.77' }
 defaultMods.railcraft             = { defaultVersion: '9.5.0' }
 defaultMods.simply_jetpacks       = { defaultVersion: '1.4.1' }
 defaultMods.solar_flux            = { defaultVersion: '0.5b' }

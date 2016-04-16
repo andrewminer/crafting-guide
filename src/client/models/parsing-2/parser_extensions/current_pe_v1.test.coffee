@@ -22,13 +22,6 @@ describe 'current_pe_v1.coffee', ->
 
         state.create {}, 'alpha'
 
-    describe 'documentationUrl', ->
-
-        it 'assigns to the current object', ->
-            parser.execute name:'documentationUrl', argText:'bravo'
-            state.getCurrent().documentationUrl.should.equal 'bravo'
-            state.errors.should.eql []
-
     describe 'description', ->
 
         it 'assigns to the current object', ->
@@ -41,4 +34,26 @@ describe 'current_pe_v1.coffee', ->
         it 'assigns to the current object', ->
             parser.execute name:'name', argText:'bravo'
             state.getCurrent().name.should.equal 'bravo'
+            state.errors.should.eql []
+
+    describe 'officialUrl', ->
+
+        it 'assigns to the current object', ->
+            parser.execute name:'officialUrl', argText:'bravo'
+            state.getCurrent().officialUrl.should.equal 'bravo'
+            state.errors.should.eql []
+
+    describe 'video', ->
+
+        it 'assigns to the current object', ->
+            parser.execute name:'video', args:['alpha', 'bravo']
+            videos = state.getCurrent().videos
+            videos[0].youTubeId.should.equal 'alpha'
+            videos[0].caption.should.equal 'bravo'
+            state.errors.should.eql []
+
+        it 'can assign multiple videos', ->
+            parser.execute name:'video', args:['alpha', 'bravo']
+            parser.execute name:'video', args:['charlie', 'delta']
+            state.getCurrent().videos.length.should.equal 2
             state.errors.should.eql []

@@ -15,6 +15,7 @@ module.exports = class ItemParserExtensionV1 extends ParserExtension
         super data, 'item',
             gatherable: @_command_gatherable
             item:       @_command_item
+            update:     @_command_update
 
     # ParserExtensions Overrides ###################################################################
 
@@ -31,11 +32,10 @@ module.exports = class ItemParserExtensionV1 extends ParserExtension
 
     _command_gatherable: (command)->
         return if @missingArgText command
-
         return if @missingCurrent command, 'item'
 
         item = @data.getCurrent 'item'
-        return if @duplicateField command, 'gatherable', item
+        return if @duplicateField command, item, 'gatherable'
 
         gatherable = @parseBoolean command, command.argText
         return unless gatherable?
@@ -49,17 +49,19 @@ module.exports = class ItemParserExtensionV1 extends ParserExtension
 
         item = @data.create command, 'item', command.argText
         item.name = command.argText
+        item.isUpdate = false
 
         group = @data.getCurrent 'itemGroup'
         if group? then item.group = group
 
         item.modVersion = @data.getCurrent 'modVersion'
 
-    _command_video: (command)->
-        return if @missingArgs command
-        return if @missingCurrent command, 'item'
-        return if @tooFewArguments command, 2
+    _command_update: (command)->
+        return if @missingArgText command
+        return if @missingCurrent command, 'modVersion'
+        return if @alreadyExists command, 'item', command.argText
 
-        item = @data.getCurrent 'item'
-        item.videos ?= []
-        item.videos.push youTubeId:command.args[0], caption:command.args[1..].join(', ')
+        item = @data.create command, 'item', command.argText
+        item.name = command.argText
+        item.isUpdate = true
+        item.modVersion = @data.getCurrent 'modVersion'

@@ -39,6 +39,16 @@ describe 'item_pe_v1.coffee', ->
             parser.execute name:'item', argText:'alpha'
             item = data.getCurrent 'item'
             item.id.should.equal 'alpha'
+            item.isUpdate.should.equal false
             item.name.should.equal 'alpha'
             item.modVersion.id.should.equal 0
             item.group.id.should.equal 2
+            data.getErrors().should.eql []
+
+    describe 'update', ->
+
+        it 'creates an item update', ->
+            parser.execute name:'update', argText:'alpha'
+            item = data.getCurrent 'item'
+            item.isUpdate.should.equal true
+            data.getErrors().should.eql []

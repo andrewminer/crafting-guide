@@ -26,6 +26,7 @@ module.exports = class ParserData
     create: (command, type, id=null)->
         id ?= _.uniqueId "#{type}-"
 
+        @clearCurrent type
         typeData = @_findOrCreateType type
         itemData = @_current = typeData['current'] = typeData[id] = id:id, command:command, type:type
 
@@ -37,8 +38,48 @@ module.exports = class ParserData
 
     clear: ->
         @_current = null
-        @_data = {}
+        @_data =
+            mod: {}
+            modVersion: {}
+            tutorial: {}
+            itemGroup: {}
+            item: {}
+            multiblock: {}
+            recipe: {}
         @_errors = []
+
+    clearCurrent: (type)->
+        switch type
+            when 'mod'
+                delete @_data.mod.current
+                delete @_data.modVersion.current
+                delete @_data.tutorial.current
+                delete @_data.itemGroup.current
+                delete @_data.item.current
+                delete @_data.multiblock.current
+                delete @_data.recipe.current
+            when 'modVersion'
+                delete @_data.modVersion.current
+                delete @_data.tutorial.current
+                delete @_data.itemGroup.current
+                delete @_data.item.current
+                delete @_data.multiblock.current
+                delete @_data.recipe.current
+            when 'tutorial'
+                delete @_data.tutorial.current
+            when 'itemGroup'
+                delete @_data.itemGroup.current
+                delete @_data.item.current
+                delete @_data.multiblock.current
+                delete @_data.recipe.current
+            when 'item'
+                delete @_data.item.current
+                delete @_data.multiblock.current
+                delete @_data.recipe.current
+            when 'multiblock'
+                delete @_data.multiblock.current
+            when 'recipe'
+                delete @_data.recipe.current
 
     get: (type, id)->
         typeData = @_findOrCreateType type

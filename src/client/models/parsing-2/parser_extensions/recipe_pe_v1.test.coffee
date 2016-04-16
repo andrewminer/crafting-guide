@@ -32,6 +32,16 @@ describe 'recipe_pe_v1.coffee', ->
             recipe.extras.should.eql ['bravo']
             data.errors.should.eql []
 
+    describe 'ignoreDuringCrafting', ->
+
+        it 'assigns to the current recipe', ->
+            data.create {}, 'recipe'
+
+            parser.execute name:'ignoreDuringCrafting', argText:'yes'
+            recipe = data.getCurrent 'recipe'
+            recipe.ignoreDuringCrafting.should.equal true
+            data.errors.should.eql []
+
     describe 'input', ->
 
         it 'correctly reads a single item', ->
@@ -58,6 +68,16 @@ describe 'recipe_pe_v1.coffee', ->
             recipe.input.should.eql [name:'bravo', quantity:10]
             data.errors.should.eql []
 
+    describe 'onlyIf', ->
+
+        it 'assigns to the current recipe', ->
+            data.create {}, 'recipe'
+
+            parser.execute name:'onlyIf', argText:'not mod Alpha'
+            recipe = data.getCurrent 'recipe'
+            recipe.condition.should.eql verb:'mod', noun:'Alpha', inverted:true
+            data.errors.should.eql []
+
     describe 'pattern', ->
 
         it 'assigns to the current recipe', ->
@@ -76,14 +96,6 @@ describe 'recipe_pe_v1.coffee', ->
             expect(recipe.pattern).to.be.undefined
             (e.message for e in data.errors).should.eql ['invalid pattern: "alpha"']
 
-    describe 'recipe', ->
-
-        it 'creates a new recipe', ->
-            parser.execute name:'recipe'
-            recipe = data.getCurrent 'recipe'
-            recipe.item.id.should.equal 0
-            data.errors.should.eql []
-
     describe 'quantity', ->
 
         it 'assigns to the current recipe', ->
@@ -92,6 +104,14 @@ describe 'recipe_pe_v1.coffee', ->
             parser.execute name:'quantity', argText:'42'
             recipe = data.getCurrent 'recipe'
             recipe.quantity.should.equal 42
+            data.errors.should.eql []
+
+    describe 'recipe', ->
+
+        it 'creates a new recipe', ->
+            parser.execute name:'recipe'
+            recipe = data.getCurrent 'recipe'
+            recipe.item.id.should.equal 0
             data.errors.should.eql []
 
     describe 'tools', ->

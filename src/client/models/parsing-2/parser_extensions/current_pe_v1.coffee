@@ -13,18 +13,12 @@ module.exports = class CurrentParserExtensionV1 extends ParserExtension
 
     constructor: (data)->
         super data, null,
-            documentationUrl: @_command_documentationUrl
-            description:      @_command_description
-            name:             @_command_name
+            description: @_command_description
+            name:        @_command_name
+            officialUrl: @_command_officialUrl
+            video:       @_command_video
 
     # Command Methods ##############################################################################
-
-    _command_documentationUrl: (command)->
-        current = @data.getCurrent()
-        return if @duplicateField command, current, 'documentationUrl'
-        return if @missingArgText command
-
-        current.documentationUrl = command.argText
 
     _command_description: (command)->
         current = @data.getCurrent()
@@ -39,3 +33,18 @@ module.exports = class CurrentParserExtensionV1 extends ParserExtension
         return if @missingArgText command
 
         current.name = command.argText
+
+    _command_officialUrl: (command)->
+        current = @data.getCurrent()
+        return if @duplicateField command, current, 'officialUrl'
+        return if @missingArgText command
+
+        current.officialUrl = command.argText
+
+    _command_video: (command)->
+        current = @data.getCurrent()
+        return if @missingArgs command
+        return if @tooFewArguments command, 2
+
+        current.videos ?= []
+        current.videos.push youTubeId:command.args[0], caption:command.args[1..].join(', ')

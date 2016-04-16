@@ -55,6 +55,14 @@ module.exports = class ParserExtension
 
         return false
 
+    incompatibleField: (command, obj, field, otherCommandName)->
+        otherCommandName ?= field
+        if obj[field]?
+            @data.addError "#{command.name} cannot be used with #{otherCommandName}"
+            return true
+
+        return false
+
     missingCurrent: (command, type)->
         obj = @data.getCurrent type
         if not obj?
@@ -73,6 +81,13 @@ module.exports = class ParserExtension
     missingArgText: (command)->
         if command.argText.length is 0
             @data.addError command, "#{command.name} cannot be empty"
+            return true
+
+        return false
+
+    invalidVerb: (command, verb)->
+        if not verb in ['mod', 'item']
+            @data.addError command, "#{command.name} only applies to either `mod` or `item`"
             return true
 
         return false

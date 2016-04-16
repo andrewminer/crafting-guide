@@ -29,6 +29,13 @@ describe 'mod_pe_v1.coffee', ->
             data.getCurrent('mod').author.should.equal 'alpha'
             data.errors.should.eql []
 
+    describe 'documentationUrl', ->
+
+        it 'assigns to the current mod', ->
+            parser.execute name:'documentationUrl', argText:'alpha'
+            data.getCurrent('mod').documentationUrl.should.equal 'alpha'
+            data.errors.should.eql []
+
     describe 'downloadUrl', ->
 
         it 'assigns to the current mod', ->

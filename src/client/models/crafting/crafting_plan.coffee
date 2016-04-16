@@ -24,6 +24,7 @@ module.exports = class CraftingPlan
         @_rawScores = {}
         @_scores    = {}
         @_steps     = steps
+        @_tools     = null
         @_want      = want
 
         @_numberSteps()
@@ -37,19 +38,27 @@ module.exports = class CraftingPlan
         @_made = new SimpleInventory modPack:@_modPack
         @_made.addInventory @_have
 
+        @_tools = new SimpleInventory modPack:@_modPack
+
         for i in [@_steps.length-1..0] by -1
             step = @_steps[i]
             step.multiplier = 0
+            recipe = step.recipe
 
             for stack in step.recipe.output
-                if not stack?
-                    throw new Error 'stack should not be null here'
-
                 qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
-                while @_need.quantityOf(qualifiedSlug) > 0
-                    @_executeStep step
+
+                if recipe.isPassThroughFor stack.itemSlug
+                    continue if @_need.hasAtLeast qualifiedSlug, 1
+                    continue if @_tools.hasAtLeast qualifiedSlug, 1
+                    @_need.add qualifiedSlug, 1
+                    @_tools.add qualifiedSlug, 1
+                else
+                    while @_need.quantityOf(qualifiedSlug) > 0
+                        @_executeStep step
 
         @_made.addInventory @_want
+        @_made.addInventory @_tools
         @_pruneEmptySteps()
         @_numberSteps()
 

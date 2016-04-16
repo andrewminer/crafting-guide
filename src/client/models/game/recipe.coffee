@@ -111,16 +111,7 @@ module.exports = class Recipe extends BaseModel
         return result
 
     isPassThroughFor: (itemSlug)->
-        amountCreated = 0
-        for stack in @output
-            if stack.itemSlug.matches itemSlug
-                amountCreated += stack.quantity
-
-        for stack in @input
-            if stack.itemSlug.matches itemSlug
-                amountCreated -= stack.quantity
-
-        return amountCreated <= 0
+        return @getQuantityProduced(itemSlug) is @getQuantityRequired(itemSlug)
 
     produces: (itemSlug)->
         if not @_produces?

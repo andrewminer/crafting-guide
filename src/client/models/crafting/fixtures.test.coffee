@@ -98,6 +98,12 @@ MOD_VERSION_FILE =
             input: Stick, Cobblestone
             pattern: .0. .1. ...
 
+    item: Maul
+        recipe:
+            input: Iron Ingot, Stick
+            pattern: 001 001 ..1
+            tools: Crafting Table
+
     item: Oak Planks
         recipe:
             input: Oak Wood
@@ -107,11 +113,28 @@ MOD_VERSION_FILE =
     item: Oak Wood
         gatherable: yes
 
+    item: Spruce Wood
+        gatherable: yes
+
     item: Stick
         recipe:
             input: Oak Planks
             pattern: .0. .0. ...
             quantity: 4
+
+    item: Split Oak Wood
+        recipe:
+            extras: Maul
+            input: Oak Wood, Maul
+            pattern: .1. .0. ...
+            quantity: 2
+
+    item: Split Spruce Wood
+        recipe:
+            extras: Maul
+            input: Spruce Wood, Maul
+            pattern: .1. .0. ...
+            quantity: 2
 
     item: String
         gatherable: yes

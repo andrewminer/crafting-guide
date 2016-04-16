@@ -67,4 +67,6 @@ module.exports = class CraftingStep
         @_inventory = new SimpleInventory
         for stack in @_recipe.input
             qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
-            @_inventory.add qualifiedSlug, @multiplier * @_recipe.getQuantityRequired stack.itemSlug
+            required = @_recipe.getQuantityRequired(stack.itemSlug) - @_recipe.getQuantityProduced(stack.itemSlug)
+            required = if required > 0 then required * @multiplier else 1
+            @_inventory.add qualifiedSlug, required

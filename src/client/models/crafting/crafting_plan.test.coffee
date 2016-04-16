@@ -63,6 +63,22 @@ describe 'crafting_plan.coffee', ->
             '1x 8 test__iron_ore,test__coal>.0. ... .1.>test__furnace>8 test__iron_ingot'
         ]
 
+    it 'uses the correct amount of passthrough items', ->
+        plans = fixtures.makePlans [10, 'test__split_oak_wood'], [10, 'test__split_spruce_wood']
+        plan = plans[2]
+        plan.computeRequired()
+
+        plan.need.unparse().should.equal 'coal:8.iron_ore:6.oak_wood:5.spruce_wood'
+        plan.made.unparse().should.equal '4.iron_ingot:maul:2.oak_planks:10.split_oak_wood:10.split_spruce_wood:stick'
+        (s.toString() for s in plan.steps).should.eql [
+            '1x test__oak_wood>... .0. ...>>4 test__oak_planks'
+            '1x test__oak_planks>.0. .0. ...>>4 test__stick'
+            '1x 8 test__iron_ore,test__coal>.0. ... .1.>test__furnace>8 test__iron_ingot'
+            '1x test__iron_ingot,test__stick>001 001 ..1>test__crafting_table>test__maul'
+            '5x test__spruce_wood,test__maul>.1. .0. ...>>2 test__split_spruce_wood,test__maul'
+            '5x test__oak_wood,test__maul>.1. .0. ...>>2 test__split_oak_wood,test__maul'
+        ]
+
     it 'can compute multiple items with multiple plans', ->
         plans = fixtures.makePlans [1, 'test__copper_block'], [1, 'test__iron_sword']
         plans.length.should.equal 4

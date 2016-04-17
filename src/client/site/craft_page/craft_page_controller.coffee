@@ -33,10 +33,9 @@ module.exports = class CraftPageController extends PageController
         @_router      = options.router
         @_storage     = options.storage
 
-    # c.event Methods ################################################################################
+    # Event Methods ################################################################################
 
     onHaveInventoryChanged: ->
-        logger.warning => "storing have: #{@model.craftsman.have.unparse()}"
         @_storage.store 'crafting-plan:have', @model.craftsman.have.unparse()
 
     onMoveNeedToHave: (itemSlug)->
@@ -89,7 +88,6 @@ module.exports = class CraftPageController extends PageController
             router:          @_router
         @_haveInventoryController.on c.event.button.first, (controller, itemSlug)=>
             @onRemoveFromHaveInventory itemSlug
-        @_haveInventoryController.on c.event.change, (c)=> @onHaveInventoryChanged()
 
         @_needInventoryController = @addChild InventoryController, '.need .view__inventory',
             editable:        false
@@ -117,6 +115,7 @@ module.exports = class CraftPageController extends PageController
     onWillRender: ->
         @model.craftsman.have.clear()
         @model.craftsman.have.parse @_storage.load('crafting-plan:have')
+        @model.craftsman.have.on c.event.change, => @onHaveInventoryChanged()
         super
 
     refresh: ->

@@ -31,6 +31,7 @@ module.exports = class CraftingStep
 
     completeInto: (targetInventory)->
         for stack in @_recipe.output
+            continue if @_recipe.isPassThroughFor stack.itemSlug
             quantity = @_recipe.getQuantityProduced stack.itemSlug
             targetInventory.add stack.itemSlug, quantity * @_multiplier
 

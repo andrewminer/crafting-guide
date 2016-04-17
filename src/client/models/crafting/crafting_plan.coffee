@@ -46,16 +46,21 @@ module.exports = class CraftingPlan
             recipe = step.recipe
 
             for stack in step.recipe.output
+                continue if recipe.isPassThroughFor stack.itemSlug
                 qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
 
-                if recipe.isPassThroughFor stack.itemSlug
+                while @_need.quantityOf(qualifiedSlug) > 0
+                    @_executeStep step
+
+            if step.multiplier > 0
+                for stack in step.recipe.output
+                    qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
+                    continue unless recipe.isPassThroughFor stack.itemSlug
+                    continue if @_made.hasAtLeast qualifiedSlug, 1
                     continue if @_need.hasAtLeast qualifiedSlug, 1
                     continue if @_tools.hasAtLeast qualifiedSlug, 1
                     @_need.add qualifiedSlug, 1
                     @_tools.add qualifiedSlug, 1
-                else
-                    while @_need.quantityOf(qualifiedSlug) > 0
-                        @_executeStep step
 
         @_made.addInventory @_want
         @_made.addInventory @_tools

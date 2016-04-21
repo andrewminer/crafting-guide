@@ -317,7 +317,7 @@ module.exports = class ItemPageController extends PageController
         item = @_modPack.findItem @_itemSlug, includeDisabled:true
         if item?
             if not ItemSlug.equal item.slug, @_itemSlug
-                router.navigate c.url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true
+                @_router.navigate c.url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true
                 return
 
             @model.item = item

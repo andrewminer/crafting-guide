@@ -6,7 +6,7 @@
 #
 
 BaseModel        = require '../base_model'
-Inventory        = require './inventory'
+SimpleInventory  = require '../crafting/simple_inventory'
 ModVersionParser = require '../parsing/mod_version_parser'
 Recipe           = require './recipe'
 
@@ -75,7 +75,7 @@ module.exports = class ModPack extends BaseModel
             result.modSlug    = @_mods[0].slug
             result.modVersion = @_mods[0].activeVersion
 
-        craftingUrlInventory = new Inventory modPack:this
+        craftingUrlInventory = new SimpleInventory modPack:this
         if item?.multiblock?
             craftingUrlInventory.addInventory item.multiblock.inventory
         else

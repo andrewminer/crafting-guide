@@ -124,9 +124,10 @@ module.exports = class ModPageController extends BaseController
                         router:      @_router
                         title:       if group is Item.Group.Other then 'Items' else group
 
-                    @_groupControllers.push controller
-                    @$itemGroups.append controller.$el
-                    controller.render()
+                    _.defer =>
+                        @_groupControllers.push controller
+                        @$itemGroups.append controller.$el
+                        controller.render()
                 else
                     controller.modVersion = modVersion
                     controller.model      = items

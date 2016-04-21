@@ -47,6 +47,7 @@ module.exports = class ItemPage extends BaseModel
             mod.eachRecipe (recipe)=>
                 if isAcceptable recipe
                     for outputStack in recipe.output
+                        continue if recipe.isPassThroughFor outputStack.itemSlug
                         outputItem = @modPack.findItem outputStack.itemSlug, includeDisabled:true
                         result[outputItem.slug] = outputItem
 

@@ -54,9 +54,6 @@ module.exports = class CraftPageController extends PageController
         url = c.url.crafting inventoryText:text
         @router.navigate url
 
-        if @model.craftsman.want.isEmpty
-            @model.craftsman.have.clear()
-
     # PageController Overrides #####################################################################
 
     getMetaDescription: ->

@@ -49,6 +49,7 @@ defaultMods.solar_flux            = { defaultVersion: '0.5b' }
 defaultMods.storage_drawers       = { defaultVersion: '1.7.10-1.6.2' }
 defaultMods.thermal_dynamics      = { defaultVersion: '1.0.0RC7-98' }
 defaultMods.thermal_expansion     = { defaultVersion: '4.0.0B8-23' }
+defaultMods.tinkers_construct     = { defaultVersion: '1.7.10-1.8.8' }
 
 exports.duration = duration = {}
 duration.snap    = 100

@@ -1,6 +1,6 @@
 {
   "name": "crafting-guide",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "A guide for building anything in Minecraft or its many mods",
   "main": "./dist/index.js",
   "repository": "http://github.com/andrewminer/crafting-guide",

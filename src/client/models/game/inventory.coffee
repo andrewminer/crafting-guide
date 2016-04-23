@@ -29,10 +29,10 @@ module.exports = class Inventory extends BaseModel
 
     # Public Methods ###############################################################################
 
-    add: (itemSlug, quantity=1)->
+    add: (itemSlug, quantity=1, options={})->
         return this unless quantity > 0
 
-        @_add itemSlug, quantity
+        @_add itemSlug, quantity, options
         @trigger c.event.add, this, itemSlug, quantity
         @trigger c.event.change, this
         return this
@@ -209,7 +209,8 @@ module.exports = class Inventory extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _add: (itemSlug, quantity=1)->
+    _add: (itemSlug, quantity=1, options={})->
+        options.insert ?= false
         return unless itemSlug?
         return unless quantity > 0
 
@@ -218,7 +219,10 @@ module.exports = class Inventory extends BaseModel
             stack = new Stack itemSlug:itemSlug, quantity:quantity
             @listenTo stack, c.event.change, => @trigger c.event.change, this
             @_stacks[itemSlug] = stack
-            @_itemSlugs.push itemSlug
+            if options.insert
+                @_itemSlugs.unshift itemSlug
+            else
+                @_itemSlugs.push itemSlug
             @_sort()
         else
             stack.quantity += quantity

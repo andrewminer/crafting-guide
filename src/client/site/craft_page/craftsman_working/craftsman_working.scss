@@ -6,10 +6,7 @@ All rights reserved.
 */
 
 .view__craftsman_working {
-    .content {
-        background: $color-white;
-        box-shadow: none;
-
+    .panel {
         align-items    : center;
         display        : flex;
         flex-direction : column;
@@ -33,6 +30,40 @@ All rights reserved.
                 font-family: $font-family-header;
                 font-size: $font-size-medium;
             }
+        }
+
+        .button {
+            margin-top: $size-margin-large;
+            height: $size-minecraft-block * 2;
+            width: 50%;
+
+            p {
+                font-size: $font-size-xxlarge;
+                transform: translateY(-25%);
+            }
+        }
+    }
+
+    .outdated {
+        position: fixed; top: 0; left: 0; right: 0;
+
+
+        background: fade-out($color-white, 0.15) url('/images/panel-background-outdated.png');
+        border-bottom: $size-border-medium solid $color-black;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .message {
+            margin-top: $size-margin-medium;
+            font-family: $font-family-header;
+            font-size: $font-size-xlarge;
+        }
+
+        .button {
+            width: $size-minecraft-block * 10;
+            margin: $size-margin-medium;
         }
     }
 }

@@ -27,7 +27,7 @@ module.exports = class CraftingStep
 
     addToolsTo: (targetInventory)->
         for stack in @_recipe.tools
-            targetInventory.add stack.itemSlug, stack.quantity
+            targetInventory.add stack.itemSlug, stack.quantity, insert:true
 
     completeInto: (targetInventory)->
         for stack in @_recipe.output

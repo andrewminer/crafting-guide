@@ -49,4 +49,14 @@
             }
         }
     }
+
+    &.outdated {
+        section.need .panel {
+            background: $color-white url('/images/panel-background-outdated.png') repeat;
+        }
+
+        section.steps .panel {
+            background: $color-white url('/images/panel-background-outdated.png') repeat;
+        }
+    }
 }

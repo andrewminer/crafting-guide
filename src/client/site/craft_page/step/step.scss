@@ -53,4 +53,12 @@
             }
         }
     }
+
+    &.complete {
+        opacity: 0.25;
+
+        h3 {
+            text-decoration: line-through;
+        }
+    }
 }

@@ -29,6 +29,13 @@ module.exports = class StepController extends BaseController
         @onComplete  = options.onComplete or (controller)-> # do nothing
         @onAddTools  = options.onAddTools or (controller)-> # do nothing
 
+    # Public Methods ###############################################################################
+
+    markComplete: (targetInventory)->
+        @$el.addClass 'complete'
+        @$completeButton.addClass 'disabled'
+        @model.completeInto targetInventory
+
     # Event Methods ################################################################################
 
     onCompleteButtonClicked: (event)->
@@ -63,6 +70,9 @@ module.exports = class StepController extends BaseController
 
     onWillChangeModel: (oldModel, newModel)->
         if not newModel? then throw new Error 'model cannot be null'
+        if @rendered
+            @$el.removeClass 'complete'
+            @$completeButton.removeClass 'disabled'
         return super
 
     refresh: ->

@@ -12,48 +12,94 @@ Craftsman      = require '../../../models/crafting/craftsman'
 
 module.exports = class CraftsmanWorkingController extends BaseController
 
+    @::HIDE_TIMER_DURATION = 2000
+
     constructor: (options={})->
         if not options.model then throw new Error 'options.model is required'
         options.templateName = 'craft_page/craftsman_working'
         super options
 
-        @model.on c.event.change, => @_refreshStatusText()
+        @_hideTimer = null
+
+    # Event Methods ################################################################################
+
+    onButtonClicked: ->
+        @trigger c.event.click
+        @model.reset()
+        @model.work()
+        return false
 
     # BaseController Methods #######################################################################
 
+    onDidModelChange: ->
+        @refresh()
+
     onDidRender: ->
-        @$message = @$('.message p')
-        @$count = @$('.count p')
-        @$waiting = @$('.waiting')
+        @$button   = @$('.button')
+        @$count    = @$('.count p')
+        @$message  = @$('.message p')
+        @$outdated = @$('.outdated')
+        @$waiting  = @$('.waiting')
+
+        @_controls = [@$button, @$count, @$message, @$outdated, @$waiting]
         super
 
     refresh: ->
-        @_refreshStatusText()
-        super
-
-    # Private Methods ##############################################################################
-
-    _refreshStatusText: ->
         return unless @$message? and @$count?
 
-        @show @$waiting
+        button = count = message = outdated = waiting = null
+
         switch @model.stage
-            when Craftsman::STAGE.WAITING
-                @$message.html 'Preparing crafting calculation...'
-                @$count.html ''
+            when Craftsman::STAGE.READY
+                message = 'Ready to compute crafting plan!'
+                count = 'Click "Calculate" to continue.'
+                button = true
             when Craftsman::STAGE.GRAPHING
-                @$message.html 'Researching recipes...'
-                @$count.html "Found #{@model.stageCount} recipes so far..."
+                message = 'Researching recipes...'
+                count = "Found #{@model.stageCount} recipes so far..."
+                watiing = true
             when Craftsman::STAGE.PLANNING
-                @$message.html 'Figuring out possible crafting plans...'
-                @$count.html "Found #{@model.stageCount} possibilities so far..."
+                message = 'Figuring out possible crafting plans...'
+                count = "Found #{@model.stageCount} possibilities so far..."
+                watiing = true
             when Craftsman::STAGE.ANALYZING
-                @$message.html 'Looking for the best plan...'
-                @$count.html "Finished checking #{@model.stageCount} so far..."
+                message = 'Looking for the best plan...'
+                count = "Finished checking #{@model.stageCount} so far..."
+                watiing = true
             when Craftsman::STAGE.COMPLETE
-                @$message.html 'All done!'
-                @$count.html ''
+                message = 'Crafting plan is complete.'
             when Craftsman::STAGE.INVALID
-                @$message.html 'Couldn\'t make a crafting plan'
-                @$count.html ''
-                @hide @waiting
+                message = 'Couldn\'t make a crafting plan!'
+                count = 'Please report this problem using the Feedback box.'
+            when Craftsman::STAGE.OUTDATED
+                message = 'Your crafting plan is out of date!'
+                count = 'Click "Calculate" to re-compute.'
+                button = true
+                outdated = true
+
+        @hide(control) for control in @_controls
+
+        if button?
+            @show @$button
+
+        if count?
+            @show @$count
+            @$count.html count
+
+        if message?
+            @show @$message
+            @$message.html message
+
+        if waiting?
+            @show @$waiting
+
+        if outdated?
+            @show @$outdated
+
+        super
+
+    # Backbone.View Overrides ######################################################################
+
+    events: ->
+        return _.extend super,
+            'click .button': 'onButtonClicked'

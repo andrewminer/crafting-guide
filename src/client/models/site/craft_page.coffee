@@ -40,6 +40,7 @@ module.exports = class CraftPage extends BaseModel
             inventory.each (stack)=>
                 item = @modPack.findItem stack.itemSlug, enableAsNeeded:true
                 return unless item? and item.isCraftable
+
                 @craftsman.want.add stack.itemSlug, stack.quantity
                 inventory.remove stack.itemSlug
 

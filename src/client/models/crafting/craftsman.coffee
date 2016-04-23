@@ -22,32 +22,30 @@ module.exports = class Craftsman extends BaseModel
     @::PLAN_STEP_INCREMENT = 39
 
     @::STAGE =
-        WAITING:   'waiting'
+        EMPTY:     'empty'
+        READY:     'ready'
         GRAPHING:  'examining recipes'
         PLANNING:  'computing plans'
         ANALYZING: 'analyzing plans'
         COMPLETE:  'complete'
         INVALID:   'invalid'
+        OUTDATED:  'outdated'
 
     constructor: (modPack)->
         if not modPack? then throw new Error 'modPack is required'
         attributes =
-            paused:     false
-            stage:      @STAGE.WAITING
+            stage:      @STAGE.READY
             stageCount: 0
         super attributes, {}
 
         @_modPack = modPack
 
-        reset = _.debounce (=> @reset()), 100
-
         @_have = new Inventory modPack:@_modPack
-        @_have.on c.event.change, reset
+        @_have.on c.event.change, => @_resetStage()
 
         @_want = new Inventory modPack:@_modPack
-        @_want.on c.event.change, reset
+        @_want.on c.event.change, => @_resetStage()
 
-        @on c.event.change + ':paused', reset
         @on c.event.change + ':stage', => logger.info "Craftsman has started #{@stage}..."
         @on 'scheduleNextWork', => @_scheduleNextWork()
         @reset()
@@ -60,10 +58,7 @@ module.exports = class Craftsman extends BaseModel
         @_planEvaluator = null
         @_plans         = null
 
-        @stage      = @STAGE.WAITING
-        @stageCount = 0
-
-        @_scheduleNextWork()
+        @_resetStage()
 
     work: ->
         return if @_want.isEmpty
@@ -121,7 +116,7 @@ module.exports = class Craftsman extends BaseModel
     Object.defineProperties @prototype,
 
         complete:
-            get: -> @stage in [@STAGE.COMPLETE, @STAGE.INVALID]
+            get: -> @stage in [@STAGE.COMPLETE, @STAGE.INVALID, @STAGE.OUTDATED]
 
         have:
             get: -> @_have
@@ -134,8 +129,19 @@ module.exports = class Craftsman extends BaseModel
 
     # Private Methods ##############################################################################
 
+    _resetStage: ->
+        @stageCount = 0
+
+        if @want.isEmpty
+            if @stage isnt @STAGE.EMPTY
+                @stage = @STAGE.EMPTY
+                @reset()
+        else if not @_plans?
+            @stage = @STAGE.READY
+        else
+            @stage = @STAGE.OUTDATED
+
     _scheduleNextWork: ->
-        return if @paused
         return if @want.isEmpty
         return if @complete
 

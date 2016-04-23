@@ -97,6 +97,7 @@ module.exports = class CraftPageController extends PageController
 
         @_workingSectionController = @addChild CraftsmanWorkingController, '.view__craftsman_working',
             model: @model.craftsman
+        @_workingSectionController.on c.event.click, -> window.scrollTo 0, 0
 
         @$haveSection         = @$('section.have')
         @$instructionsSection = @$('section.instructions')
@@ -117,6 +118,7 @@ module.exports = class CraftPageController extends PageController
 
     refresh: ->
         @_needInventoryController.model = @model.craftsman.plan?.need
+        @_refreshOutdated()
         @_refreshSectionVisibility()
         @_refreshSteps()
         @_adsenseController.fillAdPositions()
@@ -134,7 +136,7 @@ module.exports = class CraftPageController extends PageController
         controller.model.addToolsTo @model.craftsman.want
 
     _completeStep: (controller)->
-        controller.model.completeInto @model.craftsman.have
+        controller.markComplete @model.craftsman.have
 
     _isAddingToolsPossible: (controller)->
         tools = controller.model.recipe.tools
@@ -156,6 +158,12 @@ module.exports = class CraftPageController extends PageController
 
         return true
 
+    _refreshOutdated: ->
+        if @model.craftsman.stage is Craftsman::STAGE.OUTDATED
+            @$el.addClass 'outdated'
+        else
+            @$el.removeClass 'outdated'
+
     _refreshSectionVisibility: ->
         return unless @_rendered
 
@@ -168,11 +176,13 @@ module.exports = class CraftPageController extends PageController
         if @model.craftsman.want.isEmpty
             visibleSections.push el for el in [@$instructionsSection, @$wantSection]
         else if @model.craftsman.stage is Craftsman::STAGE.INVALID
-            visibleSections.push el for el in [@$wantSection, @$workingSection]
+            visibleSections.push el for el in [@$wantSection, @$haveSection, @$workingSection]
         else if not @model.craftsman.complete
-            visibleSections.push el for el in [@$wantSection, @$workingSection]
+            visibleSections.push el for el in [@$wantSection, @$haveSection, @$workingSection]
         else
-            visibleSections.push el for el in [@$haveSection, @$needSection, @$stepsSection, @$wantSection]
+            visibleSections.push el for el in [@$haveSection, @$wantSection, @$workingSection]
+            if @model.craftsman.plan?
+                visibleSections.push el for el in [@$needSection, @$stepsSection]
 
         @hide $el for $el in allSections
         @show $el for $el in visibleSections

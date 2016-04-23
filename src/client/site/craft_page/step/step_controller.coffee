@@ -8,6 +8,7 @@
 BaseController      = require '../../base_controller'
 InventoryController = require '../../common/inventory/inventory_controller'
 RecipeController    = require '../../common/recipe/recipe_controller'
+SimpleInventory     = require '../../../models/crafting/simple_inventory'
 
 ########################################################################################################################
 
@@ -41,10 +42,6 @@ module.exports = class StepController extends BaseController
     onCompleteButtonClicked: (event)->
         return if @$completeButton.hasClass 'disabled'
         @onComplete this
-
-    onToolButtonClicked: (event)->
-        return if @$toolButton.hasClass 'disabled'
-        @onAddTools this
 
     # BaseController Overrides #####################################################################
 
@@ -93,11 +90,18 @@ module.exports = class StepController extends BaseController
     events: ->
         return _.extend super,
             'click .button.complete': 'onCompleteButtonClicked'
-            'click .button.tool':     'onToolButtonClicked'
 
     # Private Methods ##############################################################################
 
     _refreshToolButton: ->
+        inventory = new SimpleInventory {}, modPack:@_modPack
+        for toolStack in @model.recipe.tools
+            inventory.add toolStack.itemSlug, toolStack.quantity
+        inventory.localize()
+
+        @$toolButton.attr 'href', "/craft/#{inventory.unparse()}"
+        @$toolButton.attr 'target', 'new'
+
         if @canAddTools this
             @$toolButton.removeClass 'disabled'
         else

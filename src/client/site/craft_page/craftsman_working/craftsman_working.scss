@@ -35,7 +35,7 @@ All rights reserved.
         .button {
             margin-top: $size-margin-large;
             height: $size-minecraft-block * 2;
-            width: 50%;
+            width: $size-minecraft-block * 10;
 
             p {
                 font-size: $font-size-xxlarge;

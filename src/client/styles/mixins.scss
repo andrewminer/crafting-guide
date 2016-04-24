@@ -10,6 +10,11 @@
     filter         : blur($radius);
 }
 
+@mixin floating-panel {
+    background: $color-background-panel;
+    box-shadow: $size-margin-xxsmall $size-margin-xxsmall $size-margin-xsmall $color-shadow;
+}
+
 @mixin grayscale {
     -webkit-filter : grayscale(100%);
     -moz-filter    : grayscale(100%);
@@ -18,17 +23,32 @@
     filter         : gray;
 }
 
-@mixin no-select {
-  -webkit-touch-callout : none; /* iOS Safari */
-  -webkit-user-select   : none; /* Chrome/Safari/Opera */
-  -moz-user-select      : none; /* Firefox */
-  -ms-user-select       : none; /* IE/Edge */
-  user-select           : none; /* non-prefixed version, currently not supported by any browser */
-}
+@mixin layout-body-with-sidebar {
+    display: flex;
 
-@mixin floating-panel {
-    background: $color-background-panel;
-    box-shadow: $size-margin-xxsmall $size-margin-xxsmall $size-margin-xsmall $color-shadow;
+    & > .left {
+        flex: 0 0 $size-skyscraper-width + $size-margin-medium;
+        padding-right: $size-margin-medium;
+
+        @include screen-size(tablet) {
+            display: none;
+        }
+        @include screen-size(mobile) {
+            display: none;
+        }
+    }
+
+    & > .right {
+        flex: 1 1 auto;
+
+        @include screen-size(tablet) {
+            margin: 0 $size-margin-xlarge;
+        }
+
+        section {
+            margin-bottom: $size-margin-large;
+        }
+    }
 }
 
 @mixin layout-link-list {
@@ -56,27 +76,18 @@
     }
 }
 
+@mixin no-select {
+  -webkit-touch-callout : none; /* iOS Safari */
+  -webkit-user-select   : none; /* Chrome/Safari/Opera */
+  -moz-user-select      : none; /* Firefox */
+  -ms-user-select       : none; /* IE/Edge */
+  user-select           : none; /* non-prefixed version, currently not supported by any browser */
+}
+
 @mixin pixel-image {
     image-rendering        : -moz-crisp-edges; /* Firefox */
     image-rendering        : -o-crisp-edges; /* Opera */
     image-rendering        : -webkit-optimize-contrast; /* Webkit (non-standard naming) */
     image-rendering        : crisp-edges;
     -ms-interpolation-mode : nearest-neighbor; /* IE (non-standard property) */
-}
-
-@mixin layout-body-with-sidebar {
-    display: flex;
-
-    & > .left {
-        flex: 0 0 $size-skyscraper-width + $size-margin-medium;
-        padding-right: $size-margin-medium;
-    }
-
-    & > .right {
-        flex: 1 1 auto;
-
-        section {
-            margin-bottom: $size-margin-large;
-        }
-    }
 }

@@ -51,12 +51,14 @@
         margin-top   : -$size-margin-medium;
         display      : flex;
         flex-wrap    : wrap;
+        justify-content: space-between;
+
+        padding-right : -$size-margin-medium;
 
         & > * {
-            flex         : 1 1 100%;
             margin-right : $size-margin-medium;
             margin-top   : $size-margin-medium;
-            max-width    : calc(50% - 12px); // $size-margin-medium
+            width        : calc(50% - 12px); // $size-margin-medium;
         }
     }
 }

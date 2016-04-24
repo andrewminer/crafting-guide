@@ -13,7 +13,7 @@
     align-items     : stretch;
 
     a {
-        max-width: 100%;
+        width: 100%;
 
         @include floating-panel;
         border          : $size-border-medium solid $color-background-panel;

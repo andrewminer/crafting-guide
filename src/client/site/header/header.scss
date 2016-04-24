@@ -23,15 +23,25 @@
 
             img {
                 position : relative;
-                top      : -$size-minecraft-block * 0.5;
-                left     : -$size-minecraft-block * 0.5;
-                height   : $size-minecraft-block * 2.0;
-                width    : $size-minecraft-block * 2.0;
+                height   : $size-minecraft-block * 1.5;
+                width    : $size-minecraft-block * 1.5;
+
+                @include screen-size(desktop) {
+                    top      : -$size-minecraft-block * 0.5;
+                    left     : -$size-minecraft-block * 0.5;
+                    height   : $size-minecraft-block * 2.0;
+                    width    : $size-minecraft-block * 2.0;
+                }
             }
         }
 
         h1 {
             flex: 1 1 auto;
+            white-space: nowrap;
+
+            @include screen-size(tablet) {
+                font-size: $font-size-xlarge;
+            }
         }
 
         .addthis_sharing_toolbox {
@@ -39,7 +49,6 @@
             min-height   : 37px;
             min-width    : 144px;
             margin-right : $size-margin-small;
-
 
             &.placeholder {
                 border     : 1px solid orange;
@@ -62,15 +71,20 @@
         align-items       : center;
         display           : flex;
         flex-wrap         : wrap;
-        justify-content   : space-around;
+        justify-content   : center;
         padding           : $size-margin-medium $size-margin-medium;
         padding-top       : 0;
 
         .button {
-            flex      : 1 1 20%;
-            min-width : 4 * $size-minecraft-block;
-            max-width : 5 * $size-minecraft-block;
-            margin-top: $size-margin-medium;
+            flex         : 1 1 calc(20% - 8px);
+            min-width    : 3 * $size-minecraft-block;
+            max-width    : 5 * $size-minecraft-block;
+            margin-top   : $size-margin-medium;
+            margin-right : $size-margin-small;
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
     }
 

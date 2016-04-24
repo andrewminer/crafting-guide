@@ -38,17 +38,23 @@ html {
             & > *:first-child {
                 flex: 0 0 50%;
 
+                @include screen-size(tablet) {
+                    flex: 0 0 75%;
+                }
+
                 box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
             }
         }
 
         .page {
-            margin    : $size-margin-large 0;
-            max-width : $size-page-width;
-            width     : 100%;
-
             background : $color-background-page;
-            box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
+
+            @include screen-size(desktop) {
+                margin    : $size-margin-large 0;
+                max-width : $size-page-width;
+                width     : 100%;
+                box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
+            }
 
             display        : flex;
             flex-direction : column;

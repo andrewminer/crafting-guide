@@ -73,13 +73,11 @@
         background: $color-gray-light;
         border: $size-border-medium solid $color-black;
         border-left: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
 
         p {
-            transform: rotate(-90deg);
+            position: absolute; top: 50%; left: 50%;
+            transform: translateX(-50%) rotate(-90deg) translateX(10%);
 
             font-family: $font-family-header;
             font-size: $label-size;

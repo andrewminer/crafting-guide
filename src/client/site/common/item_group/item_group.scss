@@ -14,6 +14,10 @@
         .view__item_tile {
             margin-bottom: $size-margin-medium;
             width: calc(33% - 8px); // $size-margin-xsmall * 2
+
+            @include screen-size(tablet) {
+                width: calc(50% - 8px); // $size-margin-xsmall * 2
+            }
         }
     }
 }

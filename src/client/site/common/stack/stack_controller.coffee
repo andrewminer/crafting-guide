@@ -19,6 +19,7 @@ Events:
 module.exports = class StackController extends BaseController
 
     @::MAX_QUANTITY = 9999
+    @::STACK_SIZE = 64
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
@@ -107,6 +108,7 @@ module.exports = class StackController extends BaseController
         @$image         = @$('.icon img')
         @$nameLink      = @$('.name a')
         @$quantityField = @$('.quantity input')
+        @$quantityHover = @$('.quantity .hover')
         @$secondAction  = @$('.action.second')
         @$secondButton  = @$('.action.second .button')
         super
@@ -124,6 +126,7 @@ module.exports = class StackController extends BaseController
         @$quantityField.val quantityText
 
         @_refreshButtons()
+        @_refreshHover()
 
         if @_editable
             @$el.addClass 'editable'
@@ -168,6 +171,20 @@ module.exports = class StackController extends BaseController
                 when 'down' then $label.text '⬇︎'
                 when 'remove' then $label.text '-'
                 when 'up' then $label.text '⬆︎'
+
+    _refreshHover: ->
+        if @model.quantity > @STACK_SIZE
+            remainder = @model.quantity % @STACK_SIZE
+            stacks = (@model.quantity - remainder) / @STACK_SIZE
+
+            text = "#{stacks}x#{@STACK_SIZE}"
+            text += "+#{remainder}" if remainder > 0
+
+            @$quantityHover.text text
+            @$quantityHover.addClass 'enabled'
+        else
+            @$quantityHover.text ''
+            @$quantityHover.removeClass 'enabled'
 
     _updateButtonType: ($button, type)->
         for currentType in ['check', 'down', 'remove', 'up']

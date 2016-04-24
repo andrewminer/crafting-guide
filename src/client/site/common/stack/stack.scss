@@ -21,6 +21,7 @@
 
     .quantity {
         padding-right : $size-margin-medium;
+        position      : relative;
         text-align    : right;
 
         input {
@@ -31,6 +32,38 @@
             font-family : $font-family-text;
             font-size   : $font-size-large;
             text-align  : right;
+        }
+
+        .hover {
+            $backgroundColor: fade-out($color-black, 0.25);
+
+            display: none;
+            position: absolute; left: 50%; top: -($font-size-large * 2);
+            transform: translateX(-50%);
+
+            background: $backgroundColor;
+            color: $color-white;
+            font-family: $font-family-control;
+            font-size: $font-size-medium;
+            padding: $size-margin-small;
+            z-index: $layer-dialog;
+
+            &:after {
+                position: absolute; top: 100%; left: calc(50% - 9px); // $font-size-large / 2
+
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: $size-margin-medium $size-margin-medium 0 $size-margin-medium;
+                border-color: $backgroundColor transparent transparent transparent;
+            }
+        }
+
+        &:hover {
+            .hover.enabled {
+                display: block;
+            }
         }
     }
 

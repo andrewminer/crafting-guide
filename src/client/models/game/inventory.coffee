@@ -141,6 +141,18 @@ module.exports = class Inventory extends BaseModel
         @trigger c.event.change, this
         return this
 
+    toDescription: ->
+        return null if @isEmpty
+        return null unless @modPack?
+
+        item = @modPack.findItem @_itemSlugs[0]
+        extras = @_itemSlugs.length - 1
+
+        result = "#{item.name}"
+        if extras > 0 then result += " and #{extras} more..."
+
+        return result
+
     # Parsing Methods ##############################################################################
 
     parse: (data)->

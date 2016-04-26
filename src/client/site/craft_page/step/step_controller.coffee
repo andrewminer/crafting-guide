@@ -99,8 +99,9 @@ module.exports = class StepController extends BaseController
             inventory.add toolStack.itemSlug, toolStack.quantity
         inventory.localize()
 
-        @$toolButton.attr 'href', "/craft/#{inventory.unparse()}"
-        @$toolButton.attr 'target', 'new'
+        inventoryText = inventory.unparse()
+        @$toolButton.attr 'href', "/craft/#{inventoryText}"
+        @$toolButton.attr 'target', inventoryText
 
         if @canAddTools this
             @$toolButton.removeClass 'disabled'

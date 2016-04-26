@@ -60,7 +60,9 @@ module.exports = class CraftPageController extends PageController
         return c.text.craftDescription()
 
     getTitle: ->
-        return 'Craft'
+        description = @model.craftsman.want.toDescription()
+        return null unless description?
+        return "Crafting Plan for #{description}"
 
     # BaseController Overrides #####################################################################
 
@@ -114,6 +116,8 @@ module.exports = class CraftPageController extends PageController
         @model.craftsman.have.clear()
         @model.craftsman.have.parse @_storage.load('crafting-plan:have')
         @model.craftsman.have.on c.event.change, => @onHaveInventoryChanged()
+
+        @model.craftsman.want.on c.event.change, => @refresh()
         super
 
     refresh: ->

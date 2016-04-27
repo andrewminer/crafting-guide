@@ -49,8 +49,44 @@
                 line-height: $font-size-medium * 1.25;
             }
 
+            .modpack {
+                margin-top : $size-margin-large;
+
+                cursor      : pointer;
+                font-family : $font-family-control;
+                font-size   : $font-size-medium;
+
+                display : flex;
+
+                .checkbox {
+                    display      : inline-block;
+                    height       : $font-size-medium;
+                    margin-right : $size-margin-small;
+                    position     : relative;
+                    width        : $font-size-medium;
+
+                    background : $color-white;
+                    border     : $size-border-small solid $color-black;
+                }
+
+                .label {
+                    color: $color-gray-medium;
+                }
+
+                &.enabled {
+                    .checkbox:before {
+                        position: absolute; top: 0; left: 1.5px; // adjust for glyph position
+                        content: "✕";
+                    }
+
+                    .label {
+                        color: $color-black;
+                    }
+                }
+            }
+
             .version {
-                margin-top: $size-margin-large;
+                margin-top: $size-margin-medium;
 
                 font-family: $font-family-control;
                 font-size: $font-size-medium;

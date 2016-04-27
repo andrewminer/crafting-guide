@@ -29,6 +29,14 @@ module.exports = class ModPageController extends BaseController
 
     # Event Methods ################################################################################
 
+    onToggleEnabled: ->
+        if @model.activeVersion is Mod.Version.None
+            @model.activeVersion = Mod.Version.Latest
+        else
+            @model.activeVersion = Mod.Version.None
+
+        return false
+
     onVersionChanged: ->
         @model.activeVersion = @$versionSelector.val()
         return false
@@ -67,15 +75,18 @@ module.exports = class ModPageController extends BaseController
         @$homePageLink       = @$('.about .homePage')
         @$itemGroups         = @$(".itemGroups")
         @$logo               = @$('.about img')
+        @$modpackSection     = @$('.modpack')
         @$title              = @$('.about .title')
         @$tutorialsContainer = @$('section.tutorials .panel')
         @$tutorialsSection   = @$('section.tutorials')
+        @$versionSection     = @$('.version')
         @$versionSelector    = @$('.version select')
         @$warning            = @$('.warning')
         super
 
     refresh: ->
         @_refreshAboutBlock()
+        @_refreshEnabled()
         @_refreshItemGroups()
         @_refreshTutorials()
         @_refreshVersionSelector()
@@ -86,6 +97,7 @@ module.exports = class ModPageController extends BaseController
     events: ->
         return _.extend super,
             'change .version select': 'onVersionChanged'
+            'click .modpack': 'onToggleEnabled'
 
     # Private Methods ##############################################################################
 
@@ -106,6 +118,19 @@ module.exports = class ModPageController extends BaseController
             @$homePageLink.attr 'href', ''
             @$logo.attr 'src', ''
             @$title.text ''
+
+    _refreshEnabled: ->
+        if @model.slug in c.requiredMods
+            @hide @$modpackSection
+        else
+            @show @$modpackSection
+
+        if @model.activeVersion is Mod.Version.None
+            @$modpackSection.removeClass 'enabled'
+            @show @$warning
+        else
+            @$modpackSection.addClass 'enabled'
+            @hide @$warning
 
     _refreshItemGroups: ->
         @_groupControllers ?= []
@@ -164,18 +189,15 @@ module.exports = class ModPageController extends BaseController
 
     _refreshVersionSelector: ->
         modVersions = @model.modVersions
+
+        if (@model.activeVersion is Mod.Version.None) or modVersions.length < 2
+            @hide @$versionSection
+        else
+            @show @$versionSection
+
         selectedModVersion = @effectiveModVersion
 
         @$versionSelector.empty()
-
-        $option = $("<option value=\"none\">no</option>")
-        if not @model.enabled
-            @$warning.css display:''
-            selectedModVersion = null
-            $option.attr 'selected', true
-        else
-            @$warning.css display:'none'
-        @$versionSelector.append $option
 
         for modVersion in @model.modVersions
             $option = $("<option value=\"#{modVersion.version}\">#{modVersion.version}</option>")

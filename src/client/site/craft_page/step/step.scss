@@ -55,6 +55,13 @@
 
         a {
             border: 0;
+
+            .bezel {
+                border-top    : 3px solid $color-button-highlight;
+                border-left   : 3px solid $color-button-highlight;
+                border-bottom : 6px solid $color-button-shadow;
+                border-right  : 3px solid $color-button-shadow;
+            }
         }
     }
 

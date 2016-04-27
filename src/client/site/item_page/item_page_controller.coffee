@@ -101,11 +101,12 @@ module.exports = class ItemPageController extends PageController
             endEditing:    => @_endEditingDescription()
             enterFeedback: @_enterFeedback
 
-        @$aboutImage    = @$('.about img')
-        @$name          = @$('.about .title')
-        @$officialLink  = @$('.about a.officialLink')
-        @$sourceModLink = @$('.about a.sourceMod')
-        @$aboutLinks    = @$('.about .right')
+        @$aboutImage         = @$('.about img')
+        @$craftingPlanButton = @$('.button.craftingPlan')
+        @$name               = @$('.about .title')
+        @$officialLink       = @$('.about a.officialLink')
+        @$sourceModLink      = @$('.about a.sourceMod')
+        @$aboutLinks         = @$('.about .right')
 
         @$multiblockSection       = @$('section.multiblock')
         @$recipeContainer         = @$('section.recipes .panel')
@@ -134,6 +135,11 @@ module.exports = class ItemPageController extends PageController
                 @show @$aboutLinks
             else
                 @hide @$aboutLinks
+
+            if @model.item.isCraftable
+                @show @$craftingPlanButton
+            else
+                @hide @$craftingPlanButton
 
             @show()
         else

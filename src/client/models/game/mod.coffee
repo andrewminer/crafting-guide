@@ -129,6 +129,7 @@ module.exports = class Mod extends BaseModel
 
         @_modVersions.push modVersion
         @listenTo modVersion, c.event.change, => @trigger c.event.change, this
+        modVersion.fileCache = this.fileCache
         modVersion.mod = this
 
         @trigger c.event.add + ':modVersion', modVersion, this

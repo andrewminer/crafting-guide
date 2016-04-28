@@ -1,9 +1,9 @@
-###
+#
 # Crafting Guide - event_recorder.coffee
 #
-# Copyright (c) 2014-2015 by Redwood Labs
+# Copyright © 2014-2016 by Redwood Labs
 # All rights reserved.
-###
+#
 
 util = require 'util'
 

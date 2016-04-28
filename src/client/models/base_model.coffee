@@ -19,10 +19,10 @@ module.exports = class BaseModel extends Backbone.Model
             continue if name is 'id'
             Object.defineProperty this, name, get:makeGetter(name), set:makeSetter(name)
 
+        @fileCache = options.fileCache or null
+        @loading   = null
         @logEvents = options.logEvents or false
-        @state  = c.modelState.unloaded
-
-        @loading = null
+        @state     = c.modelState.unloaded
 
         Object.defineProperties this,
             isUnloaded: { get:-> @state is c.modelState.unloaded }
@@ -60,12 +60,24 @@ module.exports = class BaseModel extends Backbone.Model
 
         @state = c.modelState.loading
         @trigger c.event.request, this
-        @loading = w.promise (resolve, reject)=>
-            $.ajax
-                url:      url
-                dataType: 'text'
-                success:  (text, status, xhr)=> resolve @onLoadSucceeded text, status, xhr
-                error:    (xhr, status, error)=> reject @onLoadFailed error, status, xhr
+
+        loadFromServer = =>
+            w.promise (resolve, reject)=>
+                $.ajax
+                    url:      url
+                    dataType: 'text'
+                    success:  (text, status, xhr)=> resolve @onLoadSucceeded text, status, xhr
+                    error:    (xhr, status, error)=> reject @onLoadFailed error, status, xhr
+
+        if @fileCache?
+            @loading = @fileCache.loading.then =>
+                if @fileCache.hasFile url
+                    @onLoadSucceeded @fileCache.getFile(url), 'success', {url:url}
+                    return w.resolve(true)
+                else
+                    @loading = loadFromServer()
+        else
+            @loading = loadFromServer()
 
         @loading.catch (e)-> # do nothing
         return @loading

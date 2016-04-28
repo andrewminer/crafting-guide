@@ -7,6 +7,7 @@
 
 BaseController     = require './base_controller'
 FeedbackController = require './feedback/feedback_controller'
+FileCache          = require '../models/site/file_cache'
 FooterController   = require './footer/footer_controller'
 GitHubUser         = require '../models/site/github_user'
 HeaderController   = require './header/header_controller'
@@ -26,8 +27,9 @@ module.exports = class SiteController extends BaseController
         super options
 
         @client      = options.client
+        @fileCache   = new FileCache c.url.modpackArchive()
         @imageLoader = new ImageLoader defaultUrl:'/images/unknown.png'
-        @modPack     = new ModPack
+        @modPack     = new ModPack {}, fileCache:@fileCache
         @router      = new Router this
         @storage     = options.storage
 
@@ -42,7 +44,7 @@ module.exports = class SiteController extends BaseController
             m.activeModVersion.fetch() if m.activeModVersion?
 
         for modSlug, modData of c.defaultMods
-            mod = new Mod slug:modSlug
+            mod = new Mod {slug:modSlug}, {fileCache:@fileCache}
             mod.on c.event.change + ':activeModVersion', makeResponder mod
             @storage.register "mod:#{mod.slug}", mod, 'activeVersion', modData.defaultVersion
             mod.fetch()

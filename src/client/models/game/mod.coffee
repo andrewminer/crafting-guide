@@ -29,8 +29,6 @@ module.exports = class Mod extends BaseModel
         @_modVersions      = []
         @_tutorials        = []
 
-        @once c.event.sync, => @_verifyActiveModVersion()
-
     # Class Methods ##################################################################################
 
     @Version: Version =
@@ -144,6 +142,9 @@ module.exports = class Mod extends BaseModel
         for modVersion in @_modVersions
             callback modVersion
 
+    getAllModVersions: ->
+        return @_modVersions[..]
+
     getModVersion: (version)->
         return null if version is Mod.Version.None
         return @_modVersions[0] if version is Mod.Version.Latest
@@ -201,6 +202,8 @@ module.exports = class Mod extends BaseModel
         ModParser = require '../parsing/mod_parser' # to avoid require cycles
         @_parser ?= new ModParser model:this
         @_parser.parse text
+
+        @_verifyActiveModVersion()
 
         return null # prevent calling `set`
 

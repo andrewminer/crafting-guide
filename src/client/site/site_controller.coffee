@@ -53,8 +53,8 @@ module.exports = class SiteController extends BaseController
 
         if global.env isnt 'prerender'
             @modPack.once c.event.sync, =>
-                @$pageContent.css 'display', ''
-                @$pageContentLoading.css 'display', 'none'
+                @$pageContent.removeClass 'hidden'
+                @$pageContentLoading.addClass 'hidden'
 
     loadCurrentUser: ->
         @client.fetchCurrentUser()
@@ -144,6 +144,8 @@ module.exports = class SiteController extends BaseController
         $pageContent = $('.page > .content')
         $pageContent.removeClass()
         $pageContent.addClass 'content'
+        if not @$pageContentLoading.hasClass 'hidden'
+            $pageContent.addClass 'hidden'
 
         window.scrollTo 0, 0
 

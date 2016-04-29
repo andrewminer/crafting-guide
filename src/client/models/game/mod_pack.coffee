@@ -6,9 +6,10 @@
 #
 
 BaseModel        = require '../base_model'
-SimpleInventory  = require '../crafting/simple_inventory'
+Mod              = require './mod'
 ModVersionParser = require '../parsing/mod_version_parser'
 Recipe           = require './recipe'
+SimpleInventory  = require '../crafting/simple_inventory'
 
 ########################################################################################################################
 
@@ -165,12 +166,18 @@ module.exports = class ModPack extends BaseModel
     # Private Methods ##############################################################################
 
     _onModVersionLoaded: (modVersion)->
-        working = true
-        @eachMod (mod)->
-            mod.eachModVersion (modVersion)->
-                working = working and (modVersion.isUnloaded or modVersion.isLoading)
+        mods = @getAllMods()
+        return true unless mods.length > 0
 
-        return if working
+        for mod in mods
+            modVersions = mod.getAllModVersions()
+            return true unless modVersions.length > 0
+            continue if mod.activeVersion is Mod.Version.None
+
+            activeModVersion = mod.activeModVersion
+            return true unless activeModVersion?
+            return true if activeModVersion.isUnloaded
+            return true if activeModVersion.isLoading
 
         @trigger c.event.change, this
         @trigger c.event.sync, this

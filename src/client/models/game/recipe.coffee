@@ -212,7 +212,11 @@ module.exports = class Recipe extends BaseModel
     _computeQuantities: (pattern)->
         quantityMap = {}
 
-        for c in pattern.split ''
+        index = 0
+        while index < pattern.length
+            c = pattern[index]
+            index += 1
+
             continue if c is '.'
             continue if c is ' '
 

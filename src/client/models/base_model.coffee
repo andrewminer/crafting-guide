@@ -9,6 +9,9 @@
 
 module.exports = class BaseModel extends Backbone.Model
 
+    @_loadingQueue = []
+    @_isDraining   = false
+
     constructor: (attributes={}, options={})->
         options.logEvents ?= true
         super attributes, options
@@ -72,8 +75,7 @@ module.exports = class BaseModel extends Backbone.Model
         if @fileCache?
             @loading = @fileCache.loading.then =>
                 if @fileCache.hasFile url
-                    @onLoadSucceeded @fileCache.getFile(url), 'success', {url:url}
-                    return w.resolve(true)
+                    return @_addToLoadingQueue @fileCache.getFile(url), 'success', {url:url}
                 else
                     @loading = loadFromServer()
         else
@@ -98,3 +100,30 @@ module.exports = class BaseModel extends Backbone.Model
 
     toString: ->
         return "#{@constructor.name}.#{@cid}"
+
+    # Private Methods ##############################################################################
+
+    _addToLoadingQueue: (text, status, xhr)->
+        deferred = w.defer()
+
+        BaseModel._loadingQueue.push resolve:deferred.resolve, func:(=> @onLoadSucceeded text, status, xhr)
+        @_drainLoadingQueue()
+        return deferred.promise
+
+    _drainLoadingQueue: ->
+        return if @_isDraining
+        @_isDraining = true
+
+        drainDelay = 50
+        drain = =>
+            toLoad = BaseModel._loadingQueue.shift()
+            if not toLoad?
+                @_isDraining = false
+            else
+                toLoad.func()
+                toLoad.resolve(true)
+
+                _.delay drain, drainDelay
+
+        _.delay drain, drainDelay
+

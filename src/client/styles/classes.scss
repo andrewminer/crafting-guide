@@ -69,6 +69,10 @@
     }
 }
 
+.hidden {
+    display: none !important;
+}
+
 .page > .content {
     min-height: $size-skyscraper-height;
 }

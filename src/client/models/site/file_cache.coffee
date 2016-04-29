@@ -69,7 +69,7 @@ module.exports = class FileCache extends Backbone.Events
                 break
 
             if file?
-                fileEndIndex = tokenIndex - 1
+                fileEndIndex = tokenIndex
                 @_files[file] = text.substring fileStartIndex, fileEndIndex
                 fileCount += 1
 

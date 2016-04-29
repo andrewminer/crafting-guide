@@ -24,6 +24,15 @@ describe 'file_cache.coffee', ->
         @cache.loadArchive 'http://test'
             .then =>
                 @cache.hasFile('alpha').should.equal true
+                @cache.getFile('alpha').should.equal 'bravo charlie\n'
+                @cache.hasFile('delta').should.equal true
+                @cache.getFile('delta').should.equal 'echo foxtrot'
+
+    it 'can load an archive without newlines', ->
+        @cache._ajax = makeTestAjax '#file=alpha\nbravo charlie#file=delta\necho foxtrot'
+        @cache.loadArchive 'http://test'
+            .then =>
+                @cache.hasFile('alpha').should.equal true
                 @cache.getFile('alpha').should.equal 'bravo charlie'
                 @cache.hasFile('delta').should.equal true
                 @cache.getFile('delta').should.equal 'echo foxtrot'
@@ -33,9 +42,9 @@ describe 'file_cache.coffee', ->
         @cache.loadArchive 'http://test'
             .then =>
                 @cache.hasFile('alpha').should.equal true
-                @cache.getFile('alpha').should.equal 'bravo charlie'
+                @cache.getFile('alpha').should.equal 'bravo charlie\n'
                 @cache.hasFile('delta').should.equal true
-                @cache.getFile('delta').should.equal '\n'
+                @cache.getFile('delta').should.equal ''
                 @cache.hasFile('echo').should.equal true
                 @cache.getFile('echo').should.equal 'foxtrot golf'
 
@@ -44,7 +53,7 @@ describe 'file_cache.coffee', ->
         @cache.loadArchive 'http://test'
             .then =>
                 @cache.hasFile('alpha').should.equal true
-                @cache.getFile('alpha').should.equal 'bravo charlie'
+                @cache.getFile('alpha').should.equal 'bravo charlie\n'
                 @cache.hasFile('delta').should.equal true
                 @cache.getFile('delta').should.equal ''
 
@@ -56,7 +65,7 @@ describe 'file_cache.coffee', ->
         @cache.loadArchive 'http://test2'
             .then =>
                 @cache.hasFile('alpha').should.equal true
-                @cache.getFile('alpha').should.equal 'bravo charlie'
+                @cache.getFile('alpha').should.equal 'bravo charlie\n'
                 @cache.hasFile('delta').should.equal true
                 @cache.getFile('delta').should.equal 'echo foxtrot'
                 @cache.hasFile('golf').should.equal true

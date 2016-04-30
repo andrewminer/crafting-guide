@@ -84,7 +84,8 @@
         padding-top       : 0;
 
         .button {
-            flex         : 1 1 calc(20% - 8px);
+            flex-grow    : 1;
+            flex-shrink  : 1;
             min-width    : 3 * $size-minecraft-block;
             max-width    : 5 * $size-minecraft-block;
             margin-top   : $size-margin-medium;

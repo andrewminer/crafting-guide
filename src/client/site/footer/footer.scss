@@ -64,3 +64,13 @@
         height: $size-minecraft-block;
     }
 }
+
+@include screen-size(mobile) {
+    .view__footer {
+        > .content {
+            .left, .center, .right {
+                flex: 0 0 auto;
+            }
+        }
+    }
+}

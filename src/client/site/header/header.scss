@@ -150,40 +150,11 @@
     .view__header {
         .top-row {
             display : none;
-
-            a {
-                img {
-                }
-            }
-
-            h1 {
-            }
-
-            .addthis_sharing_toolbox {
-                display: none;
-
-                &.placeholder {
-                    &:before {
-                    }
-                }
-            }
         }
 
         .divider {
-            .button {
-                &:last-child {
-                }
-            }
-        }
-
-        .breadcrumbs {
-            &:before {
-            }
-
-            a {
-            }
-
-            span {
+            .button.login {
+                display: none;
             }
         }
     }

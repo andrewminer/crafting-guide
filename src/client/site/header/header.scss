@@ -102,7 +102,9 @@
         font-family: $font-family-control;
         font-size: $font-size-medium;
 
-        padding: $size-margin-small $size-margin-medium;
+        padding-left: $size-margin-medium + $size-margin-large;
+        line-height: $font-size-medium + 2 * $size-margin-small;
+        text-indent: -$size-margin-large;
 
         &:before {
             content: "⟩";
@@ -115,6 +117,74 @@
 
         span {
             margin: 0 $size-margin-medium;
+        }
+    }
+}
+
+@include screen-size(desktop) {
+    .view__header {
+        .top-row {
+            a {
+                img {
+                    top    : -$size-minecraft-block * 0.5;
+                    left   : -$size-minecraft-block * 0.5;
+                    height : $size-minecraft-block * 2.0;
+                    width  : $size-minecraft-block * 2.0;
+                }
+            }
+        }
+    }
+}
+
+@include screen-size(tablet) {
+    .view__header {
+        .top-row {
+            h1 {
+                font-size : $font-size-xlarge;
+            }
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__header {
+        .top-row {
+            display : none;
+
+            a {
+                img {
+                }
+            }
+
+            h1 {
+            }
+
+            .addthis_sharing_toolbox {
+                display: none;
+
+                &.placeholder {
+                    &:before {
+                    }
+                }
+            }
+        }
+
+        .divider {
+            .button {
+                &:last-child {
+                }
+            }
+        }
+
+        .breadcrumbs {
+            &:before {
+            }
+
+            a {
+            }
+
+            span {
+            }
         }
     }
 }

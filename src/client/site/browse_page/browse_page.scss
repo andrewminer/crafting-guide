@@ -33,18 +33,7 @@
                 .view__mod_tile {
                     flex: 0 0 auto;
                     margin-right: 0;
-                }
-            }
-        }
-    }
-}
-
-@include screen-size(mobile) {
-    .view__browse_page {
-        .right {
-            .tile_container {
-                .view__mod_tile {
-                    flex: 1 1 50%;
+                    width: 100%;
                 }
             }
         }

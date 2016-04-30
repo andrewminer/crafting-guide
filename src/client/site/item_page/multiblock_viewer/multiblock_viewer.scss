@@ -75,3 +75,20 @@
         }
     }
 }
+
+@include screen-size(mobile) {
+    .view__multiblock_viewer {
+        flex-direction: column-reverse;
+
+        .left {
+            flex: 0 0 auto;
+
+            border: 0;
+        }
+
+        .right {
+            flex: 0 0 auto;
+            margin-bottom: $size-margin-large;
+        }
+    }
+}

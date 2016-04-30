@@ -128,3 +128,15 @@
         }
     }
 }
+
+@include screen-size(mobile) {
+    .view__markdown_section {
+        .creating {
+            padding-bottom: $size-margin-xlarge;
+        }
+
+        .footer {
+            display: none;
+        }
+    }
+}

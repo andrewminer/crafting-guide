@@ -28,9 +28,22 @@
     .main_content {
         display: flex;
 
+        @include screen-size(mobile) {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
         .view__inventory {
             flex: 50%;
             margin-left: $size-margin-large;
+
+            @include screen-size(mobile) {
+                margin: $size-margin-large $size-margin-large 0 $size-margin-large;
+            }
+
+            .buttons {
+                display: none;
+            }
         }
 
         .view__recipe {
@@ -42,6 +55,9 @@
         margin-top: $size-margin-large;
 
         opacity: 0;
+        @include screen-size(mobile) {
+            opacity: 1.0;
+        }
 
         display: flex;
 
@@ -50,6 +66,12 @@
 
             &:not(:first-child) {
                 margin-left: $size-margin-medium;
+            }
+
+            @include screen-size(mobile) {
+                .full {
+                    display: none;
+                }
             }
         }
 

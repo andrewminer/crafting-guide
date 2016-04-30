@@ -36,25 +36,22 @@ html {
             }
 
             & > *:first-child {
-                flex: 0 0 50%;
-
-                @include screen-size(tablet) {
-                    flex: 0 0 75%;
-                }
+                flex: 1 1 100%;
 
                 box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
             }
         }
 
         .page {
-            background : $color-background-page;
+            max-width : $size-page-width;
+            width     : 100%;
 
             @include screen-size(desktop) {
                 margin    : $size-margin-large 0;
-                max-width : $size-page-width;
-                width     : 100%;
                 box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
             }
+
+            background : $color-background-page;
 
             display        : flex;
             flex-direction : column;

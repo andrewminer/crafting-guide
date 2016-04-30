@@ -15,6 +15,10 @@
         display     : flex;
         align-items : center;
 
+        @include screen-size(mobile) {
+            display : none;
+        }
+
         a {
             flex         : 0 0 auto;
             height       : $size-minecraft-block * 1.5;
@@ -27,10 +31,10 @@
                 width    : $size-minecraft-block * 1.5;
 
                 @include screen-size(desktop) {
-                    top      : -$size-minecraft-block * 0.5;
-                    left     : -$size-minecraft-block * 0.5;
-                    height   : $size-minecraft-block * 2.0;
-                    width    : $size-minecraft-block * 2.0;
+                    top    : -$size-minecraft-block * 0.5;
+                    left   : -$size-minecraft-block * 0.5;
+                    height : $size-minecraft-block * 2.0;
+                    width  : $size-minecraft-block * 2.0;
                 }
             }
         }
@@ -40,13 +44,17 @@
             white-space: nowrap;
 
             @include screen-size(tablet) {
-                font-size: $font-size-xlarge;
+                font-size : $font-size-xlarge;
             }
         }
 
         .addthis_sharing_toolbox {
+            @include screen-size(mobile) {
+                display: none;
+            }
+
             flex         : 0 0 auto;
-            min-height   : 37px;
+            min-height   : 37px; // actual size of addthis component
             min-width    : 144px;
             margin-right : $size-margin-small;
 

@@ -15,6 +15,10 @@
 
     display: flex;
 
+    @include screen-size(mobile) {
+        display: none;
+    }
+
     .form-content {
         flex: 1 1 100%;
 

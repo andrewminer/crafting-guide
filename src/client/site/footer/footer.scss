@@ -19,11 +19,19 @@
     > .content {
         display: flex;
 
+        @include screen-size(mobile) {
+            flex-direction: column;
+        }
+
         color: $color-text-light;
 
         .left, .center, .right {
             flex: 1 1 33%;
             margin: $size-margin-large $size-margin-large $size-margin-large 0;
+
+            @include screen-size(mobile) {
+                margin-left: $size-margin-large;
+            }
 
             display: flex;
             flex-direction: column;
@@ -38,6 +46,7 @@
             .action {
                 flex: 1 1 auto;
                 align-self: center;
+                margin-top: $size-margin-large;
                 margin-bottom: $size-margin-large;
 
                 display: flex;

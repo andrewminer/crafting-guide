@@ -6,15 +6,13 @@
 //
 
 .view__mod_tile {
-    min-width       : $size-minecraft-block * 9;
+    min-width : $size-minecraft-block * 9;
 
     display         : flex;
     justify-content : stretch;
     align-items     : stretch;
 
     a {
-        width: 100%;
-
         @include floating-panel;
         border          : $size-border-medium solid $color-background-panel;
         color           : $color-text;
@@ -39,6 +37,7 @@
             overflow : hidden;
 
             .title {
+                max-width: 0;
                 margin-bottom : $size-margin-medium;
 
                 font-family : $font-family-header;
@@ -81,6 +80,23 @@
 
                 .description {
                     color: $color-gray-light;
+                }
+            }
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__mod_tile {
+        min-width: 0;
+
+        a {
+            & > .left {
+                flex: 0 0 $size-minecraft-block * 2;
+
+                img {
+                    width: $size-minecraft-block * 2;
+                    max-height: $size-minecraft-block * 2;
                 }
             }
         }

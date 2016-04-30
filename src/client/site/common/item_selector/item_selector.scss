@@ -9,7 +9,13 @@
 }
 
 .view__item_selector_popup {
+    max-width: $size-minecraft-block * 20;
     height : 66%;
+
+    @include screen-size(mobile) {
+        max-width: 98%;
+        height: 80%;
+    }
 
     background : $color-background-panel;
     border     : 1px solid $color-gray-medium;
@@ -35,6 +41,7 @@
 
         input {
             flex: 1 1 100%;
+            min-width: $font-size-large * 10;
 
             background: none;
             border: 0;

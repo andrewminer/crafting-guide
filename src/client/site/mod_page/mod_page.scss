@@ -128,3 +128,41 @@
         }
     }
 }
+
+@include screen-size(mobile) {
+    .view__mod_page {
+        .about {
+            flex-direction: column;
+
+            & > * {
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+            }
+
+            .left {
+                margin-bottom: $size-margin-large;
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+
+                display        : flex;
+                flex-direction : column;
+                align-items    : center;
+            }
+
+            .center {
+                margin-bottom: $size-margin-xlarge;
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+
+                .author, .title {
+                    text-align: center;
+                }
+            }
+
+            .right {
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+            }
+        }
+    }
+}

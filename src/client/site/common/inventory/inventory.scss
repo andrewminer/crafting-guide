@@ -40,10 +40,22 @@
         .item-selector {
             flex         : 80%;
             margin-right : $size-margin-medium;
+
+            @include screen-size(mobile) {
+                flex: 50%;
+
+                .full {
+                    display: none;
+                }
+            }
         }
 
         .clear {
             flex : 20%;
+
+            @include screen-size(mobile) {
+                flex: 50%;
+            }
         }
     }
 }
@@ -61,8 +73,12 @@
         .quantity {
             padding-right : $size-margin-medium;
             input {
-                width: 3em;
-                font-size   : $font-size-xlarge;
+                width     : 3em;
+                font-size : $font-size-xlarge;
+
+                @include screen-size(mobile) {
+                    width : 2em;
+                }
             }
         }
 

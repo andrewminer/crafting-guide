@@ -10,7 +10,7 @@
         overflow: visible;
 
         display: flex;
-        align-items: center;
+        align-items: flex-start;
 
         img {
             height: $size-minecraft-block;
@@ -22,9 +22,19 @@
             font-family: $font-family-text;
             font-size: $font-size-medium;
             line-height: $size-minecraft-block;
-            overflow-x: hidden;
+            overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__item_tile {
+        a {
+            p {
+                white-space: normal;
+            }
         }
     }
 }

@@ -13,34 +13,30 @@ All rights reserved.
         padding        : $size-margin-xlarge;
 
         .waiting {
-            margin-bottom: $size-margin-xlarge;
+            margin-bottom : $size-margin-xlarge;
         }
 
         .message {
-            margin-bottom: $size-margin-medium;
+            margin-bottom : $size-margin-medium;
 
             p {
-                font-family: $font-family-header;
-                font-size: $font-size-large;
+                font-family : $font-family-header;
+                font-size   : $font-size-large;
+                text-align  : center;
             }
         }
 
         .count {
             p {
-                font-family: $font-family-header;
-                font-size: $font-size-medium;
+                font-family : $font-family-header;
+                font-size   : $font-size-medium;
+                text-align  : center;
             }
         }
 
         .button {
-            margin-top: $size-margin-large;
-            height: $size-minecraft-block * 2;
-            width: $size-minecraft-block * 10;
-
-            p {
-                font-size: $font-size-xxlarge;
-                transform: translateY(-25%);
-            }
+            margin-top : $size-margin-large;
+            min-width: $size-minecraft-block * 6;
         }
     }
 
@@ -48,22 +44,41 @@ All rights reserved.
         position: fixed; top: 0; left: 0; right: 0;
 
 
-        background: fade-out($color-white, 0.15) url('/images/panel-background-outdated.png');
-        border-bottom: $size-border-medium solid $color-black;
+        background    : fade-out($color-white, 0.15) url('/images/panel-background-outdated.png');
+        border-bottom : $size-border-medium solid $color-black;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display        : flex;
+        flex-direction : column;
+        align-items    : center;
 
         .message {
-            margin-top: $size-margin-medium;
-            font-family: $font-family-header;
-            font-size: $font-size-xlarge;
+            margin-top  : $size-margin-medium;
+
+            font-family : $font-family-header;
+            font-size   : $font-size-xlarge;
+            text-align  : center;
         }
 
         .button {
-            width: $size-minecraft-block * 10;
-            margin: $size-margin-medium;
+            width  : $size-minecraft-block * 6;
+            margin : $size-margin-medium;
+        }
+    }
+}
+
+@include screen-size(not-mobile) {
+    .view__craftsman_working {
+        .panel {
+            .button {
+                margin-top : $size-margin-large;
+                height     : $size-minecraft-block * 2;
+                width      : $size-minecraft-block * 10;
+
+                p {
+                    font-size : $font-size-xxlarge;
+                    transform : translateY(-25%);
+                }
+            }
         }
     }
 }

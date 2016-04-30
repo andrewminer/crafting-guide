@@ -44,6 +44,9 @@
         @include screen-size(tablet) {
             margin: 0 $size-margin-xlarge;
         }
+        @include screen-size(mobile) {
+            margin: 0;
+        }
 
         section {
             margin-bottom: $size-margin-large;

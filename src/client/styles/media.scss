@@ -7,7 +7,7 @@
 
 
 $tablet  : 960px;
-$mobile  : 320px;
+$mobile  : 568px;
 
 @mixin screen-size($screenType) {
     @if $screenType == desktop {
@@ -16,5 +16,7 @@ $mobile  : 320px;
         @media (max-width: $tablet) { @content; }
     } @else if $screenType == mobile {
         @media (max-width: $mobile) { @content; }
+    } @else if $screenType == not-mobile {
+        @media (min-width: $mobile + 1) { @content }
     }
 }

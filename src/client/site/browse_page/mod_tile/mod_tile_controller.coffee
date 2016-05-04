@@ -12,6 +12,7 @@ BaseController = require '../../base_controller'
 module.exports = class ModTileController extends BaseController
 
     constructor: (options={})->
+        options.tagName      = 'section'
         options.templateName = 'browse_page/mod_tile'
         super options
 

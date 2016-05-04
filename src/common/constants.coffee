@@ -7,13 +7,27 @@
 
 ########################################################################################################################
 
-exports.adsense           = adsense = {}
-adsense.clientId          = 'ca-pub-6593013914878730'
-adsense.skyscraper        = {}
-adsense.skyscraper.height = 600
-adsense.skyscraper.width  = 160
-adsense.skyscraper.margin = 24
-adsense.slotIds           = ['7613920409', '9574673605', '3388539204']
+exports.adsense                    = adsense = {}
+adsense.adTypeMap                  = desktop:'skyscraper', tablet:'leaderboard', mobile:'largeMobileBanner'
+adsense.clientId                   = 'ca-pub-6593013914878730'
+adsense.largeMobileBanner          = {}
+adsense.largeMobileBanner.cssClass = 'large-mobile-banner'
+adsense.largeMobileBanner.height   = 100 # px
+adsense.largeMobileBanner.slotIds  = ['6651071600', '2081271209', '3558004401']
+adsense.largeMobileBanner.width    = 320 # px
+adsense.leaderboard                = {}
+adsense.leaderboard.cssClass       = 'leaderboard'
+adsense.leaderboard.height         = 90 # px
+adsense.leaderboard.slotIds        = ['6790672401', '8267405609', '5174338406']
+adsense.leaderboard.width          = 728 # px
+adsense.minimumDistance            = 100 # px
+adsense.readinessCheckInterval     = 1000 # ms
+adsense.skyscraper                 = {}
+adsense.skyscraper.cssClass        = 'skyscraper'
+adsense.skyscraper.height          = 600 # px
+adsense.skyscraper.margin          = 24 # px
+adsense.skyscraper.slotIds         = ['7613920409', '9574673605', '3388539204']
+adsense.skyscraper.width           = 160 # px
 
 exports.defaultMods   = defaultMods = {}
 defaultMods.minecraft = { defaultVersion: '1.7.10' } # Minecraft must be first
@@ -113,6 +127,20 @@ opacity.shown   = 1
 exports.productionEnvs = [ 'staging', 'production' ]
 
 exports.requiredMods = [ 'minecraft' ]
+
+exports.screen = screen = {}
+screen.mobileMaxWidth = 568 # px
+screen.tabletMaxWidth = 960 # px
+screen.type = {}
+screen.type.desktop = 'desktop'
+screen.type.mobile = 'mobile'
+screen.type.tablet = 'tablet'
+
+screen.type.compute = ->
+    width = $(document).width()
+    return screen.type.mobile if width <= screen.mobileMaxWidth
+    return screen.type.tablet if width <= screen.tabletMaxWidth
+    return screen.type.desktop
 
 exports.server             = {}
 exports.server.defaultPort = 8080

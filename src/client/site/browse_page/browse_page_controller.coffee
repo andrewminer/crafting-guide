@@ -5,7 +5,6 @@
 # All rights reserved.
 #
 
-AdsenseController = require '../common/adsense/adsense_controller'
 ModTileController = require './mod_tile/mod_tile_controller'
 PageController    = require '../page_controller'
 
@@ -32,8 +31,6 @@ module.exports = class BrowsePageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper'
-
         @$tileContainer = @$('.tile_container')
 
     refresh: ->

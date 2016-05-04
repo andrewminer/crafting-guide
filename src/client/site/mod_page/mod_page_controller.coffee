@@ -5,7 +5,6 @@
 # All rights reserved.
 #
 
-AdsenseController   = require '../common/adsense/adsense_controller'
 BaseController      = require '../base_controller'
 Item                = require '../../models/game/item'
 ItemGroupController = require '../common/item_group/item_group_controller'
@@ -66,8 +65,6 @@ module.exports = class ModPageController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model: 'skyscraper'
-
         @$author             = @$('.about .author')
         @$description        = @$('.about .description')
         @$documentationLink  = @$('.about .documentation')

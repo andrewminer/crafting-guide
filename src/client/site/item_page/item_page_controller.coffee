@@ -5,7 +5,6 @@
 # All rights reserved.
 #
 
-AdsenseController          = require '../common/adsense/adsense_controller'
 EditableFile               = require '../../models/site/editable_file'
 Item                       = require '../../models/game/item'
 ItemGroupController        = require '../common/item_group/item_group_controller'
@@ -84,8 +83,6 @@ module.exports = class ItemPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper', router: @_router
-
         options                      = imageLoader:@_imageLoader, modPack:@_modPack, router:@_router, show:false
         @_multiblockController       = @addChild MultiblockViewerController, '.view__multiblock_viewer', options
         @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options

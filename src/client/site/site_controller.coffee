@@ -5,6 +5,7 @@
 # All rights reserved.
 #
 
+AdsenseController  = require './common/adsense/adsense_controller'
 BaseController     = require './base_controller'
 FeedbackController = require './feedback/feedback_controller'
 FileCache          = require '../models/site/file_cache'
@@ -33,6 +34,7 @@ module.exports = class SiteController extends BaseController
         @router      = new Router this
         @storage     = options.storage
 
+        @_adsenseController     = new AdsenseController
         @_currentPage           = null
         @_currentPageController = null
         @_user                  = null
@@ -155,6 +157,8 @@ module.exports = class SiteController extends BaseController
         @_currentPageController.onWillShow()
         @_currentPageController.$el = $pageContent
         @_currentPageController.render()
+
+        @_adsenseController.reset()
 
     _resetGlobals: ->
         if global.env in c.productionEnvs

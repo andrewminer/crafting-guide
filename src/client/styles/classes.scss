@@ -74,14 +74,7 @@
 }
 
 .page > .content {
-    min-height: $size-skyscraper-height;
-}
-
-.skyscraper {
-    height : $size-skyscraper-height - 2px;
-    width  : $size-skyscraper-width - 2px;
-
-    border : 1px solid $color-gray-medium;
+    min-height: $size-ad-skyscraper-height;
 }
 
 .scrollDisabled {

@@ -5,7 +5,6 @@
 # All rights reserved.
 #
 
-AdsenseController          = require '../common/adsense/adsense_controller'
 BaseController             = require '../base_controller'
 CraftPage                  = require '../../models/site/craft_page'
 Craftsman                  = require '../../models/crafting/craftsman'
@@ -67,8 +66,6 @@ module.exports = class CraftPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper'
-
         @_wantInventoryController = @addChild InventoryController, '.want .view__inventory',
             firstButtonType: 'remove'
             imageLoader:     @_imageLoader
@@ -125,7 +122,6 @@ module.exports = class CraftPageController extends PageController
         @_refreshOutdated()
         @_refreshSectionVisibility()
         @_refreshSteps()
-        @_adsenseController.fillAdPositions()
         super
 
     # Backbone.View Overrides ########################################################################

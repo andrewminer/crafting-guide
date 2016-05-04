@@ -10,8 +10,8 @@
 
     .right {
         .tile_container {
-            display     : flex;
-            flex-wrap   : wrap;
+            display   : flex;
+            flex-wrap : wrap;
 
             .view__mod_tile {
                 flex          : 1 1 calc(50% - 12px); // $size-margin-large / 2

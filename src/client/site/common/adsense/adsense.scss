@@ -6,20 +6,64 @@
 //
 
 .view__adsense {
-    .skyscraper  {
-        height   : $size-skyscraper-height;
-        width    : $size-skyscraper-width;
-        position : relative;
+    left      : 50%;
+    margin    : $size-margin-large 0;
+    position  : relative;
+    transform : translate(-50%);
 
-        border : 0.1em solid $color-gray-faint;
-        margin : $size-margin-large 0;
+    ins {
+        position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    }
+
+    &.large-mobile-banner {
+        height : $size-ad-large-mobile-banner-height;
+        width  : $size-ad-large-mobile-banner-width;
+
+        &.placeholder:before {
+            font-size : $font-size-large;
+        }
+    }
+
+    &.leaderboard {
+        height : $size-ad-leaderboard-height;
+        width  : $size-ad-leaderboard-width;
+
+        &.placeholder:before {
+            font-size : $font-size-xxlarge;
+        }
+    }
+
+    &.skyscraper  {
+        height : $size-ad-skyscraper-height;
+        width  : $size-ad-skyscraper-width;
+
+        &.placeholder:before {
+            transform : rotate(90deg);
+            font-size : $font-size-xxlarge;
+        }
 
         &:first-child {
             margin-top : 0;
         }
+    }
 
-        ins {
-            position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    &.placeholder {
+        border : $size-border-small solid $color-gray-faint;
+
+        display         : flex;
+        align-items     : center;
+        justify-content : center;
+
+        &:before {
+            color          : $color-gray-faint;
+            content        : "GOOGLE ADSENSE";
+            font-family    : $font-family-control;
+            letter-spacing : $size-margin-small;
+            white-space    : nowrap;
         }
     }
+}
+
+.view__mod_tile + .view__adsense {
+    margin-top : 0;
 }

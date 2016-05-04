@@ -5,7 +5,6 @@
 # All rights reserved.
 #
 
-AdsenseController         = require '../common/adsense/adsense_controller'
 PageController            = require '../page_controller'
 MarkdownSectionController = require '../common/markdown_section/markdown_section_controller'
 VideoController           = require '../common/video/video_controller'
@@ -60,8 +59,6 @@ module.exports = class TutorialPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper'
-
         @$sourceModLink      = @$('.sourceMod a')
         @$officialLink       = @$('.officialLink a')
         @$officialLinkPanel  = @$('.officialLink')

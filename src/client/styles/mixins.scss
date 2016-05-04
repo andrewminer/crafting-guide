@@ -27,54 +27,58 @@
     display: flex;
 
     & > .left {
-        flex: 0 0 $size-skyscraper-width + $size-margin-medium;
-        padding-right: $size-margin-medium;
+        flex       : 0 0 $size-ad-skyscraper-width + $size-margin-medium;
+        min-height : $size-ad-skyscraper-height;
+
+        padding-right : $size-margin-medium;
 
         @include screen-size(tablet) {
-            display: none;
+            display : none;
         }
         @include screen-size(mobile) {
-            display: none;
+            display : none;
         }
     }
 
     & > .right {
-        flex: 1 1 auto;
+        flex : 1 1 100%;
 
         @include screen-size(tablet) {
-            margin: 0 $size-margin-xlarge;
+            margin : 0 $size-margin-xlarge;
+            max-width: calc(100% - 2 * 48px); // 2 * $size-margin-xlarge
         }
         @include screen-size(mobile) {
-            margin: 0;
+            margin : 0;
+            max-width: 100%;
         }
 
         section {
-            margin-bottom: $size-margin-large;
+            margin-bottom : $size-margin-large;
         }
     }
 }
 
 @mixin layout-link-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display         : flex;
+    flex-direction  : column;
+    justify-content : center;
 
     p {
-        margin-bottom: $size-margin-small;
+        margin-bottom : $size-margin-small;
 
-        font-family: $font-family-text;
-        font-size: $font-size-large;
+        font-family : $font-family-text;
+        font-size   : $font-size-large;
     }
 
     a {
-        margin-left: $size-margin-medium;
+        margin-left : $size-margin-medium;
 
-        font-family: $font-family-text;
-        font-size: $font-size-medium;
-        text-decoration: underline;
+        font-family     : $font-family-text;
+        font-size       : $font-size-medium;
+        text-decoration : underline;
 
         &:not(:last-child) {
-            margin-bottom: $size-margin-medium;
+            margin-bottom : $size-margin-medium;
         }
     }
 }

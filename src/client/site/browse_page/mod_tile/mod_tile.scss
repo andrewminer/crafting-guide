@@ -8,13 +8,11 @@
 .view__mod_tile {
     min-width : $size-minecraft-block * 9;
 
-    display         : flex;
-    justify-content : stretch;
-    align-items     : stretch;
+    display: flex;
 
     a {
         @include floating-panel;
-        width : 100%;
+        flex: 1 1 100%;
 
         border          : $size-border-medium solid $color-background-panel;
         color           : $color-text;

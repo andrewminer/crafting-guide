@@ -135,6 +135,8 @@ module.exports = (grunt)->
 
         sass:
             all:
+                options:
+                    sourcemap: 'none'
                 files:
                     './build/static/main.css': [ './build/imports.scss' ]
 

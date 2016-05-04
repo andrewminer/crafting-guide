@@ -12,7 +12,7 @@
 
     a {
         @include floating-panel;
-        flex: 1 1 100%;
+        flex: 1 1 auto;
 
         border          : $size-border-medium solid $color-background-panel;
         color           : $color-text;

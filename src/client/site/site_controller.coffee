@@ -146,6 +146,7 @@ module.exports = class SiteController extends BaseController
         $pageContent = $('.page > .content')
         $pageContent.removeClass()
         $pageContent.addClass 'content'
+        $pageContent.css display:''
         if not @$pageContentLoading.hasClass 'hidden'
             $pageContent.addClass 'hidden'
 

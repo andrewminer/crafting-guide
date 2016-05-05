@@ -107,6 +107,9 @@ module.exports = class CraftPageController extends PageController
         @$toolsSection        = @$('section.tools')
         @$workingSection      = @$('.view__craftsman_working')
 
+        if c.screen.type.compute() is c.screen.type.mobile
+            @$('.view__inventory.large').removeClass 'large'
+
         super
 
     onWillRender: ->
@@ -122,6 +125,7 @@ module.exports = class CraftPageController extends PageController
         @_refreshOutdated()
         @_refreshSectionVisibility()
         @_refreshSteps()
+
         super
 
     # Backbone.View Overrides ########################################################################

@@ -117,3 +117,13 @@
         }
     }
 }
+
+@include screen-size(mobile) {
+    .view__stack.editable {
+        .quantity {
+            input {
+                width : 1.5em;
+            }
+        }
+    }
+}

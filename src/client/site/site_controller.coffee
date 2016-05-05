@@ -152,7 +152,7 @@ module.exports = class SiteController extends BaseController
 
         window.scrollTo 0, 0
 
-        @_headerController.model = controller: controller
+        @_headerController.model = controller: controller, page: page
 
         @_currentPageController.user = @user
         @_currentPageController.onWillShow()

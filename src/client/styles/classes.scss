@@ -47,7 +47,7 @@
         background : url('/images/button-background-hover.png') repeat;
     }
 
-    &:active {
+    &:active, &.active {
         background : url('/images/button-background-active.png') repeat;
 
         .bezel {

@@ -75,6 +75,7 @@ module.exports = class HeaderController extends BaseController
         @$loginButtonLabel.text if global.site.user? then "Logout" else "Login"
 
         @_refreshBreadcrumbs()
+        @_refreshSelectedNavButton()
         @_refreshTitle()
         super
 
@@ -105,6 +106,12 @@ module.exports = class HeaderController extends BaseController
             @show @$breadcrumbs
         else
             @hide @$breadcrumbs
+
+    _refreshSelectedNavButton: ->
+        return unless @model?.page?
+
+        @$('.button').removeClass 'active'
+        @$(".button.#{@model.page}").addClass 'active'
 
     _refreshTitle: ->
         title = @model?.controller?.getTitle()

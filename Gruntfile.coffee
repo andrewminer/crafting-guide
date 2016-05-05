@@ -54,7 +54,7 @@ module.exports = (grunt)->
                     mode: 'gzip'
                 files: [
                     {expand: true, cwd:'./build/static', src:'**/*.css',     dest:'./dist/'}
-                    {expand: true, cwd:'./build/static', src:'**/*.html',    dest:'./dist/'}
+                    {expand: true, cwd:'./build/static', src:['**/*.html', '!**/index.html'], dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.ugly.js', dest:'./dist/', ext: '.js'}
                     {expand: true, cwd:'./build/static', src:'**/*.json',    dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.ttf',     dest:'./dist/'}
@@ -77,7 +77,10 @@ module.exports = (grunt)->
                 ]
             build_to_dist:
                 files: [
-                    {expand:true, cwd:'./build/static/', src:['**/*', '!**/*.map', '!**/*.js'], dest:'./dist'}
+                    expand: true
+                    cwd: './build/static/'
+                    src: ['**/*', '!**/*.map', '!**/*.js', '!index.html']
+                    dest: './dist'
                 ]
             common_source:
                 files: [

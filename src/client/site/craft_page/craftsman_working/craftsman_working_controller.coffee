@@ -90,11 +90,11 @@ module.exports = class CraftsmanWorkingController extends BaseController
             @show @$message
             @$message.html message
 
-        if waiting?
-            @show @$waiting
-
         if outdated?
             @show @$outdated
+
+        if waiting?
+            @show @$waiting
 
         super
 

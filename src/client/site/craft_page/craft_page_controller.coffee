@@ -11,11 +11,14 @@ Craftsman                  = require '../../models/crafting/craftsman'
 CraftsmanWorkingController = require './craftsman_working/craftsman_working_controller'
 InventoryController        = require '../common/inventory/inventory_controller'
 PageController             = require '../page_controller'
+SimpleInventory            = require '../../models/crafting/simple_inventory'
 StepController             = require './step/step_controller'
 
 ########################################################################################################################
 
 module.exports = class CraftPageController extends PageController
+
+    @::SCROLL_BUFFER = 8 # px
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
@@ -47,6 +50,21 @@ module.exports = class CraftPageController extends PageController
     onRemoveFromWant: (itemSlug)->
         @model.craftsman.want.remove itemSlug
         @onWantInventoryChanged()
+
+    onSampleClicked: (event)->
+        $el = $(event.target)
+        while $el.length > 0
+            inventoryText = $el.attr 'data-slug'
+            break if inventoryText
+            $el = $el.parent()
+
+        if inventoryText?
+            sampleInventory = new SimpleInventory
+            sampleInventory.parse inventoryText
+            @model.craftsman.want.addInventory sampleInventory
+            @_scrollTo @$workingSection
+
+        return false
 
     onWantInventoryChanged: ->
         text = @model.craftsman.want.unparse()
@@ -96,7 +114,7 @@ module.exports = class CraftPageController extends PageController
 
         @_workingSectionController = @addChild CraftsmanWorkingController, '.view__craftsman_working',
             model: @model.craftsman
-        @_workingSectionController.on c.event.click, -> window.scrollTo 0, 0
+        @_workingSectionController.on c.event.click, => @_scrollTo @$workingSection
 
         @$haveSection         = @$('section.have')
         @$instructionsSection = @$('section.instructions')
@@ -118,6 +136,11 @@ module.exports = class CraftPageController extends PageController
         @model.craftsman.have.on c.event.change, => @onHaveInventoryChanged()
 
         @model.craftsman.want.on c.event.change, => @refresh()
+
+        @model.craftsman.on c.event.change + ":stage", =>
+            return unless @model.craftsman.stage is Craftsman::STAGE.COMPLETE
+            @_scrollTo @$needSection
+
         super
 
     refresh: ->
@@ -132,7 +155,7 @@ module.exports = class CraftPageController extends PageController
 
     events: ->
         return _.extend super,
-            'click .instructions a': 'routeLinkClick'
+            'click .instructions a': 'onSampleClicked'
 
     # Private Methods ################################################################################
 
@@ -219,3 +242,28 @@ module.exports = class CraftPageController extends PageController
 
         while @_stepControllers.length > index
             @_stepControllers.pop().remove()
+
+    _scrollTo: ($targetEl)->
+        @_$scrollTarget = $targetEl
+
+        if @_scrollTimer?
+            clearTimeout @_scrollTimer
+
+        @_scrollTimer = setTimeout(=>
+            $el = @_$scrollTarget
+            @_scrollTimer = null
+
+            minScrollPosition = $el.offset().top + $el.height() - $(window).height() - @SCROLL_BUFFER
+            maxScrollPosition = $el.offset().top + @SCROLL_BUFFER
+            scrollPosition = $(window).scrollTop()
+
+            scrollTarget = scrollPosition
+            if scrollPosition > maxScrollPosition
+                scrollTarget = maxScrollPosition
+            else if scrollPosition < minScrollPosition
+                scrollTarget = minScrollPosition
+            else
+                return
+
+            $('html, body').animate {scrollTop:scrollTarget}, c.duration.normal
+        , c.duration.slow)

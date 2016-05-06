@@ -44,7 +44,7 @@ module.exports = class SimpleInventory
         @_itemSlugs = []
 
     clone: ->
-        inventory = new Inventory
+        inventory = new SimpleInventory
         inventory.addInventory this
         return inventory
 
@@ -130,9 +130,9 @@ module.exports = class SimpleInventory
     parse: (data)->
         return this if not data? or data.length is 0
 
-        stacks = data.split Inventory.Delimiters.Stack
+        stacks = data.split SimpleInventory.Delimiters.Stack
         for stackText in stacks
-            stackParts = stackText.split Inventory.Delimiters.Item
+            stackParts = stackText.split SimpleInventory.Delimiters.Item
             if stackParts.length is 2
                 quantity = parseInt stackParts[0], 10
                 itemSlug = ItemSlug.slugify stackParts[1]

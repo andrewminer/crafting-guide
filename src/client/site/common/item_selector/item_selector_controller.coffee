@@ -71,10 +71,10 @@ module.exports = class ItemSelectorController extends BaseController
             when c.key.enter
                 @_chooseSelected()
                 return false
-            when c.key.down
+            when c.key.downArrow
                 @_selectNext()
                 return false
-            when c.key.up
+            when c.key.upArrow
                 @_selectPrevious()
                 return false
 
@@ -169,6 +169,8 @@ module.exports = class ItemSelectorController extends BaseController
             @_elementControllers.pop().remove()
 
     _selectNext: ->
+        return unless @_elementControllers.length > 0
+
         for i in [0...(@_elementControllers.length - 1)] by 1
             controller = @_elementControllers[i]
             nextController = @_elementControllers[i + 1]
@@ -179,7 +181,13 @@ module.exports = class ItemSelectorController extends BaseController
                 @_showElement nextController.$el
                 return
 
+        controller = @_elementControllers[0]
+        controller.selected = true
+        @_showElement controller.$el
+
     _selectPrevious: ->
+        return unless @_elementControllers.length > 0
+
         for i in [1...@_elementControllers.length] by 1
             previousController = @_elementControllers[i - 1]
             controller = @_elementControllers[i]
@@ -190,6 +198,10 @@ module.exports = class ItemSelectorController extends BaseController
                 @_showElement previousController.$el
                 return
 
+        controller = @_elementControllers[@_elementControllers.length - 1]
+        controller.selected = true
+        @_showElement controller.$el
+
     _showElement: ($el)->
         top = $el.position().top + @$resultsContainer.scrollTop()
-        @$resultsContainer.css 'scrollTop', top
+        @$resultsContainer.animate {scrollTop:top}, c.duration.snap

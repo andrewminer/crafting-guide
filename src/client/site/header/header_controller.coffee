@@ -46,6 +46,8 @@ module.exports = class HeaderController extends BaseController
     onSearch: ->
         @_selector.launch()
             .then (itemSlug)=>
+                return unless itemSlug?
+
                 itemDisplay = @_modPack.findItemDisplay itemSlug
                 @router.navigate itemDisplay.itemUrl, trigger:true
         return false

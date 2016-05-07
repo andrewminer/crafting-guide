@@ -48,7 +48,6 @@
     }
 
     &.selected {
-        flex       : 0 0 auto;
         background : $color-active-hover;
 
         .name {

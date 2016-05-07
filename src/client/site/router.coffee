@@ -98,12 +98,15 @@ module.exports = class Router extends Backbone.Router
         @_siteController.setPage 'browseMod', controller
 
     route__browseModItem: (modSlug, itemSlug)->
+        params = new UrlParams login:{type:'boolean', default:false}
         slug = new ItemSlug modSlug, itemSlug
-        controller = new ItemPageController @_makeOptions {itemSlug:slug}
+        controller = new ItemPageController @_makeOptions {itemSlug:slug, login:params.login}
         @_siteController.setPage 'browseModItem', controller
 
     route__browseTutorial: (modSlug, tutorialSlug)->
-        controller = new TutorialPageController @_makeOptions {modSlug:modSlug, tutorialSlug:tutorialSlug}
+        params = new UrlParams login:{type:'boolean', default:false}
+        controller = new TutorialPageController @_makeOptions
+            login:params.login, modSlug:modSlug, tutorialSlug:tutorialSlug
         @_siteController.setPage 'browseTutorial', controller
 
     route__configure: ->

@@ -84,7 +84,7 @@ module.exports = class SiteController extends BaseController
 
     resumeAfterLogin: ->
         url = @storage.load 'post-login-url'
-        url = if (not url? or url is 'null') then null else url
+        url = if (not url? or url is 'null') then null else url + '?login=true'
         if url? then @router.navigate url, trigger:true
         @storage.store 'post-login-url', null
 

@@ -60,16 +60,15 @@ module.exports = class MarkdownSectionController extends BaseController
     # Event Methods ################################################################################
 
     onCancelClicked: (event)->
-        event.preventDefault()
         @model = @_originalModel
         @resetToDefaultState()
 
         @_imageListController.reset()
         @_updatePreview()
+        return false
 
     onEditClicked: (event)->
-        event.preventDefault()
-        return unless @editable
+        return false unless @editable
 
         @_originalModel = @model
         @state = @State.waiting
@@ -81,22 +80,22 @@ module.exports = class MarkdownSectionController extends BaseController
                 @state = @State.appologizing
                 w(true).delay(@_confirmDuration).then => @resetToDefaultState()
 
+        return false
+
     onQuestionClicked: (event)->
-        event.preventDefault()
         @_enterFeedback ''
+        return false
 
     onPreviewClicked: (event)->
-        event.preventDefault()
         @_updatePreview()
         @state = @State.previewing
+        return false
 
     onReturnClicked: (event)->
-        event.preventDefault()
         @state = @State.editing
+        return false
 
     onSaveClicked: (event)->
-        event.preventDefault()
-
         @state = @State.waiting
         @_endEditing()
             .then =>
@@ -109,9 +108,11 @@ module.exports = class MarkdownSectionController extends BaseController
             .then =>
                 @state = @State.viewing
 
+        return false
+
     onTextChanged: (event)->
-        event.preventDefault()
         @model = @$textarea.val()
+        return false
 
     # Property Methods #############################################################################
 

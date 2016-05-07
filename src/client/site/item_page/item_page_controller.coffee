@@ -41,6 +41,7 @@ module.exports = class ItemPageController extends PageController
         @_itemSlug        = options.itemSlug
         @_modPack         = options.modPack
         @_router          = options.router
+        @_triggerEditing  = options.login
 
         @_modPack.on c.event.change, =>
             @tryRefresh()
@@ -137,6 +138,10 @@ module.exports = class ItemPageController extends PageController
                 @show @$craftingPlanButton
             else
                 @hide @$craftingPlanButton
+
+            if @_triggerEditing
+                @_triggerEditing = false
+                @_descriptionController.onEditClicked {}
 
             @show()
         else

@@ -11,6 +11,10 @@
     align-items: center;
     justify-content: center;
 
+    iframe {
+        max-width: 100%;
+    }
+
     .caption {
         margin-top: $size-margin-small;
 

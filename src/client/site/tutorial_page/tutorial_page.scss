@@ -62,3 +62,17 @@
         }
     }
 }
+
+@include screen-size(mobile) {
+    .view__tutorial_page {
+        .video-container {
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: stretch;
+
+            & > * {
+                width: inherit;
+            }
+        }
+    }
+}

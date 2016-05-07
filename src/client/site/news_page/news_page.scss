@@ -8,7 +8,7 @@
 .view__news_page {
     @include layout-body-with-sidebar;
 
-    .right {
+    & > .right {
         display: flex;
         flex-direction: column;
         align-items: stretch;

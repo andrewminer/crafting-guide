@@ -8,22 +8,32 @@
 .view__news_page {
     @include layout-body-with-sidebar;
 
-    section {
-        &:not(:first-child) {
-            margin-top : $size-margin-large;
-        }
+    .right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        h3 {
-            margin-bottom : $size-margin-small;
-        }
+//        .view__twitter {
+//            max-width: $size-minecraft-block * 10;
+//        }
 
-        p {
-            font-family : $font-family-text;
-            font-size   : $font-size-medium;
-            line-height : $font-size-medium * 1.5;
+        section {
+            &:not(:first-child) {
+                margin-top : $size-margin-large;
+            }
 
-            &:not(:last-child) {
-                margin-bottom : $size-margin-medium;
+            h3 {
+                margin-bottom : $size-margin-small;
+            }
+
+            p {
+                font-family : $font-family-text;
+                font-size   : $font-size-medium;
+                line-height : $font-size-medium * 1.5;
+
+                &:not(:last-child) {
+                    margin-bottom : $size-margin-medium;
+                }
             }
         }
     }

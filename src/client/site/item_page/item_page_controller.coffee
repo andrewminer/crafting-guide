@@ -69,9 +69,7 @@ module.exports = class ItemPageController extends PageController
         ]
 
     getExtraNav: ->
-        console.warn "getExtraNav()"
         itemSlug = @_modPack.chooseRandomItem()
-        console.warn "    itemSlug: #{itemSlug}"
         return null unless itemSlug?
 
         itemDisplay = @_modPack.findItemDisplay itemSlug

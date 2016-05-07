@@ -82,6 +82,7 @@ module.exports = class ItemSelectorController extends BaseController
         @model.hint = @$hintField.val()
         @tryRefresh()
         @onResultSelected @_elementControllers[0]
+        return false
 
     onPopupClicked: (event)->
         return false
@@ -90,6 +91,7 @@ module.exports = class ItemSelectorController extends BaseController
         @_session.resolve controller.model.slug
         @_session = null
         @_close()
+        return false
 
     onResultSelected: (controller)->
         for c in @_elementControllers
@@ -97,6 +99,8 @@ module.exports = class ItemSelectorController extends BaseController
 
         if controller?
             controller.selected = true
+
+        return false
 
     onScreenClicked: (event)->
         @_close()

@@ -7,6 +7,7 @@
 
 BaseController         = require '../base_controller'
 ItemSelectorController = require '../common/item_selector/item_selector_controller'
+UrlParams              = require '../url_params'
 
 ########################################################################################################################
 
@@ -43,8 +44,8 @@ module.exports = class HeaderController extends BaseController
         @router.navigate '/news', trigger:true
         return false
 
-    onSearch: ->
-        @_selector.launch()
+    onSearch: (event, hint='')->
+        @_selector.launch hint
             .then (itemSlug)=>
                 return unless itemSlug?
 
@@ -67,6 +68,8 @@ module.exports = class HeaderController extends BaseController
         @$extraNav         = @$('.extra-nav')
         @$loginButtonLabel = @$('.button.login p')
         @$title            = $('title')
+
+        @_checkForSearchRequest()
         super
 
     onWillChangeModel: (oldModel, newModel)->
@@ -95,6 +98,12 @@ module.exports = class HeaderController extends BaseController
             'click .breadcrumb-bar a': 'routeLinkClick'
 
     # Private Methods ##############################################################################
+
+    _checkForSearchRequest: ->
+        params = new UrlParams search:{type:'string'}
+        return unless params.search?
+
+        _.delay (=> @onSearch {}, params.search), c.duration.slow
 
     _refreshBreadcrumbs: ->
         breadcrumbs = @model?.controller?.getBreadcrumbs()

@@ -12,11 +12,6 @@
     max-width: $size-minecraft-block * 20;
     height : 66%;
 
-    @include screen-size(mobile) {
-        max-width: 98%;
-        height: 80%;
-    }
-
     background : $color-background-panel;
     border     : 1px solid $color-gray-medium;
 
@@ -61,5 +56,11 @@
 
         overflow-x: hidden;
         overflow-y: scroll;
+    }
+}
+
+@include screen-size(mobile) {
+    .view__item_selector_popup {
+        position: fixed; top: 0; left: 0; height: 100%; width: 100%;
     }
 }

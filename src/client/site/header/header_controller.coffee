@@ -64,6 +64,7 @@ module.exports = class HeaderController extends BaseController
             @$('.addthis_sharing_toolbox').addClass 'placeholder'
 
         @$breadcrumbs      = @$('.breadcrumbs')
+        @$extraNav         = @$('.extra-nav')
         @$loginButtonLabel = @$('.button.login p')
         @$title            = $('title')
         super
@@ -77,6 +78,7 @@ module.exports = class HeaderController extends BaseController
         @$loginButtonLabel.text if global.site.user? then "Logout" else "Login"
 
         @_refreshBreadcrumbs()
+        @_refreshExtraNav()
         @_refreshSelectedNavButton()
         @_refreshTitle()
         super
@@ -85,12 +87,12 @@ module.exports = class HeaderController extends BaseController
 
     events: ->
         _.extend super,
-            'click .craft':         'onCraft'
-            'click .browse':        'onBrowse'
-            'click .login':         'onLogin'
-            'click .news':          'onNews'
-            'click .search':        'onSearch'
-            'click .breadcrumbs a': 'routeLinkClick'
+            'click .craft':            'onCraft'
+            'click .browse':           'onBrowse'
+            'click .login':            'onLogin'
+            'click .news':             'onNews'
+            'click .search':           'onSearch'
+            'click .breadcrumb-bar a': 'routeLinkClick'
 
     # Private Methods ##############################################################################
 
@@ -108,6 +110,17 @@ module.exports = class HeaderController extends BaseController
             @show @$breadcrumbs
         else
             @hide @$breadcrumbs
+
+    _refreshExtraNav: ->
+        extraNavContent = @model?.controller?.getExtraNav()
+
+        if extraNavContent?
+            @$extraNav.empty()
+            @$extraNav.append extraNavContent
+            @show @$extraNav
+        else
+            @hide @$extraNav
+
 
     _refreshSelectedNavButton: ->
         return unless @model?.page?

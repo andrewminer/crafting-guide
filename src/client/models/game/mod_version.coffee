@@ -59,6 +59,10 @@ module.exports = class ModVersion extends BaseModel
         return null if result.length is 0
         return result
 
+    chooseRandomItem: ->
+        itemIndex = Math.floor Math.random() * @_slugs.length
+        return @_slugs[itemIndex]
+
     eachItem: (callback)->
         for slug in @_slugs
             item = @findItem slug

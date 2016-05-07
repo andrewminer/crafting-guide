@@ -68,6 +68,15 @@ module.exports = class ItemPageController extends PageController
             $("<b>#{display.itemName}</b>")
         ]
 
+    getExtraNav: ->
+        console.warn "getExtraNav()"
+        itemSlug = @_modPack.chooseRandomItem()
+        console.warn "    itemSlug: #{itemSlug}"
+        return null unless itemSlug?
+
+        itemDisplay = @_modPack.findItemDisplay itemSlug
+        return $("<a href='#{itemDisplay.itemUrl}'>Random Item</a>")
+
     getMetaDescription: ->
         return null unless @_itemSlug?
         display = @_modPack.findItemDisplay @_itemSlug
@@ -82,6 +91,10 @@ module.exports = class ItemPageController extends PageController
         return "#{display.itemName} from #{display.modName}"
 
     # BaseController Overrides #####################################################################
+
+    onDidModelChange: ->
+        @trigger c.event.change
+        super
 
     onDidRender: ->
         options                      = imageLoader:@_imageLoader, modPack:@_modPack, router:@_router, show:false

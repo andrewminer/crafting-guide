@@ -15,10 +15,6 @@
         display     : flex;
         align-items : center;
 
-        @include screen-size(mobile) {
-            display : none;
-        }
-
         a {
             flex         : 0 0 auto;
             height       : $size-minecraft-block * 1.5;
@@ -29,30 +25,15 @@
                 position : relative;
                 height   : $size-minecraft-block * 1.5;
                 width    : $size-minecraft-block * 1.5;
-
-                @include screen-size(desktop) {
-                    top    : -$size-minecraft-block * 0.5;
-                    left   : -$size-minecraft-block * 0.5;
-                    height : $size-minecraft-block * 2.0;
-                    width  : $size-minecraft-block * 2.0;
-                }
             }
         }
 
         h1 {
             flex: 1 1 auto;
             white-space: nowrap;
-
-            @include screen-size(tablet) {
-                font-size : $font-size-xlarge;
-            }
         }
 
         .addthis_sharing_toolbox {
-            @include screen-size(mobile) {
-                display: none;
-            }
-
             flex         : 0 0 auto;
             min-height   : 37px; // actual size of addthis component
             min-width    : 144px;
@@ -97,26 +78,40 @@
         }
     }
 
-    .breadcrumbs {
+    .breadcrumb-bar {
         background: $color-screen;
+        padding: 0 ($size-margin-medium + $size-margin-large);
+
         font-family: $font-family-control;
         font-size: $font-size-medium;
-
-        padding-left: $size-margin-medium + $size-margin-large;
         line-height: $font-size-medium + 2 * $size-margin-small;
-        text-indent: -$size-margin-large;
 
-        &:before {
-            content: "⟩";
-            margin-right: $size-margin-medium;
+        display: flex;
+
+        .breadcrumbs {
+            flex: 1 1 75%;
+
+            text-indent: -$size-margin-large;
+
+            &:before {
+                content: "⟩";
+                margin-right: $size-margin-medium;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+
+            span {
+                margin: 0 $size-margin-medium;
+            }
         }
 
-        a {
-            text-decoration: underline;
-        }
+        .extra-nav {
+            flex: 1 1 25%;
+            align-self: flex-end;
 
-        span {
-            margin: 0 $size-margin-medium;
+            text-align: right;
         }
     }
 }
@@ -154,6 +149,12 @@
 
         .divider {
             .button.login {
+                display: none;
+            }
+        }
+
+        .breadcrumb-bar {
+            .extra-nav {
                 display: none;
             }
         }

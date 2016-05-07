@@ -19,6 +19,10 @@ module.exports = class PageController extends BaseController
     getBreadcrumbs: ->
         return []
 
+    getExtraNav: ->
+        # subclasses may override this to provide extra content in the right-hand side of the breadcrumb bar
+        return null
+
     getMetaDescription: ->
         # subclasses should override this to return the page-specific text for the meta description tag
         return null

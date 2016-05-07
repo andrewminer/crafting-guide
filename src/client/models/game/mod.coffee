@@ -93,6 +93,12 @@ module.exports = class Mod extends BaseModel
 
     # Item Methods #################################################################################
 
+    chooseRandomItem: ->
+        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
+        return null unless effectiveModVersion?
+
+        return effectiveModVersion.chooseRandomItem()
+
     eachItem: (callback)->
         effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
         effectiveModVersion.eachItem callback

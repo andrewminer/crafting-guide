@@ -25,6 +25,12 @@ module.exports = class ModPack extends BaseModel
 
     # Item Methods #################################################################################
 
+    chooseRandomItem: ->
+        return null unless @_mods.length > 0
+
+        modIndex = Math.floor Math.random() * @_mods.length
+        return @_mods[modIndex].chooseRandomItem()
+
     findItem: (itemSlug, options={})->
         options.includeDisabled ?= false
 

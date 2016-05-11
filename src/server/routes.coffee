@@ -16,5 +16,6 @@ sendIndex = (request, response)->
 
 router.get '/browse*', sendIndex
 router.get '/craft*', sendIndex
+router.get '/edit*', sendIndex
 router.get '/login*', sendIndex
 router.get '/news*', sendIndex

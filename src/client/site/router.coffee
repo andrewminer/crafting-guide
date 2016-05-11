@@ -11,6 +11,7 @@ ItemPageController      = require './item_page/item_page_controller'
 ItemSlug                = require '../models/game/item_slug'
 LoginPageController     = require './login_page/login_page_controller'
 ModPageController       = require './mod_page/mod_page_controller'
+ModEditorPageController = require './mod_editor_page/mod_editor_page_controller'
 NewsPageController      = require './news_page/news_page_controller'
 TutorialPageController  = require './tutorial_page/tutorial_page_controller'
 UrlParams               = require './url_params'
@@ -66,6 +67,10 @@ module.exports = class Router extends Backbone.Router
         'craft/:text/':                                           'route__craft'
         'craft/:text/index.html':                                 'route__craft'
 
+        'edit/:modSlug':                                          'route__editMod'
+        'edit/:modSlug/':                                         'route__editMod'
+        'edit/:modSlug/index.html':                               'route__editMod'
+
         'login':                                                  'route__login'
         'login/':                                                 'route__login'
         'login/index.html':                                       'route__login'
@@ -111,6 +116,11 @@ module.exports = class Router extends Backbone.Router
 
     route__configure: ->
         @route__craft()
+
+    route__editMod: (modSlug)->
+        controller = new ModEditorPageController @_makeOptions()
+        controller.model = @_siteController.modPack.getMod modSlug
+        @_siteController.setPage 'editMod', controller
 
     route__craft: (text)->
         controller = new CraftPageController @_makeOptions {}

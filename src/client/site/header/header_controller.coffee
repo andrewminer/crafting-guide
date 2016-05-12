@@ -26,29 +26,38 @@ module.exports = class HeaderController extends BaseController
     # Event Methods ################################################################################
 
     onCraft: ->
+        tracker.trackEvent c.tracking.category.navigate, 'click-button', 'craft'
         @router.navigate '/craft', trigger:true
         return false
 
     onBrowse: ->
+        tracker.trackEvent c.tracking.category.navigate, 'click-button', 'browse'
         @router.navigate '/browse', trigger:true
         return false
 
     onLogin: ->
         if global.site.user?
+            tracker.trackEvent c.tracking.category.account, 'logout'
             global.site.logout()
         else
+            tracker.trackEvent c.tracking.category.navigate, 'click-button', 'login'
             @router.navigate '/login', trigger:true
         return false
 
     onNews: ->
+        tracker.trackEvent c.tracking.category.navigate, 'click-button', 'news'
         @router.navigate '/news', trigger:true
         return false
 
     onSearch: (event, hint='')->
+        tracker.trackEvent c.tracking.category.search, 'launch'
         @_selector.launch hint
             .then (itemSlug)=>
-                return unless itemSlug?
+                if not itemSlug?
+                    tracker.trackEvent c.tracking.category.search, 'cancel', itemSlug
+                    return
 
+                tracker.trackEvent c.tracking.category.search, 'complete', itemSlug
                 itemDisplay = @_modPack.findItemDisplay itemSlug
                 @router.navigate itemDisplay.itemUrl, trigger:true
         return false
@@ -121,7 +130,8 @@ module.exports = class HeaderController extends BaseController
             @hide @$breadcrumbs
 
     _refreshExtraNav: ->
-        extraNavContent = @model?.controller?.getExtraNav()
+        return unless _.isFunction @model?.controller?.getExtraNav
+        extraNavContent = @model.controller.getExtraNav()
 
         if extraNavContent?
             @$extraNav.empty()

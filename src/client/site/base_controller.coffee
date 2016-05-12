@@ -49,15 +49,26 @@ module.exports = class BaseController extends Backbone.View
         @off()
 
     routeLinkClick: (event)->
-        event.preventDefault()
-        href = $(event.target).attr 'href'
-        href ?= $(event.currentTarget).attr 'href'
-        logger.info "Re-routing link to internal navigation: #{href}"
+        $link = $(event.target)
+        if not $link.attr('href')?
+            $link = $(event.currentTarget)
+
+        href = $link.attr 'href'
+        target = $link.attr 'target'
+
+        logger.info -> "Re-routing link to internal navigation: #{href}"
 
         if href? and href.match /^http/
-            window.location.href = href
+            tracker.trackEvent c.tracking.category.navigate, 'external-link', href
+                .then -> window.location.href = href
+            return false
+        else if target?
+            tracker.trackEvent c.tracking.category.navigate, 'external-link', href
+            return true
         else
+            tracker.trackEvent c.tracking.category.navigate, 'internal-link', href
             @router.navigate href, trigger:true
+            return false
 
     show: ($el)->
         $el ?= @$el

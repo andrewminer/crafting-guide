@@ -1,5 +1,5 @@
 #
-# Crafting Guide - storage.coffee
+# Crafting Guide - url_params.coffee
 #
 # Copyright © 2014-2016 by Redwood Labs
 # All rights reserved.

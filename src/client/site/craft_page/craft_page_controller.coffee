@@ -59,6 +59,7 @@ module.exports = class CraftPageController extends PageController
             $el = $el.parent()
 
         if inventoryText?
+            tracker.trackEvent c.tracking.category.craft, 'add-sample', inventoryText
             sampleInventory = new SimpleInventory
             sampleInventory.parse inventoryText
             @model.craftsman.want.addInventory sampleInventory
@@ -91,6 +92,7 @@ module.exports = class CraftPageController extends PageController
             modPack:         @_modPack
             model:           @model.craftsman.want
             router:          @_router
+            trackingContext: c.tracking.category.craftWant
         @_wantInventoryController.on c.event.button.first, (c, s)=> @onRemoveFromWant(s)
         @_wantInventoryController.on c.event.change, (c)=> @onWantInventoryChanged()
 
@@ -100,6 +102,7 @@ module.exports = class CraftPageController extends PageController
             modPack:         @_modPack
             model:           @model.craftsman.have
             router:          @_router
+            trackingContext: c.tracking.category.craftHave
         @_haveInventoryController.on c.event.button.first, (controller, itemSlug)=>
             @onRemoveFromHaveInventory itemSlug
 
@@ -110,6 +113,7 @@ module.exports = class CraftPageController extends PageController
             modPack:         @_modPack
             model:           null
             router:          @_router
+            trackingContext: c.tracking.category.craftNeed
         @_needInventoryController.on c.event.button.first, (c, s)=> @onMoveNeedToHave(s)
 
         @_workingSectionController = @addChild CraftsmanWorkingController, '.view__craftsman_working',

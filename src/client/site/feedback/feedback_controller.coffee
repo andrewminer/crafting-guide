@@ -22,6 +22,7 @@ module.exports = class FeedbackController extends BaseController
     # Public Methods ###############################################################################
 
     enterFeedback: (message)->
+        tracker.trackEvent c.tracking.category.feedback, 'ask-a-question'
         promise = w(true)
         if not @isOpen then promise = @onToggle()
         promise.then => @$commentField.val message
@@ -38,6 +39,7 @@ module.exports = class FeedbackController extends BaseController
             email: @$emailField.val()
             comment: @$commentField.val()
 
+        tracker.trackEvent c.tracking.category.feedback, 'send'
         @model.send('feedback', message)
             .then =>
                 @onToggle()
@@ -58,6 +60,7 @@ module.exports = class FeedbackController extends BaseController
             @$screen.off 'click'
 
             if @isOpen
+                tracker.trackEvent c.tracking.category.feedback, 'toggle-closed'
                 @$screen.css display:'none'
                 @$page.removeClass 'blur'
                 @$el.animate {left:-@_closeWidth}, duration:c.duration.fast, complete:=>
@@ -65,6 +68,7 @@ module.exports = class FeedbackController extends BaseController
                     @$('input, textarea').blur()
                     resolve()
             else
+                tracker.trackEvent c.tracking.category.feedback, 'toggle-open'
                 @$page.addClass 'blur'
                 @$screen.on 'click', => @onToggle()
                 @$screen.css display:'block'

@@ -29,11 +29,13 @@ module.exports = class MultiblockViewerController extends BaseController
 
     onBackClicked: ->
         return if @$backButton.hasClass 'disabled'
+        tracker.trackEvent c.tracking.category.multiblock, 'back'
         @multiblockController.goBackLayer()
         @refresh()
 
     onNextClicked: ->
         return if @$nextButton.hasClass 'disabled'
+        tracker.trackEvent c.tracking.category.multiblock, 'next'
         @multiblockController.goNextLayer()
         @refresh()
 
@@ -41,6 +43,7 @@ module.exports = class MultiblockViewerController extends BaseController
         if itemDisplay?
             @$captionText.html itemDisplay.itemName
             @_imageLoader.load itemDisplay.iconUrl, @$captionIcon
+            tracker.trackEvent c.tracking.category.multiblock, 'hover', itemDisplay.slug
         else
             @$captionText.html '&nbsp;'
             @$captionIcon.attr 'src', '/images/empty.png'

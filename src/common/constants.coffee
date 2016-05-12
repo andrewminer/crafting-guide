@@ -156,6 +156,20 @@ text.title               = _.template 'Minecraft Crafting Guide'
 text.titleWithText       = _.template '<%= text %> | Minecraft Crafting Guide'
 text.tutorialDescription = _.template 'Learn about <%= name %> in <%= mod %> and use the interactive crafting planner to get ready for your build!'
 
+exports.tracking             = tracking = {}
+tracking.category            = {}
+tracking.category.account    = 'account'
+tracking.category.craft      = 'craft'
+tracking.category.craftHave  = 'craft-have'
+tracking.category.craftNeed  = 'craft-need'
+tracking.category.craftWant  = 'craft-want'
+tracking.category.feedback   = 'feedback'
+tracking.category.markdown   = 'markdown'
+tracking.category.modPack    = 'mod-pack'
+tracking.category.multiblock = 'multiblock'
+tracking.category.navigate   = 'navigate'
+tracking.category.search     = 'search'
+
 exports.url          = url = {}
 url.crafting         = _.template "/craft/<%= inventoryText %>"
 url.item             = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"

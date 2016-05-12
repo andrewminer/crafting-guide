@@ -40,6 +40,7 @@ module.exports = class InventoryController extends BaseController
         @_isAcceptable       = options.isAcceptable       ?= null
         @_secondButtonType   = options.secondButtonType   ?= null
         @_shouldEnableButton = options.shouldEnableButton ?= (model, button)-> true
+        @_trackingContext    = options.trackingContext    ?= null
 
         options.templateName  = 'common/inventory'
         super options
@@ -54,20 +55,26 @@ module.exports = class InventoryController extends BaseController
         return unless @model?
         return if @$clearButton.hasClass 'disabled'
 
+        tracker.trackEvent @_trackingContext, 'clear'
         @model.clear()
         @trigger c.event.clear, this
         @trigger c.event.change, this
 
     onFirstButtonClicked: (stackController)->
+        tracker.trackEvent @_trackingContext, 'remove-from', stackController?.model?.itemSlug
         @trigger c.event.button.first, this, stackController?.model?.itemSlug
 
     onItemSelectorButtonClicked: ->
         return unless @model?
 
+        tracker.trackEvent @_trackingContext, 'launch-add-to'
         @_selector.launch()
             .then (itemSlug)=>
-                return unless itemSlug?
+                if not itemSlug?
+                    tracker.trackEvent @_trackingContext, 'cancel-add-to'
+                    return
 
+                tracker.trackEvent @_trackingContext, 'complete-add-to', itemSlug
                 @model.add itemSlug, 1
                 @trigger c.event.add, this, itemSlug
                 @trigger c.event.change, this
@@ -136,6 +143,7 @@ module.exports = class InventoryController extends BaseController
                         router:             @_router
                         secondButtonType:   @_secondButtonType
                         shouldEnableButton: @_shouldEnableButton
+                        trackingContext:    @_trackingContext
                     controller.on c.event.change, => @trigger c.event.change, this
                     controller.on c.event.button.first, (c)=> @onFirstButtonClicked(c)
                     controller.on c.event.button.second, (c)=> @onSecondButtonClicked(c)

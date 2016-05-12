@@ -18,14 +18,17 @@ global.π  = Math.PI
 global.ε  = 0.0001
 global.w  = require 'when'
 
-global.Backbone = Backbone = require 'backbone'
-Backbone.$ = $
-
 {Logger} = require 'crafting-guide-common'
 global.logger = new Logger
 
+Tracker = require './tracker'
+global.tracker = new Tracker
+
 marked = require 'marked'
 marked.setOptions sanitize:true
+
+global.Backbone = Backbone = require 'backbone'
+Backbone.$ = $
 
 ########################################################################################################################
 
@@ -44,9 +47,10 @@ switch global.hostName
         logger.level = Logger.VERBOSE
         apiBaseUrl   = 'http://api-staging.crafting-guide.com'
     when 'crafting-guide.com'
-        global.env   = 'production'
-        logger.level = Logger.INFO
-        apiBaseUrl   = 'http://api.crafting-guide.com'
+        global.env      = 'production'
+        logger.level    = Logger.INFO
+        tracker.enabled = true
+        apiBaseUrl      = 'http://api.crafting-guide.com'
     else
         throw new Error "cannot determine the environment of: #{window.location.hostname}"
 
@@ -75,4 +79,5 @@ site.loadDefaultModPack()
 site.loadCurrentUser()
 
 Backbone.history.start pushState:true
+tracker.trackPageView()
 logger.info -> "CraftingGuide is ready"

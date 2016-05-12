@@ -29,10 +29,6 @@ module.exports = class ItemSelectorController extends BaseController
     # Public Methods ###############################################################################
 
     launch: (hint='')->
-        if @_session
-            @_session.resolve null
-            @_session = null
-
         @model.hint = hint
         if @rendered then @refresh()
 
@@ -140,6 +136,10 @@ module.exports = class ItemSelectorController extends BaseController
         @$screen.css 'display', 'none'
         @$popup.detach()
         @model.hint = ''
+
+        if @_session
+            @_session.resolve null
+            @_session = null
 
     _disableWindowScrolling: ->
         @_windowScrollPosition = $(window).scrollTop()

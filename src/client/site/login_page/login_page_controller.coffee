@@ -36,15 +36,18 @@ module.exports = class LoginPageController extends PageController
     # Event Methods ################################################################################
 
     onExpandReadMore: (event)->
+        tracker.trackEvent c.tracking.category.account, 'click-read-more'
         @$readMoreLink.css display: 'none'
         @$readMoreContainer.css 'max-height':@$readMoreContent.height()
         return false
 
     onLoginButtonClicked: (event)->
-        @_redirectToGitHub()
+        tracker.trackEvent c.tracking.category.account, 'login'
+            .then => @_redirectToGitHub()
         return false
 
     onLogoutButtonClicked: (event)->
+        tracker.trackEvent c.tracking.category.account, 'logout'
         global.site.logout()
         return false
 

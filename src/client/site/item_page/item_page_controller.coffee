@@ -50,6 +50,7 @@ module.exports = class ItemPageController extends PageController
     # Event Methods ################################################################################
 
     craftingPlanButtonClicked: ->
+        tracker.trackEvent c.tracking.category.craft, 'view-crafting-plan', @model.item.slug
         display = @_modPack.findItemDisplay @model.item.slug
         @_router.navigate display.craftingUrl, trigger:true
         return false

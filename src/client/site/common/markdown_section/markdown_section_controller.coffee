@@ -60,6 +60,7 @@ module.exports = class MarkdownSectionController extends BaseController
     # Event Methods ################################################################################
 
     onCancelClicked: (event)->
+        tracker.trackEvent c.tracking.category.markdown, 'cancel'
         @model = @_originalModel
         @resetToDefaultState()
 
@@ -70,6 +71,7 @@ module.exports = class MarkdownSectionController extends BaseController
     onEditClicked: (event)->
         return false unless @editable
 
+        tracker.trackEvent c.tracking.category.markdown, 'edit'
         @_originalModel = @model
         @state = @State.waiting
         @_beginEditing()
@@ -87,15 +89,18 @@ module.exports = class MarkdownSectionController extends BaseController
         return false
 
     onPreviewClicked: (event)->
+        tracker.trackEvent c.tracking.category.markdown, 'preview'
         @_updatePreview()
         @state = @State.previewing
         return false
 
     onReturnClicked: (event)->
+        tracker.trackEvent c.tracking.category.markdown, 'return'
         @state = @State.editing
         return false
 
     onSaveClicked: (event)->
+        tracker.trackEvent c.tracking.category.markdown, 'save'
         @state = @State.waiting
         @_endEditing()
             .then =>

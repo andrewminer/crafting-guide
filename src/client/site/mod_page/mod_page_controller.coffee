@@ -30,14 +30,17 @@ module.exports = class ModPageController extends BaseController
 
     onToggleEnabled: ->
         if @model.activeVersion is Mod.Version.None
+            tracker.trackEvent c.tracking.category.modPack, 'toggle-on', @model.slug
             @model.activeVersion = Mod.Version.Latest
         else
+            tracker.trackEvent c.tracking.category.modPack, 'toggle-off', @model.slug
             @model.activeVersion = Mod.Version.None
 
         return false
 
     onVersionChanged: ->
         @model.activeVersion = @$versionSelector.val()
+        tracker.trackEvent c.tracking.category.modPack, 'select-version', "#{@model.slug}@#{@model.activeVersion}"
         return false
 
     # Property Methods #############################################################################
@@ -94,7 +97,8 @@ module.exports = class ModPageController extends BaseController
     events: ->
         return _.extend super,
             'change .version select': 'onVersionChanged'
-            'click .modpack': 'onToggleEnabled'
+            'click .modpack':         'onToggleEnabled'
+            'click .about .right a':  'routeLinkClick'
 
     # Private Methods ##############################################################################
 

@@ -36,6 +36,7 @@ module.exports = class StackController extends BaseController
         @_modPack            = options.modPack
         @_secondButtonType   = options.secondButtonType   ?= null
         @_shouldEnableButton = options.shouldEnableButton ?= (model, button)-> true
+        @_trackingContext    = options.trackingContext    ?= null
 
         @_modPack.on c.event.change, => @tryRefresh()
 
@@ -69,6 +70,8 @@ module.exports = class StackController extends BaseController
             @model.quantity = newQuantity
             @trigger c.event.change + ':quantity', this, oldQuantity, newQuantity
             @trigger c.event.change, this
+
+            tracker.trackEvent @_trackingContext, 'update-quantity', @model.itemSlug, @model.quantity
 
     onQuantityFieldChanged: ->
         return unless @_editable

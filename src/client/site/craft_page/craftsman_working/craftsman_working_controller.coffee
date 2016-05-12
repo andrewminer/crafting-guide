@@ -24,6 +24,7 @@ module.exports = class CraftsmanWorkingController extends BaseController
     # Event Methods ################################################################################
 
     onButtonClicked: ->
+        tracker.trackEvent c.tracking.category.craft, 'start'
         @trigger c.event.click
         @model.reset()
         @model.work()

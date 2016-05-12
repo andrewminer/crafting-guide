@@ -31,7 +31,7 @@ module.exports = class Router extends Backbone.Router
 
     navigate: ->
         super
-        @_recordPageView()
+        tracker.trackPageView()
 
     routes:
         '':                                                       'route__home'
@@ -161,12 +161,3 @@ module.exports = class Router extends Backbone.Router
 
     _makeOptions: (options={})->
         return _.extend options, @_siteController.controllerOptions
-
-    _recordPageView: ->
-        pathname = window.location.pathname
-
-        if global.env is 'production' and ga?
-            logger.info -> "Recording GA page view: #{pathname}"
-            ga 'send', 'pageview', pathname
-        else
-            logger.info -> "Suppressing GA page view: #{pathname}"

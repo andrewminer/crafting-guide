@@ -41,7 +41,12 @@ module.exports = class StepController extends BaseController
 
     onCompleteButtonClicked: (event)->
         return if @$completeButton.hasClass 'disabled'
+        tracker.trackEvent c.tracking.category.craft, 'mark-complete', null, @model.number
         @onComplete this
+
+    onShowToolPlan: (event)->
+        tracker.trackEvent c.tracking.category.navigate, 'show-tool-plan', @$toolButton.attr 'target'
+        return true
 
     # BaseController Overrides #####################################################################
 
@@ -90,6 +95,7 @@ module.exports = class StepController extends BaseController
     events: ->
         return _.extend super,
             'click .button.complete': 'onCompleteButtonClicked'
+            'click a.button.tool':     'onShowToolPlan'
 
     # Private Methods ##############################################################################
 

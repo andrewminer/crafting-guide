@@ -61,7 +61,7 @@ module.exports = class InventoryController extends BaseController
         @trigger c.event.change, this
 
     onFirstButtonClicked: (stackController)->
-        tracker.trackEvent @_trackingContext, 'remove-from', stackController?.model?.itemSlug
+        tracker.trackEvent @_trackingContext, 'remove-from', "#{stackController?.model?.itemSlug}"
         @trigger c.event.button.first, this, stackController?.model?.itemSlug
 
     onItemSelectorButtonClicked: ->
@@ -74,7 +74,7 @@ module.exports = class InventoryController extends BaseController
                     tracker.trackEvent @_trackingContext, 'cancel-add-to'
                     return
 
-                tracker.trackEvent @_trackingContext, 'complete-add-to', itemSlug
+                tracker.trackEvent @_trackingContext, 'complete-add-to', "#{itemSlug}"
                 @model.add itemSlug, 1
                 @trigger c.event.add, this, itemSlug
                 @trigger c.event.change, this

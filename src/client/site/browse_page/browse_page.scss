@@ -10,8 +10,11 @@
 
     .right {
         .tile_container {
-            display   : flex;
-            flex-wrap : wrap;
+            margin-bottom : $size-margin-large;
+
+            display      : flex;
+            flex-wrap    : wrap;
+            margin-right : -12px;
 
             .view__mod_tile {
                 flex          : 1 1 calc(50% - 12px); // $size-margin-large / 2
@@ -26,14 +29,16 @@
     .view__browse_page {
         .right {
             .tile_container {
-                flex-direction: column;
-                flex-wrap: nowrap;
-                align-items: stretch;
+                margin-right : 0;
+
+                flex-direction : column;
+                flex-wrap      : nowrap;
+                align-items    : stretch;
 
                 .view__mod_tile {
-                    flex: 0 0 auto;
-                    margin-right: 0;
-                    width: 100%;
+                    flex         : 0 0 auto;
+                    margin-right : 0;
+                    width        : 100%;
                 }
             }
         }

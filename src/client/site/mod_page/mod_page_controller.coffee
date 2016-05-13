@@ -5,7 +5,7 @@
 # All rights reserved.
 #
 
-BaseController      = require '../base_controller'
+PageController      = require '../page_controller'
 Item                = require '../../models/game/item'
 ItemGroupController = require '../common/item_group/item_group_controller'
 Mod                 = require '../../models/game/mod'
@@ -13,7 +13,7 @@ TutorialController  = require './tutorial/tutorial_controller'
 
 ########################################################################################################################
 
-module.exports = class ModPageController extends BaseController
+module.exports = class ModPageController extends PageController
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'

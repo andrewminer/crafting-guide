@@ -5,7 +5,7 @@
 # All rights reserved.
 #
 
-CraftingGuideServer = require './crafting_guide_server'
+require('dotenv').config()
 
 ########################################################################################################################
 
@@ -15,10 +15,8 @@ global.w = require 'when'
 
 ########################################################################################################################
 
-port = parseInt process.argv[2]
-port = if _.isNaN port then c.server.defaultPort else port
-
-server = new CraftingGuideServer port
+CraftingGuideServer = require './crafting_guide_server'
+server = new CraftingGuideServer process.env.WEBSITE_SERVER_PORT
 server.start()
 
 process.on 'SIGINT', ->

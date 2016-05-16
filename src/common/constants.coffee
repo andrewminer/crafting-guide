@@ -143,7 +143,7 @@ screen.type.compute = ->
     return screen.type.desktop
 
 exports.server             = {}
-exports.server.defaultPort = 8080
+exports.server.defaultPort = 4347
 
 exports.text             = text = {}
 text.browseDescription   = _.template 'Browse through complete item listings for over a dozen top mods and use the interactive crafting planner for step-by-step instructions'

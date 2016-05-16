@@ -59,9 +59,9 @@ module.exports = class SiteController extends BaseController
                 @$pageContentLoading.addClass 'hidden'
 
     loadCurrentUser: ->
-        @client.fetchCurrentUser()
+        @client.getCurrentUser()
             .then (response)=>
-                userData = response.json?.data?.user
+                userData = response.json
                 @user = new GitHubUser userData if userData?
             .catch (error)=>
                 if error?.response?.statusCode isnt 401
@@ -77,7 +77,7 @@ module.exports = class SiteController extends BaseController
     logout: ->
         @storage.store 'loginSecurityToken', null
         @user = null
-        @client.logout()
+        @client.deleteSession()
             .catch (error)->
                 logger.error -> "Failed to log out: #{error}"
             .done()

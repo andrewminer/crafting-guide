@@ -79,9 +79,9 @@ module.exports = class LoginPageController extends PageController
         @$userName          = @$('.user .name')
 
         if (not @user?) and (@_params?.state?) and (@_params?.state is @loginSecurityToken)
-            @_client.completeGitHubLogin code:@_params.code
+            @_client.createSession code:@_params.code
                 .then (response)=>
-                    attributes = response.json.data.user
+                    attributes = response.json
                     if attributes?
                         global.site.user = new GitHubUser attributes
                         global.site.resumeAfterLogin()
@@ -133,7 +133,7 @@ module.exports = class LoginPageController extends PageController
         return @State.ReadyToLogin
 
     _compeleteLogin: (code)->
-        @_client.completeGitHubLogin code:code
+        @_client.createSession code:code
             .then (response)=>
                 global.site.user = new GitHubUser response.json
             .catch (error)=>

@@ -75,6 +75,10 @@ module.exports = (grunt)->
                 files: [
                     {expand:true, cwd:'./assets/', src:'**/*', dest:'./build/static'}
                 ]
+            env_build:
+                files: [
+                    {expand:true, cwd:'.', src:'.env', dest:'./build'}
+                ]
             build_to_dist:
                 files: [
                     expand: true
@@ -192,7 +196,7 @@ module.exports = (grunt)->
         ['jade', 'build:copy', 'build:css', 'browserify:external', 'browserify:internal']
 
     grunt.registerTask 'build:copy', 'helper task for build',
-        ['copy:assets_build', 'copy:common_source', 'copy:server_source']
+        ['copy:assets_build', 'copy:env_build', 'copy:common_source', 'copy:server_source']
 
     grunt.registerTask 'build:css', 'helper task for build',
         ['sass_globbing', 'sass']
@@ -230,7 +234,7 @@ module.exports = (grunt)->
     grunt.registerTask 'upload:staging', 'upload the project the staging Amazon S3 environment',
         ['dist', 'script:s3_upload:staging']
 
-    grunt.registerTask 'useLocalDeps', 'use local dependencies instead of NPM dependencies',
+    grunt.registerTask 'use-local-deps', 'use local dependencies instead of NPM dependencies',
         ['script:use_local_deps']
 
     # Code Tasks #######################################################################################################

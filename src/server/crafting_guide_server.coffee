@@ -16,8 +16,7 @@ module.exports = class CraftingGuideServer
 
     constructor: (port)->
         if not port? then throw new Error 'port is mandatory'
-        if not _.isNumber port then throw new Error 'port must be a number'
-        @port = parseInt port
+        @port = port
 
         app = express()
         app.disable 'etag'

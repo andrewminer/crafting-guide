@@ -1,5 +1,6 @@
 *.log
 .DS_Store
+.env
 .sass-cache
 .tm_properties
 aws.config

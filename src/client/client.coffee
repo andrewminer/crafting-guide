@@ -61,6 +61,8 @@ storage = new Storage storage:global.localStorage
 
 ########################################################################################################################
 
+tracker.trackPageView()
+
 {CraftingGuideClient} = require 'crafting-guide-common'
 client = _(new CraftingGuideClient(baseUrl:apiBaseUrl)).extend Backbone.Events
 client.onStatusChanged = (client, oldStatus, newStatus)->
@@ -79,5 +81,4 @@ site.loadDefaultModPack()
 site.loadCurrentUser()
 
 Backbone.history.start pushState:true
-tracker.trackPageView()
 logger.info -> "CraftingGuide is ready"

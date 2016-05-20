@@ -15,4 +15,6 @@ script.
         ga('create', 'UA-54970416-2', 'crafting-guide.com');
         ga('require', 'displayfeatures');
         ga('require', 'linkid', 'linkid.js');
+    } else {
+        window.ga = function() {}
     }

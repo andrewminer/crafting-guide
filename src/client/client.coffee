@@ -37,11 +37,11 @@ switch global.hostName
     when 'prerender.crafting-guide.com'
         global.env   = 'prerender'
         logger.level = Logger.FATAL
-        apiBaseUrl   = 'http://local.crafting-guide.com:4347'
+        apiBaseUrl   = 'http://prerender.crafting-guide.com:4347'
     when 'local.crafting-guide.com', 'localhost'
         global.env   = 'local'
         logger.level = Logger.DEBUG
-        apiBaseUrl   = 'http://local.crafting-guide.com:4347'
+        apiBaseUrl   = "http://#{global.hostName}:4347"
     when 'staging.crafting-guide.com'
         global.env   = 'staging'
         logger.level = Logger.VERBOSE
@@ -70,7 +70,7 @@ client.onStatusChanged = (client, oldStatus, newStatus)->
     client.trigger 'change:status', client, oldStatus, newStatus
     client.trigger 'change', client
 
-client.checkStatus()
+client.startMonitoringStatus()
 
 ########################################################################################################################
 

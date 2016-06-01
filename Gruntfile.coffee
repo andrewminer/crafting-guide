@@ -188,7 +188,7 @@ module.exports = (grunt)->
                 tasks: ['sass']
             test:
                 files: ['./src/**/*.coffee', './src/**/*.js', './test/**/*.coffee']
-                tasks: ['script:clear', 'test']
+                tasks: ['test']
 
     # Compound Tasks ###################################################################################################
 
@@ -223,7 +223,7 @@ module.exports = (grunt)->
         ['prepublish', 'script:publish', 'clean', 'build']
 
     grunt.registerTask 'start', 'build the project and start a local HTTP server',
-        ['build', 'script:start']
+        ['script:start']
 
     grunt.registerTask 'test', 'run unit tests',
         ['mochaTest']

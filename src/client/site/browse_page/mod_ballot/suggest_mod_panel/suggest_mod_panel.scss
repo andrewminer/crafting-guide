@@ -6,30 +6,24 @@
 //
 
 .view__suggest_mod_panel {
-    @include floating-panel;
-
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: $size-margin-large;
 
     .instructions {
         font-family: $font-family-header;
         font-size: $font-size-xlarge;
+        text-align: center;
     }
 
     .initial {
         display: flex;
         flex-direction: column;
-        align-items: center;
 
         .instructions {
             margin-bottom: $size-margin-large;
         }
 
         .entry-form {
-            width: $size-minecraft-block * 15;
-
             display: flex;
             flex-direction: column;
 
@@ -66,38 +60,5 @@
 
     .error, .sending, .success {
         margin: $size-margin-xlarge 0;
-    }
-}
-
-@include screen-size(mobile) {
-
-    .view__suggest_mod_panel {
-        .instructions {
-        }
-
-        .initial {
-            .instructions {
-            }
-
-            .entry-form {
-                width: 100%;
-
-                input {
-                    &.invalid {
-                    }
-
-                    &.valid {
-                    }
-                }
-
-                .buttons {
-                    .button {
-                    }
-                }
-            }
-        }
-
-        .error, .sending, .success {
-        }
     }
 }

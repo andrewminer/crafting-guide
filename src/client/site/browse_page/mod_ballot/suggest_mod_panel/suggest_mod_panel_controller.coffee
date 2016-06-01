@@ -5,15 +5,15 @@
 # All rights reserved.
 #
 
-BaseController = require '../../base_controller'
-EmailClient    = require '../../../models/site/email_client'
+BaseController = require '../../../base_controller'
+EmailClient    = require '../../../../models/site/email_client'
 
 ########################################################################################################################
 
 module.exports = class SuggestModPanelController extends BaseController
 
     constructor: (options={})->
-        options.templateName = 'browse_page/suggest_mod_panel'
+        options.templateName = 'browse_page/mod_ballot/suggest_mod_panel'
         super options
 
         @_emailClient = new EmailClient
@@ -37,6 +37,10 @@ module.exports = class SuggestModPanelController extends BaseController
             get: ->
                 return '' unless @rendered
                 return @$urlField.val()
+
+        user:
+            get: -> @_user
+            set: (user)-> @_user = user
 
     # Event Methods ################################################################################
 
@@ -95,6 +99,12 @@ module.exports = class SuggestModPanelController extends BaseController
         showPanel = ($selectedPanel)=>
             @hide $panel for $panel in [@$initialPanel, @$sendingPanel, @$successPanel, @$errorPanel]
             @show $selectedPanel
+
+        data =
+            name:  @name
+            url:   @url
+            user:  @user?.name
+            email: @user?.email
 
         showPanel @$sendingPanel
         w(@_emailClient.send 'mod-suggestion', name:@name, url:@url)

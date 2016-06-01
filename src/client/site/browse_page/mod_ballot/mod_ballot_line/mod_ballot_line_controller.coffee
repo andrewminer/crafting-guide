@@ -49,7 +49,7 @@ module.exports = class ModBallotLineController extends BaseController
 
     onDidRender: ->
         @$button    = @$('.button')
-        @$image     = @$('img')
+        @$image     = @$('img.icon')
         @$name      = @$('.name')
         @$voteCount = @$('.vote-count')
         @$wait      = @$('.wait')

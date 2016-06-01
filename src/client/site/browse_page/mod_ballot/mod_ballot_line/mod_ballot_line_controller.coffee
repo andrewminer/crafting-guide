@@ -12,9 +12,11 @@ BaseController = require '../../../base_controller'
 module.exports = class ModBallotLineController extends BaseController
 
     constructor: (options={})->
+        if not options.imageLoader then throw new Error 'options.imageLoader is required'
         options.templateName = 'browse_page/mod_ballot/mod_ballot_line'
         super options
 
+        @_imageLoader         = options.imageLoader
         @_onVoteButtonClicked = options.onVoteButtonClicked or (controller)-> # do nothing
 
     # Event Methods ################################################################################
@@ -56,6 +58,7 @@ module.exports = class ModBallotLineController extends BaseController
     refresh: ->
         @$name.html @model.ballotLine?.name or ''
         @$voteCount.html @model.ballotLine?.voteCount or ''
+        @_refreshIcon()
         @_refreshVoteButton()
         super
 
@@ -66,6 +69,14 @@ module.exports = class ModBallotLineController extends BaseController
             'click .button': 'onButtonClicked'
 
     # Private Methods ##############################################################################
+
+    _refreshIcon: ->
+        if @model.ballotLine?
+            modSlug = _.slugify(@model.ballotLine.name)
+            url = c.url.modIcon modSlug:modSlug
+            @_imageLoader.load url, @$image
+        else
+            @$image.attr 'src', '/images/unknown.png'
 
     _refreshVoteButton: ->
         if @isWaiting

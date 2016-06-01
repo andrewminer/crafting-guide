@@ -22,8 +22,27 @@ $ballot-move-duration: 0.2s;
             text-align: center;
         }
 
+        .status-message {
+            margin-bottom: $size-margin-large;
+
+            font-family: $font-family-header;
+            font-size: $font-size-medium;
+            text-align: center;
+        }
+
         &.initial {
             padding: 0 15%;
+        }
+
+        &.loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            img {
+                margin-top: $size-margin-large;
+                margin-bottom: $size-margin-medium;
+            }
         }
 
         &.loaded {
@@ -62,14 +81,6 @@ $ballot-move-duration: 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            .status-message {
-                margin-bottom: $size-margin-large;
-
-                font-family: $font-family-header;
-                font-size: $font-size-medium;
-                text-align: center;
-            }
 
             .button {
                 width: $size-minecraft-block * 10;

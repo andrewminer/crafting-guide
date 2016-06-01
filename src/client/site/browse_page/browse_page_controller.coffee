@@ -15,12 +15,15 @@ PageController        = require '../page_controller'
 module.exports = class BrowsePageController extends PageController
 
     constructor: (options={})->
-        if not options.client then throw new Error 'options.client is required'
-        if not options.modPack then throw new Error 'options.modPack is required'
+        if not options.client      then throw new Error 'options.client is required'
+        if not options.imageLoader then throw new Error 'options.imageLoader is required'
+        if not options.modPack     then throw new Error 'options.modPack is required'
+
         options.templateName = 'browse_page'
         super options
 
         @_client          = options.client
+        @_imageLoader     = options.imageLoader
         @_modPack         = options.modPack
         @_tileControllers = []
 
@@ -48,7 +51,10 @@ module.exports = class BrowsePageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_modBallotController = @addChild ModBallotController, '.view__mod_ballot', client:@_client, user:@_user
+        @_modBallotController = @addChild ModBallotController, '.view__mod_ballot',
+            client:      @_client
+            imageLoader: @_imageLoader
+            user:        @_user
 
         @$tileContainer = @$('.tile_container')
 

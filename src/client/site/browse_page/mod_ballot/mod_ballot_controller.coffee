@@ -27,12 +27,15 @@ module.exports = class ModBallotController extends BaseController
     @::VOTE_ERROR = 'Sorry! Something went wrong casting your vote. Please try again.'
 
     constructor: (options={})->
-        if not options.client then throw new Error "options.client is required"
+        if not options.client      then throw new Error 'options.client is required'
+        if not options.imageLoader then throw new Error 'options.imageLoader is required'
+
         options.model        = ballot:null, votes:null
         options.templateName = 'browse_page/mod_ballot'
         super options
 
         @_client          = options.client
+        @_imageLoader     = options.imageLoader
         @_lineControllers = {}
         @_status          = @STATUS.INITIAL
 
@@ -184,7 +187,8 @@ module.exports = class ModBallotController extends BaseController
             model = {ballotLine:line, vote:@_findVote(line.modId)}
             if not controller?
                 controller = new ModBallotLineController
-                    model: model
+                    imageLoader:         @_imageLoader
+                    model:               model
                     onVoteButtonClicked: (controller)=> @onVoteButtonClicked controller
                 controller.render()
                 @$ballotList.append controller.$el

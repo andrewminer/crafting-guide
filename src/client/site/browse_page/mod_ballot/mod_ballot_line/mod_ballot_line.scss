@@ -54,21 +54,9 @@
 
 @include screen-size(mobile) {
     .view__mod_ballot_line {
-        .vote-count {
-        }
-
-        & > img {
-        }
-
         .name {
             overflow: hidden;
             font-size: $font-size-medium;
-        }
-
-        .button {
-        }
-
-        .wait {
         }
     }
 }

@@ -31,7 +31,7 @@
     .name {
         margin-right : $size-margin-medium;
 
-        flex        : 1 1 auto;
+        flex        : 1 1 100%;
         font-family : $font-family-text;
         font-size   : $font-size-large;
     }
@@ -49,5 +49,26 @@
         display         : flex;
         align-items     : center;
         justify-content : center;
+    }
+}
+
+@include screen-size(mobile) {
+    .view__mod_ballot_line {
+        .vote-count {
+        }
+
+        & > img {
+        }
+
+        .name {
+            overflow: hidden;
+            font-size: $font-size-medium;
+        }
+
+        .button {
+        }
+
+        .wait {
+        }
     }
 }

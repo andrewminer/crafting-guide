@@ -88,3 +88,13 @@ $ballot-move-duration: 0.2s;
         }
     }
 }
+
+@include screen-size(mobile) {
+    .view__mod_ballot {
+        .status {
+            &.loaded {
+                padding: 0;
+            }
+        }
+    }
+}

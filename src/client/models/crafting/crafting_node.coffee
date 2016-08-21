@@ -57,6 +57,12 @@ module.exports = class CraftingNode
             leave = visitor['onLeaveOtherNode']
             if leave? then leave.call visitor, this
 
+    pruneInvalidChildren: ->
+        @_pruneInvalidChildren()
+
+    removeChild: (index)->
+        @_children.splice index, 1
+
     rotateChildren: ->
         @_children.push @_children.shift()
         @_rotations += 1
@@ -120,3 +126,9 @@ module.exports = class CraftingNode
     # explored for having a useful crafting plan.
     _checkValidity: ->
         throw new Error "#{@constructor.name} must override the _checkValidity method"
+
+    # Subclasses may override this method to remove any children determined to be invalid and therefore unable to be
+    # of any use in finding legitimate crafting plans.
+    _pruneInvalidChildren: ->
+        for child in @children
+            child.pruneInvalidChildren()

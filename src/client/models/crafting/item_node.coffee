@@ -74,6 +74,16 @@ module.exports = class ItemNode extends CraftingNode
             return true if child.valid
         return false
 
+    _pruneInvalidChildren: ->
+        index = 0
+        while index < @children.length
+            child = @children[index]
+            if child.valid
+                child.pruneInvalidChildren()
+                index++
+            else
+                @removeChild index
+
     # Object Overrides #############################################################################
 
     toString: (options={})->

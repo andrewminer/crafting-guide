@@ -80,7 +80,9 @@ module.exports = class Craftsman extends BaseModel
             @stageCount = 0
             logger.warning => "Craftsman could not complete a crafting plan."
         else if not @_planBuilder?
+            @_graphBuilder.pruneInvalidNodes()
             logger.debug => "Craftsman finished computing graph:\n#{@_graphBuilder.rootNode}"
+
             @_planBuilder = new PlanBuilder @_graphBuilder.rootNode, @_modPack, have:@_have, want:@_want
             @stage        = @STAGE.PLANNING
             @stageCount   = 0

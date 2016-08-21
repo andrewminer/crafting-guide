@@ -40,6 +40,9 @@ module.exports = class GraphBuilder
             node.expand @_queue
             @_stepCount += 1
 
+    pruneInvalidNodes: ->
+        @_rootNode.pruneInvalidChildren()
+
     reset: ->
 
     # Property Methods #############################################################################

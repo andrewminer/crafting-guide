@@ -38,6 +38,7 @@ defaultMods.applied_energistics_2 = { defaultVersion: 'rv1-stable-1' }
 defaultMods.big_reactors          = { defaultVersion: '0.4.2A2' }
 defaultMods.buildcraft            = { defaultVersion: '6.4.6' }
 defaultMods.computercraft         = { defaultVersion: '1.74' }
+defaultMods.draconic_evolution    = { defaultVersion: '1.0.2h' }
 defaultMods.ender_storage         = { defaultVersion: '1.4.5.29' }
 defaultMods.enderio               = { defaultVersion: '2.2.7.325' }
 defaultMods.extra_cells           = { defaultVersion: '2.2.73b129' }

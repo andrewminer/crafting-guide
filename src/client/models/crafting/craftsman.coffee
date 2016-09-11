@@ -78,7 +78,7 @@ module.exports = class Craftsman extends BaseModel
         else if not @_graphBuilder.rootNode.valid
             @stage = @STAGE.INVALID
             @stageCount = 0
-            logger.warning => "Craftsman could not complete a crafting plan."
+            logger.warning => "Craftsman could not complete a crafting plan:\n#{@_graphBuilder.rootNode}"
         else if not @_planBuilder?
             @_graphBuilder.pruneInvalidNodes()
             logger.debug => "Craftsman finished computing graph:\n#{@_graphBuilder.rootNode}"

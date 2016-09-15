@@ -36,7 +36,7 @@ defaultMods.advanced_solar_panels = { defaultVersion: '3.5.1' }
 defaultMods.agricraft             = { defaultVersion: '1.4.6' }
 defaultMods.applied_energistics_2 = { defaultVersion: 'rv1-stable-1' }
 defaultMods.big_reactors          = { defaultVersion: '0.4.2A2' }
-defaultMods.buildcraft            = { defaultVersion: '6.4.6' }
+defaultMods.buildcraft            = { defaultVersion: '1.7.18' }
 defaultMods.computercraft         = { defaultVersion: '1.74' }
 defaultMods.draconic_evolution    = { defaultVersion: '1.0.2h' }
 defaultMods.ender_storage         = { defaultVersion: '1.4.5.29' }
@@ -63,7 +63,8 @@ defaultMods.simply_jetpacks       = { defaultVersion: '1.4.1' }
 defaultMods.solar_flux            = { defaultVersion: '0.5b' }
 defaultMods.storage_drawers       = { defaultVersion: '1.7.10-1.6.2' }
 defaultMods.thermal_dynamics      = { defaultVersion: '1.0.0RC7-98' }
-defaultMods.thermal_expansion     = { defaultVersion: '4.0.0B8-23' }
+defaultMods.thermal_expansion     = { defaultVersion: '1.7.10r4.1.4' }
+defaultMods.thermal_foundation    = { defaultVersion: '1.7.10r1.2.5' }
 defaultMods.tinkers_construct     = { defaultVersion: '1.7.10-1.8.8' }
 
 exports.duration = duration = {}

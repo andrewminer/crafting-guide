@@ -61,6 +61,7 @@ defaultMods.project_red           = { defaultVersion: '4.5.16.77' }
 defaultMods.redstone_arsenal      = { defaultVersion: '9.5.0' }
 defaultMods.railcraft             = { defaultVersion: '9.5.0' }
 defaultMods.simply_jetpacks       = { defaultVersion: '1.4.1' }
+defaultMods.solar_expansion       = { defaultVersion: '1.6a' }
 defaultMods.solar_flux            = { defaultVersion: '0.5b' }
 defaultMods.storage_drawers       = { defaultVersion: '1.7.10-1.6.2' }
 defaultMods.thermal_dynamics      = { defaultVersion: '1.7.10r1.2.0' }

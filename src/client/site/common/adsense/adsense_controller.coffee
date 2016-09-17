@@ -21,8 +21,6 @@ module.exports = class AdsenseController
         maxAds = c.adsense[adType].slotIds.length - @_adsPlaced
         return if maxAds is 0
 
-        logger.verbose => "Looking to place #{maxAds} more #{adType} ads..."
-
         if adType is 'skyscraper'
             placedNewAd = @_createSkyscraperPositions()
         else

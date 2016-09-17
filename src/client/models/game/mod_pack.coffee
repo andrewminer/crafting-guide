@@ -130,6 +130,15 @@ module.exports = class ModPack extends BaseModel
     getAllMods: ->
         return @_mods[..]
 
+    removeMod: (mod)->
+        index = @_mods.indexOf mod
+        return unless index >= 0
+
+        @_mods.splice index, 1
+
+        @trigger c.event.remove, this, mod.slug
+        @trigger c.event.change, this
+
     # Name Methods #################################################################################
 
     findName: (slug, options={})->
@@ -176,6 +185,10 @@ module.exports = class ModPack extends BaseModel
         return true unless mods.length > 0
 
         for mod in mods
+            if mod.isError
+                @removeMod mod
+                continue
+
             modVersions = mod.getAllModVersions()
             return true unless modVersions.length > 0
             continue if mod.activeVersion is Mod.Version.None

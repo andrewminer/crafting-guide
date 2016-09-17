@@ -28,6 +28,7 @@ module.exports = class BrowsePageController extends PageController
         @_tileControllers = []
 
         @_client.on c.event.change, => @tryRefresh()
+        @_modPack.on c.event.change, => @tryRefresh()
 
     # Property Methods #############################################################################
 

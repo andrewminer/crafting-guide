@@ -5,123 +5,88 @@
 # All rights reserved.
 #
 
-CraftingNode = require './crafting_node'
-CraftingPlan = require './crafting_plan'
-CraftingStep = require './crafting_step'
-Inventory    = require '../game/inventory'
+CraftingPlan     = require "./crafting_plan"
+CraftingPlanStep = require "./crafting_plan_step"
 
 ########################################################################################################################
 
 module.exports = class PlanBuilder
 
-    constructor: (rootNode, modPack, options={})->
-        if not rootNode? then throw new Error 'rootNode is required'
-        if not modPack? then throw new Error 'modPack is required'
+    constructor: (evaluator)->
+        @evaluator = evaluator
 
-        @want = options.want
-        @have = options.have
-
-        @_choiceNodes  = []
-        @_complete     = false
-        @_maxPlanCount = c.limits.maximumPlanCount
-        @_modPack      = modPack
-        @_plans        = []
-        @_rootNode     = rootNode
-
-        @_isolateChoiceNodes()
-
-    # Public Methods ###############################################################################
-
-    producePlans: (maxPlans=null)->
-        maxPlans = if maxPlans then @plans.length + maxPlans else Number.MAX_VALUE
-
-        if @plans.length >= @_maxPlanCount
-            @_complete = true
-
-        while not @complete and (@plans.length < maxPlans)
-            plan = @_captureCurrentPlan()
-            if plan?
-                @plans.push plan
-
-            @_incrementChoiceNodes()
-
-        return @_plans
-
-    # Property Methods #############################################################################
+    # Properties ###################################################################################
 
     Object.defineProperties @prototype,
 
-        complete:
-            get: -> @_complete
+        evaluator:
+            get: -> return @_evaluator
+            set: (evaluator)->
+                if not evaluator? then throw new Error "evaluator is required"
+                if @_evaluator is evaluator then return
+                if @_evaluator? then throw new Error "evaluator cannot be reassigned"
+                @_evaluator = evaluator
 
-        have:
-            get: -> @_have
-            set: (have)-> @_have = have or new Inventory
+    # Public Methods ###############################################################################
 
-        maxPlanCount:
-            get: -> @_maxPlanCount
-            set: (value)-> @_maxPlanCount = value
+    createPlan: (want, have)->
+        @_alreadyMaking = {}
+        @_recipesInUse = {}
 
-        plans:
-            get: -> @_plans
+        stepList = []
+        for itemId, stack of want.stacks
+            steps = @_findStepsForItem stack.item, stack.quantity
+            return null unless steps?
 
-        want:
-            get: -> @_want
-            set: (want)-> @_want = want or new Inventory
+            stepList.push steps
+
+        plan = new CraftingPlan want:want, have:have, steps:_.flatten(stepList)
+        return plan
 
     # Private Methods ##############################################################################
 
-    _captureCurrentPlan: ->
-        toVisit = [@_rootNode]
-        stepNodes = []
+    _findStepsForItem: (item, quantity=1)->
+        steps = null
 
-        while toVisit.length > 0
-            node = toVisit.shift()
+        if not @_alreadyMaking[item.id]
+            @_alreadyMaking[item.id] = true
 
-            if node.TYPE is CraftingNode::TYPES.INVENTORY
-                toVisit.push(c) for c in node.children
-            else if node.TYPE is CraftingNode::TYPES.ITEM
-                toVisit.push node.children[0] if node.children.length > 0
-            else if node.TYPE is CraftingNode::TYPES.RECIPE
-                stepNodes.push node
-                toVisit.push(c) for c in node.children
+            recipes = @_evaluator.getOrderedRecipes item, quantity
+            if recipes.length is 0
+                steps = []
+            else
+                for recipe in recipes
+                    continue if @_recipesInUse[recipe.id]?
 
-        steps = []
-        seenRecipes = {}
-        index = stepNodes.length - 1
-        while index >= 0
-            node = stepNodes[index]
-            index -= 1
-            return null unless node.valid and node.complete
+                    steps = @_findStepsForRecipe recipe, quantity
+                    break if steps?
 
-            recipeSlug = node.recipe.slug
-            continue if seenRecipes[recipeSlug]?
+            delete @_alreadyMaking[item.id]
 
-            seenRecipes[recipeSlug] = true
-            steps.push new CraftingStep node.recipe, @_modPack
+        return steps
 
-        plan = new CraftingPlan @_modPack, @_want, @_have, steps
-        return plan
+    _findStepsForRecipe: (recipe, quantity=1)->
+        steps = null
 
-    _incrementChoiceNodes: ->
-        if @_choiceNodes.length is 0
-            @_complete = true
-            return
+        if not @_recipesInUse[recipe.id]
+            @_recipesInUse[recipe.id] = true
 
-        index = @_choiceNodes.length - 1
-        while true
-            if index is -1
-                @_complete = true
-                return
+            invalidRecipe = false
+            for itemId, item of recipe.inputs
+                inputSteps = @_findStepsForItem item, quantity * recipe.computeQuantityRequired(item)
+                if not inputSteps?
+                    invalidRecipe = true
+                    break
 
-            node = @_choiceNodes[index]
-            node.rotateChildren()
+                steps ?= []
+                for step in inputSteps
+                    steps.push step
 
-            return unless node.rotations % node.children.length is 0
-            index -= 1
+            if invalidRecipe
+                steps = null
+            else
+                steps.push new CraftingPlanStep recipe
 
-    _isolateChoiceNodes: ->
-        @_rootNode.acceptVisitor
-            onEnterItemNode: (node)=>
-                if node.children.length > 1
-                    @_choiceNodes.push node
+            delete @_recipesInUse[recipe.id]
+
+        return steps

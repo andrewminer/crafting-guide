@@ -5,174 +5,140 @@
 # All rights reserved.
 #
 
-SimpleInventory = require './simple_inventory'
+Inventory       = require "./inventory"
+{StringBuilder} = require "crafting-guide-common"
 
 ########################################################################################################################
 
 module.exports = class CraftingPlan
 
-    constructor: (modPack, want, have, steps)->
-        if not modPack? then throw new Error 'modPack is required'
-        if not want? then throw new Error 'want is required'
-        if not have? then throw new Error 'have is required'
-        if not steps? then throw new Error 'steps is required'
+    constructor: (attributes={})->
+        @_id    = _.uniqueId "crafting-plan-"
+        @_make  = null
+        @_need  = null
+        @have   = attributes.have
+        @steps  = attributes.steps
+        @want   = attributes.want
 
-        @_have      = have
-        @_made      = null
-        @_modPack   = modPack
-        @_need      = null
-        @_rawScores = {}
-        @_scores    = {}
-        @_steps     = steps
-        @_tools     = null
-        @_want      = want
+        @_consolidateSteps()
+        @_computeResources()
 
-        @_numberSteps()
-
-    # Public Methods ###############################################################################
-
-    computeRequired: ->
-        @_need = new SimpleInventory modPack:@_modPack
-        @_need.addInventory @_want
-
-        @_made = new SimpleInventory modPack:@_modPack
-        @_made.addInventory @_have
-
-        @_tools = new SimpleInventory modPack:@_modPack
-
-        for i in [@_steps.length-1..0] by -1
-            step = @_steps[i]
-            step.multiplier = 0
-            recipe = step.recipe
-
-            for stack in step.recipe.output
-                continue if recipe.isPassThroughFor stack.itemSlug
-                qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
-
-                while @_need.quantityOf(qualifiedSlug) > 0
-                    @_executeStep step
-
-            if step.multiplier > 0
-                for stack in step.recipe.output
-                    qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
-                    continue unless recipe.isPassThroughFor stack.itemSlug
-                    continue if @_made.hasAtLeast qualifiedSlug, 1
-                    continue if @_need.hasAtLeast qualifiedSlug, 1
-                    continue if @_tools.hasAtLeast qualifiedSlug, 1
-                    @_need.add qualifiedSlug, 1
-                    @_tools.add qualifiedSlug, 1
-
-        @_made.addInventory @_want
-        @_made.addInventory @_tools
-        @_pruneEmptySteps()
-        @_numberSteps()
-
-    hasRawScore: (name)->
-        return @_rawScores[name]?
-
-    getRawScore: (name)->
-        return @_rawScores[name]
-
-    setRawScore: (name, rawScore)->
-        @_rawScores[name] = rawScore
-
-    hasScore: (name)->
-        return @_scores[name]?
-
-    getScore: (name)->
-        return @_scores[name]
-
-    setScore: (name, score)->
-        @_scores[name] = score
-
-    # Property Methods #############################################################################
+    # Properties ###################################################################################
 
     Object.defineProperties @prototype,
-        have:
-            get: -> @_have
-        length:
-            get: -> @steps.length
-        made:
-            get: -> @_made
-        need:
-            get: -> @_need
-        steps:
-            get: -> @_steps
-        want:
-            get: -> @_want
+
+        have: # an Inventory specifying what the player already has
+            get: -> return @_have
+            set: (have)->
+                have ?= new Inventory
+                if @_have is have then return
+                if @_have? then throw new Error "have cannot be reassigned"
+                @_have = new Inventory have
+
+        id: # a string uniquely specifying this crafting plan
+            get: -> return @_id
+            set: -> throw new Error "id is not assignabled"
+
+        make: # an Inventory specifying what the results of executing the plan will be
+            get: -> return @_make
+            set: -> throw new Error "make cannot be assigned"
+
+        need: # an Inventory specifying what the player will need to gather before executing the plan
+            get: -> return @_need
+            set: -> throw new Error "need cannot be assigned"
+
+        want: # an Inventory specifying what the player wants to make
+            get: -> return @_want
+            set: (want)->
+                if not want? then throw new Error "want is required"
+                if want.isEmpty then throw new Error "want cannot be empty"
+                if @_want is want then return
+                if @_want? then throw new Error "want cannot be reassigned"
+                @_want = new Inventory want
+
+        steps: # an array of CraftingPlanSteps detailing the steps of the plan
+            get: -> return @_steps
+            set: (steps)->
+                steps ?= []
+                if steps is @_steps then return
+                if @_steps? then throw new Error "steps cannot be reassigned"
+                @_steps = steps
 
     # Object Overrides #############################################################################
 
-    toString: ->
-        result = ["To Make:"]
-        @_want.each (stack)->
-            result.push "    #{stack}"
+    toString: (options={})->
+        options.full ?= false
 
-        result.push "When you already have:"
-        @_have.each (stack)->
-            result.push "    #{stack}"
+        if options.full
+            b = new StringBuilder
+            b.line "CraftingPlan<", @_id, ">"
+            b.indent()
+            b.line "have: ", @_have.toString full:true
+            b.line "want: ", @_want.toString full:true
+            b.line "need: ", @_need.toString full:true
+            b.line "steps:"
+            b.indent()
+            b.loop @_steps, delimiter:"\n", onEach:(b, step)->
+                b.push step.count, " × ", step.recipe.toString(full:true)
+            b.line()
+            b.outdent()
+            b.line "make: ", @_make.toString full:true
+            b.outdent()
 
-        result.push "Start with:"
-        if @_need?
-            @_need.each (stack)->
-                result.push "    #{stack}"
-
-        result.push "Use these recipes:"
-        for step in @_steps
-            result.push "    #{step}"
-
-        result.push "To produce:"
-        if @_made?
-            @_made.each (stack)->
-                result.push "    #{stack}"
-
-        if _.keys(@_rawScores).length > 0
-            result.push "Scores:"
-            for criteria, score of @_rawScores
-                if @_scores[criteria]?
-                    result.push "    #{criteria}: #{score} (#{@_scores[criteria]})"
-                else
-                    result.push "    #{criteria}: #{score}"
-
-        return result.join '\n'
+            return b.toString()
+        else
+            return "CraftingPlan:#{@_make.toString(full:true)}<#{@_id}>"
 
     # Private Methods ##############################################################################
 
-    _executeStep: (step)->
-        step.multiplier += 1
-        recipe = step.recipe
+    _computeResources: ->
+        need = new Inventory @_want
+        make = new Inventory @_have
+        steps = @_steps[..].reverse()
 
-        for stack in recipe.input
-            qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
+        for step in steps
+            step.count = 0
 
-            available = @_made.quantityOf qualifiedSlug
-            required  = recipe.getQuantityRequired stack.itemSlug
-            consumed  = Math.min required, available
-            deficit   = required - consumed
+            for productStack in step.recipe.allProducts
+                continue unless need.contains productStack.item
+                productCount = Math.ceil need.getQuantity(productStack.item) / productStack.quantity
+                step.count = Math.max step.count, productCount
 
-            @_made.remove qualifiedSlug, consumed
-            @_need.add qualifiedSlug, deficit
+            continue unless step.count > 0
 
-        for stack in recipe.output
-            qualifiedSlug = @_modPack.qualifySlug stack.itemSlug
+            for itemId, item of step.recipe.inputs
+                amountNeeded    = step.count * step.recipe.computeQuantityRequired item
+                amountAvailable = make.getQuantity item
+                amountUsed      = Math.min amountAvailable, amountNeeded
+                amountMissing   = amountNeeded - amountUsed
 
-            deficit     = @_need.quantityOf qualifiedSlug
-            created     = recipe.getQuantityProduced stack.itemSlug
-            replenished = Math.min deficit, created
-            surplus     = created - replenished
+                make.remove item, amountUsed
+                need.add item, amountMissing
 
-            @_made.add qualifiedSlug, surplus
-            @_need.remove qualifiedSlug, replenished
+            for productStack in step.recipe.allProducts
+                amountCreated   = step.count * productStack.quantity
+                amountNeeded    = need.getQuantity productStack.item
+                amountFulfilled = Math.min amountNeeded, amountCreated
+                amountSurplus   = amountCreated - amountFulfilled
 
-    _numberSteps: ->
-        for step, i in @_steps
-            step.number = i + 1
+                need.remove productStack.item, amountFulfilled
+                make.add productStack.item, amountSurplus
 
-    _pruneEmptySteps: ->
-        index = 0
-        while index < @_steps.length
-            step = @_steps[index]
-            if step.multiplier is 0
-                @_steps.splice index, 1
-            else
-                index++
+        make.merge @_want
+
+        @_make = make
+        @_need = need
+
+    _consolidateSteps: ->
+        steps = []
+        stepsByRecipeId = {}
+
+        for step in @_steps
+            priorStep = stepsByRecipeId[step.recipe.id]
+            if priorStep?
+                priorStep.count += step.count
+            else if step.count > 0
+                steps.push step
+                stepsByRecipeId[step.recipe.id] = step
+
+        @_steps = steps

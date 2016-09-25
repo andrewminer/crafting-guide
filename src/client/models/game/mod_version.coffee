@@ -157,7 +157,7 @@ module.exports = class ModVersion extends BaseModel
         for recipe in primaryRecipes
             result.push recipe
 
-        if not options.onlyPrimary
+        if not options.onlyPrimary and result.length is 0
             for recipe in otherRecipes
                 result.push recipe
 

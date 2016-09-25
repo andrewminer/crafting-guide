@@ -90,12 +90,17 @@ describe 'mod_version.coffee', ->
                     recipe:; input: Cake Slice; pattern: 000 000 000; onlyIf: item Cake Slice
                 item: Bucket
                     recipe:; input: Iron Ingot; pattern: ... 0.0 .0.
+                    recipe:; input: Copper Ingot; pattern: ... 0.0 .0.; extras: Copper Nugget
             """
 
         it 'finds all recipes which list item as output', ->
             recipes = modVersion.findRecipes ItemSlug.slugify('test__bucket')
-            (r.output[0].itemSlug.item for r in recipes).sort().should.eql ['bucket', 'cake', 'cake']
+            (r.output[0].itemSlug.item for r in recipes).sort().should.eql ['bucket', 'bucket']
 
         it 'skip recipes whose conditions are not met', ->
             recipes = modVersion.findRecipes ItemSlug.slugify('test__cake')
             recipes.length.should.equal 2
+
+        it 'finds recipes for items which are only ever extras', ->
+            recipes = modVersion.findRecipes ItemSlug.slugify('test__copper_nugget')
+            recipes.length.should.equal 1

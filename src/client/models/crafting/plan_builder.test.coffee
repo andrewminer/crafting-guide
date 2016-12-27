@@ -5,14 +5,14 @@
 # All rights reserved.
 #
 
-fixtures           = require './fixtures'
-Inventory          = require './inventory'
+fixtures           = require '../fixtures'
+Inventory          = require '../game/inventory'
 PlanBuilder        = require './plan_builder'
 ResourcesEvaluator = require './resources_evaluator'
 
 ########################################################################################################################
 
-describe.only "PlanBuilder", ->
+describe "PlanBuilder", ->
 
     beforeEach ->
         @planner = new PlanBuilder new ResourcesEvaluator

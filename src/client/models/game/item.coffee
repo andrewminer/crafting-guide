@@ -5,86 +5,92 @@
 # All rights reserved.
 #
 
-BaseModel       = require '../base_model'
-ItemSlug        = require './item_slug'
-Recipe          = require './recipe'
-{StringBuilder} = require 'crafting-guide-common'
-
 ########################################################################################################################
 
-module.exports = class Item extends BaseModel
+module.exports = class Item
 
-    @Group = Other:'Other'
+    constructor: (attributes={})->
+        @id           = attributes.id
+        @displayName  = attributes.displayName
+        @isGatherable = attributes.isGatherable
+        @mod          = attributes.mod
 
-    constructor: (attributes={}, options={})->
-        if not attributes.name? then throw new Error 'attributes.name is required'
-
-        attributes.description          ?= null
-        attributes.group                ?= Item.Group.Other
-        attributes.ignoreDuringCrafting ?= false
-        attributes.isGatherable         ?= false
-        attributes.modVersion           ?= null
-        attributes.officialUrl          ?= null
-        attributes.slug                 ?= ItemSlug.slugify attributes.name
-        attributes.videos               ?= []
-
-        options.logEvents ?= false
-        super attributes, options
-
-        @on c.event.change + ':modVersion', =>
-            @_isCraftable = null
-            @slug.mod = @modVersion?.modSlug
-
-    # Public Methods ###############################################################################
-
-    compareTo: (that)->
-        if this.slug isnt that.slug
-            return if this.slug < that.slug then -1 else +1
-        if this.name isnt that.name
-            return if this.name < that.name then -1 else +1
-        return 0
-
-    unparse: ->
-        ItemParser = require '../parsing/item_parser' # to avoid require cycles
-        @_parser ?= new ItemParser model:this
-        return @_parser.unparse()
+        @_hasPrimaryRecipe = false
+        @_recipesAsPrimary = {}
+        @_recipesAsExtra = {}
 
     # Property Methods #############################################################################
 
-    getIsCraftable: ->
-        if not @_isCraftable?
-            @_isCraftable = false
-            if @modVersion?
-                @_isCraftable = @modVersion.hasRecipes @slug
-
-        return @_isCraftable
-
     Object.defineProperties @prototype,
-        isCraftable: {get:@prototype.getIsCraftable}
 
-    # Backbone.Model Overrides #####################################################################
+        displayName: # a string containing the user-facing name of this item
+            get: -> return @_displayName
+            set: (displayName)->
+                if not displayName? then throw new Error "displayName is required"
+                @_displayName = displayName
 
-    parse: (text)->
-        ItemParser = require '../parsing/item_parser' # to avoid require cycles
-        @_parser ?= new ItemParser model:this
-        @_parser.parse text
+        firstRecipe: # the first Recipe returned by iterating the `recipes` property
+            get: ->
+                recipeList = (recipe for id, recipe of @recipes)
+                return null unless recipeList.length > 0
+                return recipeList[0]
+            set: -> throw new Error "firstRecipe cannot be assigned"
 
-        return null # prevent calling `set`
+        id: # a string containing a unique identifier for this item
+            get: -> return @_id
+            set: (id)->
+                if not id? then throw new Error "id is required"
+                return if @_id is id
+                if @_id? then throw new Error "id cannot be reassigned"
+                @_id = id
 
-    url: ->
-        return c.url.itemData modSlug:@slug.mod, itemSlug:@slug.item
+        isGatherable: # whether this item can be gathered directly without needing to be crafted
+            get: ->
+                return true if @_isGatherable is true
+                return false if (id for id, recipe of @_recipesAsPrimary).length > 0
+                return false if (id for id, recipe of @_recipesAsExtra).length > 0
+                return true
+            set: (isGatherable)->
+                @_isGatherable = null unless isGatherable?
+                @_isGatherable = !!isGatherable
+
+        mod: # the Mod which adds this item to the game
+            get: -> return @_mod
+            set: (mod)->
+                if not mod? then throw new Error "mod is required"
+                if @_mod is mod then return
+                if @_mod? then throw new Error "mod cannot be reassigned"
+                @_mod = mod
+                @_mod.addItem this
+
+        modPack: # the ModPack containing this item
+            get: -> return @_mod.modPack
+            set: -> throw new Error "modPack cannot be assigned"
+
+        recipes: # a hash of recipeId to Recipe containing `recipesAsPrimary` if not empty or else `recipesAsExtra`
+            get: -> return if @_hasPrimaryRecipe then @_recipesAsPrimary else @_recipesAsExtra
+            set: -> throw new Error "recipes cannot be assigned"
+
+        recipesAsPrimary: # a hash of recipeId to Recipe where this item is the primary output
+            get: -> return @_recipesAsPrimary
+            set: -> throw new Error "recipes cannot be assigned"
+
+        recipesAsExtra: # a hash of recipeId to Recipe where this item is an extra output
+            get: -> return @_recipesAsExtra
+            set: -> throw new Error "recipesAsExtra cannot be assigned"
+
+    # Public Recipes ###############################################################################
+
+    addRecipe: (recipe)->
+        if recipe.output.item is this
+            @_recipesAsPrimary[recipe.id] = recipe
+            @_hasPrimaryRecipe = true
+        else if recipe.extras[this.id]?.item is this
+            @_recipesAsExtra[recipe.id] = recipe
+        else
+            throw new Error "recipe<#{recipe.id}> does not produce this item<#{@id}>"
 
     # Object Overrides #############################################################################
 
     toString: ->
-        builder = new StringBuilder
-        return builder
-            .push @constructor.name, ' (', @cid, ') { '
-            .push 'name:"', @name, '", '
-            .push 'isCraftable:', @isCraftable, ', '
-            .push 'isGatherable:', @isGatherable, ', '
-            .onlyIf (@group isnt Item.Group.Other), (b)=>
-                b.push 'group:"', @group, '", '
-            .push 'slug:"', @slug, '", '
-            .push '}'
-            .toString()
+        return "Item:#{@displayName}<#{@id}>"

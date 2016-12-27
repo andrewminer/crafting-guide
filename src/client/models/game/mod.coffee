@@ -5,230 +5,58 @@
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
-
 ########################################################################################################################
 
-module.exports = class Mod extends BaseModel
+module.exports = class Mod
 
-    constructor: (attributes={}, options={})->
-        if not attributes.slug? then throw new Error 'attributes.slug is required'
+    constructor: (attributes={})->
+        @id = attributes.id
+        @displayName = attributes.displayName
+        @modPack = attributes.modPack
 
-        attributes.author           ?= ''
-        attributes.description      ?= ''
-        attributes.documentationUrl ?= null
-        attributes.downloadUrl      ?= null
-        attributes.homePageUrl      ?= null
-        attributes.modPack          ?= null
-        attributes.name             ?= ''
+        @_items = {}
 
-        super attributes, options
-
-        @_activeModVersion = null
-        @_activeVersion    = null
-        @_modVersions      = []
-        @_tutorials        = []
-
-    # Class Methods ##################################################################################
-
-    @Version: Version =
-        None: 'none'
-        Latest: 'latest'
-
-    # Public Methods #################################################################################
-
-    compareTo: (that)->
-        thisRequired = this.slug in c.requiredMods
-        thatRequired = that.slug in c.requiredMods
-
-        if thisRequired isnt thatRequired
-            return -1 if thisRequired
-            return +1 if thatRequired
-        else if this.slug isnt that.slug
-            return if this.slug < that.slug then -1 else +1
-
-        return 0
-
-    # Property Methods #############################################################################
+    # Properties ###################################################################################
 
     Object.defineProperties @prototype,
 
-        activeModVersion:
-            get: -> @_activeModVersion
+        displayName:
+            get: -> return @_displayName
+            set: (displayName)->
+                if not displayName? then throw new Error "displayName is required"
+                return if @_displayName is displayName
+                @_displayName = displayName
 
-        activeVersion:
-            get: ->
-                return @_activeVersion
+        id:
+            get: -> return @_id
+            set: (id)->
+                if not id? then throw new Error "id is required"
+                return if @_id is id
+                if @_id? then throw new Error "id cannot be reassigned"
+                @_id = id
 
-            set: (version)->
-                return if version is @_activeVersion
+        items:
+            get: -> return @_items
+            set: -> throw new Error "items cannot be replaced"
 
-                version ?= Mod.Version.None
-                if version is Mod.Version.Latest then version = _.last(@_modVersions).version
+        modPack:
+            get: -> return @_modPack
+            set: (modPack)->
+                if not modPack? then throw new Error "modPack is required"
+                if @_modPack is modPack then return
+                if @_modPack? then throw new Error "modPack cannot be reassigned"
+                @_modPack = modPack
+                @_modPack.addMod this
 
-                if version is Mod.Version.None
-                    @_activeVersion = version
-                    @_activateModVersion null
+    # Public Methods ###############################################################################
 
-                    @trigger c.event.change + ':activeVersion', this, @_activeVersion
-                    @trigger c.event.change, this
-                else
-                    for modVersion in @_modVersions
-                        if version is modVersion.version
-                            @_activateModVersion modVersion
-                            break
+    addItem: (item)->
+        if not item? then return
+        if @_items[item.id] is item then return
+        @_items[item.id] = item
+        item.mod = this
 
-                    @_activeVersion = version
-                    @trigger c.event.change + ':activeVersion', this, @_activeVersion
-                    @trigger c.event.change, this
+    # Object Overrides #############################################################################
 
-        enabled:
-            get: -> @_activeModVersion?
-
-        modVersions:
-            get: -> @_modVersions[..]
-
-        tutorials:
-            get: -> @getAllTutorials()
-
-    # Item Methods #################################################################################
-
-    chooseRandomItem: ->
-        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
-        return null unless effectiveModVersion?
-
-        return effectiveModVersion.chooseRandomItem()
-
-    eachItem: (callback)->
-        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
-        effectiveModVersion.eachItem callback
-
-    findItem: (slug, options={})->
-        options.includeDisabled ?= false
-        options.enableAsNeeded  ?= false
-
-        if not options.includeDisabled
-            return unless @_activeModVersion?
-            return @_activeModVersion.findItem slug
-        else
-            for modVersion in @_modVersions
-                modVersion.fetch()
-
-                item = modVersion.findItem slug
-                if item?
-                    if options.enableAsNeeded then @setActiveVersion modVersion.version
-                    return item
-
-        return null
-
-    findItemByName: (name)->
-        return unless @_activeModVersion?
-        @_activeModVersion.findItemByName name
-
-    # ModVersion Methods ###########################################################################
-
-    addModVersion: (modVersion)->
-        return unless modVersion?
-        return if @_modVersions.indexOf(modVersion) isnt -1
-
-        @_modVersions.push modVersion
-        @listenTo modVersion, c.event.change, => @trigger c.event.change, this
-        modVersion.fileCache = this.fileCache
-        modVersion.mod = this
-
-        @trigger c.event.add + ':modVersion', modVersion, this
-        @trigger c.event.change + ':version', modVersion, this
-        @trigger c.event.change, this
-
-        if not @activeVersion? then @activeVersion = modVersion.version
-        if modVersion.version is @_activeVersion then @_activateModVersion modVersion
-        return this
-
-    eachModVersion: (callback)->
-        for modVersion in @_modVersions
-            callback modVersion
-
-    getAllModVersions: ->
-        return @_modVersions[..]
-
-    getModVersion: (version)->
-        return null if version is Mod.Version.None
-        return @_modVersions[0] if version is Mod.Version.Latest
-
-        for modVersion in @_modVersions
-            return modVersion if modVersion.version is version
-
-        return null
-
-    # Name Methods #################################################################################
-
-    eachName: (callback)->
-        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
-        effectiveModVersion.eachName callback
-
-    findName: (itemSlug)->
-        return unless @_activeModVersion?
-        @_activeModVersion.findName itemSlug
-
-    # Recipe Methods ###############################################################################
-
-    eachRecipe: (callback)->
-        effectiveModVersion = @_activeModVersion or @getModVersion Mod.Version.Latest
-        effectiveModVersion.eachRecipe callback
-
-    findRecipes: (itemSlug, result=[], options={})->
-        options.alwaysFromOwningMod ?= false
-
-        if @_activeModVersion?
-            return @_activeModVersion.findRecipes itemSlug, result, options
-        else if options.alwaysFromOwningMod and itemSlug.mod is @slug
-            return @getModVersion(Mod.Version.Latest).findRecipes itemSlug, result, options
-
-        return null
-
-    # Tutorial Methods #############################################################################
-
-    addTutorial: (tutorial)->
-        return unless tutorial?
-        if @getTutorial(tutorial.slug)? then throw new Error "duplicate tutorial: #{tutorial.name}"
-        @_tutorials.push tutorial
-        tutorial.modSlug = @slug
-
-    getAllTutorials: ->
-        return @_tutorials[..]
-
-    getTutorial: (tutorialSlug)->
-        for tutorial in @_tutorials
-            return tutorial if tutorial.slug is tutorialSlug
-        return null
-
-    # Backbone.Model Overrides #####################################################################
-
-    parse: (text)->
-        ModParser = require '../parsing/mod_parser' # to avoid require cycles
-        @_parser ?= new ModParser model:this
-        @_parser.parse text
-
-        @_verifyActiveModVersion()
-
-        return null # prevent calling `set`
-
-    url: ->
-        return c.url.modData modSlug:@slug
-
-    # Private Methods ##############################################################################
-
-    _activateModVersion: (modVersion)->
-        if @_activeModVersion? then @stopListening @_activeModVersion
-        @_activeModVersion = modVersion
-        @trigger c.event.change + ':activeModVersion', this, @_activeModVersion
-
-        logger.verbose => "#{@slug} switched to version #{@_activeVersion}"
-
-        if @_activeModVersion?
-            @listenTo @_activeModVersion, 'all', -> @trigger.apply this, arguments
-
-    _verifyActiveModVersion: ->
-        if (@_activeVersion isnt Version.None) and (not @_activeModVersion?)
-            logger.warning => "#{@slug} no longer has a version #{@_activeVersion}, using latest instead"
-            @activeVersion = Version.Latest
+    toString: ->
+        return "Mod:#{@displayName}<#{@id}>"

@@ -5,198 +5,55 @@
 # All rights reserved.
 #
 
-BaseModel        = require '../base_model'
-Mod              = require './mod'
-ModVersionParser = require '../parsing/mod_version_parser'
-Recipe           = require './recipe'
-SimpleInventory  = require '../crafting/simple_inventory'
-
 ########################################################################################################################
 
-module.exports = class ModPack extends BaseModel
+module.exports = class ModPack
 
-    constructor: (attributes={}, options={})->
-        super attributes, options
+    constructor: (attributes={})->
+        @id = attributes.id
+        @displayName = attributes.displayName
 
-        @_mods = []
-        @_cache = {}
+        @_mods = {}
 
-        @on c.event.change, => @_cache = {}
+    # Property Methods #############################################################################
 
-    # Item Methods #################################################################################
+    Object.defineProperties @prototype,
 
-    chooseRandomItem: ->
-        return null unless @_mods.length > 0
+        displayName: # a string containing the user-displayable name of this ModPack
+            get: -> return @_displayName
+            set: (displayName)->
+                if not displayName? then throw new Error "displayName is required"
+                if @_displayName is displayName then return
+                @_displayName = displayName
 
-        modIndex = Math.floor Math.random() * @_mods.length
-        return @_mods[modIndex].chooseRandomItem()
+        id: # a string which uniquely identifies this ModPack
+            get: -> return @_id
+            set: (id)->
+                if not id? then throw new Error "id is required"
+                if @_id is id then return
+                if @_id? then throw new Error "id cannot be reassigned"
+                @_id = id
 
-    findItem: (itemSlug, options={})->
-        options.includeDisabled ?= false
+        mods: # a hash of mod id to Mod containing all the mods which are part of this ModPack
+            get: -> return @_mods
+            set: -> throw new Error "mods cannot be replaced"
 
-        key = "#{itemSlug}-#{options.includeDisabled}"
-        @_cache.itemBySlug ?= {}
-        item = @_cache.itemBySlug[key]
-        return item if item?
+    # Public Methods ###############################################################################
 
-        if itemSlug.isQualified
-            mod = @getMod itemSlug.mod
-            if mod?
-                item = mod.findItem itemSlug, options
+    addMod: (mod)->
+        if not mod? then return
+        if @_mods[mod.id] is mod then return
+        @_mods[mod.id] = mod
+        mod.modPack = this
 
-        if not item?
-            for mod in @_mods
-                continue unless mod.enabled or options.includeDisabled
-                item = mod.findItem itemSlug, options
-                break if item?
-
-        if item?
-            @_cache.itemBySlug[key] = item
-
-        return item
-
-    findItemByName: (name, options={})->
-        options.enableAsNeeded ?= false
-        options.includeDisabled = true if options.enableAsNeeded
-
-        for mod in @_mods
-            continue unless mod.enabled or options.includeDisabled
-            item = mod.findItemByName name, options
+    findItem: (itemId)->
+        for modId, mod of @mods
+            item = mod.items[itemId]
             return item if item?
 
         return null
 
-    findItemDisplay: (itemSlug)->
-        if not itemSlug? then throw new Error 'itemSlug is required'
-
-        result = {slug:itemSlug}
-        item = @findItem itemSlug, includeDisabled:true
-        if item?
-            result.itemName   = item.name
-            result.itemSlug   = item.slug.item
-            result.modSlug    = item.slug.mod
-            result.modVersion = item.modVersion.version
-        else
-            result.itemName   = @findName itemSlug, includeDisabled:true
-            result.itemSlug   = itemSlug.item
-            result.modSlug    = @_mods[0].slug
-            result.modVersion = @_mods[0].activeVersion
-
-        craftingUrlInventory = new SimpleInventory modPack:this
-        if item?.multiblock?
-            craftingUrlInventory.addInventory item.multiblock.inventory
-        else
-            craftingUrlInventory.add itemSlug
-
-        result.craftingUrl = c.url.crafting inventoryText:craftingUrlInventory.unparse()
-        result.iconUrl     = c.url.itemIcon result
-        result.itemUrl     = c.url.item result
-        result.modName     = @getMod(result.modSlug).name
-        return result
-
-    qualifySlug: (itemSlug)->
-        return itemSlug if itemSlug.isQualified
-
-        item = @findItem itemSlug
-        return item.slug if item?
-        return itemSlug
-
-    # Mod Methods ##################################################################################
-
-    addMod: (mod)->
-        if not mod? then throw new Error 'mod is required'
-        return if @_mods.indexOf(mod) isnt -1
-
-        mod.modPack = this
-        @_mods.push mod
-        @listenTo mod, c.event.change, (modVersion)=> @_onModVersionLoaded modVersion
-        @trigger c.event.add + ':mod', mod, this
-
-        @_mods.sort (a, b)-> a.compareTo b
-        @trigger c.event.sort + ':mod', this
-        @trigger c.event.change, this
-
-        return this
-
-    eachMod: (callback)->
-        for mod in @_mods
-            callback mod
-
-    getMod: (slug)->
-        for mod in @_mods
-            return mod if mod.slug is slug
-        return null
-
-    getAllMods: ->
-        return @_mods[..]
-
-    removeMod: (mod)->
-        index = @_mods.indexOf mod
-        return unless index >= 0
-
-        @_mods.splice index, 1
-
-        @trigger c.event.remove, this, mod.slug
-        @trigger c.event.change, this
-
-    # Name Methods #################################################################################
-
-    findName: (slug, options={})->
-        options.includeDisabled ?= false
-
-        for mod in @_mods
-            continue unless mod.enabled or options.includeDisabled
-            name = mod.findName slug
-            return name if name
-
-        return null
-
-    # Recipe Methods ###############################################################################
-
-    findRecipes: (itemSlug, options={})->
-        options.alwaysFromOwningMod ?= false
-        return null unless itemSlug?
-
-        key = "#{itemSlug}-#{options.alwaysFromOwningMod}"
-        @_cache.recipesBySlug ?= {}
-        result = @_cache.recipesBySlug[key]
-        return result if result?
-
-        result = []
-        for mod in @_mods
-            if not mod.enabled
-                owningMod = itemSlug.isQualified and (itemSlug.mod is mod.slug)
-                continue unless owningMod and options.alwaysFromOwningMod
-
-            mod.findRecipes itemSlug, result, options
-
-        @_cache.recipesBySlug[key] = result
-        return if result.length > 0 then result else null
-
     # Object Overrides #############################################################################
 
     toString: ->
-        return "ModPack (#{@cid}) {modVersions:«#{@_mods.length} items»}"
-
-    # Private Methods ##############################################################################
-
-    _onModVersionLoaded: (modVersion)->
-        mods = @getAllMods()
-        return true unless mods.length > 0
-
-        for mod in mods
-            if mod.isError
-                @removeMod mod
-                continue
-
-            modVersions = mod.getAllModVersions()
-            return true unless modVersions.length > 0
-            continue if mod.activeVersion is Mod.Version.None
-
-            activeModVersion = mod.activeModVersion
-            return true unless activeModVersion?
-            return true if activeModVersion.isUnloaded
-            return true if activeModVersion.isLoading
-
-        @trigger c.event.change, this
-        @trigger c.event.sync, this
+        return "ModPack:#{@displayName}<#{@id}>"

@@ -130,7 +130,7 @@ module.exports = (grunt)->
 
         mochaTest:
             options:
-                bail:     true
+                bail:     false
                 color:    true
                 reporter: 'list'
                 require: [

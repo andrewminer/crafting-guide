@@ -5,11 +5,11 @@
 # All rights reserved.
 #
 
-Item    = require "./item"
-Mod     = require "./mod"
-ModPack = require "./mod_pack"
-Recipe  = require "./recipe"
-Stack   = require "./stack"
+Item    = require "./game/item"
+Mod     = require "./game/mod"
+ModPack = require "./game/mod_pack"
+Recipe  = require "./game/recipe"
+Stack   = require "./game/stack"
 
 # Instance Creation Fixtures ###########################################################################################
 
@@ -43,7 +43,7 @@ exports.createStack = createStack = (attributes={})->
 # Item Configuration Fixtures ##########################################################################################
 
 exports.configureBucket = configureBucket = (mod)->
-    bucket = mod.items["bucket"]
+    bucket = mod.modPack.findItem "bucket"
     if not bucket?
         ironIngot     = configureIronIngot mod
         bucket        = createItem mod:mod, id:"bucket", displayName:"Bucket"
@@ -52,13 +52,13 @@ exports.configureBucket = configureBucket = (mod)->
         recipe = createRecipe output:createStack item:bucket
         recipe.setInputAt 0, 0, createStack item:ironIngot
         recipe.setInputAt 1, 1, createStack item:ironIngot
-        recipe.setInputAt 0, 2, createStack item:ironIngot
+        recipe.setInputAt 2, 0, createStack item:ironIngot
         recipe.addTool craftingTable
 
     return bucket
 
 exports.configureCake = configureCake = (mod)->
-    cake = mod.items["cake"]
+    cake = mod.modPack.findItem "cake"
     if not cake?
         bucket        = configureBucket mod
         cake          = createItem mod:mod, id:"cake", displayName:"Cake"
@@ -70,13 +70,13 @@ exports.configureCake = configureCake = (mod)->
 
         recipe = createRecipe output:createStack item:cake
         recipe.setInputAt 0, 0, createStack item:milkBucket
-        recipe.setInputAt 0, 1, createStack item:milkBucket
-        recipe.setInputAt 0, 2, createStack item:milkBucket
-        recipe.setInputAt 1, 0, createStack item:sugar
+        recipe.setInputAt 1, 0, createStack item:milkBucket
+        recipe.setInputAt 2, 0, createStack item:milkBucket
+        recipe.setInputAt 0, 1, createStack item:sugar
         recipe.setInputAt 1, 1, createStack item:egg
-        recipe.setInputAt 1, 2, createStack item:sugar
-        recipe.setInputAt 2, 0, createStack item:wheat
-        recipe.setInputAt 2, 1, createStack item:wheat
+        recipe.setInputAt 2, 1, createStack item:sugar
+        recipe.setInputAt 0, 2, createStack item:wheat
+        recipe.setInputAt 1, 2, createStack item:wheat
         recipe.setInputAt 2, 2, createStack item:wheat
         recipe.addTool craftingTable
         recipe.addExtra createStack item:bucket, quantity:3
@@ -84,39 +84,39 @@ exports.configureCake = configureCake = (mod)->
     return cake
 
 exports.configureCoal = configureCoal = (mod)->
-    coal = mod.items["coal"]
+    coal = mod.modPack.findItem "coal"
     if not coal?
-        coal = createItem mod:mod, id:"coal", displayName:"Coal", isGatherable:true
+        coal = createItem mod:mod, id:"coal", displayName:"Coal"
     return coal
 
 exports.configureCobblestone = configureCobblestone = (mod)->
-    cobblestone = mod.items["cobblestone"]
+    cobblestone = mod.modPack.findItem "cobblestone"
     if not cobblestone?
-        cobblestone = createItem mod:mod, displayName:"Cobblestone", isGatherable:true
+        cobblestone = createItem mod:mod, displayName:"Cobblestone"
     return cobblestone
 
 exports.configureCraftingTable = configureCraftingTable = (mod)->
-    craftingTable = mod.items["crafting_table"]
+    craftingTable = mod.modPack.findItem "crafting_table"
     if not craftingTable?
         craftingTable = createItem mod:mod, id:"crafting_table", displayName:"Crafting Table"
         oakPlanks     = configureOakPlank mod
 
         recipe = createRecipe output:createStack item:craftingTable
         recipe.setInputAt 0, 0, createStack item:oakPlanks
-        recipe.setInputAt 0, 1, createStack item:oakPlanks
         recipe.setInputAt 1, 0, createStack item:oakPlanks
+        recipe.setInputAt 0, 1, createStack item:oakPlanks
         recipe.setInputAt 1, 1, createStack item:oakPlanks
 
     return craftingTable
 
 exports.configureEgg = configureEgg = (mod)->
-    egg = mod.items["egg"]
+    egg = mod.modPack.findItem "egg"
     if not egg?
-        egg = createItem mod:mod, id:"egg", displayName:"Egg", isGatherable:true
+        egg = createItem mod:mod, id:"egg", displayName:"Egg"
     return egg
 
 exports.configureFurnace = configureFurnace = (mod)->
-    furnace = mod.items["furnace"]
+    furnace = mod.modPack.findItem "furnace"
     if not furnace?
         cobblestone   = configureCobblestone mod
         craftingTable = configureCraftingTable mod
@@ -124,19 +124,19 @@ exports.configureFurnace = configureFurnace = (mod)->
 
         recipe = createRecipe output:createStack item:furnace
         recipe.setInputAt 0, 0, createStack item:cobblestone
-        recipe.setInputAt 0, 1, createStack item:cobblestone
-        recipe.setInputAt 0, 2, createStack item:cobblestone
         recipe.setInputAt 1, 0, createStack item:cobblestone
-        recipe.setInputAt 1, 2, createStack item:cobblestone
         recipe.setInputAt 2, 0, createStack item:cobblestone
+        recipe.setInputAt 0, 1, createStack item:cobblestone
         recipe.setInputAt 2, 1, createStack item:cobblestone
+        recipe.setInputAt 0, 2, createStack item:cobblestone
+        recipe.setInputAt 1, 2, createStack item:cobblestone
         recipe.setInputAt 2, 2, createStack item:cobblestone
         recipe.addTool craftingTable
 
     return furnace
 
 exports.configureIronIngot = configureIronIngot = (mod)->
-    ironIngot = mod.items["iron_ingot"]
+    ironIngot = mod.modPack.findItem "iron_ingot"
     if not ironIngot?
         coal      = configureCoal mod
         furnace   = configureFurnace mod
@@ -144,23 +144,23 @@ exports.configureIronIngot = configureIronIngot = (mod)->
         ironOre   = configureIronOre mod
 
         recipe = createRecipe output:createStack item:ironIngot, quantity:8
-        recipe.setInputAt 0, 1, createStack item:ironOre, quantity:8
-        recipe.setInputAt 2, 1, createStack item:coal
+        recipe.setInputAt 1, 0, createStack item:ironOre, quantity:8
+        recipe.setInputAt 1, 2, createStack item:coal
         recipe.addTool furnace
 
     return ironIngot
 
 exports.configureIronBlock = configureIronBlock = (mod)->
-    ironBlock = mod.items["iron_block"]
+    ironBlock = mod.modPack.findItem "iron_block"
     if not ironBlock?
         craftingTable = configureCraftingTable mod
         ironBlock = createItem mod:mod, id:"iron_block", displayName:"Iron Block"
         ironIngot = configureIronIngot mod
 
         recipe = createRecipe output:createStack item:ironBlock
-        for row in [0..2]
-            for col in [0..2]
-                recipe.setInputAt row, col, createStack item:ironIngot
+        for x in [0..2]
+            for y in [0..2]
+                recipe.setInputAt x, y, createStack item:ironIngot
         recipe.addTool craftingTable
 
         recipe = createRecipe output:createStack item:ironIngot, quantity:9
@@ -169,7 +169,7 @@ exports.configureIronBlock = configureIronBlock = (mod)->
     return ironBlock
 
 exports.configureIronSword = configureIronSword = (mod)->
-    ironSword = mod.items["iron_sword"]
+    ironSword = mod.modPack.findItem "iron_sword"
     if not ironSword?
         craftingTable = configureCraftingTable mod
         ironIngot     = configureIronIngot mod
@@ -177,15 +177,15 @@ exports.configureIronSword = configureIronSword = (mod)->
         stick         = configureStick mod
 
         recipe = createRecipe output:createStack item:ironSword
-        recipe.setInputAt 0, 1, createStack item:ironIngot
+        recipe.setInputAt 1, 0, createStack item:ironIngot
         recipe.setInputAt 1, 1, createStack item:ironIngot
-        recipe.setInputAt 2, 1, createStack item:stick
+        recipe.setInputAt 1, 2, createStack item:stick
         recipe.addTool craftingTable
 
     return ironSword
 
 exports.configureIronShovel = configureIronShovel = (mod)->
-    ironShovel = mod.items["iron_shovel"]
+    ironShovel = mod.modPack.findItem "iron_shovel"
     if not ironShovel?
         craftingTable = configureCraftingTable mod
         ironIngot     = configureIronIngot mod
@@ -193,40 +193,40 @@ exports.configureIronShovel = configureIronShovel = (mod)->
         stick         = configureStick mod
 
         recipe = createRecipe output:createStack item:ironShovel
-        recipe.setInputAt 0, 1, createStack item:ironIngot
+        recipe.setInputAt 1, 0, createStack item:ironIngot
         recipe.setInputAt 1, 1, createStack item:stick
-        recipe.setInputAt 2, 1, createStack item:stick
+        recipe.setInputAt 1, 2, createStack item:stick
         recipe.addTool craftingTable
 
     return ironShovel
 
 exports.configureIronOre = configureIronOre = (mod)->
-    ironOre = mod.items["iron_ore"]
+    ironOre = mod.modPack.findItem "iron_ore"
     if not ironOre?
-        ironOre = createItem mod:mod, id:"iron_ore", displayName:"Iron Ore", isGatherable:true
+        ironOre = createItem mod:mod, id:"iron_ore", displayName:"Iron Ore"
     return ironOre
 
 exports.configureMilk = configureMilk = (mod)->
-    milk = mod.items["milk"]
+    milk = mod.modPack.findItem "milk"
     if not milk?
-        milk = createItem mod:mod, id:"milk", displayName:"Milk", isGatherable:true
+        milk = createItem mod:mod, id:"milk", displayName:"Milk"
     return milk
 
 exports.configureMilkBucket = configureMilkBucket = (mod)->
-    milkBucket = mod.items["milk_bucket"]
+    milkBucket = mod.modPack.findItem "milk_bucket"
     if not milkBucket?
         bucket     = configureBucket mod
         milk       = configureMilk mod
         milkBucket = createItem mod:mod, id:"milkBucket", displayName:"Milk Bucket"
 
         recipe = createRecipe output:createStack item:milkBucket
-        recipe.setInputAt 0, 1, createStack item:milk
+        recipe.setInputAt 1, 0, createStack item:milk
         recipe.setInputAt 1, 1, createStack item:bucket
 
     return milkBucket
 
 exports.configureOakPlank = configureOakPlank = (mod)->
-    oakPlanks = mod.items["oak_planks"]
+    oakPlanks = mod.modPack.findItem "oak_planks"
     if not oakPlanks?
         oakPlanks = createItem mod:mod, id:"oak_planks", displayName:"Oak Planks"
         oakWood   = configureOakWood mod
@@ -237,31 +237,37 @@ exports.configureOakPlank = configureOakPlank = (mod)->
     return oakPlanks
 
 exports.configureOakWood = configureOakWood = (mod)->
-    oakWood = mod.items["oak_wood"]
+    oakWood = mod.modPack.findItem "oak_wood"
     if not oakWood?
-        oakWood = createItem mod:mod, id:"oak_wood", displayName:"Oak Wood", isGatherable:true
+        oakWood = createItem mod:mod, id:"oak_wood", displayName:"Oak Wood"
     return oakWood
 
+exports.configureObsidian = configureObsidian = (mod)->
+    obsidian = mod.modPack.findItem "obsidian"
+    if not obsidian?
+        obsidian = createItem mod:mod, id:"obsidian", displayName:"Obsidian"
+    return obsidian
+
 exports.configureRedstoneDust = configureRedstoneDust = (mod)->
-    redstoneDust = mod.items["redstone_dust"]
+    redstoneDust = mod.modPack.findItem "redstone_dust"
     if not redstoneDust?
-        redstoneDust = createItem mod:mod, id:"redstone_dust", displayName:"Redstone Dust", isGatherable:true
+        redstoneDust = createItem mod:mod, id:"redstone_dust", displayName:"Redstone Dust"
     return redstoneDust
 
 exports.configureStick = configureStick = (mod)->
-    stick = mod.items["stick"]
+    stick = mod.modPack.findItem "stick"
     if not stick?
         oakPlanks = configureOakPlank mod
         stick     = createItem mod:mod, id:"stick", displayName:"Stick"
 
         recipe = createRecipe output:createStack item:stick, quantity:4
         recipe.setInputAt 0, 0, createStack item:oakPlanks
-        recipe.setInputAt 1, 0, createStack item:oakPlanks
+        recipe.setInputAt 0, 1, createStack item:oakPlanks
 
     return stick
 
 exports.configureSugar = configureSugar = (mod)->
-    sugar = mod.items["sugar"]
+    sugar = mod.modPack.findItem "sugar"
     if not sugar?
         sugar     = createItem mod:mod, id:"sugar", displayName:"Sugar"
         sugarCane = configureSugarCane mod
@@ -272,7 +278,7 @@ exports.configureSugar = configureSugar = (mod)->
     return sugar
 
 exports.configureSaw = configureSaw = (mod)->
-    saw = mod.items["saw"]
+    saw = mod.modPack.findItem "saw"
     if not saw?
         craftingTable = configureCraftingTable mod
         ironBlock     = configureIronBlock mod
@@ -284,13 +290,13 @@ exports.configureSaw = configureSaw = (mod)->
 
         recipe = createRecipe output:createStack item:saw
         recipe.setInputAt 0, 0, createStack item:oakPlank
-        recipe.setInputAt 0, 1, createStack item:ironIngot
-        recipe.setInputAt 0, 2, createStack item:oakPlank
-        recipe.setInputAt 1, 0, createStack item:oakPlank
-        recipe.setInputAt 1, 1, createStack item:ironBlock
-        recipe.setInputAt 1, 2, createStack item:oakPlank
+        recipe.setInputAt 1, 0, createStack item:ironIngot
         recipe.setInputAt 2, 0, createStack item:oakPlank
-        recipe.setInputAt 2, 1, createStack item:redstoneDust
+        recipe.setInputAt 0, 1, createStack item:oakPlank
+        recipe.setInputAt 1, 1, createStack item:ironBlock
+        recipe.setInputAt 2, 1, createStack item:oakPlank
+        recipe.setInputAt 0, 2, createStack item:oakPlank
+        recipe.setInputAt 1, 2, createStack item:redstoneDust
         recipe.setInputAt 2, 2, createStack item:oakPlank
         recipe.addTool craftingTable
 
@@ -301,13 +307,13 @@ exports.configureSaw = configureSaw = (mod)->
     return saw
 
 exports.configureSugarCane = configureSugarCane = (mod)->
-    sugarCane = mod.items["sugar_cane"]
+    sugarCane = mod.modPack.findItem "sugar_cane"
     if not sugarCane?
-        sugarCane = createItem mod:mod, id:"sugar_cane", displayName:"Sugar Cane", isGatherable:true
+        sugarCane = createItem mod:mod, id:"sugar_cane", displayName:"Sugar Cane"
     return sugarCane
 
 exports.configureWheat = configureWheat = (mod)->
-    wheat = mod.items["wheat"]
+    wheat = mod.modPack.findItem "wheat"
     if not wheat?
-        wheat = createItem mod:mod, id:"wheat", displayName:"Wheat", isGatherable:true
+        wheat = createItem mod:mod, id:"wheat", displayName:"Wheat"
     return wheat

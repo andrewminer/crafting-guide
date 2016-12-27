@@ -7,8 +7,8 @@
 
 CraftingPlan     = require './crafting_plan'
 CraftingPlanStep = require './crafting_plan_step'
-Inventory        = require './inventory'
-fixtures         = require './fixtures'
+Inventory        = require '../game/inventory'
+fixtures         = require '../fixtures'
 
 ########################################################################################################################
 

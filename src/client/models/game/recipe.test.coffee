@@ -5,86 +5,68 @@
 # All rights reserved.
 #
 
-Item     = require './item'
-ItemSlug = require './item_slug'
-Recipe   = require './recipe'
-Stack    = require './stack'
+fixtures = require "../fixtures"
+Item     = require "./item"
+Recipe   = require "./recipe"
+Stack    = require "./stack"
 
 ########################################################################################################################
 
-input = output = pattern = recipe = null
+describe "Recipe", ->
 
-########################################################################################################################
+    beforeEach ->
+        @mod       = fixtures.createMod()
+        @stick     = fixtures.configureStick @mod
+        @ironIngot = fixtures.configureIronIngot @mod
+        @obsidian  = fixtures.configureObsidian @mod
 
-describe 'recipe.coffee', ->
+        @ironSword = new Item id:"iron_sword", displayName:"Iron Sword", mod:@mod
+        @obsidianBox = new Item id:"obsidian_box", displayName:"Obsidian Box", mod:@mod
 
-    describe 'constructor', ->
+    describe "getting & setting inputs", ->
 
-        beforeEach ->
-            input = [
-                new Stack(itemSlug:new ItemSlug('iron_gear')),
-                new Stack(itemSlug:new ItemSlug('gold_ingot'), quantity:4)
-            ]
-            pattern = '.1. 101 .1.'
+        describe "for 2D recipes", ->
 
-        it 'requires input', ->
-            expect(-> new Recipe slug:'gold_gear', pattern:pattern).to.throw Error, 'attributes.input is required'
+            beforeEach ->
+                @recipe = new Recipe id:"test1", output:new Stack item:@ironSword
+                @recipe.setInputAt 1, 0, new Stack item:@ironIngot
+                @recipe.setInputAt 1, 1, new Stack item:@ironIngot
+                @recipe.setInputAt 1, 2, new Stack item:@stick
 
-        it 'requires a pattern', ->
-            expect(-> new Recipe slug:'gold_gear', input:input).to.throw Error, 'attributes.pattern is required'
+            it "returns assigned values as expected", ->
+                expect(@recipe.getInputAt(0, 0)).to.equal null
+                @recipe.getInputAt(1, 0).item.displayName.should.equal "Iron Ingot"
+                @recipe.getInputAt(1, 1).item.displayName.should.equal "Iron Ingot"
+                @recipe.getInputAt(1, 2).item.displayName.should.equal "Stick"
+                expect(@recipe.getInputAt(2, 2)).to.equal null
 
-        it 'requires either outputs or a slug', ->
-            f = -> new Recipe input:input, pattern:pattern
-            expect(f).to.throw 'attributes.itemSlug or attributes.output is required'
+            it "determines the correct dimentions", ->
+                @recipe.depth.should.equal 1
+                @recipe.height.should.equal 3
+                @recipe.width.should.equal 2
 
-        it 'creates default output', ->
-            recipe = new Recipe itemSlug:ItemSlug.slugify('gold_gear'), input:input, pattern:pattern
-            recipe.output.length.should.equal 1
-            recipe.output[0].itemSlug.qualified.should.equal 'gold_gear'
-            recipe.output[0].quantity.should.equal 1
+        describe "for 3D recipes", ->
 
-        it 'assigns a default slug', ->
-            recipe = new Recipe input:input, pattern:pattern, output:[new Stack itemSlug:ItemSlug.slugify('gold_gear')]
-            recipe.itemSlug.qualified.should.equal 'gold_gear'
+            beforeEach ->
+                @recipe = new Recipe id:"test2", output:new Stack item:@obsidianBox
+                for x in [0..2]
+                    for y in [0..2]
+                        for z in [0..2]
+                            continue if x is 1 and y is 1
+                            continue if x is 1 and z is 1
+                            continue if y is 1 and z is 1
 
-    describe 'getStackAtSlot', ->
+                            @recipe.setInputAt x, y, z, new Stack item:@obsidian
 
-        beforeEach ->
-            input = [
-                new Stack itemSlug:ItemSlug.slugify('iron_gear')
-                new Stack itemSlug:ItemSlug.slugify('gold_ingot'), quantity:4
-            ]
-            recipe = new Recipe itemSlug:'gold_gear', input:input, pattern:'.1. 101 .1.'
+            it "returns assigned values as expected", ->
+                @recipe.getInputAt(0, 0, 0).item.displayName.should.equal "Obsidian"
+                @recipe.getInputAt(2, 0, 0).item.displayName.should.equal "Obsidian"
+                @recipe.getInputAt(0, 2, 0).item.displayName.should.equal "Obsidian"
+                @recipe.getInputAt(2, 2, 2).item.displayName.should.equal "Obsidian"
+                expect(@recipe.getInputAt(1, 1, 1)).to.equal null
+                expect(@recipe.getInputAt(1, 1, 0)).to.equal null
 
-        it 'returns the proper item for an early slot', ->
-            stack = recipe.getStackAtSlot(1)
-            stack.itemSlug.qualified.should.equal 'gold_ingot'
-            stack.quantity.should.equal 4
-
-        it 'returns the proper item for a late slot', ->
-            stack = recipe.getStackAtSlot(4)
-            stack.itemSlug.qualified.should.equal 'iron_gear'
-            stack.quantity.should.equal 1
-
-        it 'returns null for an invalid slot', ->
-            expect(recipe.getStackAtSlot(12)).to.be.null
-
-    describe '_parsePattern', ->
-
-        beforeEach ->
-            recipe = new Recipe
-                itemSlug:  'oak_wood_planks',
-                input: [new Stack itemSlug:new ItemSlug('oak_wood')],
-                pattern:'... .0. ...'
-
-        it 'normalizes invalid characters', ->
-            recipe._parsePattern('$$0 #() 010').should.equal '..0 ... 010'
-
-        it 'removes extra characters', ->
-            recipe._parsePattern('000 000 000 000').should.equal '000 000 000'
-
-        it 'fills in missing characters', ->
-            recipe._parsePattern('000000').should.equal '000 000 ...'
-
-        it 'fills in spaces', ->
-            recipe._parsePattern('000000000').should.equal '000 000 000'
+            it "determines the correct dimentions", ->
+                @recipe.depth.should.equal 3
+                @recipe.height.should.equal 3
+                @recipe.width.should.equal 3

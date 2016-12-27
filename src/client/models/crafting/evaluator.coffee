@@ -34,8 +34,8 @@ module.exports = class Evaluator
 
             recipeEvaluation = @_findBestRecipeEvaluationFor item
             if recipeEvaluation?
-                evaluation.addBaseEvaluation recipeEvaluation
                 evaluation.baseScore = recipeEvaluation.baseScore
+                evaluation.addIncludedToolsFrom recipeEvaluation
             else
                 @_computeGatherableItemScore item, evaluation
 
@@ -49,12 +49,13 @@ module.exports = class Evaluator
             evaluation = @_evaluations[recipe.id] = new Evaluation evaluator:this, recipe:recipe
             @_computeRecipeScore recipe, evaluation
 
+            for id, item of recipe.inputs
+                inputEvaluation = @evaluateItem item
+                evaluation.addIncludedToolsFrom inputEvaluation
+
             for id, toolItem of recipe.tools
                 evaluation.addIncludedTool toolItem
-
-                for id, toolItem of @evaluateItem(toolItem).includedTools
-                    evaluation.addIncludedTool toolItem
-
+                evaluation.addIncludedToolsFrom @evaluateItem toolItem
 
         return evaluation
 
@@ -79,11 +80,11 @@ module.exports = class Evaluator
 
     # Overrideable Methods #########################################################################
 
-    _computeRecipeScore: (recipe, evaluation)->
-        throw new Error "#{@constructor.name} must override _computeRecipeScore"
-
     _computeGatherableItemScore: (item, evaluation)->
         throw new Error "#{@constructor.name} must override _computeGatherableItemScore"
+
+    _computeRecipeScore: (recipe, evaluation)->
+        throw new Error "#{@constructor.name} must override _computeRecipeScore"
 
     # Private Methods ##############################################################################
 
@@ -91,12 +92,11 @@ module.exports = class Evaluator
         return null if item.isGatherable
         result = null
 
-        for recipeMap in [item.recipes, item.recipesAsExtra]
-            for id, recipe of recipeMap
-                evaluation = @evaluateRecipe recipe
-                continue unless evaluation?.baseScore?
+        for id, recipe of item.recipes
+            evaluation = @evaluateRecipe recipe
+            continue unless evaluation?.baseScore?
 
-                if not result? then result = evaluation
-                if evaluation.baseScore < result.baseScore then result = evaluation
+            if not result? then result = evaluation
+            if evaluation.baseScore < result.baseScore then result = evaluation
 
         return result

@@ -22,7 +22,6 @@ module.exports = class StepsEvaluator extends Evaluator
                 evaluation.score = null
                 return
 
-            evaluation.addBaseEvaluation inputEvaluation
             evaluation.score = Math.min evaluation.score, inputEvaluation.score + 1
 
         for id, item of recipe.tools
@@ -33,7 +32,6 @@ module.exports = class StepsEvaluator extends Evaluator
                 evaluation.score = null
                 return
 
-            evaluation.addBaseEvaluation evaluation
             evaluation.addIncludedTool item
             evaluation.score += toolEvaluation.score
 

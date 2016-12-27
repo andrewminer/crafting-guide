@@ -15,17 +15,13 @@ module.exports = class Evaluation
         @recipe    = attributes.recipe if attributes.recipe?
         @baseScore = attributes.baseScore
 
-        @_baseEvaluations = []
+        @_id = _.uniqueId "evaluation-"
         @_includedTools = {}
         @_toolScore = null
 
     # Properties ###################################################################################
 
     Object.defineProperties @prototype,
-
-        baseEvaluations:
-            get: -> return @_baseEvaluations
-            set: -> throw new Error "baseEvaluations cannot be assigned"
 
         baseScore:
             get: -> return @_baseScore
@@ -70,12 +66,14 @@ module.exports = class Evaluation
 
     # Public Methods ###############################################################################
 
-    addBaseEvaluation: (evaluation)->
-        @_baseEvaluations.push evaluation
-
     addIncludedTool: (item)->
+        return if @_includedTools[item.id]?
         @_includedTools[item.id] = item
         @_toolScore = null
+
+    addIncludedToolsFrom: (evaluation)->
+        for id, toolItem of evaluation.includedTools
+            @addIncludedTool toolItem
 
     computeTotalScore: (quantity=1)->
         if @item?
@@ -86,18 +84,13 @@ module.exports = class Evaluation
         return @baseScore * multiplier + @toolScore
 
     isToolIncluded: (item)->
-        return true if @_includedTools[item.id]?
-
-        for baseEvaluation in @_baseEvaluations
-            return true if baseEvaluation.isToolIncluded item
-
-        return false
+        return @_includedTools[item.id]?
 
     # Object Overrides #############################################################################
 
     toString: ->
         obj = if @item? then @item else @recipe
-        return "#{@evaluator}=>#{obj}@#{@baseScore}"
+        return "#{@evaluator.constructor.name}:#{obj}@#{@baseScore}<#{@_id}>"
 
     # Private Methods ##############################################################################
 

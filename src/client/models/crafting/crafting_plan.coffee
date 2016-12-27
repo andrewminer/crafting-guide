@@ -5,7 +5,7 @@
 # All rights reserved.
 #
 
-Inventory       = require "./inventory"
+Inventory       = require "../game/inventory"
 {StringBuilder} = require "crafting-guide-common"
 
 ########################################################################################################################
@@ -20,8 +20,8 @@ module.exports = class CraftingPlan
         @steps  = attributes.steps
         @want   = attributes.want
 
-        @_consolidateSteps()
         @_computeResources()
+        @_consolidateSteps()
 
     # Properties ###################################################################################
 

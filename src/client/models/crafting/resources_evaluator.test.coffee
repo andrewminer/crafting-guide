@@ -6,7 +6,7 @@
 #
 
 ResourcesEvaluator = require './resources_evaluator'
-fixtures           = require './fixtures'
+fixtures           = require '../fixtures'
 
 ########################################################################################################################
 
@@ -123,3 +123,7 @@ describe "ResourcesEvaluator", ->
             #    1 oak wood ==> 4 oak planks (0.25)
             #    4 planks ==> 1 crafting table (1)
             @evaluation.computeTotalScore().should.equal 18
+
+    describe 'evaluating a recipe which is only ever made as an extra', ->
+
+        it 'should still be able to come up with an evaluation'

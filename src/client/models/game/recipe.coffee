@@ -5,243 +5,170 @@
 # All rights reserved.
 #
 
-BaseModel       = require '../base_model'
-ItemSlug        = require './item_slug'
-Stack           = require './stack'
 {StringBuilder} = require 'crafting-guide-common'
 
 ########################################################################################################################
 
-module.exports = class Recipe extends BaseModel
+module.exports = class Recipe
 
-    constructor: (attributes={}, options={})->
-        if not attributes.input? then throw new Error 'attributes.input is required'
-        if not attributes.pattern? then throw new Error 'attributes.pattern is required'
+    constructor: (attributes={})->
+        @depth  = attributes.depth
+        @height = attributes.height
+        @id     = attributes.id
+        @output = attributes.output
+        @width  = attributes.width
 
-        if attributes.itemSlug? and not attributes.output?
-            attributes.output = [new Stack itemSlug:attributes.itemSlug, quantity:1]
-        else if attributes.output? and not attributes.itemSlug?
-            if attributes.output.length is 0 then throw new Error 'attributes.output cannot be empty'
-            attributes.itemSlug = attributes.output[0].itemSlug
-        else
-            throw new Error 'attributes.itemSlug or attributes.output is required'
+        @_extras    = {}
+        @_inputs    = {}
+        @_inputGrid = []
+        @_tools     = {}
 
-        attributes.pattern = @_parsePattern attributes.pattern
-
-        attributes.condition            ?= null
-        attributes.ignoreDuringCrafting ?= false
-        attributes.modVersion           ?= null
-        attributes.tools                ?= []
-        options.logEvents               ?= false
-        super attributes, options
-
-        @_computeQuantities attributes.pattern
-
-        @on c.event.change + ':modVersion', => @_slug = null
-        @on c.event.change + ':pattern', => @_patternCache = null
-
-    # Class Methods ################################################################################
-
-    @compareFor: (a, b, itemSlug)->
-        if itemSlug?
-            aValue = a.itemSlug.matches itemSlug
-            bValue = b.itemSlug.matches itemSlug
-            if aValue isnt bValue
-                return -1 if aValue
-                return +1 if bValue
-
-            aValue = a.getQuantityProduced itemSlug
-            bValue = b.getQuantityProduced itemSlug
-            if aValue isnt bValue
-                return if aValue > bValue then -1 else +1
-
-        return 0
-
-    # Public Methods ###############################################################################
-
-    getStackAtSlot: (patternSlot)->
-        trueIndex = 0:0, 1:1, 2:2, 3:4, 4:5, 5:6, 6:8, 7:9, 8:10
-        patternDigit = @pattern[trueIndex[patternSlot]]
-        return null unless patternDigit?
-        return null unless patternDigit.match /[0-9]/
-
-        stack = @input[parseInt(patternDigit)]
-        return null unless stack?
-
-        return stack
-
-    getQuantityProduced: (itemSlug)->
-        total = 0
-        for stack in @output
-            if stack.itemSlug.matches itemSlug
-                total += stack.quantity
-
-        return total
-
-    getQuantityRequired: (itemSlug)->
-        total = 0
-        for stack, index in @input
-            if ItemSlug.equal stack.itemSlug, itemSlug
-                total += @_quantities[index] * stack.quantity
-
-        return total
-
-    hasAllTools: (modPack)->
-        modPack ?= @modVersion?.mod?.modPack
-        return true unless modPack?
-
-        for stack in @tools
-            return false unless modPack.findItem stack.itemSlug
-        return true
-
-    isConditionSatisfied: (modPack)->
-        return true unless @condition?
-        modPack ?= @modVersion?.mod?.modPack
-
-        result = false
-        if @condition.verb is 'item'
-            if modPack?.findItemByName(@condition.noun)?
-                result = true
-        else if @condition.verb is 'mod'
-            modPack.eachMod (mod)=>
-                if mod.name is @condition.noun
-                    result = true
-
-        if @condition.inverted then result = not result
-        return result
-
-    isPassThroughFor: (itemSlug)->
-        return @getQuantityProduced(itemSlug) is @getQuantityRequired(itemSlug)
-
-    produces: (itemSlug)->
-        if not @_produces?
-            @_produces = {}
-
-            for stack in @output
-                actuallyProduces = not @isPassThroughFor stack.itemSlug
-                @_produces[stack.itemSlug.qualified] = actuallyProduces
-
-        result = @_produces[itemSlug.qualified] or @_produces[itemSlug.item]
-        return result
-
-    requires: (itemSlug)->
-        for stack in @input
-            if stack.itemSlug.matches itemSlug
-                return true
-        return false
-
-    requiresTool: (itemSlug)->
-        for stack in @tools
-            if stack.itemSlug.matches itemSlug
-                return true
-
-    # Property Methods #############################################################################
+    # Properties ###################################################################################
 
     Object.defineProperties @prototype,
 
-        slug:
-            get: ->
-                if not @_slug?
-                    builder = new StringBuilder
-                    delimiterNeeded = false
-                    for stack in @input
-                        if delimiterNeeded then builder.push ','
-                        delimiterNeeded = true
+        allProducts: # an array of Stacks starting the the primary output of this recipe
+            get: -> return [].concat @output, (stack for id, stack of @extras)
+            set: -> throw new Error "allProducts cannot be assigned"
 
-                        if stack.quantity > 1 then builder.push stack.quantity, ' '
-                        builder.push stack.itemSlug.qualified
+        depth: # an integer specifying the number of layers to this recipe
+            get: -> return @_depth
+            set: (depth)->
+                depth = parseInt "#{depth}"
+                depth = if Number.isNaN(depth) then 0 else Math.max(0, depth)
+                @_depth = depth
 
-                    builder.push '>'
-                    builder.push @pattern
-                    builder.push '>'
-                    for stack in @tools
-                        builder.push stack.itemSlug.qualified
-                    builder.push '>'
+        extras: # a hash of item id to Stack of all the non-primary outputs of this recipe
+            get: -> return @_extras
+            set: -> throw new Error "extras cannot be replaced"
 
-                    delimiterNeeded = false
-                    for stack in @output
-                        if delimiterNeeded then builder.push ','
-                        delimiterNeeded = true
+        id: # a string which uniquely identifies this recipe
+            get: -> return @_id
+            set: (id)->
+                if not id? then throw new Error "id is required"
+                if @_id is id then return
+                if @_id? then throw new Error "id cannot be reassigned"
+                @_id = id
 
-                        if stack.quantity > 1 then builder.push stack.quantity, ' '
-                        builder.push stack.itemSlug.qualified
+        height: # an integer specifying the number of rows needed by this recipe
+            get: -> return @_height
+            set: (height)->
+                height = parseInt "#{height}"
+                height = if Number.isNaN(height) then 0 else Math.max(0, height)
+                @_height = height
 
-                    @_slug = builder.toString()
+        inputs: # a hash of item id to Item containing all the inputs to this recipe
+            get: -> return @_inputs
+            set: -> throw new Error "inputs cannot be replaced"
 
-                return @_slug
+        needsTools: # a boolean indicating whether this recipe requires a tool
+            get: -> return (id for id, toolItem of @_tools).length > 0
+
+        output: # a Stack specifying the primary output of this recipe
+            get: -> return @_output
+            set: (output)->
+                if not output? then throw new Error "output is required"
+                if @_output is output then return
+                if @_output? then throw new Error "output cannot be reassigned"
+                @_output = output
+                @_output.item.addRecipe this
+
+        modPack: # the ModPack to which this recipe belongs
+            get: -> return @_output.modPack
+            set: -> throw new Error "modPack cannot be replaced"
+
+        tools: # a hash of item id to Item of all the tools required for this recipe
+            get: -> return @_tools
+            set: -> throw new Error "tools cannot be assigned"
+
+        width: # an integer specifying the number of columns needed by this recipe
+            get: -> return @_width
+            set: (width)->
+                width = parseInt "#{width}"
+                width = if Number.isNaN(width) then 0 else Math.max(0, width)
+                @_width = width
+
+    # Public Methods ###############################################################################
+
+    addExtra: (stack)->
+        return unless stack
+        return if @_extras[stack.item.id] is stack
+        @_extras[stack.item.id] = stack
+        stack.item.addRecipe this
+
+    addTool: (item)->
+        return unless item
+        @_tools[item.id] = item
+
+    computeQuantityRequired: (item)->
+        result = 0
+
+        for x in [0...@width]
+            for y in [0...@height]
+                for z in [0...@depth]
+                    stack = @getInputAt x, y, z
+                    continue unless stack?
+                    continue unless stack.item.id is item.id
+                    result += stack.quantity
+
+        return result
+
+    computeQuantityProduced: (item)->
+        result = 0
+
+        if @_output.item.id is item.id
+            result += @_output.quantity
+
+        for itemId, stack of @_extras
+            continue unless itemId is item.id
+            result += stack.quantity
+
+        return result
+
+    getInputAt: ->
+        [x, y, z] = [0, 0, 0]
+        if arguments.length is 3
+            [x, y, z] = arguments
+        else
+            [x, y] = arguments
+
+        return @_inputGrid[x]?[y]?[z] or null
+
+    setInputAt: ->
+        [x, y, z, stack] = [0, 0, 0, null]
+        if arguments.length is 4
+            [x, y, z, stack] = arguments
+        else
+            [x, y, stack] = arguments
+
+        @_depth = Math.max @_depth, z + 1
+        @_height = Math.max @_height, y + 1
+        @_width = Math.max @_width, x + 1
+
+        @_inputGrid[x] ?= []
+        @_inputGrid[x][y] ?= []
+        @_inputGrid[x][y][z] = stack
+
+        if stack?.item? then @_inputs[stack.item.id] = stack.item
 
     # Object Overrides #############################################################################
 
-    toString: ->
-        result = [@constructor.name, " (", @cid, ") { name:", @name]
+    toString: (options={})->
+        options.full ?= false
 
-        result.push ", input:["
-        needsDelimiter = false
-        for stack in @input
-            if needsDelimiter then result.push ', '
-            result.push @getQuantityRequired stack.itemSlug
-            result.push ' '
-            result.push stack.itemSlug
-            needsDelimiter = true
-        result.push ']'
+        if options.full
+            b = new StringBuilder
+            b.loop (item for id, item of @inputs), delimiter:" + ", onEach:(b, item)=>
+                b.push @computeQuantityRequired(item), " ", item.displayName
+            b.push " ="
+            b.onlyIf @needsTools, (b)=>
+                b.push "("
+                b.loop (toolItem for id, toolItem of @tools), onEach:(b, toolItem)-> b.push toolItem.displayName
+                b.push ")"
+            b.push "=> "
+            b.loop @allProducts, delimiter:" + ", onEach:(b, stack)=>
+                b.push stack.quantity, " ", stack.item.displayName
 
-        result.push ", output:["
-        needsDelimiter = false
-        for stack in @output
-            if needsDelimiter then result.push ', '
-            result.push @getQuantityProduced stack.itemSlug
-            result.push ' '
-            result.push stack.itemSlug
-            needsDelimiter = true
-        result.push ']'
-
-        if @tools.length > 0
-            result.push ", tools:["
-            needsDelimiter = false
-            for stack in @tools
-                if needsDelimiter then result.push ', '
-                result.push stack.toString()
-                needsDelimiter = true
-            result.push ']'
-
-        result.push '}'
-        return result.join ''
-
-    # Private Methods ##############################################################################
-
-    _computeQuantities: (pattern)->
-        quantityMap = {}
-
-        index = 0
-        while index < pattern.length
-            c = pattern[index]
-            index += 1
-
-            continue if c is '.'
-            continue if c is ' '
-
-            if quantityMap[c]?
-                quantityMap[c] += 1
-            else
-                quantityMap[c] = 1
-
-        @_quantities = []
-        for i in [0...@input.length]
-            @_quantities.push quantityMap["#{i}"]
-
-    _parsePattern: (pattern)->
-        return unless pattern?
-
-        pattern = pattern.replace /\ /g, ''
-        return if pattern.length is 0
-
-        pattern = pattern.replace /[^0-9]/g, '.'
-
-        array = pattern.split ''
-        array = array[0...9]
-        while array.length isnt 9
-            array.push '.'
-
-        pattern = array.join ''
-        pattern = pattern.replace /(...)(...)(...)/, '$1 $2 $3'
-        return pattern
+            return b.toString()
+        else
+            return "Recipe:#{@output}<#{@id}>"

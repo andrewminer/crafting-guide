@@ -152,7 +152,8 @@ module.exports = class ModVersion extends BaseModel
             if recipe.itemSlug.matches itemSlug
                 primaryRecipes.push recipe
             else if recipe.produces itemSlug
-                otherRecipes.push recipe
+                if not recipe.requires itemSlug
+                    otherRecipes.push recipe
 
         for recipe in primaryRecipes
             result.push recipe

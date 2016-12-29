@@ -111,7 +111,7 @@ module.exports = class Recipe extends BaseModel
         return result
 
     isPassThroughFor: (itemSlug)->
-        return @getQuantityProduced(itemSlug) is @getQuantityRequired(itemSlug)
+        return @getQuantityProduced(itemSlug) > 0 and @getQuantityRequired(itemSlug) > 0
 
     produces: (itemSlug)->
         if not @_produces?

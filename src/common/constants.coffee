@@ -33,7 +33,7 @@ exports.defaultMods   = defaultMods = {}
 defaultMods.minecraft = { defaultVersion: '1.7.10' } # Minecraft must be first
 
 defaultMods.advanced_solar_panels = { defaultVersion: '3.5.1' }
-defaultMods.agricraft             = { defaultVersion: '1.4.6' }
+defaultMods.agricraft             = { defaultVersion: '1.7.10_1.5.0' }
 defaultMods.applied_energistics_2 = { defaultVersion: 'rv1-stable-1' }
 defaultMods.big_reactors          = { defaultVersion: '0.4.2A2' }
 defaultMods.buildcraft            = { defaultVersion: '1.7.18' }

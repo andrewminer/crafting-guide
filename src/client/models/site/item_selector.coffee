@@ -47,25 +47,36 @@ module.exports = class ItemSelector extends BaseModel
 
     # Private Methods ##############################################################################
 
-    _isMatch: (name, itemSlug)->
+    _computeScore: (name, itemSlug)->
         hintIndex  = 0
         hintLetter = @_hint[hintIndex]
         name       = name.toLowerCase()
+        nextScore  = 1
+        totalScore = 0
 
         for nameIndex in [0...name.length] by 1
             if name.charAt(nameIndex) is hintLetter
+                totalScore += nextScore
+                nextScore += 1
                 hintIndex += 1
                 if hintIndex is @_hint.length
                     item = @_modPack.findItem itemSlug
-                    return false unless item?
-                    return @_isAcceptable item
-                hintLetter = @_hint[hintIndex]
+                    return 0 unless item?
+                    return 0 unless @_isAcceptable item
+                    break
 
-        return false
+                hintLetter = @_hint[hintIndex]
+            else
+                nextScore = 1
+
+        return 0 if hintIndex < @_hint.length
+
+        totalScore *= @_hint.length / name.length
+        return totalScore
 
     _refreshResults: ->
         oldResults = @_results
-        newResults = {}
+        scoredItems = []
         count = 0
 
         logger.verbose => "Looking for items which match: #{@_hint}"
@@ -75,15 +86,18 @@ module.exports = class ItemSelector extends BaseModel
                 return unless mod.enabled
 
                 mod.eachName (name, itemSlug)=>
-                    return if count >= @_maxResults
+                    return if scoredItems.length >= @_maxResults
+                    return unless itemSlug.isQualified
 
-                    if @_isMatch name, itemSlug
-                        if itemSlug.isQualified
-                            newResults[itemSlug] = itemSlug
-                            count += 1
+                    score = @_computeScore name, itemSlug
+                    if score >= @_hint.length
+                        scoredItems.push score:score, itemSlug:itemSlug
 
-        newResults = _.values(newResults)
-        newResults.sort ItemSlug.compare
+        scoredItems.sort (a, b)->
+            if a.score isnt b.score
+                return if a.score > b.score then -1 else +1
+            return ItemSlug.compare a.itemSlug, b.itemSlug
 
+        newResults = (e.itemSlug for e in scoredItems)
         @_results = newResults
         @trigger c.event.change + ':results', this, oldResults, newResults

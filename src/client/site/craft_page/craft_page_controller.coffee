@@ -64,6 +64,7 @@ module.exports = class CraftPageController extends PageController
             sampleInventory.parse inventoryText
             @model.craftsman.want.addInventory sampleInventory
             @_scrollTo @$workingSection
+            @onWantInventoryChanged()
 
         return false
 

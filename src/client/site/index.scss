@@ -67,6 +67,15 @@ html {
                 align-items     : center;
                 justify-content : center;
             }
+
+            > noscript {
+                margin: $size-margin-xlarge 0;
+                text-align: center;
+
+                h1 {
+                    font-size: $font-size-xlarge;
+                }
+            }
         }
     }
 }

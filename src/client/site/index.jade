@@ -22,8 +22,11 @@ html
             .view__header
 
             .content.hidden
-            .content-loading
-                img(src="/images/wait.gif")
+            script document.write('<div class="content-loading"><img src="/images/wait.gif"/></div>');
+
+            noscript
+                h1 Crafting Guide requires JavaScript to operate.
+                h1 Please re-enable JavaScript and reload the page.
 
             .view__footer
 

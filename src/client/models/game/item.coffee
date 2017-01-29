@@ -56,6 +56,7 @@ module.exports = class Item extends BaseModel
             @_isCraftable = false
             if @modVersion?
                 @_isCraftable = @modVersion.hasRecipes @slug
+            @_isCraftable = @_isCraftable or @multiblock?
 
         return @_isCraftable
 

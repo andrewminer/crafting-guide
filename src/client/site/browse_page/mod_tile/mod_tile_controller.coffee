@@ -5,7 +5,8 @@
 # All rights reserved.
 #
 
-BaseController = require '../../base_controller'
+BaseController               = require '../../base_controller'
+ModVersionSelectorController = require '../../common/mod_version_selector/mod_version_selector_controller'
 
 ########################################################################################################################
 
@@ -19,6 +20,8 @@ module.exports = class ModTileController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
+        @modVersionSelector = @addChild ModVersionSelectorController, '.view__mod_version_selector', model:@model
+
         @$link        = @$('a')
         @$logoImage   = @$('img')
         @$title       = @$('p.title')

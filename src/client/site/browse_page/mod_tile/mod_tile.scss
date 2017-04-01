@@ -6,48 +6,55 @@
 //
 
 .view__mod_tile {
-    min-width : $size-minecraft-block * 9;
-
     display: flex;
 
-    a {
-        @include floating-panel;
+    .tile {
         flex: 1 1 auto;
 
-        border          : $size-border-medium solid $color-background-panel;
-        color           : $color-text;
-        text-decoration : none;
+        @include floating-panel;
+        min-width : $size-minecraft-block * 9;
 
-        display : flex;
-        padding : $size-margin-medium;
+        display: flex;
+        flex-direction: column;
 
-        & > .left {
-            flex: 0 0 $size-minecraft-block * 4;
-            margin-right: $size-margin-medium;
+        border : $size-border-medium solid $color-background-panel;
 
-            img {
-                width: $size-minecraft-block * 4;
-                max-height: $size-minecraft-block * 4;
-            }
-        }
+        a {
+            flex: 1 1 auto;
+            color           : $color-text;
+            text-decoration : none;
 
-        & > .right {
-            flex : 1 1 100%;
+            display : flex;
+            padding : $size-margin-medium;
 
-            overflow : hidden;
+            & > .left {
+                flex: 0 0 $size-minecraft-block * 4;
+                margin-right: $size-margin-medium;
 
-            .title {
-                max-width: 0;
-                margin-bottom : $size-margin-medium;
-
-                font-family : $font-family-header;
-                font-size   : $font-size-xlarge;
+                img {
+                    width: $size-minecraft-block * 4;
+                    max-height: $size-minecraft-block * 4;
+                }
             }
 
-            .description {
-                font-family : $font-family-text;
-                font-size   : $font-size-medium;
-                line-height : $font-size-medium * 1.5;
+            & > .right {
+                flex : 1 1 100%;
+
+                overflow : hidden;
+
+                .title {
+                    max-width: 0;
+                    margin-bottom : $size-margin-medium;
+
+                    font-family : $font-family-header;
+                    font-size   : $font-size-xlarge;
+                }
+
+                .description {
+                    font-family : $font-family-text;
+                    font-size   : $font-size-medium;
+                    line-height : $font-size-medium * 1.5;
+                }
             }
         }
 
@@ -55,12 +62,17 @@
             background: $color-blue-faint;
             border-color: $color-link-normal;
 
-            & > .right {
+            & a > .right {
                 .title {
                     color: $color-link-normal;
                     text-decoration: underline;
                 }
             }
+        }
+
+        .view__mod_version_selector {
+            margin: 0;
+            padding: $size-margin-small $size-margin-medium;
         }
     }
 

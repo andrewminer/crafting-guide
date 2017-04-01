@@ -5,11 +5,12 @@
 # All rights reserved.
 #
 
-PageController      = require '../page_controller'
-Item                = require '../../models/game/item'
-ItemGroupController = require '../common/item_group/item_group_controller'
-Mod                 = require '../../models/game/mod'
-TutorialController  = require './tutorial/tutorial_controller'
+PageController               = require '../page_controller'
+Item                         = require '../../models/game/item'
+ItemGroupController          = require '../common/item_group/item_group_controller'
+Mod                          = require '../../models/game/mod'
+ModVersionSelectorController = require '../common/mod_version_selector/mod_version_selector_controller'
+TutorialController           = require './tutorial/tutorial_controller'
 
 ########################################################################################################################
 
@@ -25,23 +26,6 @@ module.exports = class ModPageController extends PageController
         @_imageLoader = options.imageLoader
         @_modPack     = options.modPack
         @_router      = options.router
-
-    # Event Methods ################################################################################
-
-    onToggleEnabled: ->
-        if @model.activeVersion is Mod.Version.None
-            tracker.trackEvent c.tracking.category.modPack, 'toggle-on', @model.slug
-            @model.activeVersion = Mod.Version.Latest
-        else
-            tracker.trackEvent c.tracking.category.modPack, 'toggle-off', @model.slug
-            @model.activeVersion = Mod.Version.None
-
-        return false
-
-    onVersionChanged: ->
-        @model.activeVersion = @$versionSelector.val()
-        tracker.trackEvent c.tracking.category.modPack, 'select-version', "#{@model.slug}@#{@model.activeVersion}"
-        return false
 
     # Property Methods #############################################################################
 
@@ -68,6 +52,8 @@ module.exports = class ModPageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
+        @modVersionSelector = @addChild ModVersionSelectorController, '.view__mod_version_selector', model:@model
+
         @$author             = @$('.about .author')
         @$description        = @$('.about .description')
         @$documentationLink  = @$('.about .documentation')
@@ -75,29 +61,21 @@ module.exports = class ModPageController extends PageController
         @$homePageLink       = @$('.about .homePage')
         @$itemGroups         = @$(".itemGroups")
         @$logo               = @$('.about img')
-        @$modpackSection     = @$('.modpack')
         @$title              = @$('.about .title')
         @$tutorialsContainer = @$('section.tutorials .panel')
         @$tutorialsSection   = @$('section.tutorials')
-        @$versionSection     = @$('.version')
-        @$versionSelector    = @$('.version select')
-        @$warning            = @$('.warning')
         super
 
     refresh: ->
         @_refreshAboutBlock()
-        @_refreshEnabled()
         @_refreshItemGroups()
         @_refreshTutorials()
-        @_refreshVersionSelector()
         super
 
     # Backbone.View Overrides ######################################################################
 
     events: ->
         return _.extend super,
-            'change .version select': 'onVersionChanged'
-            'click .modpack':         'onToggleEnabled'
             'click .about .right a':  'routeLinkClick'
 
     # Private Methods ##############################################################################
@@ -119,19 +97,6 @@ module.exports = class ModPageController extends PageController
             @$homePageLink.attr 'href', ''
             @$logo.attr 'src', ''
             @$title.text ''
-
-    _refreshEnabled: ->
-        if @model.slug in c.requiredMods
-            @hide @$modpackSection
-        else
-            @show @$modpackSection
-
-        if @model.activeVersion is Mod.Version.None
-            @$modpackSection.removeClass 'enabled'
-            @show @$warning
-        else
-            @$modpackSection.addClass 'enabled'
-            @hide @$warning
 
     _refreshItemGroups: ->
         @_groupControllers ?= []
@@ -187,22 +152,3 @@ module.exports = class ModPageController extends PageController
             @show @$tutorialsSection
         else
             @hide @$tutorialsSection
-
-    _refreshVersionSelector: ->
-        modVersions = @model.modVersions
-
-        if (@model.activeVersion is Mod.Version.None) or modVersions.length < 2
-            @hide @$versionSection
-        else
-            @show @$versionSection
-
-        selectedModVersion = @effectiveModVersion
-
-        @$versionSelector.empty()
-
-        for modVersion in @model.modVersions
-            $option = $("<option value=\"#{modVersion.version}\">#{modVersion.version}</option>")
-            if modVersion is selectedModVersion
-                $option.attr 'selected', 'true'
-            @$versionSelector.append $option
-        @$versionSelector.css display:''

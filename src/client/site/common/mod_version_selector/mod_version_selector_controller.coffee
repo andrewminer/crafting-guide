@@ -6,7 +6,7 @@
 #
 
 BaseController = require '../../base_controller'
-Mod            = require '../../../models/game/mod'
+{Mod}          = require('crafting-guide-common').deprecated
 
 ########################################################################################################################
 

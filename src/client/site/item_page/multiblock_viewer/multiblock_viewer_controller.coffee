@@ -1,7 +1,7 @@
 #
 # Crafting Guide - multiblock_viewer_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 

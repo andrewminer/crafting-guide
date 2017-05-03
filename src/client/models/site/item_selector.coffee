@@ -5,8 +5,8 @@
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
-ItemSlug  = require '../game/item_slug'
+{BaseModel} = require('crafting-guide-common').deprecated
+{ItemSlug}  = require('crafting-guide-common').deprecated.game
 
 ########################################################################################################################
 

@@ -6,15 +6,16 @@
 #
 
 EditableFile               = require '../../models/site/editable_file'
-Item                       = require '../../models/game/item'
+{Item}                     = require('crafting-guide-common').deprecated.game
 ItemGroupController        = require '../common/item_group/item_group_controller'
 ItemPage                   = require '../../models/site/item_page'
-ItemSlug                   = require '../../models/game/item_slug'
+{ItemSlug}                 = require('crafting-guide-common').deprecated.game
 MarkdownSectionController  = require '../common/markdown_section/markdown_section_controller'
 MultiblockViewerController = require './multiblock_viewer/multiblock_viewer_controller'
 PageController             = require '../page_controller'
 RecipeDetailController     = require './recipe_detail/recipe_detail_controller'
 VideoController            = require '../common/video/video_controller'
+w                          = require "when"
 
 ########################################################################################################################
 

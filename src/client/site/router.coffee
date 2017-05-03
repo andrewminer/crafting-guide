@@ -5,15 +5,15 @@
 # All rights reserved.
 #
 
-BrowsePageController    = require './browse_page/browse_page_controller'
-CraftPageController     = require './craft_page/craft_page_controller'
-ItemPageController      = require './item_page/item_page_controller'
-ItemSlug                = require '../models/game/item_slug'
-LoginPageController     = require './login_page/login_page_controller'
-ModPageController       = require './mod_page/mod_page_controller'
-NewsPageController      = require './news_page/news_page_controller'
-TutorialPageController  = require './tutorial_page/tutorial_page_controller'
-UrlParams               = require './url_params'
+BrowsePageController   = require './browse_page/browse_page_controller'
+CraftPageController    = require './craft_page/craft_page_controller'
+ItemPageController     = require './item_page/item_page_controller'
+{ItemSlug}             = require('crafting-guide-common').deprecated.game
+LoginPageController    = require './login_page/login_page_controller'
+ModPageController      = require './mod_page/mod_page_controller'
+NewsPageController     = require './news_page/news_page_controller'
+TutorialPageController = require './tutorial_page/tutorial_page_controller'
+UrlParams              = require './url_params'
 
 ########################################################################################################################
 

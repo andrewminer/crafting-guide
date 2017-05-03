@@ -6,7 +6,7 @@
 #
 
 BaseController = require '../../base_controller'
-Craftsman      = require '../../../models/crafting/craftsman'
+{Craftsman}    = require('crafting-guide-common').deprecated.crafting
 
 ########################################################################################################################
 

@@ -5,7 +5,8 @@
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
+{BaseModel} = require("crafting-guide-common").deprecated
+w         = require "when"
 
 ########################################################################################################################
 

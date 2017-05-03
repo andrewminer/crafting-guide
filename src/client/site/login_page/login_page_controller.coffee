@@ -7,7 +7,7 @@
 
 PageController        = require '../page_controller'
 GitHubUser            = require '../../models/site/github_user'
-{CraftingGuideClient} = require 'crafting-guide-common'
+{CraftingGuideClient} = require('crafting-guide-common').api
 
 ########################################################################################################################
 

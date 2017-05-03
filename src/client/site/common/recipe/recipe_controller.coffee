@@ -8,7 +8,7 @@
 BaseController         = require '../../base_controller'
 CraftingGridController = require '../crafting_grid/crafting_grid_controller'
 SlotController         = require '../slot/slot_controller'
-{StringBuilder}        = require 'crafting-guide-common'
+{StringBuilder}        = require('crafting-guide-common').util
 
 ########################################################################################################################
 

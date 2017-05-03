@@ -8,6 +8,7 @@
 BaseController    = require '../../base_controller'
 ItemSelector      = require '../../../models/site/item_selector'
 ElementController = require './element/element_controller'
+w                 = require "when"
 
 ########################################################################################################################
 

@@ -1,9 +1,9 @@
-###
+#
 # Crafting Guide - test.coffee
 #
 # Copyright (c) 2014-2015 by Redwood Labs
 # All rights reserved.
-###
+#
 
 # Test Set-up ##########################################################################################################
 
@@ -27,5 +27,5 @@ global.π       = Math.PI
 global.Backbone = Backbone = require 'backbone'
 Backbone.$ = $
 
-{Logger} = require 'crafting-guide-common'
+{Logger} = require('crafting-guide-common').util
 global.logger = new Logger level:Logger.FATAL

@@ -7,9 +7,9 @@
 
 BaseController         = require '../../base_controller'
 CraftingGridController = require '../../common/crafting_grid/crafting_grid_controller'
-Inventory              = require '../../../models/game/inventory'
+{Inventory}            = require('crafting-guide-common').deprecated.game
 InventoryController    = require '../../common/inventory/inventory_controller'
-{StringBuilder}        = require 'crafting-guide-common'
+{StringBuilder}        = require('crafting-guide-common').util
 
 ########################################################################################################################
 

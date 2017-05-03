@@ -1,3 +1,9 @@
+#
+# Crafting Guide - file_cache.test.coffee
+#
+# Copyright © 2014-2016 by Redwood Labs
+# All rights reserved.
+#
 
 FileCache = require './file_cache'
 

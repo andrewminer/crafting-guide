@@ -7,11 +7,11 @@
 
 BaseController             = require '../base_controller'
 CraftPage                  = require '../../models/site/craft_page'
-Craftsman                  = require '../../models/crafting/craftsman'
+{Craftsman}                = require('crafting-guide-common').deprecated.crafting
 CraftsmanWorkingController = require './craftsman_working/craftsman_working_controller'
 InventoryController        = require '../common/inventory/inventory_controller'
 PageController             = require '../page_controller'
-SimpleInventory            = require '../../models/crafting/simple_inventory'
+{SimpleInventory}          = require('crafting-guide-common').deprecated.crafting
 StepController             = require './step/step_controller'
 
 ########################################################################################################################
@@ -64,6 +64,7 @@ module.exports = class CraftPageController extends PageController
             sampleInventory.parse inventoryText
             @model.craftsman.want.addInventory sampleInventory
             @_scrollTo @$workingSection
+            @onWantInventoryChanged()
 
         return false
 

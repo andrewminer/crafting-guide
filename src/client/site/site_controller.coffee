@@ -13,9 +13,8 @@ FooterController   = require './footer/footer_controller'
 GitHubUser         = require '../models/site/github_user'
 HeaderController   = require './header/header_controller'
 ImageLoader        = require './image_loader'
-Mod                = require '../models/game/mod'
-ModPack            = require '../models/game/mod_pack'
-ModPackStore       = require '../models/store/mod_pack_store'
+{Mod}              = require('crafting-guide-common').deprecated.game
+{ModPack}          = require('crafting-guide-common').deprecated.game
 Router             = require './router'
 
 ########################################################################################################################
@@ -31,6 +30,7 @@ module.exports = class SiteController extends BaseController
         @client      = options.client
         @fileCache   = new FileCache c.url.modpackArchive()
         @imageLoader = new ImageLoader defaultUrl:'/images/unknown.png'
+        @modPack     = new ModPack {}, fileCache:@fileCache
         @router      = new Router this
         @storage     = options.storage
 
@@ -40,6 +40,23 @@ module.exports = class SiteController extends BaseController
         @_user                  = null
 
     # Public Methods ###############################################################################
+
+    loadDefaultModPack: ->
+        makeResponder = (m)-> return ->
+            m.activeModVersion.fetch() if m.activeModVersion?
+
+        for modSlug, modData of c.defaultMods
+            mod = new Mod {slug:modSlug}, {fileCache:@fileCache}
+            mod.on c.event.change + ':activeModVersion', makeResponder mod
+            @storage.register "mod:#{mod.slug}", mod, 'activeVersion', modData.defaultVersion
+            mod.fetch()
+
+            @modPack.addMod mod
+
+        if global.env isnt 'prerender'
+            @modPack.once c.event.sync, =>
+                @$pageContent.removeClass 'hidden'
+                @$pageContentLoading.addClass 'hidden'
 
     loadCurrentUser: ->
         @client.getCurrentUser()

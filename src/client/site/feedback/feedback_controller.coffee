@@ -7,6 +7,7 @@
 
 BaseController = require '../base_controller'
 EmailClient    = require '../../models/site/email_client'
+w              = require "when"
 
 ########################################################################################################################
 

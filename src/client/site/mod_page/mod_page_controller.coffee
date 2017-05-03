@@ -5,10 +5,10 @@
 # All rights reserved.
 #
 
-PageController      = require '../page_controller'
-Item                = require '../../models/game/item'
+{Item}              = require('crafting-guide-common').deprecated.game
 ItemGroupController = require '../common/item_group/item_group_controller'
-Mod                 = require '../../models/game/mod'
+{Mod}               = require('crafting-guide-common').deprecated.game
+PageController      = require '../page_controller'
 TutorialController  = require './tutorial/tutorial_controller'
 
 ########################################################################################################################

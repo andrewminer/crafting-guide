@@ -5,7 +5,7 @@
 # All rights reserved.
 #
 
-BaseModel     = require '../base_model'
+{BaseModel}   = require('crafting-guide-common').deprecated
 MarkdownImage = require './markdown_image'
 
 ########################################################################################################################

@@ -5,6 +5,9 @@
 # All rights reserved.
 #
 
+_ = require "./underscore"
+_.extend exports, require("crafting-guide-common").constants
+
 ########################################################################################################################
 
 exports.adsense                    = adsense = {}
@@ -29,30 +32,51 @@ adsense.skyscraper.margin          = 24 # px
 adsense.skyscraper.slotIds         = ['7613920409', '9574673605', '3388539204']
 adsense.skyscraper.width           = 160 # px
 
+exports.defaultMods   = defaultMods = {}
+defaultMods.minecraft = { defaultVersion: '1.7.10' } # Minecraft must be first
+
+defaultMods.advanced_solar_panels = { defaultVersion: '3.5.1' }
+defaultMods.agricraft             = { defaultVersion: '1.7.10_1.5.0' }
+defaultMods.applied_energistics_2 = { defaultVersion: 'rv1-stable-1' }
+defaultMods.big_reactors          = { defaultVersion: '0.4.2A2' }
+defaultMods.buildcraft            = { defaultVersion: '1.7.18' }
+defaultMods.computercraft         = { defaultVersion: '1.74' }
+defaultMods.draconic_evolution    = { defaultVersion: '1.0.2h' }
+defaultMods.ender_storage         = { defaultVersion: '1.4.5.29' }
+defaultMods.enderio               = { defaultVersion: '2.2.7.325' }
+defaultMods.extra_cells           = { defaultVersion: '2.2.73b129' }
+defaultMods.extra_utilities       = { defaultVersion: '1.2.2' }
+defaultMods.forestry              = { defaultVersion: '3.4.0.7' }
+defaultMods.forge_multipart       = { defaultVersion: '1.2.0.345' }
+defaultMods.galacticraft          = { defaultVersion: '3.0.12.404' }
+defaultMods.hydraulicraft         = { defaultVersion: '2.1.242' }
+defaultMods.ic2_classic           = { defaultVersion: 'none' }
+defaultMods.industrial_craft_2    = { defaultVersion: '2.2.663' }
+defaultMods.iron_chests           = { defaultVersion: '6.0.62.742' }
+defaultMods.jabba                 = { defaultVersion: '1.2.1a' }
+defaultMods.logistics_pipes       = { defaultVersion: '0.9.3.100' }
+defaultMods.mekanism              = { defaultVersion: '7.1.1.127' }
+defaultMods.minefactory_reloaded  = { defaultVersion: '2.8.0RC8-86' }
+defaultMods.modular_powersuits    = { defaultVersion: '0.11.0-300-thermal-expansion' }
+defaultMods.opencomputers         = { defaultVersion: '1.5.22' }
+defaultMods.quantum_flux          = { defaultVersion: '1.3.4' }
+defaultMods.project_red           = { defaultVersion: '4.5.16.77' }
+defaultMods.redstone_arsenal      = { defaultVersion: '9.5.0' }
+defaultMods.railcraft             = { defaultVersion: '9.5.0' }
+defaultMods.simply_jetpacks       = { defaultVersion: '1.4.1' }
+defaultMods.solar_expansion       = { defaultVersion: '1.6a' }
+defaultMods.solar_flux            = { defaultVersion: '0.5b' }
+defaultMods.storage_drawers       = { defaultVersion: '1.7.10-1.6.2' }
+defaultMods.thermal_dynamics      = { defaultVersion: '1.7.10r1.2.0' }
+defaultMods.thermal_expansion     = { defaultVersion: '1.7.10r4.1.4' }
+defaultMods.thermal_foundation    = { defaultVersion: '1.7.10r1.2.5' }
+defaultMods.tinkers_construct     = { defaultVersion: '1.7.10-1.8.8' }
+
 exports.duration = duration = {}
 duration.snap    = 100
 duration.fast    = 200
 duration.normal  = 400
 duration.slow    = 1200
-
-exports.event         = event = {}
-event.add             = 'add'                 # collection, item...
-event.button          = {}
-event.button.complete = 'button:complete'     # controller
-event.button.first    = 'button:first'        # controller, buttonType
-event.button.second   = 'button:second'       # controller, buttonType
-event.change          = 'change'              # model
-event.click           = 'click'               # event
-event.load            = {}
-event.load.started    = 'load:started'        # controller, url
-event.load.succeeded  = 'load:succeeded'      # controller, book
-event.load.failed     = 'load:failed'         # controller, error message
-event.load.finished   = 'load:finished'       # controller
-event.remove          = 'remove'              # collection, item...
-event.request         = 'request'             # model
-event.route           = 'route'
-event.sort            = 'sort'
-event.sync            = 'sync'                # model, response
 
 exports.gitHub                       = gitHub = {}
 gitHub.file                          = {}
@@ -67,10 +91,6 @@ key.escape    = 27
 key.upArrow   = 38
 key.downArrow = 40
 
-exports.limits = limits = {}
-limits.maximumGraphSize = 5000
-limits.maximumPlanCount = 5000
-
 exports.login = login = {}
 login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +
     "?client_id=<%= clientId %>&scope=public_repo&state=<%= state %>"
@@ -81,12 +101,6 @@ login.clientIds =
 
 exports.modpack = modpack = {}
 modpack.default = "crafting-guide-default"
-
-exports.modelState  = modelState = {}
-modelState.unloaded = 'unloaded'
-modelState.loading  = 'loading'
-modelState.loaded   = 'loaded'
-modelState.failed   = 'failed'
 
 exports.opacity = opacity = {}
 opacity.hidden  = 1e-6
@@ -138,22 +152,3 @@ tracking.category.modVote    = 'mod-vote'
 tracking.category.multiblock = 'multiblock'
 tracking.category.navigate   = 'navigate'
 tracking.category.search     = 'search'
-
-exports.url          = url = {}
-url.crafting         = _.template "/craft/<%= inventoryText %>"
-url.item             = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
-url.itemData         = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
-url.itemIcon         = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/icon.png"
-url.itemImageDir     = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>"
-url.login            = _.template "/login"
-url.mod              = _.template "/browse/<%= modSlug %>/"
-url.modData          = _.template "/data/<%= modSlug %>/mod.cg"
-url.modIcon          = _.template "/data/<%= modSlug %>/icon.png"
-url.modPackData      = _.template "/data/<%= modPackId %>/modpack.json"
-url.modVersionData   = _.template "/data/<%= modSlug %>/versions/<%= modVersion %>/mod-version.cg"
-url.root             = _.template "/"
-url.tutorial         = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
-url.tutorialData     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/tutorial.cg"
-url.tutorialIcon     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
-url.tutorialIcon     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
-url.tutorialImageDir = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>"

@@ -1,12 +1,12 @@
 #
 # Crafting Guide - craftsman_working_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 BaseController = require '../../base_controller'
-Craftsman      = require '../../../models/crafting/craftsman'
+{Craftsman}    = require('crafting-guide-common').deprecated.crafting
 
 ########################################################################################################################
 

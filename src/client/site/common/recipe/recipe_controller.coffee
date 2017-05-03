@@ -1,14 +1,14 @@
 #
 # Crafting Guide - recipe_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 BaseController         = require '../../base_controller'
 CraftingGridController = require '../crafting_grid/crafting_grid_controller'
 SlotController         = require '../slot/slot_controller'
-{StringBuilder}        = require 'crafting-guide-common'
+{StringBuilder}        = require('crafting-guide-common').util
 
 ########################################################################################################################
 

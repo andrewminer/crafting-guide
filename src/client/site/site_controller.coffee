@@ -1,7 +1,7 @@
 #
 # Crafting Guide - site_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
@@ -13,8 +13,8 @@ FooterController   = require './footer/footer_controller'
 GitHubUser         = require '../models/site/github_user'
 HeaderController   = require './header/header_controller'
 ImageLoader        = require './image_loader'
-Mod                = require '../models/game/mod'
-ModPack            = require '../models/game/mod_pack'
+{Mod}              = require('crafting-guide-common').deprecated.game
+{ModPack}          = require('crafting-guide-common').deprecated.game
 Router             = require './router'
 
 ########################################################################################################################

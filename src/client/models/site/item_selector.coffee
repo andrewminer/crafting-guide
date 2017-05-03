@@ -1,12 +1,12 @@
 #
 # Crafting Guide - item_selector.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
-ItemSlug  = require '../game/item_slug'
+{BaseModel} = require('crafting-guide-common').deprecated
+{ItemSlug}  = require('crafting-guide-common').deprecated.game
 
 ########################################################################################################################
 

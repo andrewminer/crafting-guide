@@ -1,7 +1,7 @@
 #
 # Crafting Guide - adsense_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
@@ -140,7 +140,7 @@ module.exports = class AdsenseController
         adCount = @_computeAdCount @_computeAdType()
 
         if adCount is 0
-            logger.verbose "Adsense is waiting for room to insert ads"
+            logger.trace "Adsense is waiting for room to insert ads"
             @_waiting = true
             _.delay (=> @_waiting = false; @_waitForPageReadiness()), c.adsense.readinessCheckInterval
         else

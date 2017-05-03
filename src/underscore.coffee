@@ -1,10 +1,10 @@
 #
-# Crafting Guide - client.coffee
+# Crafting Guide - underscore.coffee
 #
-# Copyright © 2014-2017 by Redwood Labs
+# Copyright (c) 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 ########################################################################################################################
 
-# Just to keep NPM happy... nothing is actually exported.
+module.exports = _ = require("crafting-guide-common")._

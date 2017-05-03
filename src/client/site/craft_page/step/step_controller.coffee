@@ -1,14 +1,14 @@
 #
 # Crafting Guide - step_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 BaseController      = require '../../base_controller'
 InventoryController = require '../../common/inventory/inventory_controller'
 RecipeController    = require '../../common/recipe/recipe_controller'
-SimpleInventory     = require '../../../models/crafting/simple_inventory'
+{SimpleInventory}   = require('crafting-guide-common').deprecated.crafting
 
 ########################################################################################################################
 

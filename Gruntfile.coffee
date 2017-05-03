@@ -1,7 +1,7 @@
 #
 # Crafting Guide - Gruntfile.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
@@ -15,29 +15,6 @@ EXTERNAL_LIBS = [
     'underscore.inflections'
     'when'
     './vendor/email.js:emailjs'
-]
-
-PUBLISHED_FILES = [
-    './client/models/base_model.coffee'
-    './client/models/game/inventory.coffee'
-    './client/models/game/item.coffee'
-    './client/models/game/item_slug.coffee'
-    './client/models/game/mod.coffee'
-    './client/models/game/mod_version.coffee'
-    './client/models/game/multiblock.coffee'
-    './client/models/game/recipe.coffee'
-    './client/models/game/stack.coffee'
-    './client/models/game/simple_stack.coffee'
-    './client/models/parsing/command_parser_version_base.coffee'
-    './client/models/parsing/mod_parser.coffee'
-    './client/models/parsing/mod_parser_v1.coffee'
-    './client/models/parsing/mod_version_parser.coffee'
-    './client/models/parsing/mod_version_parser_v1.coffee'
-    './client/models/parsing/versioned_parser_base.coffee'
-    './client/models/site/tutorial.coffee'
-    './common/constants.coffee'
-    './common/underscore.coffee'
-    './index.coffee'
 ]
 
 ########################################################################################################################
@@ -59,15 +36,6 @@ module.exports = (grunt)->
                     {expand: true, cwd:'./build/static', src:'**/*.json',    dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.ttf',     dest:'./dist/'}
                     {expand: true, cwd:'./build/static', src:'**/*.txt',     dest:'./dist/'}
-                ]
-
-        coffee:
-            npm_package:
-                options: {
-                    bare: true
-                }
-                files: [
-                    {expand:true, cwd:'./src', src:PUBLISHED_FILES, dest:'./dist', ext:'.js'}
                 ]
 
         copy:
@@ -130,9 +98,9 @@ module.exports = (grunt)->
 
         mochaTest:
             options:
-                bail:     true
+                bail:     false
                 color:    true
-                reporter: 'dot'
+                reporter: 'list'
                 require: [
                     'coffee-script/register'
                     './src/test_helper.coffee'
@@ -188,7 +156,7 @@ module.exports = (grunt)->
                 tasks: ['sass']
             test:
                 files: ['./src/**/*.coffee', './src/**/*.js', './test/**/*.coffee']
-                tasks: ['test']
+                tasks: ['script:clear', 'test']
 
     # Compound Tasks ###################################################################################################
 
@@ -215,9 +183,6 @@ module.exports = (grunt)->
 
     grunt.registerTask 'dist', 'build the project to be run from Amazon S3',
         ['build', 'copy:build_to_dist', 'uglify', 'compress']
-
-    grunt.registerTask 'prepublish', 'build the project to be published to NPM as shared code',
-        ['clean', 'coffee']
 
     grunt.registerTask 'publish', 'publish the project to NPM',
         ['prepublish', 'script:publish', 'clean', 'build']
@@ -277,7 +242,7 @@ module.exports = (grunt)->
 
     grunt.registerTask 'script:clear', "clear the current terminal buffer", ->
       done = this.async()
-      grunt.util.spawn cmd:'clear', opts:{stdio:'inherit'}, (error)-> done(error)
+      grunt.util.spawn cmd:'./scripts/clear_buffer', opts:{stdio:'inherit'}, (error)-> done(error)
 
     grunt.registerTask 'script:deploy:prod', "deploy code by copying to the production branch", ->
       done = this.async()

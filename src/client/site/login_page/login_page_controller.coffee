@@ -1,13 +1,13 @@
 #
 # Crafting Guide - login_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 PageController        = require '../page_controller'
 GitHubUser            = require '../../models/site/github_user'
-{CraftingGuideClient} = require 'crafting-guide-common'
+{CraftingGuideClient} = require('crafting-guide-common').api
 
 ########################################################################################################################
 

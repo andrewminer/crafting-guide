@@ -1,9 +1,12 @@
 #
 # Crafting Guide - constants.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
+
+_ = require "./underscore"
+_.extend exports, require("crafting-guide-common").constants
 
 ########################################################################################################################
 
@@ -75,25 +78,6 @@ duration.fast    = 200
 duration.normal  = 400
 duration.slow    = 1200
 
-exports.event         = event = {}
-event.add             = 'add'                 # collection, item...
-event.button          = {}
-event.button.complete = 'button:complete'     # controller
-event.button.first    = 'button:first'        # controller, buttonType
-event.button.second   = 'button:second'       # controller, buttonType
-event.change          = 'change'              # model
-event.click           = 'click'               # event
-event.load            = {}
-event.load.started    = 'load:started'        # controller, url
-event.load.succeeded  = 'load:succeeded'      # controller, book
-event.load.failed     = 'load:failed'         # controller, error message
-event.load.finished   = 'load:finished'       # controller
-event.remove          = 'remove'              # collection, item...
-event.request         = 'request'             # model
-event.route           = 'route'
-event.sort            = 'sort'
-event.sync            = 'sync'                # model, response
-
 exports.gitHub                       = gitHub = {}
 gitHub.file                          = {}
 gitHub.file.itemDescription          = {}
@@ -107,10 +91,6 @@ key.escape    = 27
 key.upArrow   = 38
 key.downArrow = 40
 
-exports.limits = limits = {}
-limits.maximumGraphSize = 5000
-limits.maximumPlanCount = 5000
-
 exports.login = login = {}
 login.authorizeUrl = _.template "https://github.com/login/oauth/authorize" +
     "?client_id=<%= clientId %>&scope=public_repo&state=<%= state %>"
@@ -119,11 +99,8 @@ login.clientIds =
     'staging':    '3d75ed772ce5004180d6'
     'production': 'ce71be7f66926ff6ff38'
 
-exports.modelState  = modelState = {}
-modelState.unloaded = 'unloaded'
-modelState.loading  = 'loading'
-modelState.loaded   = 'loaded'
-modelState.failed   = 'failed'
+exports.modpack = modpack = {}
+modpack.default = "crafting-guide-default"
 
 exports.opacity = opacity = {}
 opacity.hidden  = 1e-6
@@ -175,22 +152,3 @@ tracking.category.modVote    = 'mod-vote'
 tracking.category.multiblock = 'multiblock'
 tracking.category.navigate   = 'navigate'
 tracking.category.search     = 'search'
-
-exports.url          = url = {}
-url.crafting         = _.template "/craft/<%= inventoryText %>"
-url.item             = _.template "/browse/<%= modSlug %>/<%= itemSlug %>/"
-url.itemData         = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/item.cg"
-url.itemIcon         = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>/icon.png"
-url.itemImageDir     = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>"
-url.login            = _.template "/login"
-url.mod              = _.template "/browse/<%= modSlug %>/"
-url.modData          = _.template "/data/<%= modSlug %>/mod.cg"
-url.modIcon          = _.template "/data/<%= modSlug %>/icon.png"
-url.modpackArchive   = _.template "/data/modpack.cg"
-url.modVersionData   = _.template "/data/<%= modSlug %>/versions/<%= modVersion %>/mod-version.cg"
-url.root             = _.template "/"
-url.tutorial         = _.template "/browse/<%= modSlug %>/tutorials/<%= tutorialSlug %>/"
-url.tutorialData     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/tutorial.cg"
-url.tutorialIcon     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
-url.tutorialIcon     = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>/icon.png"
-url.tutorialImageDir = _.template "/data/<%= modSlug %>/tutorials/<%= tutorialSlug %>"

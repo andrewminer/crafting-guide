@@ -1,12 +1,13 @@
 #
 # Crafting Guide - feedback_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 BaseController = require '../base_controller'
 EmailClient    = require '../../models/site/email_client'
+w              = require "when"
 
 ########################################################################################################################
 

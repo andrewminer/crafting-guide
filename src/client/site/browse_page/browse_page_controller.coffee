@@ -1,14 +1,14 @@
 #
 # Crafting Guide - browse_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
+{CraftingGuideClient} = require('crafting-guide-common').api
 ModBallotController   = require './mod_ballot/mod_ballot_controller'
 ModTileController     = require './mod_tile/mod_tile_controller'
 PageController        = require '../page_controller'
-{CraftingGuideClient} = require 'crafting-guide-common'
 
 ########################################################################################################################
 

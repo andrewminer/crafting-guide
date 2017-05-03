@@ -1,14 +1,16 @@
 #
 # Crafting Guide - craft_page.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
-Craftsman = require '../crafting/craftsman'
-Inventory = require '../game/inventory'
-ModPack   = require '../game/mod_pack'
+CraftingGuideCommon = require "crafting-guide-common"
+
+{BaseModel} = CraftingGuideCommon.deprecated
+{Craftsman} = CraftingGuideCommon.deprecated.crafting
+{Inventory} = CraftingGuideCommon.deprecated.game
+{ModPack}   = CraftingGuideCommon.deprecated.game
 
 ########################################################################################################################
 

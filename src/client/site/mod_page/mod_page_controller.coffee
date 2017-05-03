@@ -1,16 +1,15 @@
 #
 # Crafting Guide - mod_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-PageController               = require '../page_controller'
-Item                         = require '../../models/game/item'
-ItemGroupController          = require '../common/item_group/item_group_controller'
-Mod                          = require '../../models/game/mod'
-ModVersionSelectorController = require '../common/mod_version_selector/mod_version_selector_controller'
-TutorialController           = require './tutorial/tutorial_controller'
+{Item}              = require('crafting-guide-common').deprecated.game
+ItemGroupController = require '../common/item_group/item_group_controller'
+{Mod}               = require('crafting-guide-common').deprecated.game
+PageController      = require '../page_controller'
+TutorialController  = require './tutorial/tutorial_controller'
 
 ########################################################################################################################
 

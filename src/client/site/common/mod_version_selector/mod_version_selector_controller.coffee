@@ -6,7 +6,7 @@
 #
 
 BaseController = require '../../base_controller'
-{Mod}          = require('crafting-guide-common').deprecated
+{Mod}          = require('crafting-guide-common').deprecated.game
 
 ########################################################################################################################
 

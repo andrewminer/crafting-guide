@@ -5,11 +5,12 @@
 # All rights reserved.
 #
 
-{Item}              = require('crafting-guide-common').deprecated.game
-ItemGroupController = require '../common/item_group/item_group_controller'
-{Mod}               = require('crafting-guide-common').deprecated.game
-PageController      = require '../page_controller'
-TutorialController  = require './tutorial/tutorial_controller'
+{Item}                       = require('crafting-guide-common').deprecated.game
+ItemGroupController          = require '../common/item_group/item_group_controller'
+{Mod}                        = require('crafting-guide-common').deprecated.game
+ModVersionSelectorController = require '../common/mod_version_selector/mod_version_selector_controller'
+PageController               = require '../page_controller'
+TutorialController           = require './tutorial/tutorial_controller'
 
 ########################################################################################################################
 

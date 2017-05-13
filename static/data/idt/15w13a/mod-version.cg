@@ -1,0 +1,1361 @@
+schema: 1
+
+group: General Blocks
+	item: Cement
+		recipe:
+			input: Gravel, furnace fuel
+			pattern .0. ... .1.
+			tools: Furnace
+			
+	item: Cement Bricks
+		recipe:
+			input: Cement
+			pattern: 00. 00. ...
+			
+	item: Lava Cobblestone
+		recipe:
+			input: Cobblestone, Lava Bucket
+			pattern: 01. ... ...
+			extras: Bucket
+			
+	item: Lava Obsidian
+		recipe:
+			input: Obsidian, Lava Bucket
+			pattern: 01. ... ...
+			extras: Bucket
+			
+	item: Crystal Block
+		recipe:
+			input: Crystal Gem
+			pattern: 000 000 000
+			tools: Crafting Table
+			
+	item: Steel Block
+		recipe:
+			input: Steel Ingot
+			pattern: 000 000 000
+			tools: Crafting Table
+			
+	item: Titanium Block
+		recipe:
+			input: Titanium Ingot
+			pattern: 000 000 000
+			tools: Crafting Table
+			
+	item: Didymium Glass
+	
+	item: Dark Matter
+	
+	item: Titanium Frame
+		recipe:
+			input: Titanium Ingot
+			pattern: 0.0 ... 0.00
+			tools: Crafting Table
+			
+	item: Stable Black Hole
+	
+	item: Core Reactor
+		recipe:
+			input: Titanium Ingot, Uranium Ingot
+			pattern: .0. 010 .0.
+			tools: Crafting Table
+			
+	item: Liquid Nitrogen
+	
+	item: Glass Slab
+		recipe:
+			input: Glass
+			pattern: ... ... 000
+			tools: Crafting Table
+			
+	item: Cement Slab
+		recipe:
+			input: Cement
+			pattern: ... ... 000
+			tools: Crafting Table
+			
+	item: Real Stone Slab
+		recipe:
+			input: Stone
+			pattern: ... ... 000
+			
+	item: Stone Slab
+		recipe:
+			input: Real Stone Slab
+			pattern: 0.. ... ...
+			
+	item: Glass Stairs
+		recipe:
+			input: Glass
+			pattern: 0.. 00. 000
+			tools: Crafting Table
+			
+	item: Stone Stairs
+		recipe:
+			input: Stone
+			pattern: 0.. 0. 000
+			tools: Crafting Table
+			
+	item: Crystal Stairs
+		recipe:
+			input: Crystal Gem
+			pattern: 0.. 00. 000
+			tools: Crafting Table
+			
+	item: Frosty Grass
+	
+	item: Frozen Dirt
+	
+	item: Frozen Stone
+	
+	item: Frozen Cobblestone
+	
+	item: Stone Bricks
+		recipe:
+			input: Stone Brick
+			pattern: 00. 00. ...
+			
+	item: Stone Button
+		recipe:
+			input: Stone Brick
+			pattern: ... .0. ...
+
+group: Utility Blocks
+	item: Smelter
+		recipe:
+			input: Iron Ingot, Furnace
+			pattern: 000 010 000
+			tools: Crafting Table
+			
+	item: Gem Cutter
+		recipe:
+			input: Iron Ingot, Redstone, Diamond Saw Blade
+			pattern: .2. 010 000
+			tools: Crafting Table
+			
+	item: Matter Condenser
+		recipe:
+			input: Titanium Frame
+			pattern: 0.0 ... 0.0
+			tools: Crafting Table
+			
+	item: Z.N.G.
+		recipe:
+			input: Steel Ingot, Zimphnode Bar, Gear
+			pattern: 000 010 020
+			tools: Crafting Table
+			
+	item: Bio-Fuel Extractor
+	
+	item: Tank Compressor
+	
+	item: Healer
+		recipe:
+			input: Essence of Water, Essence of Fire, Essence of Life, Essence of Earth, Essence of Air, Rose Red
+			pattern: 051 252 354
+			tools: Crafting Table
+			
+	item: Crying Obsidian
+		recipe:
+			input: Obsidian, Water Bucket
+			pattern 01. ... ...
+			extras: Bucket
+			
+	item: Birch Crafting Table
+		recipe:
+			input: Birch Wood Planks
+			pattern: 00. 00. ...
+			
+	item: Spruce Crafting Table
+		recipe:
+			input: Spruce Wood Planks
+			pattern: 00. 00. ...
+			
+	item: Jungle Crafting Table
+		recipe:
+			input: Jungle Wood Planks
+			pattern: 00. 00. ...
+			
+	item: Willow Crafting Table
+		recipe:
+			input: Willow Wood Planks
+			pattern: 00. 00. ...
+			
+	item: Ebony Crafting Table
+		recipe:
+			input: Ebony Wood Planks
+			pattern: 00. 00. ...
+			
+	item: Silkwood Crafting Table
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: 00. 00. ...
+			
+	item: IDT Crafting Table
+		recipe:
+			input: Crafting Table
+			pattern: 0... ... ...
+		recipe:
+			input: Birch Crafting Table
+			pattern: 0... ... ...
+		recipe:
+			input: Spruce Crafting Table
+			pattern: 0... ... ...
+		recipe:
+			input: Jungle Crafting Table
+			pattern: 0... ... ...
+		recipe:
+			input: Willow Crafting Table
+			pattern: 0... ... ...
+		recipe:
+			input: Ebony Crafting Table
+			pattern: 0... ... ...
+		recipe:
+			input: Silkwood Crafting Table
+			pattern: 0... ... ...
+			
+	item: Dark Matter Chest
+			
+group: Bombs
+	item: Einsteinium Bomb
+		recipe:
+			input: Iron Ingot, Einsteinium Ingot
+			pattern: 000 010 000
+			tools: Crafting Table
+			
+	item: Neptunium Bomb
+		recipe:
+			input: Iron Ingot, Neptunium Ingot
+			pattern: 000 010 000
+			tools: Crafting Table
+			
+	item: Uranium Bomb
+		recipe:
+			input: Iron Ingot, Uranium Ingot
+			pattern: 000 010 000
+			tools: Crafting Table
+			
+	item: Ultimate Nuker
+		recipe:
+			input: Iron Ingot, Uranium Ingot, Neptunium Ingot, Einsteinium Ingot, Explosive Charge
+			pattern: .1. 040 203
+			tools: Crafting Table
+		recipe:
+			input: Iron Ingot, Uranium Ingot, Neptunium Ingot, Einsteinium Ingot, Explosive Charge
+			pattern: .1. 040 302
+			tools: Crafting Table
+			
+group: Ores
+	item: Einsteinium Ore
+	
+	item: Neptunium Ore
+	
+	item: Uranium Ore
+	
+	item: Crystal Ore
+	
+	item: Praseodymium Ore
+	
+	item: Neodymium Ore
+	
+	item: Vanadium Ore
+	
+	Item: Zimphnode
+	
+group: Ingots and Bars
+	item: Einsteinium Ingot
+		recipe:
+			input: Einsteinium Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Neptunium Ingot
+		recipe:
+			input: Neptunium Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Uranium Ingot
+		recipe:
+			input: Uranium Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Praseodymium Ingot
+		recipe:
+			input: Praseodymium Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Neodymium Ingot
+		recipe:
+			input: Neodymium Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Vanadium Ingot
+		recipe:
+			input: Vanadium Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Steel Ingot
+		recipe:
+			input: Iron Ingot, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Titanium Ingot
+		recipe:
+			input: Steel Ingot, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Zimphnode Bar
+		recipe:
+			input: Zimphnode, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+group: Armor
+	item: Steel Helmet
+		recipe:
+			input: Steel Ingot
+			pattern: 000 0.0 ...
+			tools: Crafting Table
+			
+	item: Steel Chestplate
+		recipe:
+			input: Steel Ingot
+			pattern: 0.0 000 000
+			tools: Crafting Table
+			
+	item: Steel Leggings
+		recipe:
+			input: Steel Ingot
+			pattern: 000 0.0 0.0
+			tools: Crafting Table
+			
+	item: Steel Boots
+		recipe:
+			input: Steel Ingot
+			pattern: ... 0.0 0.0
+			tools: Crafting Table
+			
+	item: Titanium Helmet
+		recipe:
+			input: Titanium Ingot
+			pattern: 000 0.0 ...
+			tools: Crafting Table
+			
+	item: Titanium Chestplate
+		recipe:
+			input: Titanium Ingot
+			pattern: 0.0 000 000
+			tools: Crafting Table
+			
+	item: Titanium Leggings
+		recipe:
+			input: Titanium Ingot
+			pattern: 000 0.0 0.0
+			tools: Crafting Table
+			
+	item: Titanium Boots
+		recipe:
+			input: Titanium Ingot
+			pattern: ... 0.0 0.0
+			tools: Crafting Table
+			
+	item: Zimphnode Helmet
+		recipe:
+			input: Zimphnode Bar
+			pattern: 000 0.0 ...
+			tools: Crafting Table
+			
+	item: Zimphnode Chestplate
+		recipe:
+			input: Zimphnode Bar
+			pattern: 0.0 000 000
+			tools: Crafting Table
+			
+	item: Zimphnode Leggings
+		recipe:
+			input: Zimphnode Bar
+			pattern: 000 0.0 0.0
+			tools: Crafting Table
+			
+	item: Zimphnode Boots
+		recipe:
+			input: Zimphnode Bar
+			pattern: ... 0.0 0.0
+			tools: Crafting Table
+			
+group: General Items
+	item: Stone Brick
+		recipe:
+			input: Stone
+			pattern: ... .0. ...
+			quantity: 4
+		recipe:
+			input: Stone Bricks
+			pattern: ... .0. ...
+			quantity: 4
+			
+	item: Explosive Charge
+		recipe:
+			input: Paper, Gunpowder
+			pattern: .0. 010 .0.
+			tools: Crafting Table
+			
+	item: Iron Saw Blade
+		recipe:
+			input: Iron Ingot, Stick
+			pattern: .0. 010 .0.
+			tools: Crafting Table
+			
+	item: Steel Saw Blade
+		recipe:
+			input: Steel Ingot, Iron Saw Blade
+			pattern: .0. 010 .0.
+			tools: Crafting Table
+			
+	item: Titanium Saw Blade
+		recipe:
+			input: Titanium Ingot, Steel Saw Blade
+			pattern: .0. 010 .0.
+			tools: Crafting Table
+			
+	item: Diamond Saw Blade
+		recipe:
+			input: Diamond Ingot, Titanium Saw Blade
+			pattern: .0. 010 .0.
+			tools: Crafting Table
+			
+	item: Gear
+		recipe:
+			input: Iron Ingot
+			pattern: .0. 0.0 .0.
+			tools: Crafting Table
+			
+	item: Crystal Dust
+		recipe:
+			input: Crystal Piece
+			pattern: ... .0. ...
+			quantity: 7
+			
+	item: Crystal Piece
+		recipe:
+			input: Crystal Dust
+			pattern: .0. 000 000
+			tools: Crafting Table
+		recipe:
+			input: Crystal Nugget
+			pattern: ... .0. ...
+			quantity: 5
+			
+	item: Crystal Nugget
+		recipe:
+			input: Crystal Piece
+			pattern: .0. 000 .0.
+			tools: Crafting Table
+		recipe:
+			input: Crystal Gem
+			pattern: ... .0. ...
+			quantity: 7
+		recipe:
+			input: Crystal Ore, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Crystal Gem
+		recipe:
+			input: Crystal Block
+			pattern: ... .0. ...
+			quantity: 9
+			
+	item: Crystal Ball
+		recipe:
+			input: Crystal Gem
+			pattern: .0. 0.0 .0.
+			tools: Crafting Table
+			
+	item: Hard Crystal Ball
+		recipe:
+			input: Crystal Ball, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			
+	item: Essence of Life
+		recipe:
+			input: Hard Crystal Ball, Poppy
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Dandelion
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Cactus
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Oak Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Spruce Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Birch Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Spruce Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Willow Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Ebony Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Silkwood Sapling
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Brown Mushroom
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Red Mushroom
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Oak Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Birch Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Jungle Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Spruce Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Willow Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Ebony Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Silkwood Leaves
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Vines
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Lilly Pad
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Cactus Green
+			pattern: 01. ... ...
+			
+	item: Essence of Fire
+		recipe:
+			input: Hard Crystal Ball, Fire
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Flint and Steel
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Lava Bucket
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Lava
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Netherrack
+			pattern: 01. ... ...
+			
+	item: Essence of Earth
+		recipe:
+			input: Hard Crystal Ball, Dirt
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Grass
+			pattern: 01. ... ...
+			
+	item: Essence of Water
+		recipe:
+			input: Hard Crystal Ball, Water
+			pattern: 01. ... ...
+		recipe:
+			input: Hard Crystal Ball, Water Bucket
+			pattern: 01. ... ...
+			
+	item: Essence of Air
+		recipe:
+			input: Hard Crystal Ball
+			pattern: ... .0. ...
+			
+	item: Corn Seeds
+	
+	item: Soybeans
+	
+	item: Corn
+			
+	item: Popcorn
+		recipe:
+			input: Corn Seeds, furnace fuel
+			pattern: .0. ... .1.
+			tools: Furnace
+			quantity: 4
+			
+	item: Compressor Unit
+	
+	item: Ice Shard
+	
+	item: Empty Tank
+	
+	item: Propane Tank
+	
+	item: IDT Wiki Paper
+	
+group: Wood Stuff
+	item: Willow Wood
+	
+	item: Ebony Wood
+	
+	item: Silkwood Wood
+	
+	item: Willow Leaves
+	
+	item: Ebony Leaves
+	
+	item: Silkwood Leaves
+	
+	item: Willow Sapling
+	
+	item: Ebony Sapling
+	
+	item: Silkwood Sapling
+	
+	item: Willow Wood Planks
+		recipe:
+			input: Willow Wood
+			pattern: ... .0. ...
+			quantity: 4
+			
+	item: Ebony Wood Planks
+		recipe:
+			input: Ebony Wood
+			pattern: ... .0. ...
+			quantity: 4
+			
+	item: Silkwood Wood Planks
+		recipe:
+			input: Silkwood Wood
+			pattern: ... .0. ...
+			quantity: 4
+			
+	item: Birch Stick
+		recipe:
+			input: Birch Wood Planks
+			pattern: 0.. 0.. ...
+			quantity: 4
+			
+	item: Spruce Stick
+		recipe:
+			input: Spruce Wood Planks
+			pattern: 0.. 0.. ...
+			quantity: 4
+			
+	item: Jungle Stick
+		recipe:
+			input: Jungle Wood Planks
+			pattern: 0.. 0.. ...
+			quantity: 4
+			
+	item: Willow Stick
+		recipe:
+			input: Willow Wood Planks
+			pattern: 0.. 0.. ...
+			quantity: 4
+			
+	item: Ebony Stick
+		recipe:
+			input: Ebony Wood Planks
+			pattern: 0.. 0.. ...
+			quantity: 4
+			
+	item: Silkwood Stick
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: 0.. 0.. ...
+			quantity: 4
+			
+	item: Birch Button
+		recipe:
+			input: Birch Wood Planks
+			pattern: ... .0. ...
+			
+	item: Spruce Button
+		recipe:
+			input: Spruce Wood Planks
+			pattern: ... .0. ...
+			
+	item: Jungle Button
+		recipe:
+			input: Jungle Wood Planks
+			pattern: ... .0. ...
+			
+	item: Willow Button
+		recipe:
+			input: Willow Wood Planks
+			pattern: ... .0. ...
+			
+	item: Ebony Button
+		recipe:
+			input: Ebony Wood Planks
+			pattern: ... .0. ...
+			
+	item: Silkwood Button
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: ... .0. ...
+			
+	item: Birch Pressure Plate
+		recipe:
+			input: Birch Wood Planks
+			pattern: ... 00. ...
+			
+	item: Spruce Pressure Plate
+		recipe:
+			input: Spruce Wood Planks
+			pattern: ... 00. ...
+			
+	item: Jungle Pressure Plate
+		recipe:
+			input: Jungle Wood Planks
+			pattern: ... 00. ...
+			
+	item: Willow Pressure Plate
+		recipe:
+			input: Willow Wood Planks
+			pattern: ... 00. ...
+			
+	item: Ebony Pressure Plate
+		recipe:
+			input: Ebony Wood Planks
+			pattern: ... 00. ...
+			
+	item: Silkwood Pressure Plate
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: ... 00. ...
+			
+	item: Willow Wood Slab 
+		recipe:
+			input: Willow Wood Planks
+			pattern: ... 000 ...
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Ebony Wood Slab 
+		recipe:
+			input: Ebony Wood Planks
+			pattern: ... 000 ...
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Silkwood Wood Slab 
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: ... 000 ...
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Birch Fence
+		recipe:
+			input: Birch Stick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 2
+			
+	item: Spruce Fence
+		recipe:
+			input: Spruce Stick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 2
+			
+	item: Jungle Fence
+		recipe:
+			input: Jungle Stick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 2
+			
+	item: Willow Fence
+		recipe:
+			input: Willow Stick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 2
+			
+	item: Ebony Fence
+		recipe:
+			input: Ebony Stick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 2
+			
+	item: Silkwood Fence
+		recipe:
+			input: Silkwood Stick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 2
+			
+	item: Birch Fence Gate
+		recipe:
+			input: Birch Stick, Birch Wood Planks
+			pattern: ... 010 010
+			tools: Crafting Table
+			
+	item: Spruce Fence Gate
+		recipe:
+			input: Spruce Stick, Spruce Wood Planks
+			pattern: ... 010 010
+			tools: Crafting Table
+			
+	item: Jungle Fence Gate
+		recipe:
+			input: Jungle Stick, Jungle Wood Planks
+			pattern: ... 010 010
+			tools: Crafting Table
+			
+	item: Willow Fence Gate
+		recipe:
+			input: Willow Stick, Willow Wood Planks
+			pattern: ... 010 010
+			tools: Crafting Table
+			
+	item: Ebony Fence Gate
+		recipe:
+			input: Ebony Stick, Ebony Wood Planks
+			pattern: ... 010 010
+			tools: Crafting Table
+			
+	item: Silkwood Fence Gate
+		recipe:
+			input: Silkwood Stick, Silkwood Wood Planks
+			pattern: ... 010 010
+			tools: Crafting Table
+			
+	item: Willow Stairs
+		recipe:
+			input: Willow Wood Planks
+			pattern: 0.. 00. 000
+			tools: Crafting Table
+			quantity: 4
+			
+	item: Ebony Stairs
+		recipe:
+			input: Ebony Wood Planks
+			pattern: 0.. 00. 000
+			tools: Crafting Table
+			quantity: 4
+			
+	item: Silkwood Stairs
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: 0.. 00. 000
+			tools: Crafting Table
+			quantity: 4
+			
+	item: Birch Torch
+		recipe:
+			input: Charcoal, Birch Stick
+			pattern: ... .0. .1.
+			quantity: 4
+		recipe:
+			input: Coal, Birch Stick
+			pattern: ... .0. .1.
+			quantity: 4
+			
+	item: Spruce Torch
+		recipe:
+			input: Charcoal, Spruce Stick
+			pattern: ... .0. .1.
+			quantity: 4
+		recipe:
+			input: Coal, Spruce Stick
+			pattern: ... .0. .1.
+			quantity: 4
+			
+	item: Jungle Torch
+		recipe:
+			input: Charcoal, Jungle Stick
+			pattern: ... .0. .1.
+			quantity: 4
+		recipe:
+			input: Coal, Jungle Stick
+			pattern: ... .0. .1.
+			quantity: 4
+			
+	item: Willow Torch
+		recipe:
+			input: Charcoal, Willow Stick
+			pattern: ... .0. .1.
+			quantity: 4
+		recipe:
+			input: Coal, Willow Stick
+			pattern: ... .0. .1.
+			quantity: 4
+			
+	item: Ebony Torch
+		recipe:
+			input: Charcoal, Ebony Stick
+			pattern: ... .0. .1.
+			quantity: 4
+		recipe:
+			input: Coal, Ebony Stick
+			pattern: ... .0. .1.
+			quantity: 4
+			
+	item: Silkwood Torch
+		recipe:
+			input: Charcoal, Silkwood Stick
+			pattern: ... .0. .1.
+			quantity: 4
+		recipe:
+			input: Coal, Silkwood Stick
+			pattern: ... .0. .1.
+			quantity: 4
+			
+	item: Birch Redstone Torch
+		recipe:
+			input: Redstone, Birch Stick
+			pattern: ... .0. .1.
+			
+	item: Spruce Redstone Torch
+		recipe:
+			input: Redstone, Spruce Stick
+			pattern: ... .0. .1.
+			
+	item: Jungle Redstone Torch
+		recipe:
+			input: Redstone, Jungle Stick
+			pattern: ... .0. .1.
+			
+	item: Willow Redstone Torch
+		recipe:
+			input: Redstone, Willow Stick
+			pattern: ... .0. .1.
+			
+	item: Ebony Redstone Torch
+		recipe:
+			input: Redstone, Ebony Stick
+			pattern: ... .0. .1.
+			
+	item: Silkwood Redstone Torch
+		recipe:
+			input: Redstone, Silkwood Stick
+			pattern: ... .0. .1.
+			
+	item: Oak Wood Wall Part
+		recipe:
+			input: Stick, Oak Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Birch Wood Wall Part
+		recipe:
+			input: Birch Stick, Birch Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Spruce Wood Wall Part
+		recipe:
+			input: Spruce Stick, Spruce Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Jungle Wood Wall Part
+		recipe:
+			input: Jungle Stick, Jungle Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Willow Wood Wall Part
+		recipe:
+			input: Willow Stick, Willow Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Ebony Wood Wall Part
+		recipe:
+			input: Ebony Stick, Ebony Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Silkwood Wood Wall Part
+		recipe:
+			input: Silkwood Stick, Silkwood Wood Planks
+			pattern: 01. 01. ...
+			quantity: 2
+			
+	item: Birch Door
+		recipe:
+			input: Birch Wood Planks
+			pattern: 00. 00. 00.
+			tools: Crafting Table
+			
+	item: Spruce Door
+		recipe:
+			input: Spruce Wood Planks
+			pattern: 00. 00. 00.
+			tools: Crafting Table
+			
+	item: Jungle Door
+		recipe:
+			input: Jungle Wood Planks
+			pattern: 00. 00. 00.
+			tools: Crafting Table
+			
+	item: Willow Door
+		recipe:
+			input: Willow Wood Planks
+			pattern: 00. 00. 00.
+			tools: Crafting Table
+			
+	item: Ebony Door
+		recipe:
+			input: Ebony Wood Planks
+			pattern: 00. 00. 00.
+			tools: Crafting Table
+			
+	item: Silkwood Door
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: 00. 00. 00.
+			tools: Crafting Table
+			
+	item: Birch Chest
+		recipe:
+			input: Birch Wood Planks
+			pattern: 000 0.0 000
+			tools: Crafting Table
+			
+	item: Spruce Chest
+		recipe:
+			input: Spruce Wood Planks
+			pattern: 000 0.0 000
+			tools: Crafting Table
+			
+	item: Jungle Chest
+		recipe:
+			input: Jungle Wood Planks
+			pattern: 000 0.0 000
+			tools: Crafting Table
+			
+	item: Willow Chest
+		recipe:
+			input: Willow Wood Planks
+			pattern: 000 0.0 000
+			tools: Crafting Table
+			
+	item: Ebony Chest
+		recipe:
+			input: Ebony Wood Planks
+			pattern: 000 0.0 000
+			tools: Crafting Table
+			
+	item: Silkwood Chest
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: 000 0.0 000
+			tools: Crafting Table
+			
+	item: Birch Trapped Chest
+		recipe:
+			input: Birch Chest, Tripwire Hook
+			pattern: 01. ... ...
+			tools: Crafting Table
+			
+	item: Spruce Trapped Chest
+		recipe:
+			input: Spruce Chest, Tripwire Hook
+			pattern: 01. ... ...
+			tools: Crafting Table
+			
+	item: Jungle Trapped Chest
+		recipe:
+			input: Jungle Chest, Tripwire Hook
+			pattern: 01. ... ...
+			tools: Crafting Table
+			
+	item: Willow Trapped Chest
+		recipe:
+			input: Willow Chest, Tripwire Hook
+			pattern: 01. ... ...
+			tools: Crafting Table
+			
+	item: Ebony Trapped Chest
+		recipe:
+			input: Ebony Chest, Tripwire Hook
+			pattern: 01. ... ...
+			tools: Crafting Table
+			
+	item: Silkwood Trapped Chest
+		recipe:
+			input: Silkwood Chest, Tripwire Hook
+			pattern: 01. ... ...
+			tools: Crafting Table
+			
+	item: Birch Trapdoor
+		recipe:
+			input: Birch Wood Planks
+			pattern: ... 000 000
+			tools: Crafting Table
+			
+	item: Spruce Trapdoor
+		recipe:
+			input: Spruce Wood Planks
+			pattern: ... 000 000
+			tools: Crafting Table
+			
+	item: Jungle Trapdoor
+		recipe:
+			input: Jungle Wood Planks
+			pattern: ... 000 000
+			tools: Crafting Table
+			
+	item: Willow Trapdoor
+		recipe:
+			input: Willow Wood Planks
+			pattern: ... 000 000
+			tools: Crafting Table
+			
+	item: Ebony Trapdoor
+		recipe:
+			input: Ebony Wood Planks
+			pattern: ... 000 000
+			tools: Crafting Table
+			
+	item: Silkwood Trapdoor
+		recipe:
+			input: Silkwood Wood Planks
+			pattern: ... 000 000
+			tools: Crafting Table
+			
+	item: Birch Secret Trapdoor
+	
+	item: Spruce Secret Trapdoor
+	
+	item: Jungle Secret Trapdoor
+	
+	item: Willow Secret Trapdoor
+	
+	item: Ebony Secret Trapdoor
+	
+	item: Silkwood Secret Trapdoor
+	
+	item: Birch Lever
+		recipe:
+			input: Birch Wood Planks, Cobblestone
+			pattern: ... .0. .1.
+			
+	item: Spruce Lever
+		recipe:
+			input: Spruce Wood Planks, Cobblestone
+			pattern: ... .0. .1.
+			
+	item: Jungle Lever
+		recipe:
+			input: Jungle Wood Planks, Cobblestone
+			pattern: ... .0. .1.
+			
+	item: Willow Lever
+		recipe:
+			input: Willow Wood Planks, Cobblestone
+			pattern: ... .0. .1.
+			
+	item: Ebony Lever
+		recipe:
+			input: Ebony Wood Planks, Cobblestone
+			pattern: ... .0. .1.
+			
+	item: Silkwood Lever
+		recipe:
+			input: Silkwood Wood Planks, Cobblestone
+			pattern: ... .0. .1.
+			
+	item: Birch Ladder
+		recipe:
+			input: Birch Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+	item: Spruce Ladder
+		recipe:
+			input: Spruce Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+	item: Jungle Ladder
+		recipe:
+			input: Jungle Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+	item: Willow Ladder
+		recipe:
+			input: Willow Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+	item: Ebony Ladder
+		recipe:
+			input: Ebony Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+	item: Silkwood Ladder
+		recipe:
+			input: Silkwood Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+	item: Birch Ladder
+		recipe:
+			input: Birch Stick
+			pattern: 0.0 000 0.0
+			tools: Crafting Table
+			quantity: 3
+			
+group: Walls
+	item: Stone Wall
+		recipe:
+			input: Stone
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Sandstone Wall
+		recipe:
+			input: Sandstone
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Obsidian Wall
+		recipe:
+			input: Obsidian
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Cement Wall
+		recipe:
+			input: Cement
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Snow Wall
+		recipe:
+			input: Snow (block)
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Nether Brick Wall
+		recipe:
+			input: Nether Brick (block)
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Stone Brick Wall
+		recipe:
+			input: Stone Bricks
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Brick Wall
+		recipe:
+			input: Brick
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Quartz Wall
+		recipe:
+			input: Quartz
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Coal Wall
+		recipe:
+			input: Block of Coal
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Oak Wood Wall
+		recipe:
+			input: Oak Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Birch Wood Wall
+		recipe:
+			input: Birch Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Spruce Wood Wall
+		recipe:
+			input: Spruce Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Jungle Wood Wall
+		recipe:
+			input: Jungle Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Willow Wood Wall
+		recipe:
+			input: Willow Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Ebony Wood Wall
+		recipe:
+			input: Ebony Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+	item: Silkwood Wood Wall
+		recipe:
+			input: Silkwood Wood Wall Part
+			pattern: ... 000 000
+			tools: Crafting Table
+			quantity: 6
+			
+group: Tools
+	item: Chisel
+		recipe:
+			input: Iron Ingot, Stick
+			pattern: .0. 1.. ...

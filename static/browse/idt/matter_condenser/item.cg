@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Not fully implemented yet. It will have it's own GUI, and this is where you will be able to get [dark matter] and possible the [stable black hole] from. It will also be a custom moedled block.
+END

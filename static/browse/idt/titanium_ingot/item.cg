@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Used to make several things. Titanium is made, now, by smelting a [steel ingot], but soon will be made in the [smelter] with steel ingot and coal. (Note this isn't how actual titanium is. Real titanium is found in an ore.)
+END

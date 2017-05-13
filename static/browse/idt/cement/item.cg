@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Cement is smelted from [gravel] in the [furnace]. It can survive a [TNT] blast, but not a blast from [einsteinium bomb] or higher. It is a good replacement for gravel paths, as this looks nicer. Or a good way to protect your house from TNT.
+END

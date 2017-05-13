@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+It has not fully been implemented yet. It will have it's own GUI for you to cut [crystal gem]s to certain shapes for things. It will also be a custom modeled block.
+END

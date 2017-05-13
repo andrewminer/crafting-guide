@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Like normal stairs, but you can slightly see through it, and is made of crystal.
+END

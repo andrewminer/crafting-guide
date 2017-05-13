@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Gives [uranium ingot]s. Has a slight glow and when stepped on, hurts you. Also when stepped on it will give you a radiation effect (Not implemented yet).
+END

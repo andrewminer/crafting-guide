@@ -1,0 +1,5 @@
+schema: 1
+
+description <<-END
+Cement bricks is crafed like a crafting table, but with [cement] instead of planks. It has the same characteristics as cement, but the texture has a brick overlay to it. Looks nice.
+END

@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Used to make several things. Right now is obtained by smelting [iron ingot]s again. Will be obtained by using the smelter with iron ingots and coal.
+END

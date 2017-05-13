@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Like normal grass, but with blue tint to it and generates in frost dimension. Drops [frozen dirt].
+END

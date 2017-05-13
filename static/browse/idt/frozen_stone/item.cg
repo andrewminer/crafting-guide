@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Like normal stone, but with blue tint. Generates in the frosty dimension and drops [frozen cobblestone].
+END

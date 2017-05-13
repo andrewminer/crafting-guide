@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Simple to craft, and if you're on fire, right clicking this block will put you out. This block actually used to be in normal minecraft and was to reset your spawn, but was replace with beds.
+END

@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Gvies [einsteinium ingot]s. Has a slight glow, and hurts you when stepped on. Also when stepped on it will give you a radiation effect (Not implemented yet).
+END

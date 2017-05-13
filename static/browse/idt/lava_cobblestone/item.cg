@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Lava cobblestone is an intersting looking block that gives off light. It does not hurt any entities when they walk on it. It's crafted with cobblestone and a bucket of lava.
+END

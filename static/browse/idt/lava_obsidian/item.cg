@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Lava obsidian is an intersting looking block that gives off light. It does not hurt any entities when they walk on it. It's crafted with obsidian and a bucket of lava.
+END

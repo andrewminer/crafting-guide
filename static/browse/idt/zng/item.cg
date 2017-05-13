@@ -1,0 +1,5 @@
+schema: 1
+
+desription: <<-END
+Not fully implemented. Will have it's own GUI, but this is a generator. It uses [zimphnode bar]s for power and this power will be used to power the other tech blocks. ([Matter condenser], [biofeul extractor], [tank compressor], [gem cutter], etc.) Z.N.G. means "Zimphnode Generator". The Z and N are both a part of the word "Zimphnode".
+END

@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Like normal crafting table, but made from birch wood.
+END

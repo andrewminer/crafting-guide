@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Right now acts just like furnace. It will have it's own GUI, which is where you will be able to get [steel ingot]s and [titanium ingot]s, along with other things in the future.
+END

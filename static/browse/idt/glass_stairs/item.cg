@@ -1,0 +1,5 @@
+schema: 1
+
+description: <<-END
+Like normal stairs, but made of glass. It lets light trhough and you can see through it.
+END

@@ -28,7 +28,6 @@ module.exports = class BrowsePageController extends PageController
         @_tileControllers = []
 
         @_client.on c.event.change, => @tryRefresh()
-        @_modPack.on c.event.change, => @tryRefresh()
 
     # Property Methods #############################################################################
 
@@ -81,7 +80,7 @@ module.exports = class BrowsePageController extends PageController
 
     _refreshModTiles: ->
         index = 0
-        mods = @_modPack.getAllMods()
+        mods = (mod for modId, mod of @_modPack.mods)
         for mod in mods
             controller = @_tileControllers[index]
             if not controller

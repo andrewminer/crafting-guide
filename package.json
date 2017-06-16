@@ -36,7 +36,7 @@
     "body-parser": "1.17.1",
     "client-sessions": "0.8.0",
     "cookie-parser": "1.4.3",
-    "crafting-guide-common": ">=3.0.0",
+    "crafting-guide-common": ">=5.0.0",
     "dotenv": "4.0.0",
     "express": "4.15.2",
     "express-session": "1.15.2",

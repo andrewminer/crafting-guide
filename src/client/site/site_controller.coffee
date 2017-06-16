@@ -7,6 +7,7 @@
 
 AdsenseController  = require './common/adsense/adsense_controller'
 BaseController     = require './base_controller'
+c                  = require "../../common/constants"
 FeedbackController = require './feedback/feedback_controller'
 FileCache          = require '../models/site/file_cache'
 FooterController   = require './footer/footer_controller'
@@ -23,14 +24,14 @@ module.exports = class SiteController extends BaseController
 
     constructor: (options={})->
         if not options.client? then throw new Error 'options.client is required'
+        if not options.modPack? then throw new Error 'options.modPack is required'
         if not options.storage? then throw new Error 'options.storage is required'
         options.el = 'html'
         super options
 
         @client      = options.client
-        @fileCache   = new FileCache c.url.modpackArchive()
         @imageLoader = new ImageLoader defaultUrl:'/images/unknown.png'
-        @modPack     = new ModPack {}, fileCache:@fileCache
+        @modPack     = options.modPack
         @router      = new Router this
         @storage     = options.storage
 
@@ -40,23 +41,6 @@ module.exports = class SiteController extends BaseController
         @_user                  = null
 
     # Public Methods ###############################################################################
-
-    loadDefaultModPack: ->
-        makeResponder = (m)-> return ->
-            m.activeModVersion.fetch() if m.activeModVersion?
-
-        for modSlug, modData of c.defaultMods
-            mod = new Mod {slug:modSlug}, {fileCache:@fileCache}
-            mod.on c.event.change + ':activeModVersion', makeResponder mod
-            @storage.register "mod:#{mod.slug}", mod, 'activeVersion', modData.defaultVersion
-            mod.fetch()
-
-            @modPack.addMod mod
-
-        if global.env isnt 'prerender'
-            @modPack.once c.event.sync, =>
-                @$pageContent.removeClass 'hidden'
-                @$pageContentLoading.addClass 'hidden'
 
     loadCurrentUser: ->
         @client.getCurrentUser()
@@ -128,6 +112,10 @@ module.exports = class SiteController extends BaseController
         @$pageContentLoading = @$('.page > .content-loading')
 
         @_feedbackController = @addChild FeedbackController, '.view__feedback'
+
+        if global.env isnt "prerender"
+            @$pageContent.removeClass "hidden"
+            @$pageContentLoading.addClass "hidden"
 
     # Private Methods ##############################################################################
 

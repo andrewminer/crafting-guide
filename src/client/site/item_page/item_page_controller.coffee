@@ -5,16 +5,16 @@
 # All rights reserved.
 #
 
-EditableFile               = require '../../models/site/editable_file'
-{Item}                     = require('crafting-guide-common').deprecated.game
-ItemGroupController        = require '../common/item_group/item_group_controller'
-ItemPage                   = require '../../models/site/item_page'
-{ItemSlug}                 = require('crafting-guide-common').deprecated.game
-MarkdownSectionController  = require '../common/markdown_section/markdown_section_controller'
-MultiblockViewerController = require './multiblock_viewer/multiblock_viewer_controller'
-PageController             = require '../page_controller'
-RecipeDetailController     = require './recipe_detail/recipe_detail_controller'
-VideoController            = require '../common/video/video_controller'
+EditableFile               = require "../../models/site/editable_file"
+{Item}                     = require("crafting-guide-common").models
+ItemDisplay                = require "../../models/site/item_display"
+ItemGroupController        = require "../common/item_group/item_group_controller"
+ItemPage                   = require "../../models/site/item_page"
+MarkdownSectionController  = require "../common/markdown_section/markdown_section_controller"
+MultiblockViewerController = require "./multiblock_viewer/multiblock_viewer_controller"
+PageController             = require "../page_controller"
+RecipeDetailController     = require "./recipe_detail/recipe_detail_controller"
+VideoController            = require "../common/video/video_controller"
 w                          = require "when"
 
 ########################################################################################################################
@@ -24,34 +24,27 @@ module.exports = class ItemPageController extends PageController
     @::FILE_UPLOAD_DELAY = 250
 
     constructor: (options={})->
-        if not options.client? then throw new Error 'options.client is required'
-        if not options.itemSlug? then throw new Error 'options.itemSlug is required'
-        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        if not options.router? then throw new Error 'options.router is required'
+        if not options.model?.constructor is ItemPage then throw new Error "options.model must be an ItemPage instance"
+        if not options.client? then throw new Error "options.client is required"
+        if not options.imageLoader? then throw new Error "options.imageLoader is required"
+        if not options.modPack? then throw new Error "options.modPack is required"
+        if not options.router? then throw new Error "options.router is required"
 
-        options.model        ?= new ItemPage modPack:options.modPack
-        options.templateName ?= 'item_page'
-
+        options.templateName ?= "item_page"
         super options
 
         @_client          = options.client
         @_descriptionFile = null
         @_enterFeedback   = options.enterFeedback
         @_imageLoader     = options.imageLoader
-        @_itemSlug        = options.itemSlug
         @_modPack         = options.modPack
         @_router          = options.router
         @_triggerEditing  = options.login
 
-        @_modPack.on c.event.change, =>
-            @tryRefresh()
-            @trigger c.event.change
-
     # Event Methods ################################################################################
 
     craftingPlanButtonClicked: ->
-        tracker.trackEvent c.tracking.category.craft, 'view-crafting-plan', @model.item.slug
+        tracker.trackEvent c.tracking.category.craft, "view-crafting-plan", @model.item.slug
         display = @_modPack.findItemDisplay @model.item.slug
         @_router.navigate display.craftingUrl, trigger:true
         return false
@@ -59,23 +52,18 @@ module.exports = class ItemPageController extends PageController
     # PageController Overrides #####################################################################
 
     getBreadcrumbs: ->
-        return [] unless @_itemSlug?
-
-        display = @_modPack.findItemDisplay @_itemSlug
-        return [] unless display.itemName? and display.modName
-
         return [
             $("<a href='/browse'>Browse</a>")
-            $("<a href='#{c.url.mod modSlug:display.modSlug}'>#{display.modName}</a>")
-            $("<b>#{display.itemName}</b>")
+            $("<a href='#{@model.display.modUrl}'>#{@model.display.modName}</a>")
+            $("<b>#{display.name}</b>")
         ]
 
     getExtraNav: ->
-        itemSlug = @_modPack.chooseRandomItem()
-        return null unless itemSlug?
+        item = @_modPack.chooseRandomItem()
+        return null unless item?
 
-        itemDisplay = @_modPack.findItemDisplay itemSlug
-        return $("<a href='#{itemDisplay.itemUrl}'>Random Item</a>")
+        display = new ItemDisplay item
+        return $("<a href='#{display.url}'>Random Item</a>")
 
     getMetaDescription: ->
         return null unless @_itemSlug?

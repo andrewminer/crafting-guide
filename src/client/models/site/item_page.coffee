@@ -5,53 +5,74 @@
 # All rights reserved.
 #
 
-{BaseModel} = require("crafting-guide-common").deprecated
+{Item}       = require("crafting-guide-common").models
+ItemDisplay  = require "../item_display"
+{Observable} = require("crafting-guide-common").util
 
 ########################################################################################################################
 
-module.exports = class ItemPage extends BaseModel
+module.exports = class ItemPage extends Observable
 
-    constructor: (attributes={}, options={})->
-        if not attributes.modPack? then throw new Error 'attributes.modPack is required'
-        attributes.item ?= null
-        super attributes, options
+    constructor: (item)->
+        if item.constructor isnt Item then throw new Error "item must be an Item instance"
+        @item = item
+        super
+
+    # Properties ###################################################################################
+
+    Object.defineProperties @prototype,
+
+        item:
+            get: -> return @_item
+            set: (item)->
+                if @_item? then throw new Error "item cannot be reassigned"
+                if not item? then throw new Error "item is required"
+                @_item = item
+
+        itemDisplay:
+            get: -> return @_itemDisplay ?= new ItemDisplay @item
+
+        mod:
+            get: -> return @_item.mod
+            set: -> throw new Error "mod cannot be assigned"
+
+        modPack:
+            get: -> return @mod.modPack
+            set: -> throw new Error "modPack cannot be assigned"
 
     # Property Methods #############################################################################
 
     findComponentInItems: ->
-        return @_findRecipesMatching (recipe)=> recipe.requires @item.slug
+        return @_findItemsWithMatchingRecipes (recipe)=>
+            recipe.computeQuantityRequired @item
 
     findSimilarItems: ->
-        return null unless @item?.modVersion?
+        group = @mod.itemGroups[@item.groupName]
+        return unless group?
 
-        result = []
-        @item.modVersion.eachItemInGroup @item.group, (item)=>
-            result.push item
+        return null unless group.length > 0
+        return group
 
-        return null unless result.length > 0
-        return result
-
-    findRecipes: ->
-        return @modPack.findRecipes @item?.slug, [], alwaysFromOwningMod:true
-
-    findToolForRecipes: ->
-        return @_findRecipesMatching (recipe)=> recipe.requiresTool @item.slug
+    findToolForItem: ->
+        return @_findItemsWithMatchingRecipes (recipe)=>
+            return recipe.tools[@item.id]?
 
     # Private Methods ##############################################################################
 
-    _findRecipesMatching: (isAcceptable)->
-        return null unless @item?
-
+    _findItemsWithMatchingRecipes: (isMatching)->
         result = {}
-        @modPack.eachMod (mod)=>
-            mod.eachRecipe (recipe)=>
-                if isAcceptable recipe
-                    for outputStack in recipe.output
-                        continue if recipe.isPassThroughFor outputStack.itemSlug
-                        outputItem = @modPack.findItem outputStack.itemSlug, includeDisabled:true
-                        result[outputItem.slug] = outputItem
 
-        result = _.values result
-        return null unless result.length > 0
+        for modId, mod of @modPack.mods
+            for itemId, item of mod.items
+                for recipeId, recipe of item.recipes
+                    if isMatching(recipe)
+                        result[item.id] = item
 
-        return result.sort (a, b)-> a.compareTo b
+        result = (item for itemId, item of result)
+        result.sort (a, b)->
+            if not a?.displayName? and not b?.displayName? then return 0
+            if not b?.displayName? then return +1
+            if not a?.displayName? then return +1
+            return a.displayName.localeCompare b.displayName
+
+        return result

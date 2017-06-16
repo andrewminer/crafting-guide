@@ -74,11 +74,18 @@ client.startMonitoringStatus()
 
 ########################################################################################################################
 
-SiteController = require './site/site_controller'
-global.site = site = new SiteController client:client, storage:storage
-site.render()
-site.loadDefaultModPack()
-site.loadCurrentUser()
+{http, ModPackStore} = require("crafting-guide-common").api
+modPackBaseUrl = "#{location.protocol}//#{location.hostname}:#{location.port}"
+modPackStore = new ModPackStore http, modPackBaseUrl
 
-Backbone.history.start pushState:true
-logger.info -> "CraftingGuide is ready"
+########################################################################################################################
+
+modPackStore.load c.modPacks.default
+    .then (modPack)->
+        SiteController = require './site/site_controller'
+        global.site = site = new SiteController client:client, storage:storage, modPack:modPack
+        site.render()
+        site.loadCurrentUser()
+
+        Backbone.history.start pushState:true
+        logger.info -> "CraftingGuide is ready"

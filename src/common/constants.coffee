@@ -99,9 +99,6 @@ login.clientIds =
     'staging':    '3d75ed772ce5004180d6'
     'production': 'ce71be7f66926ff6ff38'
 
-exports.modpack = modpack = {}
-modpack.default = "crafting-guide-default"
-
 exports.opacity = opacity = {}
 opacity.hidden  = 1e-6
 opacity.shown   = 1

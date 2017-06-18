@@ -59,6 +59,18 @@
             @include layout-link-list;
         }
     }
+
+    section.videos {
+        .panel {
+            display: flex;
+            flex-wrap: wrap;
+
+            .view__video {
+                flex: 0 0 50%;
+                margin-bottom: $size-margin-large;
+            }
+        }
+    }
 }
 
 @include screen-size(mobile) {
@@ -95,6 +107,14 @@
             .right {
                 margin-left: $size-margin-medium;
                 margin-right: $size-margin-medium;
+            }
+        }
+
+        section.videos {
+            .panel {
+                .view__video {
+                    flex: 0 0 100%;
+                }
             }
         }
     }

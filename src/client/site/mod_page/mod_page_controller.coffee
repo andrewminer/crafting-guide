@@ -5,12 +5,13 @@
 # All rights reserved.
 #
 
-{Item}                       = require('crafting-guide-common').deprecated.game
-ItemGroupController          = require '../common/item_group/item_group_controller'
-{Mod}                        = require('crafting-guide-common').deprecated.game
-ModVersionSelectorController = require '../common/mod_version_selector/mod_version_selector_controller'
-PageController               = require '../page_controller'
-TutorialController           = require './tutorial/tutorial_controller'
+{Item}                       = require("crafting-guide-common").deprecated.game
+ItemGroupController          = require "../common/item_group/item_group_controller"
+{Mod}                        = require("crafting-guide-common").deprecated.game
+ModVersionSelectorController = require "../common/mod_version_selector/mod_version_selector_controller"
+PageController               = require "../page_controller"
+TutorialController           = require "./tutorial/tutorial_controller"
+VideoController              = require "../common/video/video_controller"
 
 ########################################################################################################################
 
@@ -53,12 +54,16 @@ module.exports = class ModPageController extends PageController
         @$title              = @$('.about .title')
         @$tutorialsContainer = @$('section.tutorials .panel')
         @$tutorialsSection   = @$('section.tutorials')
+        @$videosContainer    = @$('section.videos .panel')
+        @$videosSection      = @$('section.videos')
+        @$videosSectionTitle = @$('section.videos h2')
         super
 
     refresh: ->
         @_refreshAboutBlock()
         @_refreshItemGroups()
         @_refreshTutorials()
+        @_refreshVideos()
         super
 
     # Backbone.View Overrides ######################################################################
@@ -136,3 +141,29 @@ module.exports = class ModPageController extends PageController
             @show @$tutorialsSection
         else
             @hide @$tutorialsSection
+
+    _refreshVideos: ->
+        @_videoControllers ?= []
+        index = 0
+
+        videos = @model?.videos or []
+        if videos? and videos.length > 0
+            @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
+
+            for video in videos
+                controller = @_videoControllers[index]
+                if not controller?
+                    controller = new VideoController model:video
+                    @_videoControllers.push controller
+                    controller.render()
+                    @$videosContainer.append controller.$el
+                else
+                    controller.model = video
+                index++
+
+            @show @$videosSection
+        else
+            @hide @$videosSection
+
+        while @_videoControllers.length > index
+            @_videoControllers.pop().remove()

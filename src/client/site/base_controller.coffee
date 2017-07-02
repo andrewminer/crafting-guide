@@ -112,7 +112,7 @@ module.exports = class BaseController extends Backbone.View
 
                 newModel = @onWillChangeModel @_model, newModel
                 @_model = newModel
-                @tryRefresh()
+                @onDidModelChange()
 
         rendered:
             get: -> @_rendered
@@ -149,6 +149,7 @@ module.exports = class BaseController extends Backbone.View
         @$el.data $renderedEl.data()
         @delegateEvents()
 
+        @$el.controller = this
         @_rendered = true
         @onDidRender()
 

@@ -5,21 +5,22 @@
 # All rights reserved.
 #
 
-BaseController    = require '../../base_controller'
-ItemSelector      = require '../../../models/site/item_selector'
-ElementController = require './element/element_controller'
+BaseController    = require "../../base_controller"
+ItemDisplay       = require "../../../models/site/item_display"
+ItemSelector      = require "../../../models/site/item_selector"
+ElementController = require "./element/element_controller"
 w                 = require "when"
 
 ########################################################################################################################
 
 module.exports = class ItemSelectorController extends BaseController
 
-    constructor: (options)->
-        if not options.modPack? then throw new Error 'options.modPack is required'
+    constructor: (options={})->
+        if not options.modPack? then throw new Error "options.modPack is required"
         options.isAcceptable ?= null
-        options.model        ?= new ItemSelector {}, modPack:options.modPack, isAcceptable:options.isAcceptable
+        options.model        ?= new ItemSelector options.modPack, isAcceptable:options.isAcceptable
         options.onChoseItem  ?= (item)-> # do nothing
-        options.templateName  = 'common/item_selector'
+        options.templateName  = "common/item_selector"
         super options
 
         @_modPack = options.modPack
@@ -29,25 +30,25 @@ module.exports = class ItemSelectorController extends BaseController
 
     # Public Methods ###############################################################################
 
-    launch: (hint='')->
+    launch: (hint="")->
         @model.hint = hint
         if @rendered then @refresh()
 
         @_disableWindowScrolling()
 
-        @$page.addClass 'blur'
+        @$page.addClass "blur"
         @$screen.append @$popup
-        @$screen.css 'display', ''
+        @$screen.css "display", ""
 
         @$popup.off c.event.click
         @$popup.on c.event.click, (event)=> @onPopupClicked(event)
 
-        @$hintField.off 'keyup input'
-        @$hintField.on 'keyup', (event)=> @onHintKeyPress(event)
-        @$hintField.on 'input', (event)=> @onHintChanged(event)
+        @$hintField.off "keyup input"
+        @$hintField.on "keyup", (event)=> @onHintKeyPress(event)
+        @$hintField.on "input", (event)=> @onHintChanged(event)
         @$hintField.focus()
 
-        @$closeButton.one 'click', (event)=> @_close()
+        @$closeButton.one "click", (event)=> @_close()
 
         @$screen.one c.event.click, (event)=> @onScreenClicked(event)
 
@@ -85,17 +86,17 @@ module.exports = class ItemSelectorController extends BaseController
         return false
 
     onResultClicked: (controller)->
-        @_session.resolve controller.model.slug
+        @_session.resolve controller.model
         @_session = null
         @_close()
         return false
 
     onResultSelected: (controller)->
         for c in @_elementControllers
-            c.selected = false
+            c.isSelected = false
 
         if controller?
-            controller.selected = true
+            controller.isSelected = true
 
         return false
 
@@ -106,14 +107,14 @@ module.exports = class ItemSelectorController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$page             = $('.page') # find the shared, global page
-        @$screen           = $('.view__screen') # find the shared, global screen
+        @$page             = $(".page") # find the shared, global page
+        @$screen           = $(".view__screen") # find the shared, global screen
 
-        @$closeButton      = @$('img.close')
-        @$popup            = @$('.view__item_selector_popup')
-        @$hintField        = @$('.view__item_selector_popup input')
-        @$searchInput      = @$('.search input')
-        @$resultsContainer = @$('.results')
+        @$closeButton      = @$("img.close")
+        @$popup            = @$(".view__item_selector_popup")
+        @$hintField        = @$(".view__item_selector_popup input")
+        @$searchInput      = @$(".search input")
+        @$resultsContainer = @$(".results")
 
         @$popup.detach()
         super
@@ -127,16 +128,16 @@ module.exports = class ItemSelectorController extends BaseController
 
     _chooseSelected: ->
         for controller in @_elementControllers
-            if controller.selected
+            if controller.isSelected
                 @onResultClicked controller
                 return
 
     _close: ->
         @_enableWindowScrolling()
-        @$page.removeClass 'blur'
-        @$screen.css 'display', 'none'
+        @$page.removeClass "blur"
+        @$screen.css "display", "none"
         @$popup.detach()
-        @model.hint = ''
+        @model.hint = ""
 
         if @_session
             @_session.resolve null
@@ -144,28 +145,27 @@ module.exports = class ItemSelectorController extends BaseController
 
     _disableWindowScrolling: ->
         @_windowScrollPosition = $(window).scrollTop()
-        $('body').addClass('scrollDisabled').css('margin-top', -@_windowScrollPosition)
+        $("body").addClass("scrollDisabled").css("margin-top", -@_windowScrollPosition)
 
     _enableWindowScrolling: ->
-        $('body').removeClass('scrollDisabled').css('margin-top', 0)
+        $("body").removeClass("scrollDisabled").css("margin-top", 0)
         $(window).scrollTop @_windowScrollPosition
 
     _refreshResults: ->
         index = 0
 
-        for itemSlug in @model.results
-            displayModel = @_modPack.findItemDisplay itemSlug
+        for item in @model.results
             controller = @_elementControllers[index]
             if not controller?
                 controller = new ElementController
-                    model:      displayModel
+                    model:      item
                     onClicked:  (c)=> @onResultClicked(c)
                     onSelected: (c)=> @onResultSelected(c)
                 controller.render show:false
                 @_elementControllers[index] = controller
                 @$resultsContainer.append controller.$el
             else
-                controller.model = displayModel
+                controller.model = item
 
             controller.show()
             index += 1
@@ -180,14 +180,17 @@ module.exports = class ItemSelectorController extends BaseController
             controller = @_elementControllers[i]
             nextController = @_elementControllers[i + 1]
 
-            if controller.selected
-                controller.selected = false
-                nextController.selected = true
+            if controller.isSelected
+                controller.isSelected = false
+                nextController.isSelected = true
                 @_showElement nextController.$el
                 return
 
+        [..., controller] = @_elementControllers
+        controller.isSelected = false
+
         controller = @_elementControllers[0]
-        controller.selected = true
+        controller.isSelected = true
         @_showElement controller.$el
 
     _selectPrevious: ->
@@ -197,14 +200,17 @@ module.exports = class ItemSelectorController extends BaseController
             previousController = @_elementControllers[i - 1]
             controller = @_elementControllers[i]
 
-            if controller.selected
-                previousController.selected = true
-                controller.selected = false
+            if controller.isSelected
+                previousController.isSelected = true
+                controller.isSelected = false
                 @_showElement previousController.$el
                 return
 
-        controller = @_elementControllers[@_elementControllers.length - 1]
-        controller.selected = true
+        controller = @_elementControllers[0]
+        controller.isSelected = false
+
+        [..., controller] = @_elementControllers
+        controller.isSelected = true
         @_showElement controller.$el
 
     _showElement: ($el)->

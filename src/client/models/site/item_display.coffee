@@ -37,6 +37,10 @@ module.exports = class ItemDisplay
                 if not item? then throw new Error "item is required"
                 @_item = item
 
+        mod:
+            get: -> return @_item.mod
+            set: -> throw new Error "mod cannot be assigned"
+
         modUrl:
             get: -> return c.url.mod modId:@item.mod.id
             set: -> throw new Error "modUrl cannot be assigned"

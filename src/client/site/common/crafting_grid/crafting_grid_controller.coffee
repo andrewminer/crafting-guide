@@ -5,39 +5,47 @@
 # All rights reserved.
 #
 
-BaseController = require '../../base_controller'
-SlotController = require '../slot/slot_controller'
+BaseController = require "../../base_controller"
+{Recipe}       = require("crafting-guide-common").models
+SlotController = require "../slot/slot_controller"
 
 ########################################################################################################################
 
 module.exports = class CraftingGridController extends BaseController
 
     constructor: (options={})->
-        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        if not options.router? then throw new Error 'options.router is required'
-        # options.model should be a recipe
-        options.templateName = 'common/crafting_grid'
+        if not options.imageLoader? then throw new Error "options.imageLoader is required"
+        if not options.modPack? then throw new Error "options.modPack is required"
+        if not options.router? then throw new Error "options.router is required"
+        options.templateName = "common/crafting_grid"
         super options
 
         @_imageLoader = options.imageLoader
         @_modPack     = options.modPack
         @_router      = options.router
 
-        @_modPack.on c.event.change, => @tryRefresh()
-
     # BaseController Methods #######################################################################
+
+    onWillChangeModel: (oldModel, newModel)->
+        if newModel? and (newModel.constructor isnt Recipe) then throw new Error "options.model must be a Recipe"
+        super
 
     onDidRender: ->
         @_slotControllers = []
-        for el in @$('.view__slot')
+        for el in @$(".view__slot")
             controller = new SlotController el:el, imageLoader:@_imageLoader, modPack:@_modPack, router:@_router
             controller.render()
             @_slotControllers.push controller
         super
 
     refresh: ->
-        for controller, index in @_slotControllers
-            controller.model = @model?.getStackAtSlot(index)
+        index = 0
+        for y in [0..2]
+            for x in [0..2]
+                controller = @_slotControllers[index++]
+                if @model?
+                    controller.model = @model.getInputAt x, y
+                else
+                    controller.model = null
 
         super

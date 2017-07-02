@@ -6,7 +6,7 @@
 #
 
 {Item}       = require("crafting-guide-common").models
-ItemDisplay  = require "../item_display"
+ItemDisplay  = require "./item_display"
 {Observable} = require("crafting-guide-common").util
 
 ########################################################################################################################

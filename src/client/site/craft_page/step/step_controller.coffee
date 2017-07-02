@@ -6,16 +6,19 @@
 #
 
 BaseController      = require '../../base_controller'
+{Inventory}         = require("crafting-guide-common").models
+{CraftingPlanStep}  = require("crafting-guide-common").crafting
 InventoryController = require '../../common/inventory/inventory_controller'
 RecipeController    = require '../../common/recipe/recipe_controller'
-{SimpleInventory}   = require('crafting-guide-common').deprecated.crafting
+
 
 ########################################################################################################################
 
 module.exports = class StepController extends BaseController
 
     constructor: (options={})->
-        if not options.model? then throw new Error 'options.model is required'
+        if options.model?.constructor isnt CraftingPlanStep
+            throw new Error "options.model must be a CraftingPlanStep"
         if not options.modPack? then throw new Error 'options.modPack is required'
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
         options.templateName = 'craft_page/step'
@@ -41,7 +44,7 @@ module.exports = class StepController extends BaseController
 
     onCompleteButtonClicked: (event)->
         return if @$completeButton.hasClass 'disabled'
-        tracker.trackEvent c.tracking.category.craft, 'mark-complete', null, @model.number
+        tracker.trackEvent c.tracking.category.craft, 'mark-complete', null, @model.count
         @onComplete this
 
     onShowToolPlan: (event)->
@@ -54,7 +57,7 @@ module.exports = class StepController extends BaseController
         @inventoryController = @addChild InventoryController, '.view__inventory',
             editable:    false
             imageLoader: @_imageLoader
-            model:       @model.inventory
+            model:       @model.inputInventory
             modPack:     @_modPack
             router:      @_router
 
@@ -78,12 +81,11 @@ module.exports = class StepController extends BaseController
         return super
 
     refresh: ->
-        itemDisplay = @_modPack.findItemDisplay @model.recipe.output[0].itemSlug
-        @$header.html "#{@model.number}. #{itemDisplay.itemName}"
+        @$header.html "#{@model.number}. #{@model.recipe.output.item.displayName}"
 
-        @inventoryController.model   = @model.inventory
+        @inventoryController.model   = @model.inputInventory
         @recipeController.model      = @model.recipe
-        @recipeController.multiplier = @model.multiplier
+        @recipeController.multiplier = @model.count
 
         @_refreshCompleteButton()
         @_refreshToolButton()
@@ -100,12 +102,11 @@ module.exports = class StepController extends BaseController
     # Private Methods ##############################################################################
 
     _refreshToolButton: ->
-        inventory = new SimpleInventory {}, modPack:@_modPack
-        for toolStack in @model.recipe.tools
-            inventory.add toolStack.itemSlug, toolStack.quantity
-        inventory.localize()
+        inventory = new Inventory
+        for itemId, item in @model.recipe.tools
+            inventory.add item
 
-        inventoryText = inventory.unparse()
+        inventoryText = inventory.toUrlString()
         @$toolButton.attr 'href', "/craft/#{inventoryText}"
         @$toolButton.attr 'target', inventoryText
 

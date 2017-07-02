@@ -117,8 +117,7 @@ module.exports = class Router extends Backbone.Router
         @route__craft()
 
     route__craft: (text)->
-        controller = new CraftPageController @_makeOptions {}
-        controller.model.params = inventoryText:text
+        controller = new CraftPageController @_makeOptions params:inventoryText:text
         @_siteController.setPage 'craft', controller
 
     route__login: ->

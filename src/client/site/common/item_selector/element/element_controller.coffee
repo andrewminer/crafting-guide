@@ -5,58 +5,63 @@
 # All rights reserved.
 #
 
-BaseController = require '../../../base_controller'
+BaseController = require "../../../base_controller"
+ItemDisplay    = require "../../../../models/site/item_display"
 
 ########################################################################################################################
 
 module.exports = class ElementController extends BaseController
 
     constructor: (options={})->
-        if not options.model? then throw new Error 'options.model is required'
-        options.onClicked ?= (controller)-> # do nothing
-        options.onSelected ?= (controller)-> # do nothing
-        options.templateName = 'common/item_selector/element'
+        if not options.model? then throw new Error "options.model is required"
+        options.templateName = "common/item_selector/element"
         options.useAnimations = false
         super options
 
-        @onClicked = options.onClicked
-        @onSelected = options.onSelected
+        @onClicked = options.onClicked or (controller)-> # do nothing
+        @onSelected = options.onSelected or (controller)-> # do nothing
 
     # Property Methods #############################################################################
 
-    isSelected: ->
-        return @_selected
-
-    setSelected: (newSelected)->
-        oldSelected = @_selected
-        return if newSelected is oldSelected
-
-        @_selected = newSelected
-        @tryRefresh()
-
-        @trigger c.event.change + ':selected', this, oldSelected, newSelected
-        @trigger c.event.change, this
-
     Object.defineProperties @prototype,
-        selected: {get:@prototype.isSelected, set:@prototype.setSelected}
+
+        display:
+            get: -> return @_display ?= new ItemDisplay @model
+            set: -> throw new Error "display cannot be assigned"
+
+        isSelected:
+            get: -> return @_selected
+            set: (newSelected)->
+                oldSelected = @_selected
+                return if newSelected is oldSelected
+
+                @_selected = newSelected
+                @tryRefresh()
+
+                @trigger c.event.change + ":selected", this, oldSelected, newSelected
+                @trigger c.event.change, this
 
     # BaseController Overrides #####################################################################
 
+    onDidModelChange: ->
+        @_display = null
+        super
+
     onDidRender: ->
-        @$icon = @$('img')
-        @$name = @$('.name')
-        @$modName = @$('.modName')
+        @$icon = @$("img")
+        @$name = @$(".name")
+        @$modName = @$(".modName")
         super
 
     refresh: ->
-        @$icon.attr 'src', @model.iconUrl
-        @$name.html @model.itemName
-        @$modName.html @model.modName
+        @$icon.attr "src", @display.iconUrl
+        @$name.html @model.displayName
+        @$modName.html @model.mod.displayName
 
         if @_selected
-            @$el.addClass 'selected'
+            @$el.addClass "selected"
         else
-            @$el.removeClass 'selected'
+            @$el.removeClass "selected"
 
         super
 
@@ -64,15 +69,15 @@ module.exports = class ElementController extends BaseController
 
     events: ->
         return _.extend super,
-            'click': '_onClick'
-            'mouseenter': '_onMouseEnter'
+            "click": "_onClick"
+            "mouseenter": "_onMouseEnter"
 
     # Private Methods ##############################################################################
 
     _onClick: (event)->
-        event.preventDefault()
         @onClicked this
+        return false
 
     _onMouseEnter: (event)->
-        event.preventDefault()
         @onSelected this
+        return false

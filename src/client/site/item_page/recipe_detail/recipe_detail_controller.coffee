@@ -5,21 +5,22 @@
 # All rights reserved.
 #
 
-BaseController         = require '../../base_controller'
-CraftingGridController = require '../../common/crafting_grid/crafting_grid_controller'
-{Inventory}            = require('crafting-guide-common').deprecated.game
-InventoryController    = require '../../common/inventory/inventory_controller'
-{StringBuilder}        = require('crafting-guide-common').util
+BaseController         = require "../../base_controller"
+CraftingGridController = require "../../common/crafting_grid/crafting_grid_controller"
+{Inventory}            = require("crafting-guide-common").models
+InventoryController    = require "../../common/inventory/inventory_controller"
+ItemDisplay            = require "../../../models/site/item_display"
+{StringBuilder}        = require("crafting-guide-common").util
 
 ########################################################################################################################
 
 module.exports = class RecipeDetailController extends BaseController
 
     constructor: (options={})->
-        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        if not options.router? then throw new Error 'options.router is required'
-        options.templateName = 'item_page/recipe_detail'
+        if not options.imageLoader? then throw new Error "options.imageLoader is required"
+        if not options.modPack? then throw new Error "options.modPack is required"
+        if not options.router? then throw new Error "options.router is required"
+        options.templateName = "item_page/recipe_detail"
         super options
 
         @_imageLoader = options.imageLoader
@@ -29,26 +30,26 @@ module.exports = class RecipeDetailController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @gridController = @addChild CraftingGridController, '.view__crafting_grid',
+        @gridController = @addChild CraftingGridController, ".view__crafting_grid",
             imageLoader: @_imageLoader
             modPack:     @_modPack
             router:      @_router
 
-        @inputController = @addChild InventoryController, '.input .view__inventory',
+        @inputController = @addChild InventoryController, ".input .view__inventory",
             editable:    false
             imageLoader: @_imageLoader
             model:       new Inventory
             modPack:     @_modPack
             router:      @_router
 
-        @outputController = @addChild InventoryController, '.output .view__inventory',
+        @outputController = @addChild InventoryController, ".output .view__inventory",
             editable:    false
             imageLoader: @_imageLoader
             model:       new Inventory
             modPack:     @_modPack
             router:      @_router
 
-        @$toolContainer = @$('.tool')
+        @$toolContainer = @$(".tool")
         super
 
     refresh: ->
@@ -67,33 +68,33 @@ module.exports = class RecipeDetailController extends BaseController
 
     events: ->
         return _.extend super,
-            'click a': 'routeLinkClick'
+            "click a": "routeLinkClick"
 
     # Private Methods ##############################################################################
 
     _refreshInputs: ->
         inputs = @inputController.model
         inputs.clear()
+        return unless @model?
 
-        if @model?
-            for stack in @model.input
-                inputs.add stack.itemSlug, @model.getQuantityRequired stack.itemSlug
-
+        for itemId, item of @model.inputs
+            inputs.add item, @model.computeQuantityRequired item
 
     _refreshOutputs: ->
         outputs = @outputController.model
         outputs.clear()
+        return unless @model?
 
-        if @model?
-            for stack in @model.output
-                outputs.add stack.itemSlug, @model.getQuantityProduced stack.itemSlug
+        outputs.add @model.output.item, @model.output.quantity
+        for itemId, item of @model.extras
+            outputs.add item, @model.computeQuantityProduced item
 
     _refreshTools: ->
         @$toolContainer.empty()
         return unless @model?
 
-        builder = new StringBuilder
-        builder.loop @model.tools, delimiter:', ', onEach:(b, stack)=>
-            display = @_modPack.findItemDisplay stack.itemSlug
-            b.push "<a href=\"#{display.itemUrl}\">#{display.itemName}</a>"
-        @$toolContainer.html builder.toString()
+        toolLinks = []
+        for itemId, item of @model.tools
+            display = new ItemDisplay item
+            toolLinks.push "<a href=\"#{display.url}\">#{display.name}</a>"
+        @$toolContainer.html toolLinks.join ", "

@@ -7,6 +7,7 @@
 
 BaseController              = require '../../base_controller'
 convertMarkdown             = require 'marked'
+ItemDisplay                 = require "../../../models/site/item_display"
 MarkdownImageListController = require './markdown_image_list/markdown_image_list_controller'
 
 ########################################################################################################################
@@ -219,8 +220,8 @@ module.exports = class MarkdownSectionController extends BaseController
             result = match
             item = @_modPack.findItemByName name
             if item?
-                display = @_modPack.findItemDisplay item.slug
-                result = "[#{name}](#{display.itemUrl})"
+                display = new ItemDisplay item
+                result = "[#{name}](#{display.url})"
 
             return result
 

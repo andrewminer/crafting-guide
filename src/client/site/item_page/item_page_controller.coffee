@@ -45,8 +45,7 @@ module.exports = class ItemPageController extends PageController
 
     craftingPlanButtonClicked: ->
         tracker.trackEvent c.tracking.category.craft, "view-crafting-plan", @model.item.slug
-        display = @_modPack.findItemDisplay @model.item.slug
-        @_router.navigate display.craftingUrl, trigger:true
+        @_router.navigate @model.itemDisplay.craftingUrl, trigger:true
         return false
 
     # PageController Overrides #####################################################################
@@ -54,8 +53,8 @@ module.exports = class ItemPageController extends PageController
     getBreadcrumbs: ->
         return [
             $("<a href='/browse'>Browse</a>")
-            $("<a href='#{@model.display.modUrl}'>#{@model.display.modName}</a>")
-            $("<b>#{display.name}</b>")
+            $("<a href='#{@model.itemDisplay.modUrl}'>#{@model.itemDisplay.mod.displayName}</a>")
+            $("<b>#{@model.itemDisplay.name}</b>")
         ]
 
     getExtraNav: ->
@@ -66,17 +65,11 @@ module.exports = class ItemPageController extends PageController
         return $("<a href='#{display.url}'>Random Item</a>")
 
     getMetaDescription: ->
-        return null unless @_itemSlug?
-        display = @_modPack.findItemDisplay @_itemSlug
-        return c.text.itemDescription display
+        data = itemName:@model.item.displayName, modName:@model.item.mod.displayName
+        return c.text.itemDescription data
 
     getTitle: ->
-        return null unless @_itemSlug?
-
-        display = @_modPack.findItemDisplay @_itemSlug
-        return null unless display.itemName? and display.modName?
-
-        return "#{display.itemName} from #{display.modName}"
+        return "#{@model.item.displayName} from #{@model.item.mod.displayName}"
 
     # BaseController Overrides #####################################################################
 
@@ -120,14 +113,11 @@ module.exports = class ItemPageController extends PageController
         super
 
     refresh: ->
-        @_resolveItemSlug()
-
         if @model.item?
-            display = @_modPack.findItemDisplay @model.item.slug
-            @_imageLoader.load display.iconUrl, @$aboutImage
-            @$name.text display.itemName
+            @_imageLoader.load @model.itemDisplay.iconUrl, @$aboutImage
+            @$name.text @model.itemDisplay.name
 
-            @_descriptionController.imageBase = c.url.itemImageDir display
+            @_descriptionController.imageBase = c.url.itemImageDir @model.itemDisplay
 
             if @model.item.officialUrl?
                 @$officialLink.attr 'href', @model.item.officialUrl
@@ -182,7 +172,7 @@ module.exports = class ItemPageController extends PageController
         if not @model.item?
             return w.reject new Error 'must have an item'
 
-        pathArgs = modSlug:@_itemSlug.mod, itemSlug:@_itemSlug.item
+        pathArgs = modSlug:@model.item.mod.id, itemSlug:@model.itemDisplay.itemSlug
         attributes =
             fileName: c.gitHub.file.itemDescription.fileName pathArgs
             path:     c.gitHub.file.itemDescription.path pathArgs
@@ -232,8 +222,8 @@ module.exports = class ItemPageController extends PageController
             @_descriptionController.resetToDefaultState()
 
     _refreshMultiblock: ->
-        if @model.item?.multiblock?
-            @_multiblockController.model = @model.item.multiblock
+        if @model.item.isMultiblock
+            @_multiblockController.model = @model.item.getMultiblockRecipe()
             @show @$multiblockSection
         else
             @hide @$multiblockSection
@@ -246,7 +236,7 @@ module.exports = class ItemPageController extends PageController
         if recipes?.length > 0
             @$recipesSectionTitle.html if recipes.length is 1 then 'Recipe' else 'Recipes'
 
-            for recipe in @model.findRecipes()
+            for recipe in recipes
                 controller = @_recipeControllers[index]
                 if not controller?
                     controller = new RecipeDetailController
@@ -269,26 +259,22 @@ module.exports = class ItemPageController extends PageController
             @_recipeControllers.pop().remove()
 
     _refreshSimilarItems: ->
-        group = @model.item?.group
-        if group? and group isnt Item.Group.Other
+        group = @model.item.group
+        if group? and group isnt Item::DEFAULT_GROUP_NAME
             @_similarItemsController.title = "Other #{group}"
             @_similarItemsController.model = @model.findSimilarItems()
         else
             @_similarItemsController.model = null
 
     _refreshSourceMod: ->
-        mod = @model.item?.modVersion?.mod
-        if mod?.name?.length > 0
-            @$sourceModLink.attr 'href', c.url.mod modSlug:mod.slug
-            @$sourceModLink.text mod.name
-
-            @show @$sourceModLink
-        else
-            @hide @$sourceModLink
+        mod = @model.item.mod
+        @$sourceModLink.attr 'href', c.url.mod @model.itemDisplay
+        @$sourceModLink.text mod.name
+        @show @$sourceModLink
 
     _refreshUsedAsToolToMake: ->
         @_usedAsToolToMakeController.title = 'Used as Tool to Make'
-        @_usedAsToolToMakeController.model = @model.findToolForRecipes()
+        @_usedAsToolToMakeController.model = @model.findToolForItems()
 
     _refreshUsedToMake: ->
         @_usedToMakeController.title = 'Used to Make'
@@ -319,16 +305,3 @@ module.exports = class ItemPageController extends PageController
 
         while @_videoControllers.length > index
             @_videoControllers.pop().remove()
-
-    _resolveItemSlug: ->
-        return if @model.item?
-
-        item = @_modPack.findItem @_itemSlug, includeDisabled:true
-        if item?
-            if not ItemSlug.equal item.slug, @_itemSlug
-                @_router.navigate c.url.item(modSlug:item.slug.mod, itemSlug:item.slug.item), trigger:true
-                return
-
-            @model.item = item
-            item.fetch()
-            item.on c.event.sync, => @refresh()

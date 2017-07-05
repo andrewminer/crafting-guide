@@ -24,10 +24,10 @@ module.exports = class ItemDisplay
             get: ->
                 inventory = new Inventory
                 inventory.add @item
-                c.url.crafting inventoryText:inventory.unparse()
+                c.url.crafting inventoryText:inventory.toUrlString()
 
         iconUrl:
-            get: -> return c.url.itemIcon modId:@_item.mod.id, itemSlug:@slug
+            get: -> return c.url.itemIcon this
             set: -> throw new Error "iconUrl cannot be assigned"
 
         item:
@@ -37,9 +37,17 @@ module.exports = class ItemDisplay
                 if not item? then throw new Error "item is required"
                 @_item = item
 
+        itemSlug:
+            get: -> return _.slugify @name
+            set: -> throw new Error "slug cannot be assigned"
+
         mod:
             get: -> return @_item.mod
             set: -> throw new Error "mod cannot be assigned"
+
+        modId:
+            get: -> return @_item.mod.id
+            set: -> throw new Error "modId cannot be assigned"
 
         modUrl:
             get: -> return c.url.mod modId:@item.mod.id
@@ -49,10 +57,6 @@ module.exports = class ItemDisplay
             get: -> return @item.displayName
             set: -> throw new Error "name cannot be assigned"
 
-        slug:
-            get: -> return _.slugify @name
-            set: -> throw new Error "slug cannot be assigned"
-
         url:
-            get: -> return c.url.item modId:@_item.mod.id, itemSlug:@slug
+            get: -> return c.url.item this
             set: -> throw new Error "url cannot be assigned"

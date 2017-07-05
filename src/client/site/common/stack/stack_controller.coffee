@@ -122,7 +122,7 @@ module.exports = class StackController extends BaseController
 
         @_imageLoader.load display.iconUrl, @$image
         @$nameLink.html display.name
-        @$nameLink.attr 'href', display.itemUrl
+        @$nameLink.attr 'href', display.url
 
         quantityText = if @model.quantity > 10000 then "#{@model.quantity / 1000}k" else "#{@model.quantity}"
         @$quantityField.val quantityText

@@ -6,6 +6,7 @@ All rights reserved.
 ###
 
 BaseController = require '../../../base_controller'
+ItemDisplay    = require "../../../../models/site/item_display"
 
 ########################################################################################################################
 
@@ -143,7 +144,7 @@ module.exports = class MultiblockController extends BaseController
         move = false
 
         if stack?
-            itemDisplay = @_modPack.findItemDisplay stack.itemSlug
+            itemDisplay = new ItemDisplay stack.item
 
             if not $block?
                 $block = $("<img alt='#{itemDisplay.itemName}' class='block' />")

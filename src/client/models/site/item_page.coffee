@@ -46,6 +46,9 @@ module.exports = class ItemPage extends Observable
         return @_findItemsWithMatchingRecipes (recipe)=>
             recipe.computeQuantityRequired @item
 
+    findRecipes: ->
+        return (recipe for recipeId, recipe of @item.recipes)
+
     findSimilarItems: ->
         group = @mod.itemGroups[@item.groupName]
         return unless group?
@@ -53,7 +56,7 @@ module.exports = class ItemPage extends Observable
         return null unless group.length > 0
         return group
 
-    findToolForItem: ->
+    findToolForItems: ->
         return @_findItemsWithMatchingRecipes (recipe)=>
             return recipe.tools[@item.id]?
 

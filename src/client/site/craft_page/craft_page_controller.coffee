@@ -18,6 +18,7 @@ StepController         = require "./step/step_controller"
 module.exports = class CraftPageController extends PageController
 
     @::SCROLL_BUFFER = 8 # px
+    @::STEP_RENDER_DELAY = 25 # ms
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error "options.imageLoader is required"
@@ -231,10 +232,14 @@ module.exports = class CraftPageController extends PageController
                     model:       step
                     modPack:     @_modPack
                     router:      @_router
-                controller.render()
 
-                @$stepsContainer.append controller.$el
-                @_stepControllers.push controller
+                do (controller, index)=>
+                    _.delay (=>
+                        controller.render()
+
+                        @$stepsContainer.append controller.$el
+                        @_stepControllers.push controller
+                    ), (index * @STEP_RENDER_DELAY)
             else
                 controller.model = step
 

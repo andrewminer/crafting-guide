@@ -90,4 +90,5 @@ module.exports = class CraftPage extends Observable
 
     _onWantChanged: ->
         @triggerPropertyChange "isDirty", @_isDirty, true, ->
+            @_isDirty = true
             if @want.isEmpty then @triggerPropertyChange "currentPlan", @_currentPlan, null

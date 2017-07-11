@@ -52,7 +52,6 @@ module.exports = class CraftPageController extends PageController
 
     onRemoveFromWant: (item)->
         @model.want.remove item
-        @onWantInventoryChanged()
 
     onSampleClicked: (event)->
         $el = $(event.target)

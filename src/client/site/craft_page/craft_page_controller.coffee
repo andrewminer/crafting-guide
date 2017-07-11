@@ -166,21 +166,21 @@ module.exports = class CraftPageController extends PageController
         controller.markComplete @model.have
 
     _isAddingToolsPossible: (controller)->
-        tools = controller.model.recipe.tools
+        tools = (item for itemId, item of controller.model.recipe.tools)
         return false unless tools.length > 0
 
         have = @model.have
         want = @model.want
 
-        for stack in tools
-            return false if @model.have.contains stack.item.id
-            return false if @model.want.contains stack.item.id
+        for item in tools
+            return false if @model.have.contains item
+            return false if @model.want.contains item
 
         return true
 
     _isStepCompletable: (controller)->
-        wantsOutput = @model.want.contains controller.model.recipe.output.item.id
-        return wantsOutput
+        userWantsItem = @model.want.contains controller.model.recipe.output.item
+        return not userWantsItem
 
     _refreshOutdated: ->
         if @model.isOutdated

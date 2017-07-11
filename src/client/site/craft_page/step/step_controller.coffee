@@ -43,11 +43,12 @@ module.exports = class StepController extends BaseController
     # Event Methods ################################################################################
 
     onCompleteButtonClicked: (event)->
-        return if @$completeButton.hasClass 'disabled'
+        return false if @$completeButton.hasClass 'disabled'
         tracker.trackEvent c.tracking.category.craft, 'mark-complete', null, @model.count
         @onComplete this
 
     onShowToolPlan: (event)->
+        return false if @$toolButton.hasClass 'disabled'
         tracker.trackEvent c.tracking.category.navigate, 'show-tool-plan', @$toolButton.attr 'target'
         return true
 
@@ -97,13 +98,13 @@ module.exports = class StepController extends BaseController
     events: ->
         return _.extend super,
             'click .button.complete': 'onCompleteButtonClicked'
-            'click a.button.tool':     'onShowToolPlan'
+            'click .button.tool':     'onShowToolPlan'
 
     # Private Methods ##############################################################################
 
     _refreshToolButton: ->
         inventory = new Inventory
-        for itemId, item in @model.recipe.tools
+        for itemId, item of @model.recipe.tools
             inventory.add item
 
         inventoryText = inventory.toUrlString()

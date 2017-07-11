@@ -59,9 +59,9 @@ module.exports = class InventoryController extends BaseController
         @trigger c.event.change, this
 
     onFirstButtonClicked: (stackController)->
-        itemId = stackController.model?.item.id
-        tracker.trackEvent @_trackingContext, 'remove-from', itemId
-        @trigger c.event.button.first, this, itemId
+        item = stackController.model?.item
+        tracker.trackEvent @_trackingContext, 'remove-from', item.id
+        @trigger c.event.button.first, this, item
 
     onItemSelectorButtonClicked: ->
         return unless @model?
@@ -158,3 +158,4 @@ module.exports = class InventoryController extends BaseController
 
         while @_stackControllers.length > index
             @_stackControllers.pop().remove()
+

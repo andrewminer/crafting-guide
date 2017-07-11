@@ -43,16 +43,15 @@ module.exports = class CraftPageController extends PageController
     onHaveInventoryChanged: ->
         @_storage.store 'crafting-plan:have', @model.have.toUrlString()
 
-    onMoveNeedToHave: (itemId)->
-        quantity = @_needInventoryController.model.getQuantity itemId
-        item = @_modPack.findItem itemId
+    onMoveNeedToHave: (item)->
+        quantity = @_needInventoryController.model.getQuantity item
         @model.have.add item, quantity
 
-    onRemoveFromHave: (itemId)->
-        @model.have.remove itemId
+    onRemoveFromHave: (item)->
+        @model.have.remove item
 
-    onRemoveFromWant: (itemId)->
-        @model.want.remove itemId
+    onRemoveFromWant: (item)->
+        @model.want.remove item
         @onWantInventoryChanged()
 
     onSampleClicked: (event)->
@@ -99,7 +98,7 @@ module.exports = class CraftPageController extends PageController
             model:           @model.want
             router:          @_router
             trackingContext: c.tracking.category.craftWant
-        @_wantInventoryController.on c.event.button.first, (controller, itemId)=> @onRemoveFromWant itemId
+        @_wantInventoryController.on c.event.button.first, (controller, item)=> @onRemoveFromWant item
 
         @_haveInventoryController = @addChild InventoryController, '.have .view__inventory',
             firstButtonType: 'down'
@@ -108,7 +107,7 @@ module.exports = class CraftPageController extends PageController
             model:           @model.have
             router:          @_router
             trackingContext: c.tracking.category.craftHave
-        @_haveInventoryController.on c.event.button.first, (controller, itemId)=> @onRemoveFromHave itemId
+        @_haveInventoryController.on c.event.button.first, (controller, item)=> @onRemoveFromHave item
 
         @_needInventoryController = @addChild InventoryController, '.need .view__inventory',
             editable:        false
@@ -118,7 +117,7 @@ module.exports = class CraftPageController extends PageController
             model:           null
             router:          @_router
             trackingContext: c.tracking.category.craftNeed
-        @_needInventoryController.on c.event.button.first, (controller, itemId)=> @onMoveNeedToHave itemId
+        @_needInventoryController.on c.event.button.first, (controller, item)=> @onMoveNeedToHave item
 
         @_workingPanelController = @addChild WorkingPanelController, '.view__working_panel', model:@model
 

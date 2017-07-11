@@ -65,8 +65,6 @@ module.exports = class ItemSelector extends Observable
                 nextScore = 1
 
         return 0 if hintIndex < @_hint.length
-
-        totalScore *= @_hint.length / name.length
         return totalScore
 
     _refreshResults: ->
@@ -79,10 +77,8 @@ module.exports = class ItemSelector extends Observable
                 return unless mod.isEnabled
 
                 for itemId, item of mod.items
-                    return if scoredItems.length >= @_maxResults
-
                     score = @_computeScore item
-                    if score >= @_hint.length
+                    if score > 0
                         scoredItems.push score:score, item:item
 
         scoredItems.sort (a, b)->
@@ -99,5 +95,10 @@ module.exports = class ItemSelector extends Observable
 
             return 0
 
-        @_results = (e.item for e in scoredItems)
+        @_results = []
+        for element in scoredItems
+            @_results.push element.item
+            break if @_results.length >= @_maxResults
+
         @trigger c.event.change + ':results', this
+

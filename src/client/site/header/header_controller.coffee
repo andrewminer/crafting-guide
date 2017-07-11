@@ -55,7 +55,7 @@ module.exports = class HeaderController extends BaseController
         @_selector.launch hint
             .then (item)=>
                 if not item?
-                    tracker.trackEvent c.tracking.category.search, 'cancel', item.slug
+                    tracker.trackEvent c.tracking.category.search, 'cancel'
                     return
 
                 tracker.trackEvent c.tracking.category.search, 'complete', item.slug

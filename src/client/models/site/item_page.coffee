@@ -27,7 +27,9 @@ module.exports = class ItemPage extends Observable
             set: (item)->
                 if @_item? then throw new Error "item cannot be reassigned"
                 if not item? then throw new Error "item is required"
+                if @_item? then @_item.off Observable::ANY, this
                 @_item = item
+                @_item.on Observable::ANY, this, "_onItemChanged"
 
         itemDisplay:
             get: -> return @_itemDisplay ?= new ItemDisplay @item
@@ -60,6 +62,14 @@ module.exports = class ItemPage extends Observable
         return @_findItemsWithMatchingRecipes (recipe)=>
             return recipe.tools[@item.id]?
 
+    loadDetails: ->
+        stores.itemDetail.loadDetailFor @item
+            .catch (error)=>
+                if error.message.indexOf("404") is -1
+                    logger.error "Could not load details for item #{@item.id}: #{error.message}"
+                else
+                    logger.info "Item #{@item.id} has no details file."
+
     # Private Methods ##############################################################################
 
     _findItemsWithMatchingRecipes: (isMatching)->
@@ -79,3 +89,7 @@ module.exports = class ItemPage extends Observable
             return a.displayName.localeCompare b.displayName
 
         return result
+    
+    _onItemChanged: ->
+        @trigger Observable::CHANGE
+

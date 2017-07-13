@@ -119,8 +119,8 @@ module.exports = class ItemPageController extends PageController
 
             @_descriptionController.imageBase = c.url.itemImageDir @model.itemDisplay
 
-            if @model.item.officialUrl?
-                @$officialLink.attr 'href', @model.item.officialUrl
+            if @model.item.detail?.links.length > 0
+                @$officialLink.attr 'href', @model.item.detail.links[0]
                 @show @$aboutLinks
             else
                 @hide @$aboutLinks
@@ -217,8 +217,8 @@ module.exports = class ItemPageController extends PageController
                 throw e
 
     _refreshDescription: ->
-        if @model.item?.description?.length > 0
-            @_descriptionController.model = @model.item.description
+        if @model.item.detail?.description.length > 0
+            @_descriptionController.model = @model.item.detail.description
             @_descriptionController.resetToDefaultState()
 
     _refreshMultiblock: ->
@@ -284,7 +284,7 @@ module.exports = class ItemPageController extends PageController
         @_videoControllers ?= []
         index = 0
 
-        videos = @model?.item?.videos or []
+        videos = @model.item.detail?.videos
         if videos? and videos.length > 0
             @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
 
@@ -305,3 +305,4 @@ module.exports = class ItemPageController extends PageController
 
         while @_videoControllers.length > index
             @_videoControllers.pop().remove()
+

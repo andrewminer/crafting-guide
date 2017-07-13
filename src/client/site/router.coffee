@@ -103,6 +103,8 @@ module.exports = class Router extends Backbone.Router
         if not item? then throw new Error "could not find item #{modId}__#{itemSlug}"
 
         itemPage = new ItemPage item
+        itemPage.loadDetails()
+
         params = new UrlParams login:{type:'boolean', default:false}
         controller = new ItemPageController @_makeOptions {model:itemPage, login:params.login}
         @_siteController.setPage 'browseModItem', controller

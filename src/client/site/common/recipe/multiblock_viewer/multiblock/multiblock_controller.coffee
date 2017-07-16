@@ -5,8 +5,8 @@
 # All rights reserved.
 #
 
-BaseController = require "../../../base_controller"
-ItemDisplay    = require "../../../../models/site/item_display"
+BaseController = require "../../../../base_controller"
+ItemDisplay    = require "../../../../../models/site/item_display"
 
 ########################################################################################################################
 
@@ -28,7 +28,7 @@ module.exports = class MultiblockController extends BaseController
     constructor: (options={})->
         if not options.imageLoader? then throw new Error "options.imageLoader is required"
         if not options.modPack? then throw new Error "options.modPack is required"
-        options.templateName = "item_page/multiblock_viewer/multiblock"
+        options.templateName = "common/recipe/multiblock_viewer/multiblock"
         super options
 
         @_currentLayer = 0

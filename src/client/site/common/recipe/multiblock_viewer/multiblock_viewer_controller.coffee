@@ -5,10 +5,10 @@
 # All rights reserved.
 #
 
-BaseController       = require "../../base_controller"
-InventoryController  = require "../../common/inventory/inventory_controller"
+BaseController       = require "../../../base_controller"
+InventoryController  = require "../../inventory/inventory_controller"
 MultiblockController = require "./multiblock/multiblock_controller"
-MultiblockDisplay    = require "../../../models/site/multiblock_display"
+RecipeDisplay        = require "../../../../models/site/recipe_display"
 
 ########################################################################################################################
 
@@ -18,7 +18,7 @@ module.exports = class MultiblockViewerController extends BaseController
         if not options.imageLoader? then throw new Error "options.imageLoader is required"
         if not options.modPack? then throw new Error "options.modPack is required"
         if not options.router? then throw new Error "options.router is required"
-        options.templateName = "item_page/multiblock_viewer"
+        options.templateName = "common/recipe/multiblock_viewer"
         super options
 
         @_imageLoader = options.imageLoader
@@ -51,22 +51,14 @@ module.exports = class MultiblockViewerController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @completeInventoryController = @addChild InventoryController, ".view__inventory.complete",
-            editable:    false
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
-            router:      @_router
+        baseOptions = imageLoader:@_imageLoader, modPack:@_modPack, router:@_router
 
-        @layerInventoryController = @addChild InventoryController, ".view__inventory.layer",
-            editable:    false
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
-            router:      @_router
+        options = _.extend {editable:false}, baseOptions
+        @completeInventoryController = @addChild InventoryController, ".view__inventory.complete", options
+        @layerInventoryController = @addChild InventoryController, ".view__inventory.layer", options
 
-        @multiblockController = @addChild MultiblockController, ".view__multiblock",
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
-            onHovering:  (itemDisplay)=> @onBlockHovered(itemDisplay)
+        options = _.extend {onHovering:(itemDisplay)=> @onBlockHovered(itemDisplay)}, baseOptions
+        @multiblockController = @addChild MultiblockController, ".view__multiblock", options
 
         @$backButton  = @$(".button.back")
         @$nextButton  = @$(".button.next")
@@ -75,14 +67,14 @@ module.exports = class MultiblockViewerController extends BaseController
         super
 
     onWillChangeModel: (oldModel, newModel)->
-        @_display = new MultiblockDisplay newModel
-        super oldModel, newModel
+        if not newModel? then throw new Error "model is required"
+        if newModel.constructor isnt RecipeDisplay then throw new Error "model must be a RecipeDisplay"
+        return super oldModel, newModel
 
     refresh: ->
-        if @model? and @_display?
-            @completeInventoryController.model = @_display.getInventory()
-            @layerInventoryController.model = @_display.getInventory @multiblockController.currentLayer
-            @multiblockController.model = @model
+        @completeInventoryController.model = @model.getInventory()
+        @layerInventoryController.model = @model.getInventory @multiblockController.currentLayer
+        @multiblockController.model = @model
 
         if @multiblockController.hasBackLayer()
             @$backButton.removeClass "disabled"

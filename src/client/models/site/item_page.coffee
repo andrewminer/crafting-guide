@@ -48,11 +48,8 @@ module.exports = class ItemPage extends Observable
         return @_findItemsWithMatchingRecipes (recipe)=>
             recipe.computeQuantityRequired @item
 
-    findMultiblockRecipes: ->
-        return (recipe for recipeId, recipe of @item.recipes when recipes.depth > 1)
-
     findRecipes: ->
-        return (recipe for recipeId, recipe of @item.recipes when recipe.depth is 1)
+        return (recipe for recipeId, recipe of @item.recipes)
 
     findSimilarItems: ->
         group = @mod.itemGroups[@item.groupName]

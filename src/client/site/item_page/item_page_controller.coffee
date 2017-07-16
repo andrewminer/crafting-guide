@@ -11,9 +11,9 @@ ItemDisplay                = require "../../models/site/item_display"
 ItemGroupController        = require "../common/item_group/item_group_controller"
 ItemPage                   = require "../../models/site/item_page"
 MarkdownSectionController  = require "../common/markdown_section/markdown_section_controller"
-MultiblockViewerController = require "./multiblock_viewer/multiblock_viewer_controller"
 PageController             = require "../page_controller"
-RecipeDetailController     = require "./recipe_detail/recipe_detail_controller"
+RecipeController           = require "../common/recipe/recipe_controller"
+RecipeDisplay              = require "../../models/site/recipe_display"
 VideoController            = require "../common/video/video_controller"
 w                          = require "when"
 
@@ -79,7 +79,6 @@ module.exports = class ItemPageController extends PageController
 
     onDidRender: ->
         options                      = imageLoader:@_imageLoader, modPack:@_modPack, router:@_router, show:false
-        @_multiblockController       = @addChild MultiblockViewerController, '.view__multiblock_viewer', options
         @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options
         @_usedAsToolToMakeController = @addChild ItemGroupController, '.view__item_group.usedAsToolToMake ', options
         @_usedToMakeController       = @addChild ItemGroupController, '.view__item_group.usedToMake', options
@@ -140,7 +139,6 @@ module.exports = class ItemPageController extends PageController
 
         @_refreshSourceMod()
         @_refreshDescription()
-        @_refreshMultiblock()
         @_refreshRecipes()
         @_refreshSimilarItems()
         @_refreshUsedAsToolToMake()
@@ -221,13 +219,6 @@ module.exports = class ItemPageController extends PageController
             @_descriptionController.model = @model.item.detail.description
             @_descriptionController.resetToDefaultState()
 
-    _refreshMultiblock: ->
-        if @model.item.isMultiblock
-            @_multiblockController.model = @model.item.getMultiblockRecipe()
-            @show @$multiblockSection
-        else
-            @hide @$multiblockSection
-
     _refreshRecipes: ->
         @_recipeControllers ?= []
         index = 0
@@ -239,16 +230,16 @@ module.exports = class ItemPageController extends PageController
             for recipe in recipes
                 controller = @_recipeControllers[index]
                 if not controller?
-                    controller = new RecipeDetailController
+                    controller = new RecipeController
                         imageLoader: @_imageLoader
                         modPack:     @_modPack
-                        model:       recipe
+                        model:       new RecipeDisplay recipe:recipe
                         router:      @_router
                     @_recipeControllers.push controller
                     @$recipeContainer.append controller.$el
                     controller.render()
                 else
-                    controller.model = recipe
+                    controller.model = new RecipeDisplay recipe:recipe
                 index++
 
             @show @$recipesSection

@@ -5,8 +5,10 @@
 # All rights reserved.
 #
 
-BaseController          = require "../../base_controller"
-CraftingTableController = require "./crafting_table/crafting_table_controller"
+BaseController             = require "../../base_controller"
+CraftingTableController    = require "./crafting_table/crafting_table_controller"
+MultiblockViewerController = require "./multiblock_viewer/multiblock_viewer_controller"
+RecipeDisplay              = require "../../../models/site/recipe_display"
 
 ########################################################################################################################
 
@@ -21,73 +23,38 @@ module.exports = class RecipeController extends BaseController
 
         @_imageLoader = options.imageLoader
         @_modPack     = options.modPack
-        @_multiplier  = options.multiplier
         @_router      = options.router
-
-    # Class Members ################################################################################
-    
-    @::RECIPE_TYPE =
-        CRAFTING_TABLE:
-            css: "crafting_table"
-            Controller: CraftingTableController
-
-    @::ALL_RECIPE_TYPES = (value for key, value of @::RECIPE_TYPE)
-
-    # Properties ###################################################################################
-
-    Object.defineProperties @prototype,
-        multiplier:
-            get: ->
-                @_multiplier ?= 1
-                return @_multiplier
-
-            set: (newMultiplier)->
-                oldMultiplier = @_multiplier
-                return if newMultiplier is oldMultiplier
-
-                @_multiplier = newMultiplier
-
-                @trigger "change:multiplier", this, oldMultiplier, newMultiplier
-                @trigger "change", this
-
-        recipeType:
-            get: -> return @_recipeType
-            set: -> throw new Error "recipeType cannot be assigned"
 
     # BaseController Overrides #####################################################################
 
     onWillChangeModel: (oldModel, newModel)->
-        @_recomputeRecipeType(newModel)
+        if not newModel? then throw new Error "model is required"
+        if newModel.constructor isnt RecipeDisplay then throw new Error "model must be a RecipeDisplay"
         return super oldModel, newModel
 
     refresh: ->
+        return unless @model?
         @_refreshRecipeType()
+        super
 
     # Private Methods ##############################################################################
 
-    _recomputeRecipeType: (recipe)->
-        oldRecipeType = @_recipeType
-
-        if not recipe?
-            newRecipeType = null
-        else
-            newRecipeType = @RECIPE_TYPE.CRAFTING_TABLE
-
-        return unless newRecipeType isnt oldRecipeType
-
-        @_recipeType = newRecipeType
-        @trigger "change:recipeType", this, oldRecipeType, newRecipeType
+    _lookupControllerFor: (recipeType)->
+        if recipeType is RecipeDisplay::RECIPE_TYPE.CRAFTING_TABLE then return CraftingTableController
+        if recipeType is RecipeDisplay::RECIPE_TYPE.MULTIBLOCK then return MultiblockViewerController
 
     _refreshRecipeType: ->
-        return if @_renderedRecipeType is @recipeType
-        @_renderedRecipeType = @recipeType
+        return if @_renderedRecipeType is @model.type
+        @_renderedRecipeType = @model.type
 
         if @_typeController?
             @_typeController.remove()
             @_typeController = null
 
-        return unless @recipeType?
+        return unless @_renderedRecipeType?
 
-        @$el.append "<div class=\"view__#{@recipeType.css}\"></div>"
+        TypeController = @_lookupControllerFor @model.type
+
+        @$el.append "<div class=\"view__#{@model.type}\"></div>"
         options = imageLoader:@_imageLoader, model:@model, modPack:@_modPack, router:@_router
-        @_typeController = @addChild @recipeType.Controller, ".view__#{@recipeType.css}", options
+        @_typeController = @addChild TypeController, ".view__#{@model.type}", options

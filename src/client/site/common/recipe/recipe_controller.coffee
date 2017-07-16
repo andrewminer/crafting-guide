@@ -5,11 +5,8 @@
 # All rights reserved.
 #
 
-BaseController         = require "../../base_controller"
-CraftingGridController = require "../crafting_grid/crafting_grid_controller"
-ItemDisplay            = require "../../../models/site/item_display"
-SlotController         = require "../slot/slot_controller"
-{StringBuilder}        = require("crafting-guide-common").util
+BaseController          = require "../../base_controller"
+CraftingTableController = require "./crafting_table/crafting_table_controller"
 
 ########################################################################################################################
 
@@ -27,35 +24,16 @@ module.exports = class RecipeController extends BaseController
         @_multiplier  = options.multiplier
         @_router      = options.router
 
-    # BaseController Overrides #####################################################################
+    # Class Members ################################################################################
+    
+    @::RECIPE_TYPE =
+        CRAFTING_TABLE:
+            css: "crafting_table"
+            Controller: CraftingTableController
 
-    onDidRender: ->
-        @_gridController = @addChild CraftingGridController, ".view__crafting_grid",
-            modPack:     @_modPack
-            imageLoader: @_imageLoader
-            router:      @_router
+    @::ALL_RECIPE_TYPES = (value for key, value of @::RECIPE_TYPE)
 
-        @_outputSlotController = @addChild SlotController, ".output .view__slot",
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
-            router:      @_router
-
-        @$multiplier     = @$(".multiplier")
-        @$outputImg      = @$(".output img")
-        @$outputLink     = @$(".output a")
-        @$outputQuantity = @$(".quantity")
-        @$toolContainer  = @$(".tool")
-        super
-
-    refresh: ->
-        @_gridController.model = @model
-        @_outputSlotController.model = @model?.output
-
-        @_refreshMultiplier()
-        @_refreshTools()
-        super
-
-    # Property Methods #############################################################################
+    # Properties ###################################################################################
 
     Object.defineProperties @prototype,
         multiplier:
@@ -68,32 +46,48 @@ module.exports = class RecipeController extends BaseController
                 return if newMultiplier is oldMultiplier
 
                 @_multiplier = newMultiplier
-                @_refreshMultiplier()
 
-                @trigger Event.change + ":multiplier", this, oldMultiplier, newMultiplier
-                @trigger Event.change, this
+                @trigger "change:multiplier", this, oldMultiplier, newMultiplier
+                @trigger "change", this
 
-    # Backbone.View Methods ########################################################################
+        recipeType:
+            get: -> return @_recipeType
+            set: -> throw new Error "recipeType cannot be assigned"
 
-    events: ->
-        return _.extend super,
-            "click a": "routeLinkClick"
+    # BaseController Overrides #####################################################################
+
+    onWillChangeModel: (oldModel, newModel)->
+        @_recomputeRecipeType(newModel)
+        return super oldModel, newModel
+
+    refresh: ->
+        @_refreshRecipeType()
 
     # Private Methods ##############################################################################
 
-    _refreshMultiplier: ->
-        if @multiplier > 1
-            @$multiplier.html "x#{@multiplier}"
+    _recomputeRecipeType: (recipe)->
+        oldRecipeType = @_recipeType
+
+        if not recipe?
+            newRecipeType = null
         else
-            @$multiplier.html ""
+            newRecipeType = @RECIPE_TYPE.CRAFTING_TABLE
 
-    _refreshTools: ->
-        @$toolContainer.empty()
-        return unless @model?
+        return unless newRecipeType isnt oldRecipeType
 
-        toolLinks = []
-        for itemId, item of @model.tools
-            display = new ItemDisplay item
-            toolLinks.push "<a href=\"#{display.url}\">#{display.name}</a>"
+        @_recipeType = newRecipeType
+        @trigger "change:recipeType", this, oldRecipeType, newRecipeType
 
-        @$toolContainer.html toolLinks.join ", "
+    _refreshRecipeType: ->
+        return if @_renderedRecipeType is @recipeType
+        @_renderedRecipeType = @recipeType
+
+        if @_typeController?
+            @_typeController.remove()
+            @_typeController = null
+
+        return unless @recipeType?
+
+        @$el.append "<div class=\"view__#{@recipeType.css}\"></div>"
+        options = imageLoader:@_imageLoader, model:@model, modPack:@_modPack, router:@_router
+        @_typeController = @addChild @recipeType.Controller, ".view__#{@recipeType.css}", options

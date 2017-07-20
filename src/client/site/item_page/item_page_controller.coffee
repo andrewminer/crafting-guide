@@ -229,17 +229,21 @@ module.exports = class ItemPageController extends PageController
 
             for recipe in recipes
                 controller = @_recipeControllers[index]
+                model = new RecipeDisplay
+                    recipe:              recipe
+                    showInputInventory:  true
+                    showOutputInventory: true
                 if not controller?
                     controller = new RecipeController
                         imageLoader: @_imageLoader
                         modPack:     @_modPack
-                        model:       new RecipeDisplay recipe:recipe
+                        model:       model
                         router:      @_router
                     @_recipeControllers.push controller
                     @$recipeContainer.append controller.$el
                     controller.render()
                 else
-                    controller.model = new RecipeDisplay recipe:recipe
+                    controller.model = model
                 index++
 
             @show @$recipesSection

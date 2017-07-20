@@ -7,6 +7,7 @@
 
 BaseController         = require "../../../base_controller"
 CraftingGridController = require "../../crafting_grid/crafting_grid_controller"
+InventoryController    = require "../../inventory/inventory_controller"
 ItemDisplay            = require "../../../../models/site/item_display"
 RecipeDisplay          = require "../../../../models/site/recipe_display"
 SlotController         = require "../../slot/slot_controller"
@@ -30,15 +31,21 @@ module.exports = class CraftingTableController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        options = modPack:@_modPack, imageLoader:@_imageLoader, router:@_router
-        @_gridController = @addChild CraftingGridController, ".view__crafting_grid", options
-        @_outputSlotController = @addChild SlotController, ".output .view__slot", options
+        options = editable:false, modPack:@_modPack, imageLoader:@_imageLoader, router:@_router
 
-        @$multiplier     = @$(".multiplier")
-        @$outputImg      = @$(".output img")
-        @$outputLink     = @$(".output a")
-        @$outputQuantity = @$(".quantity")
-        @$toolContainer  = @$(".tool")
+        @_inputController      = @addChild InventoryController,    ".input_inventory .view__inventory",  options
+        @_gridController       = @addChild CraftingGridController, ".input_grid .view__crafting_grid",   options
+        @_outputSlotController = @addChild SlotController,         ".output_slot .view__slot",           options
+        @_outputController     = @addChild InventoryController,    ".output_inventory .view__inventory", options
+
+        @$inputInventorySection  = @$(".input_inventory")
+        @$multiplier             = @$(".multiplier")
+        @$outputImg              = @$(".output.slot img")
+        @$outputInventorySection = @$(".output_inventory")
+        @$outputLink             = @$(".output.slot a")
+        @$outputQuantity         = @$(".quantity")
+        @$outputSlotSection      = @$(".output_slot")
+        @$toolContainer          = @$(".tool")
         super
 
     onWillChangeModel: (oldModel, newModel)->
@@ -47,10 +54,13 @@ module.exports = class CraftingTableController extends BaseController
         return super oldModel, newModel
 
     refresh: ->
-        @_gridController.model = @model.recipe
+        @_inputController.model      = @model?.getInventory()
+        @_gridController.model       = @model?.recipe
         @_outputSlotController.model = @model?.recipe.output
+        @_outputController.model     = @model?.getOutputInventory()
 
         @_refreshMultiplier()
+        @_refreshSections()
         @_refreshTools()
         super
 
@@ -67,6 +77,11 @@ module.exports = class CraftingTableController extends BaseController
             @$multiplier.html "x#{@model.multiplier}"
         else
             @$multiplier.html ""
+
+    _refreshSections: ->
+        @$inputInventorySection.css display:(if @model.showInputInventory then "" else "none")
+        @$outputInventorySection.css display:(if @model.showOutputInventory then "" else "none")
+        @$outputSlotSection.css display:(if @model.showOutputSlot then "" else "none")
 
     _refreshTools: ->
         @$toolContainer.empty()

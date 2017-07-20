@@ -12,7 +12,6 @@ InventoryController = require "../../common/inventory/inventory_controller"
 RecipeController    = require "../../common/recipe/recipe_controller"
 RecipeDisplay       = require "../../../models/site/recipe_display"
 
-
 ########################################################################################################################
 
 module.exports = class StepController extends BaseController
@@ -75,7 +74,11 @@ module.exports = class StepController extends BaseController
     refresh: ->
         @$header.html "#{@model.number}. #{@model.recipe.output.item.displayName}"
 
-        @recipeController.model = new RecipeDisplay recipe:@model.recipe, multiplier:@model.count
+        @recipeController.model = new RecipeDisplay
+            multiplier:         @model.count
+            recipe:             @model.recipe
+            showInputInventory: true
+            showOutputSlot:     true
 
         @_refreshCompleteButton()
         @_refreshToolButton()

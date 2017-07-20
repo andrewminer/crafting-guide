@@ -16,16 +16,18 @@ module.exports = class RecipeDisplay extends Observable
 
     constructor: (options={})->
         if not options.recipe? then throw new Error "options.recipe is required"
-        options.multiplier ?= 1
         super
 
         @_layerInventories = []
 
-        @recipe     = options.recipe
-        @multiplier = options.multiplier
+        @multiplier          = options.multiplier or 1
+        @recipe              = options.recipe
+        @showInputInventory  = if options.showInputInventory  then options.showInputInventory  or false
+        @showOutputInventory = if options.showOutputInventory then options.showOutputInventory or false
+        @showOutputSlot      = if options.showOutputSlot      then options.showOutputSlot      or false
 
     # Class Methods ################################################################################
-    
+
     @::RECIPE_TYPE =
         CRAFTING_TABLE: "crafting_table"
         MULTIBLOCK:     "multiblock"
@@ -59,6 +61,21 @@ module.exports = class RecipeDisplay extends Observable
                 @_recipe = recipe
                 @_computeType()
 
+        showInputInventory:
+            get: -> return @_showInputInventory
+            set: (showInputInventory)->
+                @triggerPropertyChange "showInputInventory", @_showInputInventory, !!showInputInventory
+
+        showOutputInventory:
+            get: -> return @_showOutputInventory
+            set: (showOutputInventory)->
+                @triggerPropertyChange "showOutputInventory", @_showOutputInventory, !!showOutputInventory
+
+        showOutputSlot:
+            get: -> return @_showOutputSlot
+            set: (showOutputSlot)->
+                @triggerPropertyChange "showOutputSlot", @_showOutputSlot, !!showOutputSlot
+
         tools:
             get: -> return @recipe.tools
             set: -> throw new Error "tools cannot be assigned"
@@ -82,6 +99,14 @@ module.exports = class RecipeDisplay extends Observable
         else
             return @_layerInventories[z] ?= @_addLayerInventory z
 
+    getOutputInventory: ->
+        if not @_outputInventory?
+            @_outputInventory = new Inventory
+            for stack in @recipe.allProducts
+                @_outputInventory.add stack.item, stack.quantity
+
+        return @_outputInventory
+
     # Private Methods ##############################################################################
 
     _addLayerInventory: (z, inventory=null)->
@@ -90,7 +115,7 @@ module.exports = class RecipeDisplay extends Observable
             for y in [0..@recipe.height]
                 stack = @recipe.getInputAt x, y, z
                 continue unless stack?
-                inventory.add stack.item, stack.quantity
+                inventory.add stack.item, stack.quantity * @multiplier
         return inventory
     
     _computeType: ->

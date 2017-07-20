@@ -57,6 +57,10 @@
             flex: 0 0 auto;
         }
     }
+
+    .view__recipe + .view__recipe {
+        margin-top: $size-margin-large;
+    }
 }
 
 @include screen-size(mobile) {

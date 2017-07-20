@@ -8,8 +8,15 @@
 .view__crafting_table {
     display: flex;
 
-    .input {
-        flex: 0 0 auto;
+    .input_inventory {
+        flex: 1 1 100%;
+
+        display:      flex;
+        margin-right: $size-margin-large;
+    }
+
+    .input_grid {
+        flex: 1 1 100%;
 
         align-items    : center;
         display        : flex;
@@ -27,9 +34,9 @@
         }
     }
 
-    .output {
-        flex: 1 1 100%;
-        margin-left: $size-margin-medium;
+    .output_slot {
+        flex: 0 0 auto;
+        margin-left: $size-margin-large;
 
         display         : flex;
         flex-direction  : column;
@@ -45,5 +52,11 @@
             font-size   : $font-size-large;
             margin-top  : $size-margin-medium;
         }
+    }
+
+    .output_inventory {
+        flex: 1 1 100%;
+        display: flex;
+        margin-left: $size-margin-large;
     }
 }

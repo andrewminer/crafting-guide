@@ -146,10 +146,13 @@ module.exports = class BaseController extends Backbone.View
 
         @$el.append $renderedEl.children()
         @$el.addClass $renderedEl.attr 'class'
-        @$el.data $renderedEl.data()
-        @delegateEvents()
 
-        @$el.controller = this
+        elementData = $renderedEl.data()
+        elementData.controller = this
+        elementData.model = data
+        @$el.data elementData
+
+        @delegateEvents()
         @_rendered = true
         @onDidRender()
 

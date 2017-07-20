@@ -254,9 +254,9 @@ module.exports = class ItemPageController extends PageController
             @_recipeControllers.pop().remove()
 
     _refreshSimilarItems: ->
-        group = @model.item.group
-        if group? and group isnt Item::DEFAULT_GROUP_NAME
-            @_similarItemsController.title = "Other #{group}"
+        groupName = @model.item.groupName
+        if groupName? and groupName isnt Item::DEFAULT_GROUP_NAME
+            @_similarItemsController.title = "Other #{groupName}"
             @_similarItemsController.model = @model.findSimilarItems()
         else
             @_similarItemsController.model = null

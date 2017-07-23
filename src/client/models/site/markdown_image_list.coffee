@@ -5,26 +5,22 @@
 # All rights reserved.
 #
 
-{BaseModel}   = require('crafting-guide-common').deprecated
+{Observable}    = require("crafting-guide-common").util
 MarkdownImage = require './markdown_image'
 
 ########################################################################################################################
 
-module.exports = class MarkdownImageList extends BaseModel
+module.exports = class MarkdownImageList extends Observable
 
-    constructor: (attributes={}, options={})->
-        attributes.imageBase    ?= ''
-        attributes.markdownText ?= null
-        super attributes, options
+    constructor: (options={})->
+        super
 
-        @client = options.client
-        @_images = {}
+        @_images = []
+        @muted =>
+            @client       = options.client
+            @imageBase    = options.imageBase
+            @markdownText = options.markdownText
 
-        @on c.event.change + ':imageBase', =>
-            for fileName, image of @_images
-                image.path = @imageBase
-
-        @on c.event.change + ':markdownText', => @_analyzeMarkdownText()
         @_analyzeMarkdownText()
 
     # Public Methods ###############################################################################
@@ -46,22 +42,43 @@ module.exports = class MarkdownImageList extends BaseModel
 
     # Property Methods #############################################################################
 
-    getAll: ->
-        fileNames = (fileName for fileName, image of @_images).sort()
-        result = []
-        for fileName in fileNames
-            result.push @_images[fileName]
-
-        return result
-
-    isValid: ->
-        for fileName, image of @_images
-            return false unless image.valid
-        return true
-
     Object.defineProperties @prototype,
-        all: {get:@prototype.getAll}
-        valid: {get:@prototype.isValid}
+
+        all:
+            get: ->
+                fileNames = (fileName for fileName, image of @_images).sort()
+                result = []
+                for fileName in fileNames
+                    result.push @_images[fileName]
+
+                return result
+
+        client:
+            get: -> return @_client
+            set: (client)->
+                if not client? then throw new Error "client is required"
+                @_client = client
+
+        imageBase: ->
+            get: -> return @_imageBase
+            set: (imageBase)->
+                @triggerPropertyChange "imageBase", @_imageBase, imageBase, ->
+                    @_imageBase = imageBase
+                    for fileName, image of @_images
+                        image.path = @imageBase
+
+        markdownText:
+            get: -> return @_markdownText
+            set: (markdownText)->
+                @triggerPropertyChange "markdownText", @_markdownText, markdownText, ->
+                    @_markdownText = markdownText
+                    @_analyzeMarkdownText()
+
+        valid:
+            get: ->
+                for fileName, image of @_images
+                    return false unless image.valid
+                return true
 
     # Private Methods ##############################################################################
 
@@ -79,8 +96,8 @@ module.exports = class MarkdownImageList extends BaseModel
                 image = @_images[fileName]
                 if not image?
                     image = new MarkdownImage {fileName:fileName, path:@imageBase}, {client:@client}
-                    @listenTo image, c.event.change, => @trigger c.event.change, this
-                    @trigger c.event.add, this, image
+                    image.on Observable::CHANGE, this, "_onImageChanged"
+                    @trigger Observable::ADD, image
                     changed = true
 
                 newImages[fileName] = image
@@ -92,4 +109,7 @@ module.exports = class MarkdownImageList extends BaseModel
 
         if changed
             @_images = newImages
-            @trigger c.event.change, this
+            @trigger Observable::CHANGE
+
+    _onImageChanged: ->
+        @trigger Observable::CHANGE

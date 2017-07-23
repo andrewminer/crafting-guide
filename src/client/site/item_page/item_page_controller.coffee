@@ -5,17 +5,19 @@
 # All rights reserved.
 #
 
-EditableFile               = require "../../models/site/editable_file"
-{Item}                     = require("crafting-guide-common").models
-ItemDisplay                = require "../../models/site/item_display"
-ItemGroupController        = require "../common/item_group/item_group_controller"
-ItemPage                   = require "../../models/site/item_page"
-MarkdownSectionController  = require "../common/markdown_section/markdown_section_controller"
-PageController             = require "../page_controller"
-RecipeController           = require "../common/recipe/recipe_controller"
-RecipeDisplay              = require "../../models/site/recipe_display"
-VideoController            = require "../common/video/video_controller"
-w                          = require "when"
+EditableFile              = require "../../models/site/editable_file"
+{Item}                    = require("crafting-guide-common").models
+{ItemDetail}              = require("crafting-guide-common").models
+{ItemDetailJsonParser}    = require("crafting-guide-common").parsing
+ItemDisplay               = require "../../models/site/item_display"
+ItemGroupController       = require "../common/item_group/item_group_controller"
+ItemPage                  = require "../../models/site/item_page"
+MarkdownSectionController = require "../common/markdown_section/markdown_section_controller"
+PageController            = require "../page_controller"
+RecipeController          = require "../common/recipe/recipe_controller"
+RecipeDisplay             = require "../../models/site/recipe_display"
+VideoController           = require "../common/video/video_controller"
+w                         = require "when"
 
 ########################################################################################################################
 
@@ -52,8 +54,8 @@ module.exports = class ItemPageController extends PageController
 
     getBreadcrumbs: ->
         return [
-            $("<a href='/browse'>Browse</a>")
-            $("<a href='#{@model.itemDisplay.modUrl}'>#{@model.itemDisplay.mod.displayName}</a>")
+            $("<a href=\"/browse\">Browse</a>")
+            $("<a href=\"#{@model.itemDisplay.modUrl}\">#{@model.itemDisplay.mod.displayName}</a>")
             $("<b>#{@model.itemDisplay.name}</b>")
         ]
 
@@ -62,7 +64,7 @@ module.exports = class ItemPageController extends PageController
         return null unless item?
 
         display = new ItemDisplay item
-        return $("<a href='#{display.url}'>Random Item</a>")
+        return $("<a href=\"#{display.url}\">Random Item</a>")
 
     getMetaDescription: ->
         data = itemName:@model.item.displayName, modName:@model.item.mod.displayName
@@ -79,11 +81,11 @@ module.exports = class ItemPageController extends PageController
 
     onDidRender: ->
         options                      = imageLoader:@_imageLoader, modPack:@_modPack, router:@_router, show:false
-        @_similarItemsController     = @addChild ItemGroupController, '.view__item_group.similar', options
-        @_usedAsToolToMakeController = @addChild ItemGroupController, '.view__item_group.usedAsToolToMake ', options
-        @_usedToMakeController       = @addChild ItemGroupController, '.view__item_group.usedToMake', options
+        @_similarItemsController     = @addChild ItemGroupController, ".view__item_group.similar", options
+        @_usedAsToolToMakeController = @addChild ItemGroupController, ".view__item_group.usedAsToolToMake ", options
+        @_usedToMakeController       = @addChild ItemGroupController, ".view__item_group.usedToMake", options
 
-        @_descriptionController = @addChild MarkdownSectionController, '.view__markdown_section',
+        @_descriptionController = @addChild MarkdownSectionController, ".view__markdown_section",
             client:        @_client
             editable:      true
             modPack:       @_modPack
@@ -92,23 +94,23 @@ module.exports = class ItemPageController extends PageController
             endEditing:    => @_endEditingDescription()
             enterFeedback: @_enterFeedback
 
-        @$aboutImage         = @$('.about img')
-        @$craftingPlanButton = @$('.button.craftingPlan')
-        @$name               = @$('.about .title')
-        @$officialLink       = @$('.about a.officialLink')
-        @$sourceModLink      = @$('.about a.sourceMod')
-        @$aboutLinks         = @$('.about .right')
+        @$aboutImage         = @$(".about img")
+        @$craftingPlanButton = @$(".button.craftingPlan")
+        @$name               = @$(".about .title")
+        @$officialLink       = @$(".about a.officialLink")
+        @$sourceModLink      = @$(".about a.sourceMod")
+        @$aboutLinks         = @$(".about .right")
 
-        @$multiblockSection       = @$('section.multiblock')
-        @$recipeContainer         = @$('section.recipes .panel')
-        @$recipesSection          = @$('section.recipes')
-        @$recipesSectionTitle     = @$('section.recipes h2')
-        @$similarSection          = @$('section.similar')
-        @$usedAsToolToMakeSection = @$('section.usedAsToolToMake')
-        @$usedToMakeSection       = @$('section.usedToMake')
-        @$videosContainer         = @$('section.videos .panel')
-        @$videosSection           = @$('section.videos')
-        @$videosSectionTitle      = @$('section.videos h2')
+        @$multiblockSection       = @$("section.multiblock")
+        @$recipeContainer         = @$("section.recipes .panel")
+        @$recipesSection          = @$("section.recipes")
+        @$recipesSectionTitle     = @$("section.recipes h2")
+        @$similarSection          = @$("section.similar")
+        @$usedAsToolToMakeSection = @$("section.usedAsToolToMake")
+        @$usedToMakeSection       = @$("section.usedToMake")
+        @$videosContainer         = @$("section.videos .panel")
+        @$videosSection           = @$("section.videos")
+        @$videosSectionTitle      = @$("section.videos h2")
         super
 
     refresh: ->
@@ -119,7 +121,7 @@ module.exports = class ItemPageController extends PageController
             @_descriptionController.imageBase = c.url.itemImageDir @model.itemDisplay
 
             if @model.item.detail?.links.length > 0
-                @$officialLink.attr 'href', @model.item.detail.links[0]
+                @$officialLink.attr "href", @model.item.detail.links[0]
                 @show @$aboutLinks
             else
                 @hide @$aboutLinks
@@ -155,20 +157,20 @@ module.exports = class ItemPageController extends PageController
 
     events: ->
         return _.extend super,
-            'click a.craftingPlan':       'routeLinkClick'
-            'click a.sourceMod':          'routeLinkClick'
-            'click .markdown a':          'routeLinkClick'
-            'click .button.craftingPlan': 'craftingPlanButtonClicked'
+            "click a.craftingPlan":       "routeLinkClick"
+            "click a.sourceMod":          "routeLinkClick"
+            "click .markdown a":          "routeLinkClick"
+            "click .button.craftingPlan": "craftingPlanButtonClicked"
 
     # Private Methods ##############################################################################
 
     _beginEditingDescription: ->
         if not @user?
             global.site.login()
-            return w.reject new Error 'must be logged in to edit'
+            return w.reject new Error "must be logged in to edit"
 
         if not @model.item?
-            return w.reject new Error 'must have an item'
+            return w.reject new Error "must have an item"
 
         pathArgs = modSlug:@model.item.mod.id, itemSlug:@model.itemDisplay.itemSlug
         attributes =
@@ -179,27 +181,29 @@ module.exports = class ItemPageController extends PageController
         @_descriptionFile.fetch()
             .then =>
                 if @_descriptionFile.encodedData?.length > 0
-                    @model.item.parse @_descriptionFile.getDecodedData 'utf8'
+                    parser = new ItemDetailJsonParser item:@model.item
+                    parser.parse @_descriptionFile.getDecodedData "utf8"
                 else
-                    @model.item.description = ''
+                    @model.item.detail = new ItemDetail item:@model.item
 
-                @_descriptionController.model = @model.item.description
+                @_descriptionController.model = @model.item.detail.description
 
     _endEditingDescription: ->
-        oldDescription = @model.item.description
+        oldDescription = @model.item.detail.description
         promises = []
 
         saveList = []
         for imageFile in @_descriptionController.imageFiles
             saveList.push
                 file:    imageFile
-                message: "User-submitted image for #{@model.item.name} from #{global.hostName}"
+                message: "User-submitted image for #{@model.item.displayName} from #{global.hostName}"
 
-        @model.item.description = @_descriptionController.model
-        @_descriptionFile.setDecodedData @model.item.unparse()
+        @model.item.detail.description = @_descriptionController.model
+        parser = new ItemDetailJsonParser item:@model.item
+        @_descriptionFile.setDecodedData parser.format @model.item.detail
         saveList.push
             file:    @_descriptionFile
-            message: "User-submitted text for #{@model.item.name} from #{global.hostName}"
+            message: "User-submitted text for #{@model.item.displayName} from #{global.hostName}"
 
         saveNextFile = (fileList)->
             return w(true) if fileList.length is 0
@@ -211,7 +215,7 @@ module.exports = class ItemPageController extends PageController
 
         saveNextFile saveList
             .catch (e)=>
-                @model.item.description = oldDescription
+                @model.item.detail.description = oldDescription
                 throw e
 
     _refreshDescription: ->
@@ -225,7 +229,7 @@ module.exports = class ItemPageController extends PageController
 
         recipes = @model.findRecipes()
         if recipes?.length > 0
-            @$recipesSectionTitle.html if recipes.length is 1 then 'Recipe' else 'Recipes'
+            @$recipesSectionTitle.html if recipes.length is 1 then "Recipe" else "Recipes"
 
             for recipe in recipes
                 controller = @_recipeControllers[index]
@@ -263,16 +267,16 @@ module.exports = class ItemPageController extends PageController
 
     _refreshSourceMod: ->
         mod = @model.item.mod
-        @$sourceModLink.attr 'href', c.url.mod @model.itemDisplay
+        @$sourceModLink.attr "href", c.url.mod @model.itemDisplay
         @$sourceModLink.text mod.name
         @show @$sourceModLink
 
     _refreshUsedAsToolToMake: ->
-        @_usedAsToolToMakeController.title = 'Used as Tool to Make'
+        @_usedAsToolToMakeController.title = "Used as Tool to Make"
         @_usedAsToolToMakeController.model = @model.findToolForItems()
 
     _refreshUsedToMake: ->
-        @_usedToMakeController.title = 'Used to Make'
+        @_usedToMakeController.title = "Used to Make"
         @_usedToMakeController.model = @model.findComponentInItems()
 
     _refreshVideos: ->
@@ -281,7 +285,7 @@ module.exports = class ItemPageController extends PageController
 
         videos = @model.item.detail?.videos
         if videos? and videos.length > 0
-            @$videosSectionTitle.html if videos.length is 1 then 'Video' else 'Videos'
+            @$videosSectionTitle.html if videos.length is 1 then "Video" else "Videos"
 
             for video in videos
                 controller = @_videoControllers[index]

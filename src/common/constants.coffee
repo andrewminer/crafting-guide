@@ -81,7 +81,7 @@ duration.slow    = 1200
 exports.gitHub                       = gitHub = {}
 gitHub.file                          = {}
 gitHub.file.itemDescription          = {}
-gitHub.file.itemDescription.fileName = _.template "item.cg"
+gitHub.file.itemDescription.fileName = _.template "item.json"
 gitHub.file.itemDescription.path     = _.template "/data/<%= modSlug %>/items/<%= itemSlug %>"
 
 exports.key   = key = {}

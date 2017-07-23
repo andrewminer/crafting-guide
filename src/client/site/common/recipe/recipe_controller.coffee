@@ -30,6 +30,7 @@ module.exports = class RecipeController extends BaseController
     onWillChangeModel: (oldModel, newModel)->
         if not newModel? then throw new Error "model is required"
         if newModel.constructor isnt RecipeDisplay then throw new Error "model must be a RecipeDisplay"
+        if @_typeController? then @_typeController.model = newModel
         return super oldModel, newModel
 
     refresh: ->

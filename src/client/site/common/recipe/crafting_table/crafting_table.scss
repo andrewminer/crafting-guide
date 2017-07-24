@@ -15,42 +15,50 @@
         margin-right: $size-margin-large;
     }
 
-    .input_grid {
+    .grid_block {
         flex: 1 1 100%;
 
-        align-items    : center;
-        display        : flex;
-        flex-direction : column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        .view__crafting_grid {
+        .input_grid {
             flex: 0 0 auto;
+
+            align-items    : center;
+            display        : flex;
+            flex-direction : column;
+
+            .view__crafting_grid {
+                flex: 0 0 auto;
+            }
+
+            .tool {
+                margin-top : $size-margin-small;
+
+                font-family : $font-family-text;
+                font-size   : $font-size-medium;
+            }
         }
 
-        .tool {
-            margin-top : $size-margin-small;
+        .output_slot {
+            flex: 0 0 auto;
+            margin-left: $size-margin-large;
 
-            font-family : $font-family-text;
-            font-size   : $font-size-medium;
-        }
-    }
+            display         : flex;
+            flex-direction  : column;
+            justify-content : center;
+            align-items     : center;
 
-    .output_slot {
-        flex: 0 0 auto;
-        margin-left: $size-margin-large;
+            .view__slot {
+                border: $size-border-medium solid $color-gray-medium;
+            }
 
-        display         : flex;
-        flex-direction  : column;
-        justify-content : center;
-        align-items     : center;
-
-        .view__slot {
-            border: $size-border-medium solid $color-gray-medium;
-        }
-
-        .multiplier {
-            font-family : $font-family-header;
-            font-size   : $font-size-large;
-            margin-top  : $size-margin-medium;
+            .multiplier {
+                font-family : $font-family-header;
+                font-size   : $font-size-large;
+                margin-top  : $size-margin-medium;
+            }
         }
     }
 
@@ -58,5 +66,38 @@
         flex: 1 1 100%;
         display: flex;
         margin-left: $size-margin-large;
+    }
+}
+
+@include screen-size(mobile) {
+    .view__crafting_table {
+        border-bottom: 1px solid $color-gray-light;
+        padding-bottom: $size-margin-medium;
+
+        flex-direction: column;
+        align-items: center;
+
+        .input_inventory {
+            flex: 0 0 auto;
+            margin-bottom: $size-margin-small;
+        }
+        
+        .grid_block {
+            flex: 0 0 auto;
+
+            .tool {
+                margin-bottom: $size-margin-medium;
+            }
+        }
+
+        .output_inventory {
+            flex: 0 0 auto;
+            margin-left: 0;
+        }
+
+        .view__inventory {
+            margin-left: $size-margin-medium;
+            margin-right: $size-margin-medium;
+        }
     }
 }

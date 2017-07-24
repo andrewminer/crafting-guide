@@ -6,6 +6,7 @@
 #
 
 BaseController         = require '../base_controller'
+ItemDisplay            = require "../../models/site/item_display"
 ItemSelectorController = require '../common/item_selector/item_selector_controller'
 UrlParams              = require '../url_params'
 
@@ -52,14 +53,14 @@ module.exports = class HeaderController extends BaseController
     onSearch: (event, hint='')->
         tracker.trackEvent c.tracking.category.search, 'launch'
         @_selector.launch hint
-            .then (itemSlug)=>
-                if not itemSlug?
-                    tracker.trackEvent c.tracking.category.search, 'cancel', itemSlug
+            .then (item)=>
+                if not item?
+                    tracker.trackEvent c.tracking.category.search, 'cancel'
                     return
 
-                tracker.trackEvent c.tracking.category.search, 'complete', itemSlug
-                itemDisplay = @_modPack.findItemDisplay itemSlug
-                @router.navigate itemDisplay.itemUrl, trigger:true
+                tracker.trackEvent c.tracking.category.search, 'complete', item.slug
+                itemDisplay = new ItemDisplay item
+                @router.navigate itemDisplay.url, trigger:true
         return false
 
     # BaseController Overrides #####################################################################

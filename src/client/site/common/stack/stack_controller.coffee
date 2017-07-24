@@ -6,6 +6,7 @@
 #
 
 BaseController = require '../../base_controller'
+ItemDisplay    = require "../../../models/site/item_display"
 
 ########################################################################################################################
 
@@ -38,8 +39,6 @@ module.exports = class StackController extends BaseController
         @_shouldEnableButton = options.shouldEnableButton ?= (model, button)-> true
         @_trackingContext    = options.trackingContext    ?= null
 
-        @_modPack.on c.event.change, => @tryRefresh()
-
     # Event Methods ################################################################################
 
     onFirstButtonClicked: (event)->
@@ -71,7 +70,7 @@ module.exports = class StackController extends BaseController
             @trigger c.event.change + ':quantity', this, oldQuantity, newQuantity
             @trigger c.event.change, this
 
-            tracker.trackEvent @_trackingContext, 'update-quantity', @model.itemSlug, @model.quantity
+            tracker.trackEvent @_trackingContext, 'update-quantity', @model.item.id, @model.quantity
 
     onQuantityFieldChanged: ->
         return unless @_editable
@@ -119,11 +118,11 @@ module.exports = class StackController extends BaseController
     refresh: ->
         if not @model? then throw new Error "must have a model to render"
 
-        display = @_modPack.findItemDisplay @model.itemSlug
+        display = new ItemDisplay @model.item
 
         @_imageLoader.load display.iconUrl, @$image
-        @$nameLink.html display.itemName
-        @$nameLink.attr 'href', display.itemUrl
+        @$nameLink.html display.name
+        @$nameLink.attr 'href', display.url
 
         quantityText = if @model.quantity > 10000 then "#{@model.quantity / 1000}k" else "#{@model.quantity}"
         @$quantityField.val quantityText

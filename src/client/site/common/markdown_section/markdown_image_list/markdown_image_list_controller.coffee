@@ -5,20 +5,24 @@
 # All rights reserved.
 #
 
-BaseController          = require '../../../base_controller'
-MarkdownImageController = require './markdown_image/markdown_image_controller'
-MarkdownImageList       = require '../../../../models/site/markdown_image_list'
+_                       = require "../../../../../underscore"
+c                       = require "../../../../../common/constants"
+BaseController          = require "../../../base_controller"
+MarkdownImageController = require "./markdown_image/markdown_image_controller"
+MarkdownImageList       = require "../../../../models/site/markdown_image_list"
+{Observable}            = require("crafting-guide-common").util
 
 ########################################################################################################################
 
 module.exports = class MarkdownImageListController extends BaseController
+    _.extend this, Observable
 
     constructor: (options={})->
-        options.model ?= new MarkdownImageList {}, {client:options.client}
-        options.templateName = 'common/markdown_section/markdown_image_list'
+        options.model ?= new MarkdownImageList client:options.client
+        options.templateName = "common/markdown_section/markdown_image_list"
         super options
 
-        @imageBase = ''
+        @imageBase = ""
         @_valid = null
 
     # Public Methods ###############################################################################
@@ -33,31 +37,24 @@ module.exports = class MarkdownImageListController extends BaseController
         @model.reset()
 
     # Property Methods #############################################################################
-
-    getImageBase: ->
-        return @_imageBase
-
-    setImageBase: (newImageBase)->
-        oldImageBase = @_imageBase
-        return unless oldImageBase isnt newImageBase
-
-        @_imageBase = newImageBase
-        @trigger c.event.change + ':imageBase', this, oldImageBase, newImageBase
-        @trigger c.event.change, this
-
-    getMarkdownText: ->
-        return @model.markdownText
-
-    setMarkdownText: (markdownText)->
-        @model.markdownText = markdownText
-
-    getValid: ->
-        return @_valid
-
+    
     Object.defineProperties @prototype,
-        imageBase:    {get:@prototype.getImageBase,    set:@prototype.setImageBase}
-        markdownText: {get:@prototype.getMarkdownText, set:@prototype.setMarkdownText}
-        valid:        {get:@prototype.getValid}
+
+        imageBase:
+            get: -> return @_imageBase
+            set: (imageBase)->
+                @_imageBase = imageBase
+                @trigger c.event.change
+
+        markdownText:
+            get: -> return @model.markdownText
+            set: (markdownText)->
+                @model.markdownText = markdownText
+                @trigger c.event.change
+
+        valid:
+            get: -> return @_valid
+            set: -> throw new Error "valid cannot be assigned"
 
     # BaseController Overrides #####################################################################
 
@@ -66,7 +63,7 @@ module.exports = class MarkdownImageListController extends BaseController
         @_setValid @model.valid
 
     onDidRender: ->
-        @$imageContainer = @$('.image_container')
+        @$imageContainer = @$(".image_container")
         super
 
     refresh: ->
@@ -90,10 +87,6 @@ module.exports = class MarkdownImageListController extends BaseController
 
     # Private Methods ##############################################################################
 
-    _setValid: (newValid)->
-        oldValid = @_valid
-        return if newValid is oldValid
-
-        @_valid = newValid
-        @trigger c.event.change + ':valid', this, oldValid, newValid
+    _setValid: (valid)->
+        @_valid = valid
         @trigger c.event.change

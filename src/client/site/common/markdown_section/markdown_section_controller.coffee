@@ -5,27 +5,28 @@
 # All rights reserved.
 #
 
-BaseController              = require '../../base_controller'
-convertMarkdown             = require 'marked'
-MarkdownImageListController = require './markdown_image_list/markdown_image_list_controller'
+BaseController              = require "../../base_controller"
+convertMarkdown             = require "marked"
+ItemDisplay                 = require "../../../models/site/item_display"
+MarkdownImageListController = require "./markdown_image_list/markdown_image_list_controller"
 
 ########################################################################################################################
 
 module.exports = class MarkdownSectionController extends BaseController
 
     @::State =
-        appologizing: 'applogizing'
-        confirming:   'confirming'
-        creating:     'creating'
-        editing:      'editing'
-        previewing:   'previewing'
-        viewing:      'viewing'
-        waiting:      'waiting'
+        appologizing: "applogizing"
+        confirming:   "confirming"
+        creating:     "creating"
+        editing:      "editing"
+        previewing:   "previewing"
+        viewing:      "viewing"
+        waiting:      "waiting"
 
     constructor: (options={})->
-        if not options.modPack? then throw new Error 'options.modPack is required'
+        if not options.modPack? then throw new Error "options.modPack is required"
         options.model        ?= null
-        options.templateName  = 'common/markdown_section'
+        options.templateName  = "common/markdown_section"
         @_state = @State.waiting
         super options
 
@@ -33,9 +34,9 @@ module.exports = class MarkdownSectionController extends BaseController
         @_confirmationMessage = options.confirmationMessage
         @_confirmDuration     = options.confirmationDuration or 5000
         @_enterFeedback       = options.enterFeedback        or -> # do nothing
-        @_imageBase           = options.imageBase            or ''
+        @_imageBase           = options.imageBase            or ""
         @_modPack             = options.modPack
-        @_title               = options.title                or 'Description'
+        @_title               = options.title                or "Description"
 
         # @_beginEditing must be a function returning a promise which resolves when all actions necessary prior to an
         # editing session have been completed (e.g., loading the latest content from a remote server). The promise must
@@ -60,7 +61,7 @@ module.exports = class MarkdownSectionController extends BaseController
     # Event Methods ################################################################################
 
     onCancelClicked: (event)->
-        tracker.trackEvent c.tracking.category.markdown, 'cancel'
+        tracker.trackEvent c.tracking.category.markdown, "cancel"
         @model = @_originalModel
         @resetToDefaultState()
 
@@ -71,7 +72,7 @@ module.exports = class MarkdownSectionController extends BaseController
     onEditClicked: (event)->
         return false unless @editable
 
-        tracker.trackEvent c.tracking.category.markdown, 'edit'
+        tracker.trackEvent c.tracking.category.markdown, "edit"
         @_originalModel = @model
         @state = @State.waiting
         @_beginEditing()
@@ -85,22 +86,22 @@ module.exports = class MarkdownSectionController extends BaseController
         return false
 
     onQuestionClicked: (event)->
-        @_enterFeedback ''
+        @_enterFeedback ""
         return false
 
     onPreviewClicked: (event)->
-        tracker.trackEvent c.tracking.category.markdown, 'preview'
+        tracker.trackEvent c.tracking.category.markdown, "preview"
         @_updatePreview()
         @state = @State.previewing
         return false
 
     onReturnClicked: (event)->
-        tracker.trackEvent c.tracking.category.markdown, 'return'
+        tracker.trackEvent c.tracking.category.markdown, "return"
         @state = @State.editing
         return false
 
     onSaveClicked: (event)->
-        tracker.trackEvent c.tracking.category.markdown, 'save'
+        tracker.trackEvent c.tracking.category.markdown, "save"
         @state = @State.waiting
         @_endEditing()
             .then =>
@@ -132,7 +133,7 @@ module.exports = class MarkdownSectionController extends BaseController
         return unless newImageBase isnt oldImageBase
 
         @_imageBase = newImageBase
-        @trigger c.event.change + ':imageBase', this, oldImageBase, newImageBase
+        @trigger c.event.change + ":imageBase", this, oldImageBase, newImageBase
         @trigger c.event.change, this
 
     getImageFiles: ->
@@ -147,7 +148,7 @@ module.exports = class MarkdownSectionController extends BaseController
         @_state = newState
 
         logger.verbose => "MarkdownSectionController.#{@cid} changed state from #{oldState} to #{newState}"
-        @trigger c.event.change + ':state', this, oldState, newState
+        @trigger c.event.change + ":state", this, oldState, newState
         @tryRefresh()
 
     Object.defineProperties @prototype,
@@ -159,21 +160,21 @@ module.exports = class MarkdownSectionController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_imageListController = @addChild MarkdownImageListController, '.view__markdown_image_list',
+        @_imageListController = @addChild MarkdownImageListController, ".view__markdown_image_list",
             client: @_client
             imageBase: @_imageBase
-        @on c.event.change + ':imageBase', => @_imageListController.model.imageBase = @_imageBase
-        @listenTo @_imageListController, c.event.change + ':valid', => @tryRefresh()
+        @on c.event.change + ":imageBase", => @_imageListController.model.imageBase = @_imageBase
+        @listenTo @_imageListController, c.event.change + ":valid", => @tryRefresh()
 
-        @$errorPanel    = @$('.error')
-        @$errorText     = @$('.error p')
-        @$markdownPanel = @$('.markdown')
-        @$previewButton = @$('.button.preview')
-        @$questionPanel = @$('.question')
-        @$saveButton    = @$('.button.save')
-        @$sizer         = @$('.sizer')
-        @$textarea      = @$('textarea')
-        @$title         = @$('h2')
+        @$errorPanel    = @$(".error")
+        @$errorText     = @$(".error p")
+        @$markdownPanel = @$(".markdown")
+        @$previewButton = @$(".button.preview")
+        @$questionPanel = @$(".question")
+        @$saveButton    = @$(".button.save")
+        @$sizer         = @$(".sizer")
+        @$textarea      = @$("textarea")
+        @$title         = @$("h2")
 
         @resetToDefaultState()
 
@@ -199,14 +200,14 @@ module.exports = class MarkdownSectionController extends BaseController
 
     events: ->
         return _.extend super,
-            'click .markdown a':     'routeLinkClick'
-            'click .button.cancel':  'onCancelClicked'
-            'click .button.edit':    'onEditClicked'
-            'click .button.preview': 'onPreviewClicked'
-            'click .button.return':  'onReturnClicked'
-            'click .button.save':    'onSaveClicked'
-            'click .question a':     'onQuestionClicked'
-            'input textarea':        'onTextChanged'
+            "click .markdown a":     "routeLinkClick"
+            "click .button.cancel":  "onCancelClicked"
+            "click .button.edit":    "onEditClicked"
+            "click .button.preview": "onPreviewClicked"
+            "click .button.return":  "onReturnClicked"
+            "click .button.save":    "onSaveClicked"
+            "click .question a":     "onQuestionClicked"
+            "input textarea":        "onTextChanged"
 
     # Private Methods ##############################################################################
 
@@ -219,22 +220,22 @@ module.exports = class MarkdownSectionController extends BaseController
             result = match
             item = @_modPack.findItemByName name
             if item?
-                display = @_modPack.findItemDisplay item.slug
-                result = "[#{name}](#{display.itemUrl})"
+                display = new ItemDisplay item
+                result = "[#{name}](#{display.url})"
 
             return result
 
     _updateButtonStates: ->
         for $button in [ @$previewButton, @$saveButton ]
             if @_imageListController.valid
-                $button.prop 'disabled', false
+                $button.prop "disabled", false
             else
-                $button.prop 'disabled', true
+                $button.prop "disabled", true
 
     _updateSizer: ->
         text = @model
         if @model?
-            text = text.replace /\n/g, '<br>'
+            text = text.replace /\n/g, "<br>"
 
         @$sizer.html text
 
@@ -254,22 +255,22 @@ module.exports = class MarkdownSectionController extends BaseController
         logger.verbose => "Updating markdown section visibility for state: #{@state}"
 
         elements =
-            appologizingPanel: @$('.appologizing')
-            cancelButton:      @$('.button.cancel')
-            confirmingPanel:   @$('.confirming')
-            creatingPanel:     @$('.creating')
-            editButton:        @$('.button.edit')
-            editorPanel:       @$('.editor')
-            footerPanel:       @$('.footer')
-            imageList:         @$('.view__markdown_image_list')
+            appologizingPanel: @$(".appologizing")
+            cancelButton:      @$(".button.cancel")
+            confirmingPanel:   @$(".confirming")
+            creatingPanel:     @$(".creating")
+            editButton:        @$(".button.edit")
+            editorPanel:       @$(".editor")
+            footerPanel:       @$(".footer")
+            imageList:         @$(".view__markdown_image_list")
             markdownPanel:     @$markdownPanel
             previewButton:     @$previewButton
-            returnButton:      @$('.button.return')
+            returnButton:      @$(".button.return")
             saveButton:        @$saveButton
-            waitingPanel:      @$('.waiting')
+            waitingPanel:      @$(".waiting")
 
         visible = {}
-        errorText = ''
+        errorText = ""
 
         if @state is @State.appologizing
             visible = appologizingPanel:true

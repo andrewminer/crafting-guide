@@ -1,11 +1,12 @@
-###
-Crafting Guide - multiblock_controller.coffee
+#
+# Crafting Guide - multiblock_controller.coffee
+#
+# Copyright (c) 2014-2017 by Redwood Labs
+# All rights reserved.
+#
 
-Copyright (c) 2014-2015 by Redwood Labs
-All rights reserved.
-###
-
-BaseController = require '../../../base_controller'
+BaseController = require "../../../../base_controller"
+ItemDisplay    = require "../../../../../models/site/item_display"
 
 ########################################################################################################################
 
@@ -25,9 +26,9 @@ module.exports = class MultiblockController extends BaseController
     @::MAX_DROP_DELAY = 250 # ms
 
     constructor: (options={})->
-        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        options.templateName = 'item_page/multiblock_viewer/multiblock'
+        if not options.imageLoader? then throw new Error "options.imageLoader is required"
+        if not options.modPack? then throw new Error "options.modPack is required"
+        options.templateName = "common/recipe/multiblock_viewer/multiblock"
         super options
 
         @_currentLayer = 0
@@ -63,11 +64,11 @@ module.exports = class MultiblockController extends BaseController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$outline = @$('.outline')
+        @$outline = @$(".outline")
         super
 
     refresh: ->
-        @$el.css 'height':@_computeMinHeight(), 'width':@_computeMinWidth()
+        @$el.css "height":@_computeMinHeight(), "width":@_computeMinWidth()
 
         @_refreshBlockCache()
         @_refreshAllBlocks()
@@ -76,7 +77,7 @@ module.exports = class MultiblockController extends BaseController
     # Private Methods ##############################################################################
 
     _computePosition: (x, y, z, options={})->
-        if not @model? then return left:0, top:-@IMAGE_SIZE, 'z-index':0, opacity:0.0
+        if not @model? then return left:0, top:-@IMAGE_SIZE, "z-index":0, opacity:0.0
 
         options.hideUpperLayers ?= false
         pxWidth = @$el.width()
@@ -93,7 +94,7 @@ module.exports = class MultiblockController extends BaseController
 
         zindex = ((@model.width - x) + (@model.depth - z) + ((@model.width * @model.depth) * y)) * 2
 
-        return left:left, top:top, 'z-index':zindex, opacity:opacity
+        return left:left, top:top, "z-index":zindex, opacity:opacity
 
     _computeMinHeight: ->
         return 0 unless @model?
@@ -130,23 +131,23 @@ module.exports = class MultiblockController extends BaseController
                 for z in [0...@model.depth]
                     @_blockCache[x][y][z] ?= null
 
-        for el in @$('.block')
+        for el in @$(".block")
             $el = $(el)
-            @_blockCache[$el.data('x')][$el.data('y')][$el.data('z')] = $el
+            @_blockCache[$el.data("x")][$el.data("y")][$el.data("z")] = $el
 
     _refreshBlock: (x, y, z)->
         return unless @model?
 
-        stack = @model.getStackAt x, y, z
+        stack = @model.getInputAt x, y, z
         $block = @_blockCache[x][y][z]
         position = @_computePosition x, y, z, hideUpperLayers:true
         move = false
 
         if stack?
-            itemDisplay = @_modPack.findItemDisplay stack.itemSlug
+            itemDisplay = new ItemDisplay stack.item
 
             if not $block?
-                $block = $("<img alt='#{itemDisplay.itemName}' class='block' />")
+                $block = $("<img alt=\"#{itemDisplay.itemName}\" class=\"block\" />")
                 $block.css position, top:-@IMAGE_SIZE, opacity:0.0
                 @_registerHoverHandlers $block, y, itemDisplay
                 @_imageLoader.load itemDisplay.iconUrl, $block
@@ -154,10 +155,10 @@ module.exports = class MultiblockController extends BaseController
                 @$el.append $block
                 move = true
             else
-                $block.attr 'src', itemDisplay.iconUrl
+                $block.attr "src", itemDisplay.iconUrl
                 move = true
         else if $block?
-            $block.attr 'src', ''
+            $block.attr "src", ""
             move = true
 
         if move then _.delay (-> $block.css position), @_randomDropDelay()
@@ -174,10 +175,10 @@ module.exports = class MultiblockController extends BaseController
     _registerHoverHandlers: ($el, y, itemDisplay)->
         startHovering = =>
             return unless y is @_currentLayer
-            zIndex = parseInt($el.css('z-index')) + 1
+            zIndex = parseInt($el.css("z-index")) + 1
             zIndex = if _.isNaN(zIndex) then 0 else zIndex
 
-            @$outline.css opacity:1.0, top:$el.css('top'), left:$el.css('left'), 'z-index':zIndex
+            @$outline.css opacity:1.0, top:$el.css("top"), left:$el.css("left"), "z-index":zIndex
             @_onHovering itemDisplay
 
             if @_hoverTimer? then clearTimeout @_hoverTimer

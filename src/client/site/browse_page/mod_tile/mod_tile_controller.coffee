@@ -29,12 +29,12 @@ module.exports = class ModTileController extends BaseController
         super
 
     refresh: ->
-        @$link.attr 'href', c.url.mod modSlug:@model.slug
-        @$logoImage.attr 'src', c.url.modIcon modSlug:@model.slug
-        @$title.text @model.name
+        @$link.attr 'href', c.url.mod modId:@model.id
+        @$logoImage.attr 'src', c.url.modIcon modId:@model.id
+        @$title.text @model.displayName
         @$description.text @model.description
 
-        if @model.enabled
+        if @model.isEnabled
             @$el.removeClass 'disabled'
         else
             @$el.addClass 'disabled'

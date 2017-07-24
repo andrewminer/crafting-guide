@@ -26,7 +26,7 @@ exports.installBefore = (app)->
     ]
 
 exports.installAfter = (app)->
-    app.use '/data', express.static '../../crafting-guide-data/data/', etag:false, maxAge: 0
+    app.use '/data', express.static '/src/crafting-guide/data/data/', etag:false, maxAge: 0
     app.use express.static './static', etag: false, maxAge: 0
 
 # Middleware Functions #####################################################################################

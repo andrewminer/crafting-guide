@@ -41,3 +41,4 @@ module.exports = class CraftingGuideServer
             console.log "CraftingGuide is shutting down"
             @httpServer.close() =>
                 resolve this
+

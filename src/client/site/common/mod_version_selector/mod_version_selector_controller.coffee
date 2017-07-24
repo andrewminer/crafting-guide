@@ -5,97 +5,59 @@
 # All rights reserved.
 #
 
-BaseController = require '../../base_controller'
-{Mod}          = require('crafting-guide-common').deprecated.game
+BaseController = require "../../base_controller"
+{Mod}          = require("crafting-guide-common").models
 
 ########################################################################################################################
 
 module.exports = class ModVersionSelectorController extends BaseController
 
     constructor: (options={})->
-        if not options.model? then throw new Error 'options.model is required'
-        options.templateName = 'common/mod_version_selector'
+        if options.model?.constructor isnt Mod then throw new Error "options.model must be a Mod"
+        options.templateName = "common/mod_version_selector"
         super options
 
     # Event Methods ################################################################################
 
     onToggleEnabled: ->
-        if @model.activeVersion is Mod.Version.None
-            tracker.trackEvent c.tracking.category.modPack, 'toggle-on', @model.slug
-            @model.activeVersion = Mod.Version.Latest
+        if not @model.isEnabled
+            tracker.trackEvent c.tracking.category.modPack, "toggle-on", @model.id
+            @model.isEnabled = true
         else
-            tracker.trackEvent c.tracking.category.modPack, 'toggle-off', @model.slug
-            @model.activeVersion = Mod.Version.None
+            tracker.trackEvent c.tracking.category.modPack, "toggle-off", @model.id
+            @model.isEnabled = false
 
         return false
-
-    onVersionChanged: ->
-        @model.activeVersion = @$versionSelector.val()
-        tracker.trackEvent c.tracking.category.modPack, 'select-version', "#{@model.slug}@#{@model.activeVersion}"
-        return false
-
-    # Property Methods #############################################################################
-
-    Object.defineProperties @prototype,
-
-        effectiveModVersion:
-            get: ->
-                modVersion = @model.activeModVersion
-                modVersion ?= @model.getModVersion Mod.Version.Latest
-                modVersion.fetch() if modVersion?
-                return modVersion
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @$toggleSection   = @$('.toggle')
-        @$versionSection  = @$('.version')
-        @$versionSelector = @$('.version select')
-        @$warning         = @$('.warning')
+        @$toggleSection = @$(".toggle")
+        @$warning       = @$(".warning")
         super
 
     refresh: ->
+        console.log "refreshing"
         @_refreshEnabled()
-        @_refreshVersionSelector()
         super
 
     # Backbone.View Overrides ######################################################################
 
     events: ->
         return _.extend super,
-            'change .version select': 'onVersionChanged'
-            'click .toggle':         'onToggleEnabled'
+            "click .toggle": "onToggleEnabled"
 
     # Private Methods ##############################################################################
 
     _refreshEnabled: ->
-        if @model.slug in c.requiredMods
+        if @model.id in c.requiredMods
             @hide @$toggleSection
         else
             @show @$toggleSection
 
-        if @model.activeVersion is Mod.Version.None
-            @$toggleSection.removeClass 'enabled'
+        if not @model.isEnabled
+            @$toggleSection.removeClass "enabled"
             @show @$warning
         else
-            @$toggleSection.addClass 'enabled'
+            @$toggleSection.addClass "enabled"
             @hide @$warning
-
-    _refreshVersionSelector: ->
-        modVersions = @model.modVersions
-
-        if (@model.activeVersion is Mod.Version.None) or modVersions.length < 2
-            @hide @$versionSection
-        else
-            @show @$versionSection
-
-        selectedModVersion = @effectiveModVersion
-
-        @$versionSelector.empty()
-
-        for modVersion in @model.modVersions
-            $option = $("<option value=\"#{modVersion.version}\">#{modVersion.version}</option>")
-            if modVersion is selectedModVersion
-                $option.attr 'selected', 'true'
-            @$versionSelector.append $option
-        @$versionSelector.css display:''

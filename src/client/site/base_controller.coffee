@@ -5,7 +5,8 @@
 # All rights reserved.
 #
 
-templates = require './templates'
+{Observable} = require("crafting-guide-common").util
+templates    = require './templates'
 
 ########################################################################################################################
 
@@ -84,9 +85,6 @@ module.exports = class BaseController extends Backbone.View
     onDidModelChange: ->
         @tryRefresh()
 
-    onDidModelSync: ->
-        @tryRefresh()
-
     onWillRender: -> # do nothing
 
     onDidRender: -> # do nothing
@@ -96,11 +94,12 @@ module.exports = class BaseController extends Backbone.View
     onDidShow: -> # do nothing
 
     onWillChangeModel: (oldModel, newModel)->
-        if oldModel?.on?
-            @stopListening oldModel
-        if newModel?.on?
-            @listenTo newModel, 'sync', (e)=> @onDidModelSync e
-            @listenTo newModel, 'change', (e)=> @onDidModelChange e
+        if oldModel?.isObservable
+            oldModel.off target:this
+
+        if newModel?.isObservable
+            newModel.on Observable::ANY, this, "onDidModelChange"
+
         return newModel
 
     # Property Methods #############################################################################
@@ -113,7 +112,7 @@ module.exports = class BaseController extends Backbone.View
 
                 newModel = @onWillChangeModel @_model, newModel
                 @_model = newModel
-                @tryRefresh()
+                @onDidModelChange()
 
         rendered:
             get: -> @_rendered
@@ -147,9 +146,13 @@ module.exports = class BaseController extends Backbone.View
 
         @$el.append $renderedEl.children()
         @$el.addClass $renderedEl.attr 'class'
-        @$el.data $renderedEl.data()
-        @delegateEvents()
 
+        elementData = $renderedEl.data()
+        elementData.controller = this
+        elementData.model = data
+        @$el.data elementData
+
+        @delegateEvents()
         @_rendered = true
         @onDidRender()
 

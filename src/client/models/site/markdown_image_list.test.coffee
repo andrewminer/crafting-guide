@@ -16,7 +16,7 @@ list = null
 describe 'markdown_image_list.coffee', ->
 
     beforeEach ->
-        list = new MarkdownImageList {}, client:{fetchFile:sinon.stub().returns(w.promise(->))}
+        list = new MarkdownImageList client:{fetchFile:sinon.stub().returns(w.promise(->))}
 
     describe '_analyzeMarkdownText', ->
 

@@ -28,27 +28,16 @@ module.exports = class ModPageController extends PageController
         @_modPack     = options.modPack
         @_router      = options.router
 
-    # Property Methods #############################################################################
-
-    Object.defineProperties @prototype,
-
-        effectiveModVersion:
-            get: ->
-                modVersion = @model.activeModVersion
-                modVersion ?= @model.getModVersion Mod.Version.Latest
-                modVersion.fetch() if modVersion?
-                return modVersion
-
     # PageController Overrides #####################################################################
 
     getBreadcrumbs: ->
         return [
             $('<a href="/browse">Browse</a>')
-            $("<b>#{@model.name}</b>")
+            $("<b>#{@model.displayName}</b>")
         ]
 
     getTitle: ->
-        return @model.name
+        return @model.displayName
 
     # BaseController Overrides #####################################################################
 
@@ -92,8 +81,8 @@ module.exports = class ModPageController extends PageController
             @$documentationLink.attr 'href', @model.documentationUrl
             @$downloadLink.attr 'href', @model.downloadUrl
             @$homePageLink.attr 'href', @model.homePageUrl
-            @$logo.attr 'src', c.url.modIcon modSlug:@model.slug
-            @$title.text @model.name
+            @$logo.attr 'src', c.url.modIcon modId:@model.id
+            @$title.text @model.displayName
         else
             @$author.text ''
             @$description.text ''
@@ -106,29 +95,24 @@ module.exports = class ModPageController extends PageController
     _refreshItemGroups: ->
         @_groupControllers ?= []
         groupIndex = 0
-        modVersion = @effectiveModVersion
 
-        if modVersion?
-            modVersion.eachGroup (group)=>
-                controller = @_groupControllers[groupIndex]
-                items = modVersion.allItemsInGroup group
-                if not controller?
-                    controller = new ItemGroupController
-                        imageLoader: @_imageLoader
-                        model:       items
-                        modPack:     @_modPack
-                        router:      @_router
-                        title:       if group is Item.Group.Other then 'Items' else group
+        for groupName, items of @model.itemGroups
+            controller = @_groupControllers[groupIndex]
+            if not controller?
+                controller = new ItemGroupController
+                    imageLoader: @_imageLoader
+                    model:       items
+                    modPack:     @_modPack
+                    router:      @_router
+                    title:       groupName
 
-                    _.defer =>
-                        @_groupControllers.push controller
-                        @$itemGroups.append controller.$el
-                        controller.render()
-                else
-                    controller.modVersion = modVersion
-                    controller.model      = items
-                    controller.refresh()
-                groupIndex++
+                @_groupControllers.push controller
+                @$itemGroups.append controller.$el
+                controller.render()
+            else
+                controller.model = items
+                controller.refresh()
+            groupIndex++
 
         while @_groupControllers.length > groupIndex + 1
             @_groupControllers.pop().remove()

@@ -25,24 +25,7 @@
         margin-bottom: 1em;
     }
 
-    .main_content {
-        display: flex;
-
-        .view__inventory {
-            flex: 50%;
-            margin-left: $size-margin-large;
-
-            .buttons {
-                display: none;
-            }
-        }
-
-        .view__recipe {
-            flex: 50%;
-        }
-    }
-
-    .buttons {
+    & > .buttons {
         margin-top: $size-margin-large;
 
         opacity: 0;

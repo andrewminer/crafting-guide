@@ -5,93 +5,57 @@
 # All rights reserved.
 #
 
-BaseController         = require '../../base_controller'
-CraftingGridController = require '../crafting_grid/crafting_grid_controller'
-SlotController         = require '../slot/slot_controller'
-{StringBuilder}        = require('crafting-guide-common').util
+BaseController             = require "../../base_controller"
+CraftingTableController    = require "./crafting_table/crafting_table_controller"
+MultiblockViewerController = require "./multiblock_viewer/multiblock_viewer_controller"
+RecipeDisplay              = require "../../../models/site/recipe_display"
 
 ########################################################################################################################
 
 module.exports = class RecipeController extends BaseController
 
     constructor: (options={})->
-        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        if not options.router? then throw new Error 'options.router is required'
-        options.templateName = 'common/recipe'
+        if not options.imageLoader? then throw new Error "options.imageLoader is required"
+        if not options.modPack? then throw new Error "options.modPack is required"
+        if not options.router? then throw new Error "options.router is required"
+        options.templateName = "common/recipe"
         super options
 
         @_imageLoader = options.imageLoader
         @_modPack     = options.modPack
-        @_multiplier  = options.multiplier
         @_router      = options.router
 
     # BaseController Overrides #####################################################################
 
-    onDidRender: ->
-        @_gridController = @addChild CraftingGridController, '.view__crafting_grid',
-            modPack:     @_modPack
-            imageLoader: @_imageLoader
-            router:      @_router
-
-        @_outputSlotController = @addChild SlotController, '.output .view__slot',
-            imageLoader: @_imageLoader
-            modPack:     @_modPack
-            router:      @_router
-
-        @$multiplier     = @$('.multiplier')
-        @$outputImg      = @$('.output img')
-        @$outputLink     = @$('.output a')
-        @$outputQuantity = @$('.quantity')
-        @$toolContainer  = @$('.tool')
-        super
+    onWillChangeModel: (oldModel, newModel)->
+        if not newModel? then throw new Error "model is required"
+        if newModel.constructor isnt RecipeDisplay then throw new Error "model must be a RecipeDisplay"
+        if @_typeController? then @_typeController.model = newModel
+        return super oldModel, newModel
 
     refresh: ->
-        @_gridController.model = @model
-        @_outputSlotController.model = @model?.output?[0]
-
-        @_refreshMultiplier()
-        @_refreshTools()
+        return unless @model?
+        @_refreshRecipeType()
         super
-
-    # Property Methods #############################################################################
-
-    Object.defineProperties @prototype,
-        multiplier:
-            get: ->
-                @_multiplier ?= 1
-                return @_multiplier
-
-            set: (newMultiplier)->
-                oldMultiplier = @_multiplier
-                return if newMultiplier is oldMultiplier
-
-                @_multiplier = newMultiplier
-                @_refreshMultiplier()
-
-                @trigger Event.change + ':multiplier', this, oldMultiplier, newMultiplier
-                @trigger Event.change, this
-
-    # Backbone.View Methods ########################################################################
-
-    events: ->
-        return _.extend super,
-            'click a': 'routeLinkClick'
 
     # Private Methods ##############################################################################
 
-    _refreshMultiplier: ->
-        if @multiplier > 1
-            @$multiplier.html "x#{@multiplier}"
-        else
-            @$multiplier.html ''
+    _lookupControllerFor: (recipeType)->
+        if recipeType is RecipeDisplay::RECIPE_TYPE.CRAFTING_TABLE then return CraftingTableController
+        if recipeType is RecipeDisplay::RECIPE_TYPE.MULTIBLOCK then return MultiblockViewerController
 
-    _refreshTools: ->
-        @$toolContainer.empty()
-        return unless @model?
+    _refreshRecipeType: ->
+        return if @_renderedRecipeType is @model.type
+        @_renderedRecipeType = @model.type
 
-        builder = new StringBuilder
-        builder.loop @model.tools, delimiter:', ', onEach:(b, stack)=>
-            display = @_modPack.findItemDisplay stack.itemSlug
-            b.push "<a href=\"#{display.itemUrl}\">#{display.itemName}</a>"
-        @$toolContainer.html builder.toString()
+        if @_typeController?
+            @_typeController.remove()
+            @_typeController = null
+
+        return unless @_renderedRecipeType?
+
+        TypeController = @_lookupControllerFor @model.type
+
+        @$el.append "<div class=\"view__#{@model.type}\"></div>"
+        options = imageLoader:@_imageLoader, model:@model, modPack:@_modPack, router:@_router
+        @_typeController = @addChild TypeController, ".view__#{@model.type}", options

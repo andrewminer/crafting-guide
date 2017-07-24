@@ -47,8 +47,6 @@ module.exports = class InventoryController extends BaseController
 
         @_stackControllers = []
 
-        @listenTo @_modPack, c.event.change, => @tryRefresh()
-
     # Event Methods ################################################################################
 
     onClearButtonClicked: ->
@@ -61,31 +59,33 @@ module.exports = class InventoryController extends BaseController
         @trigger c.event.change, this
 
     onFirstButtonClicked: (stackController)->
-        tracker.trackEvent @_trackingContext, 'remove-from', "#{stackController?.model?.itemSlug}"
-        @trigger c.event.button.first, this, stackController?.model?.itemSlug
+        item = stackController.model?.item
+        tracker.trackEvent @_trackingContext, 'remove-from', item.id
+        @trigger c.event.button.first, this, item
 
     onItemSelectorButtonClicked: ->
         return unless @model?
 
         tracker.trackEvent @_trackingContext, 'launch-add-to'
         @_selector.launch()
-            .then (itemSlug)=>
-                if not itemSlug?
+            .then (item)=>
+                if not item?
                     tracker.trackEvent @_trackingContext, 'cancel-add-to'
                     return
 
-                tracker.trackEvent @_trackingContext, 'complete-add-to', "#{itemSlug}"
-                @model.add itemSlug, 1
-                @trigger c.event.add, this, itemSlug
+                tracker.trackEvent @_trackingContext, 'complete-add-to', "#{item.id}"
+                @model.add item, 1
+                @trigger c.event.add, this, item.id
                 @trigger c.event.change, this
 
     onSecondButtonClicked: (stackController)->
+        itemId = stackController.model?.item.id
         @trigger c.event.button.second, this, stackController?.model?.itemSlug
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_selector = @addChild ItemSelectorController, null, isAcceptable: @_isAcceptable, modPack: @_modPack
+        @_selector = @addChild ItemSelectorController, null, isAcceptable:@_isAcceptable, modPack:@_modPack
 
         @$clearButton      = @$('.button.clear')
         @$emptyPlaceholder = @$('.empty_placeholder')
@@ -131,7 +131,7 @@ module.exports = class InventoryController extends BaseController
         index = 0
 
         if @model?
-            @model.each (stack)=>
+            for itemId, stack of @model.stacks
                 controller = @_stackControllers[index]
                 if not controller?
                     controller = new StackController
@@ -153,7 +153,9 @@ module.exports = class InventoryController extends BaseController
                     @$itemContainer.append controller.$el
                 else
                     controller.model = stack
+
                 index += 1
 
         while @_stackControllers.length > index
             @_stackControllers.pop().remove()
+

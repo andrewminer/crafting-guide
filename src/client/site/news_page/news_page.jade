@@ -13,6 +13,24 @@
         include ../common/twitter/twitter.jade
 
         section
+            h3 2017-07-24
+            .panel
+                p.
+                    Since my last update, I've been hard at work on rebuilding the guts of the core feature of the
+                    website: the crafting algorithm.  I'm happy to announce that as of yesterday evening, it's finally
+                    complete!  The new algorithm is <i>blazing</i> fast!  Like... crafting plans which used to take so
+                    long that they never completed will finish in well under a second.  Super fast.
+                p.
+                    An added benefit is that the algorithm change also required a change to the way mod data is stored.
+                    Without getting into too much detail, the old way went back to the very earliest version of the site
+                    which assumed people would be adding files for their own recipe lists, and therefore had to look up
+                    each item and each recipe each time it was needed because it could never be sure what something like
+                    "Copper Ingot" referred to until running the algorithm. Very, very slow.
+                p.  Of course, it's been ages since that was actually a feature on the site. So, the new way sends all
+                    the data for an entire modpack up all at once, and in a format where everything is directly
+                    connected to everything else. Much, much faster!
+
+        section
             h3 2017-03-31
             .panel
                 p.

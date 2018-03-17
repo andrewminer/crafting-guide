@@ -1,0 +1,62 @@
+//
+// Crafting Guide - news_page.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__twitter {
+    display: flex;
+
+    & > .left {
+        flex: 1 1 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            height: $size-minecraft-block * 4;
+            width: $size-minecraft-block * 4;
+        }
+    }
+
+    & > .right {
+        flex: 1 1 50%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .instructions {
+            flex: 1 1 50%;
+            margin-bottom: $size-margin-medium;
+            margin-top: $size-margin-medium;
+
+            font-family: $font-family-header;
+            font-size: $font-size-xlarge;
+            text-align: center;
+        }
+
+        iframe {
+            flex: 1 1 50%;
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__twitter {
+        & > .left {
+            img {
+                height: $size-minecraft-block * 3;
+                width: $size-minecraft-block * 3;
+            }
+        }
+
+        & > .right {
+            .instructions {
+                font-size: $font-size-xlarge;
+            }
+        }
+    }
+}

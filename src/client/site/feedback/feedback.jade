@@ -1,0 +1,19 @@
+//-
+//- Crafting Guide - feedback.jade
+//-
+//- Copyright © 2014-2017 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__feedback
+    .form-content
+        input(name="name", placeholder="name")
+        input(name="email", placeholder="email")
+
+        label(name="comment") Comment:
+        textarea(name="comment")
+        .error: p Sending failed. Please try again later.
+        .button.send: .bezel: p send
+
+    .tab
+        p Feedback

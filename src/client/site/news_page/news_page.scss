@@ -1,0 +1,40 @@
+//
+// Crafting Guide - news_page.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__news_page {
+    @include layout-body-with-sidebar;
+
+    & > .right {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        .view__twitter {
+            align-self: center;
+        }
+
+        section {
+            &:not(:first-child) {
+                margin-top : $size-margin-large;
+            }
+
+            h3 {
+                margin-bottom : $size-margin-small;
+            }
+
+            p {
+                font-family : $font-family-text;
+                font-size   : $font-size-medium;
+                line-height : $font-size-medium * 1.5;
+
+                &:not(:last-child) {
+                    margin-bottom : $size-margin-medium;
+                }
+            }
+        }
+    }
+}

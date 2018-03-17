@@ -1,9 +1,12 @@
 *.log
+*.swp
 .DS_Store
+.env
 .sass-cache
+.tm_properties
 aws.config
 build
 deploy
 dist
 node_modules
-src/coffee/views.js
+templates.js

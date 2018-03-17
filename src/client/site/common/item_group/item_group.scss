@@ -1,0 +1,39 @@
+//
+// Crafting Guide - item_group.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__item_group {
+    .panel {
+        display         : flex;
+        flex-wrap       : wrap;
+        justify-content : space-between;
+
+        .view__item_tile {
+            margin-bottom: $size-margin-medium;
+            width: calc(33% - 8px); // $size-margin-xsmall * 2
+        }
+    }
+}
+
+@include screen-size(tablet) {
+    .view__item_group {
+        .panel {
+            .view__item_tile {
+                width: calc(50% - 8px); // $size-margin-xsmall * 2
+            }
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__item_group {
+        .panel {
+            .view__item_tile {
+                width: 100%;
+            }
+        }
+    }
+}

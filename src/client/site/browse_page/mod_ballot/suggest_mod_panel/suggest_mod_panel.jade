@@ -1,0 +1,25 @@
+//-
+//- Crafting Guide - suggest_mod_panel.jade
+//-
+//- Copyright © 2014-2017 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__suggest_mod_panel
+    .initial
+        .instructions Still don't see the mod you want?<br>Tell us about it!
+
+        .entry-form
+            input.name(placeholder="enter the mod name")
+            input.url(placeholder="enter the website")
+            .buttons
+                .button: .bezel: p send
+
+    .sending
+        .instructions Sending...
+
+    .error
+        .instructions Something went wrong!  Please try again.
+
+    .success
+        .instructions Thanks!  We'll add that one to the list.

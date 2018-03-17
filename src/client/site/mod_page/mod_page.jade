@@ -1,0 +1,35 @@
+//-
+//- Crafting Guide - item_page.jade
+//-
+//- Copyright © 2014-2017 by Redwood Labs
+//- All rights reserved.
+//-
+
+.content.view__mod_page
+    .left
+        include ../common/youtube/youtube.jade
+
+    .right
+        .about
+            .left
+                img
+            .center
+                .title
+                .author
+                .description
+                .view__mod_version_selector
+            .right
+                p Official Links:
+                a.homePage(target="home-page") project page
+                a.documentation(target="documentation") documentation
+                a.download(target="download") download
+
+        section.videos
+            h2 Videos
+            .panel
+
+        section.tutorials
+            h2 Tutorials
+            .panel
+
+        .itemGroups

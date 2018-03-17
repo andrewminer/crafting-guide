@@ -1,0 +1,24 @@
+//
+// Crafting Guide - video.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    iframe {
+        max-width: 100%;
+    }
+
+    .caption {
+        margin-top: $size-margin-small;
+
+        font-family: $font-family-control;
+        font-size: $font-size-medium;
+    }
+}

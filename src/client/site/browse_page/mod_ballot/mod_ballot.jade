@@ -1,0 +1,30 @@
+//-
+//- Crafting Guide - mod_ballot.jade
+//-
+//- Copyright © 2014-2017 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__mod_ballot
+    .status.initial
+        h2 Are we missing a mod you like?<br>Vote for your favorites!
+        .button.vote-now: .bezel: p Vote Now!
+
+    .status.loading
+        img(src="/images/wait.gif")
+        .status-message
+
+    .status.loaded
+        h2 Are we missing a mod you like?<br>Vote for your favorites!
+        .instructions.
+            You can cast up to 3 votes.  Change them any time.  You get a vote back when a mod is added.
+        .instructions.remaining.
+            You have <span class="remaining-count">0</span> votes remaining.
+
+        .ballot-list
+
+        .view__suggest_mod_panel
+
+    .status.error
+        .status-message
+        .button.reload: .bezel: p Try Again

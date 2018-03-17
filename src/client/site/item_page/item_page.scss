@@ -1,0 +1,111 @@
+//
+// Crafting Guide - item_page.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__item_page {
+    @include layout-body-with-sidebar;
+
+    .about {
+        margin-bottom: $size-margin-large;
+        display: flex;
+
+        & > .left {
+            margin-right: $size-margin-large;
+
+            flex: 0 0 auto;
+
+            img {
+                height: $size-minecraft-block * 5;
+                width: $size-minecraft-block * 5;
+            }
+        }
+
+        & > .center {
+            flex: 1 1 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                font-family: $font-family-header;
+                font-size: $font-size-xxlarge;
+            }
+
+            a.sourceMod {
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+            }
+
+            .button-row {
+                flex: 1 1 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+
+                .button {
+                    flex: 1 1 100%;
+                    max-width: $size-minecraft-block * 10;
+                }
+            }
+        }
+
+        & > .right {
+            flex: 0 0 auto;
+        }
+    }
+
+    .view__recipe + .view__recipe {
+        margin-top: $size-margin-large;
+    }
+}
+
+@include screen-size(mobile) {
+    .view__item_page {
+        .about {
+            flex-direction: column;
+
+            & > .left {
+                margin: 0 $size-margin-medium;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                img {
+                }
+            }
+
+            & > .center {
+                flex: 0 0 auto;
+                margin: 0 $size-margin-medium;
+
+                .sourceMod, .title {
+                    text-align: center;
+                }
+
+                a.sourceMod {
+                }
+
+                .button-row {
+                    flex: 0 0 auto;
+                    margin: $size-margin-large 0;
+
+                    .button {
+                        max-width: $size-minecraft-block * 8;
+                        .full {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            & > .right {
+                margin: 0 $size-margin-medium;
+            }
+        }
+    }
+}

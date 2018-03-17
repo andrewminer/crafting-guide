@@ -1,0 +1,47 @@
+#!/bin/bash
+
+function die {
+    echo $*
+    exit 1
+}
+
+if [[ -e "./aws.config" ]]; then
+    export AWS_CONFIG_FILE="./aws.config"
+else
+    export AWS_CONFIG_FILE="$HOME/.aws/config"
+fi
+
+ENVIRONMENT=""
+while [[ "$1" != "" ]]; do
+    case "$1" in
+        "--staging") ENVIRONMENT="staging";;
+        "--prod") ENVIRONMENT="prod";;
+        *) die "Please specify environment: --staging or --prod";;
+    esac
+    shift
+done
+
+SOURCE_DIR="./dist/"
+SITE="staging.crafting-guide.com"
+[[ "$ENVIRONMENT" == "prod" ]] && SITE="crafting-guide.com"
+TARGET_DIR="s3://$SITE/"
+
+S3CMD_CFG="$HOME/.s3cfg"
+echo "[default]" > "$S3CMD_CFG"
+cat $AWS_CONFIG_FILE | grep "aws_access_key_id" | sed "s/aws_access_key_id/access_key/" >> "$S3CMD_CFG"
+cat $AWS_CONFIG_FILE | grep "aws_secret_access_key" | sed "s/aws_secret_access_key/secret_key/" >> "$S3CMD_CFG"
+
+HEADERS="--add-header=cache-control:max-age=1800"
+GZIP="--add-header=content-encoding:gzip"
+CMD="sync $SOURCE_DIR $TARGET_DIR -r -P $HEADERS --stop-on-error --exclude=*"
+
+echo "Preparing to upload to S3..."
+s3cmd $CMD       -m 'image/gif'                     --include="*.gif"  || exit 1
+s3cmd $CMD       -m 'image/png'                     --include="*.png"  || exit 1
+s3cmd $CMD $GZIP -m 'application/json'              --include="*.json" || exit 1
+s3cmd $CMD $GZIP -m 'application/octet-stream'      --include="*.ttf"  || exit 1
+s3cmd $CMD $GZIP -m 'text/css; charset=utf8'        --include="*.css"  || exit 1
+s3cmd $CMD $GZIP -m 'text/html; charset=utf8'       --include="*.html" || exit 1
+s3cmd $CMD $GZIP -m 'text/javascript; charset=utf8' --include="*.js"   || exit 1
+s3cmd $CMD $GZIP -m 'text/plain'                    --include="*.txt"  || exit 1
+echo "S3 Upload Complete"

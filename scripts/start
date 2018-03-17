@@ -1,0 +1,9 @@
+#!/bin/bash
+
+grunt watch &
+
+pushd './build/' &>/dev/null
+clear
+nodemon ./server.coffee $*
+echo ''
+popd &>/dev/null

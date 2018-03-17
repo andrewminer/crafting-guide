@@ -1,0 +1,169 @@
+//
+// Crafting Guide - mod_page.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__mod_page {
+    @include layout-body-with-sidebar;
+
+    .about {
+        margin-bottom: $size-margin-xlarge;
+
+        display: flex;
+
+        .left {
+            flex: 0 0 auto;
+            margin-right: $size-margin-large;
+
+            img {
+                height: $size-minecraft-block * 5;
+                width: $size-minecraft-block * 5;
+            }
+        }
+
+        .center {
+            flex: 1 1 100%;
+            margin-right: $size-margin-large;
+
+            .title {
+                font-family: $font-family-header;
+                font-size: $font-size-xxlarge;
+            }
+
+            .author {
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+
+                &:before {
+                    content: "by: "
+                }
+            }
+
+            .description {
+                margin-top: $size-margin-large;
+
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+                line-height: $font-size-medium * 1.25;
+            }
+
+            .modpack {
+                margin-top : $size-margin-large;
+
+                cursor      : pointer;
+                font-family : $font-family-control;
+                font-size   : $font-size-medium;
+
+                display : flex;
+
+                .checkbox {
+                    display      : inline-block;
+                    height       : $font-size-medium;
+                    margin-right : $size-margin-small;
+                    position     : relative;
+                    width        : $font-size-medium;
+
+                    background : $color-white;
+                    border     : $size-border-small solid $color-black;
+                }
+
+                .label {
+                    color: $color-gray-medium;
+                }
+
+                &.enabled {
+                    .checkbox:before {
+                        position: absolute; top: 0; left: 1.5px; // adjust for glyph position
+                        content: "✕";
+                    }
+
+                    .label {
+                        color: $color-black;
+                    }
+                }
+            }
+
+            .version {
+                margin-top: $size-margin-medium;
+
+                font-family: $font-family-control;
+                font-size: $font-size-medium;
+
+                display: flex;
+                align-items: baseline;
+
+                span {
+                    flex: 0 0 auto;
+
+                    margin-right: $size-margin-medium;
+                }
+
+                select {
+                    flex: 1 1 100%;
+
+                    font-family: $font-family-control;
+                    font-size: $font-size-medium;
+                }
+            }
+
+            .warning {
+                margin-top: $size-margin-medium;
+
+                color: $color-error;
+                font-family: $font-family-text;
+                font-size: $font-size-small;
+                line-height: $font-size-small * 1.25;
+
+                b {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .right {
+            flex: 0 0 auto;
+            @include layout-link-list;
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__mod_page {
+        .about {
+            flex-direction: column;
+
+            & > * {
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+            }
+
+            .left {
+                margin-bottom: $size-margin-large;
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+
+                display        : flex;
+                flex-direction : column;
+                align-items    : center;
+            }
+
+            .center {
+                flex: 0 0 auto;
+                margin-bottom: $size-margin-xlarge;
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+
+                .author, .title {
+                    text-align: center;
+                }
+            }
+
+            .right {
+                margin-left: $size-margin-medium;
+                margin-right: $size-margin-medium;
+            }
+        }
+    }
+}

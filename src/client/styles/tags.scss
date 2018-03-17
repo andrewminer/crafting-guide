@@ -1,0 +1,54 @@
+//
+// Crafting Guide - tags.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+a {
+    color: $color-link-normal;
+    text-decoration: none;
+
+    &:active {
+        color: $color-link-active;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:visited {
+        color: $color-link-visited;
+    }
+}
+
+button {
+    outline: none;
+}
+
+h1 {
+    font-family: $font-family-header;
+    font-size: $font-size-xxlarge;
+}
+
+h2 {
+    font-family: $font-family-header;
+    font-size: $font-size-xlarge;
+}
+
+h3 {
+    font-family: $font-family-header;
+    font-size: $font-size-large;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+
+    .panel {
+        min-height: $size-margin-xlarge * 2;
+
+        @include floating-panel;
+        padding: $size-margin-medium;
+    }
+}

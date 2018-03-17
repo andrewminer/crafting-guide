@@ -1,0 +1,37 @@
+//-
+//- Crafting Guide - index.jade
+//-
+//- Copyright © 2014-2016 by Redwood Labs
+//- All rights reserved.
+//-
+
+doctype html
+html
+    head
+        title The Ultimate Minecraft Crafting Guide
+        link(href="/images/favicon.png" rel="icon" type="image/png")
+        link(href="/main.css" rel="stylesheet" type="text/css" )
+        meta(charset="UTF-8")
+        meta(name="viewport" content="user-scalable=no, width=device-width")
+
+    body
+        .view__feedback
+        .view__screen(style="display: none")
+
+        .page
+            .view__header
+
+            .content.hidden
+            .content-loading
+                img(src="/images/wait.gif")
+
+            .view__footer
+
+        script(src="/external.js")
+        script(src="/internal.js")
+
+        include ../includes/_google_adsense.jade
+        include ../includes/_google_analytics.jade
+        include ../includes/_google_sitelinks.jade
+        include ../includes/_twitter_follow.jade
+

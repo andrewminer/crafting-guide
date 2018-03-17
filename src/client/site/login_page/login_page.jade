@@ -1,0 +1,80 @@
+//-
+//- Crafting Guide - login_page.jade
+//-
+//- Copyright © 2014-2016 by Redwood Labs
+//- All rights reserved.
+//-
+
+.content.view__login_page
+    .ready-to-login
+        .left
+            h1 Login with GitHub
+            p.
+                Use your GitHub credentials to login and make changes on Crafting Guide. No GitHub account? Don't
+                worry, you can get one for free. <a class="read-more" href="#">read more...</a>
+
+            .expandable-container.read-more
+                .content
+                    p.
+                        All changes you make on the site get submitted directly to our GitHub repo, and then published
+                        through the same automated deployment process as changes made by anyone else. That way, anyone
+                        can contribute easily: whether developer or end user.
+                    p.
+                        To log in, we redirect you to GitHub's site, and once you're signed in, they'll send you back
+                        here. We never see your credentials, and only get the minimum set of permissions necessary to
+                        submit changes to the Crafting Guide repo on your behalf.
+                    p.
+                        GitHub offers free accounts, so even if you don't already have one, you've got nothing to lose!
+
+            .actions
+                .button.login: .bezel: p Login with GitHub
+
+        .right
+            img(src="/images/github-login-large.png")
+
+    .fetching-token
+        .left
+            h1 Completing log in...
+            p Hang on just a second while we finish logging you in...
+            .actions
+                img(src="/images/wait.gif")
+        .right
+            img(src="/images/github-login-large.png")
+
+    .invalid-callback
+        .left
+            h1 Oops!
+            p.
+                Sorry about that, but it looks like something went wrong with your GitHub login. Click the button below
+                to try again, or use the Feedback button on the left to let us know, and we'll try to help.
+
+            .actions
+                .button.login: .bezel: p Login with GitHub
+        .right
+            img(src="/images/github-login-large.png")
+
+    .logged-in
+        .left
+            h1 All set!
+            p.
+                You are logged in to CraftingGuide using the following GitHub account:
+            .user
+                .left
+                    img
+                .right
+                    .name
+                    .email
+            p.withRedirect.
+                You will be redirected shortly.
+            .actions
+                .button.logout: .bezel: p Logout
+        .right
+            img.float-right(src="/images/github-login-large.png")
+
+    .server-down
+        .left
+            h1 Sorry!
+            p.
+                Our interactive editing service is down right now, but you can always submit a pull request over at the
+                <a href="https://github.com/andrewminer/crafting-guide">Crafting Guide GitHub Repository</a>. We'll
+                have the editing service back up soon!

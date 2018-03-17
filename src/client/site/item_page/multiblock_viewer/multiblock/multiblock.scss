@@ -1,0 +1,24 @@
+//
+// Crafting Guide - multiblock.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+$animate-slow: 400ms;
+$animate-fast: 100ms;
+
+.view__multiblock {
+    position: relative;
+
+    .block {
+        position: absolute;
+        transition: all $animate-slow cubic-bezier(0.615, -0.090, 0.010, 1.090);
+    }
+
+    .outline {
+        position: absolute;
+        opacity: 0.0;
+        transition: opacity $animate-fast;
+    }
+}

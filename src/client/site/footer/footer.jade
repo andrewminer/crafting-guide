@@ -1,0 +1,42 @@
+//-
+//- Crafting Guide - footer.jade
+//-
+//- Copyright © 2014-2016 by Redwood Labs
+//- All rights reserved.
+//-
+
+.view__footer
+    .divider.top
+
+    .content
+        .left
+            h2 About
+            p.
+                Crafting Guide gives step-by-step instructions for making anything in Minecraft or its many mods. Just
+                say what you'd like to make, what you already have, it will do the rest, giving you a list of raw
+                materials and instructions of which items to make in the proper order. You can even ask it to include
+                the materials and instructions for all the tools you'll need along the way!
+
+        .center
+            h2 Donate
+            p.
+                Crafting Guide is free for all, but if you find it helpful, donations in any amount are gratefully
+                accepted.
+            .action
+                form(action="https://www.paypal.com/cgi-bin/webscr", class="centered", method="post", target="_top")
+                    input(type="hidden", name="cmd", value="_s-xclick")
+                    input(type="hidden", name="hosted_button_id", value="GCB2TYZJYLAE6")
+                    input(type="image", src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif", border="0",
+                        name="submit" alt="PayPal - The safer, easier way to pay online!")
+                    img(src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif", width="1", height="1")
+
+        .right
+            h2 Get Involved
+            p.
+                Crafting Guide is completely open-source, and you can help!  Whether you want to write a recipe book
+                (all simple JSON), or implement new features, just head over to GitHub to get started.
+            .action
+                iframe(src="http://ghbtns.com/github-btn.html?user=andrewminer&repo=crafting-guide&type=fork&size=large",
+                  allowtransparency="true", frameborder="0", scrolling="0", width="100", height="32")
+
+    .divider.bottom

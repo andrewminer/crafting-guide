@@ -1,0 +1,89 @@
+//
+// Crafting Guide - login_page.scss
+//
+// Copyright © 2014-2016 by Redwood Labs
+// All rights reserved.
+//
+
+.view__login_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > div {
+        max-width: 75%;
+
+        display: flex;
+        align-items: center;
+
+        & > .left {
+            flex: 1 1 66%;
+            margin-right: $size-margin-large;
+
+            display: flex;
+            flex-direction: column;
+
+            p {
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+                line-height: $font-size-medium * 1.25;
+
+                &:not(:first-child) {
+                    margin-top: $size-margin-medium;
+                }
+            }
+
+            .actions {
+                margin-top: $size-margin-large;
+
+                padding: 0 $size-margin-xlarge;
+
+                p {
+                    font-family: $font-family-header;
+                    font-size: 20px;
+                }
+            }
+
+            .expandable-container {
+                margin-top: $size-margin-medium;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 500ms;
+            }
+
+            .user {
+                margin: $size-margin-large;
+                display: flex;
+
+                @include floating-panel;
+                padding: $size-margin-medium;
+
+                .left {
+                    margin-right: $size-margin-small;
+
+                    img {
+                        height: $size-minecraft-block * 2;
+                        width: $size-minecraft-block * 2;
+                    }
+                }
+
+                .right {
+                    .name {
+                        font-family: $font-family-text;
+                        font-size: $font-size-xlarge;
+                    }
+
+                    .email {
+                        font-family: $font-family-text;
+                        font-size: $font-size-small;
+                        margin-top: $size-margin-xsmall;
+                    }
+                }
+            }
+        }
+
+        & > .right {
+            flex: 0 0 33%;
+        }
+    }
+}

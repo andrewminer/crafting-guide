@@ -1,89 +1,104 @@
 #
 # Crafting Guide - item_selector.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
-ItemSlug  = require '../game/item_slug'
+{Observable} = require("crafting-guide-common").util
 
 ########################################################################################################################
 
-module.exports = class ItemSelector extends BaseModel
+module.exports = class ItemSelector extends Observable
 
-    constructor: (attributes={}, options={})->
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        options.isAcceptable ?= (item)-> return true # accept everything by default
-        super attributes, options
+    constructor: (modPack, options={})->
+        super
 
-        @_isAcceptable  = options.isAcceptable
+        @_isAcceptable  = options.isAcceptable or (item)-> return true # accept everything by default
         @_maxResults    = 100
         @_minHintLength = 3
-        @_modPack       = options.modPack
         @_results       = []
+
+        @modPack = modPack
 
     # Property Methods #############################################################################
 
     Object.defineProperties @prototype,
 
         hint:
-            get: ->
-                return @_hint
+            get: -> return @_hint
+            set: (hint)->
+                @triggerPropertyChange "hint", @_hint, hint, ->
+                    @_hint = hint?.toLowerCase()
+                    @_refreshResults()
 
-            set: (newHint)->
-                oldHint = @_hint
-                return if newHint is oldHint
-
-                @_hint = newHint.toLowerCase()
-
-                @trigger c.event.change + ':hint', this, oldHint, newHint
-                @_refreshResults()
-                @trigger c.event.change, this
+        modPack:
+            get: -> return @_modPack
+            set: (modPack)->
+                if not modPack? then throw new Error "modPack is required"
+                if @_modPack? then throw new Error "modPack cannot be reassigned"
+                @_modPack = modPack
 
         results:
-            get: ->
-                return @_results
+            get: -> return @_results
 
     # Private Methods ##############################################################################
 
-    _isMatch: (name, itemSlug)->
+    _computeScore: (item)->
         hintIndex  = 0
         hintLetter = @_hint[hintIndex]
-        name       = name.toLowerCase()
+        name       = item.displayName.toLowerCase()
+        nextScore  = 1
+        totalScore = 0
 
         for nameIndex in [0...name.length] by 1
             if name.charAt(nameIndex) is hintLetter
+                totalScore += nextScore
+                nextScore += 1
                 hintIndex += 1
                 if hintIndex is @_hint.length
-                    item = @_modPack.findItem itemSlug
-                    return false unless item?
-                    return @_isAcceptable item
-                hintLetter = @_hint[hintIndex]
+                    return 0 unless @_isAcceptable item
+                    break
 
-        return false
+                hintLetter = @_hint[hintIndex]
+            else
+                nextScore = 1
+
+        return 0 if hintIndex < @_hint.length
+        return totalScore
 
     _refreshResults: ->
-        oldResults = @_results
-        newResults = {}
+        scoredItems = []
         count = 0
 
-        logger.verbose => "Looking for items which match: #{@_hint}"
         if @_hint.length >= @_minHintLength
-            @_modPack.eachMod (mod)=>
+            for modId, mod of @_modPack.mods
                 return if count >= @_maxResults
-                return unless mod.enabled
+                return unless mod.isEnabled
 
-                mod.eachName (name, itemSlug)=>
-                    return if count >= @_maxResults
+                for itemId, item of mod.items
+                    score = @_computeScore item
+                    if score > 0
+                        scoredItems.push score:score, item:item
 
-                    if @_isMatch name, itemSlug
-                        if itemSlug.isQualified
-                            newResults[itemSlug] = itemSlug
-                            count += 1
+        scoredItems.sort (a, b)->
+            if a.score isnt b.score
+                return if a.score > b.score then -1 else +1
 
-        newResults = _.values(newResults)
-        newResults.sort ItemSlug.compare
+            nameA = a.item.displayName
+            nameB = b.item.displayName
+            if nameA.length isnt nameB.length
+                return if nameA.length < nameB.length then -1 else +1
 
-        @_results = newResults
-        @trigger c.event.change + ':results', this, oldResults, newResults
+            if nameA isnt nameB
+                return if nameA < nameB then -1 else +1
+
+            return 0
+
+        @_results = []
+        for element in scoredItems
+            @_results.push element.item
+            break if @_results.length >= @_maxResults
+
+        @trigger c.event.change + ':results', this
+

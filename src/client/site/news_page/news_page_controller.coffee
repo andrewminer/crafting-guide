@@ -1,12 +1,11 @@
 #
 # Crafting Guide - news_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-AdsenseController = require '../common/adsense/adsense_controller'
-PageController    = require '../page_controller'
+PageController = require '../page_controller'
 
 ########################################################################################################################
 
@@ -23,11 +22,6 @@ module.exports = class NewsPageController extends PageController
 
     getTitle: ->
         return "News"
-
-    # BaseController Overrides #####################################################################
-
-    onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper'
 
     # Backbone.View Overrides ######################################################################
 

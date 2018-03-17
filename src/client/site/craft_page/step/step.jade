@@ -1,15 +1,13 @@
 //-
 //- Crafting Guide - step.jade
 //-
-//- Copyright © 2014-2016 by Redwood Labs
+//- Copyright © 2014-2017 by Redwood Labs
 //- All rights reserved.
 //-
 
 .view__step
     h3
-    .main_content
-        .view__inventory
-        .view__recipe
+    .view__recipe
     .buttons
-        .button.complete: .bezel: p complete step
-        .button.tool: .bezel: p make this tool
+        a.button.tool: .bezel: p <span class="full">show plan for </span>tools
+        .button.complete: .bezel: p complete<span class="full"> step</span>

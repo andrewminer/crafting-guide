@@ -1,18 +1,21 @@
 #
 # Crafting Guide - site_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
+AdsenseController  = require './common/adsense/adsense_controller'
 BaseController     = require './base_controller'
+c                  = require "../../common/constants"
 FeedbackController = require './feedback/feedback_controller'
+FileCache          = require '../models/site/file_cache'
 FooterController   = require './footer/footer_controller'
 GitHubUser         = require '../models/site/github_user'
 HeaderController   = require './header/header_controller'
 ImageLoader        = require './image_loader'
-Mod                = require '../models/game/mod'
-ModPack            = require '../models/game/mod_pack'
+{Mod}              = require('crafting-guide-common').deprecated.game
+{ModPack}          = require('crafting-guide-common').deprecated.game
 Router             = require './router'
 
 ########################################################################################################################
@@ -21,43 +24,28 @@ module.exports = class SiteController extends BaseController
 
     constructor: (options={})->
         if not options.client? then throw new Error 'options.client is required'
+        if not options.modPack? then throw new Error 'options.modPack is required'
         if not options.storage? then throw new Error 'options.storage is required'
         options.el = 'html'
         super options
 
         @client      = options.client
         @imageLoader = new ImageLoader defaultUrl:'/images/unknown.png'
-        @modPack     = new ModPack
+        @modPack     = options.modPack
         @router      = new Router this
         @storage     = options.storage
 
+        @_adsenseController     = new AdsenseController
         @_currentPage           = null
         @_currentPageController = null
         @_user                  = null
 
     # Public Methods ###############################################################################
 
-    loadDefaultModPack: ->
-        makeResponder = (m)-> return ->
-            m.activeModVersion.fetch() if m.activeModVersion?
-
-        for modSlug, modData of c.defaultMods
-            mod = new Mod slug:modSlug
-            mod.on c.event.change + ':activeModVersion', makeResponder mod
-            @storage.register "mod:#{mod.slug}", mod, 'activeVersion', modData.defaultVersion
-            mod.fetch()
-
-            @modPack.addMod mod
-
-        if global.env isnt 'prerender'
-            @modPack.once c.event.sync, =>
-                @$pageContent.css 'display', ''
-                @$pageContentLoading.css 'display', 'none'
-
     loadCurrentUser: ->
-        @client.fetchCurrentUser()
+        @client.getCurrentUser()
             .then (response)=>
-                userData = response.json?.data?.user
+                userData = response.json
                 @user = new GitHubUser userData if userData?
             .catch (error)=>
                 if error?.response?.statusCode isnt 401
@@ -73,14 +61,14 @@ module.exports = class SiteController extends BaseController
     logout: ->
         @storage.store 'loginSecurityToken', null
         @user = null
-        @client.logout()
+        @client.deleteSession()
             .catch (error)->
                 logger.error -> "Failed to log out: #{error}"
             .done()
 
     resumeAfterLogin: ->
         url = @storage.load 'post-login-url'
-        url = if (not url? or url is 'null') then null else url
+        url = if (not url? or url is 'null') then null else url + '?login=true'
         if url? then @router.navigate url, trigger:true
         @storage.store 'post-login-url', null
 
@@ -125,6 +113,10 @@ module.exports = class SiteController extends BaseController
 
         @_feedbackController = @addChild FeedbackController, '.view__feedback'
 
+        if global.env isnt "prerender"
+            @$pageContent.removeClass "hidden"
+            @$pageContentLoading.addClass "hidden"
+
     # Private Methods ##############################################################################
 
     setPage: (page, controller)->
@@ -142,15 +134,20 @@ module.exports = class SiteController extends BaseController
         $pageContent = $('.page > .content')
         $pageContent.removeClass()
         $pageContent.addClass 'content'
+        $pageContent.css display:''
+        if not @$pageContentLoading.hasClass 'hidden'
+            $pageContent.addClass 'hidden'
 
         window.scrollTo 0, 0
 
-        @_headerController.model = controller: controller
+        @_headerController.model = controller: controller, page: page
 
         @_currentPageController.user = @user
         @_currentPageController.onWillShow()
         @_currentPageController.$el = $pageContent
         @_currentPageController.render()
+
+        @_adsenseController.reset()
 
     _resetGlobals: ->
         if global.env in c.productionEnvs

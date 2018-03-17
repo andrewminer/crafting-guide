@@ -1,7 +1,7 @@
 #
 # Crafting Guide - middleware.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
@@ -26,7 +26,7 @@ exports.installBefore = (app)->
     ]
 
 exports.installAfter = (app)->
-    app.use '/data', express.static '../../crafting-guide-data/data/', etag:false, maxAge: 0
+    app.use '/data', express.static '/src/crafting-guide/data/data/', etag:false, maxAge: 0
     app.use express.static './static', etag: false, maxAge: 0
 
 # Middleware Functions #####################################################################################

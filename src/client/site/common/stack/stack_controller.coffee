@@ -1,11 +1,12 @@
 #
 # Crafting Guide - stack_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 BaseController = require '../../base_controller'
+ItemDisplay    = require "../../../models/site/item_display"
 
 ########################################################################################################################
 
@@ -19,6 +20,7 @@ Events:
 module.exports = class StackController extends BaseController
 
     @::MAX_QUANTITY = 9999
+    @::STACK_SIZE = 64
 
     constructor: (options={})->
         if not options.imageLoader? then throw new Error 'options.imageLoader is required'
@@ -35,8 +37,7 @@ module.exports = class StackController extends BaseController
         @_modPack            = options.modPack
         @_secondButtonType   = options.secondButtonType   ?= null
         @_shouldEnableButton = options.shouldEnableButton ?= (model, button)-> true
-
-        @_modPack.on c.event.change, => @tryRefresh()
+        @_trackingContext    = options.trackingContext    ?= null
 
     # Event Methods ################################################################################
 
@@ -68,6 +69,8 @@ module.exports = class StackController extends BaseController
             @model.quantity = newQuantity
             @trigger c.event.change + ':quantity', this, oldQuantity, newQuantity
             @trigger c.event.change, this
+
+            tracker.trackEvent @_trackingContext, 'update-quantity', @model.item.id, @model.quantity
 
     onQuantityFieldChanged: ->
         return unless @_editable
@@ -107,6 +110,7 @@ module.exports = class StackController extends BaseController
         @$image         = @$('.icon img')
         @$nameLink      = @$('.name a')
         @$quantityField = @$('.quantity input')
+        @$quantityHover = @$('.quantity .hover')
         @$secondAction  = @$('.action.second')
         @$secondButton  = @$('.action.second .button')
         super
@@ -114,16 +118,17 @@ module.exports = class StackController extends BaseController
     refresh: ->
         if not @model? then throw new Error "must have a model to render"
 
-        display = @_modPack.findItemDisplay @model.itemSlug
+        display = new ItemDisplay @model.item
 
         @_imageLoader.load display.iconUrl, @$image
-        @$nameLink.html display.itemName
-        @$nameLink.attr 'href', display.itemUrl
+        @$nameLink.html display.name
+        @$nameLink.attr 'href', display.url
 
         quantityText = if @model.quantity > 10000 then "#{@model.quantity / 1000}k" else "#{@model.quantity}"
         @$quantityField.val quantityText
 
         @_refreshButtons()
+        @_refreshHover()
 
         if @_editable
             @$el.addClass 'editable'
@@ -168,6 +173,20 @@ module.exports = class StackController extends BaseController
                 when 'down' then $label.text '⬇︎'
                 when 'remove' then $label.text '-'
                 when 'up' then $label.text '⬆︎'
+
+    _refreshHover: ->
+        if @model.quantity > @STACK_SIZE
+            remainder = @model.quantity % @STACK_SIZE
+            stacks = (@model.quantity - remainder) / @STACK_SIZE
+
+            text = "#{stacks}x#{@STACK_SIZE}"
+            text += "+#{remainder}" if remainder > 0
+
+            @$quantityHover.text text
+            @$quantityHover.addClass 'enabled'
+        else
+            @$quantityHover.text ''
+            @$quantityHover.removeClass 'enabled'
 
     _updateButtonType: ($button, type)->
         for currentType in ['check', 'down', 'remove', 'up']

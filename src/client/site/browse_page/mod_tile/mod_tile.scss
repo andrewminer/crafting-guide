@@ -1,54 +1,60 @@
 //
 // Crafting Guide - mod_tile.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
 .view__mod_tile {
-    min-width       : $size-minecraft-block * 9;
+    display: flex;
 
-    display         : flex;
-    justify-content : stretch;
-    align-items     : stretch;
-
-    a {
-        max-width: 100%;
+    .tile {
+        flex: 1 1 auto;
 
         @include floating-panel;
-        border          : $size-border-medium solid $color-background-panel;
-        color           : $color-text;
-        text-decoration : none;
+        min-width : $size-minecraft-block * 9;
 
-        display : flex;
-        padding : $size-margin-medium;
+        display: flex;
+        flex-direction: column;
 
-        & > .left {
-            flex: 0 0 $size-minecraft-block * 4;
-            margin-right: $size-margin-medium;
+        border : $size-border-medium solid $color-background-panel;
 
-            img {
-                width: $size-minecraft-block * 4;
-                max-height: $size-minecraft-block * 4;
-            }
-        }
+        a {
+            flex: 1 1 auto;
+            color           : $color-text;
+            text-decoration : none;
 
-        & > .right {
-            flex : 1 1 100%;
+            display : flex;
+            padding : $size-margin-medium;
 
-            overflow : hidden;
+            & > .left {
+                flex: 0 0 $size-minecraft-block * 4;
+                margin-right: $size-margin-medium;
 
-            .title {
-                margin-bottom : $size-margin-medium;
-
-                font-family : $font-family-header;
-                font-size   : $font-size-xlarge;
+                img {
+                    width: $size-minecraft-block * 4;
+                    max-height: $size-minecraft-block * 4;
+                }
             }
 
-            .description {
-                font-family : $font-family-text;
-                font-size   : $font-size-medium;
-                line-height : $font-size-medium * 1.5;
+            & > .right {
+                flex : 1 1 100%;
+
+                overflow : hidden;
+
+                .title {
+                    max-width: 0;
+                    margin-bottom : $size-margin-medium;
+
+                    font-family : $font-family-header;
+                    font-size   : $font-size-xlarge;
+                }
+
+                .description {
+                    font-family : $font-family-text;
+                    font-size   : $font-size-medium;
+                    line-height : $font-size-medium * 1.5;
+                }
             }
         }
 
@@ -56,12 +62,17 @@
             background: $color-blue-faint;
             border-color: $color-link-normal;
 
-            & > .right {
+            & a > .right {
                 .title {
                     color: $color-link-normal;
                     text-decoration: underline;
                 }
             }
+        }
+
+        .view__mod_version_selector {
+            margin: 0;
+            padding: $size-margin-small $size-margin-medium;
         }
     }
 
@@ -81,6 +92,23 @@
 
                 .description {
                     color: $color-gray-light;
+                }
+            }
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__mod_tile {
+        min-width: 0;
+
+        a {
+            & > .left {
+                flex: 0 0 $size-minecraft-block * 2;
+
+                img {
+                    width: $size-minecraft-block * 2;
+                    max-height: $size-minecraft-block * 2;
                 }
             }
         }

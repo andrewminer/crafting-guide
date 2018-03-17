@@ -1,7 +1,7 @@
 //
 // Crafting Guide - index.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -36,19 +36,22 @@ html {
             }
 
             & > *:first-child {
-                flex: 0 0 50%;
+                flex: 1 1 100%;
 
                 box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
             }
         }
 
         .page {
-            margin    : $size-margin-large 0;
             max-width : $size-page-width;
             width     : 100%;
 
+            @include screen-size(desktop) {
+                margin    : $size-margin-large 0;
+                box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
+            }
+
             background : $color-background-page;
-            box-shadow : $size-margin-small $size-margin-small $size-margin-large $color-shadow;
 
             display        : flex;
             flex-direction : column;
@@ -63,6 +66,15 @@ html {
                 display         : flex;
                 align-items     : center;
                 justify-content : center;
+            }
+
+            > noscript {
+                margin: $size-margin-xlarge 0;
+                text-align: center;
+
+                h1 {
+                    font-size: $font-size-xlarge;
+                }
             }
         }
     }

@@ -1,15 +1,181 @@
 //-
 //- Crafting Guide - news_page.jade
 //-
-//- Copyright © 2014-2016 by Redwood Labs
+//- Copyright © 2014-2017 by Redwood Labs
 //- All rights reserved.
 //-
 
 .content.view__news_page
     .left
-        .view__adsense
+        include ../common/youtube/youtube.jade
 
     .right
+        include ../common/twitter/twitter.jade
+
+        section
+            h3 2017-07-24
+            .panel
+                p.
+                    Since my last update, I've been hard at work on rebuilding the guts of the core feature of the
+                    website: the crafting algorithm.  I'm happy to announce that as of yesterday evening, it's finally
+                    complete!  The new algorithm is <i>blazing</i> fast!  Like... crafting plans which used to take so
+                    long that they never completed will finish in well under a second.  Super fast.
+                p.
+                    An added benefit is that the algorithm change also required a change to the way mod data is stored.
+                    Without getting into too much detail, the old way went back to the very earliest version of the site
+                    which assumed people would be adding files for their own recipe lists, and therefore had to look up
+                    each item and each recipe each time it was needed because it could never be sure what something like
+                    "Copper Ingot" referred to until running the algorithm. Very, very slow.
+                p.  Of course, it's been ages since that was actually a feature on the site. So, the new way sends all
+                    the data for an entire modpack up all at once, and in a format where everything is directly
+                    connected to everything else. Much, much faster!
+
+        section
+            h3 2017-03-31
+            .panel
+                p.
+                    After a few reqeusts to streamline how you configure your modpack, I've updated the
+                    <a href="/browse">Browse</a> page so that you can toggle on &amp; off which mods you're using all
+                    from that one page.  That should make it a lot easier to get things set up just as you like them!
+
+        section
+            h3 2016-09-15
+            .panel
+                p.
+                    Boy, this is a lot faster!  I've updated <a href="/browse/thermal_expansion/">Thermal Expansion</a>,
+                    <a href="/browse/thermal_foundation/">Thermal Foundation</a>, and <a
+                    href="/browse/thermal_dynamics/">Thermal Dynamics</a> to the latest version, and I've added <a
+                    href="/browse/redstone_arsenal/">Redstone Arsenal</a> and <a href="/browse/solar_expansion/">Solar
+                    Expansion</a> just in the last couple of days!  My plan for now is to get all the currently
+                    supported mods refreshed using the new exporter mod, and then move on to adding new ones.
+
+        section
+            h3 2016-09-10
+            .panel
+                p.
+                    As successful as things were with the MineTweaker dump file, there were just too many things for it
+                    to be remotely sufficient for doing most of the more complex mods out there (e.g., BuildCraft,
+                    ThermalExpansion, and the like).  So, inspired by having successfully tinkered around with the
+                    MineTweaker code, I've actually started my own <a
+                    href="https://github.com/andrewminer/crafting-guide-exporter">Crafting Guide Exporter</a> mod.  It's
+                    been growing rapidly, and so far I've managed a refresh of all the <a
+                    href="/browse/minecraft/">Minecraft 1.7.10 items along with refreshing my <a
+                    href="/browse/buildcraft/">BuildCraft</a> data to the latest version (7.1.17).
+                p.
+                    Even more than with my prior efforts to automate data collection, I'm thrilled with how easy this
+                    makes it to gather a huge amount of data very rapidly.  I'm still learning my way around modding, so
+                    there are definitely still bumps, but with kind help from other modders out there, I'm learing my
+                    way!
+
+        section
+            h3 2016-08-21
+            .panel
+                p.
+                    I've been taking a break from the site for a while now to work on a couple of other projects.
+                    However, I recently found out that <a href="minetweaker3.powerofbytes.com">MineTweaker</a> has a few
+                    commands which can dump various kind of data from the game, including <i>RECIPES</i>.  This is a
+                    really big deal since, up until now, entering recipes has always been a laborious, manual process.
+                    However, I've just finished the first version of a script which can transform MineTweaker's output
+                    into a Crafting Guide data file.
+                p.
+                    As a test-drive, I picked a mod near the top of the list, <a
+                    href="https://minecraft.curseforge.com/projects/draconic-evolution">Draconic Evolution</a>, and I
+                    got a fully functional data file build in a tiny fraction of the time it would have taken the manual
+                    way.  Even better, if a new version comes out, I can easily re-run the script to update it again.
+                p.
+                    If you've been thinking you'd like to help out with Crafting Guide, but have found the process too
+                    laborious, you might want to give it another look!
+
+        section
+            h3 2016-06-01
+            .panel
+                p.
+                    Today I added the ability for you to vote on which mods you'd like to see added to the site next!
+                    Just got to the <a href="/browse">browse page</a>, and scroll all the way to the bottom.  After
+                    logging in, you can cast up to 3 votes for mods you'd like to see added to the site.  And, if your
+                    favorites aren't on the list, you can fill out the form at the very bottom to suggest them.
+                p.
+                    While you can't really see it, I've also set up some important stuff behind the scenes which will
+                    allow me to add a lot of cool new features to the site which weren't possible before.  The voting
+                    feature is actually just a small test of all the new stuff you can't actually see, so expect to see
+                    some really cool stuff coming up next!
+
+        section
+            h3 2016-04-30
+            .panel
+                p.
+                    Big news... no, huge news... no, tiny news!  Crafting Guide is now fully functional on any size
+                    screen from a 30" desktop monitor all the way down to a 4" phone.  Just grab your favorite mobile
+                    device and give it a try!
+
+        section
+            h3 2016-04-24
+            .panel
+                p.
+                    I've been knocking off a few more feature requests over the weekend.  First, I've made the entire
+                    site respond to being on a smaller screen (tablet-sized for now, phone-sized will be next).
+                    Hopefully, it should just feel pretty natural on whatever screen size, and you won't notice any big
+                    differences from one to the other.
+                p.
+                    The second small change is that whenever you're looking at a recipe which calls for a <i>lot</i> of
+                    some item, you can hover over the quantity to see what it would be in stacks + the remainder. For
+                    example, 127 translates to: 1x64+63.  That should make it easier to think about large builds.
+
+        section
+            h3 2016-04-23
+            .panel
+                p.
+                    I've spent some time working on the crafting page today, and I think you'll find it a lot easier to
+                    adjust your plans now.  The big difference is that the site no longer automatically calculate.
+                    Instead, you have to deliberately press a button when you're ready for a new plan.  This allows you
+                    to check out an existing plan, mark certain steps complete, adjust your inventory, and only when
+                    you're ready, click the button for a new plan.  Not a huge change, but I think you'll find yourself
+                    adjusting a not-quite-right plan a lot more often now!
+
+        section
+            h3 2016-04-21
+            .panel
+                p.
+                    The most highly-requested mod currently on my list is <a href="/browse/tinkers_construct">Tinker's
+                    Construct</a>, and I'm pleased to announce that it is now available on Crafting Guide!  In case you
+                    aren't familiar with it, it adds the ability to create tools by crafting together individual parts
+                    made from different materials, and adds a complex smelting mechanic which allows you to create a
+                    variety of useful metal alloys.  This smelting has the side-effect of producing two ingots for every
+                    block of ore as well, so you can very rapidly get to ore-doubling without having to have already got
+                    a complex power system up and running.
+                p.
+                    There is <i>one</i> thing missing.  I didn't include any recipes for the actual tools themselves.
+                    The problem, of course, is that you can mix and match parts made from any of the supported
+                    materials, and that leads to thousands upon thousands of possible tools: way more than would ever be
+                    practical to include in Crafting Guide in the obvious way other items are included.
+                p.
+                    The plan, then, is to create a feature just for Tinker's Construct which allows you to select a tool
+                    to create, and then pick and choose the material types for each part.  You'll then be able to make a
+                    crafting plan for those parts.  If that sounds like something you'd use, head over to <a
+                    href="https://github.com/andrewminer/crafting-guide/issues/214">GitHub</a> and add your vote!
+
+        section
+            h3 2016-04-16
+            .panel
+                p.
+                    I've been working on adding a new mod, and I ran across a bug which has been in the system for a
+                    while now, but which will cause serious problems with a lot of the recipes in the new mod. So, I put
+                    the mod aside for a bit to fix it.
+                p.
+                    The bug was that when you are making something like an <a
+                    href="/browse/forge_multipart/oak_wood_cover">Oak Wood Cover</a> the <a
+                    href="/browse/forge_multipart/stone_saw">saw</a> wouldn't be part of the crafting plan. This isn't
+                    such a big deal for most things, but for this new mod, it would have been a major problem.
+
+        section
+            h3 2016-04-14
+            .panel
+                p.
+                    In between adding new features to the website, I've taken a little break to add support for
+                    <a href="/browse/projectred">ProjectRed</a>.  It takes up the mantle of the retired RedPower mod
+                    and adds a lot of what that one used to provide: logic gates, cables, pneumatic tubes, and lots and
+                    lots of new lights and lamps.
+
         section
             h3 2016-04-05
             .panel
@@ -79,54 +245,3 @@
                 p.
                     With many thanks to <a href="https://github.com/pkmnfrk">Mike Caron</a>, I'm pleased to announce
                     support for <a href="/browse/storage_drawers">Storage Drawers</a>!
-
-        section
-            h3 2015-12-13
-            .panel
-                p.
-                    I'm super excited to announce that I've added full multi-block support for Crafting Guide! For
-                    example, check out a <a href="/browse/big_reactors/5_core_passive_reactor">5-Core Reactor</a>
-                    from Big Reactors, or the <a href="/browse/railcraft/steel_tank_5x5x5">5x5x5 Steel Tank</a> from
-                    Railcraft.  I'm really pleased with how it turned out!
-
-        section
-            h3 2015-11-17
-            .panel
-                p.
-                    And today, it's <a href="/browse/extra_cells">Extra Cells</a>!
-
-        section
-            h3 2015-11-16
-            .panel
-                p.
-                    It's a small one, but also highly requested...  Here's <a
-                    href="/browse/computercraft">ComputerCraft</a>!
-
-        section
-            h3 2015-11-14
-            .panel
-                p.
-                    One more small one over the weekend... <a href="/browse/advanced_solar_panels">Advanced Solar
-                    Panels</a> has been added to crafting guide!
-
-        section
-            h3 2015-11-14
-            .panel
-                p.
-                    For a long while now, <a href="/browse/galacticraft">Galacticraft</a> has been the most
-                    requested mod, and it's finally here!  Enjoy!
-
-        section
-            h3 2015-11-10
-            .panel
-                p.
-                    Remember me?  They guy who runs the site.  Yeah, I'm back, and with big news!  The site now has
-                    a completely new crafting algorithm.  Instead of just taking the first crafting plan it comes up
-                    with, it tries to compute every possible plan, rates them, and then picks the best one.  This
-                    also clears up a lot of bugs related to the old algorithm.  The one drawback is that some items
-                    can take a bit longer to compute than with the old way, but I think you'll find it's worth it!
-                p.
-                    On a personal note, I think it's clear that I don't have nearly as much time to dedicate to the
-                    site as I used to.  That's mostly because I started a new job which keeps me away from working
-                    on the site so much.  I hope to be able to get into a more regular pace now things my personal
-                    life has settled down again.

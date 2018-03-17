@@ -1,7 +1,7 @@
 //
 // Crafting Guide - inventory.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -38,12 +38,24 @@
         margin-top: $size-margin-large;
 
         .item-selector {
-            flex         : 85%;
+            flex         : 80%;
             margin-right : $size-margin-medium;
+
+            @include screen-size(mobile) {
+                flex: 50%;
+
+                .full {
+                    display: none;
+                }
+            }
         }
 
         .clear {
-            flex : 15%;
+            flex : 20%;
+
+            @include screen-size(mobile) {
+                flex: 50%;
+            }
         }
     }
 }
@@ -61,8 +73,12 @@
         .quantity {
             padding-right : $size-margin-medium;
             input {
-                width: 3em;
-                font-size   : $font-size-xlarge;
+                width     : 3em;
+                font-size : $font-size-xlarge;
+
+                @include screen-size(mobile) {
+                    width : 2em;
+                }
             }
         }
 

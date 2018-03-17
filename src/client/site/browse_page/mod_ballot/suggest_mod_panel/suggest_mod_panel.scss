@@ -1,0 +1,64 @@
+//
+// Crafting Guide - suggest_mod_panel.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__suggest_mod_panel {
+    display: flex;
+    flex-direction: column;
+
+    .instructions {
+        font-family: $font-family-header;
+        font-size: $font-size-xlarge;
+        text-align: center;
+    }
+
+    .initial {
+        display: flex;
+        flex-direction: column;
+
+        .instructions {
+            margin-bottom: $size-margin-large;
+        }
+
+        .entry-form {
+            display: flex;
+            flex-direction: column;
+
+            input {
+                margin-bottom: $size-margin-medium;
+
+                font-family: $font-family-input;
+                font-size: $font-size-large;
+
+                padding: $size-margin-xsmall $size-margin-small;
+
+                &.invalid {
+                    border-color: $color-error;
+                    color: $color-error;
+                }
+
+                &.valid {
+                    border-color: $color-valid;
+                    color: $color-valid;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: $size-margin-large;
+
+                .button {
+                    flex: 0 0 50%;
+                }
+            }
+        }
+    }
+
+    .error, .sending, .success {
+        margin: $size-margin-xlarge 0;
+    }
+}

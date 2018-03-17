@@ -1,0 +1,62 @@
+//
+// Crafting Guide - mod_ballot_line.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+.view__mod_ballot_line {
+    width: 100%;
+
+    display     : flex;
+    align-items : center;
+
+    .vote-count {
+        flex         : 0 0 $size-minecraft-block;
+        margin-right : $size-margin-medium;
+
+        font-family : $font-family-text;
+        font-size   : $font-size-large;
+        text-align  : right;
+    }
+
+    & > img {
+        margin-right : $size-margin-medium;
+
+        flex   : 0 0 auto;
+        height : $size-minecraft-block;
+        width  : $size-minecraft-block;
+    }
+
+    .name {
+        margin-right : $size-margin-medium;
+
+        flex        : 1 1 100%;
+        font-family : $font-family-text;
+        font-size   : $font-size-large;
+    }
+
+    .button {
+        flex  : 0 0 auto;
+        width : $size-minecraft-block * 1.5;
+    }
+
+    .wait {
+        flex   : 0 0 auto;
+        height : $size-button-height;
+        width  : $size-minecraft-block * 1.5;
+
+        display         : flex;
+        align-items     : center;
+        justify-content : center;
+    }
+}
+
+@include screen-size(mobile) {
+    .view__mod_ballot_line {
+        .name {
+            overflow: hidden;
+            font-size: $font-size-medium;
+        }
+    }
+}

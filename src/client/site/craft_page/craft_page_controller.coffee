@@ -1,30 +1,32 @@
 #
 # Crafting Guide - craft_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-AdsenseController          = require '../common/adsense/adsense_controller'
-BaseController             = require '../base_controller'
-CraftPage                  = require '../../models/site/craft_page'
-Craftsman                  = require '../../models/crafting/craftsman'
-CraftsmanWorkingController = require './craftsman_working/craftsman_working_controller'
-InventoryController        = require '../common/inventory/inventory_controller'
-PageController             = require '../page_controller'
-StepController             = require './step/step_controller'
+CraftPage              = require "../../models/site/craft_page"
+WorkingPanelController = require "./working_panel/working_panel_controller"
+{Inventory}            = require("crafting-guide-common").models
+InventoryController    = require "../common/inventory/inventory_controller"
+{Observable}           = require("crafting-guide-common").util
+PageController         = require "../page_controller"
+StepController         = require "./step/step_controller"
 
 ########################################################################################################################
 
 module.exports = class CraftPageController extends PageController
 
-    constructor: (options={})->
-        if not options.imageLoader? then throw new Error 'options.imageLoader is required'
-        if not options.modPack? then throw new Error 'options.modPack is required'
-        if not options.router? then throw new Error 'options.router is required'
-        if not options.storage? then throw new Error 'options.storage is required'
+    @::SCROLL_BUFFER = 8 # px
+    @::STEP_RENDER_DELAY = 25 # ms
 
-        options.model ?= new CraftPage modPack:options.modPack
+    constructor: (options={})->
+        if not options.imageLoader? then throw new Error "options.imageLoader is required"
+        if not options.modPack? then throw new Error "options.modPack is required"
+        if not options.router? then throw new Error "options.router is required"
+        if not options.storage? then throw new Error "options.storage is required"
+
+        options.model ?= new CraftPage modPack:options.modPack, params:options.params
         options.templateName = 'craft_page'
         super options
 
@@ -33,30 +35,46 @@ module.exports = class CraftPageController extends PageController
         @_router      = options.router
         @_storage     = options.storage
 
-    # c.event Methods ################################################################################
+        @model.have.on Observable::ANY, this, "onHaveInventoryChanged"
+        @model.want.on Observable::ANY, this, "onWantInventoryChanged"
+
+    # Event Methods ################################################################################
 
     onHaveInventoryChanged: ->
-        logger.warning => "storing have: #{@model.craftsman.have.unparse()}"
-        @_storage.store 'crafting-plan:have', @model.craftsman.have.unparse()
+        @_storage.store 'crafting-plan:have', @model.have.toUrlString()
 
-    onMoveNeedToHave: (itemSlug)->
-        quantity = @_needInventoryController.model.quantityOf itemSlug
-        @model.craftsman.have.add itemSlug, quantity
+    onMoveNeedToHave: (item)->
+        quantity = @_needInventoryController.model.getQuantity item
+        @model.have.add item, quantity
 
-    onRemoveFromHaveInventory: (itemSlug)->
-        @model.craftsman.have.remove itemSlug
+    onRemoveFromHave: (item)->
+        @model.have.remove item
 
-    onRemoveFromWant: (itemSlug)->
-        @model.craftsman.want.remove itemSlug
-        @onWantInventoryChanged()
+    onRemoveFromWant: (item)->
+        @model.want.remove item
+
+    onSampleClicked: (event)->
+        $el = $(event.target)
+        while $el.length > 0
+            inventoryText = $el.attr "data-slug"
+            break if inventoryText
+            $el = $el.parent()
+
+        if inventoryText?
+            try
+                tracker.trackEvent c.tracking.category.craft, "add-sample", inventoryText
+                sampleInventory = Inventory.fromUrlString inventoryText, @_modPack
+                @model.want.merge sampleInventory
+                @_scrollTo @$workingSection
+            catch e
+                logger.error e
+
+        return false
 
     onWantInventoryChanged: ->
-        text = @model.craftsman.want.unparse()
+        text = @model.want.toUrlString()
         url = c.url.crafting inventoryText:text
         @router.navigate url
-
-        if @model.craftsman.want.isEmpty
-            @model.craftsman.have.clear()
 
     # PageController Overrides #####################################################################
 
@@ -64,32 +82,31 @@ module.exports = class CraftPageController extends PageController
         return c.text.craftDescription()
 
     getTitle: ->
-        return 'Craft'
+        description = @model.want.toDescription()
+        return null unless description?
+        return "Crafting Plan for #{description}"
 
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper'
-
         @_wantInventoryController = @addChild InventoryController, '.want .view__inventory',
             firstButtonType: 'remove'
             imageLoader:     @_imageLoader
             isAcceptable:    (item)=> item.isCraftable
             modPack:         @_modPack
-            model:           @model.craftsman.want
+            model:           @model.want
             router:          @_router
-        @_wantInventoryController.on c.event.button.first, (c, s)=> @onRemoveFromWant(s)
-        @_wantInventoryController.on c.event.change, (c)=> @onWantInventoryChanged()
+            trackingContext: c.tracking.category.craftWant
+        @_wantInventoryController.on c.event.button.first, (controller, item)=> @onRemoveFromWant item
 
         @_haveInventoryController = @addChild InventoryController, '.have .view__inventory',
             firstButtonType: 'down'
             imageLoader:     @_imageLoader
             modPack:         @_modPack
-            model:           @model.craftsman.have
+            model:           @model.have
             router:          @_router
-        @_haveInventoryController.on c.event.button.first, (controller, itemSlug)=>
-            @onRemoveFromHaveInventory itemSlug
-        @_haveInventoryController.on c.event.change, (c)=> @onHaveInventoryChanged()
+            trackingContext: c.tracking.category.craftHave
+        @_haveInventoryController.on c.event.button.first, (controller, item)=> @onRemoveFromHave item
 
         @_needInventoryController = @addChild InventoryController, '.need .view__inventory',
             editable:        false
@@ -98,10 +115,10 @@ module.exports = class CraftPageController extends PageController
             modPack:         @_modPack
             model:           null
             router:          @_router
-        @_needInventoryController.on c.event.button.first, (c, s)=> @onMoveNeedToHave(s)
+            trackingContext: c.tracking.category.craftNeed
+        @_needInventoryController.on c.event.button.first, (controller, item)=> @onMoveNeedToHave item
 
-        @_workingSectionController = @addChild CraftsmanWorkingController, '.view__craftsman_working',
-            model: @model.craftsman
+        @_workingPanelController = @addChild WorkingPanelController, '.view__working_panel', model:@model
 
         @$haveSection         = @$('section.have')
         @$instructionsSection = @$('section.instructions')
@@ -110,55 +127,65 @@ module.exports = class CraftPageController extends PageController
         @$stepsContainer      = @$('section.steps .panel')
         @$stepsSection        = @$('section.steps')
         @$toolsSection        = @$('section.tools')
-        @$workingSection      = @$('.view__craftsman_working')
+        @$workingSection      = @$('.view__working_panel')
+
+        if c.screen.type.compute() is c.screen.type.mobile
+            @$('.view__inventory.large').removeClass 'large'
 
         super
 
     onWillRender: ->
-        @model.craftsman.have.clear()
-        @model.craftsman.have.parse @_storage.load('crafting-plan:have')
+        @model.have.clear()
+        @model.have.merge Inventory.fromUrlString @_storage.load('crafting-plan:have')
+        @model.have.on Observable::ANY, this, "onHaveInventoryChanged"
+        @model.want.on Observable::ANY, this, "tryRefresh"
+
         super
 
     refresh: ->
-        @_needInventoryController.model = @model.craftsman.plan?.need
+        @_needInventoryController.model = @model.currentPlan?.need
+        @_refreshOutdated()
         @_refreshSectionVisibility()
         @_refreshSteps()
-        @_adsenseController.fillAdPositions()
+
         super
 
     # Backbone.View Overrides ########################################################################
 
     events: ->
         return _.extend super,
-            'click .instructions a': 'routeLinkClick'
+            'click .instructions a': 'onSampleClicked'
 
     # Private Methods ################################################################################
 
     _addTools: (controller)->
-        controller.model.addToolsTo @model.craftsman.want
+        controller.model.addToolsTo @model.want
 
     _completeStep: (controller)->
-        controller.model.completeInto @model.craftsman.have
+        controller.markComplete @model.have
 
     _isAddingToolsPossible: (controller)->
-        tools = controller.model.recipe.tools
+        tools = (item for itemId, item of controller.model.recipe.tools)
         return false unless tools.length > 0
 
-        have = @model.craftsman.have
-        want = @model.craftsman.want
+        have = @model.have
+        want = @model.want
 
-        for stack in tools
-            return false if have.hasAtLeast stack.itemSlug
-            return false if want.hasAtLeast stack.itemSlug
+        for item in tools
+            return false if @model.have.contains item
+            return false if @model.want.contains item
 
         return true
 
     _isStepCompletable: (controller)->
-        recipe = controller.model.recipe
-        for stack in recipe.output
-            return false if @model.craftsman.want.hasAtLeast stack.itemSlug
+        userWantsItem = @model.want.contains controller.model.recipe.output.item
+        return not userWantsItem
 
-        return true
+    _refreshOutdated: ->
+        if @model.isOutdated
+            @$el.addClass 'outdated'
+        else
+            @$el.removeClass 'outdated'
 
     _refreshSectionVisibility: ->
         return unless @_rendered
@@ -169,20 +196,25 @@ module.exports = class CraftPageController extends PageController
 
         visibleSections = []
 
-        if @model.craftsman.want.isEmpty
+        # TODO: Figure out what to do if the planner can't make a valid plan
+        # else if @model.craftsman.stage is Craftsman::STAGE.INVALID
+        #     visibleSections.push el for el in [@$wantSection, @$haveSection, @$workingSection]
+        # TODO: Play around and see if the algo ever takes too long
+        # else if not @model.craftsman.complete
+        #     visibleSections.push el for el in [@$wantSection, @$haveSection, @$workingSection]
+
+        if @model.want.isEmpty
             visibleSections.push el for el in [@$instructionsSection, @$wantSection]
-        else if @model.craftsman.stage is Craftsman::STAGE.INVALID
-            visibleSections.push el for el in [@$wantSection, @$workingSection]
-        else if not @model.craftsman.complete
-            visibleSections.push el for el in [@$wantSection, @$workingSection]
         else
-            visibleSections.push el for el in [@$haveSection, @$needSection, @$stepsSection, @$wantSection]
+            visibleSections.push el for el in [@$haveSection, @$wantSection, @$workingSection]
+            if @model.currentPlan?
+                visibleSections.push el for el in [@$needSection, @$stepsSection]
 
         @hide $el for $el in allSections
         @show $el for $el in visibleSections
 
     _refreshSteps: ->
-        steps = @model.craftsman.plan?.steps or []
+        steps = @model.currentPlan?.steps or []
         @_stepControllers ?= []
         index = 0
 
@@ -198,10 +230,14 @@ module.exports = class CraftPageController extends PageController
                     model:       step
                     modPack:     @_modPack
                     router:      @_router
-                controller.render()
 
-                @$stepsContainer.append controller.$el
-                @_stepControllers.push controller
+                do (controller, index)=>
+                    _.delay (=>
+                        controller.render()
+
+                        @$stepsContainer.append controller.$el
+                        @_stepControllers.push controller
+                    ), (index * @STEP_RENDER_DELAY)
             else
                 controller.model = step
 
@@ -209,3 +245,28 @@ module.exports = class CraftPageController extends PageController
 
         while @_stepControllers.length > index
             @_stepControllers.pop().remove()
+
+    _scrollTo: ($targetEl)->
+        @_$scrollTarget = $targetEl
+
+        if @_scrollTimer?
+            clearTimeout @_scrollTimer
+
+        @_scrollTimer = setTimeout(=>
+            $el = @_$scrollTarget
+            @_scrollTimer = null
+
+            minScrollPosition = $el.offset().top + $el.height() - $(window).height() - @SCROLL_BUFFER
+            maxScrollPosition = $el.offset().top + @SCROLL_BUFFER
+            scrollPosition = $(window).scrollTop()
+
+            scrollTarget = scrollPosition
+            if scrollPosition > maxScrollPosition
+                scrollTarget = maxScrollPosition
+            else if scrollPosition < minScrollPosition
+                scrollTarget = minScrollPosition
+            else
+                return
+
+            $('html, body').animate {scrollTop:scrollTarget}, c.duration.normal
+        , c.duration.slow)

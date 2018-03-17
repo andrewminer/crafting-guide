@@ -1,7 +1,7 @@
 //
 // Crafting Guide - recipe.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -9,11 +9,15 @@
     display: flex;
 
     .input {
-        flex: 1 1 50%;
+        flex: 0 0 auto;
 
         align-items    : center;
         display        : flex;
         flex-direction : column;
+
+        .view__crafting_grid {
+            flex: 0 0 auto;
+        }
 
         .tool {
             margin-top : $size-margin-small;
@@ -24,7 +28,7 @@
     }
 
     .output {
-        flex: 1 1 50%;
+        flex: 1 1 100%;
         margin-left: $size-margin-medium;
 
         display         : flex;

@@ -1,13 +1,13 @@
 #
 # Crafting Guide - login_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
 PageController        = require '../page_controller'
 GitHubUser            = require '../../models/site/github_user'
-{CraftingGuideClient} = require 'crafting-guide-common'
+{CraftingGuideClient} = require('crafting-guide-common').api
 
 ########################################################################################################################
 
@@ -36,15 +36,18 @@ module.exports = class LoginPageController extends PageController
     # Event Methods ################################################################################
 
     onExpandReadMore: (event)->
+        tracker.trackEvent c.tracking.category.account, 'click-read-more'
         @$readMoreLink.css display: 'none'
         @$readMoreContainer.css 'max-height':@$readMoreContent.height()
         return false
 
     onLoginButtonClicked: (event)->
-        @_redirectToGitHub()
+        tracker.trackEvent c.tracking.category.account, 'login'
+            .then => @_redirectToGitHub()
         return false
 
     onLogoutButtonClicked: (event)->
+        tracker.trackEvent c.tracking.category.account, 'logout'
         global.site.logout()
         return false
 
@@ -76,9 +79,9 @@ module.exports = class LoginPageController extends PageController
         @$userName          = @$('.user .name')
 
         if (not @user?) and (@_params?.state?) and (@_params?.state is @loginSecurityToken)
-            @_client.completeGitHubLogin code:@_params.code
+            @_client.createSession code:@_params.code
                 .then (response)=>
-                    attributes = response.json.data.user
+                    attributes = response.json
                     if attributes?
                         global.site.user = new GitHubUser attributes
                         global.site.resumeAfterLogin()
@@ -130,7 +133,7 @@ module.exports = class LoginPageController extends PageController
         return @State.ReadyToLogin
 
     _compeleteLogin: (code)->
-        @_client.completeGitHubLogin code:code
+        @_client.createSession code:code
             .then (response)=>
                 global.site.user = new GitHubUser response.json
             .catch (error)=>

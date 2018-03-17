@@ -1,7 +1,7 @@
 //
 // Crafting Guide - element.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -48,7 +48,6 @@
     }
 
     &.selected {
-        flex       : 0 0 auto;
         background : $color-active-hover;
 
         .name {

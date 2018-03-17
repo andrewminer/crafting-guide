@@ -1,25 +1,44 @@
 #
 # Crafting Guide - browse_page_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-AdsenseController = require '../common/adsense/adsense_controller'
-ModTileController = require './mod_tile/mod_tile_controller'
-PageController    = require '../page_controller'
+{CraftingGuideClient} = require('crafting-guide-common').api
+ModBallotController   = require './mod_ballot/mod_ballot_controller'
+ModTileController     = require './mod_tile/mod_tile_controller'
+PageController        = require '../page_controller'
 
 ########################################################################################################################
 
 module.exports = class BrowsePageController extends PageController
 
     constructor: (options={})->
-        if not options.modPack then throw new Error 'options.modPack is required'
+        if not options.client      then throw new Error 'options.client is required'
+        if not options.imageLoader then throw new Error 'options.imageLoader is required'
+        if not options.modPack     then throw new Error 'options.modPack is required'
+
         options.templateName = 'browse_page'
         super options
 
+        @_client          = options.client
+        @_imageLoader     = options.imageLoader
         @_modPack         = options.modPack
         @_tileControllers = []
+
+        @_client.on c.event.change, => @tryRefresh()
+
+    # Property Methods #############################################################################
+
+    Object.defineProperties @prototype,
+
+        user:
+            get: -> @_user
+
+            set: (newUser)->
+                @_user = newUser
+                @tryRefresh()
 
     # PageController Overrides #####################################################################
 
@@ -32,12 +51,17 @@ module.exports = class BrowsePageController extends PageController
     # BaseController Overrides #####################################################################
 
     onDidRender: ->
-        @_adsenseController = @addChild AdsenseController, '.view__adsense', model:'skyscraper'
+        @_modBallotController = @addChild ModBallotController, '.view__mod_ballot',
+            client:      @_client
+            imageLoader: @_imageLoader
+            user:        @_user
 
         @$tileContainer = @$('.tile_container')
 
     refresh: ->
+        @_modBallotController.user = @user
         @_refreshModTiles()
+        @_refreshBallot()
         super
 
     # Backbone.View Overrides ######################################################################
@@ -48,9 +72,15 @@ module.exports = class BrowsePageController extends PageController
 
     # Private Methods ##############################################################################
 
+    _refreshBallot: ->
+        if @_client.status is CraftingGuideClient.Status.Down
+            @_modBallotController.hide()
+        else
+            @_modBallotController.show()
+
     _refreshModTiles: ->
         index = 0
-        mods = @_modPack.getAllMods()
+        mods = (mod for modId, mod of @_modPack.mods)
         for mod in mods
             controller = @_tileControllers[index]
             if not controller

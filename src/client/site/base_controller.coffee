@@ -1,11 +1,12 @@
 #
 # Crafting Guide - base_controller.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-templates = require './templates'
+{Observable} = require("crafting-guide-common").util
+templates    = require './templates'
 
 ########################################################################################################################
 
@@ -49,15 +50,26 @@ module.exports = class BaseController extends Backbone.View
         @off()
 
     routeLinkClick: (event)->
-        event.preventDefault()
-        href = $(event.target).attr 'href'
-        href ?= $(event.currentTarget).attr 'href'
-        logger.info "Re-routing link to internal navigation: #{href}"
+        $link = $(event.target)
+        if not $link.attr('href')?
+            $link = $(event.currentTarget)
+
+        href = $link.attr 'href'
+        target = $link.attr 'target'
+
+        logger.info -> "Re-routing link to internal navigation: #{href}"
 
         if href? and href.match /^http/
-            window.location.href = href
+            tracker.trackEvent c.tracking.category.navigate, 'external-link', href
+                .then -> window.location.href = href
+            return false
+        else if target?
+            tracker.trackEvent c.tracking.category.navigate, 'external-link', href
+            return true
         else
+            tracker.trackEvent c.tracking.category.navigate, 'internal-link', href
             @router.navigate href, trigger:true
+            return false
 
     show: ($el)->
         $el ?= @$el
@@ -73,9 +85,6 @@ module.exports = class BaseController extends Backbone.View
     onDidModelChange: ->
         @tryRefresh()
 
-    onDidModelSync: ->
-        @tryRefresh()
-
     onWillRender: -> # do nothing
 
     onDidRender: -> # do nothing
@@ -85,11 +94,12 @@ module.exports = class BaseController extends Backbone.View
     onDidShow: -> # do nothing
 
     onWillChangeModel: (oldModel, newModel)->
-        if oldModel?.on?
-            @stopListening oldModel
-        if newModel?.on?
-            @listenTo newModel, 'sync', (e)=> @onDidModelSync e
-            @listenTo newModel, 'change', (e)=> @onDidModelChange e
+        if oldModel?.isObservable
+            oldModel.off target:this
+
+        if newModel?.isObservable
+            newModel.on Observable::ANY, this, "onDidModelChange"
+
         return newModel
 
     # Property Methods #############################################################################
@@ -102,7 +112,7 @@ module.exports = class BaseController extends Backbone.View
 
                 newModel = @onWillChangeModel @_model, newModel
                 @_model = newModel
-                @tryRefresh()
+                @onDidModelChange()
 
         rendered:
             get: -> @_rendered
@@ -136,9 +146,13 @@ module.exports = class BaseController extends Backbone.View
 
         @$el.append $renderedEl.children()
         @$el.addClass $renderedEl.attr 'class'
-        @$el.data $renderedEl.data()
-        @delegateEvents()
 
+        elementData = $renderedEl.data()
+        elementData.controller = this
+        elementData.model = data
+        @$el.data elementData
+
+        @delegateEvents()
         @_rendered = true
         @onDidRender()
 

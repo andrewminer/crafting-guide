@@ -1,13 +1,13 @@
 //-
 //- Crafting Guide - item_page.jade
 //-
-//- Copyright © 2014-2016 by Redwood Labs
+//- Copyright © 2014-2017 by Redwood Labs
 //- All rights reserved.
 //-
 
 .content.view__item_page
     .left
-        .view__adsense
+        // include ../common/youtube/youtube.jade
 
     .right
         .about
@@ -17,17 +17,12 @@
                 .title
                 a.sourceMod
                 .button-row
-                    .button.craftingPlan: .bezel: p View Crafting Plan
+                    .button.craftingPlan: .bezel: p View <span class="full">Crafting </span>Plan
             .right
                 p Official Link:
                     a.officialLink project page
 
         section.description.view__markdown_section
-
-        section.multiblock
-            h2 Multiblock Construction
-            .panel
-                .view__multiblock_viewer
 
         section.recipes
             h2 Recipes

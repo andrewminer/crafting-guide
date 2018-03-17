@@ -1,7 +1,7 @@
 //
 // Crafting Guide - sizes.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -25,5 +25,9 @@ $size-minecraft-block : 32px;
 
 $size-page-width : $size-rem * 80;
 
-$size-skyscraper-height : 600px;
-$size-skyscraper-width  : 160px;
+$size-ad-large-mobile-banner-height : 100px;
+$size-ad-large-mobile-banner-width  : 320px;
+$size-ad-leaderboard-height         : 90px;
+$size-ad-leaderboard-width          : 728px;
+$size-ad-skyscraper-height          : 600px;
+$size-ad-skyscraper-width           : 160px;

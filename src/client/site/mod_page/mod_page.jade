@@ -1,13 +1,13 @@
 //-
 //- Crafting Guide - item_page.jade
 //-
-//- Copyright © 2014-2016 by Redwood Labs
+//- Copyright © 2014-2017 by Redwood Labs
 //- All rights reserved.
 //-
 
 .content.view__mod_page
     .left
-        .view__adsense
+        include ../common/youtube/youtube.jade
 
     .right
         .about
@@ -17,17 +17,16 @@
                 .title
                 .author
                 .description
-                .version
-                    span in my mod pack
-                    select
-                .warning.
-                    <b>PLEASE NOTE:</b> By selecting "no", crafting plans, search, and other features will ignore items
-                    and recipes from this mod.
+                .view__mod_version_selector
             .right
                 p Official Links:
-                a.homePage project page
-                a.documentation documentation
-                a.download download
+                a.homePage(target="home-page") project page
+                a.documentation(target="documentation") documentation
+                a.download(target="download") download
+
+        section.videos
+            h2 Videos
+            .panel
 
         section.tutorials
             h2 Tutorials

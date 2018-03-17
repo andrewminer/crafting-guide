@@ -1,7 +1,7 @@
 #
 # Crafting Guide - crafting_guide_server.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
@@ -9,6 +9,7 @@ express    = require 'express'
 http       = require 'http'
 middleware = require './middleware'
 routes     = require './routes'
+w          = require "when"
 
 ############################################################################################################
 
@@ -16,8 +17,7 @@ module.exports = class CraftingGuideServer
 
     constructor: (port)->
         if not port? then throw new Error 'port is mandatory'
-        if not _.isNumber port then throw new Error 'port must be a number'
-        @port = parseInt port
+        @port = port
 
         app = express()
         app.disable 'etag'
@@ -41,3 +41,4 @@ module.exports = class CraftingGuideServer
             console.log "CraftingGuide is shutting down"
             @httpServer.close() =>
                 resolve this
+

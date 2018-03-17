@@ -1,7 +1,7 @@
 //
 // Crafting Guide - classes.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -47,7 +47,7 @@
         background : url('/images/button-background-hover.png') repeat;
     }
 
-    &:active {
+    &:active, &.active {
         background : url('/images/button-background-active.png') repeat;
 
         .bezel {
@@ -69,15 +69,12 @@
     }
 }
 
-.page > .content {
-    min-height: $size-skyscraper-height;
+.hidden {
+    display: none !important;
 }
 
-.skyscraper {
-    height : $size-skyscraper-height - 2px;
-    width  : $size-skyscraper-width - 2px;
-
-    border : 1px solid $color-gray-medium;
+.page > .content {
+    min-height: $size-ad-skyscraper-height;
 }
 
 .scrollDisabled {

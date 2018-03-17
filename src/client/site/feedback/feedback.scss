@@ -1,7 +1,7 @@
 //
 // Crafting Guide - feedback.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -14,6 +14,10 @@
     opacity: 0;
 
     display: flex;
+
+    @include screen-size(mobile) {
+        display: none;
+    }
 
     .form-content {
         flex: 1 1 100%;
@@ -73,13 +77,11 @@
         background: $color-gray-light;
         border: $size-border-medium solid $color-black;
         border-left: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
 
         p {
-            transform: rotate(-90deg);
+            position: absolute; top: 50%; left: 50%;
+            transform: translateX(-50%) rotate(-90deg) translateX(10%);
 
             font-family: $font-family-header;
             font-size: $label-size;

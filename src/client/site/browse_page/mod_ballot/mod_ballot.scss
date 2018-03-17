@@ -1,0 +1,100 @@
+//
+// Crafting Guide - mod_ballot.scss
+//
+// Copyright © 2014-2017 by Redwood Labs
+// All rights reserved.
+//
+
+$ballot-move-duration: 0.2s;
+
+.view__mod_ballot {
+    @include floating-panel;
+
+    display : flex;
+    padding : $size-margin-medium;
+
+    .status {
+        display        : flex;
+        flex-direction : column;
+
+        h2 {
+            margin-bottom: $size-margin-large;
+            text-align: center;
+        }
+
+        .status-message {
+            margin-bottom: $size-margin-large;
+
+            font-family: $font-family-header;
+            font-size: $font-size-medium;
+            text-align: center;
+        }
+
+        &.initial {
+            padding: 0 15%;
+        }
+
+        &.loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            img {
+                margin-top: $size-margin-large;
+                margin-bottom: $size-margin-medium;
+            }
+        }
+
+        &.loaded {
+            padding: 0 15%;
+
+            & > .instructions {
+                margin-bottom: $size-margin-small;
+
+                font-family: $font-family-text;
+                font-size: $font-size-medium;
+            }
+
+            .remaining {
+                margin-top: $size-margin-medium;
+                font-size: $font-size-large;
+                text-align: center;
+            }
+
+            .ballot-list {
+                position: relative;
+                margin-top: $size-margin-large;
+
+                .view__mod_ballot_line {
+                    position: absolute;
+                    margin-bottom: $size-margin-small;
+                    transition: top $ballot-move-duration ease-in-out;
+                }
+            }
+
+            .view__suggest_mod_panel {
+                margin-top: $size-margin-xlarge;
+            }
+        }
+
+        &.error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .button {
+                width: $size-minecraft-block * 10;
+            }
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__mod_ballot {
+        .status {
+            &.loaded {
+                padding: 0;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 #
 # Crafting Guide - markdown_image_list.test.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
@@ -16,7 +16,7 @@ list = null
 describe 'markdown_image_list.coffee', ->
 
     beforeEach ->
-        list = new MarkdownImageList {}, client:{fetchFile:sinon.stub().returns(w.promise(->))}
+        list = new MarkdownImageList client:{fetchFile:sinon.stub().returns(w.promise(->))}
 
     describe '_analyzeMarkdownText', ->
 

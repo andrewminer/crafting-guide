@@ -1,7 +1,7 @@
 //
 // Crafting Guide - markdown_section.scss
 //
-// Copyright © 2014-2016 by Redwood Labs
+// Copyright © 2014-2017 by Redwood Labs
 // All rights reserved.
 //
 
@@ -125,6 +125,18 @@
                 margin-left : $size-margin-medium;
                 width       : $size-minecraft-block * 5;
             }
+        }
+    }
+}
+
+@include screen-size(mobile) {
+    .view__markdown_section {
+        .creating {
+            padding-bottom: $size-margin-xlarge;
+        }
+
+        .footer {
+            display: none;
         }
     }
 }

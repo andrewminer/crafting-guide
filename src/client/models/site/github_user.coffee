@@ -1,11 +1,11 @@
 #
 # Crafting Guide - github_user.coffee
 #
-# Copyright © 2014-2016 by Redwood Labs
+# Copyright © 2014-2017 by Redwood Labs
 # All rights reserved.
 #
 
-BaseModel = require '../base_model'
+{BaseModel} = require("crafting-guide-common").deprecated
 
 ########################################################################################################################
 

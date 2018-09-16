@@ -33,7 +33,7 @@ adsense.skyscraper.slotIds         = ['7613920409', '9574673605', '3388539204']
 adsense.skyscraper.width           = 160 # px
 
 exports.defaultMods   = defaultMods = {}
-defaultMods.minecraft = { defaultVersion: '1.7.10' } # Minecraft must be first
+defaultMods.minecraft = { defaultVersion: '1.12.2' } # Minecraft must be first
 
 defaultMods.advanced_solar_panels   = { defaultVersion: '3.5.1' }
 defaultMods.agricraft               = { defaultVersion: '1.7.10_1.5.0' }
